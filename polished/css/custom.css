@@ -1,0 +1,259 @@
+/* $Id$ */
+
+body {
+  color: #190B07;
+  background-color: #EEE;
+}
+
+a:link, a:visited {
+  color: #1F3447;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #362416;
+  text-decoration: none;
+}
+
+a:active, a.active {
+  color: #1F3447;
+  text-decoration: none;
+}
+
+a.active, .active-trail a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+div.submitted {
+  font-size: 0.9em;	
+}
+
+div.taxonomy{
+  
+}
+
+div.node-links {
+	
+}
+
+#top-header {
+  color: #e1e6fa;
+  background: #183152;	
+}
+
+#site-header {
+	margin: 0 auto;
+}
+
+#branding {
+  margin-top: 10px;	
+}
+
+#search-box {
+	margin-top: 20px;
+}
+
+#search-box, #search-box div {
+  background: transparent; 
+}
+#search-box .form-text {
+  width: 92.5%;
+  font: 13px/1.5 Georgia, 'Times New Roman', serif;
+}
+
+#site-name {
+	display: none;
+  text-indent: -2000em;
+}
+
+#menu-wrapper {
+  margin: 0 auto;
+}
+
+#site-menu .main-menu {
+	color: #e1e6fa;
+	position: relative;
+	font-size: 18px;
+	padding: 10px 0 0 0;
+	display: block;
+}
+
+#site-menu .secondary-menu {
+	color: #e1e6fa;
+	position: relative;
+	font-size: 12px;
+	padding: 0 0 10px 0;
+	display: block;
+}
+
+#site-menu ul li {
+  margin: 0;
+  padding: 0;
+}
+
+#site-menu ul li a {
+	font-weight: normal;
+	color: #e1e6fa;
+  padding: 0 0 0 10px;
+  text-decoration: none;
+}
+
+#site-menu li a:hover {
+	color: #abc8e2;
+	text-decoration: underline;
+}
+
+#site-menu li a.active {
+	color: #abc8e2;
+  text-decoration: underline;
+}
+
+#site-menu li.active-trail a {
+	color: #abc8e2;
+	text-decoration: underline;
+}
+
+#header-region {
+  background: url('../i/header_region_bg.png') repeat-y top left;	
+}
+#header-region .block {
+	color: #183152;
+	font-style: italic;
+}
+#header-first, #header-last {
+  margin-top: 0;	
+}
+#header-region h3 {
+	font-size: 18px;
+  font-weight: normal;
+  margin: 0;
+  margin-top: 5px;
+}
+#header-region .block p {
+	font-size: 11px;
+	margin: 0;
+}
+.indented {
+	margin-left: 15px;
+}
+#mission{
+  margin-bottom: 0;	
+}
+#mission p {
+  color: #fff8b6;
+  font-size: 12px;
+  margin: 10px;
+}
+#mission a {
+  color: #fff8b6;
+  text-decoration: underline;  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Omega, for Drupal 6.x
+ * Jake Strawn - http://himerus.com
+ * Project Page - http://drupal.org/project/omega
+ * 
+ * The custom.css provides overrides for module based CSS for various items.
+ * This is the last CSS to be included in the Omega base theme, unless using additional
+ * CSS in the sub theme level. 
+ *
+ * I prefer to keep this file light and ONLY module related, but in your sub theme, it could
+ * be a decent place for those final overrides you may need to do on any elements
+ *
+ * Omega CSS Table of Contents for custom.css
+ *
+ * 1.) Geshi Code Filter CSS
+ * 2.) Vertical Tabs CSS
+ * 3.) 
+ * 4.) 
+ * 5.) 
+ * 6.) 
+ * 7.) 
+ */
+ 
+/** ################# Geshi Code Filter CSS ####################### */
+/**
+ * The main purpose for the Geshi Filter styles are for my personal use, and use in the demo version
+ * of the Omega theme to style up code snippets a bit more pretty.
+ */
+ 
+.geshifilter {
+  font-size: 9px;
+  margin: 0;
+  padding: 10px;
+  line-height: 1.2em;
+}
+
+.block code, .block .geshifilter {
+  margin: 0;  
+}
+
+/** ################# Vertical Tabs CSS ####################### */
+/**
+ * I found during development that the default vertical tabs positioning was breaking, so some overrides
+ * were in order in case the Omega theme, or a sub-theme is used for administrative tasks & content editing
+ * rather than using something like the admin module/slate theme.
+ */
+.vertical-tabs {
+  border:1px solid #CCCCCC;
+  margin:1em 0;
+  background: #FFF;
+}
+
+.vertical-tabs-list {
+  border-top:0;
+  float:left;
+  left:0;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0 !important;
+  padding:0;
+  position:relative;
+  width:18em;
+}
+
+.vertical-tabs-panes {
+  padding: 0 !important;  
+}
+
+fieldset.vertical-tabs-pane {
+  background: #FFF;
+  padding: 0;
+  font-size: 0.9em;
+}
+
+.vertical-tabs-list li {
+  background:#EEEEEE none repeat scroll 0 0;
+  border-color:-moz-use-text-color #CCCCCC #CCCCCC;
+  border-style:none solid solid none;
+  border-width:0 1px 1px;
+  height:1%;
+  margin:0;
+  padding:0;
+}
+
+.vertical-tabs-list li.last { 
+  border-style: none solid none none;
+}
+
+.vertical-tabs-list li:hover { 
+  background: #D9FFF2;
+}
+/* admin menu adjustment */
+#admin-toolbar div.shadow {
+  display: none;
+}
