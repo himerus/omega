@@ -1,18 +1,9 @@
-;$Id$
-name = Omega
-description = The <a href="http://drupal.org/project/omega">Omega Theme</a> is a kitchen sink full of features from many of the popular base themes available on Drupal.org thrown into an end-all theme for maximum flexibility.
-core = 6.x
-engine = phptemplate
+; $Id$
+name        = Omega Starter Kit
+description = Omega Sub-Theme starter kit
 screenshot = screenshot.png
-
-stylesheets[all][] = css/reset.css
-stylesheets[all][] = css/960.css
-stylesheets[all][] = css/text.css
-stylesheets[all][] = css/regions.css
-stylesheets[all][] = css/defaults.css
-stylesheets[all][] = css/custom.css
-
-scripts[] = js/omega.js
+core       = 6.x
+base theme = omega
 
 regions[sidebar_first] = sidebar first
 regions[sidebar_last] = sidebar last
@@ -45,7 +36,6 @@ features[] = search
 features[] = favicon
 features[] = primary_links
 features[] = secondary_links
-
 
 ; Set the default settings to be used in theme-settings.php
 
@@ -95,7 +85,7 @@ settings[omega_sidebar_first_width] = 4
 settings[omega_content_main_width] = 8
 settings[omega_sidebar_last_width] = 4
 
-settings[omega_postscript_container_width] = 16 
+settings[omega_postscript_container_width] = 16
 settings[omega_postscript_one_width] = 4
 settings[omega_postscript_two_width] = 4
 settings[omega_postscript_three_width] = 4
@@ -104,6 +94,5 @@ settings[omega_postscript_four_width] = 4
 settings[omega_footer_container_width] = 16
 settings[omega_footer_first_width] = 16
 settings[omega_footer_last_width] = 16
-
 
 ; / 960gs default region settings

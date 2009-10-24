@@ -1,13 +1,18 @@
 <?php
 // $Id$
+
 // Pull out some things from the page.tpl.php and make that code more consise.
 // $header_first
 global $theme_key;
 include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
 $settings = theme_get_settings($theme_key);
-$omega = omega_theme_get_default_settings('omega');
+//krumo($theme_key);
+//$omega = omega_theme_get_default_settings($theme_key);
+//krumo($settings);
+//krumo($omega);
 // Merge the saved variables and their default values.
-$settings = array_merge($omega, $settings);
+//$settings = array_merge($omega, $settings);
+
 /**
  * The $original_regions array is a set of the default values for the 
  * current regions available. This is great so that they can be manipulated
@@ -31,11 +36,12 @@ if ($settings['sidebar_contain_pages']) {
     $page_match = $page_match || drupal_match_path($_GET['q'], $settings['sidebar_contain_pages']);
   }
   $page_match = !($settings['sidebar_combine'] xor $page_match);
-  if($page_match && substr($_GET['q'], 0, 17) != 'admin/build/block') {
+  if ($page_match && substr($_GET['q'], 0, 17) != 'admin/build/block') {
     $vars['sidebar_first'] = $vars['sidebar_first']. $vars['sidebar_last'];
     unset($vars['sidebar_last']); 
   }
 }
+
 /**
  * Header Region
  * Depends on the width of the logo and title region, which is 4 grids by default.
@@ -60,12 +66,14 @@ $vars['search_width'] = $settings['omega_search_width'];
 
  
 if ($vars['header_first']) {
-  $vars['header_first_classes'] = ns('grid-'. $settings['omega_header_wrapper_width'], $vars['header_last'], $settings['omega_header_last_width']). $vars['omega']['header_first'];
+  $vars['header_first_classes'] = ns('grid-'. $settings['omega_header_wrapper_width'], $vars['header_last'], $settings['omega_header_last_width']);
 }
+
 // $header_last
 if ($vars['header_last']) {
-	$vars['header_last_classes'] = ns('grid-'. $settings['omega_header_wrapper_width'], $vars['header_first'], $settings['omega_header_first_width']). $vars['omega']['header_last'];
+	$vars['header_last_classes'] = ns('grid-'. $settings['omega_header_wrapper_width'], $vars['header_first'], $settings['omega_header_first_width']);
 }
+
 /**
  * Preface Region
  * Same as above, preparing the preface regions to accept settings configurations
@@ -87,10 +95,6 @@ if ($vars['preface_last']) {
         $vars['preface_middle'], $settings['omega_preface_middle_width']);
 }
 
-
-
-
-
 /**
  * Body Region
  * Configuration of $sidebar_first, $sidebar_last, and the main content zone
@@ -106,8 +110,10 @@ switch($settings['omega_content_layout']){
   default:
   case 'first_content_last':
   // FIRST - CONTENT - LAST
-  $sl_max_width = $omega['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
-  $sl_pull = $omega['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
+  $sl_max_width = $settings['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
+  
+  $sl_pull = $settings['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
+  
   if ($vars['sidebar_first']) {
     $vars['sidebar_first_classes'] = 
       ns('grid-'. $sl_max_width, 
@@ -123,7 +129,7 @@ switch($settings['omega_content_layout']){
       $vars['sidebar_first'] || !$vars['sidebar_first'], $settings['omega_sidebar_first_width']
     );
   }
-  if($vars['content']) {
+  if ($vars['content']) {
     $vars['main_content_classes'] = 
       ns('grid-'. $vars['content_container_width'],  
       $vars['sidebar_first'], $settings['omega_sidebar_first_width'],
@@ -133,6 +139,7 @@ switch($settings['omega_content_layout']){
     );
   }
   break;
+
   // CONTENT  - FIRST - LAST
   case 'content_first_last':
   $sl_max_width = $settings['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
@@ -149,7 +156,7 @@ switch($settings['omega_content_layout']){
       $vars['sidebar_first'] || !$vars['sidebar_first'], $settings['omega_sidebar_first_width']
     );
   }
-  if($vars['content']) {
+  if ($vars['content']) {
     $vars['main_content_classes'] = 
       ns('grid-'. $vars['content_container_width'],  
       $vars['sidebar_first'], $settings['omega_sidebar_first_width'],
@@ -157,27 +164,30 @@ switch($settings['omega_content_layout']){
     );
   }
   break;
+
   // FIRST - LAST - CONTENT
   case 'first_last_content':
   $sl_max_width = $settings['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
+  
   $sl_pull = $settings['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
+  $sr_pull = $settings['omega_content_main_width'];
+  
   if ($vars['sidebar_first']) {
     $vars['sidebar_first_classes'] = 
       ns('grid-'. $sl_max_width, 
       $vars['sidebar_last'] || !$vars['sidebar_last'], $settings['omega_sidebar_last_width']
-    ). ' '. ns('pull-'. $sl_pull,
-      $vars['sidebar_last'], $settings['omega_sidebar_last_width']
+    ). ' '. ns('pull-'. $sr_pull
     );
   }
+  
   if ($vars['sidebar_last']) {
     $vars['sidebar_last_classes'] = 
-      ns('grid-'. $sl_max_width, 
-      $vars['sidebar_first'] || !$vars['sidebar_first'], $settings['omega_sidebar_first_width']
-    ). ' '. ns('pull-'. $sl_pull,
-      $vars['sidebar_first'], $settings['omega_sidebar_first_width']
+      ns('grid-'. $settings['omega_sidebar_last_width']
+    ). ' '. ns('pull-'. $sr_pull
     );
   }
-  if($vars['content']) {
+  
+  if ($vars['content']) {
     $vars['main_content_classes'] = 
       ns('grid-'. $vars['content_container_width'],  
       $vars['sidebar_first'], $settings['omega_sidebar_first_width'],
@@ -227,9 +237,6 @@ $vars['footer_container_width'] = $settings['omega_footer_container_width'];
 $vars['footer_first_classes'] = $settings['omega_footer_first_width'];
 $vars['footer_last_classes'] = $settings['omega_footer_last_width'];
 
-
-
-
 // ZEN - BODY CLASSES
 // Classes for body element. Allows advanced theming based on context
 // (home page, node of certain type, etc.)
@@ -257,15 +264,14 @@ if (!$vars['is_front']) {
 $vars['body_classes_array'] = $classes;
 $vars['body_classes'] = implode(' ', $classes); // Concatenate with spaces.
 
-
 $vars['logo_img'] = $vars['logo'] ? theme('image', substr($vars['logo'], strlen(base_path())), t($vars['site_name']), t($vars['site_name'])) : '';	
 
 // NINESIXTY - For easy printing of variables.
-
 $vars['linked_logo_img'] = $vars['logo_img'] ? l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)) : '';
 $vars['linked_site_name'] = $vars['site_name'] ? l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home'))) : '';
 $vars['main_menu_links']      = theme('links', $vars['primary_links'], array('class' => 'links main-menu'));
 $vars['secondary_menu_links'] = theme('links', $vars['secondary_links'], array('class' => 'links secondary-menu'));
+
 // NINESIXTY - Make sure framework styles are placed above all others.
 $vars['css_alt'] = omega_css_reorder($vars['css']);
 $vars['styles'] = drupal_get_css($vars['css_alt']);
@@ -322,7 +328,7 @@ if (!module_exists('page_title')) {
 }
 // implement mission statement settings
 $vars['mission'] = t(variable_get('site_mission', ''));
-if ($settings['mission_statement_pages'] == 'all' || $vars['is_front'] && $settings['mission_statement_pages'] == 'home') {
+if ($vars['mission'] && ($settings['mission_statement_pages'] == 'all' || $vars['is_front'] && $settings['mission_statement_pages'] == 'home')) { 
   $vars['mission'] = '<div id="mission" class=""><p>' .$vars['mission']. '</p></div>';
 }
 else {
