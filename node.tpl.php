@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD:node.tpl.php
 // $Id: node.tpl.php,v 1.1.2.2 2009/10/31 23:54:05 himerus Exp $
+=======
+// $Id$
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:node.tpl.php
 
 /**
  * @file node.tpl.php
@@ -52,6 +56,7 @@
 
   <?php print $picture ?>
 
+<<<<<<< HEAD:node.tpl.php
   <?php if (!$page && $title): ?>
   <h2><a href="<?php print $node_url ?>" title="<?php print $title ?>"><?php print $title ?></a></h2>
   <?php endif; ?>
@@ -67,4 +72,18 @@
   <?php if ($links):?>
   <div class="node-links"><?php print $links; ?></div>
   <?php endif; ?>
+=======
+  <?php if (!$page): ?>
+  <h2><a href="<?php print $node_url ?>" title="<?php print $title ?>"><?php print $title ?></a></h2>
+  <?php endif; ?>
+
+  <div class="submitted"><?php print $submitted ?></div>
+
+  
+
+  <?php print $content ?>
+  <div class="taxonomy"><?php print $terms ?></div>
+  <div class="node-links"><?php print $links; ?></div>
+
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:node.tpl.php
 </div>

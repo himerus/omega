@@ -1,5 +1,10 @@
 <?php
+<<<<<<< HEAD:preprocess/preprocess-node.inc
 // $Id: preprocess-node.inc,v 1.2.2.3 2009/10/24 14:59:26 himerus Exp $
+=======
+// $Id: preprocess-node.inc,v 1.1 2009/07/08 20:07:32 himerus Exp $
+//krumo($vars);
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-node.inc
 /**
  * Implementation of theme_preprocess_HOOK().
  * Passes varables to the node templates.
@@ -7,7 +12,17 @@
  * @return $vars
  */
 // Prepare the arrays to handle the classes and ids for the node container.
+<<<<<<< HEAD:preprocess/preprocess-node.inc
 $vars['node_attributes'] = array();
+=======
+if(!isset($vars['node']->attributes)) {
+  $vars['node_attributes'] = array();
+}
+else {
+  $vars['node_attributes'] = $vars['node']->attributes;
+}
+
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-node.inc
 // Add an id to allow the styling of a specific node.
 $vars['node_attributes']['id'] = 'node-' . $vars['type'] . '-' . $vars['nid'];
 

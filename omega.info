@@ -1,4 +1,8 @@
+<<<<<<< HEAD:omega.info
 ;$Id: omega.info,v 1.6.2.5 2009/11/20 02:13:19 himerus Exp $
+=======
+;$Id: omega.info,v 1.5 2009/07/13 01:35:49 himerus Exp $
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:omega.info
 name = Omega
 description = The <a href="http://drupal.org/project/omega">Omega Theme</a> is a kitchen sink full of features from many of the popular base themes available on Drupal.org thrown into an end-all theme for maximum flexibility.
 core = 6.x
@@ -48,6 +52,7 @@ features[] = secondary_links
 
 
 ; Set the default settings to be used in theme-settings.php
+<<<<<<< HEAD:omega.info
 
 ; Non-960gs default settings
 settings[front_page_title_display] = title_slogan
@@ -95,10 +100,23 @@ settings[omega_preface_last_suffix] = 0
 
 settings[omega_content_layout] = first_content_last
 settings[omega_content_container_width] = 16
+=======
+settings[omega_header_wrapper_width] = 12
+settings[omega_header_logo_width] = 4
+
+settings[omega_header_first_width] = 6
+settings[omega_header_last_width] = 6
+
+settings[omega_preface_first_width] = 4
+settings[omega_preface_middle_width] = 4
+settings[omega_preface_last_width] = 8
+
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:omega.info
 settings[omega_sidebar_first_width] = 4
 settings[omega_content_main_width] = 8
 settings[omega_sidebar_last_width] = 4
 
+<<<<<<< HEAD:omega.info
 settings[omega_postscript_container_width] = 16 
 settings[omega_postscript_one_width] = 4
 settings[omega_postscript_one_prefix] = 0
@@ -124,3 +142,21 @@ core = "6.x"
 project = "omega"
 datestamp = "1259113849"
 
+=======
+settings[omega_postscript_one_width] = 4
+settings[omega_postscript_two_width] = 4
+settings[omega_postscript_three_width] = 4
+settings[omega_postscript_four_width] = 4
+
+settings[omega_content_layout] = first_content_last
+settings[front_page_title_display] = title_slogan
+settings[page_title_display_custom] = ''
+settings[other_page_title_display] = ptitle_slogan
+settings[other_page_title_display_custom] = ''
+
+settings[configurable_separator] = ' | '
+settings[mission_statement_pages] = home
+settings[omega_jqueryui] = 0
+settings[sidebar_combine] = 1
+settings[sidebar_contain_pages] = ''
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:omega.info

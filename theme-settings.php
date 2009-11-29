@@ -1,10 +1,15 @@
 <?php
+<<<<<<< HEAD:theme-settings.php
 // $Id: theme-settings.php,v 1.8.2.6 2009/11/17 19:41:07 himerus Exp $
 
+=======
+// $Id: theme-settings.php,v 1.7 2009/07/15 14:05:15 himerus Exp $
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
 // require_once for the functions that need to be available when we are outside
 // of the omega theme in the administrative interface
 //include_once './' . drupal_get_path('theme', 'omega') . '/template.theme-registry.inc';
 include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
+<<<<<<< HEAD:theme-settings.php
 
 /**
  * Implementation of THEMEHOOK_settings() function.
@@ -17,10 +22,25 @@ include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
 function omega_settings($saved_settings, $subtheme_defaults = array()) {
   // Add the form's CSS
   //drupal_add_css(drupal_get_path('theme', 'omega') . '/theme-settings.css', 'theme');
+=======
+/**
+* Implementation of THEMEHOOK_settings() function.
+*
+* @param $saved_settings
+*   array An array of saved settings for this theme.
+* @return
+*   array A form array.
+*/
+function omega_settings($saved_settings, $subtheme_defaults = array()) {
+	// Add the form's CSS
+  //drupal_add_css(drupal_get_path('theme', 'omega') . '/theme-settings.css', 'theme');
+
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
   // Add javascript to show/hide optional settings
   drupal_add_js(drupal_get_path('theme', 'omega'). '/js/omega_admin.js', 'theme');
 
   // Get the default values from the .info file.
+<<<<<<< HEAD:theme-settings.php
   if (count($subtheme_defaults) > 0) {
     // Allow a subtheme to override the default values.
     $settings = array_merge($subtheme_defaults, $saved_settings);
@@ -42,6 +62,17 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
     '16' => '16 column grid',
     '24' => '24 column grid'
   );
+=======
+  $defaults = omega_theme_get_default_settings('omega');
+  // Allow a subtheme to override the default values.
+  $defaults = array_merge($defaults, $subtheme_defaults);
+  // Merge the saved variables and their default values.
+  $settings = array_merge($defaults, $saved_settings);
+		
+	for($i=1;$i<=16;$i++){
+		$grids[$i]= $i;
+	}
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
   $form['omega_container'] = array(
     '#type' => 'fieldset',
     '#title' => t('Omega 960 settings'),
@@ -49,6 +80,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
+<<<<<<< HEAD:theme-settings.php
     // General Settings
     $form['omega_container']['omega_general'] = array(
       '#type' => 'fieldset',
@@ -219,12 +251,192 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
 
       // Header Blocks
       $form['omega_container']['omega_regions']['headers'] = array(
+=======
+	  // General Settings
+	  $form['omega_container']['omega_general'] = array(
+	    '#type' => 'fieldset',
+	    '#title' => t('General Omega 960 Settings'),
+	    '#description' => t('Configure generic options on rendering content in this theme.'),
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
+	  );
+		// Page titles
+		  $form['omega_container']['omega_general']['page_format_titles'] = array(
+		    '#type' => 'fieldset',
+		    '#title' => t('Page titles'),
+		    '#description'   => t('This is the title that displays in the title bar of your web browser. Your site title, slogan, and mission can all be set on your Site Information page. [NOTE: For more advanced page title functionality, consider using the "Page Title" module.  However, the Page titles theme settings do not work in combination with the "Page Title" module and will be disabled if you have it enabled.]'),
+		    '#collapsible' => TRUE,
+		    '#collapsed' => TRUE,
+		  );
+		  if (module_exists('page_title') == FALSE) {
+		    // front page title
+		    $form['omega_container']['omega_general']['page_format_titles']['front_page_format_titles'] = array(
+		      '#type' => 'fieldset',
+		      '#title' => t('Front page title'),
+		      '#description'   => t('Your front page in particular should have important keywords for your site in the page title'),
+		      '#collapsible' => TRUE,
+		      '#collapsed' => TRUE,
+		    );
+		    $form['omega_container']['omega_general']['page_format_titles']['front_page_format_titles']['front_page_title_display'] = array(
+		      '#type' => 'select',
+		      '#title' => t('Set text of front page title'),
+		      '#collapsible' => TRUE,
+		      '#collapsed' => FALSE,
+		      '#default_value' => $saved_settings['front_page_title_display'],
+		      '#options' => array(
+		                      'title_slogan' => t('Site title | Site slogan'),
+		                      'slogan_title' => t('Site slogan | Site title'),
+		                      'title_mission' => t('Site title | Site mission'),
+		                      'custom' => t('Custom (below)'),
+		                    ),
+		    );
+		    $form['omega_container']['omega_general']['page_format_titles']['front_page_format_titles']['page_title_display_custom'] = array(
+		      '#type' => 'textfield',
+		      '#title' => t('Custom'),
+		      '#size' => 60,
+		      '#default_value' => $saved_settings['page_title_display_custom'],
+		      '#description'   => t('Enter a custom page title for your front page'),
+		    );
+		    // other pages title
+		    $form['omega_container']['omega_general']['page_format_titles']['other_page_format_titles'] = array(
+		      '#type' => 'fieldset',
+		      '#title' => t('Other page titles'),
+		      '#collapsible' => TRUE,
+		      '#collapsed' => TRUE,
+		    );
+		    $form['omega_container']['omega_general']['page_format_titles']['other_page_format_titles']['other_page_title_display'] = array(
+		      '#type' => 'select',
+		      '#title' => t('Set text of other page titles'),
+		      '#collapsible' => TRUE,
+		      '#collapsed' => FALSE,
+		      '#default_value' => $saved_settings['other_page_title_display'],
+		      '#options' => array(
+		                      'ptitle_slogan' => t('Page title | Site slogan'),
+		                      'ptitle_stitle' => t('Page title | Site title'),
+		                      'ptitle_smission' => t('Page title | Site mission'),
+		                      'ptitle_custom' => t('Page title | Custom (below)'),
+		                      'custom' => t('Custom (below)'),
+		                    ),
+		    );
+		    $form['omega_container']['omega_general']['page_format_titles']['other_page_format_titles']['other_page_title_display_custom'] = array(
+		      '#type' => 'textfield',
+		      '#title' => t('Custom'),
+		      '#size' => 60,
+		      '#default_value' => $saved_settings['other_page_title_display_custom'],
+		      '#description'   => t('Enter a custom page title for all other pages'),
+		    );
+		    // SEO configurable separator
+		    $form['omega_container']['omega_general']['page_format_titles']['configurable_separator'] = array(
+		      '#type' => 'textfield',
+		      '#title' => t('Title separator'),
+		      '#description' => t('Customize the separator character used in the page title'),
+		      '#size' => 60,
+		      '#default_value' => $saved_settings['configurable_separator'],
+		    );
+		  } else {
+		      $form['omega_container']['omega_general']['page_format_titles']['#description'] = 'NOTICE: You currently have the "Page Title" module installed and enabled, so the Page titles theme settings have been disabled to prevent conflicts.  If you wish to re-enable the Page titles theme settings, you must first disable the "Page Title" module.';
+		      $form['omega_container']['omega_general']['page_format_titles']['configurable_separator']['#disabled'] = 'disabled';
+		  }
+	  // Breadcrumb
+	  $form['omega_container']['omega_general']['breadcrumb'] = array(
+	    '#type'          => 'fieldset',
+	    '#title'         => t('Breadcrumb settings'),
+	    '#attributes'    => array('id' => 'omega-breadcrumb'),
+	    '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+	  $form['omega_container']['omega_general']['breadcrumb']['omega_breadcrumb'] = array(
+	    '#type'          => 'select',
+	    '#title'         => t('Display breadcrumb'),
+	    '#default_value' => $saved_settings['omega_breadcrumb'],
+	    '#options'       => array(
+	                          'yes'   => t('Yes'),
+	                          'admin' => t('Only in admin section'),
+	                          'no'    => t('No'),
+	                        ),
+	  );
+	  $form['omega_container']['omega_general']['breadcrumb']['omega_breadcrumb_separator'] = array(
+	    '#type'          => 'textfield',
+	    '#title'         => t('Breadcrumb separator'),
+	    '#description'   => t('Text only. Don’t forget to include spaces.'),
+	    '#default_value' => $saved_settings['omega_breadcrumb_separator'],
+	    '#size'          => 5,
+	    '#maxlength'     => 10,
+	  );
+	  $form['omega_container']['omega_general']['breadcrumb']['omega_breadcrumb_home'] = array(
+	    '#type'          => 'checkbox',
+	    '#title'         => t('Show home page link in breadcrumb'),
+	    '#default_value' => $saved_settings['omega_breadcrumb_home'],
+	  );
+	  $form['omega_container']['omega_general']['breadcrumb']['omega_breadcrumb_trailing'] = array(
+	    '#type'          => 'checkbox',
+	    '#title'         => t('Append a separator to the end of the breadcrumb'),
+	    '#default_value' => $saved_settings['omega_breadcrumb_trailing'],
+	    '#description'   => t('Useful when the breadcrumb is placed just before the title.'),
+	  );
+	  $form['omega_container']['omega_general']['breadcrumb']['omega_breadcrumb_title'] = array(
+	    '#type'          => 'checkbox',
+	    '#title'         => t('Append the content title to the end of the breadcrumb'),
+	    '#default_value' => $saved_settings['omega_breadcrumb_title'],
+	    '#description'   => t('Useful when the breadcrumb is not placed just before the title.'),
+	  );
+		  
+	  
+	  
+	   $form['omega_container']['omega_general']['jquery'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('jQuery Configuration'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+	      '#description' => t('<div class="warning">This section is currently disabled as the advanced jQuery features are not currently implemented, and are slated for a 2.x feature release. For now, the jQuery UI setting below is mostly a placeholder.</div>'),
+      );
+	    $form['omega_container']['omega_general']['jquery']['omega_jqueryui'] = array(
+          '#type'          => 'radios',
+	        '#description'   => t('The Omega theme provides jQueryUI functionality. You will need to turn this off if you are using the jQuery UI module.'),
+          '#title'         => t('Include jQuery UI?'),
+          '#default_value' => $saved_settings['omega_jqueryui'],
+          '#options'       => array(
+	                             t('Do NOT include jQueryUI'),
+	                             t('DO include jQueryUI'),
+                              ),
+          '#disabled'      => TRUE,                              
+        );
+		  // Mission Statement
+		  $form['omega_container']['omega_general']['mission_statement'] = array(
+		    '#type' => 'fieldset',
+		    '#title' => t('Mission statement'),
+		    '#collapsible' => TRUE,
+		    '#collapsed' => TRUE,
+		  );
+			  $form['omega_container']['omega_general']['mission_statement']['mission_statement_pages'] = array(
+			    '#type'          => 'radios',
+			    '#title'         => t('Where should your mission statement be displayed?'),
+			    '#default_value' => $saved_settings['mission_statement_pages'],
+			    '#options'       => array(
+			                          'home' => t('Display mission statement only on front page'),
+			                          'all' => t('Display mission statement on all pages'),
+			                        ),
+			  );
+		  
+
+	  // Region Settings
+	  $form['omega_container']['omega_regions'] = array(
+	    '#type' => 'fieldset',
+	    '#title' => t('960gs Region Settings'),
+	    '#description' => t('Configure how your regions are rendered. This area is currently a quick implementation of an interface to allow end users to quickly build out and adjust the default page layout. This feature will be improved over time, and include much more flexibility.'),
+	    '#collapsible' => TRUE,
+	    '#collapsed' => TRUE,
+	  );
+	  // Header BLocks
+		  $form['omega_container']['omega_regions']['headers'] = array(
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         '#type' => 'fieldset',
         '#title' => t('Header Configuration'),
         '#description' => t('Header region zones, including Primary & Secondary menus, Header first and Header Last.'),
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
       );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['headers']['omega_branding_wrapper_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Header/Navigation Elements'),
@@ -238,6 +450,14 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#default_value' => $saved_settings['omega_header_menu_width'],
           '#options' => $grids,
           '#description' => t('Width of menu elements.'),
+=======
+        $form['omega_container']['omega_regions']['headers']['omega_header_wrapper_width'] = array(
+          '#type' => 'select',
+          '#title' => t('Wrapper Area width for Header/Navigation Elements'),
+          '#default_value' => $saved_settings['omega_header_wrapper_width'],
+          '#options' => $grids,
+          '#description' => t('Total of the two numbers for header first and header last. This will also be the default value for navigation in that zone.'),
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         );
         $form['omega_container']['omega_regions']['headers']['omega_header_logo_width'] = array(
           '#type' => 'select',
@@ -246,6 +466,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $grids,
           '#description' => t('Total of the two numbers for header first and header last. This will also be the default value for navigation in that zone.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['headers']['omega_header_wrapper_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Header/Navigation Elements'),
@@ -253,6 +474,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $containers,
           '#description' => t('Total of the two numbers for header first and header last. This will also be the default value for navigation in that zone.'),
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['headers']['omega_header_first_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Header First'),
@@ -262,11 +485,16 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
         );
         $form['omega_container']['omega_regions']['headers']['omega_header_last_width'] = array(
           '#type' => 'select',
+<<<<<<< HEAD:theme-settings.php
           '#title' => t('Contextual Width for Header Last'),
+=======
+          '#title' => t('Contextual Width for Header First'),
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
           '#default_value' => $saved_settings['omega_header_last_width'],
           '#options' => $grids,
           '#description' => t('This number, paired with the Header First determine the share of your grid for each element.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['headers']['omega_internal_nav_wrapper_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Breadcrumb/Slogan/Search'),
@@ -289,6 +517,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#description' => t(''),
         );
 
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
       // Preface Blocks
       $form['omega_container']['omega_regions']['preface'] = array(
         '#type' => 'fieldset',
@@ -297,6 +527,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
       );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['preface']['omega_preface_wrapper_grids'] = array(
           '#type' => 'select',
           '#title' => t('Preface Wrapper Container Grids'),
@@ -304,6 +535,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $containers,
           '#description' => t('Grid elements to be used for the preface region.'),
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['preface']['omega_preface_first_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Preface First'),
@@ -311,6 +544,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $grids,
           '#description' => t('This number, combined with the Preface Middle and Preface Last determine the share of your grid for each element.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['preface']['omega_preface_first_prefix'] = array(
           '#type' => 'select',
           '#title' => t('Prefix Spacing for Preface First'),
@@ -323,6 +557,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#default_value' => $saved_settings['omega_preface_first_suffix'],
           '#options' => $spacing,
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['preface']['omega_preface_middle_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Preface Middle'),
@@ -330,6 +566,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $grids,
           '#description' => t('This number, combined with the Preface First and Preface Last determine the share of your grid for each element.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['preface']['omega_preface_middle_prefix'] = array(
           '#type' => 'select',
           '#title' => t('Prefix Spacing for Preface Middle'),
@@ -342,6 +579,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#default_value' => $saved_settings['omega_preface_middle_suffix'],
           '#options' => $spacing,
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['preface']['omega_preface_last_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Preface Last'),
@@ -349,6 +588,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $grids,
           '#description' => t('This number, combined with the Preface First and Preface Middle determine the share of your grid for each element.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['preface']['omega_preface_last_prefix'] = array(
           '#type' => 'select',
           '#title' => t('Prefix Spacing for Preface Last'),
@@ -361,6 +601,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#default_value' => $saved_settings['omega_preface_last_suffix'],
           '#options' => $spacing,
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
       // Main Body Regions
       $form['omega_container']['omega_regions']['main'] = array(
         '#type' => 'fieldset',
@@ -380,6 +622,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
                                'first_last_content' => t('Sidebar First - Sidebar Last - Content'),
                               ),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['main']['omega_content_container_width'] = array(
           '#type' => 'select',
           '#title' => t('Container width for content zone'),
@@ -387,6 +630,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $containers,
           '#description' => t(''),
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['main']['omega_sidebar_first_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Sidebar First'),
@@ -410,6 +655,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
         );
         $options = array(t('Combine Sidebars on all except the listed pages.'), t('Combine Sidebars on only the listed pages.'));
         $description = t("Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>'));
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['main']['sidebar_combine'] = array(
           '#type' => 'radios',
           '#title' => t('Combine Sidebars'),
@@ -425,6 +671,22 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
         );
 
       // Postscript Blocks
+=======
+		    $form['omega_container']['omega_regions']['main']['sidebar_combine'] = array(
+		      '#type' => 'radios',
+		      '#title' => t('Combine Sidebars'),
+		      '#description' => t('This is useful for administrative pages, and in certain contexts. You may choose to in certain areas, combine the <strong>$sidebar_first</strong> and <strong>$sidebar_last</strong> to create one sidebar from the content of both.'),
+		      '#options' => $options,
+		      '#default_value' => $saved_settings['sidebar_combine'],
+		    );
+		    $form['omega_container']['omega_regions']['main']['sidebar_contain_pages'] = array(
+		      '#type' => 'textarea',
+		      '#title' => t('Pages'),
+		      '#default_value' => $saved_settings['sidebar_contain_pages'],
+		      '#description' => $description,
+		    );
+    // Preface Blocks
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
       $form['omega_container']['omega_regions']['postscript'] = array(
         '#type' => 'fieldset',
         '#title' => t('Postscript Configuration'),
@@ -432,6 +694,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
       );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_container_width'] = array(
           '#type' => 'select',
           '#title' => t('Container width for postscript regions'),
@@ -439,6 +702,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $containers,
           '#description' => t(''),
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_one_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Postscript 1'),
@@ -446,6 +711,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $grids,
           '#description' => t('This number, combined with the other Postscript content zones determines the share of your grid for each element.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_one_prefix'] = array(
           '#type' => 'select',
           '#title' => t('Prefix Spacing for Postscript 1'),
@@ -458,6 +724,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#default_value' => $saved_settings['omega_postscript_one_suffix'],
           '#options' => $spacing,
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_two_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Postscript 2'),
@@ -465,6 +733,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $grids,
           '#description' => t('This number, combined with the other Postscript content zones determines the share of your grid for each element.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_two_prefix'] = array(
           '#type' => 'select',
           '#title' => t('Prefix Spacing for Postscript 2'),
@@ -477,6 +746,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#default_value' => $saved_settings['omega_postscript_two_suffix'],
           '#options' => $spacing,
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_three_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Postscript 3'),
@@ -484,6 +755,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $grids,
           '#description' => t('This number, combined with the other Postscript content zones determines the share of your grid for each element.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_three_prefix'] = array(
           '#type' => 'select',
           '#title' => t('Prefix Spacing for Postscript 3'),
@@ -496,6 +768,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#default_value' => $saved_settings['omega_postscript_three_suffix'],
           '#options' => $spacing,
         );
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_four_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Postscript 4'),
@@ -503,6 +777,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
           '#options' => $grids,
           '#description' => t('This number, combined with the other Postscript content zones determines the share of your grid for each element.'),
         );
+<<<<<<< HEAD:theme-settings.php
         $form['omega_container']['omega_regions']['postscript']['omega_postscript_four_prefix'] = array(
           '#type' => 'select',
           '#title' => t('Prefix Spacing for Postscript 4'),
@@ -547,3 +822,8 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
   // Return theme settings form
   return $form;
 }
+=======
+  // Return theme settings form
+  return $form;
+}  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-settings.php

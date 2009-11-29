@@ -1,11 +1,16 @@
 <?php
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 // $Id: preprocess-page.inc,v 1.4.2.6 2009/11/17 19:41:07 himerus Exp $
 
+=======
+// $Id: preprocess-page.inc,v 1.3 2009/07/15 14:05:15 himerus Exp $
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 // Pull out some things from the page.tpl.php and make that code more consise.
 // $header_first
 global $theme_key;
 include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
 $settings = theme_get_settings($theme_key);
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 //krumo($theme_key);
 //$omega = omega_theme_get_default_settings($theme_key);
 //krumo($settings);
@@ -13,12 +18,38 @@ $settings = theme_get_settings($theme_key);
 // Merge the saved variables and their default values.
 //$settings = array_merge($omega, $settings);
 
+=======
+$omega = omega_theme_get_default_settings('omega');
+// Merge the saved variables and their default values.
+$settings = array_merge($omega, $settings);
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 /**
  * The $original_regions array is a set of the default values for the 
  * current regions available. This is great so that they can be manipulated
  * and overwritten later in a sub theme if the need arises.
  */
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 
+=======
+$original_regions = array(
+  'sidebar_first' => $vars['sidebar_first'],
+	'sidebar_last' => $vars['sidebar_last'],
+	'header_first' => $vars['header_first'],
+	'header_last' => $vars['header_last'],
+	'preface_first' => $vars['preface_first'],
+	'preface_middle' => $vars['preface_middle'],
+	'preface_last' => $vars['preface_last'],
+	'content_top' => $vars['content_top'],
+	'content_bottom' => $vars['content_bottom'],
+	'postscript_one' => $vars['postscript_one'],
+	'postscript_two' => $vars['postscript_two'],
+	'postscript_three' => $vars['postscript_three'],
+	'postscript_four' => $vars['postscript_four'],
+	'footer_first' => $vars['sidebar_first'],
+	'footer_last' => $vars['sidebar_first'],
+);
+$vars['original'] = $original_regions;
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 /**
  * Adding in the ability to combine the sidebars on certain paths in order to adjust 
  * layouts based on context of the page. My main purpose for this is in the admin 
@@ -36,12 +67,19 @@ if ($settings['sidebar_contain_pages']) {
     $page_match = $page_match || drupal_match_path($_GET['q'], $settings['sidebar_contain_pages']);
   }
   $page_match = !($settings['sidebar_combine'] xor $page_match);
+<<<<<<< HEAD:preprocess/preprocess-page.inc
   if ($page_match && substr($_GET['q'], 0, 17) != 'admin/build/block') {
+=======
+  if($page_match && substr($_GET['q'], 0, 17) != 'admin/build/block') {
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
     $vars['sidebar_first'] = $vars['sidebar_first']. $vars['sidebar_last'];
     unset($vars['sidebar_last']); 
   }
 }
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 /**
  * Header Region
  * Depends on the width of the logo and title region, which is 4 grids by default.
@@ -55,6 +93,7 @@ if ($settings['sidebar_contain_pages']) {
 $vars['header_wrapper_width'] = $settings['omega_header_wrapper_width'];
 // The width of the logo element.
 // This width plus the logo width should total the width of your grid.
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 
 $vars['default_container_width'] = $settings['omega_default_container_width'];
 $vars['branding_wrapper_width'] = $settings['omega_branding_wrapper_width'];
@@ -78,10 +117,24 @@ if ($vars['header_last']) {
     $vars['header_first'], $settings['omega_header_first_width']);
 }
 
+=======
+$vars['header_logo_width'] = $settings['omega_header_logo_width'];
+ 
+if ($vars['header_first']) {
+  $vars['omega']['header_first_classes'] = ao($vars, array('header_first', 'header_last'), 'header_first', TRUE);
+  $vars['header_first'] = '<div id="header-first" class="'.ns('grid-'. $settings['omega_header_wrapper_width'], $vars['header_last'], $settings['omega_header_last_width']). $vars['omega']['header_first']. $vars['omega']['header_first_classes']. '">'. $vars['header_first']. '</div>';
+}
+// $header_last
+if ($vars['header_last']) {
+  $vars['omega']['header_last_classes'] = ao($vars, array('header_first', 'header_last'), 'header_last', TRUE);
+  $vars['header_last'] = '<div id="header-last" class="'.ns('grid-'. $settings['omega_header_wrapper_width'], $vars['header_first'], $settings['omega_header_first_width']). $vars['omega']['header_last_classes']. '">'. $vars['header_last']. '</div>';
+}
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 /**
  * Preface Region
  * Same as above, preparing the preface regions to accept settings configurations
  */
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 $vars['preface_wrapper_grids'] = $settings['omega_preface_wrapper_grids'];
 $preface_regions = array(
   'preface_first' => array(
@@ -109,6 +162,41 @@ $preface_regions = array(
 $vars = static_region_builder($preface_regions, $settings['preface_wrapper_grids'], $vars);
 //krumo($vars);
 
+=======
+if ($vars['preface_first']) {
+	// determine if this region needs an alpha or omega class applied
+  $vars['omega']['preface_first_classes'] = ao($vars, array('preface_first', 'preface_middle', 'preface_last'), 'preface_first');
+  // add the wrapper element, grid-x and alpha/omega classes 
+  $vars['preface_first'] = '<div id="preface-first" class="preface '.ns(
+      'grid-16', 
+        $vars['preface_middle'], $settings['omega_preface_middle_width'], 
+        $vars['preface_last'], $settings['omega_preface_last_width'])
+    . ' '.$vars['omega']['preface_first_classes'].'">' 
+    .$vars['preface_first']. '</div>';
+}
+if ($vars['preface_middle']) {
+	// determine if this region needs an alpha or omega class applied
+  $vars['omega']['preface_middle_classes'] = ao($vars, array('preface_first', 'preface_middle', 'preface_last'), 'preface_middle');
+  // add the wrapper element, grid-x and alpha/omega classes 
+  $vars['preface_middle'] = '<div id="preface-middle" class="preface '.ns(
+      'grid-16', 
+        $vars['preface_first'], $settings['omega_preface_first_width'], 
+        $vars['preface_last'], $settings['omega_preface_last_width'])
+    . $vars['omega']['preface_middle_classes']. '">' 
+    .$vars['preface_middle']. '</div>';
+}
+if ($vars['preface_last']) {
+	// determine if this region needs an alpha or omega class applied
+  $vars['omega']['preface_last_classes'] = ao($vars, array('preface_first', 'preface_middle', 'preface_last'), 'preface_last');
+  // add the wrapper element, grid-x and alpha/omega classes 
+  $vars['preface_last'] = '<div id="preface-last" class="preface '.ns(
+      'grid-16', 
+        $vars['preface_first'], $settings['omega_preface_first_width'], 
+        $vars['preface_middle'], $settings['omega_preface_middle_width'])
+    . $vars['omega']['preface_last_classes']. '">' 
+    .$vars['preface_last']. '</div>';
+}
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 /**
  * Body Region
  * Configuration of $sidebar_first, $sidebar_last, and the main content zone
@@ -119,15 +207,23 @@ $vars = static_region_builder($preface_regions, $settings['preface_wrapper_grids
  * 
  * @todo cleanup switch statement
  */
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 $vars['content_container_width'] = $settings['omega_content_container_width'];
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 switch($settings['omega_content_layout']){
   default:
   case 'first_content_last':
   // FIRST - CONTENT - LAST
+<<<<<<< HEAD:preprocess/preprocess-page.inc
   $sl_max_width = $settings['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
   
   $sl_pull = $settings['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
   
+=======
+  $sl_max_width = $omega['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
+  $sl_pull = $omega['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
   if ($vars['sidebar_first']) {
     $vars['sidebar_first_classes'] = 
       ns('grid-'. $sl_max_width, 
@@ -143,9 +239,15 @@ switch($settings['omega_content_layout']){
       $vars['sidebar_first'] || !$vars['sidebar_first'], $settings['omega_sidebar_first_width']
     );
   }
+<<<<<<< HEAD:preprocess/preprocess-page.inc
   if ($vars['content']) {
     $vars['main_content_classes'] = 
       ns('grid-'. $vars['content_container_width'],  
+=======
+  if($vars['content']) {
+    $vars['main_content_classes'] = 
+      ns('grid-16',  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
       $vars['sidebar_first'], $settings['omega_sidebar_first_width'],
       $vars['sidebar_last'], $settings['omega_sidebar_last_width']
     ). ' '. ns('push-'. $settings['omega_sidebar_first_width'],
@@ -153,7 +255,10 @@ switch($settings['omega_content_layout']){
     );
   }
   break;
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
   // CONTENT  - FIRST - LAST
   case 'content_first_last':
   $sl_max_width = $settings['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
@@ -170,14 +275,21 @@ switch($settings['omega_content_layout']){
       $vars['sidebar_first'] || !$vars['sidebar_first'], $settings['omega_sidebar_first_width']
     );
   }
+<<<<<<< HEAD:preprocess/preprocess-page.inc
   if ($vars['content']) {
     $vars['main_content_classes'] = 
       ns('grid-'. $vars['content_container_width'],  
+=======
+  if($vars['content']) {
+    $vars['main_content_classes'] = 
+      ns('grid-16',  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
       $vars['sidebar_first'], $settings['omega_sidebar_first_width'],
       $vars['sidebar_last'], $settings['omega_sidebar_last_width']
     );
   }
   break;
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 
   // FIRST - LAST - CONTENT
   case 'first_last_content':
@@ -186,10 +298,17 @@ switch($settings['omega_content_layout']){
   $sl_pull = $settings['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
   $sr_pull = $settings['omega_content_main_width'];
   
+=======
+  // FIRST - LAST - CONTENT
+  case 'first_last_content':
+  $sl_max_width = $settings['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
+  $sl_pull = $settings['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
   if ($vars['sidebar_first']) {
     $vars['sidebar_first_classes'] = 
       ns('grid-'. $sl_max_width, 
       $vars['sidebar_last'] || !$vars['sidebar_last'], $settings['omega_sidebar_last_width']
+<<<<<<< HEAD:preprocess/preprocess-page.inc
     ). ' '. ns('pull-'. $sr_pull
     );
   }
@@ -204,6 +323,23 @@ switch($settings['omega_content_layout']){
   if ($vars['content']) {
     $vars['main_content_classes'] = 
       ns('grid-'. $vars['content_container_width'],  
+=======
+    ). ' '. ns('pull-'. $sl_pull,
+      $vars['sidebar_last'], $settings['omega_sidebar_last_width']
+    );
+  }
+  if ($vars['sidebar_last']) {
+    $vars['sidebar_last_classes'] = 
+      ns('grid-'. $sl_max_width, 
+      $vars['sidebar_first'] || !$vars['sidebar_first'], $settings['omega_sidebar_first_width']
+    ). ' '. ns('pull-'. $sl_pull,
+      $vars['sidebar_first'], $settings['omega_sidebar_first_width']
+    );
+  }
+  if($vars['content']) {
+    $vars['main_content_classes'] = 
+      ns('grid-16',  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
       $vars['sidebar_first'], $settings['omega_sidebar_first_width'],
       $vars['sidebar_last'], $settings['omega_sidebar_last_width']
     ). ' '. ns('push-'. $sl_max_width,
@@ -215,6 +351,7 @@ switch($settings['omega_content_layout']){
 
 /**
  * Postscript Region
+<<<<<<< HEAD:preprocess/preprocess-page.inc
  * Same as above, preparing the postscript regions to accept settings configurations
  */
 $vars['postscript_container_width'] = $settings['omega_postscript_container_width'];
@@ -258,6 +395,58 @@ $vars['footer_container_width'] = $settings['omega_footer_container_width'];
 $vars['footer_first_classes'] = $settings['omega_footer_first_width'];
 $vars['footer_last_classes'] = $settings['omega_footer_last_width'];
 
+=======
+ * Same as above, preparing the preface regions to accept settings configurations
+ */
+if ($vars['postscript_one']) {
+	// determine if this region needs an alpha or omega class applied
+  $vars['omega']['postscript_one_classes'] = ao($vars, array('postscript_one', 'postscript_two', 'postscript_three', 'postscript_four'), 'postscript_one');
+  // add the wrapper element, grid-x and alpha/omega classes 
+  $vars['postscript_one'] = '<div id="postscript-one" class="postscript '.ns(
+      'grid-16', 
+        $vars['postscript_two'], $settings['omega_postscript_two_width'], 
+        $vars['postscript_three'], $settings['omega_postscript_three_width'], 
+        $vars['postscript_four'], $settings['omega_postscript_four_width']) 
+    . ' '.$vars['omega']['postscript_one_classes'].'">'. 
+    $vars['postscript_one'] . '</div>';
+}
+if ($vars['postscript_two']) {
+	// determine if this region needs an alpha or omega class applied
+  $vars['omega']['postscript_two_classes'] = ao($vars, array('postscript_one', 'postscript_two', 'postscript_three', 'postscript_four'), 'postscript_two');
+  // add the wrapper element, grid-x and alpha/omega classes 
+  $vars['postscript_two'] = '<div id="postscript-two" class="postscript '.ns(
+      'grid-16', 
+        $vars['postscript_one'], $settings['omega_postscript_one_width'], 
+        $vars['postscript_three'], $settings['omega_postscript_three_width'], 
+        $vars['postscript_four'], $settings['omega_postscript_four_width']) 
+    . ' '.$vars['omega']['postscript_two_classes'].'">'. 
+    $vars['postscript_two'] . '</div>';
+}
+if ($vars['postscript_three']) {
+	// determine if this region needs an alpha or omega class applied
+  $vars['omega']['postscript_three_classes'] = ao($vars, array('postscript_one', 'postscript_two', 'postscript_three', 'postscript_four'), 'postscript_three');
+  // add the wrapper element, grid-x and alpha/omega classes 
+  $vars['postscript_three'] = '<div id="postscript-three" class="postscript '.ns(
+      'grid-16', 
+        $vars['postscript_one'], $settings['omega_postscript_one_width'], 
+        $vars['postscript_two'], $settings['omega_postscript_two_width'], 
+        $vars['postscript_four'], $settings['omega_postscript_four_width']) 
+    . ' '.$vars['omega']['postscript_three_classes'].'">'. 
+    $vars['postscript_three'] . '</div>';
+}
+if ($vars['postscript_four']) {
+	// determine if this region needs an alpha or omega class applied
+  $vars['omega']['postscript_four_classes'] = ao($vars, array('postscript_one', 'postscript_two', 'postscript_three', 'postscript_four'), 'postscript_four');
+  // add the wrapper element, grid-x and alpha/omega classes 
+  $vars['postscript_four'] = '<div id="postscript-four" class="postscript '.ns(
+      'grid-16', 
+        $vars['postscript_one'], $settings['omega_postscript_one_width'], 
+        $vars['postscript_two'], $settings['omega_postscript_two_width'], 
+        $vars['postscript_three'], $settings['omega_postscript_three_width']) 
+    . ' '.$vars['omega']['postscript_four_classes'].'">'. 
+    $vars['postscript_four'] .'</div>';
+}
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 // ZEN - BODY CLASSES
 // Classes for body element. Allows advanced theming based on context
 // (home page, node of certain type, etc.)
@@ -285,14 +474,32 @@ if (!$vars['is_front']) {
 $vars['body_classes_array'] = $classes;
 $vars['body_classes'] = implode(' ', $classes); // Concatenate with spaces.
 
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 $vars['logo_img'] = $vars['logo'] ? theme('image', substr($vars['logo'], strlen(base_path())), t($vars['site_name']), t($vars['site_name'])) : '';	
 
 // NINESIXTY - For easy printing of variables.
+=======
+if (module_exists('imagecache')){
+	// let's look for a resized version of the logo via imagecache
+	$vars['logo_filepath'] = explode('/', $vars['logo']);
+	$vars['logo_img_file'] = $vars['logo_filepath'][count($vars['logo_filepath'])-1];
+	$vars['logo_img'] = theme('imagecache', 'site-logo', $vars['logo_img_file'], t($vars['site_name']), t($vars['site_name']), array());
+	//$vars['logo_img'] = $vars['logo'] ? theme('image', substr($vars['logo'], strlen(base_path())), t($vars['site_name']), t($vars['site_name'])) : '';
+}
+else {
+  $vars['logo_img'] = $vars['logo'] ? theme('image', substr($vars['logo'], strlen(base_path())), t($vars['site_name']), t($vars['site_name'])) : '';	
+}
+// NINESIXTY - For easy printing of variables.
+
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 $vars['linked_logo_img'] = $vars['logo_img'] ? l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)) : '';
 $vars['linked_site_name'] = $vars['site_name'] ? l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home'))) : '';
 $vars['main_menu_links']      = theme('links', $vars['primary_links'], array('class' => 'links main-menu'));
 $vars['secondary_menu_links'] = theme('links', $vars['secondary_links'], array('class' => 'links secondary-menu'));
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
 // NINESIXTY - Make sure framework styles are placed above all others.
 $vars['css_alt'] = omega_css_reorder($vars['css']);
 $vars['styles'] = drupal_get_css($vars['css_alt']);
@@ -349,7 +556,11 @@ if (!module_exists('page_title')) {
 }
 // implement mission statement settings
 $vars['mission'] = t(variable_get('site_mission', ''));
+<<<<<<< HEAD:preprocess/preprocess-page.inc
 if ($vars['mission'] && ($settings['mission_statement_pages'] == 'all' || $vars['is_front'] && $settings['mission_statement_pages'] == 'home') && $settings['mission_statement_pages'] != 'none') { 
+=======
+if ($settings['mission_statement_pages'] == 'all' || $vars['is_front'] && $settings['mission_statement_pages'] == 'home') {
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:preprocess/preprocess-page.inc
   $vars['mission'] = '<div id="mission" class=""><p>' .$vars['mission']. '</p></div>';
 }
 else {

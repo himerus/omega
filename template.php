@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD:template.php
 //$Id: template.php,v 1.7.2.5 2009/11/17 19:41:07 himerus Exp $
+=======
+//$Id: template.php,v 1.6 2009/07/12 01:38:18 himerus Exp $
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:template.php
 // Report all PHP errors (see changelog)
 //ini_set('error_reporting', E_ALL);
 /**
@@ -18,6 +22,7 @@
  * @return Array
  */
 function omega_preprocess(&$vars, $hook) {
+<<<<<<< HEAD:template.php
   // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
@@ -39,6 +44,10 @@ function omega_preprocess(&$vars, $hook) {
     if(is_file(drupal_get_path('theme', $name) . '/preprocess/preprocess-' . str_replace('_', '-', $hook) . '.inc')) {
       include(drupal_get_path('theme', $name) . '/preprocess/preprocess-' . str_replace('_', '-', $hook) . '.inc');
     }
+=======
+  if(is_file(drupal_get_path('theme', 'omega') . '/preprocess/preprocess-' . str_replace('_', '-', $hook) . '.inc')) {
+    include_once('preprocess/preprocess-' . str_replace('_', '-', $hook) . '.inc');
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:template.php
   }
 }
 /**
@@ -141,6 +150,7 @@ function omega_css_reorder($css) {
 }
 
 /**
+<<<<<<< HEAD:template.php
  * The region_builder function will create the variables needed to create
  * a dynamic group of regions. This function is only used for groups of
  * regions that should be displayed inline. Region groups that should be
@@ -179,6 +189,10 @@ function rfilter($vars) {
 /**
  * OMEGA - A function to return the alpha and or omega classes based on context
  * This function is not currently being used.
+=======
+ * OMEGA - A function to return the alpha and or omega classes based on context
+ *
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:template.php
  * @param $vars
  * @param $elements
  * @param $current
@@ -279,7 +293,11 @@ function omega_breadcrumb($breadcrumb) {
  * @return string
  */
 function omega_render_attributes($attributes) {
+<<<<<<< HEAD:template.php
   if ($attributes) {
+=======
+  if($attributes) {
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:template.php
     $items = array();
     foreach($attributes as $attribute => $data) {
       if(is_array($data)) {

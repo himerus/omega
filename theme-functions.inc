@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD:theme-functions.inc
 // $Id: theme-functions.inc,v 1.5.2.3 2009/10/24 14:59:26 himerus Exp $
+=======
+// $Id$
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-functions.inc
 /**
  * Return the theme settings' default values from the .info and save them into the database.
  *
@@ -8,7 +12,11 @@
  */
 function omega_theme_get_default_settings($theme) {
   $themes = list_themes();
+<<<<<<< HEAD:theme-functions.inc
   //krumo($themes[$theme]->info);
+=======
+
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-functions.inc
   // Get the default values from the .info file.
   $defaults = !empty($themes[$theme]->info['settings']) ? $themes[$theme]->info['settings'] : array();
 
@@ -33,6 +41,7 @@ function omega_theme_get_default_settings($theme) {
   }
   // Return the default settings.
   return $defaults;
+<<<<<<< HEAD:theme-functions.inc
 }
 
 function omega_theme_generate_region_settings() {
@@ -40,4 +49,6 @@ function omega_theme_generate_region_settings() {
 }
 function omega_theme_generate_region_options(){
   
+=======
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:theme-functions.inc
 }

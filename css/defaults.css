@@ -1,12 +1,23 @@
+<<<<<<< HEAD:css/defaults.css
 /* $Id: defaults.css,v 1.7.2.4 2009/11/01 00:54:15 himerus Exp $ */
+=======
+/* $Id: defaults.css,v 1.7 2009/07/15 14:05:15 himerus Exp $ */
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 /**
  * Omega, for Drupal 6.x
  * Jake Strawn - http://himerus.com
  * Project Page - http://drupal.org/project/omega
+<<<<<<< HEAD:css/defaults.css
  *
  * The defaults.css file is the default set of default styles
  * normally available with the Omega base theme.
  * All of these styles are easily overwritten, but here to give
+=======
+ * 
+ * The defaults.css file is the default set of default styles
+ * normally available with the Omega base theme.
+ * All of these styles are easily overwritten, but here to give 
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
  * a bit more "sexy" right out of the box.
  *
  *
@@ -17,6 +28,7 @@
  * 3.) Pager Navigation - Styling for pager navigation
  * 4.) clear-block code - default drupal clear-block definitions
  * 5.) Cleanup CSS - Primarily sizing & margins for default elements
+<<<<<<< HEAD:css/defaults.css
  * 6.)
  * 7.)
  */
@@ -24,6 +36,15 @@
 /** ################# 1.) Generic Page Elements ####################### */
 body {
   background: #FFF;
+=======
+ * 6.) 
+ * 7.) 
+ */
+ 
+/** ################# 1.) Generic Page Elements ####################### */
+body {
+  background: #EEE; 
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 .description {
@@ -48,7 +69,11 @@ body {
 }
 
 #footer-message p {
+<<<<<<< HEAD:css/defaults.css
   margin: 0;
+=======
+  margin: 0;  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 fieldset {
@@ -85,21 +110,32 @@ fieldset .form-text {
   border: 1px solid #b8d3e5;
 }
 
+<<<<<<< HEAD:css/defaults.css
 .messages,
 .status,
 .warning,
+=======
+.messages, 
+.status, 
+.warning, 
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 .error {
   padding: 10px;
 }
 
 .messages ul {
+<<<<<<< HEAD:css/defaults.css
   margin-left: 20px;
+=======
+  margin-left: 20px;  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 .new {
   font-size: 1.5em;
   color: #FF0000;
   display: block;
+<<<<<<< HEAD:css/defaults.css
   text-align: right;
 }
 
@@ -109,6 +145,17 @@ fieldset .form-text {
 
 .comment-preview {
   padding: 20px;
+=======
+  text-align: right;  
+}
+
+.indented {
+  margin-left: 30px;  
+}
+
+.comment-preview {
+  padding: 20px;  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 .help {
@@ -122,7 +169,11 @@ fieldset .form-text {
 }
 
 .help p {
+<<<<<<< HEAD:css/defaults.css
   margin-bottom: 10px;
+=======
+  margin-bottom: 10px;  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 .preview {
@@ -140,14 +191,22 @@ div.error, tr.error {
   background-color: #FFCCCC;
 }
 
+<<<<<<< HEAD:css/defaults.css
 .form-item input.error,
+=======
+.form-item input.error, 
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 .form-item textarea.error {
   border: 1px solid #c52020;
   color: #363636;
 }
 
 #branding img {
+<<<<<<< HEAD:css/defaults.css
   vertical-align: top;
+=======
+  vertical-align: top;  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 #site-name {
@@ -175,12 +234,20 @@ div.error, tr.error {
 }
 
 #search-box {
+<<<<<<< HEAD:css/defaults.css
   text-align: right;
   float: right;
 }
 
 #search-box label, #search-box .form-submit {
   display: none;
+=======
+  text-align: right;  
+}
+
+#search-box label, #search-box .form-submit {
+  display: none;  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 #search-box .form-text {
@@ -190,7 +257,11 @@ div.error, tr.error {
 
 .breadcrumb {
   font-size: 1.2em;
+<<<<<<< HEAD:css/defaults.css
   padding: 0;
+=======
+  padding: 0; 
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 #slogan {
@@ -204,21 +275,37 @@ div.error, tr.error {
 }
 
 .block p {
+<<<<<<< HEAD:css/defaults.css
   margin: 0;
 }
 #mission {
   margin: 0 0 20px 0;
   padding: 0;
+=======
+  margin: 0;  
+}
+#mission {
+  margin: 0 0 20px 0;
+  padding: 0;	
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 #mission p {
 	margin: 0;
   padding: 0;
   font-style: italic;
+<<<<<<< HEAD:css/defaults.css
   font-size: 12px;
 }
 
 .sidebar .block {
   margin-bottom: 20px;
+=======
+  font-size: 12px;  
+}
+
+.sidebar .block {
+  margin-bottom: 20px;  
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 .sidebar ul {
@@ -229,24 +316,41 @@ div.error, tr.error {
 .sidebar ul li {
   list-style-position: outside;
   margin: 0;
+<<<<<<< HEAD:css/defaults.css
 }
+=======
+} 
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 
 .node {
   padding-bottom: 10px;
   margin-bottom: 20px;
+<<<<<<< HEAD:css/defaults.css
   border-bottom: 1px solid #38322B;
 }
 
 .block .content {
   padding: 0;
+=======
+  border-bottom: 1px solid #38322B; 
+}
+
+.block .content {
+  padding: 0; 
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 /** ################# 2.) Content Tabs ####################### */
 
 #content-tabs {
   padding: 10px;
+<<<<<<< HEAD:css/defaults.css
   background-color: #f2f2f2;
   border: 1px solid #ddd;
+=======
+  background-color: #fff;
+  border: 1px solid #b8d3e5;
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
   display: block;;
   margin: 0 0 20px 0;
   font-family: Georgia, serif;
@@ -320,6 +424,72 @@ div.error, tr.error {
   padding-bottom: 2px;
 }
 
+<<<<<<< HEAD:css/defaults.css
+=======
+/** ################# 3.) Pager Navigation ####################### */
+
+.item-list .pager {
+  clear: both;
+  margin: 0 0 20px;
+  text-align: center;
+  padding: 0;
+  font-family: Helvetica, Verdana, sans-serif;
+}
+
+.item-list .pager li {
+  background-image: none;
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+  padding: 2px;
+}
+
+.item-list .pager a.active {
+  color: #000;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 4px;
+  text-decoration: none; 
+}
+
+.pager li.pager-current {
+  color: #000;
+  font: 1.3em/1.5 Georgia, 'Times New Roman', serif;
+  font-weight: bold;
+  margin: 0 2px;
+  padding: 8px;
+  background-color: #D9DBCD;
+  border: 1px solid #38322B;
+  
+}
+
+.pager li.pager-ellipsis {
+  display: none;  
+}
+
+.pager-first,
+.pager-next,
+.pager-previous,
+.pager-item,
+.pager-last {
+  background-color:#FDFFEF;
+  border: 1px solid #594F36;
+  margin: 0 2px;
+  padding: 4px;
+}
+
+.pager-first:hover,
+.pager-next:hover,
+.pager-previous:hover,
+.pager-item:hover,
+.pager-previous:hover,
+.pager-last:hover {
+  background-color: #EEE;
+}
+
+
+
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 /** ################# 4.) clear-block code ####################### */
 .clear-block:after {
   content: ".";
@@ -348,10 +518,17 @@ div.error, tr.error {
 
 /* Fix the HORRIBLE styling of the default comment block */
 .block-comment .item-list,
+<<<<<<< HEAD:css/defaults.css
 .block-comment .item-list ul,
 .block-comment .item-list li {
   margin: 0;
   padding: 0;
+=======
+.block-comment .item-list ul, 
+.block-comment .item-list li {
+  margin: 0;
+  padding: 0;	
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 }
 
 .block-comment .item-list li {
@@ -397,7 +574,11 @@ table {
   margin-left: 0;
 }
 
+<<<<<<< HEAD:css/defaults.css
 #main-content ul.links li,
+=======
+#main-content ul.links li, 
+>>>>>>> 63c9d0c1bc2fbe6086ea93a046fcff1c467e9bf0:css/defaults.css
 #main-content ul.links li a {
   padding-left: 0;
 }
