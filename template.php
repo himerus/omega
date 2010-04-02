@@ -18,8 +18,27 @@
  * @return Array
  */
 function omega_preprocess(&$vars, $hook) {
-  if(is_file(drupal_get_path('theme', 'omega') . '/preprocess/preprocess-' . str_replace('_', '-', $hook) . '.inc')) {
-    include_once('preprocess/preprocess-' . str_replace('_', '-', $hook) . '.inc');
+  // Collect all information for the active theme.
+  $themes_active = array();
+  global $theme_info;
+
+  // If there is a base theme, collect the names of all themes that may have 
+  // preprocess files to load.
+  if($theme_info->base_theme) {
+    global $base_theme_info;
+    foreach($base_theme_info as $base){
+      $themes_active[] = $base->name;
+    }
+  }
+
+  // Add the active theme to the list of themes that may have preprocess files.
+  $themes_active[] = $theme_info->name;
+
+  // Check all active themes for preprocess files that will need to be loaded.
+  foreach($themes_active as $name) {
+    if(is_file(drupal_get_path('theme', $name) . '/preprocess/preprocess-' . str_replace('_', '-', $hook) . '.inc')) {
+      include(drupal_get_path('theme', $name) . '/preprocess/preprocess-' . str_replace('_', '-', $hook) . '.inc');
+    }
   }
 }
 /**
@@ -122,8 +141,44 @@ function omega_css_reorder($css) {
 }
 
 /**
+ * The region_builder function will create the variables needed to create
+ * a dynamic group of regions. This function is only used for groups of
+ * regions that should be displayed inline. Region groups that should be
+ * either displayed inline or stacked (header, footer) should not be 
+ * passed through this function.
+ * 
+ */
+function static_region_builder($region_data, $container_width, $vars) {
+	// let's cycle the region data, and determine what we have
+	foreach ($region_data AS $region => $info) {
+		// if we do have content for this region, let's create it.
+		if ($info['data']) {
+			$vars[$region .'_classes'] = ns('grid-'. $info['width']);
+		}
+		if (is_array($info['spacing'])) {
+		  foreach ($info['spacing'] AS $attribute => $value) {
+		    if ($value) {
+          $vars[$region .'_classes'] .= ' '. $attribute .'-'. $value;
+		    }	
+		  }
+		}
+	}
+	//krumo($vars);
+	return $vars;
+}
+
+/**
+ * The rfilter function takes one argument, an array of values for the regions 
+ * for a "group" of regions like preface or postscript 
+ * @param $vars
+ */
+function rfilter($vars) {
+	return count(array_filter($vars));
+}
+
+/**
  * OMEGA - A function to return the alpha and or omega classes based on context
- *
+ * This function is not currently being used.
  * @param $vars
  * @param $elements
  * @param $current
