@@ -14,7 +14,7 @@ include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
  * @return
  *   array A form array.
  */
-function omega_settings($saved_settings, $subtheme_defaults = array()) {
+function omega_form_system_theme_settings_alter(&$form, $form_state) {
   // Add the form's CSS
   //drupal_add_css(drupal_get_path('theme', 'omega') . '/theme-settings.css', 'theme');
   // Add javascript to show/hide optional settings
@@ -28,7 +28,7 @@ function omega_settings($saved_settings, $subtheme_defaults = array()) {
   }
   else {
     // Merge the saved variables and their default values.
-    $defaults = omega_theme_get_default_settings('omega');
+    //$defaults = omega_theme_get_default_settings('omega');
     $settings = array_merge($defaults, $saved_settings);
   }
 

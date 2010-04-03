@@ -5,7 +5,7 @@
 // $header_first
 global $theme_key;
 include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
-$settings = theme_get_settings($theme_key);
+//$settings = theme_get_settings($theme_key);
 //krumo($theme_key);
 //$omega = omega_theme_get_default_settings($theme_key);
 //krumo($settings);

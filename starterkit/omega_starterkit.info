@@ -2,7 +2,7 @@
 name        = Omega Starter Kit
 description = Omega Sub-Theme starter kit
 screenshot = screenshot.png
-core       = 6.x
+core       = 7.x
 base theme = omega
 
 regions[sidebar_first] = sidebar first
@@ -15,8 +15,7 @@ regions[preface_first] = preface first
 regions[preface_middle] = preface middle
 regions[preface_last] = preface last
 
-regions[content_top] = content top
-regions[content_bottom] = content bottom
+regions[content] = content
 
 regions[postscript_one] = postscript 1
 regions[postscript_two] = postscript 2

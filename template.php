@@ -304,7 +304,7 @@ function omega_theme(&$existing, $type, $theme, $path) {
   include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
   // Since we are rebuilding the theme registry and the theme settings' default
   // values may have changed, make sure they are saved in the database properly.
-  omega_theme_get_default_settings($theme);
+  //omega_theme_get_default_settings($theme);
   return array(
     'id_safe' => array(
       'arguments' => array('string'),
