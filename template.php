@@ -148,6 +148,7 @@ function omega_css_reorder($css) {
  * passed through this function.
  * 
  */
+/**
 function static_region_builder($region_data, $container_width, $vars) {
 	// let's cycle the region data, and determine what we have
 	foreach ($region_data AS $region => $info) {
@@ -166,7 +167,7 @@ function static_region_builder($region_data, $container_width, $vars) {
 	//krumo($vars);
 	return $vars;
 }
-
+*/
 /**
  * The rfilter function takes one argument, an array of values for the regions 
  * for a "group" of regions like preface or postscript 
@@ -186,6 +187,7 @@ function rfilter($vars) {
  * @param $omega
  * @return classes
  */
+/*
 function ao($vars, $elements, $current, $alpha = FALSE, $omega = FALSE){
   $classes = array();
   $regions = array();
@@ -210,7 +212,7 @@ function ao($vars, $elements, $current, $alpha = FALSE, $omega = FALSE){
   }
   return $classes[$current];
 }
-
+*/
 /**
  * Converts a string to a suitable html ID attribute.
  *
@@ -244,6 +246,7 @@ function omega_id_safe($string) {
  * @return
  *   A string containing the breadcrumb output.
  */
+/*
 function omega_breadcrumb($breadcrumb) {
   // Determine if we are to display the breadcrumb.
   $show_breadcrumb = theme_get_setting('omega_breadcrumb');
@@ -272,12 +275,14 @@ function omega_breadcrumb($breadcrumb) {
   // Otherwise, return an empty string.
   return '';
 }
+*/
 /**
  * Create a string of attributes form a provided array.
  * 
  * @param $attributes
  * @return string
  */
+/*
 function omega_render_attributes($attributes) {
   if ($attributes) {
     $items = array();
@@ -291,12 +296,13 @@ function omega_render_attributes($attributes) {
   }
   return $output;
 }
-
+*/
 /**
  * Implementation of hook_theme().
  *
  * @return
  */
+/*
 function omega_theme(&$existing, $type, $theme, $path) {
   if (!db_is_active()) {
     return array();

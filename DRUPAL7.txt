@@ -27,6 +27,13 @@ Theme Changes
     http://drupal.org/node/254940#theme-settings
     http://drupal.org/node/563708
     
+3.  theme() & hook_theme() Changes
+    http://drupal.org/node/254940#function-argument-variables
+
+
+
+
+
 
 Additional 960gs/Omega Resources
 ================================

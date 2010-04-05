@@ -106,7 +106,7 @@ $preface_regions = array(
       'suffix' => $settings['omega_preface_last_suffix'])
   ),
 );
-$vars = static_region_builder($preface_regions, $settings['preface_wrapper_grids'], $vars);
+//$vars = static_region_builder($preface_regions, $settings['preface_wrapper_grids'], $vars);
 //krumo($vars);
 
 /**
@@ -249,7 +249,7 @@ $postscript_regions = array(
       'suffix' => $settings['omega_postscript_four_suffix'])
   ),
 );
-$vars = static_region_builder($postscript_regions, $settings['postscript_container_width'], $vars);
+//$vars = static_region_builder($postscript_regions, $settings['postscript_container_width'], $vars);
 
 /**
  * Footer Region
@@ -285,13 +285,28 @@ if (!$vars['is_front']) {
 $vars['body_classes_array'] = $classes;
 $vars['body_classes'] = implode(' ', $classes); // Concatenate with spaces.
 
-$vars['logo_img'] = $vars['logo'] ? theme('image', substr($vars['logo'], strlen(base_path())), t($vars['site_name']), t($vars['site_name'])) : '';	
+//$vars['logo_img'] = $vars['logo'] ? theme('image', substr($vars['logo'], strlen(base_path())), t($vars['site_name']), t($vars['site_name'])) : '';	
 
 // NINESIXTY - For easy printing of variables.
 $vars['linked_logo_img'] = $vars['logo_img'] ? l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)) : '';
 $vars['linked_site_name'] = $vars['site_name'] ? l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home'))) : '';
-$vars['main_menu_links']      = theme('links', $vars['primary_links'], array('class' => 'links main-menu'));
-$vars['secondary_menu_links'] = theme('links', $vars['secondary_links'], array('class' => 'links secondary-menu'));
+
+  if (isset($vars['main_menu'])) {
+    $vars['main_menu_links'] = theme('links__system_main_menu', array(
+      'links' => $vars['main_menu'],
+      'attributes' => array(
+        'class' => array('links', 'main-menu'),
+      ),
+      'heading' => array(
+        'text' => t('Main menu'),
+        'level' => 'h2',
+        'class' => array('element-invisible'),
+      )
+    ));
+  }
+
+//$vars['main_menu_links']      = theme('links', $vars['primary_links'], array('class' => 'links main-menu'));
+//$vars['secondary_menu_links'] = theme('links', $vars['secondary_links'], array('class' => 'links secondary-menu'));
 
 // NINESIXTY - Make sure framework styles are placed above all others.
 $vars['css_alt'] = omega_css_reorder($vars['css']);
