@@ -142,32 +142,92 @@ function omega_css_reorder($css) {
 
 /**
  * The region_builder function will create the variables needed to create
- * a dynamic group of regions. This function is only used for groups of
- * regions that should be displayed inline. Region groups that should be
- * either displayed inline or stacked (header, footer) should not be 
- * passed through this function.
+ * a dynamic group of regions. This function is simply a quick pass-thru
+ * that will create either inline or stacked regions. This function will
+ * not do any advanced functionality, but simply assing the appropriate 
+ * classes based on the settings for the theme.
  * 
+ * For a more advanced set of regions, dynamic_region_builder() will be used.
  */
-/**
 function static_region_builder($region_data, $container_width, $vars) {
-	// let's cycle the region data, and determine what we have
-	foreach ($region_data AS $region => $info) {
-		// if we do have content for this region, let's create it.
-		if ($info['data']) {
-			$vars[$region .'_classes'] = ns('grid-'. $info['width']);
-		}
-		if (is_array($info['spacing'])) {
-		  foreach ($info['spacing'] AS $attribute => $value) {
-		    if ($value) {
+  // let's cycle the region data, and determine what we have
+  foreach ($region_data AS $region => $info) {
+    // if we do have content for this region, let's create it.
+    if ($info['data']) {
+      $vars[$region .'_classes'] = ns('grid-'. $info['width']);
+    }
+    if (is_array($info['spacing'])) {
+      foreach ($info['spacing'] AS $attribute => $value) {
+        if ($value) {
           $vars[$region .'_classes'] .= ' '. $attribute .'-'. $value;
-		    }	
-		  }
-		}
-	}
-	//krumo($vars);
-	return $vars;
+        } 
+      }
+    }
+  }
+  return $vars;
 }
-*/
+
+
+function _omega_dynamic_zones($width, $conditions, $vars) {
+  foreach($conditions AS $variable => $reaction) {
+    if(($reaction['type'] && $vars[$variable]) || (!$reaction['type'] && !$vars[$variable])) {
+      $width = $width - $reaction['value'];
+    }
+  }
+  return $width;
+}
+function _omega_dynamic_widths($width, $conditions, $vars) {
+  foreach($conditions AS $variable => $zone) {
+    if(($vars[$variable])) {
+      $width = $width - $zone['width'];
+    }
+  }
+  return $width;
+}
+/**
+ * The dynamic_region_builder function will be used to pass important zones
+ * like the content regions where the regions sent to the function MUST appear
+ * inline, and advanced calculations need to be done in order to display the as such
+ * 
+ * Stacked regions are not possible using this function, and should be passed through
+ * static_region_builder() instead.
+ */
+function dynamic_region_builder($region_data, $container_width, $vars) {
+  // let's cycle the region data, and determine what we have
+  foreach ($region_data AS $region => $info) {
+    // if we do have content for this region, let's create it.
+    if ($info['data']) {
+      
+      $width = $info['primary'] ? $container_width : $info['width'];
+      $vars[$region .'_classes'] = $info['primary'] ?  ns('grid-'. _omega_dynamic_widths($width, $info['related'], $vars)) : ns('grid-'. $info['width']);
+      // we know we have stuff to put here, so we can check for push & pull options
+      if($info['pull']) {
+      	// looks like we do wanna pull, or this value would have been false, so let's boogie
+      	$vars[$region .'_classes'] .= ' '. ns('pull-'. _omega_dynamic_zones($info['pull']['width'], $info['pull']['conditions'], $vars));
+      	//krumo('Pulling '. $region .' '. $vars[$region .'_classes']);
+      }
+      if($info['push']) {
+      	// looks like a push
+      	$vars[$region .'_classes'] .= ' '. ns('push-'. _omega_dynamic_zones($info['push']['width'], $info['push']['conditions'], $vars));
+      	//krumo('Pushing '. $region .' '. $vars[$region .'_classes']);
+      	//krumo('Should be pushing '. $info['push']['width'] .' grids.');
+      	//krumo($info['push']['conditions']);
+      }
+    }
+    // currently ignored becuase we have not given prefix/suffix class options
+    // to the primary content zones... this will become active again later
+    if (is_array($info['spacing'])) {
+      foreach ($info['spacing'] AS $attribute => $value) {
+        if ($value) {
+          $vars[$region .'_classes'] .= ' '. $attribute .'-'. $value;
+        } 
+      }
+    }
+    // \unused prefix/suffix stuffs
+  }
+  return $vars;
+}
+
 /**
  * The rfilter function takes one argument, an array of values for the regions 
  * for a "group" of regions like preface or postscript 
@@ -187,7 +247,6 @@ function rfilter($vars) {
  * @param $omega
  * @return classes
  */
-/*
 function ao($vars, $elements, $current, $alpha = FALSE, $omega = FALSE){
   $classes = array();
   $regions = array();
@@ -212,7 +271,7 @@ function ao($vars, $elements, $current, $alpha = FALSE, $omega = FALSE){
   }
   return $classes[$current];
 }
-*/
+
 /**
  * Converts a string to a suitable html ID attribute.
  *
@@ -246,7 +305,6 @@ function omega_id_safe($string) {
  * @return
  *   A string containing the breadcrumb output.
  */
-/*
 function omega_breadcrumb($breadcrumb) {
   // Determine if we are to display the breadcrumb.
   $show_breadcrumb = theme_get_setting('omega_breadcrumb');
@@ -275,14 +333,12 @@ function omega_breadcrumb($breadcrumb) {
   // Otherwise, return an empty string.
   return '';
 }
-*/
 /**
  * Create a string of attributes form a provided array.
  * 
  * @param $attributes
  * @return string
  */
-/*
 function omega_render_attributes($attributes) {
   if ($attributes) {
     $items = array();
@@ -296,13 +352,12 @@ function omega_render_attributes($attributes) {
   }
   return $output;
 }
-*/
+
 /**
  * Implementation of hook_theme().
  *
  * @return
  */
-/*
 function omega_theme(&$existing, $type, $theme, $path) {
   if (!db_is_active()) {
     return array();
@@ -310,7 +365,7 @@ function omega_theme(&$existing, $type, $theme, $path) {
   include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
   // Since we are rebuilding the theme registry and the theme settings' default
   // values may have changed, make sure they are saved in the database properly.
-  //omega_theme_get_default_settings($theme);
+  omega_theme_get_default_settings($theme);
   return array(
     'id_safe' => array(
       'arguments' => array('string'),
@@ -320,3 +375,4 @@ function omega_theme(&$existing, $type, $theme, $path) {
     ),
   );
 }// */
+
