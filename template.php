@@ -1,7 +1,7 @@
 <?php
 //$Id$
 // Report all PHP errors (see changelog)
-//ini_set('error_reporting', E_ALL);
+
 /**
  * Implementation of hook_preprocess()
  * 
@@ -21,10 +21,10 @@ function omega_preprocess(&$vars, $hook) {
   // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
-
+  //krumo($theme_info);
   // If there is a base theme, collect the names of all themes that may have 
   // preprocess files to load.
-  if($theme_info->base_theme) {
+  if(isset($theme_info->base_theme)) {
     global $base_theme_info;
     foreach($base_theme_info as $base){
       $themes_active[] = $base->name;
@@ -52,6 +52,12 @@ function omega_preprocess_node(&$vars, $hook) {
   
 } // end preprocess_node
 
+function omega_process_page(&$vars) {
+  //krumo($vars);
+}
+function omega_process_node(&$vars) {
+  
+}
 /** 
  * NINESIXTY - Contextually adds 960 Grid System classes.
  *
@@ -156,7 +162,7 @@ function static_region_builder($region_data, $container_width, $vars) {
     if ($info['data']) {
       $vars[$region .'_classes'] = ns('grid-'. $info['width']);
     }
-    if (is_array($info['spacing'])) {
+    if (isset($info['spacing'])) {
       foreach ($info['spacing'] AS $attribute => $value) {
         if ($value) {
           $vars[$region .'_classes'] .= ' '. $attribute .'-'. $value;
@@ -170,7 +176,7 @@ function static_region_builder($region_data, $container_width, $vars) {
 
 function _omega_dynamic_zones($width, $conditions, $vars) {
   foreach($conditions AS $variable => $reaction) {
-    if(($reaction['type'] && $vars[$variable]) || (!$reaction['type'] && !$vars[$variable])) {
+    if(($reaction['type'] && $vars['page'][$variable]) || (!$reaction['type'] && !$vars['page'][$variable])) {
       $width = $width - $reaction['value'];
     }
   }
@@ -178,7 +184,7 @@ function _omega_dynamic_zones($width, $conditions, $vars) {
 }
 function _omega_dynamic_widths($width, $conditions, $vars) {
   foreach($conditions AS $variable => $zone) {
-    if(($vars[$variable])) {
+    if(($vars['page'][$variable])) {
       $width = $width - $zone['width'];
     }
   }
@@ -196,10 +202,17 @@ function dynamic_region_builder($region_data, $container_width, $vars) {
   // let's cycle the region data, and determine what we have
   foreach ($region_data AS $region => $info) {
     // if we do have content for this region, let's create it.
-    if ($info['data']) {
-      
-      $width = $info['primary'] ? $container_width : $info['width'];
-      $vars[$region .'_classes'] = $info['primary'] ?  ns('grid-'. _omega_dynamic_widths($width, $info['related'], $vars)) : ns('grid-'. $info['width']);
+    if (isset($info['data'])) {
+      if(isset($info['primary'])) {
+      	$width = $container_width;
+      	$vars[$region .'_classes'] = ns('grid-'. _omega_dynamic_widths($width, $info['related'], $vars));
+      }
+      else {
+      	$width = $info['width'];
+      	$vars[$region .'_classes'] = ns('grid-'. $info['width']);
+      }
+      //$width = $info['primary'] ? $container_width : $info['width'];
+      //$vars[$region .'_classes'] = $info['primary'] ?  ns('grid-'. _omega_dynamic_widths($width, $info['related'], $vars)) : ns('grid-'. $info['width']);
       // we know we have stuff to put here, so we can check for push & pull options
       if($info['pull']) {
       	// looks like we do wanna pull, or this value would have been false, so let's boogie
@@ -216,7 +229,7 @@ function dynamic_region_builder($region_data, $container_width, $vars) {
     }
     // currently ignored becuase we have not given prefix/suffix class options
     // to the primary content zones... this will become active again later
-    if (is_array($info['spacing'])) {
+    if (isset($info['spacing'])) {
       foreach ($info['spacing'] AS $attribute => $value) {
         if ($value) {
           $vars[$region .'_classes'] .= ' '. $attribute .'-'. $value;
@@ -305,6 +318,7 @@ function omega_id_safe($string) {
  * @return
  *   A string containing the breadcrumb output.
  */
+/*
 function omega_breadcrumb($breadcrumb) {
   // Determine if we are to display the breadcrumb.
   $show_breadcrumb = theme_get_setting('omega_breadcrumb');
@@ -333,6 +347,7 @@ function omega_breadcrumb($breadcrumb) {
   // Otherwise, return an empty string.
   return '';
 }
+*/
 /**
  * Create a string of attributes form a provided array.
  * 
@@ -359,13 +374,10 @@ function omega_render_attributes($attributes) {
  * @return
  */
 function omega_theme(&$existing, $type, $theme, $path) {
-  if (!db_is_active()) {
-    return array();
-  }
-  include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
+  //include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
   // Since we are rebuilding the theme registry and the theme settings' default
   // values may have changed, make sure they are saved in the database properly.
-  omega_theme_get_default_settings($theme);
+  //omega_theme_get_default_settings($theme);
   return array(
     'id_safe' => array(
       'arguments' => array('string'),

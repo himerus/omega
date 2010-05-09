@@ -1,8 +1,6 @@
 <?php
 // $Id$
 global $theme_key;
-//include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
-$settings = theme_get_settings($theme_key);
 
 /**
  * Adding in the ability to combine the sidebars on certain paths in order to adjust 
@@ -13,17 +11,17 @@ $settings = theme_get_settings($theme_key);
  * unset the sidebar_last variable. This resets the layout to act like only one 
  * sidebar is present in certain paths
  */
-if ($settings['sidebar_contain_pages']) {
+if (theme_get_setting('sidebar_contain_pages')) {
   $path = drupal_get_path_alias($_GET['q']);
   // Compare with the internal and path alias (if any).
-  $page_match = drupal_match_path($path, $settings['sidebar_contain_pages']);
+  $page_match = drupal_match_path($path, theme_get_setting('sidebar_contain_pages'));
   if ($path != $_GET['q']) {
-    $page_match = $page_match || drupal_match_path($_GET['q'], $settings['sidebar_contain_pages']);
+    $page_match = $page_match || drupal_match_path($_GET['q'], theme_get_setting('sidebar_contain_pages'));
   }
-  $page_match = !($settings['sidebar_combine'] xor $page_match);
+  $page_match = !(theme_get_setting('sidebar_combine') xor $page_match);
   if ($page_match && substr($_GET['q'], 0, 17) != 'admin/build/block') {
-    $vars['sidebar_first'] = $vars['sidebar_first']. $vars['sidebar_last'];
-    unset($vars['sidebar_last']); 
+    $vars['page']['sidebar_first'] = $vars['page']['sidebar_first']. $vars['page']['sidebar_last'];
+    unset($vars['page']['sidebar_last']); 
   }
 }
 
@@ -37,61 +35,61 @@ if ($settings['sidebar_contain_pages']) {
  
 // the width of the wrapper item around the navigation menus & header block regions
 // This width plus the logo width should total the width of your grid.
-$vars['header_wrapper_width'] = $settings['omega_header_wrapper_width'];
+$vars['header_wrapper_width'] = theme_get_setting('omega_header_wrapper_width');
 
 // The width of the logo element.
 // This width plus the logo width should total the width of your grid.
 
-$vars['default_container_width'] = $settings['omega_default_container_width'];
-$vars['branding_wrapper_width'] = $settings['omega_branding_wrapper_width'];
-$vars['header_logo_width'] = $settings['omega_header_logo_width'];
-$vars['header_menu_width'] = $settings['omega_header_menu_width'];
-$vars['internal_nav_wrapper_width'] = $settings['omega_internal_nav_wrapper_width'];
-$vars['breadcrumb_slogan_width'] = $settings['omega_breadcrumb_slogan_width'];
-$vars['search_width'] = $settings['omega_search_width'];
+$vars['default_container_width'] = theme_get_setting('omega_default_container_width');
+$vars['branding_wrapper_width'] = theme_get_setting('omega_branding_wrapper_width');
+$vars['header_logo_width'] = theme_get_setting('omega_header_logo_width');
+$vars['header_menu_width'] = theme_get_setting('omega_header_menu_width');
+$vars['internal_nav_wrapper_width'] = theme_get_setting('omega_internal_nav_wrapper_width');
+$vars['breadcrumb_slogan_width'] = theme_get_setting('omega_breadcrumb_slogan_width');
+$vars['search_width'] = theme_get_setting('omega_search_width');
 
 $header_regions = array(
   'header_first' => array(
-    'data' => $vars['header_first'],
-    'width' => $settings['omega_header_first_width'],
+    'data' => $vars['page']['header_first'],
+    'width' => theme_get_setting('omega_header_first_width'),
   ),
   'header_last' => array(
-    'data' => $vars['header_last'],
-    'width' => $settings['omega_header_last_width'],
+    'data' => $vars['page']['header_last'],
+    'width' => theme_get_setting('omega_header_last_width'),
   ),
 );
-$vars = static_region_builder($header_regions, $settings['omega_header_wrapper_width'], $vars);
+$vars = static_region_builder($header_regions, theme_get_setting('omega_header_wrapper_width'), $vars);
 
 
 /**
  * Preface Region
  * Same as above, preparing the preface regions to accept settings configurations
  */
-$vars['preface_wrapper_grids'] = $settings['omega_preface_wrapper_grids'];
+$vars['preface_wrapper_grids'] = theme_get_setting('omega_preface_wrapper_grids');
 $preface_regions = array(
   'preface_first' => array(
-    'data' => $vars['preface_first'],
-    'width' => $settings['omega_preface_first_width'],
+    'data' => $vars['page']['preface_first'],
+    'width' => theme_get_setting('omega_preface_first_width'),
     'spacing' => array(
-      'prefix' => $settings['omega_preface_first_prefix'],
-      'suffix' => $settings['omega_preface_first_suffix']),
+      'prefix' => theme_get_setting('omega_preface_first_prefix'),
+      'suffix' => theme_get_setting('omega_preface_first_suffix')),
     ),
   'preface_middle' => array(
-    'data' => $vars['preface_middle'],
-    'width' => $settings['omega_preface_middle_width'],
+    'data' => $vars['page']['preface_middle'],
+    'width' => theme_get_setting('omega_preface_middle_width'),
     'spacing' => array(
-      'prefix' => $settings['omega_preface_middle_prefix'],
-      'suffix' => $settings['omega_preface_middle_suffix']),
+      'prefix' => theme_get_setting('omega_preface_middle_prefix'),
+      'suffix' => theme_get_setting('omega_preface_middle_suffix')),
     ),
   'preface_last' => array(
-    'data' => $vars['preface_last'],
-    'width' => $settings['omega_preface_last_width'],
+    'data' => $vars['page']['preface_last'],
+    'width' => theme_get_setting('omega_preface_last_width'),
     'spacing' => array(
-      'prefix' => $settings['omega_preface_last_prefix'],
-      'suffix' => $settings['omega_preface_last_suffix'])
+      'prefix' => theme_get_setting('omega_preface_last_prefix'),
+      'suffix' => theme_get_setting('omega_preface_last_suffix'))
   ),
 );
-$vars = static_region_builder($preface_regions, $settings['preface_wrapper_grids'], $vars);
+$vars = static_region_builder($preface_regions, theme_get_setting('preface_wrapper_grids'), $vars);
 
 /**
  * Body Region
@@ -103,19 +101,19 @@ $vars = static_region_builder($preface_regions, $settings['preface_wrapper_grids
  * 
  * @todo cleanup switch statement
  */
-$vars['content_container_width'] = $settings['omega_content_container_width'];
+$vars['content_container_width'] = theme_get_setting('omega_content_container_width');
 
 $content_regions = array(
   'main_content' => array(
-    'data' => $vars['content'],
-    'width' => $settings['omega_content_main_width'],
+    'data' => $vars['page']['content'],
+    'width' => theme_get_setting('omega_content_main_width'),
     // primary defines which region will get all the extra space
     // should other regions be left out.
     'primary' => TRUE,
     // we need to tell the "related" zones so that we can determine widths for this primary zone
     'related' => array(
-      'sidebar_first' => array('width' => $settings['omega_sidebar_first_width']), 
-      'sidebar_last' => array('width' => $settings['omega_sidebar_last_width']),
+      'sidebar_first' => array('width' => theme_get_setting('omega_sidebar_first_width')), 
+      'sidebar_last' => array('width' => theme_get_setting('omega_sidebar_last_width')),
     ),
     'push' => array(
       'width' => '',
@@ -131,8 +129,8 @@ $content_regions = array(
     ),
   ),
   'sidebar_first' => array(
-    'data' => $vars['sidebar_first'],
-    'width' => $settings['omega_sidebar_first_width'],
+    'data' => $vars['page']['sidebar_first'],
+    'width' => theme_get_setting('omega_sidebar_first_width'),
     'push' => array(
       'width' => '',
       'conditions' => array(
@@ -151,8 +149,8 @@ $content_regions = array(
     ),
   ),
   'sidebar_last' => array(
-    'data' => $vars['sidebar_last'],
-    'width' => $settings['omega_sidebar_last_width'],
+    'data' => $vars['page']['sidebar_last'],
+    'width' => theme_get_setting('omega_sidebar_last_width'),
     'push' => array(
       'width' => '',
       'conditions' => array(
@@ -172,13 +170,15 @@ $content_regions = array(
  * For panels and other modules that may set $show_blocks to false, we will need to 
  * unset the sidebars in this case
  */
-if (!$vars['show_blocks']) {
-	unset($vars['sidebar_first']);
-	unset($vars['sidebar_last']);
+/*
+if (!$vars['page']['show_blocks']) {
+	unset($vars['page']['sidebar_first']);
+	unset($vars['page']['sidebar_last']);
 }
+*/
 
 // now we will be switching between our primary content layout types.
-switch($settings['omega_content_layout']){
+switch(theme_get_setting('omega_content_layout')){
   default:
   case 'first_content_last':
   // FIRST - CONTENT - LAST
@@ -190,7 +190,7 @@ switch($settings['omega_content_layout']){
   
   // if sidebar_last isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
   // otherwise,
-  $sl_pull = $vars['sidebar_last'] ? $settings['omega_content_main_width'] : $settings['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
+  $sl_pull = $vars['page']['sidebar_last'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_last_width');
   
   // let's assign some new data to our $content_regions array to assing pull classes
   
@@ -204,18 +204,18 @@ switch($settings['omega_content_layout']){
   // main_content will only be pushed in this layout
   $content_regions['main_content']['pull'] = FALSE;
   $content_regions['main_content']['push'] = array(
-    'width' => $settings['omega_sidebar_first_width'],
+    'width' => theme_get_setting('omega_sidebar_first_width'),
     'conditions' => array(
       'sidebar_first' => array(
         // type should either be TRUE or FALSE
         // false value here will use a ! operator in front of the variable in the ns() function
         'type' => FALSE,
-        'value' => $settings['omega_sidebar_first_width'],
+        'value' => theme_get_setting('omega_sidebar_first_width'),
       ),
     ),
   );
   // calling the dynamic region builder function to position these elements
-  $vars = dynamic_region_builder($content_regions, $settings['omega_content_container_width'], $vars);
+  $vars = dynamic_region_builder($content_regions, theme_get_setting('omega_content_container_width'), $vars);
   
   
   break;
@@ -235,7 +235,7 @@ switch($settings['omega_content_layout']){
   $content_regions['main_content']['pull'] = FALSE;
   $content_regions['main_content']['push'] = FALSE;
   // calling the dynamic region builder function to position these elements
-  $vars = dynamic_region_builder($content_regions, $settings['omega_content_container_width'], $vars);
+  $vars = dynamic_region_builder($content_regions, theme_get_setting('omega_content_container_width'), $vars);
   
   break;
 
@@ -243,9 +243,9 @@ switch($settings['omega_content_layout']){
   case 'first_last_content':
   // if sidebar_last isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
   // otherwise,
-  $sl_pull = $vars['sidebar_last'] ? $settings['omega_content_main_width'] : $settings['omega_content_main_width'] + $settings['omega_sidebar_last_width'];
-  $sr_pull = $vars['sidebar_first'] ? $settings['omega_content_main_width'] : $settings['omega_content_main_width'] + $settings['omega_sidebar_first_width'];
-  $sc_max_push = $settings['omega_sidebar_first_width'] + $settings['omega_sidebar_last_width'];
+  $sl_pull = $vars['page']['sidebar_last'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_last_width');
+  $sr_pull = $vars['page']['sidebar_first'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_first_width');
+  $sc_max_push = theme_get_setting('omega_sidebar_first_width') + theme_get_setting('omega_sidebar_last_width');
   // let's assign some new data to our $content_regions array to assing pull classes
   
   // sidebar_first will be pulled an exact amount assuming it exists in this layout
@@ -265,18 +265,18 @@ switch($settings['omega_content_layout']){
         // type should either be TRUE or FALSE
         // false value here will use a ! operator in front of the variable in the ns() function
         'type' => FALSE,
-        'value' => $settings['omega_sidebar_first_width'],
+        'value' => theme_get_setting('omega_sidebar_first_width'),
       ),
       'sidebar_last' => array(
         // type should either be TRUE or FALSE
         // false value here will use a ! operator in front of the variable in the ns() function
         'type' => FALSE,
-        'value' => $settings['omega_sidebar_last_width'],
+        'value' => theme_get_setting('omega_sidebar_last_width'),
       ),
     ),
   );
   // calling the dynamic region builder function to position these elements
-  $vars = dynamic_region_builder($content_regions, $settings['omega_content_container_width'], $vars);
+  $vars = dynamic_region_builder($content_regions, theme_get_setting('omega_content_container_width'), $vars);
 
   break;
 }
@@ -285,95 +285,115 @@ switch($settings['omega_content_layout']){
  * Postscript Region
  * Same as above, preparing the postscript regions to accept settings configurations
  */
-$vars['postscript_container_width'] = $settings['omega_postscript_container_width'];
-$vars['preface_wrapper_grids'] = $settings['omega_preface_wrapper_grids'];
+$vars['postscript_container_width'] = theme_get_setting('omega_postscript_container_width');
+$vars['preface_wrapper_grids'] = theme_get_setting('omega_preface_wrapper_grids');
 $postscript_regions = array(
   'postscript_one' => array(
-    'data' => $vars['postscript_one'],
-    'width' => $settings['omega_postscript_one_width'],
+    'data' => $vars['page']['postscript_one'],
+    'width' => theme_get_setting('omega_postscript_one_width'),
     'spacing' => array(
-      'prefix' => $settings['omega_postscript_one_prefix'],
-      'suffix' => $settings['omega_postscript_one_suffix']),
+      'prefix' => theme_get_setting('omega_postscript_one_prefix'),
+      'suffix' => theme_get_setting('omega_postscript_one_suffix')),
     ),
   'postscript_two' => array(
-    'data' => $vars['postscript_two'],
-    'width' => $settings['omega_postscript_two_width'],
+    'data' => $vars['page']['postscript_two'],
+    'width' => theme_get_setting('omega_postscript_two_width'),
     'spacing' => array(
-      'prefix' => $settings['omega_postscript_two_prefix'],
-      'suffix' => $settings['omega_postscript_two_suffix']),
+      'prefix' => theme_get_setting('omega_postscript_two_prefix'),
+      'suffix' => theme_get_setting('omega_postscript_two_suffix')),
     ),
   'postscript_three' => array(
-    'data' => $vars['postscript_three'],
-    'width' => $settings['omega_postscript_three_width'],
+    'data' => $vars['page']['postscript_three'],
+    'width' => theme_get_setting('omega_postscript_three_width'),
     'spacing' => array(
-      'prefix' => $settings['omega_postscript_three_prefix'],
-      'suffix' => $settings['omega_postscript_three_suffix'])
+      'prefix' => theme_get_setting('omega_postscript_three_prefix'),
+      'suffix' => theme_get_setting('omega_postscript_three_suffix'))
   ),
   'postscript_four' => array(
-    'data' => $vars['postscript_four'],
-    'width' => $settings['omega_postscript_four_width'],
+    'data' => $vars['page']['postscript_four'],
+    'width' => theme_get_setting('omega_postscript_four_width'),
     'spacing' => array(
-      'prefix' => $settings['omega_postscript_four_prefix'],
-      'suffix' => $settings['omega_postscript_four_suffix'])
+      'prefix' => theme_get_setting('omega_postscript_four_prefix'),
+      'suffix' => theme_get_setting('omega_postscript_four_suffix'))
   ),
 );
-$vars = static_region_builder($postscript_regions, $settings['postscript_container_width'], $vars);
+$vars = static_region_builder($postscript_regions, theme_get_setting('postscript_container_width'), $vars);
 
 /**
  * Footer Region
  */
-$vars['footer_container_width'] = $settings['omega_footer_container_width'];
+$vars['footer_container_width'] = theme_get_setting('omega_footer_container_width');
 
 $footer_regions = array(
   'footer_first' => array(
-    'data' => $vars['footer_first'],
-    'width' => $settings['omega_footer_first_width'],
+    'data' => $vars['page']['footer_first'],
+    'width' => theme_get_setting('omega_footer_first_width'),
   ),
   'footer_last' => array(
-    'data' => $vars['footer_last'],
-    'width' => $settings['omega_footer_last_width'],
+    'data' => $vars['page']['footer_last'],
+    'width' => theme_get_setting('omega_footer_last_width'),
   ),
 );
-$vars = static_region_builder($footer_regions, $settings['omega_footer_container_width'], $vars);
+$vars = static_region_builder($footer_regions, theme_get_setting('omega_footer_container_width'), $vars);
 
-// ZEN - BODY CLASSES
-// Classes for body element. Allows advanced theming based on context
-// (home page, node of certain type, etc.)
-$classes = split(' ', $vars['body_classes']);
-// Remove the mostly useless page-ARG0 class.
-if ($index = array_search(preg_replace('![^abcdefghijklmnopqrstuvwxyz0-9-_]+!s', '', 'page-'. drupal_strtolower(arg(0))), $classes)) {
-  unset($classes[$index]);
+// Set a variable for the site name title and logo alt attributes text.
+$slogan_text = $vars['site_slogan'];
+$site_name_text = $vars['site_name'];
+$vars['site_name_and_slogan'] = $site_name_text . ' ' . $slogan_text;
+if(isset($vars['logo'])) {
+	//$vars['logo_img'] = theme('image', substr($vars['logo'], strlen(base_path())), t($vars['site_name']), t($vars['site_name']));
+  $vars['logo_img'] = '<img src="'. $vars['logo'] .'" alt="'. $vars['site_name_and_slogan'] .'" id="logo" />';
 }
-if (!$vars['is_front']) {
-  // Add unique class for each page.
-  $path = drupal_get_path_alias($_GET['q']);
-  $classes[] = omega_id_safe('page-' . $path);
-  // Add unique class for each website section.
-  list($section, ) = explode('/', $path, 2);
-  if (arg(0) == 'node') {
-    if (arg(1) == 'add') {
-      $section = 'node-add';
-    }
-    elseif (is_numeric(arg(1)) && (arg(2) == 'edit' || arg(2) == 'delete')) {
-      $section = 'node-' . arg(2);
-    }
-  }
-  $classes[] = omega_id_safe('section-' . $section);
-}
-$vars['body_classes_array'] = $classes;
-$vars['body_classes'] = implode(' ', $classes); // Concatenate with spaces.
-
-$vars['logo_img'] = $vars['logo'] ? theme('image', substr($vars['logo'], strlen(base_path())), t($vars['site_name']), t($vars['site_name'])) : '';	
 
 // NINESIXTY - For easy printing of variables.
-$vars['linked_logo_img'] = $vars['logo_img'] ? l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)) : '';
-$vars['linked_site_name'] = $vars['site_name'] ? l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home'))) : '';
-$vars['main_menu_links']      = theme('links', $vars['primary_links'], array('class' => 'links main-menu'));
-$vars['secondary_menu_links'] = theme('links', $vars['secondary_links'], array('class' => 'links secondary-menu'));
+if(isset($vars['logo_img'])) {
+  $vars['linked_logo_img'] = l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE));
+}
+if(isset($vars['site_name'])) {
+  $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
+}
+//$vars['main_menu_links']      = theme('links', $vars['primary_links'], array('class' => 'links main-menu'));
+//$vars['secondary_menu_links'] = theme('links', $vars['secondary_links'], array('class' => 'links secondary-menu'));
+
+if (isset($vars['main_menu'])) {
+    $vars['main_menu_links'] = theme('links__system_main_menu', array(
+      'links' => $vars['main_menu'],
+      'attributes' => array(
+        'class' => array('links', 'main-menu'),
+      ),
+      'heading' => array(
+        'text' => t('Main menu'),
+        'level' => 'h2',
+        'class' => array('element-invisible'),
+      )
+    ));
+  }
+  else {
+    $vars['primary_nav'] = FALSE;
+  }
+  if (isset($vars['secondary_menu'])) {
+    $vars['secondary_menu_links'] = theme('links__system_secondary_menu', array(
+      'links' => $vars['secondary_menu'],
+      'attributes' => array(
+        'class' => array('links', 'secondary-menu'),
+      ),
+      'heading' => array(
+        'text' => t('Secondary menu'),
+        'level' => 'h2',
+        'class' => array('element-invisible'),
+      )
+    ));
+  }
+  else {
+    $vars['secondary_nav'] = FALSE;
+  }
 
 // NINESIXTY - Make sure framework styles are placed above all others.
-$vars['css_alt'] = omega_css_reorder($vars['css']);
-$vars['styles'] = drupal_get_css($vars['css_alt']);
+if(isset($vars['css'])) {
+  $vars['css_alt'] = omega_css_reorder($vars['css']);
+  $vars['styles'] = drupal_get_css($vars['css_alt']);
+}
+
 
 // ACQUIA-MARINA
 // Set site title, slogan, mission, page title & separator (unless using Page Title module)
@@ -424,12 +444,4 @@ if (!module_exists('page_title')) {
     }
   }
   $vars['head_title'] = strip_tags($vars['head_title']); // Remove any potential html tags
-}
-// implement mission statement settings
-$vars['mission'] = t(variable_get('site_mission', ''));
-if ($vars['mission'] && ($settings['mission_statement_pages'] == 'all' || $vars['is_front'] && $settings['mission_statement_pages'] == 'home') && $settings['mission_statement_pages'] != 'none') { 
-  $vars['mission'] = '<div id="mission" class=""><p>' .$vars['mission']. '</p></div>';
-}
-else {
-  unset($vars['mission']);
 }
