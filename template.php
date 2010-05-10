@@ -15,7 +15,6 @@
  * 
  * @param $vars
  * @param $hook
- * @return Array
  */
 function omega_preprocess(&$vars, $hook) {
   // Collect all information for the active theme.
@@ -41,6 +40,46 @@ function omega_preprocess(&$vars, $hook) {
     }
   }
 }
+
+/**
+ * Implementation of hook_process()
+ * 
+ * This function checks to see if a hook has a process file associated with 
+ * it, and if so, loads it.
+ * 
+ * This makes it easier to keep sorted the process functions that can be present in the 
+ * template.php file. You may still use hook_process_page, etc in template.php
+ * or create a file process-page.inc in the process folder to include the appropriate
+ * logic to your process functionality
+ * 
+ * @param $vars
+ * @param $hook
+ */
+function omega_process(&$vars, $hook) {
+// Collect all information for the active theme.
+  $themes_active = array();
+  global $theme_info;
+  //krumo($theme_info);
+  // If there is a base theme, collect the names of all themes that may have 
+  // preprocess files to load.
+  if(isset($theme_info->base_theme)) {
+    global $base_theme_info;
+    foreach($base_theme_info as $base){
+      $themes_active[] = $base->name;
+    }
+  }
+
+  // Add the active theme to the list of themes that may have preprocess files.
+  $themes_active[] = $theme_info->name;
+
+  // Check all active themes for preprocess files that will need to be loaded.
+  foreach($themes_active as $name) {
+    if(is_file(drupal_get_path('theme', $name) . '/process/process-' . str_replace('_', '-', $hook) . '.inc')) {
+      include(drupal_get_path('theme', $name) . '/process/process-' . str_replace('_', '-', $hook) . '.inc');
+    }
+  }
+}
+
 /**
  * Preprocessor for page.tpl.php template file.
  * The default functionality can be found in preprocess/preprocess-page.inc
