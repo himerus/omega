@@ -45,15 +45,52 @@ function omega_preprocess(&$vars, $hook) {
  * Preprocessor for page.tpl.php template file.
  * The default functionality can be found in preprocess/preprocess-page.inc
  */
-function omega_preprocess_page(&$vars, $hook) {
-  
+function omega_preprocess_page(&$vars) {
+  if (isset($vars['main_menu'])) {
+    $vars['primary_nav'] = theme('links__system_main_menu', array(
+      'links' => $vars['main_menu'],
+      'attributes' => array(
+        'class' => array('links', 'main-menu'),
+      ),
+      'heading' => array(
+        'text' => t('Main menu'),
+        'level' => 'h2',
+        'class' => array('element-invisible'),
+      )
+    ));
+  }
+  else {
+    $vars['primary_nav'] = FALSE;
+    drupal_set_message('<strong>$vars[main_menu]</strong> not present... WTF...', 'error');
+  }
+  if (isset($vars['secondary_menu'])) {
+    $vars['secondary_nav'] = theme('links__system_secondary_menu', array(
+      'links' => $vars['secondary_menu'],
+      'attributes' => array(
+        'class' => array('links', 'secondary-menu'),
+      ),
+      'heading' => array(
+        'text' => t('Secondary menu'),
+        'level' => 'h2',
+        'class' => array('element-invisible'),
+      )
+    ));
+  }
+  else {
+    $vars['secondary_nav'] = FALSE;
+    drupal_set_message('<strong>$vars[secondary_menu]</strong> not present... WTF...', 'error');
+  }
+  /*
+  if(function_exists('krumo')) {
+  	krumo($vars);
+  }*/
 } // end preprocess_page
-function omega_preprocess_node(&$vars, $hook) {
+function omega_preprocess_node(&$vars) {
   
 } // end preprocess_node
 
 function omega_process_page(&$vars) {
-  //krumo($vars);
+  
 }
 function omega_process_node(&$vars) {
   

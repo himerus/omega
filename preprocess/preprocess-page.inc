@@ -355,44 +355,9 @@ if(isset($vars['site_name'])) {
 //$vars['main_menu_links']      = theme('links', $vars['primary_links'], array('class' => 'links main-menu'));
 //$vars['secondary_menu_links'] = theme('links', $vars['secondary_links'], array('class' => 'links secondary-menu'));
 
-if (isset($vars['main_menu'])) {
-    $vars['main_menu_links'] = theme('links__system_main_menu', array(
-      'links' => $vars['main_menu'],
-      'attributes' => array(
-        'class' => array('links', 'main-menu'),
-      ),
-      'heading' => array(
-        'text' => t('Main menu'),
-        'level' => 'h2',
-        'class' => array('element-invisible'),
-      )
-    ));
-  }
-  else {
-    $vars['primary_nav'] = FALSE;
-  }
-  if (isset($vars['secondary_menu'])) {
-    $vars['secondary_menu_links'] = theme('links__system_secondary_menu', array(
-      'links' => $vars['secondary_menu'],
-      'attributes' => array(
-        'class' => array('links', 'secondary-menu'),
-      ),
-      'heading' => array(
-        'text' => t('Secondary menu'),
-        'level' => 'h2',
-        'class' => array('element-invisible'),
-      )
-    ));
-  }
-  else {
-    $vars['secondary_nav'] = FALSE;
-  }
+  
 
-// NINESIXTY - Make sure framework styles are placed above all others.
-if(isset($vars['css'])) {
-  $vars['css_alt'] = omega_css_reorder($vars['css']);
-  $vars['styles'] = drupal_get_css($vars['css_alt']);
-}
+
 
 
 // ACQUIA-MARINA
