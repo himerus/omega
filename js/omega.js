@@ -1,3 +1,4 @@
+// $Id$
 function populateElement(selector, defvalue) {
     if(omega.trim(omega(selector).val()) == "") {
         omega(selector).val(defvalue);
