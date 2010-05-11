@@ -1,21 +1,21 @@
 function populateElement(selector, defvalue) {
-    if($.trim($(selector).val()) == "") {
-        $(selector).val(defvalue);
+    if(omega.trim(omega(selector).val()) == "") {
+        omega(selector).val(defvalue);
     }
-    $(selector).focus(function() {
-        if($(selector).val() == defvalue) {
-            $(selector).val("");
+    omega(selector).focus(function() {
+        if(omega(selector).val() == defvalue) {
+            omega(selector).val("");
         }
     });
-    $(selector).blur(function() {
-        if($.trim($(selector).val()) == "") {
-            $(selector).val(defvalue);
+    omega(selector).blur(function() {
+        if(omega.trim(omega(selector).val()) == "") {
+            omega(selector).val(defvalue);
         }
     });
  }
 
-$(document).ready(function(){
+omega = jQuery.noConflict();
+omega(document).ready(function(){
 	// give the search box some fancy stuff
 	populateElement('#search-box input.form-text, #search-block-form input.form-text', 'search...');
-	// define sliders for the admin page for theme-settings.php
 });
