@@ -119,10 +119,6 @@ function omega_preprocess_page(&$vars) {
     $vars['secondary_nav'] = FALSE;
     drupal_set_message('<strong>$vars[secondary_menu]</strong> not present... WTF...', 'error');
   }
-  /*
-  if(function_exists('krumo')) {
-  	krumo($vars);
-  }*/
 } // end preprocess_page
 function omega_preprocess_node(&$vars) {
   
