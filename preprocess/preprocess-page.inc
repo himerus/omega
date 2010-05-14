@@ -53,9 +53,9 @@ $header_regions = array(
     'data' => $vars['page']['header_first'],
     'width' => theme_get_setting('omega_header_first_width'),
   ),
-  'header_last' => array(
-    'data' => $vars['page']['header_last'],
-    'width' => theme_get_setting('omega_header_last_width'),
+  'header_second' => array(
+    'data' => $vars['page']['header_second'],
+    'width' => theme_get_setting('omega_header_second_width'),
   ),
 );
 $vars = static_region_builder($header_regions, theme_get_setting('omega_header_wrapper_width'), $vars);
@@ -74,19 +74,19 @@ $preface_regions = array(
       'prefix' => theme_get_setting('omega_preface_first_prefix'),
       'suffix' => theme_get_setting('omega_preface_first_suffix')),
     ),
-  'preface_middle' => array(
-    'data' => $vars['page']['preface_middle'],
-    'width' => theme_get_setting('omega_preface_middle_width'),
+  'preface_second' => array(
+    'data' => $vars['page']['preface_second'],
+    'width' => theme_get_setting('omega_preface_second_width'),
     'spacing' => array(
-      'prefix' => theme_get_setting('omega_preface_middle_prefix'),
-      'suffix' => theme_get_setting('omega_preface_middle_suffix')),
+      'prefix' => theme_get_setting('omega_preface_second_prefix'),
+      'suffix' => theme_get_setting('omega_preface_second_suffix')),
     ),
-  'preface_last' => array(
-    'data' => $vars['page']['preface_last'],
-    'width' => theme_get_setting('omega_preface_last_width'),
+  'preface_third' => array(
+    'data' => $vars['page']['preface_third'],
+    'width' => theme_get_setting('omega_preface_third_width'),
     'spacing' => array(
-      'prefix' => theme_get_setting('omega_preface_last_prefix'),
-      'suffix' => theme_get_setting('omega_preface_last_suffix'))
+      'prefix' => theme_get_setting('omega_preface_third_prefix'),
+      'suffix' => theme_get_setting('omega_preface_third_suffix'))
   ),
 );
 $vars = static_region_builder($preface_regions, theme_get_setting('preface_wrapper_grids'), $vars);
@@ -288,33 +288,33 @@ switch(theme_get_setting('omega_content_layout')){
 $vars['postscript_container_width'] = theme_get_setting('omega_postscript_container_width');
 $vars['preface_wrapper_grids'] = theme_get_setting('omega_preface_wrapper_grids');
 $postscript_regions = array(
-  'postscript_one' => array(
-    'data' => $vars['page']['postscript_one'],
-    'width' => theme_get_setting('omega_postscript_one_width'),
+  'postscript_first' => array(
+    'data' => $vars['page']['postscript_first'],
+    'width' => theme_get_setting('omega_postscript_first_width'),
     'spacing' => array(
-      'prefix' => theme_get_setting('omega_postscript_one_prefix'),
-      'suffix' => theme_get_setting('omega_postscript_one_suffix')),
+      'prefix' => theme_get_setting('omega_postscript_first_prefix'),
+      'suffix' => theme_get_setting('omega_postscript_first_suffix')),
     ),
-  'postscript_two' => array(
-    'data' => $vars['page']['postscript_two'],
-    'width' => theme_get_setting('omega_postscript_two_width'),
+  'postscript_second' => array(
+    'data' => $vars['page']['postscript_second'],
+    'width' => theme_get_setting('omega_postscript_second_width'),
     'spacing' => array(
-      'prefix' => theme_get_setting('omega_postscript_two_prefix'),
-      'suffix' => theme_get_setting('omega_postscript_two_suffix')),
+      'prefix' => theme_get_setting('omega_postscript_second_prefix'),
+      'suffix' => theme_get_setting('omega_postscript_second_suffix')),
     ),
-  'postscript_three' => array(
-    'data' => $vars['page']['postscript_three'],
-    'width' => theme_get_setting('omega_postscript_three_width'),
+  'postscript_third' => array(
+    'data' => $vars['page']['postscript_third'],
+    'width' => theme_get_setting('omega_postscript_third_width'),
     'spacing' => array(
-      'prefix' => theme_get_setting('omega_postscript_three_prefix'),
-      'suffix' => theme_get_setting('omega_postscript_three_suffix'))
+      'prefix' => theme_get_setting('omega_postscript_third_prefix'),
+      'suffix' => theme_get_setting('omega_postscript_third_suffix'))
   ),
-  'postscript_four' => array(
-    'data' => $vars['page']['postscript_four'],
-    'width' => theme_get_setting('omega_postscript_four_width'),
+  'postscript_fourth' => array(
+    'data' => $vars['page']['postscript_fourth'],
+    'width' => theme_get_setting('omega_postscript_fourth_width'),
     'spacing' => array(
-      'prefix' => theme_get_setting('omega_postscript_four_prefix'),
-      'suffix' => theme_get_setting('omega_postscript_four_suffix'))
+      'prefix' => theme_get_setting('omega_postscript_fourth_prefix'),
+      'suffix' => theme_get_setting('omega_postscript_fourth_suffix'))
   ),
 );
 $vars = static_region_builder($postscript_regions, theme_get_setting('postscript_container_width'), $vars);
@@ -329,9 +329,9 @@ $footer_regions = array(
     'data' => $vars['page']['footer_first'],
     'width' => theme_get_setting('omega_footer_first_width'),
   ),
-  'footer_last' => array(
-    'data' => $vars['page']['footer_last'],
-    'width' => theme_get_setting('omega_footer_last_width'),
+  'footer_second' => array(
+    'data' => $vars['page']['footer_second'],
+    'width' => theme_get_setting('omega_footer_second_width'),
   ),
 );
 $vars = static_region_builder($footer_regions, theme_get_setting('omega_footer_container_width'), $vars);

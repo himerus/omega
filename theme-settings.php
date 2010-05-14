@@ -193,7 +193,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       $form['omega_container']['omega_regions']['headers'] = array(
         '#type' => 'fieldset',
         '#title' => t('Header Configuration'),
-        '#description' => t('Header region zones, including Logo/Branding, Primary & Secondary menus, Header first and Header Last. By default, the logo and menu elements are designed to display inline. This is accomplished by making the width of the grid elements for the logo and menus to equal the container width for those items, however, to make them stack, you can make each element have the full amount of grids that the container allows.'),
+        '#description' => t('Header region zones, including Logo/Branding, Primary & Secondary menus, Header first and Header Second. By default, the logo and menu elements are designed to display inline. This is accomplished by making the width of the grid elements for the logo and menus to equal the container width for those items, however, to make them stack, you can make each element have the full amount of grids that the container allows.'),
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
       );
@@ -232,10 +232,10 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#options' => $grids,
           '#description' => t('Grid width of the first header region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_container']['omega_regions']['headers']['omega_header_last_width'] = array(
+        $form['omega_container']['omega_regions']['headers']['omega_header_second_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Header Last'),
-          '#default_value' => theme_get_setting('omega_header_last_width'),
+          '#title' => t('Contextual Width for Header Second'),
+          '#default_value' => theme_get_setting('omega_header_second_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the last header region. This number should be less than or equal to the container width defined above.'),
         );
@@ -301,51 +301,51 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#suffix' => '</div>',
           '#description' => t('Adding suffix grids to this element will add padding to the right side of the element, creating spacing between the next element.'),
         );
-        $form['omega_container']['omega_regions']['preface']['omega_preface_middle_width'] = array(
+        $form['omega_container']['omega_regions']['preface']['omega_preface_second_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Preface Middle'),
-          '#default_value' => theme_get_setting('omega_preface_middle_width'),
+          '#title' => t('Contextual Width for Preface Second'),
+          '#default_value' => theme_get_setting('omega_preface_second_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the middle preface region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_container']['omega_regions']['preface']['omega_preface_middle_prefix'] = array(
+        $form['omega_container']['omega_regions']['preface']['omega_preface_second_prefix'] = array(
           '#type' => 'select',
-          '#title' => t('Prefix Spacing for Preface Middle'),
-          '#default_value' => theme_get_setting('omega_preface_middle_prefix'),
+          '#title' => t('Prefix Spacing for Preface Second'),
+          '#default_value' => theme_get_setting('omega_preface_second_prefix'),
           '#options' => $spacing,
           '#prefix' => '<div class="prefix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding prefix grids to this element will add padding to the left side of the element, creating spacing between the previous element.'),
         );
-         $form['omega_container']['omega_regions']['preface']['omega_preface_middle_suffix'] = array(
+         $form['omega_container']['omega_regions']['preface']['omega_preface_second_suffix'] = array(
           '#type' => 'select',
-          '#title' => t('Suffix Spacing for Preface Middle'),
-          '#default_value' => theme_get_setting('omega_preface_middle_suffix'),
+          '#title' => t('Suffix Spacing for Preface Second'),
+          '#default_value' => theme_get_setting('omega_preface_second_suffix'),
           '#options' => $spacing,
           '#prefix' => '<div class="suffix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding suffix grids to this element will add padding to the right side of the element, creating spacing between the next element.'),
         );
-        $form['omega_container']['omega_regions']['preface']['omega_preface_last_width'] = array(
+        $form['omega_container']['omega_regions']['preface']['omega_preface_third_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Preface Last'),
-          '#default_value' => theme_get_setting('omega_preface_last_width'),
+          '#title' => t('Contextual Width for Preface Third'),
+          '#default_value' => theme_get_setting('omega_preface_third_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the last preface region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_container']['omega_regions']['preface']['omega_preface_last_prefix'] = array(
+        $form['omega_container']['omega_regions']['preface']['omega_preface_third_prefix'] = array(
           '#type' => 'select',
-          '#title' => t('Prefix Spacing for Preface Last'),
-          '#default_value' => theme_get_setting('omega_preface_last_prefix'),
+          '#title' => t('Prefix Spacing for Preface Third'),
+          '#default_value' => theme_get_setting('omega_preface_third_prefix'),
           '#options' => $spacing,
           '#prefix' => '<div class="prefix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding prefix grids to this element will add padding to the left side of the element, creating spacing between the previous element.'),
         );
-         $form['omega_container']['omega_regions']['preface']['omega_preface_last_suffix'] = array(
+         $form['omega_container']['omega_regions']['preface']['omega_preface_third_suffix'] = array(
           '#type' => 'select',
-          '#title' => t('Suffix Spacing for Preface Last'),
-          '#default_value' => theme_get_setting('omega_preface_last_suffix'),
+          '#title' => t('Suffix Spacing for Preface Third'),
+          '#default_value' => theme_get_setting('omega_preface_third_suffix'),
           '#options' => $spacing,
           '#prefix' => '<div class="suffix_config">',
           '#suffix' => '</div>',
@@ -429,101 +429,101 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#options' => $containers,
           '#description' => t('Container Grid width for the postscript regions.'),
         );
-        $form['omega_container']['omega_regions']['postscript']['omega_postscript_one_width'] = array(
+        $form['omega_container']['omega_regions']['postscript']['omega_postscript_first_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Postscript 1'),
-          '#default_value' => theme_get_setting('omega_postscript_one_width'),
+          '#title' => t('Contextual Width for Postscript First'),
+          '#default_value' => theme_get_setting('omega_postscript_first_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the first postscript region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_container']['omega_regions']['postscript']['omega_postscript_one_prefix'] = array(
+        $form['omega_container']['omega_regions']['postscript']['omega_postscript_first_prefix'] = array(
           '#type' => 'select',
-          '#title' => t('Prefix Spacing for Postscript 1'),
-          '#default_value' => theme_get_setting('omega_postscript_one_prefix'),
+          '#title' => t('Prefix Spacing for Postscript First'),
+          '#default_value' => theme_get_setting('omega_postscript_first_prefix'),
           '#options' => $spacing,
           '#prefix' => '<div class="prefix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding prefix grids to this element will add padding to the left side of the element, creating spacing between the previous element.'),
         );
-         $form['omega_container']['omega_regions']['postscript']['omega_postscript_one_suffix'] = array(
+         $form['omega_container']['omega_regions']['postscript']['omega_postscript_first_suffix'] = array(
           '#type' => 'select',
-          '#title' => t('Suffix Spacing for Postscript 1'),
-          '#default_value' => theme_get_setting('omega_postscript_one_suffix'),
+          '#title' => t('Suffix Spacing for Postscript First'),
+          '#default_value' => theme_get_setting('omega_postscript_first_suffix'),
           '#options' => $spacing,
           '#prefix' => '<div class="suffix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding suffix grids to this element will add padding to the right side of the element, creating spacing between the next element.'),
         );
-        $form['omega_container']['omega_regions']['postscript']['omega_postscript_two_width'] = array(
+        $form['omega_container']['omega_regions']['postscript']['omega_postscript_second_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Postscript 2'),
-          '#default_value' => theme_get_setting('omega_postscript_two_width'),
+          '#title' => t('Contextual Width for Postscript Second'),
+          '#default_value' => theme_get_setting('omega_postscript_second_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the second postscript region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_container']['omega_regions']['postscript']['omega_postscript_two_prefix'] = array(
+        $form['omega_container']['omega_regions']['postscript']['omega_postscript_second_prefix'] = array(
           '#type' => 'select',
-          '#title' => t('Prefix Spacing for Postscript 2'),
-          '#default_value' => theme_get_setting('omega_postscript_two_prefix'),
+          '#title' => t('Prefix Spacing for Postscript Second'),
+          '#default_value' => theme_get_setting('omega_postscript_second_prefix'),
           '#options' => $spacing,
           '#prefix' => '<div class="prefix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding prefix grids to this element will add padding to the left side of the element, creating spacing between the previous element.'),
         );
-         $form['omega_container']['omega_regions']['postscript']['omega_postscript_two_suffix'] = array(
+         $form['omega_container']['omega_regions']['postscript']['omega_postscript_second_suffix'] = array(
           '#type' => 'select',
-          '#title' => t('Suffix Spacing for Postscript 2'),
-          '#default_value' => theme_get_setting('omega_postscript_two_suffix'),
+          '#title' => t('Suffix Spacing for Postscript Second'),
+          '#default_value' => theme_get_setting('omega_postscript_second_suffix'),
           '#options' => $spacing,
           '#prefix' => '<div class="suffix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding suffix grids to this element will add padding to the right side of the element, creating spacing between the next element.'),
         );
-        $form['omega_container']['omega_regions']['postscript']['omega_postscript_three_width'] = array(
+        $form['omega_container']['omega_regions']['postscript']['omega_postscript_third_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Postscript 3'),
-          '#default_value' => theme_get_setting('omega_postscript_three_width'),
+          '#title' => t('Contextual Width for Postscript Third'),
+          '#default_value' => theme_get_setting('omega_postscript_third_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the third postscript region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_container']['omega_regions']['postscript']['omega_postscript_three_prefix'] = array(
+        $form['omega_container']['omega_regions']['postscript']['omega_postscript_third_prefix'] = array(
           '#type' => 'select',
-          '#title' => t('Prefix Spacing for Postscript 3'),
-          '#default_value' => theme_get_setting('omega_postscript_three_prefix'),
+          '#title' => t('Prefix Spacing for Postscript Third'),
+          '#default_value' => theme_get_setting('omega_postscript_third_prefix'),
           '#options' => $spacing,
           '#prefix' => '<div class="prefix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding prefix grids to this element will add padding to the left side of the element, creating spacing between the previous element.'),
         );
-         $form['omega_container']['omega_regions']['postscript']['omega_postscript_three_suffix'] = array(
+         $form['omega_container']['omega_regions']['postscript']['omega_postscript_third_suffix'] = array(
           '#type' => 'select',
-          '#title' => t('Suffix Spacing for Postscript 3'),
-          '#default_value' => theme_get_setting('omega_postscript_three_suffix'),
+          '#title' => t('Suffix Spacing for Postscript Third'),
+          '#default_value' => theme_get_setting('omega_postscript_third_suffix'),
           '#options' => $spacing,
           '#prefix' => '<div class="suffix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding suffix grids to this element will add padding to the right side of the element, creating spacing between the next element.'),
         );
-        $form['omega_container']['omega_regions']['postscript']['omega_postscript_four_width'] = array(
+        $form['omega_container']['omega_regions']['postscript']['omega_postscript_fourth_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Postscript 4'),
-          '#default_value' => theme_get_setting('omega_postscript_four_width'),
+          '#title' => t('Contextual Width for Postscript Fourth'),
+          '#default_value' => theme_get_setting('omega_postscript_fourth_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the fourth postscript region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_container']['omega_regions']['postscript']['omega_postscript_four_prefix'] = array(
+        $form['omega_container']['omega_regions']['postscript']['omega_postscript_fourth_prefix'] = array(
           '#type' => 'select',
-          '#title' => t('Prefix Spacing for Postscript 4'),
-          '#default_value' => theme_get_setting('omega_postscript_four_prefix'),
+          '#title' => t('Prefix Spacing for Postscript Fourth'),
+          '#default_value' => theme_get_setting('omega_postscript_fourth_prefix'),
           '#options' => $spacing,
           '#prefix' => '<div class="prefix_config">',
           '#suffix' => '</div>',
           '#description' => t('Adding prefix grids to this element will add padding to the left side of the element, creating spacing between the previous element.'),
         );
-         $form['omega_container']['omega_regions']['postscript']['omega_postscript_four_suffix'] = array(
+         $form['omega_container']['omega_regions']['postscript']['omega_postscript_fourth_suffix'] = array(
           '#type' => 'select',
-          '#title' => t('Suffix Spacing for Postscript 4'),
-          '#default_value' => theme_get_setting('omega_postscript_four_suffix'),
+          '#title' => t('Suffix Spacing for Postscript Fourth'),
+          '#default_value' => theme_get_setting('omega_postscript_fourth_suffix'),
           '#options' => $spacing,
           '#prefix' => '<div class="suffix_config">',
           '#suffix' => '</div>',
@@ -551,10 +551,10 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#options' => $grids,
           '#description' => t('Grid width of the first footer region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_container']['omega_regions']['footer']['omega_footer_last_width'] = array(
+        $form['omega_container']['omega_regions']['footer']['omega_footer_second_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Footer Last'),
-          '#default_value' => theme_get_setting('omega_footer_last_width'),
+          '#title' => t('Contextual Width for Footer Second'),
+          '#default_value' => theme_get_setting('omega_footer_second_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the last footer region. This number should be less than or equal to the container width defined above.'),
         );
