@@ -355,7 +355,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       $form['omega_container']['omega_regions']['main'] = array(
         '#type' => 'fieldset',
         '#title' => t('Content Layout Configuration'),
-        '#description' => t('<p>Grid configurations for Content Zone, Sidebar First and Sidebar Last. The "main" regions here are the only true "smart" zone that will use the maximum container width to determine the appropriate width for elements in this zone based on which regions are displayed on the current page.</p><p>If your container grid is 16 grids, and you have a configuration of 4-8-4, which would imply two sidebars and the content zone, if all regions are present, this layout of 4-8-4 will be respected. However, if on a page, the first sidebar is empty of content, the content zone would then incorporate those leftover 4 grids, so your layout would be 12-4.'),
+        '#description' => t('<p>Grid configurations for Content Zone, Sidebar First and Sidebar Second. The "main" regions here are the only true "smart" zone that will use the maximum container width to determine the appropriate width for elements in this zone based on which regions are displayed on the current page.</p><p>If your container grid is 16 grids, and you have a configuration of 4-8-4, which would imply two sidebars and the content zone, if all regions are present, this layout of 4-8-4 will be respected. However, if on a page, the first sidebar is empty of content, the content zone would then incorporate those leftover 4 grids, so your layout would be 12-4.'),
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
       );
@@ -365,9 +365,9 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#title'         => t('Content Zone Layout'),
           '#default_value' => theme_get_setting('omega_content_layout'),
           '#options'       => array(
-                               'first_content_last' => t('Sidebar First - Content - Sidebar Last'),
-                               'content_first_last' => t('Content - Sidebar First - Sidebar Last'),
-                               'first_last_content' => t('Sidebar First - Sidebar Last - Content'),
+                               'first_content_last' => t('Sidebar First - Content - Sidebar Second'),
+                               'content_first_last' => t('Content - Sidebar First - Sidebar Second'),
+                               'first_last_content' => t('Sidebar First - Sidebar Second - Content'),
                               ),
         );
         $form['omega_container']['omega_regions']['main']['omega_content_container_width'] = array(
@@ -382,19 +382,19 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#title' => t('Contextual Width for Sidebar First'),
           '#default_value' => theme_get_setting('omega_sidebar_first_width'),
           '#options' => $grids,
-          '#description' => t('This number, combined with the Content Main and Sidebar Last determine the share of your grid for each element.'),
+          '#description' => t('This number, combined with the Content Main and Sidebar Second determine the share of your grid for each element.'),
         );
         $form['omega_container']['omega_regions']['main']['omega_content_main_width'] = array(
           '#type' => 'select',
           '#title' => t('Contextual Width for Main Content Region'),
           '#default_value' => theme_get_setting('omega_content_main_width'),
           '#options' => $grids,
-          '#description' => t('This number, combined with the Sidebar First and Sidebar Last determine the share of your grid for each element.'),
+          '#description' => t('This number, combined with the Sidebar First and Sidebar Second determine the share of your grid for each element.'),
         );
-        $form['omega_container']['omega_regions']['main']['omega_sidebar_last_width'] = array(
+        $form['omega_container']['omega_regions']['main']['omega_sidebar_second_width'] = array(
           '#type' => 'select',
-          '#title' => t('Contextual Width for Sidebar Last'),
-          '#default_value' => theme_get_setting('omega_sidebar_last_width'),
+          '#title' => t('Contextual Width for Sidebar Second'),
+          '#default_value' => theme_get_setting('omega_sidebar_second_width'),
           '#options' => $grids,
           '#description' => t('This number, combined with the Sidebar First and Main Content determine the share of your grid for each element.'),
         );
@@ -403,7 +403,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
         $form['omega_container']['omega_regions']['main']['sidebar_combine'] = array(
           '#type' => 'radios',
           '#title' => t('Combine Sidebars'),
-          '#description' => t('This is useful for administrative pages, and in certain contexts. You may choose to in certain areas, combine the <strong>$sidebar_first</strong> and <strong>$sidebar_last</strong> to create one sidebar from the content of both.'),
+          '#description' => t('This is useful for administrative pages, and in certain contexts. You may choose to in certain areas, combine the <strong>$sidebar_first</strong> and <strong>$sidebar_second</strong> to create one sidebar from the content of both.'),
           '#options' => $options,
           '#default_value' => theme_get_setting('sidebar_combine'),
         );

@@ -7,8 +7,8 @@ global $theme_key;
  * layouts based on context of the page. My main purpose for this is in the admin 
  * section to help widen up the layout if two sidebars are being used.
  * 
- * All it does is combine the sidebar_first and sidebar_last into sidebar_first and 
- * unset the sidebar_last variable. This resets the layout to act like only one 
+ * All it does is combine the sidebar_first and sidebar_second into sidebar_first and 
+ * unset the sidebar_second variable. This resets the layout to act like only one 
  * sidebar is present in certain paths
  */
 if (theme_get_setting('sidebar_contain_pages')) {
@@ -20,8 +20,8 @@ if (theme_get_setting('sidebar_contain_pages')) {
   }
   $page_match = !(theme_get_setting('sidebar_combine') xor $page_match);
   if ($page_match && substr($_GET['q'], 0, 17) != 'admin/build/block') {
-    $vars['page']['sidebar_first'] = $vars['page']['sidebar_first']. $vars['page']['sidebar_last'];
-    unset($vars['page']['sidebar_last']); 
+    $vars['page']['sidebar_first'] = $vars['page']['sidebar_first']. $vars['page']['sidebar_second'];
+    unset($vars['page']['sidebar_second']); 
   }
 }
 
@@ -93,7 +93,7 @@ $vars = static_region_builder($preface_regions, theme_get_setting('preface_wrapp
 
 /**
  * Body Region
- * Configuration of $sidebar_first, $sidebar_last, and the main content zone
+ * Configuration of $sidebar_first, $sidebar_second, and the main content zone
  * 
  * This section needs MUCH cleanup as I know I can condense the switch
  * statement to be much shorter than completely redeclaring each zone
@@ -113,12 +113,12 @@ $content_regions = array(
     // we need to tell the "related" zones so that we can determine widths for this primary zone
     'related' => array(
       'sidebar_first' => array('width' => theme_get_setting('omega_sidebar_first_width')), 
-      'sidebar_last' => array('width' => theme_get_setting('omega_sidebar_last_width')),
+      'sidebar_second' => array('width' => theme_get_setting('omega_sidebar_second_width')),
     ),
     'push' => array(
       'width' => '',
       'conditions' => array(
-        // 'sidebar_last',
+        // 'sidebar_second',
       ),
     ),
     'pull' => array(
@@ -137,7 +137,7 @@ $content_regions = array(
         // this just needs the region name it depends on in this primary array
         // must be a region in this group though, not a region outside the 
         // $content_regions area.
-        // 'sidebar_last',
+        // 'sidebar_second',
       ),
     ),
     'pull' => array(
@@ -148,13 +148,13 @@ $content_regions = array(
       ),
     ),
   ),
-  'sidebar_last' => array(
-    'data' => $vars['page']['sidebar_last'],
-    'width' => theme_get_setting('omega_sidebar_last_width'),
+  'sidebar_second' => array(
+    'data' => $vars['page']['sidebar_second'],
+    'width' => theme_get_setting('omega_sidebar_second_width'),
     'push' => array(
       'width' => '',
       'conditions' => array(
-        // 'sidebar_last',
+        // 'sidebar_second',
       ),
     ),
     'pull' => array(
@@ -173,7 +173,7 @@ $content_regions = array(
 /*
 if (!$vars['page']['show_blocks']) {
 	unset($vars['page']['sidebar_first']);
-	unset($vars['page']['sidebar_last']);
+	unset($vars['page']['sidebar_second']);
 }
 */
 
@@ -188,9 +188,9 @@ switch(theme_get_setting('omega_content_layout')){
   // there is content available in that region or not. If there wasn't content in it, the 
   // primary content region would swallow up that extra grid space anyway.
   
-  // if sidebar_last isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
+  // if sidebar_second isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
   // otherwise,
-  $sl_pull = $vars['page']['sidebar_last'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_last_width');
+  $sl_pull = $vars['page']['sidebar_second'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_second_width');
   
   // let's assign some new data to our $content_regions array to assing pull classes
   
@@ -198,9 +198,9 @@ switch(theme_get_setting('omega_content_layout')){
   $content_regions['sidebar_first']['pull']['width'] = $sl_pull;
   $content_regions['sidebar_first']['pull']['conditions'] = array();
   $content_regions['sidebar_first']['push'] = FALSE;
-  // sidebar_last doesn't move in this layout
-  $content_regions['sidebar_last']['pull'] = FALSE;
-  $content_regions['sidebar_last']['push'] = FALSE;
+  // sidebar_second doesn't move in this layout
+  $content_regions['sidebar_second']['pull'] = FALSE;
+  $content_regions['sidebar_second']['push'] = FALSE;
   // main_content will only be pushed in this layout
   $content_regions['main_content']['pull'] = FALSE;
   $content_regions['main_content']['push'] = array(
@@ -228,9 +228,9 @@ switch(theme_get_setting('omega_content_layout')){
   // sidebar_first doesn't move in this layout
   $content_regions['sidebar_first']['pull'] = FALSE;
   $content_regions['sidebar_first']['push'] = FALSE;
-  // sidebar_last doesn't move in this layout
-  $content_regions['sidebar_last']['pull'] = FALSE;
-  $content_regions['sidebar_last']['push'] = FALSE;
+  // sidebar_second doesn't move in this layout
+  $content_regions['sidebar_second']['pull'] = FALSE;
+  $content_regions['sidebar_second']['push'] = FALSE;
   // main_content doesn't move in this layout
   $content_regions['main_content']['pull'] = FALSE;
   $content_regions['main_content']['push'] = FALSE;
@@ -241,21 +241,21 @@ switch(theme_get_setting('omega_content_layout')){
 
   // FIRST - LAST - CONTENT
   case 'first_last_content':
-  // if sidebar_last isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
+  // if sidebar_second isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
   // otherwise,
-  $sl_pull = $vars['page']['sidebar_last'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_last_width');
+  $sl_pull = $vars['page']['sidebar_second'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_second_width');
   $sr_pull = $vars['page']['sidebar_first'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_first_width');
-  $sc_max_push = theme_get_setting('omega_sidebar_first_width') + theme_get_setting('omega_sidebar_last_width');
+  $sc_max_push = theme_get_setting('omega_sidebar_first_width') + theme_get_setting('omega_sidebar_second_width');
   // let's assign some new data to our $content_regions array to assing pull classes
   
   // sidebar_first will be pulled an exact amount assuming it exists in this layout
   $content_regions['sidebar_first']['pull']['width'] = $sl_pull;
   $content_regions['sidebar_first']['pull']['conditions'] = array();
   $content_regions['sidebar_first']['push'] = FALSE;
-  // sidebar_last doesn't move in this layout
-  $content_regions['sidebar_last']['pull']['width'] = $sr_pull;
-  $content_regions['sidebar_last']['pull']['conditions'] = array();
-  $content_regions['sidebar_last']['push'] = FALSE;
+  // sidebar_second doesn't move in this layout
+  $content_regions['sidebar_second']['pull']['width'] = $sr_pull;
+  $content_regions['sidebar_second']['pull']['conditions'] = array();
+  $content_regions['sidebar_second']['push'] = FALSE;
   // main_content will only be pushed in this layout
   $content_regions['main_content']['pull'] = FALSE;
   $content_regions['main_content']['push'] = array(
@@ -267,11 +267,11 @@ switch(theme_get_setting('omega_content_layout')){
         'type' => FALSE,
         'value' => theme_get_setting('omega_sidebar_first_width'),
       ),
-      'sidebar_last' => array(
+      'sidebar_second' => array(
         // type should either be TRUE or FALSE
         // false value here will use a ! operator in front of the variable in the ns() function
         'type' => FALSE,
-        'value' => theme_get_setting('omega_sidebar_last_width'),
+        'value' => theme_get_setting('omega_sidebar_second_width'),
       ),
     ),
   );
