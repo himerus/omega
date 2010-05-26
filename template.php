@@ -256,7 +256,7 @@ function _omega_dynamic_zones($width, $conditions, $vars) {
 }
 function _omega_dynamic_widths($width, $conditions, $vars) {
   foreach($conditions AS $variable => $zone) {
-    if(($vars['page'][$variable])) {
+    if((isset($vars['page'][$variable]))) {
       $width = $width - $zone['width'];
     }
   }

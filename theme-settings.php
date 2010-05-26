@@ -413,7 +413,57 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#default_value' => theme_get_setting('sidebar_contain_pages'),
           '#description' => $description,
         );
-
+        $form['omega_container']['omega_regions']['main']['front'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Content Layout Configuration for Front Page'),
+        '#description' => t('<p>You have the ability to proide alternate setings here for the content zone on the front page.'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+      $form['omega_container']['omega_regions']['main']['front']['omega_content_front_override'] = array(
+        '#type'          => 'checkbox',
+        '#title'         => t('Override settings for content zones on home page.'),
+        '#default_value' => theme_get_setting('omega_content_front_override'),
+      );
+      $form['omega_container']['omega_regions']['main']['front']['omega_front_content_layout'] = array(
+          '#type'          => 'radios',
+          '#description'   => t('You may arrange the order and size of your sidebars and main content zones here.'),
+          '#title'         => t('Content Zone Layout'),
+          '#default_value' => theme_get_setting('omega_front_content_layout'),
+          '#options'       => array(
+                               'first_content_last' => t('Sidebar First - Content - Sidebar Second'),
+                               'content_first_last' => t('Content - Sidebar First - Sidebar Second'),
+                               'first_last_content' => t('Sidebar First - Sidebar Second - Content'),
+                              ),
+        );
+      $form['omega_container']['omega_regions']['main']['front']['omega_front_content_container_width'] = array(
+          '#type' => 'select',
+          '#title' => t('Container width for content zone'),
+          '#default_value' => theme_get_setting('omega_front_content_container_width'),
+          '#options' => $containers,
+          '#description' => t('Container Grid width for the main content regions. This includes the content_top, content_bottom, and primary content zone.'),
+        );
+        $form['omega_container']['omega_regions']['main']['front']['omega_front_sidebar_first_width'] = array(
+          '#type' => 'select',
+          '#title' => t('Contextual Width for Sidebar First'),
+          '#default_value' => theme_get_setting('omega_front_sidebar_first_width'),
+          '#options' => $grids,
+          '#description' => t('This number, combined with the Content Main and Sidebar Second determine the share of your grid for each element.'),
+        );
+        $form['omega_container']['omega_regions']['main']['front']['omega_front_content_main_width'] = array(
+          '#type' => 'select',
+          '#title' => t('Contextual Width for Main Content Region'),
+          '#default_value' => theme_get_setting('omega_front_content_main_width'),
+          '#options' => $grids,
+          '#description' => t('This number, combined with the Sidebar First and Sidebar Second determine the share of your grid for each element.'),
+        );
+        $form['omega_container']['omega_regions']['main']['front']['omega_front_sidebar_second_width'] = array(
+          '#type' => 'select',
+          '#title' => t('Contextual Width for Sidebar Second'),
+          '#default_value' => theme_get_setting('omega_front_sidebar_second_width'),
+          '#options' => $grids,
+          '#description' => t('This number, combined with the Sidebar First and Main Content determine the share of your grid for each element.'),
+        );
       // Postscript Blocks
       $form['omega_container']['omega_regions']['postscript'] = array(
         '#type' => 'fieldset',

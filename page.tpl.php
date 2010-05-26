@@ -109,9 +109,8 @@
     
     <div id="main-content-container" class="container-<?php print $content_container_width; ?> clearfix">
       <div id="main-wrapper" class="column <?php print $main_content_classes; ?>">
-        
-        <?php if ($tabs): ?>
-          <div id="content-tabs" class=""><?php print $tabs; ?></div><!-- /#content-tabs -->
+        <?php if (isset($tabs)): ?>
+          <div id="content-tabs" class=""><?php print render($tabs); ?></div><!-- /#content-tabs -->
         <?php endif; ?>
     
         <?php if ($title): ?>
@@ -125,13 +124,13 @@
         
       </div><!-- /#main-wrapper -->
     
-      <?php if ($page['sidebar_first']): ?>
+      <?php if (isset($page['sidebar_first'])): ?>
         <div id="sidebar-first" class="column sidebar region <?php print $sidebar_first_classes; ?>">
           <?php print render($page['sidebar_first']); ?>
         </div><!-- /#sidebar-first -->
       <?php endif; ?>
     
-      <?php if ($page['sidebar_second']): ?>
+      <?php if (isset($page['sidebar_second'])): ?>
         <div id="sidebar-last" class="column sidebar region <?php print $sidebar_second_classes; ?>">
           <?php print render($page['sidebar_second']); ?>
         </div><!-- /#sidebar-last -->

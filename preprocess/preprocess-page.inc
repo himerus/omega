@@ -20,11 +20,14 @@ if (theme_get_setting('sidebar_contain_pages')) {
   }
   $page_match = !(theme_get_setting('sidebar_combine') xor $page_match);
   if ($page_match && substr($_GET['q'], 0, 17) != 'admin/build/block') {
-    $vars['page']['sidebar_first'] = $vars['page']['sidebar_first']. $vars['page']['sidebar_second'];
+  	unset($vars['page']['sidebar_second']['#sorted']);
+  	unset($vars['page']['sidebar_second']['#theme_wrappers']);
+  	unset($vars['page']['sidebar_second']['#region']);
+  	
+  	$vars['page']['sidebar_first'] = array_merge($vars['page']['sidebar_first'], $vars['page']['sidebar_second']);
     unset($vars['page']['sidebar_second']); 
   }
 }
-
 /**
  * Header Region
  * Depends on the width of the logo and title region, which is 4 grids by default.
@@ -101,7 +104,7 @@ $vars = static_region_builder($preface_regions, theme_get_setting('preface_wrapp
  * 
  * @todo cleanup switch statement
  */
-$vars['content_container_width'] = theme_get_setting('omega_content_container_width');
+$vars['content_container_width'] = theme_get_setting('omega_content_front_override') && $vars['is_front'] ? theme_get_setting('omega_front_content_container_width') : theme_get_setting('omega_content_container_width');
 
 $content_regions = array(
   'main_content' => array(
@@ -111,9 +114,9 @@ $content_regions = array(
     // should other regions be left out.
     'primary' => TRUE,
     // we need to tell the "related" zones so that we can determine widths for this primary zone
-    'related' => array(
-      'sidebar_first' => array('width' => theme_get_setting('omega_sidebar_first_width')), 
-      'sidebar_second' => array('width' => theme_get_setting('omega_sidebar_second_width')),
+    'related' => array( 
+      'sidebar_first' => array('width' => theme_get_setting('omega_content_front_override') && $vars['is_front'] ? theme_get_setting('omega_front_sidebar_first_width') : theme_get_setting('omega_sidebar_first_width')), 
+      'sidebar_second' => array('width' => theme_get_setting('omega_content_front_override') && $vars['is_front'] ? theme_get_setting('omega_front_sidebar_second_width') : theme_get_setting('omega_sidebar_second_width')),
     ),
     'push' => array(
       'width' => '',
@@ -129,8 +132,8 @@ $content_regions = array(
     ),
   ),
   'sidebar_first' => array(
-    'data' => $vars['page']['sidebar_first'],
-    'width' => theme_get_setting('omega_sidebar_first_width'),
+    'data' => isset($vars['page']['sidebar_first']) ? $vars['page']['sidebar_first'] : '',
+    'width' => theme_get_setting('omega_content_front_override') && $vars['is_front'] ? theme_get_setting('omega_front_sidebar_first_width') : theme_get_setting('omega_sidebar_first_width'),
     'push' => array(
       'width' => '',
       'conditions' => array(
@@ -149,8 +152,8 @@ $content_regions = array(
     ),
   ),
   'sidebar_second' => array(
-    'data' => $vars['page']['sidebar_second'],
-    'width' => theme_get_setting('omega_sidebar_second_width'),
+    'data' => isset($vars['page']['sidebar_second']) ? $vars['page']['sidebar_second'] : '',
+    'width' => theme_get_setting('omega_content_front_override') && $vars['is_front'] ? theme_get_setting('omega_front_sidebar_second_width') : theme_get_setting('omega_sidebar_second_width'),
     'push' => array(
       'width' => '',
       'conditions' => array(
@@ -178,7 +181,13 @@ if (!$vars['page']['show_blocks']) {
 */
 
 // now we will be switching between our primary content layout types.
-switch(theme_get_setting('omega_content_layout')){
+if(theme_get_setting('omega_content_front_override') && $vars['is_front']) {
+    $layout = theme_get_setting('omega_front_content_layout');
+  }
+  else {
+    $layout = theme_get_setting('omega_content_layout');
+  }
+switch($layout){
   default:
   case 'first_content_last':
   // FIRST - CONTENT - LAST
@@ -190,8 +199,12 @@ switch(theme_get_setting('omega_content_layout')){
   
   // if sidebar_second isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
   // otherwise,
-  $sl_pull = $vars['page']['sidebar_second'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_second_width');
-  
+  if(theme_get_setting('omega_content_front_override') && $is_front) {
+    $sl_pull = $vars['page']['sidebar_second'] ? theme_get_setting('omega_front_content_main_width') : theme_get_setting('omega_front_content_main_width') + theme_get_setting('omega_front_sidebar_second_width');
+  }
+  else {
+  	$sl_pull = $vars['page']['sidebar_second'] ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_second_width');
+  }
   // let's assign some new data to our $content_regions array to assing pull classes
   
   // sidebar_first will be pulled an exact amount assuming it exists in this layout
