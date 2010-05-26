@@ -109,7 +109,7 @@
     
     <div id="main-content-container" class="container-<?php print $content_container_width; ?> clearfix">
       <div id="main-wrapper" class="column <?php print $main_content_classes; ?>">
-        <?php if (isset($tabs)): ?>
+        <?php if (isset($tabs) && count($tabs) > 0): ?>
           <div id="content-tabs" class=""><?php print render($tabs); ?></div><!-- /#content-tabs -->
         <?php endif; ?>
     
