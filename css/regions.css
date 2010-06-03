@@ -21,7 +21,10 @@
  */ 
  
 /** ################# 1.) Main Wrapper Regions ####################### */
-
+body, html {
+	margin: 0;
+	padding: 0;
+}
 #page {
 	
 }
@@ -29,13 +32,11 @@
 /** ################# 2.) Navigation & Header Regions ####################### */
 
 #site-header {
-  margin-bottom: 0;
-  margin-top: 10px;
+  
 }
 
 #internal-nav {
-	margin-bottom: 0;
-  margin-top: 20px;
+	
 }
 
 #slogan-bcrumb {
@@ -51,17 +52,17 @@
 }
 
 #header-first {
-	margin-top: 0;
+	
 }
 
 #header-last {
-	margin-top: 0;
+	
 }
 
 /** ################# 3.) Preface Regions ####################### */
 
 #preface-wrapper {
-	margin-top: 20px;
+	
 }
 
 #preface-first {
@@ -78,7 +79,7 @@
 
 /** ################# 4.) Main Content Regions ####################### */
 #main-content-container {
-  margin-top: 20px;	
+  
 }
 #main-wrapper {
 	
@@ -88,20 +89,12 @@
   
 }
 
-#content-top {
-	margin-bottom: 20px;
-}
-
 #content-tabs {
 	
 }
 
 #main-content {
-	margin-bottom: 20px;
-}
-
-#content-bottom {
-	margin-bottom: 20px;
+	
 }
 
 /** ################# 5.) Sidebar Regions ####################### */
@@ -117,7 +110,7 @@
 /** ################# 6.) Postscript Regions ####################### */
 
 #postscript-wrapper {
-  margin-bottom: 20px;
+  
 }
 
 #postscript-one {
@@ -144,8 +137,4 @@
 
 #footer-last {
   
-}
-
-#footer-first, #footer-last {
-	margin-bottom: 0;
 }

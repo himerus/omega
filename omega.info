@@ -13,6 +13,7 @@ stylesheets[all][] = css/defaults.css
 stylesheets[all][] = css/custom.css
 
 scripts[] = js/omega.js
+;scripts[] = js/
 
 regions[sidebar_first] = sidebar first
 regions[sidebar_second] = sidebar second
