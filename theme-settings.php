@@ -74,7 +74,6 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#options' => array(
                           'title_slogan' => t('Site title | Site slogan'),
                           'slogan_title' => t('Site slogan | Site title'),
-                          'title_mission' => t('Site title | Site mission'),
                           'custom' => t('Custom (below)'),
                         ),
         );
@@ -102,7 +101,6 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#options' => array(
                           'ptitle_slogan' => t('Page title | Site slogan'),
                           'ptitle_stitle' => t('Page title | Site title'),
-                          'ptitle_smission' => t('Page title | Site mission'),
                           'ptitle_custom' => t('Page title | Custom (below)'),
                           'custom' => t('Custom (below)'),
                         ),
