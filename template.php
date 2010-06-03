@@ -390,8 +390,9 @@ function omega_id_safe($string) {
  * @return
  *   A string containing the breadcrumb output.
  */
-/*
-function omega_breadcrumb($breadcrumb) {
+
+function omega_breadcrumb($variables) {
+	$breadcrumb = $variables['breadcrumb'];
   // Determine if we are to display the breadcrumb.
   $show_breadcrumb = theme_get_setting('omega_breadcrumb');
   if ($show_breadcrumb == 'yes' || $show_breadcrumb == 'admin' && arg(0) == 'admin') {
@@ -408,7 +409,7 @@ function omega_breadcrumb($breadcrumb) {
       $trailing_separator = $title = '';
       if (theme_get_setting('omega_breadcrumb_title')) {
         $trailing_separator = $breadcrumb_separator;
-        $title = menu_get_active_title();
+        $title = drupal_get_title();
       }
       elseif (theme_get_setting('omega_breadcrumb_trailing')) {
         $trailing_separator = $breadcrumb_separator;
@@ -419,7 +420,7 @@ function omega_breadcrumb($breadcrumb) {
   // Otherwise, return an empty string.
   return '';
 }
-*/
+
 /**
  * Create a string of attributes form a provided array.
  * 
