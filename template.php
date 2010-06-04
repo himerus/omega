@@ -170,53 +170,7 @@ function ns() {
   }
   return $output;
 }
-/**
- * NINESIXTY - This rearranges how the style sheets are included so the framework styles
- * are included first.
- *
- * Sub-themes can override the framework styles when it contains css files with
- * the same name as a framework style. This can be removed once Drupal supports
- * weighted styles.
- */
-function omega_css_reorder($css) {
-  global $theme_info, $base_theme_info;
 
-  // Dig into the framework .info data.
-  $framework = !empty($base_theme_info) ? $base_theme_info[0]->info : $theme_info->info;
-
-  // Pull framework styles from the themes .info file and place them above all stylesheets.
-  if (isset($framework['stylesheets'])) {
-    foreach ($framework['stylesheets'] as $media => $styles_from_960) {
-      // Setup framework group.
-      if (isset($css[$media])) {
-        $css[$media] = array_merge(array('framework' => array()), $css[$media]);
-      }
-      else {
-        $css[$media]['framework'] = array();
-      }
-      foreach ($styles_from_960 as $style_from_960) {
-        // Force framework styles to come first.
-        if (strpos($style_from_960, 'framework') !== FALSE) {
-          $framework_shift = $style_from_960;
-          $remove_styles = array($style_from_960);
-          // Handle styles that may be overridden from sub-themes.
-          foreach ($css[$media]['theme'] as $style_from_var => $preprocess) {
-            if ($style_from_960 != $style_from_var && basename($style_from_960) == basename($style_from_var)) {
-              $framework_shift = $style_from_var;
-              $remove_styles[] = $style_from_var;
-              break;
-            }
-          }
-          $css[$media]['framework'][$framework_shift] = TRUE;
-          foreach ($remove_styles as $remove_style) {
-            unset($css[$media]['theme'][$remove_style]);
-          }
-        }
-      }
-    }
-  }
-  return $css;
-}
 
 /**
  * The region_builder function will create the variables needed to create
@@ -320,41 +274,6 @@ function dynamic_region_builder($region_data, $container_width, $vars) {
  */
 function rfilter($vars) {
 	return count(array_filter($vars));
-}
-
-/**
- * OMEGA - A function to return the alpha and or omega classes based on context
- * This function is not currently being used.
- * @param $vars
- * @param $elements
- * @param $current
- * @param $alpha
- * @param $omega
- * @return classes
- */
-function ao($vars, $elements, $current, $alpha = FALSE, $omega = FALSE){
-  $classes = array();
-  $regions = array();
-  // let's get rid of empty elements first
-  foreach($elements AS $k => $r) {
-    if($vars[$r]) {
-      $regions[$k] = $r;
-    }
-  }
-  // now we do another fast loop since we emptied out any blank zones to determine what
-  // regions are alpha & omega
-  foreach($regions AS $k => $r) {
-    $classes[$r] = '';
-    if(!$alpha){
-      $alpha = TRUE;
-      $classes[$r] .= ' alpha';
-    }
-    if(!$omega && ($k == count($regions) - 1 || count($regions) == 1 )) {
-      $omega = TRUE;
-      $classes[$r] .= ' omega';
-    }
-  }
-  return $classes[$current];
 }
 
 /**

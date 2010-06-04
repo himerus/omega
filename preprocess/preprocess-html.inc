@@ -1,9 +1,39 @@
 <?php
-// NINESIXTY - Make sure framework styles are placed above all others.
-if(isset($vars['css'])) {
-  $vars['css_alt'] = omega_css_reorder($vars['css']);
-  $vars['styles'] = drupal_get_css($vars['css_alt']);
+// $Id$
+
+// grid debugging
+global $user;
+$debug_access = FALSE;
+$debug_roles = theme_get_setting('debug_grid_roles');
+if(!isset($user->roles[1])) {
+	// Check to see if $user has the appropriate role.
+	foreach($debug_roles AS $k => $v) {
+		if ($v && $user->roles[$k]) {
+		  // user has access to debug tools
+		  $debug_access = TRUE;
+		}
+	}
 }
+// if grid debug is ON, and user either has access by role, or is uid 1
+if(theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid == 1)) {
+	$debug_settings = array(
+    'grid_overlay_on' => theme_get_setting('debug_grid_toggle'),
+    'grid_overlay_state' => theme_get_setting('debug_grid_toggle_state'),
+	);
+	drupal_add_js($debug_settings, 'setting');
+	drupal_add_js(drupal_get_path('theme', 'omega') .'/js/debug.js', array('weight' => 1000, 'type' => 'file'));
+	drupal_add_css(drupal_get_path('theme', 'omega') .'/css/debug.css');
+}
+
+/**
+ * Allow the default text in the search box to be 100% configurable via backend theme settings
+ */
+$search_text_val = check_plain(theme_get_setting('omega_search_default_text')) ? check_plain(theme_get_setting('omega_search_default_text')) : 'search...';
+$search_text = array(
+  'default_search_text' => $search_text_val,
+);
+drupal_add_js($search_text, 'setting');
+
 // ACQUIA-MARINA
 // Set site title, slogan, mission, page title & separator (unless using Page Title module)
 if (!module_exists('page_title')) {

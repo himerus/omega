@@ -49,6 +49,20 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     );
 
     // Page titles
+      $form['omega_container']['omega_general']['search_settings'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Search Settings'),
+        '#description'   => t('You may configure search settings here.'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+        $form['omega_container']['omega_general']['search_settings']['omega_search_default_text'] = array(
+          '#type' => 'textfield',
+          '#title' => t('Custom Default Search Text'),
+          '#size' => 60,
+          '#default_value' => theme_get_setting('omega_search_default_text'),
+          '#description'   => t('Enter default value to use in search boxes.'),
+        );
       $form['omega_container']['omega_general']['page_format_titles'] = array(
         '#type' => 'fieldset',
         '#title' => t('Page titles'),
@@ -606,6 +620,32 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#options' => $grids,
           '#description' => t('Grid width of the last footer region. This number should be less than or equal to the container width defined above.'),
         );
+    // General Settings
+    $form['omega_container']['omega_admin'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Administrative Omega 960 Settings'),
+      '#description' => t('Configure options for administration and development.'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['omega_container']['omega_admin']['debug_grid_toggle'] = array(
+      '#type'          => 'checkbox',
+      '#title'         => t('Enable grid overlay/toggle for selected roles.'),
+      '#default_value' => theme_get_setting('debug_grid_toggle'),
+    );
+    $form['omega_container']['omega_admin']['debug_grid_toggle_state'] = array(
+      '#type'          => 'checkbox',
+      '#title'         => t('Turn on grid overlay on page load. (otherwise requires clicking to enable)'),
+      '#default_value' => theme_get_setting('debug_grid_toggle_state'),
+    );
+    $role_options = array_map('check_plain', user_roles());
+    unset($role_options[1]);
+    $form['omega_container']['omega_admin']['debug_grid_roles'] = array(
+      '#type'          => 'checkboxes',
+      '#title'         => t('Roles that may use the grid overlay/debugging tool. (User 1 Automatically has access.)'),
+      '#default_value' => theme_get_setting('debug_grid_roles'),
+      '#options'       => $role_options,
+    );
   // Return theme settings form
   return $form;
 }
