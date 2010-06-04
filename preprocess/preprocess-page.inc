@@ -256,12 +256,7 @@ switch($layout){
   $content_regions['main_content']['pull'] = FALSE;
   $content_regions['main_content']['push'] = FALSE;
   // calling the dynamic region builder function to position these elements
-	if(theme_get_setting('omega_content_front_override') && $vars['is_front']) {
-	  $vars = dynamic_region_builder($content_regions, theme_get_setting('omega_front_content_main_width'), $vars);
-	}
-	else {
-	  $vars = dynamic_region_builder($content_regions, theme_get_setting('omega_content_container_width'), $vars);
-	}
+
   break;
 
   // FIRST - LAST - CONTENT
@@ -385,11 +380,3 @@ if(isset($vars['logo_img'])) {
 if(isset($vars['site_name'])) {
   $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
 }
-//$vars['main_menu_links']      = theme('links', $vars['primary_links'], array('class' => 'links main-menu'));
-//$vars['secondary_menu_links'] = theme('links', $vars['secondary_links'], array('class' => 'links secondary-menu'));
-
-  
-
-
-
-
