@@ -1,0 +1,56 @@
+/* $Id$ */
+#omega-debug {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: #000;
+	color: #FFF;
+	padding: 5px 10px;
+}
+#omega-debug hr {
+	height: 1px;
+	border-top: 1px dashed #FFF;
+	background: none;
+}
+#omega-debug a {
+	display: block;
+	text-decoration: none;
+	color: #FFF;
+}
+body.show-grid .container-16 {
+  background-image: url(../i/debug/16_col.png);
+}
+body.show-grid .container-12 {
+  background-image: url(../i/debug/12_col.png);
+}
+body.show-grid .container-24 {
+  background-image: url(../i/debug/24_col.png);
+}
+
+body.show-grid .grid-1:hover,
+body.show-grid .grid-2:hover,
+body.show-grid .grid-3:hover,
+body.show-grid .grid-4:hover,
+body.show-grid .grid-5:hover,
+body.show-grid .grid-6:hover,
+body.show-grid .grid-7:hover,
+body.show-grid .grid-8:hover,
+body.show-grid .grid-9:hover,
+body.show-grid .grid-10:hover,
+body.show-grid .grid-11:hover,
+body.show-grid .grid-12:hover,
+body.show-grid .grid-13:hover,
+body.show-grid .grid-14:hover,
+body.show-grid .grid-15:hover,
+body.show-grid .grid-16:hover,
+body.show-grid .grid-17:hover,
+body.show-grid .grid-18:hover,
+body.show-grid .grid-19:hover,
+body.show-grid .grid-20:hover,
+body.show-grid .grid-21:hover,
+body.show-grid .grid-22:hover,
+body.show-grid .grid-23:hover,
+body.show-grid .grid-24:hover {
+  background-color: rgba(0, 115, 186, .2);
+  outline: 1px dashed #0073ba;
+}
