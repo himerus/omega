@@ -1,10 +1,17 @@
 //$Id$
 Drupal.grid_debug = function (context) {
+	// add toolbar items
+	
+	
+	if(Drupal.settings.fluid_grid == 'fluid') {
+		omega('body').addClass('fluid-grid');
+	}
 	// add an extra identifying class to body
 	omega('body').addClass('has-grid');
 	if(Drupal.settings.grid_overlay_state) {
 		// grid is on by default
-		omega('body').addClass('show-grid');
+		omega('body:not(.fluid-grid)').addClass('show-grid');
+		omega('body').addClass('grid-hover');
 		var debug_next_state = "Off";
 	}
 	else {
@@ -17,16 +24,16 @@ Drupal.grid_debug = function (context) {
 	omega('#omega-debug a').click(function(){
 		if(debug_next_state == "Off") {
 			omega('#omega-debug a').html('Turn Debug <strong>On</strong>');
-			omega('body').removeClass('show-grid');
+			omega('body:not(.fluid-grid)').removeClass('show-grid');
+			omega('body').removeClass('grid-hover');
 			debug_next_state = "On";
-			console.log('Overlay Turned Off...');
 			return false;
 		}
 		else {
 			omega('#omega-debug a').html('Turn Debug <strong>Off</strong>');
-			omega('body').addClass('show-grid');
+			omega('body:not(.fluid-grid)').addClass('show-grid');
+			omega('body').addClass('grid-hover');
 			debug_next_state = "Off";
-			console.log('Overlay Turned On...');
 			return false;
 		}	
 	});
@@ -34,7 +41,7 @@ Drupal.grid_debug = function (context) {
 	// show info on hovering region
 	omega('.has-grid .grid-1, .has-grid .grid-2, .has-grid .grid-3, .has-grid .grid-4, .has-grid .grid-5, .has-grid .grid-6, .has-grid .grid-7, .has-grid .grid-8, .has-grid .grid-9, .has-grid .grid-10, .has-grid .grid-11, .has-grid .grid-12, .has-grid .grid-13, .has-grid .grid-14, .has-grid .grid-15, .has-grid .grid-16, .has-grid .grid-17, .has-grid .grid-18, .has-grid .grid-19, .has-grid .grid-20, .has-grid .grid-21, .has-grid .grid-22, .has-grid .grid-23, .has-grid .grid-24')
 	.hover(function(){
-		if(omega(this).parents('body').hasClass('show-grid')) {
+		if(omega(this).parents('body').hasClass('grid-hover')) {
 			var grid_classes = '';
 			var i = 1;
 			var grid_size = 'undefined';
@@ -59,7 +66,7 @@ Drupal.grid_debug = function (context) {
 			//omega('#omega-debug-info').html(container_info);
 		}
 	}, function(){
-		if(omega(this).parents('body').hasClass('show-grid')) {
+		if(omega(this).parents('body').hasClass('grid-hover')) {
 			omega('#omega-debug-info').html('');
 		}
 	});
