@@ -406,3 +406,9 @@ table {
 #main-content ul.links li a {
   padding-left: 0;
 }
+#search-region {
+  text-align: right;
+}
+#search-region .form-submit {
+  display: none;
+}

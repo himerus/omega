@@ -1,7 +1,6 @@
 <?php
 // $Id$
-//drupal_add_js('misc/jquery.ui.accordion.min.js', array('weight' => JS_LIBRARY + 7));
-//drupal_add_js('/misc/jquery.ui.widget.min.js', array('weight' => 99, 'type' => 'file'));
+
 // fluid width option
 if(theme_get_setting('omega_fixed_fluid') == 'fluid') {
 	drupal_add_css(drupal_get_path('theme', 'omega') .'/css/960-fluid.css', array('weight' => 1000));

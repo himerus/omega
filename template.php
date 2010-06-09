@@ -85,40 +85,7 @@ function omega_process(&$vars, $hook) {
  * The default functionality can be found in preprocess/preprocess-page.inc
  */
 function omega_preprocess_page(&$vars) {
-  if (isset($vars['main_menu'])) {
-    $vars['primary_nav'] = theme('links__system_main_menu', array(
-      'links' => $vars['main_menu'],
-      'attributes' => array(
-        'class' => array('links', 'main-menu'),
-      ),
-      'heading' => array(
-        'text' => t('Main menu'),
-        'level' => 'h2',
-        'class' => array('element-invisible'),
-      )
-    ));
-  }
-  else {
-    $vars['primary_nav'] = FALSE;
-    drupal_set_message('<strong>$vars[main_menu]</strong> not present... WTF...', 'error');
-  }
-  if (isset($vars['secondary_menu'])) {
-    $vars['secondary_nav'] = theme('links__system_secondary_menu', array(
-      'links' => $vars['secondary_menu'],
-      'attributes' => array(
-        'class' => array('links', 'secondary-menu'),
-      ),
-      'heading' => array(
-        'text' => t('Secondary menu'),
-        'level' => 'h2',
-        'class' => array('element-invisible'),
-      )
-    ));
-  }
-  else {
-    $vars['secondary_nav'] = FALSE;
-    drupal_set_message('<strong>$vars[secondary_menu]</strong> not present... WTF...', 'error');
-  }
+  
 } // end preprocess_page
 function omega_preprocess_node(&$vars) {
   
@@ -126,10 +93,11 @@ function omega_preprocess_node(&$vars) {
 
 function omega_process_page(&$vars) {
   
-}
+} // end process_page
 function omega_process_node(&$vars) {
   
-}
+} // end process_node
+
 /** 
  * NINESIXTY - Contextually adds 960 Grid System classes.
  *
@@ -208,6 +176,7 @@ function _omega_dynamic_zones($width, $conditions, $vars) {
   }
   return $width;
 }
+
 function _omega_dynamic_widths($width, $conditions, $vars) {
   foreach($conditions AS $variable => $zone) {
     if((isset($vars['page'][$variable])) && count($vars['page'][$variable]) > 0) {
@@ -237,20 +206,14 @@ function dynamic_region_builder($region_data, $container_width, $vars) {
       	$width = $info['width'];
       	$vars[$region .'_classes'] = ns('grid-'. $info['width']);
       }
-      //$width = $info['primary'] ? $container_width : $info['width'];
-      //$vars[$region .'_classes'] = $info['primary'] ?  ns('grid-'. _omega_dynamic_widths($width, $info['related'], $vars)) : ns('grid-'. $info['width']);
       // we know we have stuff to put here, so we can check for push & pull options
       if($info['pull']) {
       	// looks like we do wanna pull, or this value would have been false, so let's boogie
       	$vars[$region .'_classes'] .= ' '. ns('pull-'. _omega_dynamic_zones($info['pull']['width'], $info['pull']['conditions'], $vars));
-      	//krumo('Pulling '. $region .' '. $vars[$region .'_classes']);
       }
       if($info['push']) {
       	// looks like a push
       	$vars[$region .'_classes'] .= ' '. ns('push-'. _omega_dynamic_zones($info['push']['width'], $info['push']['conditions'], $vars));
-      	//krumo('Pushing '. $region .' '. $vars[$region .'_classes']);
-      	//krumo('Should be pushing '. $info['push']['width'] .' grids.');
-      	//krumo($info['push']['conditions']);
       }
     }
     // currently ignored becuase we have not given prefix/suffix class options

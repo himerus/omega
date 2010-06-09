@@ -19,4 +19,5 @@ omega = jQuery.noConflict();
 omega(document).ready(function(){
 	// give the search box some fancy stuff
 	populateElement('#search-box input.form-text, #search-block-form input.form-text', Drupal.t(Drupal.settings.default_search_text));
+	populateElement('#search-region input.form-text', Drupal.t(Drupal.settings.default_search_text));
 });
