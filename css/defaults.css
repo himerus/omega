@@ -41,16 +41,6 @@ body {
   padding: 0;
 }
 
-#footer-message {
-  font-size: 0.8em;
-  color: #594F36;
-  margin: 5px 0 0 0;
-}
-
-#footer-message p {
-  margin: 0;
-}
-
 fieldset {
   border: 1px solid #EAD885;
   margin: 15px 0;
@@ -320,33 +310,6 @@ div.error, tr.error {
   padding-bottom: 2px;
 }
 
-/** ################# 4.) clear-block code ####################### */
-.clear-block:after,
-.clearfix:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-
-.clear-block,
-.clearfix {
-  display: inline-block;
-}
-
-/* Hides from IE-mac \*/
-* html .clear-block,
-* html .clearfix {
-  height: 1%;
-}
-
-.clear-block,
-.clearfix {
-  display: block;
-}
-/* End hide from IE-mac */
-
 
 /** ################# 5.) Cleanup CSS ####################### */
 
@@ -406,6 +369,8 @@ table {
 #main-content ul.links li a {
   padding-left: 0;
 }
+
+/* Custom styles for the theme implemented search box */
 #search-region {
   text-align: right;
 }

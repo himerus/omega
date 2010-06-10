@@ -220,32 +220,40 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
                               ),
         );
       // Header Blocks
-      $form['omega_regions']['headers'] = array(
+      $form['omega_regions']['branding'] = array(
         '#type' => 'fieldset',
-        '#title' => t('Header Configuration'),
+        '#title' => t('Logo/Menu Configuration'),
         '#description' => t('Header region zones, including Logo/Branding, Primary & Secondary menus, Header first and Header Second. By default, the logo and menu elements are designed to display inline. This is accomplished by making the width of the grid elements for the logo and menus to equal the container width for those items, however, to make them stack, you can make each element have the full amount of grids that the container allows.'),
       );
-        $form['omega_regions']['headers']['omega_branding_wrapper_width'] = array(
+      
+        $form['omega_regions']['branding']['omega_branding_wrapper_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Logo/Navigation Elements'),
           '#default_value' => theme_get_setting('omega_branding_wrapper_width'),
           '#options' => $containers,
           '#description' => t('Container Grid width for the branding (logo) area and navigation menus.'),
         );
-        $form['omega_regions']['headers']['omega_header_logo_width'] = array(
+        $form['omega_regions']['branding']['omega_header_logo_width'] = array(
           '#type' => 'select',
           '#title' => t('Width for Logo/Branding area'),
           '#default_value' => theme_get_setting('omega_header_logo_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the logo/branding area. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_regions']['headers']['omega_header_menu_width'] = array(
+        $form['omega_regions']['branding']['omega_header_menu_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Menu Elements'),
           '#default_value' => theme_get_setting('omega_header_menu_width'),
           '#options' => $grids,
           '#description' => t('Grid width of the primary/secondary menu elements. This number should be less than or equal to the container width defined above.'),
         );
+        
+      $form['omega_regions']['headers'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Header Configuration'),
+        '#description' => t(''),
+      );
+        
         $form['omega_regions']['headers']['omega_header_wrapper_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Header Elements'),
@@ -267,21 +275,26 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           '#options' => $grids,
           '#description' => t('Grid width of the last header region. This number should be less than or equal to the container width defined above.'),
         );
-        $form['omega_regions']['headers']['omega_internal_nav_wrapper_width'] = array(
+      $form['omega_regions']['internal_nav'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Slogan/Breadcrum/Search Configuration'),
+        '#description' => t(''),
+      );
+        $form['omega_regions']['internal_nav']['omega_internal_nav_wrapper_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Breadcrumb/Slogan/Search'),
           '#default_value' => theme_get_setting('omega_internal_nav_wrapper_width'),
           '#options' => $containers,
           '#description' => t('Container Grid width for the breadcrumb/search/slogan area.'),
         );
-        $form['omega_regions']['headers']['omega_breadcrumb_slogan_width'] = array(
+        $form['omega_regions']['internal_nav']['omega_breadcrumb_slogan_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Breadcrumb/Slogan'),
           '#default_value' => theme_get_setting('omega_breadcrumb_slogan_width'),
           '#options' => $grids,
           '#description' => t('Grid width for the slogan/breadcrumb area. By default, the slogan will only appear in the zone if there is no breadcrumb avaiable.'),
         );
-        $form['omega_regions']['headers']['omega_search_width'] = array(
+        $form['omega_regions']['internal_nav']['omega_search_width'] = array(
           '#type' => 'select',
           '#title' => t('Wrapper Area width for Search'),
           '#default_value' => theme_get_setting('omega_search_width'),
