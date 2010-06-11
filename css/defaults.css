@@ -377,3 +377,15 @@ table {
 #search-region .form-submit {
   display: none;
 }
+
+
+/* fixing clearfix issues with padding at bottom of page */
+
+.clearfix:after {
+visibility: hidden;
+display: block;
+font-size: 0;
+content: "";
+clear: both;
+height: 0;
+}
