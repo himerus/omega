@@ -1,14 +1,7 @@
 <?php
 // $Id$
 
-// fluid width option
-if(theme_get_setting('omega_fixed_fluid') == 'fluid') {
-	drupal_add_css(drupal_get_path('theme', 'omega') .'/css/960-fluid.css', array('weight' => 1000));
-	$fluid_settings = array(
-    'fluid_grid' => theme_get_setting('omega_fixed_fluid'),
-  );
-  drupal_add_js($fluid_settings, 'setting');
-}
+
 
 // grid debugging
 global $user;

@@ -277,7 +277,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
         );
       $form['omega_regions']['internal_nav'] = array(
         '#type' => 'fieldset',
-        '#title' => t('Slogan/Breadcrum/Search Configuration'),
+        '#title' => t('Slogan/Breadcrumb/Search Configuration'),
         '#description' => t(''),
       );
         $form['omega_regions']['internal_nav']['omega_internal_nav_wrapper_width'] = array(

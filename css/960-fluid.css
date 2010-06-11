@@ -1117,3 +1117,13 @@
 	left:-95.833%;
 }
 
+/* `Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*/
+
+.alpha {
+  margin-left: 0 !important;
+}
+
+.omega {
+  margin-right: 0 !important;
+}

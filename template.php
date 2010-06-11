@@ -343,3 +343,18 @@ function omega_theme(&$existing, $type, $theme, $path) {
   );
 }// */
 
+function omega_css_alter(&$css) {
+// fluid width option
+  if(theme_get_setting('omega_fixed_fluid') == 'fluid') {
+  	$css_960 = drupal_get_path('theme', 'omega') .'/css/960.css';
+    //drupal_add_css(drupal_get_path('theme', 'omega') .'/css/960-fluid.css', array('weight' => 1000));
+	  if (isset($css[$css_960])) {
+	    $css[$css_960]['data'] = drupal_get_path('theme', 'omega') .'/css/960-fluid.css';
+	  }
+	  
+	  $fluid_settings = array(
+	    'fluid_grid' => theme_get_setting('omega_fixed_fluid'),
+	  );
+	  drupal_add_js($fluid_settings, 'setting');
+	}
+}

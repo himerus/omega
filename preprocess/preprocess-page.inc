@@ -416,5 +416,5 @@ if(isset($vars['site_name'])) {
   
 if (user_access('search content') && theme_get_setting('omega_render_search_box')) {
   $vars['search_region'] = drupal_get_form('search_block_form');
-  $vars['search_region_classes'] = ns('grid-'. $vars['default_container_width'], $vars['main_menu'], $vars['header_menu_width']);
+  $vars['search_region_classes'] = 'grid-'. theme_get_setting('omega_search_width');
 }  
