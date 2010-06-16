@@ -95,7 +95,8 @@ function omega_process_page(&$vars) {
   
 } // end process_page
 function omega_process_node(&$vars) {
-  
+  // Convert node attributes to a string and append to existing RDFa attributes.
+  $vars['attributes'] .= drupal_attributes($vars['node_attributes']);
 } // end process_node
 
 /** 
@@ -240,31 +241,6 @@ function rfilter($vars) {
 }
 
 /**
- * Converts a string to a suitable html ID attribute.
- *
- * http://www.w3.org/TR/html4/struct/global.html#h-7.5.2 specifies what makes a
- * valid ID attribute in HTML. This function:
- *
- * - Ensure an ID starts with an alpha character by optionally adding an 'id'.
- * - Replaces any character except alphanumeric characters with dashes.
- * - Converts entire string to lowercase.
- *
- * @param $string
- *   The string
- * @return
- *   The converted string
- */
-function omega_id_safe($string) {
-  // Replace with dashes anything that isn't A-Z, numbers, dashes, or underscores.
-  $string = strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $string));
-  // If the first character is not a-z, add 'id' in front.
-  if (!ctype_lower($string{0})) { // Don't use ctype_alpha since its locale aware.
-    $string = 'id' . $string;
-  }
-  return $string;
-}
-
-/**
  * ZEN - Return a themed breadcrumb trail.
  *
  * @param $breadcrumb
@@ -287,6 +263,10 @@ function omega_breadcrumb($variables) {
 
     // Return the breadcrumb with separators.
     if (!empty($breadcrumb)) {
+      // Provide a navigational heading to give context for breadcrumb links to
+      // screen-reader users. Make the heading invisible with .element-invisible.
+      $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
+
       $breadcrumb_separator = theme_get_setting('omega_breadcrumb_separator');
       $trailing_separator = $title = '';
       if (theme_get_setting('omega_breadcrumb_title')) {
@@ -296,32 +276,14 @@ function omega_breadcrumb($variables) {
       elseif (theme_get_setting('omega_breadcrumb_trailing')) {
         $trailing_separator = $breadcrumb_separator;
       }
-      return '<div class="breadcrumb">' . implode($breadcrumb_separator, $breadcrumb) . "$trailing_separator$title</div>";
+      $output .= '<div class="breadcrumb">' . implode($breadcrumb_separator, $breadcrumb) . "$trailing_separator$title</div>";
+      return $output;
     }
   }
   // Otherwise, return an empty string.
   return '';
 }
 
-/**
- * Create a string of attributes form a provided array.
- * 
- * @param $attributes
- * @return string
- */
-function omega_render_attributes($attributes) {
-  if ($attributes) {
-    $items = array();
-    foreach($attributes as $attribute => $data) {
-      if(is_array($data)) {
-        $data = implode(' ', $data);
-      }
-      $items[] = $attribute . '="' . $data . '"';
-    }
-    $output = ' ' . implode(' ', $items);
-  }
-  return $output;
-}
 
 /**
  * Implementation of hook_theme().
@@ -333,14 +295,7 @@ function omega_theme(&$existing, $type, $theme, $path) {
   // Since we are rebuilding the theme registry and the theme settings' default
   // values may have changed, make sure they are saved in the database properly.
   //omega_theme_get_default_settings($theme);
-  return array(
-    'id_safe' => array(
-      'arguments' => array('string'),
-    ),
-    'render_attributes' => array(
-      'arguments' => array('attributes'),
-    ),
-  );
+  return array();
 }// */
 
 function omega_css_alter(&$css) {

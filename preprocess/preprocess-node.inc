@@ -6,65 +6,45 @@
  *
  * @return $vars
  */
-// Prepare the arrays to handle the classes and ids for the node container.
-$vars['node_attributes'] = array();
-// Add an id to allow the styling of a specific node.
-$vars['node_attributes']['id'] = 'node-' . $vars['type'] . '-' . $vars['nid'];
-
-// Add the default .node class
-$vars['node_attributes']['class'][] = 'node';
-
 // Add a class to allow styling of nodes of a specific type.
-$vars['node_attributes']['class'][] = $vars['type'];
+$vars['classes_array'][] = drupal_html_class($vars['type']);
 
 // Add a class to allow styling based on publish status.
-if ($vars['status'] > 0) {
-  $vars['node_attributes']['class'][] = 'published';
-}
-else {
-  $vars['node_attributes']['class'][] = 'unpublished';
-}
+$vars['classes_array'][] = $vars['status'] ? 'published' : 'unpublished';
 
 // Add a class to allow styling based on promotion.
-if ($vars['promote'] > 0) {
-  $vars['node_attributes']['class'][] = 'promoted';
-}
-else {
-  $vars['node_attributes']['class'][] = 'not-promoted';
-}
+$vars['classes_array'][] = $vars['promote'] ? 'promoted' : 'not-promoted';
 
 // Add a class to allow styling based on sticky status.
-if ($vars['sticky']) {
-  $vars['node_attributes']['class'][] = 'sticky';
-}
-else {
-  $vars['node_attributes']['class'][] = 'not-sticky';
-}
+$vars['classes_array'][] = $vars['sticky'] ? 'sticky' : 'not-sticky';
 
-// Add a class to allow styling based on if a node is showing a teaser or the 
+// Add a class to allow styling based on if a node is showing a teaser or the
 // whole thing.
-if ($vars['teaser']) {
-  $vars['node_attributes']['class'][] = 'teaser';
-}
-else {
-  $vars['node_attributes']['class'][] = 'full-view';
-}
+$vars['classes_array'][] = $vars['teaser'] ? 'teaser' : 'full-view';
 
-// Add a class to allow styling of nodes being viewed by the author of the 
+// Add a class to allow styling of nodes being viewed by the author of the
 // node in question.
 if ($vars['uid'] == $vars['user']->uid) {
-  $vars['node_attributes']['class'][] = 'self-posted';
+  $vars['classes_array'][] = 'self-posted';
 }
 
 // Add a class to allow styling based on the node author.
-$vars['node_attributes']['class'][] = 'author-' . strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $vars['node']->name));
+$vars['classes_array'][] = drupal_html_class('author-' . $vars['node']->name);
 
 // Add a class to allow styling for zebra striping.
-$vars['node_attributes']['class'][] = $vars['zebra'];
+$vars['classes_array'][] = drupal_html_class($vars['zebra']);
 
 // Add a class to make the node container self clearing.
-$vars['node_attributes']['class'][] = 'clear-block';
+$vars['classes_array'][] = 'clearfix';
 
-// Crunch all the attributes together into a single string to be applied to 
-// the node container.
-$vars['attributes'] = theme('render_attributes', $vars['node_attributes']);
+// Remove node classes provided by core where duplication exists.
+$exclusions = array(drupal_html_class('node-'. $vars['type']), 'node-promoted', 'node-sticky', 'node-teaser', 'node-unpublished');
+foreach ($vars['classes_array'] as $key => $value) {
+  if (in_array($value, $exclusions)) {
+    unset($vars['classes_array'][$key]);
+  }
+}
+
+// Prepare the arrays to handle the classes and ids for the node container.
+$vars['node_attributes']['id'] = drupal_html_id('node-' . $vars['type'] . '-' . $vars['nid']);
+$vars['node_attributes']['class'] = $vars['classes_array'];

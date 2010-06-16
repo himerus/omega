@@ -15,7 +15,6 @@ if (theme_get_setting('omega_starterkit_fixed')) {
 }
 // */
 
-
 /**
  * Implementation of HOOK_theme().
  */
@@ -98,24 +97,3 @@ function omega_starterkit_preprocess_block(&$vars, $hook) {
   $vars['sample_variable'] = t('Lorem ipsum.');
 }
 // */
-
-
-/**
- * Create a string of attributes form a provided array.
- * 
- * @param $attributes
- * @return string
- */
-function omega_starterkit_render_attributes($attributes) {
-  if($attributes) {
-    $items = array();
-    foreach($attributes as $attribute => $data) {
-      if(is_array($data)) {
-        $data = implode(' ', $data);
-      }
-      $items[] = $attribute . '="' . $data . '"';
-    }
-    $output = ' ' . implode(' ', $items);
-  }
-  return $output;
-}

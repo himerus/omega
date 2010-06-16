@@ -12,7 +12,7 @@ include_once './' . drupal_get_path('theme', 'omega') . '/theme-settings.php';
  * @return
  *   A form array.
  */
-function omega_starterkit_settings($saved_settings) {
+function omega_starterkit_form_system_theme_settings_alter(&$form, &$form_state) {
 
   // Return the form
   return $form;
