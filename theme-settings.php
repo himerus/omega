@@ -41,7 +41,38 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       '#collapsed' => TRUE,
       '#weight' => 10,
     );
-
+	    $form['omega_general']['optional_css'] = array(
+	      '#type' => 'fieldset',
+	      '#title' => t('Optional CSS Files'),
+	      '#description'   => t('Here, you may disable default theme CSS provided by the Omega base theme.'),
+	      '#collapsible' => TRUE,
+	      '#collapsed' => TRUE,
+	    );
+	      $form['omega_general']['optional_css']['reset_css'] = array(
+	        '#type'          => 'checkbox',
+	        '#title'         => t('Enable reset.css'),
+	        '#default_value' => theme_get_setting('reset_css'),
+	      );
+	      $form['omega_general']['optional_css']['text_css'] = array(
+	        '#type'          => 'checkbox',
+	        '#title'         => t('Enable text.css'),
+	        '#default_value' => theme_get_setting('text_css'),
+	      );
+	      $form['omega_general']['optional_css']['regions_css'] = array(
+	        '#type'          => 'checkbox',
+	        '#title'         => t('Enable regions.css'),
+	        '#default_value' => theme_get_setting('regions_css'),
+	      );
+	      $form['omega_general']['optional_css']['defaults_css'] = array(
+	        '#type'          => 'checkbox',
+	        '#title'         => t('Enable defaults.css'),
+	        '#default_value' => theme_get_setting('defaults_css'),
+	      );
+	      $form['omega_general']['optional_css']['custom_css'] = array(
+	        '#type'          => 'checkbox',
+	        '#title'         => t('Enable custom.css'),
+	        '#default_value' => theme_get_setting('custom_css'),
+	      );
     // Page titles
       $form['omega_general']['search_settings'] = array(
         '#type' => 'fieldset',

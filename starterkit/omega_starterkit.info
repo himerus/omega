@@ -28,6 +28,12 @@ regions[footer_second] = footer second
 ; Set the default settings to be used in theme-settings.php
 
 ; Non-960gs default settings
+settings[reset_css] = 1
+settings[text_css] = 1
+settings[regions_css] = 1
+settings[defaults_css] = 1
+settings[custom_css] = 1
+
 settings[omega_search_default_text] = Search...
 
 settings[front_page_title_display] = title_slogan

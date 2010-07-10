@@ -84,6 +84,26 @@ function omega_process(&$vars, $hook) {
  * Preprocessor for page.tpl.php template file.
  * The default functionality can be found in preprocess/preprocess-page.inc
  */
+function omega_preprocess_html(&$vars) {
+	// enable/disable optional CSS files
+  if (theme_get_setting('reset_css') == '1') {
+    drupal_add_css(drupal_get_path('theme', 'omega') .'/css/reset.css', 'theme', 'all');
+  }
+  if (theme_get_setting('text_css') == '1') {
+    drupal_add_css(drupal_get_path('theme', 'omega') .'/css/text.css', 'theme', 'all');
+  }
+  if (theme_get_setting('regions_css') == '1') {
+    drupal_add_css(drupal_get_path('theme', 'omega') .'/css/regions.css', 'theme', 'all');
+  }
+  if (theme_get_setting('defaults_css') == '1') {
+    drupal_add_css(drupal_get_path('theme', 'omega') .'/css/defaults.css', 'theme', 'all');
+  }
+  if (theme_get_setting('custom_css') == '1') {
+    drupal_add_css(drupal_get_path('theme', 'omega') .'/css/custom.css', 'theme', 'all');
+  }
+  // redeclare $styles
+  $vars['styles'] = drupal_get_css();
+}
 function omega_preprocess_page(&$vars) {
   
 } // end preprocess_page
