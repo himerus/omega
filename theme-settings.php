@@ -52,26 +52,31 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
 	        '#type'          => 'checkbox',
 	        '#title'         => t('Enable reset.css'),
 	        '#default_value' => theme_get_setting('reset_css'),
+	        '#description'   => t('reset.css is the default CSS reset standard created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.'),
 	      );
 	      $form['omega_general']['optional_css']['text_css'] = array(
 	        '#type'          => 'checkbox',
 	        '#title'         => t('Enable text.css'),
 	        '#default_value' => theme_get_setting('text_css'),
+	        '#description'   => t('text.css offers some generic typography to give the default text presenation a bit more love.'),
 	      );
 	      $form['omega_general']['optional_css']['regions_css'] = array(
 	        '#type'          => 'checkbox',
 	        '#title'         => t('Enable regions.css'),
 	        '#default_value' => theme_get_setting('regions_css'),
+	        '#description'   => t('regions.css defines all the default regions of the Omega theme and its sub-themes. Currently there are no defining characteristics in this file, and it can be disabled without affecting any region presentation.'),
 	      );
 	      $form['omega_general']['optional_css']['defaults_css'] = array(
 	        '#type'          => 'checkbox',
 	        '#title'         => t('Enable defaults.css'),
 	        '#default_value' => theme_get_setting('defaults_css'),
+	        '#description'   => t('defaults.css gives the Omega theme the majority of the spacing and alignment CSS for various elements.'),
 	      );
 	      $form['omega_general']['optional_css']['custom_css'] = array(
 	        '#type'          => 'checkbox',
 	        '#title'         => t('Enable custom.css'),
 	        '#default_value' => theme_get_setting('custom_css'),
+	        '#description'   => t('custom.css provides some additional CSS that is module related, and not a part of core drupal. Can be disabled and used as a reference for certain items. Contributed CSS that is not directly related to core markup will be in this file.'),
 	      );
     // Page titles
       $form['omega_general']['search_settings'] = array(
