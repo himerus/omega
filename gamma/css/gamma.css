@@ -1,0 +1,254 @@
+/* $Id$ */
+/* REGIONS */
+#user-menu {
+	display: none;
+	text-align: right;
+}
+#user-menu .user-welcome {
+  margin-right: 35px;
+}
+#user-menu ul li {
+  margin: 0;
+}
+
+#main-content-container {
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+#gamma-footer-wrapper {
+  padding-top: 20px;
+}
+#postscript-wrapper {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#footer-wrapper {
+	padding-top: 20px;
+}
+#main-content ul, #main-content ol {
+  margin-left:0;
+}
+#branding a,
+#branding img {
+	margin: 0;
+}
+
+.block ul {
+  margin: 0;
+  padding: 0;
+}
+/* User Menu */
+#user-menu,
+#user-menu span,
+#user-menu li,
+#user-menu a {
+	color: #EEE;
+}
+#user-menu ul {
+  display: inline;
+}
+
+/* PRIMARY MENUS */
+ul.menu,
+li.leaf,
+li.collapsed {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* Main setup for top level menu items */
+#site-menu ul {
+  font-family: 'Adobe Garamond Pro', Georgia, 'Times New Roman', serif;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  line-height: auto;
+  float: right;
+}
+/* Main setup for sub level menu items */
+#site-menu ul li ul,
+#site-menu ul li ul li ul,
+#site-menu ul li ul li ul li ul {
+	font-family: Helvetica,Verdana,Arial,sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 14px;
+  overflow: visible;
+  text-align: left;
+  height: 1px;
+  height: auto;
+  float: none;
+  background: #EEE;
+}
+#site-menu ul li ul {
+	display: none;
+	position: absolute;
+  z-index: 5;
+  border: 1px solid #454545;
+  border-top: 0;
+}
+#site-menu ul li ul li ul,
+#site-menu ul li ul li ul li ul {
+	display: block;
+	border: 0;
+	border-top: 1px solid #EEE;
+}
+/* positioning for sub level menu items */
+#site-menu ul li ul li ul,
+#site-menu ul li ul li ul li ul {
+  position: relative;
+}
+
+#site-menu ul li {
+  display: block;
+  float: left;
+  clear: none;
+  margin-left: 1px;
+  font-size: 24px;
+  padding: 0;
+  overflow: hidden;
+}
+
+#site-menu ul li ul li,
+#site-menu ul li ul li ul li,
+#site-menu ul li ul li ul li ul li {
+  font-size: 14px;
+  margin: 0;
+  margin-top: 1px;
+  padding: 0;
+  display: block;
+  float: none;
+  clear: both;
+  list-style-type: none;
+  list-style-image: none;
+}
+#site-menu ul li ul li.first {
+	margin-top: 0;
+}
+#site-menu ul li ul li ul li:first,
+#site-menu ul li ul li ul li ul li:first {
+	margin-top: 1px;
+}
+#site-menu ul li a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  position: relative;
+}
+
+#site-menu ul li ul li a {
+  display: block;
+  background: #DDD url('../i/bullet-454545.png') no-repeat 6px 50%;
+  color: #454545;
+  padding: 8px 4px 8px 32px;
+}
+    #site-menu ul li ul li ul li a {
+      display: block;
+      background: #DDD url('../i/bullet-454545.png') no-repeat 32px 50%;
+      padding: 8px 4px 8px 64px;
+    }
+    #site-menu ul li ul li ul li ul li a {
+      text-decoration: none;
+      display: block;
+      background: #DDD url('../i/bullet-454545.png') no-repeat 64px 50%;
+      padding: 8px 4px 8px 96px;
+    }
+    
+#site-menu ul li ul li a:hover {
+  background-color: #EEE;
+}
+
+#site-menu ul li {
+  background: #8d8c8c;
+}
+
+#site-menu ul li.active,
+#site-menu ul li.active-trail {
+  background: #EEE;
+}
+
+#site-menu ul li a {
+  color: #EEE;
+}
+
+#site-menu ul li.active a,
+#site-menu ul li.active-trail a {
+  color: #454545;
+}
+
+#internal-nav {
+	padding-top: 10px;
+}
+
+.item-list li.views-row {
+	display: block;
+}
+/* Node & Comment Styling */
+#main-content .node ul,
+#main-content .node ol {
+	margin-left: 1em;
+}
+.comment {
+	margin-bottom: 10px;
+}
+.comment ul.links.inline {
+	display: block;
+	text-align: right;
+}
+/* Node INFO */
+.node-info,
+.comment-info {
+  background: #DDD;
+  padding: 0;
+  text-align: right;
+}
+.user-picture {
+	float: left;
+	clear: none;
+	margin: 0;
+	padding: 0;
+}
+.user-picture a {
+	text-decoration: none;
+	display: block;
+	margin: 0;
+  padding: 0;
+  height: auto;
+  line-height: 0.5em;
+}
+.submitted, 
+.terms {
+	margin: 2px 5px 0 10px;
+}
+
+/* TERM DISPLAY */
+.field-type-taxonomy-term-reference field-items {
+	float: none;
+}
+.field-label-inline .field-label, .field-label-inline .field-items {
+	float: none;
+	display: inline;
+}
+#main-content ul.field-items {
+	margin-left: 0;
+	text-align: right;
+  list-style-type: none;
+  list-style-position: outside;
+}
+ul.field-items li {
+	padding: 0 5px;
+	display: inline;
+  border-right: 1px solid #454545;
+}
+ul.field-items li.last {
+  border-right: 0;
+}
+
+/* Service Links */
+#main-content .node .service-links ul {
+	margin-left: 0;
+}
+#main-content .node .service-links ul.links li {
+	padding: 0;
+	margin-right: 2px;
+}

@@ -1,0 +1,329 @@
+/* $Id$ */
+
+#gamma-header-wrapper {
+  background: #454545; 
+}
+#gamma-menu-wrapper {
+  background: #545353;
+}
+#gamma-outer-body-wrapper {
+	background: transparent url('../i/body-bottom-bg.png') repeat-x bottom center;
+}
+#gamma-body-wrapper {
+  background: transparent url('../i/body-top-bg.png') repeat-x top center;
+}
+#gamma-inner-body-wrapper {
+  background: #EEE;
+}
+#gamma-footer-wrapper {
+  background: #454545;
+}
+#postscript-wrapper {
+	margin-top: 20px;
+	background: #454545;
+}
+
+#user-menu span {
+  color: #8d8d8d;	
+}
+#user-menu ul li {
+  border-right: 1px solid #8d8d8d;
+}
+#user-menu ul li.last {
+  border-right: 0;
+}
+#site-name h1,
+#site-name a,
+#site-name a.active,
+#site-name a:visited {
+	color: #EEE;
+}
+
+
+h1,
+h1.page-title
+.node h2,
+.node h2 a {
+  color: #0073ba;
+  font-size: 36px;
+  line-height: 32px;
+  font-weight: normal;
+  text-decoration: none;
+}
+.comment h3,
+.comment h3 a {
+	color: #0073ba;
+  font-size: 24px;
+  line-height: 20px;
+  font-weight: normal;
+  text-decoration: none;
+}
+.node h2 a:hover,
+.comment h3 a:hover {
+	color: #165d8f;
+}
+
+
+/* BLOCKS */
+.block {
+	border-bottom: 5px solid #454545;
+}
+
+#main-content .block {
+	border-bottom: 0;
+}
+#gamma-footer-wrapper .block {
+	border-bottom: 5px solid #DDD;
+}
+
+.block h2 {
+	min-height: 36px;
+	background: #454545;
+	color: #EEE;
+	font-size: 24px;
+	padding: 6px 12px;
+}
+
+#gamma-footer-wrapper .block h2 {
+	background: #DDD;
+	color: #454545;
+}
+.node h2 {
+	background: transparent;
+	color: #454545;
+	padding: 0;
+}
+.node .comment-wrapper h2.title {
+	min-height: 36px;
+  background: #454545;
+  color: #EEE;
+  font-size: 24px;
+  padding: 6px 12px;
+  margin-bottom: 15px;
+}
+
+.node {
+	border-bottom: 5px solid #454545;
+}
+
+
+/* Main Content Area menu blocks/lists */
+.menu-block .item-list ul li {
+	display: block;
+}
+.menu-block ul.menu,
+.menu-block div.item-list ul {
+	font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+.menu-block ul.menu li,
+.menu-block div.item-list ul li {
+	margin: 0;
+	padding: 0;
+	width: auto;
+	margin-top: 1px;
+  list-style-type: none;
+  list-style-image: none;
+}
+.menu-block ul.menu li a,
+.menu-block div.item-list ul li a {
+  text-decoration: none;
+  display: block;
+  background: #DDD url('../i/bullet-454545.png') no-repeat 6px 50%;
+  padding: 8px 4px 8px 32px;
+}
+  .menu-block ul.menu li ul li a,
+  .menu-block div.item-list ul li ul li a {
+    text-decoration: none;
+    display: block;
+    background: #DDD url('../i/bullet-454545.png') no-repeat 32px 50%;
+    padding: 8px 4px 8px 64px;
+  }
+	  .menu-block ul.menu li ul li ul li a,
+    .menu-block div.item-list ul li ul li ul li a {
+	    text-decoration: none;
+	    display: block;
+	    background: #DDD url('../i/bullet-454545.png') no-repeat 64px 50%;
+	    padding: 8px 4px 8px 96px;
+	  }
+.menu-block ul.menu li a:hover,
+	  .menu-block div.item-list ul li a:hover {
+  background-color: #EEE;
+}
+
+/* Footer Region menu blocks/lists */
+#gamma-footer-wrapper .menu-block ul.menu,
+#gamma-footer-wrapper .menu-block div.item-list ul {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+#gamma-footer-wrapper .menu-block ul.menu li,
+#gamma-footer-wrapper .menu-block div.item-list ul li {
+  margin: 0;
+  padding: 0;
+  margin-top: 1px;
+  list-style-type: none;
+  list-style-image: none;
+}
+#gamma-footer-wrapper .menu-block ul.menu li a,
+#gamma-footer-wrapper .menu-block div.item-list ul li a {
+	color: #EEE;
+  text-decoration: none;
+  display: block;
+  background: #5c5c5c url('../i/bullet-DDD.png') no-repeat 6px 50%;
+  padding: 8px 4px 8px 32px;
+}
+  #gamma-footer-wrapper .menu-block ul.menu li ul li a,
+  #gamma-footer-wrapper .menu-block div.item-list ul li ul li a {
+    text-decoration: none;
+    display: block;
+    background: #5c5c5c url('../i/bullet-DDD.png') no-repeat 32px 50%;
+    padding: 8px 4px 8px 64px;
+  }
+    #gamma-footer-wrapper .menu-block ul.menu li ul li ul li a,
+    #gamma-footer-wrapper .menu-block div.item-list ul li ul li ul li a {
+      text-decoration: none;
+      display: block;
+      background: #5c5c5c url('../i/bullet-DDD.png') no-repeat 64px 50%;
+      padding: 8px 4px 8px 96px;
+    }
+#gamma-footer-wrapper .menu-block ul.menu li a:hover,
+#gamma-footer-wrapper .menu-block div.item-list ul li a:hover {
+  background-color: #454545;
+}
+
+#block-comment-recent ul li span {
+	display: none;
+}
+
+
+
+
+/**
+ * Pagers =============================================================
+ */
+.item-list {
+  padding:0;
+  margin: 0;
+}
+.item-list .pager li,
+.item-list ul li {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+}
+.item-list .pager {
+	position: relative;
+  background:#EEE;
+  border:1px solid #CCC;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  text-align: left;
+}
+
+.pager li a { 
+  display: inline-block;
+}
+
+.pager li.pager-ellipsis,
+.pager li.pager-current,
+.pager li a {
+  color:#454545;
+  padding:4px 10px;
+  text-decoration: none;
+}
+
+  .pager li { 
+    border-right:1px solid #ccc;
+  }
+
+  .pager li.pager-current {
+  	padding:4px 10px;
+    background:#454545; 
+    font-weight: bold; 
+    color: #EEE;
+  }
+
+  .pager li.pager-first a,
+  .pager li.pager-previous a,
+  .pager li.pager-next a,
+  .pager li.pager-last a {
+  	width: 70px;
+    text-align:center;
+    padding: 4px 0;
+    background:#DDD;
+  }
+
+  .pager li.pager-next {
+    position: absolute;
+    top: 0;
+    right: 70px;
+    border-left:1px solid #ccc;
+  }
+  .pager li.pager-last {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-right: 0;
+  }
+  .pager li a {
+    background: #DDD;	
+  }
+  .pager li a:hover {
+    background:#EEE;
+    color:#454545;
+  }
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+/**
+ * Tables =============================================================
+ */
+table {
+  width:100%;
+  font-size:11px;
+  margin:0px 0px 10px;
+  background-color:#454545;
+}
+
+table.system-status-report th,
+table td,
+table th {
+  vertical-align:middle;
+  border:1px solid #454545;
+  padding:5px;
+}
+
+  table.system-status-report th { padding-left:30px; }
+
+table th {
+  font-size:9px;
+  text-transform:uppercase;
+  background:#454545;
+	color: #EEE;
+}
+
+table tr.odd { background:#EEE; }
+
+table td.active { background:#e4f0f8; }
+table tr.odd td.active { background:#ecf8fc; }
+
+table tr.selected td.active,
+table tr.selected td {
+  background:#ffc;
+  border-color:#eeb;
+}
