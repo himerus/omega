@@ -15,6 +15,9 @@ regions[preface_first] = preface first
 regions[preface_second] = preface second
 regions[preface_third] = preface third
 
+; Required core regions
+regions[page_top] = Page Top
+regions[page_bottom] = Page Bottom
 regions[content] = content
 
 regions[postscript_first] = postscript first

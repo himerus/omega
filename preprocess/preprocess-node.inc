@@ -1,11 +1,11 @@
 <?php
 // $Id$
+
 /**
- * Implementation of theme_preprocess_HOOK().
- * Passes varables to the node templates.
- *
- * @return $vars
+ * @file
+ * Contents of omega_preprocess_node().
  */
+
 // Add a class to allow styling of nodes of a specific type.
 $vars['classes_array'][] = drupal_html_class($vars['type']);
 
@@ -38,7 +38,7 @@ $vars['classes_array'][] = drupal_html_class($vars['zebra']);
 $vars['classes_array'][] = 'clearfix';
 
 // Remove node classes provided by core where duplication exists.
-$exclusions = array(drupal_html_class('node-'. $vars['type']), 'node-promoted', 'node-sticky', 'node-teaser', 'node-unpublished');
+$exclusions = array(drupal_html_class('node-' . $vars['type']), 'node-promoted', 'node-sticky', 'node-teaser', 'node-unpublished');
 foreach ($vars['classes_array'] as $key => $value) {
   if (in_array($value, $exclusions)) {
     unset($vars['classes_array'][$key]);

@@ -1,30 +1,33 @@
 <?php
 // $Id$
 
-
+/**
+ * @file
+ * Contents of omega_preprocess_html().
+ */
 
 // grid debugging
 global $user;
 $debug_access = FALSE;
 $debug_roles = theme_get_setting('debug_grid_roles');
-if(!isset($user->roles[1])) {
-	// Check to see if $user has the appropriate role.
-	foreach($debug_roles AS $k => $v) {
-		if ($v && $user->roles[$k]) {
-		  // user has access to debug tools
-		  $debug_access = TRUE;
-		}
-	}
+if (!isset($user->roles[1])) {
+  // Check to see if $user has the appropriate role.
+  foreach ($debug_roles as $k => $v) {
+    if ($v && $user->roles[$k]) {
+      // user has access to debug tools
+      $debug_access = TRUE;
+    }
+  }
 }
 // if grid debug is ON, and user either has access by role, or is uid 1
 if(theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid == 1)) {
-	$debug_settings = array(
+  $debug_settings = array(
     'grid_overlay_on' => theme_get_setting('debug_grid_toggle'),
     'grid_overlay_state' => theme_get_setting('debug_grid_toggle_state'),
-	);
-	drupal_add_js($debug_settings, 'setting');
-	drupal_add_js(drupal_get_path('theme', 'omega') .'/js/debug.js', array('weight' => 1000, 'type' => 'file'));
-	drupal_add_css(drupal_get_path('theme', 'omega') .'/css/debug.css');
+  );
+  drupal_add_js($debug_settings, 'setting');
+  drupal_add_js(drupal_get_path('theme', 'omega') . '/js/debug.js', array('weight' => 1000, 'type' => 'file'));
+  drupal_add_css(drupal_get_path('theme', 'omega') . '/css/debug.css');
 }
 
 /**

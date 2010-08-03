@@ -1,19 +1,19 @@
 <?php
 // $Id$
 
-// Include the definition of zen_settings() and zen_theme_get_default_settings().
-include_once './' . drupal_get_path('theme', 'omega') . '/theme-settings.php';
+/**
+ * @file
+ * Theme settings for the Omega theme.
+ */
 
 /**
- * Implementation of THEMEHOOK_settings() function.
+ * Implements hook_form_system_theme_settings_alter().
  *
- * @param $saved_settings
- *   An array of saved settings for this theme.
- * @return
- *   A form array.
+ * @param $form
+ *   Nested array of form elements that comprise the form.
+ * @param $form_state
+ *   A keyed array containing the current state of the form.
  */
 function omega_starterkit_form_system_theme_settings_alter(&$form, &$form_state) {
-
-  // Return the form
-  return $form;
+  // Include any changes to the theme settings here.
 }

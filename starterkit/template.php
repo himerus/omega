@@ -1,6 +1,11 @@
 <?php
 // $Id$
 
+/**
+ * @file
+ * Starter template.php file for subthemes of Omega.
+ */
+
 /*
  * Add any conditional stylesheets you will need for this sub-theme.
  *
@@ -16,7 +21,7 @@ if (theme_get_setting('omega_starterkit_fixed')) {
 // */
 
 /**
- * Implementation of HOOK_theme().
+ * Implements hook_theme().
  */
 function omega_starterkit_theme(&$existing, $type, $theme, $path) {
   $hooks = omega_theme($existing, $type, $theme, $path);

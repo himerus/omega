@@ -9,6 +9,11 @@ stylesheets[all][] = css/960.css
 
 scripts[] = js/omega.js
 
+; Required core regions
+regions[page_top] = Page Top
+regions[page_bottom] = Page Bottom
+regions[content] = content
+
 regions[sidebar_first] = sidebar first
 regions[sidebar_second] = sidebar second
 
@@ -19,8 +24,6 @@ regions[preface_first] = preface first
 regions[preface_second] = preface second
 regions[preface_third] = preface third
 
-regions[content] = content
-
 regions[postscript_first] = postscript first
 regions[postscript_second] = postscript second
 regions[postscript_third] = postscript third
@@ -28,6 +31,7 @@ regions[postscript_fourth] = postscript fourth
 
 regions[footer_first] = footer first
 regions[footer_second] = footer second
+
 
 ; Set the default settings to be used in theme-settings.php
 

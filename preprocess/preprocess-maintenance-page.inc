@@ -1,5 +1,12 @@
 <?php
 // $Id$
+
+/**
+ * @file
+ * Contents of omega_preprocess_maintenance_page().
+ * @todo This needs work.
+ */
+
 $vars['body_attributes'] = array();
 
 $vars['body_attributes']['id'] = 'maintenance-page';
