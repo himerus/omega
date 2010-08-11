@@ -157,6 +157,16 @@ h1.page-title
   background: #DDD url('../i/bullet-454545.png') no-repeat 6px 50%;
   padding: 8px 4px 8px 32px;
 }
+.menu-block .more-link a {
+  text-decoration: none;
+  display: block;
+  background: #DDD;
+  padding: 2px 4px;
+  margin-top: 1px;
+}
+.menu-block .more-link a:hover {
+  background: #EEE;
+}
   .menu-block ul.menu li ul li a,
   .menu-block div.item-list ul li ul li a {
     text-decoration: none;
@@ -198,6 +208,15 @@ h1.page-title
   display: block;
   background: #5c5c5c url('../i/bullet-DDD.png') no-repeat 6px 50%;
   padding: 8px 4px 8px 32px;
+}
+#gamma-footer-wrapper .menu-block .more-link a {
+  text-decoration: none;
+  display: block;
+  background: #5c5c5c;
+  padding: 2px 4px;
+}
+#gamma-footer-wrapper .menu-block .more-link a:hover {
+  background: #454545;
 }
   #gamma-footer-wrapper .menu-block ul.menu li ul li a,
   #gamma-footer-wrapper .menu-block div.item-list ul li ul li a {
