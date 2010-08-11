@@ -128,7 +128,6 @@ else {
   $vars['content_container_width'] = theme_get_setting('omega_content_container_width');
   $content_width = theme_get_setting('omega_content_container_width');
 }
-
 $content_regions = array(
   'main_content' => array(
     'data' => $vars['page']['content'],
@@ -205,12 +204,8 @@ switch ($layout) {
 
   // If sidebar_second isn't present, we will pull the first sidebar the
   // combined width of the content & sidebar last spacing otherwise.
-  if (theme_get_setting('omega_content_front_override') && $vars['is_front']) {
-    $sl_pull = isset($vars['page']['sidebar_second']) ? theme_get_setting('omega_front_content_main_width') : theme_get_setting('omega_front_content_main_width') + theme_get_setting('omega_front_sidebar_second_width');
-  }
-  else {
-    $sl_pull = isset($vars['page']['sidebar_second']) ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_second_width');
-  }
+  $sl_pull = isset($vars['page']['sidebar_second']) ? $content_width : $content_width - $sidebar_second_width;
+
   // let's assign some new data to our $content_regions array to assing pull classes
   
   // sidebar_first will be pulled an exact amount assuming it exists in this layout
@@ -258,16 +253,10 @@ switch ($layout) {
   case 'first_last_content':
   // if sidebar_second isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
   // otherwise,
-  if (theme_get_setting('omega_content_front_override') && $vars['is_front']) {
-    $sl_pull = isset($vars['page']['sidebar_second']) ? theme_get_setting('omega_front_content_main_width') : theme_get_setting('omega_front_content_main_width') + theme_get_setting('omega_front_sidebar_second_width');
-    $sr_pull = isset($vars['page']['sidebar_first']) ? theme_get_setting('omega_front_content_main_width') : theme_get_setting('omega_front_content_main_width') + theme_get_setting('omega_front_sidebar_first_width');
-    $sc_max_push = $sidebar_first_width + $sidebar_second_width;
-  }
-  else {
-    $sl_pull = isset($vars['page']['sidebar_second']) ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_second_width');
-    $sr_pull = isset($vars['page']['sidebar_first']) ? theme_get_setting('omega_content_main_width') : theme_get_setting('omega_content_main_width') + theme_get_setting('omega_sidebar_first_width');
-    $sc_max_push = $sidebar_first_width + $sidebar_second_width;
-  }
+  $sl_pull = isset($vars['page']['sidebar_second']) ? $content_width : $content_width - $sidebar_second_width;
+  $sr_pull = isset($vars['page']['sidebar_first']) ? $content_width : $content_width - $sidebar_first_width;
+  $sc_max_push = $sidebar_first_width + $sidebar_second_width;
+
   
   // let's assign some new data to our $content_regions array to assing pull classes
   

@@ -198,7 +198,6 @@ li.collapsed {
 /* Node INFO */
 .node-info,
 .comment-info {
-  background: #DDD;
   padding: 0;
   text-align: right;
 }
@@ -208,7 +207,7 @@ li.collapsed {
 	margin: 0;
 	padding: 0;
 }
-.user-picture a {
+.user-picture img {
 	text-decoration: none;
 	display: block;
 	margin: 0;
@@ -244,11 +243,3 @@ ul.field-items li.last {
   border-right: 0;
 }
 
-/* Service Links */
-#main-content .node .service-links ul {
-	margin-left: 0;
-}
-#main-content .node .service-links ul.links li {
-	padding: 0;
-	margin-right: 2px;
-}

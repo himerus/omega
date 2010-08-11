@@ -96,7 +96,7 @@ pre,
 table,
 address,
 fieldset {
-  margin-bottom: 20px;
+  margin-bottom: 1em;
 }
 
 dt, .admin h3 {
