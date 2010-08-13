@@ -294,3 +294,71 @@ function gamma_item_list($vars) {
   $output .= '</div>';
   return $output;
 }
+
+/**
+ * Implementation of theme_views_mini_pager
+ * 
+ * This custom theming for views_mini_pager changes the previous/next
+ * links to remove theme completely when not present to avoid the
+ * &nbsp; messing up the spacing/theming in the list.
+ */
+function gamma_views_mini_pager($tags = array(), $limit = 10, $element = 0, $parameters = array(), $quantity = 9) {
+  global $pager_page_array, $pager_total;
+
+  // Calculate various markers within this pager piece:
+  // Middle is used to "center" pages around the current page.
+  $pager_middle = ceil($quantity / 2);
+  // current is the page we are currently paged to
+  $pager_current = $pager_page_array[$element] + 1;
+  // max is the maximum page number
+  $pager_max = $pager_total[$element];
+  // End of marker calculations.
+
+
+  $li_previous = theme('pager_previous',
+    array(
+      'text' => (isset($tags[1]) ? $tags[1] : t('‹‹')),
+      'limit' => $limit,
+      'element' => $element,
+      'interval' => 1,
+      'parameters' => $parameters,
+    )
+  );
+
+  $li_next = theme('pager_next',
+    array(
+      'text' => (isset($tags[3]) ? $tags[3] : t('››')),
+      'limit' => $limit,
+      'element' => $element,
+      'interval' => 1,
+      'parameters' => $parameters,
+    )
+  );
+  
+  if ($pager_total[$element] > 1) {
+    if (!empty($li_previous)) {
+	  	$items[] = array(
+	      'class' => array('pager-previous'),
+	      'data' => $li_previous,
+	    );
+    }
+    $items[] = array(
+      'class' => array('pager-current'),
+      'data' => t('@current of @max', array('@current' => $pager_current, '@max' => $pager_max)),
+    );
+    if (!empty($li_next)) {
+	    $items[] = array(
+	      'class' => array('pager-next'),
+	      'data' => $li_next,
+	    );
+    }
+    return theme('item_list',
+      array(
+        'items' => $items,
+        'title' => NULL,
+        'type' => 'ul',
+        'attributes' => array('class' => array('pager')),
+      )
+    );
+  }
+}

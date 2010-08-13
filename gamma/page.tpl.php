@@ -138,6 +138,13 @@
       </div><!-- /#gamma-internal-body-wrapper -->
     </div><!-- /#gamma-body-wrapper -->
     </div>
+    <?php if ($footer_title): ?>
+    <div id="footer-header" class="container-<?php print $default_container_width; ?>">
+      <div class="grid-<?php print $default_container_width; ?>">
+        <h2><?php print $footer_title; ?></h2>
+      </div>
+    </div>
+    <?php endif; ?>
     <div id="gamma-footer-wrapper" class="clearfix">
       <?php if($page['postscript_first'] || $page['postscript_second'] || $page['postscript_third'] || $page['postscript_fourth']): ?>
       <div id="postscript-wrapper" class="container-<?php print $postscript_container_width; ?> clearfix">

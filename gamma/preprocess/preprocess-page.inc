@@ -101,4 +101,6 @@ $vars['user_nav'] = theme('links', array(
     'class' => array('element-invisible'),
   )
 ));
-  
+
+
+$vars['footer_title'] = check_plain(theme_get_setting('omega_footer_header_tag'));

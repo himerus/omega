@@ -37,7 +37,7 @@ hr {
   background: #5294c1;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, dt {
   letter-spacing: -0.05em;
 	font-family: 'Adobe Garamond Pro', Georgia, 'Times New Roman', serif;
 }
@@ -80,16 +80,18 @@ ol {
 ul {
   list-style: square;
 }
-
-p,
-dl,
-hr,
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
+h6 {
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+p,
+dl,
+hr,
 ol,
 ul,
 pre,

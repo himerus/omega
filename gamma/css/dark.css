@@ -5,24 +5,46 @@
 }
 #gamma-menu-wrapper {
   background: #545353;
+  border-radius: 15px 15px 0 0;
+  -moz-border-radius: 15px 15px 0 0;
+  -opera-border-radius: 15px 15px 0 0;
+  -webkit-border-radius: 15px 15px 0 0;
 }
+
 #gamma-outer-body-wrapper {
 	background: transparent url('../i/body-bottom-bg.png') repeat-x bottom center;
+	padding-bottom: 20px;
 }
 #gamma-body-wrapper {
   background: transparent url('../i/body-top-bg.png') repeat-x top center;
 }
 #gamma-inner-body-wrapper {
+	border-radius: 15px;
+  -moz-border-radius: 0 0 15px 15px;
+  -opera-border-radius: 0 0 15px 15px;
+  -webkit-border-radius: 0 0 15px 15px;
   background: #EEE;
 }
 #gamma-footer-wrapper {
   background: #454545;
 }
 #postscript-wrapper {
+	border-radius: 15px;
+  -moz-border-radius: 15px;
+  -opera-border-radius: 15px;
+  -webkit-border-radius: 15px;
 	margin-top: 20px;
-	background: #454545;
+	background: #545353;
 }
-
+#footer-header {
+	
+}
+#footer-header h2 {
+	color: #EEE;
+	font-size: 32px;
+	font-weight: normal;
+	margin: 0;
+}
 #user-menu span {
   color: #8d8d8d;	
 }
@@ -100,6 +122,10 @@ h1.page-title
 }
 
 .block h2 {
+	border-radius: 8px;
+  -moz-border-radius: 8px 8px 0 0;
+  -opera-border-radius: 8px 8px 0 0;
+  -webkit-border-radius: 8px 8px 0 0;
 	min-height: 36px;
 	background: #454545;
 	color: #EEE;
@@ -108,6 +134,31 @@ h1.page-title
 	padding-bottom: 0;
 }
 
+dl dt {
+	min-height: 36px;
+  background: #8D8C8C;
+  color: #EEE;
+  font-size: 24px;
+  padding: 6px 12px;
+  padding-bottom: 0;
+  border: 1px solid #454545;
+	border-bottom: 0;
+}
+dl dt:hover {
+	background: #454545;
+}
+dl dd {
+	border: 1px solid #454545;
+	
+	margin-bottom: 10px;
+	padding: 12px;
+}
+dl dt a,
+dl dt a.visited,
+dl dt a:hover {
+	display: block;
+	color: #eee;
+}
 #gamma-footer-wrapper .block h2 {
 	background: #DDD;
 	color: #454545;
@@ -157,9 +208,13 @@ h1.page-title
   background: #DDD url('../i/bullet-454545.png') no-repeat 6px 50%;
   padding: 8px 4px 8px 32px;
 }
+.more-link {
+	text-transform: lowercase;
+}
 .menu-block .more-link a {
   text-decoration: none;
   display: block;
+  width: auto;
   background: #DDD;
   padding: 2px 4px;
   margin-top: 1px;
@@ -167,6 +222,7 @@ h1.page-title
 .menu-block .more-link a:hover {
   background: #EEE;
 }
+
   .menu-block ul.menu li ul li a,
   .menu-block div.item-list ul li ul li a {
     text-decoration: none;
@@ -306,7 +362,8 @@ h1.page-title
     right: 70px;
     border-left:1px solid #ccc;
   }
-  .pager li.pager-last {
+  .pager li.pager-last,
+  .pager li.pager-next.last {
     position: absolute;
     top: 0;
     right: 0;
@@ -334,12 +391,12 @@ h1.page-title
   
   
 /**
- * Tables =============================================================
+ * Tables In Main Styled Area
  */
 table {
   width:100%;
   font-size:11px;
-  margin:0px 0px 10px;
+  margin:0px;
   background-color:#454545;
 }
 
@@ -356,11 +413,19 @@ table th {
 table th {
   font-size:9px;
   text-transform:uppercase;
-  background:#454545;
-	color: #EEE;
+  background:#8D8C8C;
+  color: #EEE;
+}
+table th a,
+table th a.active {
+  color: #EEE;
+}
+table th a.active:hover {
+  text-decoration: underline;
 }
 
-table tr.odd { background:#EEE; }
+table tr.odd { background:#DDD; }
+table tr:hover { background: #CCC; }
 
 table td.active { background:#e4f0f8; }
 table tr.odd td.active { background:#ecf8fc; }
@@ -369,4 +434,58 @@ table tr.selected td.active,
 table tr.selected td {
   background:#ffc;
   border-color:#eeb;
+}
+
+/**
+ * Tables In Footer Styled Area
+ */
+#gamma-footer-wrapper table {
+  background: #8D8C8C;
+}
+
+#gamma-footer-wrapper table.system-status-report th,
+#gamma-footer-wrapper table td,
+#gamma-footer-wrapper table th {
+  vertical-align:middle;
+  border:1px solid #EEE;
+  padding:5px;
+}
+
+/** Node Lists */
+.node .content ul li {
+  list-style-type: none;
+  line-height: 24px;
+  background: url('../i/bullet-small-454545.png') no-repeat left 4px;
+  padding: 0 0 0 24px;
+}
+
+/** Node Links */
+div.links {
+	margin-top: 10px;
+}
+#main-content .node ul.links {
+  margin-left: 0;
+}
+#main-content .node ul.links li a {
+  padding: 8px;
+}
+#main-content .node div.links ul.links,
+#main-content .node div.links ul.links li {
+  margin: 0;
+  padding: 0;
+}
+#main-content .node div.links ul.links a {
+	border-radius: 5px;
+  -moz-border-radius: 5px;
+  -opera-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #DDD;
+  background: #EEE;
+  text-transform: lowercase;
+  margin-right: 5px;
+  text-decoration: none;
+}
+#main-content .node div.links ul.links a:hover {
+  border: 1px solid #454545;
+  background: #DDD;
 }

@@ -25,6 +25,15 @@ function gamma_form_system_theme_settings_alter(&$form, &$form_state) {
     '#options' => $grids,
     '#description' => t('Width of the user menu which provides different links for the logged in or anonymous user.'),
   );
+  // add a text field to prefix the postscript region for sexification of lower regions
+  $form['omega_regions']['postscript']['omega_footer_header_tag'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom "Footer" Header'),
+    '#size' => 60,
+    '#weight' => -100,
+    '#default_value' => theme_get_setting('omega_footer_header_tag'),
+    '#description' => t('This text will appear above the postscript regions in the "footer" area of the site, and be rendered with an H2 tag... <em>Plain Text only</em>.'),
+  );
   // Return the form
   return $form;
 }
