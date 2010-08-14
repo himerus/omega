@@ -14,19 +14,15 @@ body {
 }
 
 a:link, a:visited {
-  color: #202124;
   text-decoration: underline;
 }
 
 a:hover {
-  color: #0062A0;
   text-decoration: none;
 }
 
 a:active, a.active {
-  color: #202124;
   text-decoration: none;
-  color: #000;
 }
 
 hr {
@@ -34,7 +30,6 @@ hr {
   padding: 0;
   border: none;
   height: 1px;
-  background: #5294c1;
 }
 
 h1, h2, h3, h4, h5, h6, dt {
@@ -43,7 +38,6 @@ h1, h2, h3, h4, h5, h6, dt {
 }
 
 h1 {
-  color: #0073ba;
 	font-size: 36px;
 }
 
