@@ -24,6 +24,9 @@
  */
 
 /* Primary Region Colors */
+body {
+	background: #454545;
+}
 #gamma-header-wrapper {
   background: #454545; 
 }
@@ -31,7 +34,7 @@
   background: #545454;
 }
 #gamma-outer-body-wrapper {
-  background: transparent url('../i/body-bottom-bg.png') repeat-x bottom center;
+  background: #FFF url('../i/body-bottom-bg.png') repeat-x bottom center;
 }
 #gamma-body-wrapper {
   background: transparent url('../i/body-top-bg.png') repeat-x top center;
@@ -172,13 +175,6 @@ dl dt a:hover {
 
 fieldset {
   border:1px solid #DDD;
-}
-
-.copyright {
-	font-size: 11px;
-}
-.copyright p {
-	margin: 0;
 }
 
 #user-menu span {

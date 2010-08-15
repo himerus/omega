@@ -8,6 +8,9 @@ body, html {
 
 /* Primary Navigation & Dropdowns #################################################### */
 
+#gamma-menu-wrapper {
+	min-height: 36px;
+}
 /* Main setup for top level menu items */
 #site-menu ul {
   font-family: 'Adobe Garamond Pro', Georgia, 'Times New Roman', serif;
@@ -316,6 +319,7 @@ body, html {
   font-size: 24px;
   padding: 6px 12px;
   margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 /** Node Links */
@@ -527,11 +531,21 @@ li.collapsed {
 	margin: 2px 5px 0 10px;
 }
 
+.copyright {
+  font-size: 11px;
+}
+.copyright p {
+  margin: 0;
+}
+
 /* TERM DISPLAY */
 .field-type-taxonomy-term-reference field-items {
 	float: none;
 }
-.field-label-inline .field-label, .field-label-inline .field-items {
+.field-label-inline .field-label, 
+.field-label-inline .field-items,
+.node-info .field-label, 
+.node-info .field-items {
 	float: none;
 	display: inline;
 }
