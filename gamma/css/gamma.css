@@ -265,6 +265,48 @@ body, html {
 #block-comment-recent ul li span {
   display: none;
 }
+.sidebar .block {
+	margin-bottom: 20px;
+}
+#main-content .block {
+	margin-bottom: 0px;
+}
+#gamma-footer-wrapper .block {
+  margin-bottom: 20px;
+}
+#footer-wrapper .block {
+  margin-bottom: 0;
+}
+
+/* Login Block Fixes so it doesn't look so freaking horrible */
+#block-user-login input.form-text,
+#block-user-login label,
+#block-user-login .form-actions,
+#block-user-login .form-item {
+	display: inline-block;
+	margin-top: 0;
+	margin-bottom: 0.5em;
+}
+#block-user-login label {
+	width: 6em;
+}
+#block-user-login .content {
+	padding: 10px;
+}
+#block-user-login div.item-list {
+	margin-top: 10px;
+}
+#block-user-login div.item-list ul {
+  text-align: center;
+	text-transform: lowercase;
+  font-size: 11px;
+}
+#block-user-login div.item-list ul li {
+  padding: 0 5px;
+}
+
+
+
 
 .node h2 {
   padding: 0;
@@ -306,8 +348,6 @@ blockquote {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-
-
 
 
 

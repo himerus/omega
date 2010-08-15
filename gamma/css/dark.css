@@ -59,7 +59,21 @@ a:hover {
 a:active, a.active {
   color: #0073ba;
 }
+#footer-wrapper a:link, #footer-wrapper a:visited {
+  color: #EEE;
+}
 
+#footer-wrapper a:hover {
+  color: #DDD;
+}
+
+#footer-wrapper a:active, #footer-wrapper a.active {
+  color: #EEE;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #454545;
+}
 /* Custom Link colors for "menu blocks" */
 .menu-block a:link, 
 .menu-block a:visited {
@@ -128,6 +142,10 @@ h1.page-title
   color: #EEE;
 }
 
+#footer-wrapper {
+	color: #DDD;
+}
+
 hr {
   background: #454545;
 }
@@ -150,6 +168,17 @@ dl dt a:visited,
 dl dt a:link,
 dl dt a:hover {
   color: #eee;
+}
+
+fieldset {
+  border:1px solid #DDD;
+}
+
+.copyright {
+	font-size: 11px;
+}
+.copyright p {
+	margin: 0;
 }
 
 #user-menu span {
@@ -244,6 +273,9 @@ div.codeblock {
 #gamma-footer-wrapper .block {
 	border-bottom: 5px solid #DDD;
 }
+#footer-wrapper .block {
+	border-bottom: 0;
+}
 
 .block h2 {
 	background: #454545;
@@ -268,6 +300,7 @@ div.codeblock {
 	border-bottom: 5px solid #454545;
 }
 
+
 /* Main Content Area menu blocks/lists */
 .menu-block ul.menu li a,
 .menu-block div.item-list ul li a {
@@ -287,10 +320,10 @@ div.codeblock {
     .menu-block div.item-list ul li ul li ul li a {
       background: #DDD url('../i/bullet-454545.png') no-repeat 64px 8px;
     }
-.menu-block ul.menu li a:hover,
+    .menu-block ul.menu li a:hover,
     .menu-block div.item-list ul li a:hover {
-  background-color: #EEE;
-}
+      background-color: #EEE;
+    }
 
 /* Footer Region menu blocks/lists */
 #gamma-footer-wrapper .menu-block ul.menu li a,
@@ -298,11 +331,15 @@ div.codeblock {
   color: #EEE;
   background: #5c5c5c url('../i/bullet-DDD.png') no-repeat 6px 8px;
 }
+#gamma-footer-wrapper .more-link a {
+	color: #EEE;
+}
 #gamma-footer-wrapper .menu-block .more-link a {
+	color: #EEE;
   background: #5c5c5c;
 }
 #gamma-footer-wrapper .menu-block .more-link a:hover {
-  background: #454545;
+  background: #545454;
 }
   #gamma-footer-wrapper .menu-block ul.menu li ul li a,
   #gamma-footer-wrapper .menu-block div.item-list ul li ul li a {
@@ -314,7 +351,7 @@ div.codeblock {
     }
 #gamma-footer-wrapper .menu-block ul.menu li a:hover,
 #gamma-footer-wrapper .menu-block div.item-list ul li a:hover {
-  background-color: #454545;
+  background-color: #545454;
 }
 
 /** Node Links */

@@ -362,3 +362,13 @@ function gamma_views_mini_pager($tags = array(), $limit = 10, $element = 0, $par
     );
   }
 }
+
+function gamma_form_alter(&$form, &$form_state, $form_id) {
+	switch ($form_id) {
+		// for some reason the login form links are above the submit button
+		// WTF
+		case 'user_login_block':
+			$form['links']['#weight'] = 100;
+			break;
+	}
+}

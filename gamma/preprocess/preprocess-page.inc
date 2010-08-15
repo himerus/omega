@@ -65,7 +65,7 @@ else {
       'attributes' => array(
         'title' => t('Logout'),
       ),
-      'href' => 'login',
+      'href' => 'user/login',
       'title' => t('Login'),
     ),
     // link to register
