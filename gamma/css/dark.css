@@ -245,58 +245,6 @@ fieldset {
   color: #EEE;
 }
 
-/* Term Display (node.tpl.php) */
-ul.field-items li {
-  border-right: 1px solid #454545;
-}
-
-/* From Code Filter Module */
-div.codeblock {
-  background-color: #DDD;
-}
-
-
-
-
-
-
-
-/* BLOCKS */
-.block {
-	border-bottom: 5px solid #454545;
-}
-
-#gamma-footer-wrapper .block {
-	border-bottom: 5px solid #DDD;
-}
-#footer-wrapper .block {
-	border-bottom: 0;
-}
-
-.block h2 {
-	background: #454545;
-	color: #EEE;
-}
-
-
-#gamma-footer-wrapper .block h2 {
-	background: #DDD;
-	color: #454545;
-}
-.node h2 {
-	background: transparent;
-	color: #454545;
-}
-.node .comment-wrapper h2.title {
-  background: #454545;
-  color: #EEE;
-}
-
-.node {
-	border-bottom: 5px solid #454545;
-}
-
-
 /* Main Content Area menu blocks/lists */
 .menu-block ul.menu li a,
 .menu-block div.item-list ul li a {
@@ -350,62 +298,16 @@ div.codeblock {
   background-color: #545454;
 }
 
-/** Node Links */
-#main-content .node div.links ul.links a {
-  border: 1px solid #DDD;
-}
-#main-content .node div.links ul.links a:hover {
-  border: 1px solid #8d8c8c;
-}
-
-blockquote {
-  border: 3px solid #8d8c8c;
-	background: #DDD url('../i/quote-bg.png') no-repeat 5px 5px;
-}
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Pagers =============================================================
- */
-.item-list {
-  padding:0;
-  margin: 0;
-}
-.item-list .pager li,
-.item-list ul li {
-	margin: 0;
-	padding: 0;
-	display: inline-block;
-}
+/* Pagers #################################################### */
 .item-list .pager {
-	position: relative;
   background:#EEE;
   border:1px solid #CCC;
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
-  text-align: left;
-}
-
-.pager li a { 
-  display: inline-block;
 }
 
 .pager li.pager-ellipsis,
 .pager li.pager-current,
 .pager li a {
   color:#454545;
-  padding:4px 10px;
-  text-decoration: none;
 }
 
   .pager li { 
@@ -413,9 +315,7 @@ blockquote {
   }
 
   .pager li.pager-current {
-  	padding:4px 10px;
     background:#454545; 
-    font-weight: bold; 
     color: #EEE;
   }
 
@@ -423,71 +323,33 @@ blockquote {
   .pager li.pager-previous a,
   .pager li.pager-next a,
   .pager li.pager-last a {
-  	width: 70px;
-    text-align:center;
-    padding: 4px 0;
     background:#DDD;
   }
 
   .pager li.pager-next {
-    position: absolute;
-    top: 0;
-    right: 70px;
     border-left:1px solid #ccc;
   }
-  .pager li.pager-last,
-  .pager li.pager-next.last {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-right: 0;
-  }
   .pager li a {
-    background: #DDD;	
+    background: #DDD; 
   }
   .pager li a:hover {
     background:#EEE;
     color:#454545;
   }
 
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-/**
- * Tables In Main Styled Area
- */
+/* Tables #################################################### */
+/** Tables In Main Styled Area */
 table {
-  width:100%;
-  font-size:11px;
-  margin:0;
   background-color:#454545;
 }
-.node table {
-	margin: 10px 0;
-}
+
 table.system-status-report th,
 table td,
 table th {
-  vertical-align:middle;
   border:1px solid #454545;
-  padding:5px;
 }
 
-  table.system-status-report th { padding-left:30px; }
-
 table th {
-  font-size:9px;
-  text-transform:uppercase;
   background:#8D8C8C;
   color: #EEE;
 }
@@ -495,10 +357,7 @@ table th a,
 table th a.active {
   color: #EEE;
 }
-table th a.active:hover {
-  text-decoration: underline;
-}
-Table tr { background: #EEE}
+table tr { background: #EEE}
 table tr.odd { background:#DDD; }
 table tr:hover { background: #CCC; }
 
@@ -511,9 +370,7 @@ table tr.selected td {
   border-color:#eeb;
 }
 
-/**
- * Tables In Footer Styled Area
- */
+/** Tables In Footer Styled Area */
 #gamma-footer-wrapper table {
   background: #8D8C8C;
 }
@@ -521,22 +378,67 @@ table tr.selected td {
 #gamma-footer-wrapper table.system-status-report th,
 #gamma-footer-wrapper table td,
 #gamma-footer-wrapper table th {
-  vertical-align:middle;
   border:1px solid #EEE;
-  padding:5px;
 }
 
 /** Node Lists */
 .node .content ul li {
-  list-style-type: none;
-  line-height: 24px;
   background: url('../i/bullet-small-454545.png') no-repeat left 4px;
-  padding: 0 0 0 24px;
 }
-.node .content ol {
-	padding-left: 1.5em;
+
+/** Node Links */
+#main-content .node div.links ul.links a {
+  border: 1px solid #DDD;
 }
-.node .content ol li {
-  line-height: 24px;
-  padding: 0;
+#main-content .node div.links ul.links a:hover {
+  border: 1px solid #8d8c8c;
+}
+
+blockquote {
+  border: 3px solid #8d8c8c;
+  background: #DDD url('../i/quote-bg.png') no-repeat 5px 5px;
+}
+
+/* Term Display (node.tpl.php) */
+ul.field-items li {
+  border-right: 1px solid #454545;
+}
+
+/* From Code Filter Module */
+div.codeblock {
+  background-color: #DDD;
+}
+
+/* BLOCKS */
+.block {
+  border-bottom: 5px solid #454545;
+}
+
+#gamma-footer-wrapper .block {
+  border-bottom: 5px solid #DDD;
+}
+#footer-wrapper .block {
+  border-bottom: 0;
+}
+
+.block h2 {
+  background: #454545;
+  color: #EEE;
+}
+
+#gamma-footer-wrapper .block h2 {
+  background: #DDD;
+  color: #454545;
+}
+.node h2 {
+  background: transparent;
+  color: #454545;
+}
+.node .comment-wrapper h2.title {
+  background: #454545;
+  color: #EEE;
+}
+
+.node {
+  border-bottom: 5px solid #454545;
 }
