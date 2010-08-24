@@ -34,10 +34,10 @@ body {
   background: #545454;
 }
 #gamma-outer-body-wrapper {
-  background: #FFF url('../i/body-bottom-bg.png') repeat-x bottom center;
+  background: #FFF url('../i/body-bottom-bg-454545.png') repeat-x bottom center;
 }
 #gamma-body-wrapper {
-  background: transparent url('../i/body-top-bg.png') repeat-x top center;
+  background: transparent url('../i/body-top-bg-454545.png') repeat-x top center;
 }
 #gamma-inner-body-wrapper {
   background: #EEE;
@@ -383,7 +383,7 @@ table tr.selected td {
 
 /** Node Lists */
 .node .content ul li {
-  background: url('../i/bullet-small-454545.png') no-repeat left 4px;
+  background: url('../i/bullet-454545.png') no-repeat left 4px;
 }
 
 /** Node Links */

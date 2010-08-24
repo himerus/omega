@@ -34,6 +34,23 @@ function gamma_form_system_theme_settings_alter(&$form, &$form_state) {
     '#default_value' => theme_get_setting('omega_footer_header_tag'),
     '#description' => t('This text will appear above the postscript regions in the "footer" area of the site, and be rendered with an H2 tag... <em>Plain Text only</em>.'),
   );
+  $form['omega_general']['optional_css']['reset_css'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable reset.css'),
+    '#default_value' => theme_get_setting('reset_css'),
+    '#description' => t('reset.css is the default CSS reset standard created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.'),
+  );
+  $form['omega_general']['optional_css']['gamma_color_scheme'] = array(
+      '#type' => 'select',
+      '#title' => t('Select Gamma Color Scheme...'),
+      '#description' => t('The Gamma subtheme allows you to configure your default color scheme using a pre-built set of color options. Here you may select the color scheme you would like to use for your site.'),
+      '#default_value' => theme_get_setting('gamma_color_scheme'),
+      '#options' => array(
+        'dark' => t('dark.css (grayscale)'),
+        'blue' => t('blue.css (blue)'),
+      ),
+      '#weight' => -100,
+    );
   // Return the form
   return $form;
 }

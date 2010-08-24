@@ -372,3 +372,21 @@ function gamma_form_alter(&$form, &$form_state, $form_id) {
 			break;
 	}
 }
+
+/**
+ * Implements hook_css_alter().
+ * Alter CSS files before they are output on the page.
+ *
+ * @param $css
+ *   An array of all CSS items (files and inline CSS) being requested on the page.
+ */
+function gamma_css_alter(&$css) {
+  // fluid width option
+  if (theme_get_setting('gamma_color_scheme')) {
+  	$css_gamma_color_css = drupal_get_path('theme', 'gamma') . '/css/dark.css';
+    $css_gamma_color = theme_get_setting('gamma_color_scheme');
+    if (isset($css[$css_gamma_color_css])) {
+      $css[$css_gamma_color_css]['data'] = drupal_get_path('theme', 'gamma') . '/css/' . $css_gamma_color . '.css';
+    }
+  }
+}
