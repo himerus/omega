@@ -152,6 +152,17 @@ body, html {
       padding: 8px 4px 8px 96px;
     }
 
+#postscript-wrapper .block .content {
+  background: #EEE;
+  padding: 10px;
+}
+#postscript-wrapper .menu-block .content {
+  background: transparent;
+  padding: 0;
+}
+
+
+
 /* Footer Region menu blocks/lists */
 #gamma-footer-wrapper .menu-block ul.menu,
 #gamma-footer-wrapper .menu-block div.item-list ul {

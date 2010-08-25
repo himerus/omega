@@ -45,7 +45,7 @@
   <?php print $scripts; ?>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
-  <div id="skip-link" class="element-invisible">
+  <div id="skip-link">
     <a href="#main-content"><?php print t('Skip to main content'); ?></a>
   </div>
   <?php print $page_top; ?>

@@ -48,6 +48,12 @@ body {
 #postscript-wrapper {
   background: #545454;
 }
+#postscript-wrapper .block .content {
+  background: #EEE;
+}
+#postscript-wrapper .menu-block .content {
+  background: transparent;
+}
 
 /* Font & Element Colors */
 /* Default Link Colors (Drupal Blue) */
