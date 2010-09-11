@@ -19,10 +19,11 @@ if (theme_get_setting('gamma_fixed')) {
   drupal_add_css(path_to_theme() . '/layout-fixed.css', 'theme', 'all');
 }
 // */
+
 /**
 * Automatically rebuild the theme registry.
 */
-//drupal_theme_rebuild();
+
 
 /**
  * Implements hook_theme().
@@ -39,16 +40,22 @@ function gamma_theme(&$existing, $type, $theme, $path) {
 
 
 /**
- * Override or insert variables into all templates.
- *
- * @param $vars
- *   An array of variables to pass to the theme template.
- * @param $hook
- *   The name of the template being rendered (name of the .tpl.php file.)
- */
+  * Implements hook_preprocess().
+  *
+  * This function checks to see if a hook has a preprocess file associated with it
+  * and if so, loads it.
+  *
+  * This makes it easier to keep sorted the preprocess functions that can be present
+  * in the template.php file. You may still use hook_preprocess_page, etc in
+  * template.php or create a file preprocess-page.inc in the preprocess folder to
+  * include the appropriate logic to your preprocess functionality.
+  *
+  * @param $vars
+  * @param $hook
+  */
 
 function gamma_preprocess(&$vars, $hook) {
-  //krumo($hook);
+  
 }
 // */
 

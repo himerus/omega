@@ -7,16 +7,18 @@
  * Contains theme functions, preprocess and process overrides, and custom
  * functions for the Omega theme.
  */
+
+
 /**
-  * Implements hook_process().
+  * Implements hook_preprocess().
   *
-  * This function checks to see if a hook has a process file associated with it
+  * This function checks to see if a hook has a preprocess file associated with it
   * and if so, loads it.
   *
-  * This makes it easier to keep sorted the process functions that can be present
-  * in the template.php file. You may still use hook_process_page, etc in
-  * template.php or create a file process-page.inc in the process folder to
-  * include the appropriate logic to your process functionality.
+  * This makes it easier to keep sorted the preprocess functions that can be present
+  * in the template.php file. You may still use hook_preprocess_page, etc in
+  * template.php or create a file preprocess-page.inc in the preprocess folder to
+  * include the appropriate logic to your preprocess functionality.
   *
   * @param $vars
   * @param $hook
