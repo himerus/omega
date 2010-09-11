@@ -93,6 +93,9 @@
      */
     var logo_height = gamma('#branding').height();
     var user_menu_height = gamma('#user-menu').height();
+    if (logo_height < user_menu_height) {
+    	logo_height = 60;
+    }
     var useMargin = Math.round((logo_height - user_menu_height) / 2);
     gamma('#user-menu').css('margin-top', useMargin).fadeIn('fast');
     
