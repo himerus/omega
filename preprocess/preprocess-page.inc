@@ -253,9 +253,9 @@ switch ($layout) {
   // FIRST - LAST - CONTENT
   case 'first_last_content':
   // pull data for the first sidebar
-  $first_max_pull = $content_width - $sidebar_second_width;
+  $first_max_pull = $content_width - $sidebar_first_width;
   // pull data for the second sidebar
-  $second_max_pull = $content_width - $sidebar_first_width;
+  $second_max_pull = $content_width - $sidebar_second_width;
   // push data for primary region
   $sc_max_push = $sidebar_first_width + $sidebar_second_width;
 
