@@ -31,7 +31,7 @@ if (theme_get_setting('sidebar_contain_pages')) {
     unset($vars['page']['sidebar_second']['#region']);
 
     $vars['page']['sidebar_first'] = array_merge($vars['page']['sidebar_first'], $vars['page']['sidebar_second']);
-    unset($vars['page']['sidebar_second']);
+    $vars['page']['sidebar_second'] = array();
   }
 }
 /**
@@ -204,8 +204,9 @@ switch ($layout) {
 
   // If sidebar_second isn't present, we will pull the first sidebar the
   // combined width of the content & sidebar last spacing otherwise.
-  $sl_pull = isset($vars['page']['sidebar_second']) ? $content_width : $content_width - $sidebar_second_width;
-
+  //$sl_pull = isset($vars['page']['sidebar_second']) ? $content_width : $content_width - $sidebar_second_width;
+  // Test for issue: http://drupal.org/node/896286
+  $sl_pull = (!isset($vars['page']['sidebar_second']) || count($vars['page']['sidebar_second']) == 0 ) ? $content_width - $sidebar_first_width : $content_width - $sidebar_first_width - $sidebar_second_width; 
   // let's assign some new data to our $content_regions array to assing pull classes
   
   // sidebar_first will be pulled an exact amount assuming it exists in this layout
@@ -251,23 +252,39 @@ switch ($layout) {
 
   // FIRST - LAST - CONTENT
   case 'first_last_content':
-  // if sidebar_second isn't present, we will pull the first sidebar the combined width of the content & sidebar last spacing
-  // otherwise,
-  $sl_pull = isset($vars['page']['sidebar_second']) ? $content_width : $content_width - $sidebar_second_width;
-  $sr_pull = isset($vars['page']['sidebar_first']) ? $content_width : $content_width - $sidebar_first_width;
+  // pull data for the first sidebar
+  $first_max_pull = $content_width - $sidebar_second_width;
+  // pull data for the second sidebar
+  $second_max_pull = $content_width - $sidebar_first_width;
+  // push data for primary region
   $sc_max_push = $sidebar_first_width + $sidebar_second_width;
 
   
   // let's assign some new data to our $content_regions array to assing pull classes
   
   // sidebar_first will be pulled an exact amount assuming it exists in this layout
-  $content_regions['sidebar_first']['pull']['width'] = $sl_pull;
-  $content_regions['sidebar_first']['pull']['conditions'] = array();
+  $content_regions['sidebar_first']['pull'] = array(
+    'width' => $first_max_pull,
+    'conditions' => array(
+      'sidebar_second' => array(
+        'type' => TRUE,
+        'value' => $sidebar_second_width,
+      ),
+    ),
+  );
   $content_regions['sidebar_first']['push'] = FALSE;
-  // sidebar_second doesn't move in this layout
-  $content_regions['sidebar_second']['pull']['width'] = $sr_pull;
-  $content_regions['sidebar_second']['pull']['conditions'] = array();
+  
+  $content_regions['sidebar_second']['pull'] = array(
+    'width' => $second_max_pull,
+    'conditions' => array(
+      'sidebar_second' => array(
+        'type' => TRUE,
+        'value' => $sidebar_first_width,
+      ),
+    ),
+  );
   $content_regions['sidebar_second']['push'] = FALSE;
+  
   // main_content will only be pushed in this layout
   $content_regions['main_content']['pull'] = FALSE;
   $content_regions['main_content']['push'] = array(
@@ -293,6 +310,7 @@ switch ($layout) {
   // calling the dynamic region builder function to position these elements
 
 $vars = dynamic_region_builder($content_regions, $vars['content_container_width'], $vars);
+
 /**
  * Postscript Region
  * Same as above, preparing the postscript regions to accept settings configurations

@@ -213,7 +213,7 @@ function static_region_builder($region_data, $container_width, $vars) {
   return $vars;
 }
 
-
+/*
 function _omega_dynamic_zones($width, $conditions, $vars) {
   foreach ($conditions AS $variable => $reaction) {
     if (($reaction['type'] && isset($vars['page'][$variable])) || (!$reaction['type'] && !isset($vars['page'][$variable]))) {
@@ -222,6 +222,17 @@ function _omega_dynamic_zones($width, $conditions, $vars) {
   }
   return $width;
 }
+*/
+
+function _omega_dynamic_zones($width, $conditions, $vars) {
+  foreach ($conditions AS $variable => $reaction) {
+    if (($reaction['type'] && is_array($vars['page'][$variable]) && count($vars['page'][$variable]) > 0 ) || (!$reaction['type'] && (!is_array($vars['page'][$variable]) || count($vars['page'][$variable]) == 0)  )) {
+      $width = $width - $reaction['value'];
+    }
+  }
+  return $width;
+} 
+
 
 function _omega_dynamic_widths($width, $conditions, $vars) {
   foreach ($conditions AS $variable => $zone) {
