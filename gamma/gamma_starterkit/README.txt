@@ -51,7 +51,7 @@ Creating your Omega Sub Theme
 5.  Open theme-settings.php and search and replace omega_starterkit with
     "subtheme" or the appropriate name of the theme you are creating.
     
-6.  Visit admin/build/themes/settings/subtheme and configure to your 
+6.  Visit admin/appearance/settings/subtheme and configure to your 
     hearts desire!!
 
 Contributors

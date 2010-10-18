@@ -10,15 +10,17 @@
 global $user;
 $debug_access = FALSE;
 $debug_roles = theme_get_setting('debug_grid_roles');
+
 if (!isset($user->roles[1])) {
   // Check to see if $user has the appropriate role.
   foreach ($debug_roles as $k => $v) {
-    if ($v && $user->roles[$k]) {
+    if ($v && isset($user->roles[$k])) {
       // user has access to debug tools
       $debug_access = TRUE;
     }
   }
 }
+
 // if grid debug is ON, and user either has access by role, or is uid 1
 if(theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid == 1)) {
   $debug_settings = array(
