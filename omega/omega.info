@@ -1,0 +1,160 @@
+;$Id$
+
+; NOTE - you do not need to enable or modify this theme - instead use
+; the Omega Starterkit as a starting point for building your own theme. 
+; By default, this theme is hidden on the Appearance page.
+
+name = Omega
+description = <a href="http://drupal.org/project/omega"><strong>Omega</strong></a> is the core base theme for all <a href="http://drupal.org/project/omega"><strong>Omega</strong></a> subthemes...
+core = 7.x
+engine = phptemplate
+screenshot = screenshot.png
+;hidden = TRUE
+
+stylesheets[all][] = css/960.css
+
+scripts[] = js/omega.js
+
+; Do NOT remove the following commented lines. They will be used for 
+; automated generation of the .info settings when rewritten.
+
+; CONTENT REGIONS
+
+; REQUIRED REGIONS
+
+regions[page_top] = Page Top
+regions[page_bottom] = Page Bottom
+regions[content] = Content
+
+; END REQUIRED REGIONS
+
+regions[sidebar_first] = Sidebar First
+regions[sidebar_second] = Sidebar Second
+
+regions[header_first] = Header First
+regions[header_second] = Header Second
+
+regions[preface_first] = Preface First
+regions[preface_second] = Preface Second
+regions[preface_third] = Preface Third
+
+regions[postscript_first] = Postscript First
+regions[postscript_second] = Postscript Second
+regions[postscript_third] = Postscript Third
+regions[postscript_fourth] = Postscript Fourth
+
+regions[footer_first] = Footer First
+regions[footer_second] = Footer Second
+
+; END CONTENT REGIONS
+
+; CONTENT ZONES
+
+zones[header][] = header_first
+zones[header][] = header_second
+
+zones[preface][] = preface_first
+zones[preface][] = preface_second
+zones[preface][] = preface_third
+
+zones[content][] = sidebar_first
+zones[content][] = content
+zones[content][] = sidebar_last
+
+zones[postscript][] = postscript_first
+zones[postscript][] = postscript_second
+zones[postscript][] = postscript_third
+zones[postscript][] = postscript_fourth
+
+zones[footer][] = footer_first
+zones[footer][] = footer_second
+
+; END CONTENT ZONES
+
+; Set the default settings to be used in theme-settings.php
+
+; Non-960gs default settings
+settings[reset_css] = 1
+settings[text_css] = 1
+settings[regions_css] = 1
+settings[defaults_css] = 1
+settings[custom_css] = 1
+
+settings[omega_search_default_text] = Search...
+
+settings[front_page_title_display] = title_slogan
+settings[page_title_display_custom] = ''
+settings[other_page_title_display] = ptitle_stitle
+settings[other_page_title_display_custom] = ''
+settings[configurable_separator] = ' | '
+
+settings[omega_breadcrumb] = 'yes'
+settings[omega_breadcrumb_separator] = ' / '
+settings[omega_breadcrumb_home] = 1
+settings[omega_breadcrumb_trailing] = 1
+settings[omega_breadcrumb_title] = 1
+
+settings[mission_statement_pages] = home
+
+settings[sidebar_combine] = 1
+settings[sidebar_contain_pages] = ''
+
+; 960gs default region settings
+settings[omega_default_container_width] = 16
+
+settings[omega_branding_wrapper_width] = 16
+settings[omega_header_logo_width] = 6
+settings[omega_header_menu_width] = 10
+
+settings[omega_header_wrapper_width] = 16
+settings[omega_header_first_width] = 8
+settings[omega_header_second_width] = 8
+
+settings[omega_internal_nav_wrapper_width] = 16
+settings[omega_breadcrumb_slogan_width] = 10
+settings[omega_search_width] = 6
+
+settings[omega_preface_wrapper_grids] = 16
+settings[omega_preface_first_width] = 8
+settings[omega_preface_first_prefix] = 0
+settings[omega_preface_first_suffix] = 0
+settings[omega_preface_second_width] = 4
+settings[omega_preface_second_prefix] = 0
+settings[omega_preface_second_suffix] = 0
+settings[omega_preface_third_width] = 4
+settings[omega_preface_third_prefix] = 0
+settings[omega_preface_third_suffix] = 0
+
+settings[omega_content_layout] = first_content_last
+settings[omega_content_container_width] = 16
+settings[omega_sidebar_first_width] = 4
+settings[omega_content_main_width] = 8
+settings[omega_sidebar_second_width] = 4
+settings[omega_content_front_override] = ''
+settings[omega_front_content_layout] = first_last_content
+settings[omega_front_content_container_width] = 16
+settings[omega_front_sidebar_first_width] = 4
+settings[omega_front_content_main_width] = 8
+settings[omega_front_sidebar_second_width] = 4
+
+settings[omega_postscript_container_width] = 16 
+settings[omega_postscript_first_width] = 4
+settings[omega_postscript_first_prefix] = 0
+settings[omega_postscript_first_suffix] = 0
+settings[omega_postscript_second_width] = 4
+settings[omega_postscript_second_prefix] = 0
+settings[omega_postscript_second_suffix] = 0
+settings[omega_postscript_third_width] = 4
+settings[omega_postscript_third_prefix] = 0
+settings[omega_postscript_third_suffix] = 0
+settings[omega_postscript_fourth_width] = 4
+settings[omega_postscript_fourth_prefix] = 0
+settings[omega_postscript_fourth_suffix] = 0
+
+settings[omega_footer_container_width] = 12
+settings[omega_footer_first_width] = 6
+settings[omega_footer_second_width] = 6
+
+settings[debug_grid_roles][3] = 3
+settings[debug_grid_roles][2] = 0
+; / 960gs default region settings
