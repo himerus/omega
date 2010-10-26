@@ -1,6 +1,6 @@
 ; $Id$
 name        = Omega Starter Kit
-description = Omega Sub-Theme starter kit
+description = Starterkit for <a href="http://drupal.org/project/omega"><strong>Omega</strong></a>. Make a copy of this subtheme to get started building your own <strong>Omega</strong> theme. For help see our <a href="http://project.developmentgeeks.com/omega/"><strong>documentation</strong></a> and <a href="http://vimeo.com/himerus"><strong>video</strong></a> tutorials. If you have a problem and need additional support please use the <a href="http://drupal.org/project/issues/omega"><strong>issue queue</strong></a>.
 screenshot = screenshot.png
 core       = 7.x
 base theme = omega
