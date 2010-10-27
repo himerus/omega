@@ -5,28 +5,71 @@ screenshot = screenshot.png
 core       = 7.x
 base theme = omega
 
-regions[sidebar_first] = sidebar first
-regions[sidebar_second] = sidebar second
 
-regions[header_first] = header first
-regions[header_second] = header second
+; Do NOT remove the following commented lines. They will be used for 
+; automated generation of the .info settings when rewritten.
 
-regions[preface_first] = preface first
-regions[preface_second] = preface second
-regions[preface_third] = preface third
+; CONTENT REGIONS
 
-; Required core regions
+; REQUIRED REGIONS
+
 regions[page_top] = Page Top
 regions[page_bottom] = Page Bottom
-regions[content] = content
+regions[content] = Content
 
-regions[postscript_first] = postscript first
-regions[postscript_second] = postscript second
-regions[postscript_third] = postscript third
-regions[postscript_fourth] = postscript fourth
+; END REQUIRED REGIONS
 
-regions[footer_first] = footer first
-regions[footer_second] = footer second
+regions[sidebar_first] = Sidebar First
+regions[sidebar_second] = Sidebar Second
+
+regions[header_first] = Header First
+regions[header_second] = Header Second
+
+regions[preface_first] = Preface First
+regions[preface_second] = Preface Second
+regions[preface_third] = Preface Third
+
+regions[postscript_first] = Postscript First
+regions[postscript_second] = Postscript Second
+regions[postscript_third] = Postscript Third
+regions[postscript_fourth] = Postscript Fourth
+
+regions[footer_first] = Footer First
+regions[footer_second] = Footer Second
+
+; END CONTENT REGIONS
+
+; CONTENT ZONES
+
+;-----/ The branding zone is required and contains "special" content items
+zones[branding][] = branding
+zones[branding][] = menu
+
+zones[header][] = header_first
+zones[header][] = header_second
+
+;-----/ The location zone is required and contains "special" content items
+zones[location][] = breadcrumb
+zones[location][] = search
+
+zones[preface][] = preface_first
+zones[preface][] = preface_second
+zones[preface][] = preface_third
+
+;-----/ The branding zone is required and contains required content items
+zones[content][] = sidebar_first
+zones[content][] = content
+zones[content][] = sidebar_second
+
+zones[postscript][] = postscript_first
+zones[postscript][] = postscript_second
+zones[postscript][] = postscript_third
+zones[postscript][] = postscript_fourth
+
+zones[footer][] = footer_first
+zones[footer][] = footer_second
+
+; END CONTENT ZONES
 
 ; Set the default settings to be used in theme-settings.php
 

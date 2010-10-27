@@ -4,6 +4,7 @@ description = Omega Sub-Theme starter kit
 screenshot = screenshot.png
 core       = 7.x
 base theme = omega
+hidden = TRUE
 
 stylesheets[all][] = css/text.css
 stylesheets[all][] = css/regions.css

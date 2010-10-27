@@ -9,7 +9,7 @@ description = <a href="http://drupal.org/project/omega"><strong>Omega</strong></
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
-;hidden = TRUE
+hidden = TRUE
 
 stylesheets[all][] = css/960.css
 
@@ -50,16 +50,25 @@ regions[footer_second] = Footer Second
 
 ; CONTENT ZONES
 
+;-----/ The branding zone is required and contains "special" content items
+zones[branding][] = branding
+zones[branding][] = menu
+
 zones[header][] = header_first
 zones[header][] = header_second
+
+;-----/ The location zone is required and contains "special" content items
+zones[location][] = breadcrumb
+zones[location][] = search
 
 zones[preface][] = preface_first
 zones[preface][] = preface_second
 zones[preface][] = preface_third
 
+;-----/ The branding zone is required and contains required content items
 zones[content][] = sidebar_first
 zones[content][] = content
-zones[content][] = sidebar_last
+zones[content][] = sidebar_second
 
 zones[postscript][] = postscript_first
 zones[postscript][] = postscript_second

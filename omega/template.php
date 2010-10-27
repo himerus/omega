@@ -348,3 +348,4 @@ function omega_css_alter(&$css) {
     }
   }
 }
+
