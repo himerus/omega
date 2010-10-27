@@ -46,35 +46,148 @@ $form['omega_regions']['defaults']['omega_fixed_fluid'] = array(
     'fluid' => t('Fluid width'),
   ),
 );
+
+/**
+ * Creating a wrapper fieldset for Zones
+ */
 $form['omega_regions']['zones'] = array(
   '#type' => 'fieldset',
   '#title' => t('Zone Configuration'),
 );
 $zones = $settings_theme_info['zones'];
 $all_regions = $settings_theme_info['regions'];
+/**
+ * Looping over each zone, and region in that zone.
+ */
 foreach ($zones AS $zone => $regions) {
-   $form['omega_regions']['zones'][$zone] = array(
+  // creating an additional fieldset for each zone 
+	$form['omega_regions']['zones'][$zone] = array(
     '#type' => 'fieldset',
     '#title' => t(ucwords($zone) . ' Configuration'),
-   '#prefix' => t('<h3 class="omega-accordion"><a href="#">' . ucwords($zone) . ' Zone Config</a></h3><div class="omega-accordion-content">'),
-   '#suffix' => '</div>', 
+    '#prefix' => t('<h3 class="omega-accordion"><a href="#">' . ucwords($zone) . ' Zone Config</a></h3><div class="omega-accordion-content">'),
+    '#suffix' => '</div>', 
   );
+  // provide a quick enable/disable option for this zone
+  $zone_enabled = theme_get_setting('omega_'. $zone .'_enabled') ? theme_get_setting('omega_'. $zone .'_enabled') : 1;
+  $form['omega_regions']['zones'][$zone]['omega_'. $zone .'_enabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable this Zone.'),
+    '#description' => t('Disabling this zone will instantly hide the container and all regions within from being rendered on page.'),
+    '#default_value' => $zone_enabled,
+  '#weight' => -50,
+  );
+  // create a chooser for static/dynamic zone
+  $zone_type = theme_get_setting('omega_'. $zone .'_zone_type') ? theme_get_setting('omega_'. $zone .'_zone_type') : 'static';
+  
+  $form['omega_regions']['zones'][$zone]['omega_'. $zone .'_zone_type'] = array(
+    '#type' => 'radios',
+    '#description' => t('<strong>Static</strong> Zones are displayed either inline or stacked based on settings. <strong>Dynamic</strong> Zones are always displayed inline, with a primary region and MUST fit inside the container wrap. Dynamic zones also allow for push & pull classes for content first ordering.'),
+    '#title' => t('Zone Type'),
+    '#default_value' => $zone_type,
+    '#options' => array(
+      'static' => t('Static Zone'),
+      'dynamic' => t('Dynamic Zone'),
+    ),
+    '#weight' => -49,
+  );
+  // create a container width selection menu for EACH zone
+  $form['omega_regions']['zones'][$zone]['omega_'. $zone .'_container_width'] = array(
+    '#type' => 'select',
+    '#title' => t('Container width'),
+    '#default_value' => theme_get_setting('omega_'. $zone .'_container_width'),
+    '#options' => $containers,
+    '#weight' => -48,
+  );
+  // provide content first layout ordering via push/pull if this is a dynamic zone
+  if($zone_type == 'dynamic') {
+  	$options = array();
+  	
+  	foreach($regions as $region) {
+  		$option_val = $region;
+  	  if (!isset($all_regions[$region])) {
+        $option_txt = ucwords($region);
+      }
+      else {
+        $option_txt = $all_regions[$region];
+      }
+  		foreach($regions as $other_region)
+  		  if($region != $other_region) {
+  		  	$option_val .= '-' . $other_region;
+  		  	if (!isset($all_regions[$region])) {
+  		  	  $option_txt .= ', ' . ucwords($other_region);
+  		  	}
+  		  	else {
+  		  		$option_txt .= ', ' . $all_regions[$other_region];
+  		  	}
+  		  }
+  		$options[$option_val] = t($option_txt);
+  	}
+  	
+  	
+  	$form['omega_regions']['zones'][$zone]['omega_'. $zone .'_dynamic_zone_order'] = array(
+      '#type' => 'radios',
+      '#title' => t('Region Ordering'),
+      '#description' => t('Region Ordering uses the push/pull classes in 960.gs for content first ordering. The source order of the zones is how they appear below, but changing this option will allow them to display in an order more suitiable for your visual layout, without damaging SEO.'),
+      '#default_value' => theme_get_setting('omega_'. $zone .'_dynamic_zone_order'),
+      '#options' => $options,
+    );
+  }
+  // allow for zone classes
+  $form['omega_regions']['zones'][$zone]['omega_' . $zone . '_zone_extra_classes'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Additional Classes'),
+    '#size' => 60,
+    '#default_value' => theme_get_setting('omega_' . $zone . '_zone_extra_classes'),
+    '#description' => t('You can quickly add custom CSS classes to your zone here.'),
+  );
+  
   foreach($regions as $region) {
   	if (!isset($all_regions[$region]) || $region == 'content') {
-  		$locked_flag = ' (locked region)';
+  		$locked_flag = ' (special region)';
+  		$region_name = ucwords(str_replace('_', ' ', $region));
   	}
   	else {
   		$locked_flag = '';
+  		$region_name = $all_regions[$region];
   	}
-    $form['omega_regions']['zones'][$zone][$region] = array(
-      '#type' => 'item',
-      '#title' => t($region . $locked_flag),
-      //'#markup' => t($region),
+  	
+	  
+	  $form['omega_regions']['zones'][$zone]['omega_' . $zone . '_' . $region . '_region_prefix'] = array(
+	    '#prefix' => t('<h4 class="region-title">' . $region_name . $locked_flag . '</h4><div class="prefix_config">'),
+	    '#type' => 'select',
+	    '#title' => t('Prefix'),
+	    '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_prefix'),
+	    '#options' => $spacing,
+	    '#suffix' => '</div>',
+	  );
+	  $form['omega_regions']['zones'][$zone]['omega_' . $zone . '_' . $region . '_region_width'] = array(
+      '#prefix' => '<div class="width_config">',
+	    '#type' => 'select',
+      '#title' => t('Width'),
+      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_width'),
+      '#options' => $grids,
+      '#suffix' => '</div>',
+    );
+	  $form['omega_regions']['zones'][$zone]['omega_' . $zone . '_' . $region . '_region_suffix'] = array(
+	    '#prefix' => '<div class="suffix_config">',
+	    '#type' => 'select',
+	    '#title' => t('Suffix'),
+	    '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_suffix'),
+	    '#options' => $spacing,
+	    '#suffix' => '</div>',
+	  );
+	  
+	  $form['omega_regions']['zones'][$zone]['omega_' . $zone . '_' . $region . '_region_extra_classes'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Additional Classes'),
+      '#size' => 60,
+      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_extra_classes'),
+      '#description' => t('You can quickly add custom CSS classes to your regions here.'),
     );
   }
 }
 
-krumo($zones);
-krumo($all_regions);
+//krumo($zones);
+//krumo($all_regions);
 krumo($form);
 //krumo($settings_theme_info);
