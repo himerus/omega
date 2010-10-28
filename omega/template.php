@@ -180,18 +180,8 @@ function omega_breadcrumb($variables) {
   return '';
 }
 
-/**
- * Implements hook_theme().
- *
- * @todo Either remove this entirely, or clean up and document.
- */
-function omega_theme(&$existing, $type, $theme, $path) {
-  //include_once './' . drupal_get_path('theme', 'omega') . '/theme-functions.inc';
-  // Since we are rebuilding the theme registry and the theme settings' default
-  // values may have changed, make sure they are saved in the database properly.
-  //omega_theme_get_default_settings($theme);
-  return array();
-}
+
+
 
 
 /**
@@ -211,3 +201,18 @@ function omega_css_alter(&$css) {
   }
 }
 
+/**
+ * Implements hook_theme().
+ *
+ * @todo Either remove this entirely, or clean up and document.
+ */
+function omega_theme() {
+	$items = array();
+  $items['zone'] = array(
+    'variables' => array('zid' => NULL, 'type' => NULL, 'enabled' => NULL, 'wrapper' => NULL, 'zone_type' => NULL, 'container_width' => NULL, 'regions' => NULL),
+    'path' => drupal_get_path('theme', 'omega') .'/templates',
+    'template' => 'zone',
+    //'pattern' => 'zone__',
+  );
+  return $items;
+}

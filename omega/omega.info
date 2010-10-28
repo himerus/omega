@@ -9,7 +9,7 @@ description = <a href="http://drupal.org/project/omega"><strong>Omega</strong></
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
-hidden = TRUE
+hidden = FALSE
 
 stylesheets[all][] = css/960.css
 
@@ -81,89 +81,137 @@ zones[footer][] = footer_second
 ; END CONTENT ZONES
 
 ; Set the default settings to be used in theme-settings.php
-
-; Non-960gs default settings
-settings[reset_css] = 1
-settings[text_css] = 1
-settings[regions_css] = 1
-settings[defaults_css] = 1
-settings[custom_css] = 1
-
-settings[omega_search_default_text] = Search...
-
-settings[front_page_title_display] = title_slogan
-settings[page_title_display_custom] = ''
-settings[other_page_title_display] = ptitle_stitle
-settings[other_page_title_display_custom] = ''
+settings[reset_css] = '1'
+settings[text_css] = '1'
+settings[regions_css] = '1'
+settings[defaults_css] = '1'
+settings[custom_css] = '1'
+settings[omega_render_search_box] = '1'
+settings[omega_search_default_text] = 'Search...'
 settings[configurable_separator] = ' | '
-
+settings[front_page_title_display] = 'title_slogan'
+settings[page_title_display_custom] = ''
+settings[other_page_title_display] = 'ptitle_stitle'
+settings[other_page_title_display_custom] = ''
 settings[omega_breadcrumb] = 'yes'
 settings[omega_breadcrumb_separator] = ' / '
-settings[omega_breadcrumb_home] = 1
-settings[omega_breadcrumb_trailing] = 1
-settings[omega_breadcrumb_title] = 1
-
-settings[mission_statement_pages] = home
-
-settings[sidebar_combine] = 1
-settings[sidebar_contain_pages] = ''
-
-; 960gs default region settings
-settings[omega_default_container_width] = 16
-
-settings[omega_branding_wrapper_width] = 16
-settings[omega_header_logo_width] = 6
-settings[omega_header_menu_width] = 10
-
-settings[omega_header_wrapper_width] = 16
-settings[omega_header_first_width] = 8
-settings[omega_header_second_width] = 8
-
-settings[omega_internal_nav_wrapper_width] = 16
-settings[omega_breadcrumb_slogan_width] = 10
-settings[omega_search_width] = 6
-
-settings[omega_preface_wrapper_grids] = 16
-settings[omega_preface_first_width] = 8
-settings[omega_preface_first_prefix] = 0
-settings[omega_preface_first_suffix] = 0
-settings[omega_preface_second_width] = 4
-settings[omega_preface_second_prefix] = 0
-settings[omega_preface_second_suffix] = 0
-settings[omega_preface_third_width] = 4
-settings[omega_preface_third_prefix] = 0
-settings[omega_preface_third_suffix] = 0
-
-settings[omega_content_layout] = first_content_last
-settings[omega_content_container_width] = 16
-settings[omega_sidebar_first_width] = 4
-settings[omega_content_main_width] = 8
-settings[omega_sidebar_second_width] = 4
-settings[omega_content_front_override] = ''
-settings[omega_front_content_layout] = first_last_content
-settings[omega_front_content_container_width] = 16
-settings[omega_front_sidebar_first_width] = 4
-settings[omega_front_content_main_width] = 8
-settings[omega_front_sidebar_second_width] = 4
-
-settings[omega_postscript_container_width] = 16 
-settings[omega_postscript_first_width] = 4
-settings[omega_postscript_first_prefix] = 0
-settings[omega_postscript_first_suffix] = 0
-settings[omega_postscript_second_width] = 4
-settings[omega_postscript_second_prefix] = 0
-settings[omega_postscript_second_suffix] = 0
-settings[omega_postscript_third_width] = 4
-settings[omega_postscript_third_prefix] = 0
-settings[omega_postscript_third_suffix] = 0
-settings[omega_postscript_fourth_width] = 4
-settings[omega_postscript_fourth_prefix] = 0
-settings[omega_postscript_fourth_suffix] = 0
-
-settings[omega_footer_container_width] = 12
-settings[omega_footer_first_width] = 6
-settings[omega_footer_second_width] = 6
-
-settings[debug_grid_roles][3] = 3
-settings[debug_grid_roles][2] = 0
-; / 960gs default region settings
+settings[omega_breadcrumb_home] = '1'
+settings[omega_breadcrumb_trailing] = '1'
+settings[omega_breadcrumb_title] = '1'
+settings[omega_general__active_tab] = ''
+settings[omega_default_container_width] = '16'
+settings[omega_fixed_fluid] = 'fixed'
+settings[omega_branding_enabled] = '1'
+settings[omega_branding_wrapper] = '1'
+settings[omega_branding_zone_type] = 'static'
+settings[omega_branding_container_width] = '16'
+settings[omega_branding_zone_extra_classes] = 'branding-zone'
+settings[omega_branding_branding_region_prefix] = ''
+settings[omega_branding_branding_region_width] = '8'
+settings[omega_branding_branding_region_suffix] = ''
+settings[omega_branding_branding_region_extra_classes] = 'branding-region'
+settings[omega_branding_menu_region_prefix] = ''
+settings[omega_branding_menu_region_width] = '8'
+settings[omega_branding_menu_region_suffix] = ''
+settings[omega_branding_menu_region_extra_classes] = 'menu-region'
+settings[omega_header_enabled] = '1'
+settings[omega_header_wrapper] = ''
+settings[omega_header_zone_type] = 'static'
+settings[omega_header_container_width] = '16'
+settings[omega_header_zone_extra_classes] = 'header-zone'
+settings[omega_header_header_first_region_prefix] = ''
+settings[omega_header_header_first_region_width] = '8'
+settings[omega_header_header_first_region_suffix] = ''
+settings[omega_header_header_first_region_extra_classes] = 'header-first-region'
+settings[omega_header_header_second_region_prefix] = ''
+settings[omega_header_header_second_region_width] = '8'
+settings[omega_header_header_second_region_suffix] = ''
+settings[omega_header_header_second_region_extra_classes] = 'header-second-region'
+settings[omega_location_enabled] = '1'
+settings[omega_location_wrapper] = ''
+settings[omega_location_zone_type] = 'static'
+settings[omega_location_container_width] = '16'
+settings[omega_location_zone_extra_classes] = 'location-zone'
+settings[omega_location_breadcrumb_region_prefix] = ''
+settings[omega_location_breadcrumb_region_width] = '10'
+settings[omega_location_breadcrumb_region_suffix] = ''
+settings[omega_location_breadcrumb_region_extra_classes] = 'breadcrumb-region'
+settings[omega_location_search_region_prefix] = ''
+settings[omega_location_search_region_width] = '6'
+settings[omega_location_search_region_suffix] = ''
+settings[omega_location_search_region_extra_classes] = 'search-region'
+settings[omega_preface_enabled] = '1'
+settings[omega_preface_wrapper] = ''
+settings[omega_preface_zone_type] = 'static'
+settings[omega_preface_container_width] = '16'
+settings[omega_preface_zone_extra_classes] = 'preface-zone'
+settings[omega_preface_preface_first_region_prefix] = ''
+settings[omega_preface_preface_first_region_width] = '5'
+settings[omega_preface_preface_first_region_suffix] = ''
+settings[omega_preface_preface_first_region_extra_classes] = 'preface-first-region'
+settings[omega_preface_preface_second_region_prefix] = ''
+settings[omega_preface_preface_second_region_width] = '6'
+settings[omega_preface_preface_second_region_suffix] = ''
+settings[omega_preface_preface_second_region_extra_classes] = 'preface-second-region'
+settings[omega_preface_preface_third_region_prefix] = ''
+settings[omega_preface_preface_third_region_width] = '5'
+settings[omega_preface_preface_third_region_suffix] = ''
+settings[omega_preface_preface_third_region_extra_classes] = 'preface-third-region'
+settings[omega_content_enabled] = '1'
+settings[omega_content_wrapper] = ''
+settings[omega_content_zone_type] = 'dynamic'
+settings[omega_content_container_width] = '16'
+settings[omega_content_dynamic_zone_order] = 'sidebar_first-content-sidebar_second'
+settings[omega_content_zone_extra_classes] = 'content-zone'
+settings[omega_content_sidebar_first_region_prefix] = ''
+settings[omega_content_sidebar_first_region_width] = '4'
+settings[omega_content_sidebar_first_region_suffix] = ''
+settings[omega_content_sidebar_first_region_extra_classes] = 'sidebar-first-region'
+settings[omega_content_content_region_prefix] = ''
+settings[omega_content_content_region_width] = '8'
+settings[omega_content_content_region_suffix] = ''
+settings[omega_content_content_region_extra_classes] = 'content-region'
+settings[omega_content_sidebar_second_region_prefix] = ''
+settings[omega_content_sidebar_second_region_width] = '4'
+settings[omega_content_sidebar_second_region_suffix] = ''
+settings[omega_content_sidebar_second_region_extra_classes] = 'sidebar-second-region'
+settings[omega_postscript_enabled] = '1'
+settings[omega_postscript_wrapper] = ''
+settings[omega_postscript_zone_type] = 'static'
+settings[omega_postscript_container_width] = '16'
+settings[omega_postscript_zone_extra_classes] = 'postscript-zone'
+settings[omega_postscript_postscript_first_region_prefix] = ''
+settings[omega_postscript_postscript_first_region_width] = '4'
+settings[omega_postscript_postscript_first_region_suffix] = ''
+settings[omega_postscript_postscript_first_region_extra_classes] = 'postscript-first-region'
+settings[omega_postscript_postscript_second_region_prefix] = ''
+settings[omega_postscript_postscript_second_region_width] = '4'
+settings[omega_postscript_postscript_second_region_suffix] = ''
+settings[omega_postscript_postscript_second_region_extra_classes] = 'postscript-second-region'
+settings[omega_postscript_postscript_third_region_prefix] = ''
+settings[omega_postscript_postscript_third_region_width] = '4'
+settings[omega_postscript_postscript_third_region_suffix] = ''
+settings[omega_postscript_postscript_third_region_extra_classes] = 'postscript-third-region'
+settings[omega_postscript_postscript_fourth_region_prefix] = ''
+settings[omega_postscript_postscript_fourth_region_width] = '4'
+settings[omega_postscript_postscript_fourth_region_suffix] = ''
+settings[omega_postscript_postscript_fourth_region_extra_classes] = 'postscript-fourth-region'
+settings[omega_footer_enabled] = '1'
+settings[omega_footer_wrapper] = '1'
+settings[omega_footer_zone_type] = 'static'
+settings[omega_footer_container_width] = '16'
+settings[omega_footer_zone_extra_classes] = 'footer-zone'
+settings[omega_footer_footer_first_region_prefix] = ''
+settings[omega_footer_footer_first_region_width] = '16'
+settings[omega_footer_footer_first_region_suffix] = ''
+settings[omega_footer_footer_first_region_extra_classes] = 'footer-first-region'
+settings[omega_footer_footer_second_region_prefix] = ''
+settings[omega_footer_footer_second_region_width] = '16'
+settings[omega_footer_footer_second_region_suffix] = ''
+settings[omega_footer_footer_second_region_extra_classes] = 'footer-second-region'
+settings[omega_regions__active_tab] = ''
+settings[debug_grid_toggle] = ''
+settings[debug_grid_toggle_state] = ''
+settings[debug_grid_roles][2] = '0'
+settings[omega_admin__active_tab] = ''
+settings[general_settings__active_tab] = ''

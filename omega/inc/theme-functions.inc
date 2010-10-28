@@ -155,6 +155,6 @@ function dynamic_region_builder($region_data, $container_width, $vars) {
   return $vars;
 }
 
-function omega_prepare_zones($zones) {
-  return $zones;
+function omega_zone_location() {
+	
 }

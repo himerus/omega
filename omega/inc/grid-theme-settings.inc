@@ -76,19 +76,26 @@ foreach ($zones AS $zone => $regions) {
     '#default_value' => $zone_enabled,
   '#weight' => -50,
   );
+  // provide a full width wrapper around the zone (allowing for design elements outside the grid)
+  $zone_wrapper = theme_get_setting('omega_'. $zone .'_wrapper') ? theme_get_setting('omega_'. $zone .'_wrapper') : 0;
+  $form['omega_regions']['zones'][$zone]['omega_'. $zone .'_wrapper'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Provide full width wrapper around this zone.'),
+    '#description' => t('Enabling this feature will give a &lt;div&gt; wrapper around the zone itself, allowing you to theme in elements that appear outside the 960 pixel container zone.'),
+    '#default_value' => $zone_wrapper,
+  );
   // create a chooser for static/dynamic zone
   $zone_type = theme_get_setting('omega_'. $zone .'_zone_type') ? theme_get_setting('omega_'. $zone .'_zone_type') : 'static';
   
   $form['omega_regions']['zones'][$zone]['omega_'. $zone .'_zone_type'] = array(
     '#type' => 'radios',
-    '#description' => t('<strong>Static</strong> Zones are displayed either inline or stacked based on settings. <strong>Dynamic</strong> Zones are always displayed inline, with a primary region and MUST fit inside the container wrap. Dynamic zones also allow for push & pull classes for content first ordering.'),
+    '#description' => t('<p><strong>Static</strong> Zones are displayed either inline or stacked based on settings.</p><p><strong>Dynamic</strong> Zones are always displayed inline, with a primary region and MUST fit inside the container wrap. Dynamic zones also allow for push & pull classes for content first ordering.'),
     '#title' => t('Zone Type'),
     '#default_value' => $zone_type,
     '#options' => array(
       'static' => t('Static Zone'),
       'dynamic' => t('Dynamic Zone'),
     ),
-    '#weight' => -49,
   );
   // create a container width selection menu for EACH zone
   $form['omega_regions']['zones'][$zone]['omega_'. $zone .'_container_width'] = array(
@@ -96,7 +103,6 @@ foreach ($zones AS $zone => $regions) {
     '#title' => t('Container width'),
     '#default_value' => theme_get_setting('omega_'. $zone .'_container_width'),
     '#options' => $containers,
-    '#weight' => -48,
   );
   // provide content first layout ordering via push/pull if this is a dynamic zone
   if($zone_type == 'dynamic') {
@@ -186,8 +192,3 @@ foreach ($zones AS $zone => $regions) {
     );
   }
 }
-
-//krumo($zones);
-//krumo($all_regions);
-krumo($form);
-//krumo($settings_theme_info);
