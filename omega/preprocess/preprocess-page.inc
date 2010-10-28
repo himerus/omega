@@ -65,6 +65,7 @@ foreach ($theme_zones as $zone_ref => $regions) {
   //$zone['theme_hook_suggestions'][] = 'zone__' . $zone['zid'];
   
   
+  //$zones[$zone['type']][$zone['zid']] = theme(array('zone__'. $zone['type']), $zone);
   $zones[$zone['type']][$zone['zid']] = theme('zone', $zone);
 }
 //krumo($zones);

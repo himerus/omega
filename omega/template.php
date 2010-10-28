@@ -26,6 +26,7 @@
   * @param $hook
   */
 function omega_preprocess(&$vars, $hook) {
+	krumo($hook);
   // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
@@ -215,4 +216,7 @@ function omega_theme() {
     //'pattern' => 'zone__',
   );
   return $items;
+}
+function omega_theme_registry_alter($registry) {
+	//krumo($registry);
 }
