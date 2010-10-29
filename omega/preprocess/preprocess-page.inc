@@ -6,6 +6,12 @@
  * Contents of omega_preprocess_page().
  */
 
+// fix messages 
+// this should NOT be an empty string if it's freaking empty
+if (strlen($vars['messages']) == 0) {
+	unset($vars['messages']);
+}
+
 global $theme_key, $theme_info;
 // theme_key is the name of the current theme
 $vars['theme_key'] = $theme_key;
@@ -16,7 +22,7 @@ $vars['theme_info'] = $theme_info;
 $vars['default_container_width'] = theme_get_setting('omega_default_container_width');
 // pulling just the zone data out of the theme_info array
 $theme_zones = $theme_info->info['zones'];
-// creating empty array to hold our custom zone data
+// creating empty array to hold our custom zone[group] data
 $zones = array(
   'before' => array(),
   'content' => array(),
@@ -34,12 +40,11 @@ $zones_before_content = array_slice($theme_zones, 0, $content_position, TRUE);
 // zones_after_content are all zones that appear after content in the array
 $zones_after_content = array_slice($theme_zones, $content_position + 1, count($theme_zones), TRUE);
 
-//krumo($zones_before_content);
-//krumo($zones_after_content);
 
 
-
-
+/**
+ * Cycle each zone to build out our actual page template data
+ */
 foreach ($theme_zones as $zone_ref => $regions) {
 	$zone = array();
 	$zone['zid'] = $zone_ref;
@@ -52,7 +57,7 @@ foreach ($theme_zones as $zone_ref => $regions) {
   else {
   	$zone['type'] = 'content';
   }
-  $zone['enabled'] = theme_get_setting('omega_'. $zone_ref .'_enabled') ? theme_get_setting('omega_'. $zone_ref .'_enabled') : 1;
+  $zone['enabled'] = theme_get_setting('omega_'. $zone_ref .'_enabled') || theme_get_setting('omega_'. $zone_ref .'_enabled') == 0 ? theme_get_setting('omega_'. $zone_ref .'_enabled') : 1;
   $zone['wrapper'] = theme_get_setting('omega_'. $zone_ref .'_wrapper') ? theme_get_setting('omega_'. $zone_ref .'_wrapper') : 0;
   $zone['zone_type'] = theme_get_setting('omega_'. $zone_ref .'_zone_type') ? theme_get_setting('omega_'. $zone_ref .'_zone_type') : 'static';
   $zone['container_width'] = theme_get_setting('omega_'. $zone_ref .'_container_width') ? theme_get_setting('omega_'. $zone_ref .'_container_width') : $vars['default_container_width'];
@@ -61,23 +66,34 @@ foreach ($theme_zones as $zone_ref => $regions) {
   foreach($regions as $region) {
   	$zone['regions'][$region] = isset($vars['page'][$region]) ? $vars['page'][$region] : '';
   }
-  //$zone['theme_hook_suggestions'][] = 'zone__' . $zone['type'];
-  //$zone['theme_hook_suggestions'][] = 'zone__' . $zone['zid'];
-  
-  
-  //$zones[$zone['type']][$zone['zid']] = theme(array('zone__'. $zone['type']), $zone);
+
   $zones[$zone['type']][$zone['zid']] = theme('zone', $zone);
 }
-//krumo($zones);
+
+
+// zones appearing before content on page
+$vars['zones_above'] = '';
+$before = array_keys($zones_before_content);
+foreach($before as $k => $zone) {
+  $vars['zones_above'] .= $zones['before'][$zone];
+}
+// required content zone
+$vars['content_zone'] = $zones['content']['content'];
+// zones appearing after content on page
+$vars['zones_below'] = '';
+$after = array_keys($zones_after_content);
+foreach($after as $k => $zone) {
+  $vars['zones_below'] .= $zones['after'][$zone];
+}
 
 //krumo($zones);
+
 /**
  * STATIC REGION BUILDER EXAMPLE
  */
 /**
 
 $vars['postscript_container_width'] = theme_get_setting('omega_postscript_container_width');
-$vars['preface_wrapper_grids'] = theme_get_setting('omega_preface_wrapper_grids');
 $postscript_regions = array(
   'postscript_first' => array(
     'data' => $vars['page']['postscript_first'],

@@ -65,7 +65,7 @@ zones[preface][] = preface_first
 zones[preface][] = preface_second
 zones[preface][] = preface_third
 
-;-----/ The branding zone is required and contains required content items
+;-----/ The content zone is required and contains required content items
 zones[content][] = sidebar_first
 zones[content][] = content
 zones[content][] = sidebar_second
@@ -101,7 +101,7 @@ settings[omega_breadcrumb_title] = '1'
 settings[omega_general__active_tab] = ''
 settings[omega_default_container_width] = '16'
 settings[omega_fixed_fluid] = 'fixed'
-settings[omega_branding_enabled] = '1'
+settings[omega_branding_enabled] = ''
 settings[omega_branding_wrapper] = '1'
 settings[omega_branding_zone_type] = 'static'
 settings[omega_branding_container_width] = '16'

@@ -8,12 +8,12 @@
 //krumo($zones);
 ?>
 <div id="page" class="clearfix">
-  <?php if(isset($zones_above)): ?>
+  <?php if (isset($zones_above)): ?>
   <?php print $zones_above; ?>
   <?php endif; ?>
   
   <?php if (isset($messages)): ?>
-  <div class="container-<?php print $default_container_width; ?> clearfix">
+  <div id="message-container" class="container-<?php print $default_container_width; ?> clearfix">
     <div class="grid-<?php print $default_container_width; ?>">
       <?php print $messages; ?>
     </div>
@@ -22,7 +22,7 @@
 
   <?php print $content_zone; ?>
   
-  <?php if(isset($zones_above)): ?>
-  <?php print $zones_above; ?>
+  <?php if (isset($zones_below)): ?>
+  <?php print $zones_below; ?>
   <?php endif; ?>
 </div><!-- /#page -->

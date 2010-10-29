@@ -68,7 +68,7 @@ foreach ($zones AS $zone => $regions) {
     '#suffix' => '</div>', 
   );
   // provide a quick enable/disable option for this zone
-  $zone_enabled = theme_get_setting('omega_'. $zone .'_enabled') ? theme_get_setting('omega_'. $zone .'_enabled') : 1;
+  $zone_enabled = theme_get_setting('omega_'. $zone .'_enabled') || theme_get_setting('omega_'. $zone .'_enabled') == 0 ? theme_get_setting('omega_'. $zone .'_enabled') : 1;
   $form['omega_regions']['zones'][$zone]['omega_'. $zone .'_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable this Zone.'),
