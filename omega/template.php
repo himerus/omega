@@ -1,11 +1,21 @@
 <?php
 // $Id$
-// Report all PHP errors (see changelog)
 
 /**
  * @file
  * Contains theme functions, preprocess and process overrides, and custom
  * functions for the Omega theme.
+ *        ___           ___           ___           ___           ___     
+ *	     /  /\         /  /\         /  /\         /  /\         /  /\    
+ *	    /  /::\       /  /::|       /  /::\       /  /::\       /  /::\   
+ *	   /  /:/\:\     /  /:|:|      /  /:/\:\     /  /:/\:\     /  /:/\:\  
+ *	  /  /:/  \:\   /  /:/|:|__   /  /::\ \:\   /  /:/  \:\   /  /::\ \:\ 
+ *	 /__/:/ \__\:\ /__/:/_|::::\ /__/:/\:\ \:\ /__/:/_\_ \:\ /__/:/\:\_\:\
+ *	 \  \:\ /  /:/ \__\/  /~~/:/ \  \:\ \:\_\/ \  \:\__/\_\/ \__\/  \:\/:/
+ *	  \  \:\  /:/        /  /:/   \  \:\ \:\    \  \:\ \:\        \__\::/ 
+ *	   \  \:\/:/        /  /:/     \  \:\_\/     \  \:\/:/        /  /:/  
+ *	    \  \::/        /__/:/       \  \:\        \  \::/        /__/:/   
+ *	     \__\/         \__\/         \__\/         \__\/         \__\/    
  */
 
 // include general theme functions required both in template.php AND theme-settings.php
@@ -204,15 +214,16 @@ function omega_css_alter(&$css) {
 /**
  * Implements hook_theme().
  *
- * @todo Either remove this entirely, or clean up and document.
+ * @todo figure out WTF with template suggestions
  */
-function omega_theme() {
+function omega_theme($existing, $type, $theme, $path) {
+	
 	$items = array();
   $items['zone'] = array(
     'variables' => array('zid' => NULL, 'type' => NULL, 'enabled' => NULL, 'wrapper' => NULL, 'zone_type' => NULL, 'container_width' => NULL, 'regions' => NULL),
     'path' => drupal_get_path('theme', 'omega') .'/templates',
     'template' => 'zone',
-    //'pattern' => 'zone__',
+    //'pattern' => 'zone',
   );
   return $items;
 }

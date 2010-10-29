@@ -13,6 +13,10 @@
  *      960pixel container size.
  * - $zid: the zone id of the zone being rendered. This is a text value.
  * - $container_width: the container width (12, 16, 24) of the zone
+ * - $attributes: a string containing the relevant class & id data for a container
+ * 
+ * Helper Variables
+ * - $attributes_array: an array of attributes for the container zone
  * 
  * @see template_preprocess()
  * @see template_preprocess_zone()
@@ -23,7 +27,7 @@
 
 <?php if($enabled): ?>
 	<?php if($wrapper): ?><div id="<?php print $zid;?>-outer-wrapper"><?php endif; ?>  
-	  <div id="<?php print $zid;?>-container" class="container-<?php print $container_width; ?> clearfix">
+	  <div <?php print $attributes;?>>
 	    <?php print render($regions); ?>
 	  </div>
 	<?php if($wrapper): ?></div><?php endif; ?>

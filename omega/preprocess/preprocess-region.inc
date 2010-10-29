@@ -23,4 +23,12 @@ if (isset($parent_zone)) {
 	  }
 	}
 	$vars['classes_array'][] = 'grid-' . theme_get_setting('omega_' . $parent_zone . '_' . $region . '_region_width');
+	$prefix = theme_get_setting('omega_' . $parent_zone . '_' . $region . '_region_prefix');
+	$suffix = theme_get_setting('omega_' . $parent_zone . '_' . $region . '_region_suffix');
+	if($prefix) {
+    $vars['classes_array'][] = 'prefix-' . $prefix;	
+	}
+	if ($suffix) {
+		$vars['classes_array'][] = 'suffix-' . $suffix;
+	}
 }

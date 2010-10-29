@@ -66,8 +66,10 @@ foreach ($theme_zones as $zone_ref => $regions) {
   foreach($regions as $region) {
   	$zone['regions'][$region] = isset($vars['page'][$region]) ? $vars['page'][$region] : '';
   }
-
-  $zones[$zone['type']][$zone['zid']] = theme('zone', $zone);
+  if ($zone['enabled']) {
+    //$zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
+    $zones[$zone['type']][$zone['zid']] = theme('zone', $zone);
+  }
 }
 
 
@@ -75,7 +77,9 @@ foreach ($theme_zones as $zone_ref => $regions) {
 $vars['zones_above'] = '';
 $before = array_keys($zones_before_content);
 foreach($before as $k => $zone) {
-  $vars['zones_above'] .= $zones['before'][$zone];
+	if (isset($zones['before'][$zone])) {
+    $vars['zones_above'] .= $zones['before'][$zone];
+	}
 }
 // required content zone
 $vars['content_zone'] = $zones['content']['content'];
@@ -83,7 +87,9 @@ $vars['content_zone'] = $zones['content']['content'];
 $vars['zones_below'] = '';
 $after = array_keys($zones_after_content);
 foreach($after as $k => $zone) {
-  $vars['zones_below'] .= $zones['after'][$zone];
+	if (isset($zones['after'][$zone])) {
+    $vars['zones_below'] .= $zones['after'][$zone];
+	}
 }
 
 //krumo($zones);
