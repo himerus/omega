@@ -25,10 +25,11 @@
  * @see template_preprocess()
  * @see template_preprocess_region()
  * @see template_process()
+ * @see template_process_region()
  */
 ?>
 <?php if ($content): ?>
-  <div class="<?php print $classes; ?>">
+  <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
     <?php print $content; ?>
   </div>
 <?php endif; ?>

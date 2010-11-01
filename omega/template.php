@@ -39,6 +39,10 @@ function omega_preprocess(&$vars, $hook) {
   // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
+  
+  if (substr($hook, 0, 4) == 'zone') {
+  	$hook = 'zone';
+  }
   // If there is a base theme, collect the names of all themes that may have
   // preprocess files to load.
   if (isset($theme_info->base_theme)) {
@@ -76,7 +80,9 @@ function omega_process(&$vars, $hook) {
 // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
-  //krumo($theme_info);
+  if (substr($hook, 0, 4) == 'zone') {
+    $hook = 'zone';
+  }
   // If there is a base theme, collect the names of all themes that may have 
   // preprocess files to load.
   if (isset($theme_info->base_theme)) {
@@ -215,18 +221,120 @@ function omega_css_alter(&$css) {
  * Implements hook_theme().
  *
  * @todo figure out WTF with template suggestions
+ * 
+ * @see delta_theme()
+ * @see http://api.drupal.org/api/function/hook_theme/7
+ * - There was cause to create a module here to implement a proper theme 
+ *   function. There was major issue with attempting to get the zone elements 
+ *   to work properly. zone.tpl.php was being used when declared here in 
+ *   omega_theme(), however, suggestions for more specific templates was NOT.
+ *   
+ * - The need here was to have the priority order be:
+ *   - zone-ZONEID.tpl.php (the actual zone itself has a custom override)
+ *   - zone-ZONETYPE.tpl.php (the zone type ('above', 'below', 'content'))
+ *     each have their own custom template to use for more generic implementations
+ *   - zone.tpl.php (default)
  */
 function omega_theme($existing, $type, $theme, $path) {
-	
-	$items = array();
-  $items['zone'] = array(
-    'variables' => array('zid' => NULL, 'type' => NULL, 'enabled' => NULL, 'wrapper' => NULL, 'zone_type' => NULL, 'container_width' => NULL, 'regions' => NULL),
-    'path' => drupal_get_path('theme', 'omega') .'/templates',
-    'template' => 'zone',
-    //'pattern' => 'zone',
-  );
-  return $items;
+	$hooks = array();
+  
+  return $hooks;
 }
+/**
+ * Implements hook_theme_registry_alter()
+ * 
+ * @param array $registry
+ * 
+ * @see http://api.drupal.org/api/function/hook_theme_registry_alter/7
+ */
 function omega_theme_registry_alter($registry) {
-	//krumo($registry);
+  //krumo($registry);
 }
+/*
+function omega_page_alter($page) {
+	global $theme_key, $theme_info;
+	// theme_key is the name of the current theme
+	//$vars['theme_key'] = $theme_key;
+	// theme_info is the array of theme information (region, settings, zones, etc.)
+	//$vars['theme_info'] = $theme_info;
+	// default container width will be used in special zones and zones without a 
+	// container width defined in theme settings
+	$default_container_width = theme_get_setting('omega_default_container_width');
+	// pulling just the zone data out of the theme_info array
+	$theme_zones = $theme_info->info['zones'];
+	// creating empty array to hold our custom zone[group] data
+	$zones = array(
+	  'before' => array(),
+	  'content' => array(),
+	  'after' => array(),
+	);
+	// separate out the specific content zone (a very special case)
+	$content_zone = $theme_zones['content'];
+	// zone keys give us a way to find the numerical position of the content zone
+	// thus giving us a way to split up the array into before and after content zones
+	$zone_keys = array_keys($theme_zones);
+	// content_position is the numberical location of the content zone
+	$content_position = array_search('content', $zone_keys);
+	// zones_before_content are all zones that appear before content in the array
+	$zones_before_content = array_slice($theme_zones, 0, $content_position, TRUE);
+	// zones_after_content are all zones that appear after content in the array
+	$zones_after_content = array_slice($theme_zones, $content_position + 1, count($theme_zones), TRUE);
+	
+	
+
+	foreach ($theme_zones as $zone_ref => $regions) {
+	  $zone = array();
+	  $zone['#zid'] = $zone_ref;
+	  if(array_key_exists($zone_ref, $zones_before_content)) {
+	    $zone['#type'] = 'before';
+	  }
+	  elseif(array_key_exists($zone_ref, $zones_after_content)) {
+	    $zone['#type'] = 'after';
+	  }
+	  else {
+	    $zone['#type'] = 'content';
+	  }
+	  $zone['#theme_wrappers'] = array('zone');
+	  //$zone['#sorted'] = TRUE;
+	  $zone['#enabled'] = theme_get_setting('omega_'. $zone_ref .'_enabled') || theme_get_setting('omega_'. $zone_ref .'_enabled') == 0 ? theme_get_setting('omega_'. $zone_ref .'_enabled') : 1;
+	  $zone['#wrapper'] = theme_get_setting('omega_'. $zone_ref .'_wrapper') ? theme_get_setting('omega_'. $zone_ref .'_wrapper') : 0;
+	  $zone['#zone_type'] = theme_get_setting('omega_'. $zone_ref .'_zone_type') ? theme_get_setting('omega_'. $zone_ref .'_zone_type') : 'static';
+	  $zone['#container_width'] = theme_get_setting('omega_'. $zone_ref .'_container_width') ? theme_get_setting('omega_'. $zone_ref .'_container_width') : $default_container_width;
+	  
+	  //$zone['regions'] = array();
+	  if ($zone['#enabled']) {
+      //$zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
+      $page[$zone['#zid']] = $zone;
+      $page[$zone['#zid']]['#markup'] = '';
+		  foreach($regions as $region) {
+	      $page[$zone['#zid']]['#markup'] .= render($page[$region]);
+	      $page[$zone['#zid']]['#regions'][$region] = $page[$region];
+	      unset($page[$region]);
+	    }
+    }
+	  
+	  
+	}
+	
+	// zones appearing before content on page
+	$page['zones_above'] = array();
+	$before = array_keys($zones_before_content);
+	foreach($before as $k => $zone) {
+	  if (isset($zones['before'][$zone])) {
+	    $page['zones_above'][$zone] = $zones['before'][$zone];
+	  }
+	}
+	// required content zone
+	$page['content_zone'] = $zones['content'];
+	// zones appearing after content on page
+	$page['zones_below'] = array();
+	$after = array_keys($zones_after_content);
+	foreach($after as $k => $zone) {
+	  if (isset($zones['after'][$zone])) {
+	    $page['zones_below'][$zone] = $zones['after'][$zone];
+	  }
+	}
+	
+	krumo($page);
+}
+*/

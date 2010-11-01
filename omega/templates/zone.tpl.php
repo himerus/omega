@@ -1,6 +1,5 @@
 <?php
 // $Id$
-
 /**
  * @file
  * Default theme implementation to display a region.
@@ -23,11 +22,12 @@
  * @see template_process()
  * @see template_process_zone()
  */
+//drupal_set_message('<strong><em>zone.tpl.php</em></strong> was called');
 ?>
 
 <?php if($enabled): ?>
 	<?php if($wrapper): ?><div id="<?php print $zid;?>-outer-wrapper"><?php endif; ?>  
-	  <div <?php print $attributes;?>>
+	  <div class="<?php print $classes; ?>" <?php print $attributes;?>>
 	    <?php print render($regions); ?>
 	  </div>
 	<?php if($wrapper): ?></div><?php endif; ?>

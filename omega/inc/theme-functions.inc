@@ -62,22 +62,24 @@ function ns() {
  *
  * For a more advanced set of regions, dynamic_region_builder() will be used.
  */
-function static_region_builder($region_data, $container_width, $vars) {
+function static_region_builder($regions, $container_width) {
   // let's cycle the region data, and determine what we have
-  foreach ($region_data AS $region => $info) {
+  $region_classes = array();
+  foreach ($regions AS $region => $info) {
     // if we do have content for this region, let's create it.
+    $region_classes[$region] = array();
     if ($info['data']) {
-      $vars[$region . '_classes'] = ns('grid-' . $info['width']);
+      $region_classes[$region][] = ns('grid-' . $info['width']);
     }
     if (isset($info['spacing'])) {
       foreach ($info['spacing'] AS $attribute => $value) {
         if ($value) {
-          $vars[$region . '_classes'] .= ' ' . $attribute . '-' . $value;
+          $region_classes[$region][] = ' ' . $attribute . '-' . $value;
         } 
       }
     }
   }
-  return $vars;
+  return $region_classes;
 }
 
 /*

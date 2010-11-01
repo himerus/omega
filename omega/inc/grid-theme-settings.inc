@@ -53,6 +53,7 @@ $form['omega_regions']['defaults']['omega_fixed_fluid'] = array(
 $form['omega_regions']['zones'] = array(
   '#type' => 'fieldset',
   '#title' => t('Zone Configuration'),
+  '#description' => t('<p><strong>Zones</strong> are unique to the <a href="http://himer.us/omega-theme"><strong>Omega</strong></a> theme, and all subthemes based on it. In concept, zones are simply the container element for regions. Zones have a <em>container-xx</em> class applied to them, and various other container level configurations.</p><p>For more information on the concept and implementation of zones, please read <a href=""><strong>Zones & Regions in the Omega theme</strong></a>.</p>'),
 );
 $zones = $settings_theme_info['zones'];
 $all_regions = $settings_theme_info['regions'];
