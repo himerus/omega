@@ -54,14 +54,6 @@ switch($zone['zone_type']) {
       $vars['regions'][$region]['#omega_attributes']['id'] = array('region-'. $region);
     }
     break;
-    
-    
-    
-    
-    
-    
-    
-    
   case 'dynamic':
     $regions = array();
     $region_order = array();
@@ -93,19 +85,12 @@ switch($zone['zone_type']) {
       //krumo($region_weight);
       $region_order[$region_weight] = $region;
     }
-    // create an array of the regions in the order we actually want them to appear
-    //krumo($region_order);
     $region_order = omega_order_reorder($region_order);
-    //krumo($region_order);
-    
-    
-    
-    
-    // run static_region_builder() to return classes appropriate to each zone
+    // run dynamic_region_builder() to return classes appropriate to each zone
     $vars['regions'][$region]['#omega_attributes'] = array();
     $vars['regions'][$region]['#omega_classes'] = array();
     $region_classes = dynamic_region_builder($regions, $zone['container_width'], $region_order);
-    krumo($region_classes);
+    //krumo($region_classes);
     // add the classes & attributes to the region to be processed on render()
     foreach($region_classes AS $region => $classes) {
       $vars['regions'][$region]['#omega_classes'] = $region_classes[$region];
@@ -114,5 +99,3 @@ switch($zone['zone_type']) {
     break;
 }
 //krumo($vars);
-//drupal_set_message('<strong><em>preprocess-zone.inc</em></strong> was called for <strong>'. $zone['zid'] .'</strong>');
-//krumo($region_classes);

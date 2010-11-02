@@ -115,10 +115,18 @@ function static_region_builder($regions, $container_width) {
  * 
  * @see dynamic_region_builder()
  */
-function _omega_dynamic_widths($width, $conditions, $regions) {
-  foreach ($conditions AS $variable => $region) {
+function _omega_dynamic_widths($info, $regions, $container) {
+  $width = $container;
+  $conditions = $info['related'];
+	foreach ($conditions AS $variable => $region) {
     if ((isset($regions[$variable]['data'])) && strlen($regions[$variable]['data']) > 0) {
       $width = $width - $region['width'];
+      if ($regions[$variable]['spacing']['prefix'] > 0) {
+        $width = $width - $regions[$variable]['spacing']['prefix'];
+      }
+      if ($regions[$variable]['spacing']['suffix'] > 0) {
+        $width = $width - $regions[$variable]['spacing']['prefix'];
+      }
     }
   }
   return $width;
@@ -140,13 +148,25 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
     // if we do have content for this region, let's create it.
     if (isset($info['data'])) {
       if (isset($info['primary'])) {
-        $width = $container_width;
-        $region_classes[$region][] = ns('grid-' . _omega_dynamic_widths($width, $info['related'], $region_data));
+        $width = _omega_dynamic_widths($info, $region_data, $container_width);;
+        $region_classes[$region][] = ns('grid-' . $width);
       }
       else {
         $width = $info['width'];
         $region_classes[$region][] = ns('grid-' . $width);
       }
+      
+	    if (isset($info['spacing'])) {
+	      foreach ($info['spacing'] AS $attribute => $value) {
+	        if ($value) {
+	          $region_classes[$region][] = ns($attribute . '-' . $value);
+	          $width = $width + $value;
+	        }
+	      }
+	    }
+	    // need to update the width in $regions AND $region
+      //$region_data[$region]['width'] = $width;
+      //$region['width'] = $width;
       // assign push/pull classes
       $region_movement = _omega_dynamic_zones($region, $region_data, $region_order, $container_width);
       
@@ -162,13 +182,7 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
       }
       
     }
-    if (isset($info['spacing'])) {
-      foreach ($info['spacing'] AS $attribute => $value) {
-        if ($value) {
-          $region_classes[$region][] = ns($attribute . '-' . $value);
-        }
-      }
-    }
+    
   }
   return $region_classes;
 }
@@ -231,23 +245,39 @@ function _omega_dynamic_zones($region, $regions, $order, $width) {
 	        && ($t_actual < $actual_position) // 0 < 1 (true)
 	        && ($t_desired > $desired_position) // 2 > 1 (true) 
 	      ) {
-	        $value['pull'] = $value['pull'] + $regions[$region_id]['width'];
+	        $value['pull'] = $value['pull'] + omega_actual_region_width($regions[$region_id]);
 	      }
   		  if(
   		    $regions[$region_id]['data'] // if the test region has value
   		    && ($t_actual > $actual_position) // 2 > 1 (true)
   		    && ($t_desired < $desired_position) // 0 < 1 (true)
   		  ) {
-          $value['push'] = $value['push'] + $regions[$region_id]['width'];
+          $value['push'] = $value['push'] + omega_actual_region_width($regions[$region_id]);
         }
         
-        // possible solution for that edge case mentioned above (position in the 
-        // array doesn't change, but hte position itself needs to.... hrm...)
+        // possible solution for that edge cases mentioned above (position in the 
+        // array doesn't change, but the position itself needs to.... hrm...)
         if ($value['push'] > 0 && $value['pull'] > 0) {
-        	$value['push'] = 0;
-        	$value['pull'] = $regions[$region]['width'];
+        	//$value['push'] = 0;
+        	//$value['pull'] = $regions[$region]['width'];
+        	if ($value['push'] > $value['pull']) {
+        		$value['push'] = $value['push'] - $value['pull'];
+            $value['pull'] = 0;
+        	}
+        	elseif ($value['push'] < $value['pull']) {
+        		$value['pull'] = $value['pull'] - $value['push'];
+        		$value['push'] = 0;
+        	}
+        	elseif ($value['push'] == $value['pull']) {
+        		$value['push'] = 0;
+        		$value['pull'] = 0;
+        	}
         }
 	    }
   	}
   return $value;
-} 
+}
+
+function omega_actual_region_width($r) {
+	return $r['width'] + $r['spacing']['prefix'] + $r['spacing']['suffix'];
+}
