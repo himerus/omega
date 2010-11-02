@@ -77,8 +77,9 @@ zones[preface][] = preface_second
 zones[preface][] = preface_third
 
 ;-----/ The content zone is required and contains required content items
-zones[content][] = sidebar_first
+;-----/ The content region should ALWAYS be first for source ordering.
 zones[content][] = content
+zones[content][] = sidebar_first
 zones[content][] = sidebar_second
 
 zones[postscript][] = postscript_first

@@ -12,7 +12,6 @@ if (strlen($vars['messages']) == 0) {
   unset($vars['messages']);
 }
 
-
 global $theme_key, $theme_info;
 // theme_key is the name of the current theme
 $vars['theme_key'] = $theme_key;
@@ -41,9 +40,6 @@ $zones_before_content = array_slice($theme_zones, 0, $content_position, TRUE);
 // zones_after_content are all zones that appear after content in the array
 $zones_after_content = array_slice($theme_zones, $content_position + 1, count($theme_zones), TRUE);
 
-
-
-
 foreach ($theme_zones as $zone_ref => $regions) {
   $zone = array();
   $zone['zid'] = $zone_ref;
@@ -67,10 +63,8 @@ foreach ($theme_zones as $zone_ref => $regions) {
   }
   if ($zone['enabled']) {
     $zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
-    //$zones[$zone['type']][$zone['zid']] = render($zone);
   }
 }
-
 
 // zones appearing before content on page
 $vars['zones_above'] = '';
@@ -80,8 +74,10 @@ foreach($before as $k => $zone) {
     $vars['zones_above'] .= $zones['before'][$zone];
   }
 }
+
 // required content zone
 $vars['content_zone'] = $zones['content']['content'];
+
 // zones appearing after content on page
 $vars['zones_below'] = '';
 $after = array_keys($zones_after_content);

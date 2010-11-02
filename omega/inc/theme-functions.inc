@@ -52,13 +52,27 @@ function ns() {
   return $output;
 }
 
-
 /**
- * The region_builder function will create the variables needed to create
- * a dynamic group of regions. This function is simply a quick pass-thru
- * that will create either inline or stacked regions. This function will
- * not do any advanced functionality, but simply assing the appropriate
- * classes based on the settings for the theme.
+ * Stoopid function to just sort, then re-key an array
+ */
+function omega_order_reorder($o) {
+	ksort($o);
+	$n = array();
+	foreach ($o AS $v) {
+		$n[] = $v;
+	}
+	return $n;
+}
+/**
+ * The static_region_builder() function takes a set of region configurations
+ * and container width as arguments, and returns an array of classes that should 
+ * be applied to the regions in that zone.
+ * 
+ * The function is called from process_zone() at the time of zone rendering 
+ * in order to take all associated regions in a zone and pass to this function.
+ * 
+ * Variables are then assigned, and rendered in process_region() to the
+ * region.tpl.php
  *
  * For a more advanced set of regions, dynamic_region_builder() will be used.
  */
@@ -74,7 +88,7 @@ function static_region_builder($regions, $container_width) {
     if (isset($info['spacing'])) {
       foreach ($info['spacing'] AS $attribute => $value) {
         if ($value) {
-          $region_classes[$region][] = ' ' . $attribute . '-' . $value;
+          $region_classes[$region][] = ns($attribute . '-' . $value);
         } 
       }
     }
@@ -82,31 +96,29 @@ function static_region_builder($regions, $container_width) {
   return $region_classes;
 }
 
-/*
-function _omega_dynamic_zones($width, $conditions, $vars) {
-  foreach ($conditions AS $variable => $reaction) {
-    if (($reaction['type'] && isset($vars['page'][$variable])) || (!$reaction['type'] && !isset($vars['page'][$variable]))) {
-      $width = $width - $reaction['value'];
-    }
-  }
-  return $width;
-}
-*/
-
-function _omega_dynamic_zones($width, $conditions, $vars) {
-  foreach ($conditions AS $variable => $reaction) {
-    if (($reaction['type'] && is_array($vars['page'][$variable]) && count($vars['page'][$variable]) > 0 ) || (!$reaction['type'] && (!is_array($vars['page'][$variable]) || count($vars['page'][$variable]) == 0)  )) {
-      $width = $width - $reaction['value'];
-    }
-  }
-  return $width;
-} 
 
 
-function _omega_dynamic_widths($width, $conditions, $vars) {
-  foreach ($conditions AS $variable => $zone) {
-    if ((isset($vars['page'][$variable])) && count($vars['page'][$variable]) > 0) {
-      $width = $width - $zone['width'];
+
+
+
+
+/**
+ * The _omega_dynamic_widths functions is used in dynamic_region_builder()
+ * 
+ * The functiont takes the max width for the region ($width), and then will 
+ * depending on the presence of the related zones, subtract their width from
+ * the overall width of the container.
+ * 
+ * This function only gets called on the primary region of a zone.
+ * This can be seen in example in the "sidebar content sidebar" type zone, the 
+ * content region would be the primary, and the sidebars would not.
+ * 
+ * @see dynamic_region_builder()
+ */
+function _omega_dynamic_widths($width, $conditions, $regions) {
+  foreach ($conditions AS $variable => $region) {
+    if ((isset($regions[$variable]['data'])) && strlen($regions[$variable]['data']) > 0) {
+      $width = $width - $region['width'];
     }
   }
   return $width;
@@ -120,39 +132,122 @@ function _omega_dynamic_widths($width, $conditions, $vars) {
  * Stacked regions are not possible using this function, and should be passed through
  * static_region_builder() instead.
  */
-function dynamic_region_builder($region_data, $container_width, $vars) {
+function dynamic_region_builder($region_data, $container_width, $region_order) {
+	$region_classes = array();
   // let's cycle the region data, and determine what we have
   foreach ($region_data AS $region => $info) {
+  	$region_classes[$region] = array();
     // if we do have content for this region, let's create it.
     if (isset($info['data'])) {
       if (isset($info['primary'])) {
         $width = $container_width;
-        $vars[$region . '_classes'] = ns('grid-' . _omega_dynamic_widths($width, $info['related'], $vars));
+        $region_classes[$region][] = ns('grid-' . _omega_dynamic_widths($width, $info['related'], $region_data));
       }
       else {
         $width = $info['width'];
-        $vars[$region . '_classes'] = ns('grid-' . $info['width']);
+        $region_classes[$region][] = ns('grid-' . $width);
       }
-      // we know we have stuff to put here, so we can check for push & pull options
-      if ($info['pull']) {
-        // looks like we do wanna pull, or this value would have been false, so let's boogie
-        $vars[$region . '_classes'] .= ' ' . ns('pull-' . _omega_dynamic_zones($info['pull']['width'], $info['pull']['conditions'], $vars));
+      // assign push/pull classes
+      $region_movement = _omega_dynamic_zones($region, $region_data, $region_order, $container_width);
+      
+      $pull = ns('pull-' . $region_movement['pull']);
+      $push = ns('push-' . $region_movement['push']);
+      
+      
+      if($pull) {
+        $region_classes[$region][] = $pull; 
       }
-      if ($info['push']) {
-        // looks like a push
-        $vars[$region . '_classes'] .= ' ' . ns('push-' . _omega_dynamic_zones($info['push']['width'], $info['push']['conditions'], $vars));
+      if($push) {
+        $region_classes[$region][] = $push; 
       }
+      
     }
-    // currently ignored becuase we have not given prefix/suffix class options
-    // to the primary content zones... this will become active again later
     if (isset($info['spacing'])) {
       foreach ($info['spacing'] AS $attribute => $value) {
         if ($value) {
-          $vars[$region . '_classes'] .= ' ' . $attribute . '-' . $value;
+          $region_classes[$region][] = ns($attribute . '-' . $value);
         }
       }
     }
-    // \unused prefix/suffix stuffs
   }
-  return $vars;
+  return $region_classes;
 }
+
+function _omega_dynamic_zones($region, $regions, $order, $width) {
+  $value = array(
+    'pull' => 0,
+    'push' => 0,
+  );
+  $actual_order = array_keys($regions);
+  $actual_position = array_search($region, $actual_order);
+  $desired_position = array_search($region, $order);
+  //krumo('Actual position for '. $region . ' is '. $actual_position);
+  //krumo('Desired position for '. $region . ' is '. $desired_position);
+  // the zone appears AFTER it does in the desired location ($desired_position)
+  // so we will PULL it
+  	foreach($actual_order as $delta => $region_id) {
+  		// don't react if the region is the one we are testing
+  		if ($region != $region_id) {  
+  			// get the actual position of the region we are testing against
+  		  $t_actual = $delta;
+  		  // get the desired positon of the region we are testing against.
+	      $t_desired = array_search($region_id, $order);
+	      
+	      /**
+	       * Final scenario (sidebar second, sidebar first, content) is having issue
+	       * where sidebar_first is getting pulled AND pushed...
+	       * 
+	       * That is the final issue left in the 3 region/column factorial
+	       * 5 of the 6 scenarios work with the following code.
+	       * 
+	       * Will need to run some serious debug on this scenario in the morning
+	       * 
+	       * # sidebar_first (Array, 3 elements)
+         *    0 (String, 6 characters ) grid-5 ( default width, correct )
+         *    1 (String, 6 characters ) pull-8 ( pulling away from content (wrong)
+         *    2 (String, 6 characters ) push-3 ( pushing for sidebar_second (wrong)
+         *    
+         *    this SHOULD be PULL 3
+         *    
+         *    
+         *    @todo prefix/suffix application fails as well, will need to use
+         *    addition to add the width, prefix and suffix to get the width we test with
+         *    
+         *    AHAH!!!!
+         *    
+         *    This seems to occur when the desired AND actual position are both
+         *    the same.
+         *    
+         *    Issue will happpen when different sized regions were moved to the 
+         *    other side of a region... the region needs to shift a bit, but still
+         *    be in the same position.
+         *    
+         *    seems like an easy solution for the 3 region layout, but what about a 4 column layout
+	       */
+	      
+	      
+	      if(
+	        $regions[$region_id]['data'] // if the test region has value
+	        && ($t_actual < $actual_position) // 0 < 1 (true)
+	        && ($t_desired > $desired_position) // 2 > 1 (true) 
+	      ) {
+	        $value['pull'] = $value['pull'] + $regions[$region_id]['width'];
+	      }
+  		  if(
+  		    $regions[$region_id]['data'] // if the test region has value
+  		    && ($t_actual > $actual_position) // 2 > 1 (true)
+  		    && ($t_desired < $desired_position) // 0 < 1 (true)
+  		  ) {
+          $value['push'] = $value['push'] + $regions[$region_id]['width'];
+        }
+        
+        // possible solution for that edge case mentioned above (position in the 
+        // array doesn't change, but hte position itself needs to.... hrm...)
+        if ($value['push'] > 0 && $value['pull'] > 0) {
+        	$value['push'] = 0;
+        	$value['pull'] = $regions[$region]['width'];
+        }
+	    }
+  	}
+  return $value;
+} 
