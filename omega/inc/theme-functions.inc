@@ -63,6 +63,7 @@ function omega_order_reorder($o) {
 	}
 	return $n;
 }
+
 /**
  * The static_region_builder() function takes a set of region configurations
  * and container width as arguments, and returns an array of classes that should 
@@ -95,12 +96,6 @@ function static_region_builder($regions, $container_width) {
   }
   return $region_classes;
 }
-
-
-
-
-
-
 
 /**
  * The _omega_dynamic_widths functions is used in dynamic_region_builder()
@@ -164,9 +159,7 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
 	        }
 	      }
 	    }
-	    // need to update the width in $regions AND $region
-      //$region_data[$region]['width'] = $width;
-      //$region['width'] = $width;
+
       // assign push/pull classes
       $region_movement = _omega_dynamic_zones($region, $region_data, $region_order, $container_width);
       
@@ -195,10 +188,6 @@ function _omega_dynamic_zones($region, $regions, $order, $width) {
   $actual_order = array_keys($regions);
   $actual_position = array_search($region, $actual_order);
   $desired_position = array_search($region, $order);
-  //krumo('Actual position for '. $region . ' is '. $actual_position);
-  //krumo('Desired position for '. $region . ' is '. $desired_position);
-  // the zone appears AFTER it does in the desired location ($desired_position)
-  // so we will PULL it
   	foreach($actual_order as $delta => $region_id) {
   		// don't react if the region is the one we are testing
   		if ($region != $region_id) {  
@@ -207,51 +196,10 @@ function _omega_dynamic_zones($region, $regions, $order, $width) {
   		  // get the desired positon of the region we are testing against.
 	      $t_desired = array_search($region_id, $order);
 	      
-	      /**
-	       * Final scenario (sidebar second, sidebar first, content) is having issue
-	       * where sidebar_first is getting pulled AND pushed...
-	       * 
-	       * That is the final issue left in the 3 region/column factorial
-	       * 5 of the 6 scenarios work with the following code.
-	       * 
-	       * Will need to run some serious debug on this scenario in the morning
-	       * 
-	       * # sidebar_first (Array, 3 elements)
-         *    0 (String, 6 characters ) grid-5 ( default width, correct )
-         *    1 (String, 6 characters ) pull-8 ( pulling away from content (wrong)
-         *    2 (String, 6 characters ) push-3 ( pushing for sidebar_second (wrong)
-         *    
-         *    this SHOULD be PULL 3
-         *    
-         *    
-         *    @todo prefix/suffix application fails as well, will need to use
-         *    addition to add the width, prefix and suffix to get the width we test with
-         *    
-         *    AHAH!!!!
-         *    
-         *    This seems to occur when the desired AND actual position are both
-         *    the same.
-         *    
-         *    Issue will happpen when different sized regions were moved to the 
-         *    other side of a region... the region needs to shift a bit, but still
-         *    be in the same position.
-         *    
-         *    seems like an easy solution for the 3 region layout, but what about a 4 column layout
-	       */
-	      
-	      
-	      if(
-	        $regions[$region_id]['data'] // if the test region has value
-	        && ($t_actual < $actual_position) // 0 < 1 (true)
-	        && ($t_desired > $desired_position) // 2 > 1 (true) 
-	      ) {
+	      if($regions[$region_id]['data'] && ($t_actual < $actual_position) && ($t_desired > $desired_position)) {
 	        $value['pull'] = $value['pull'] + omega_actual_region_width($regions[$region_id]);
 	      }
-  		  if(
-  		    $regions[$region_id]['data'] // if the test region has value
-  		    && ($t_actual > $actual_position) // 2 > 1 (true)
-  		    && ($t_desired < $desired_position) // 0 < 1 (true)
-  		  ) {
+  		  if($regions[$region_id]['data'] && ($t_actual > $actual_position) && ($t_desired < $desired_position)) {
           $value['push'] = $value['push'] + omega_actual_region_width($regions[$region_id]);
         }
         
@@ -278,6 +226,12 @@ function _omega_dynamic_zones($region, $regions, $order, $width) {
   return $value;
 }
 
+/**
+ * 
+ * The omega_actual_region_width() function takes the region info as an arg, 
+ * then returns the computed value of the width, prefix AND suffix in order to 
+ * have the "actual" width of the zone to run other computations against.
+ */
 function omega_actual_region_width($r) {
 	return $r['width'] + $r['spacing']['prefix'] + $r['spacing']['suffix'];
 }
