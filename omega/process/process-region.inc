@@ -14,3 +14,16 @@ $vars['attributes_array'] = array_merge($vars['attributes_array'], $omega_attrib
 
 $vars['classes'] = implode(' ', $vars['classes_array']);
 $vars['attributes'] = drupal_attributes($vars['attributes_array']);
+
+// let's handle some special regions
+
+if(isset($vars['elements']['#custom'])) {
+	$cvars = $vars['elements']['#custom'];
+	foreach($cvars as $var => $val) {
+		$vars[$var] = $val;
+	}
+}
+
+if ($vars['elements']['#region'] == 'branding') {
+  //krumo($vars);
+}

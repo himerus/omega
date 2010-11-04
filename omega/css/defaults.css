@@ -396,22 +396,52 @@ table {
   padding-left: 0;
 }
 
-/* Custom styles for the theme implemented search box */
-#search-region {
-  text-align: right;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Starting new region of CSS for the NEW defaults for 2.x
+ * Many of the above styles can likely be removed completely.
+ */
+
+.logo-img, 
+.site-name-slogan {
+	display: inline-block;
+	float: left;
 }
-#search-region .form-submit {
-  display: none;
+.site-name-slogan {
+	margin-left: 20px;
 }
-
-
-/* fixing clearfix issues with padding at bottom of page */
-
-.clearfix:after {
-visibility: hidden;
-display: block;
-font-size: 0;
-content: "";
-clear: both;
-height: 0;
+.site-title,
+.site-slogan {
+	margin: 0;
+}
+.site-slogan {
+  font-style: italic;
+  font-weight: normal;
 }

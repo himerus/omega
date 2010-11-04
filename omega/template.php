@@ -142,7 +142,9 @@ function omega_process_node(&$vars) {
   $vars['attributes'] .= drupal_attributes($vars['node_attributes']);
 }
 
-
+function omega_process_region__branding(&$vars) {
+	krumo('<strong>omega_process_region__branding()</strong> called.');
+}
 
 
 /**

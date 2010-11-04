@@ -29,6 +29,58 @@ $vars['classes'] = implode(' ', $vars['attributes_array']['class']);
 unset($vars['attributes_array']['class']);
 // render the attributes to the template
 $vars['attributes'] = drupal_attributes($vars['attributes_array']);
+
+$zone_regions = $zone['regions'];
+// Let's provide our custom cases for branding, menu, breadcrumb and search
+// we will need to accomodate moving the custom REGIONS into a new zone as well,
+// but renaming the branding and location zones is pretty much forbade at this point.
+$info = isset($zone['info']) ? $zone['info'] : array();
+switch($zone['zid']) {
+	case 'branding':
+		foreach($zone_regions as $region_id => $region) {
+			switch($region_id) {
+				case 'branding':
+			    $vars['regions'][$region_id]['#custom'] = array();
+          // custom build the branding zone with our "custom" regions inside there
+          // Set a variable for the site name title and logo alt attributes text.
+          $site_name_and_slogan = $vars['regions'][$region_id]['#custom']['site_name_and_slogan'] = $info['site_name'] . ' ' . $info['slogan'];
+          $slogan = $vars['regions'][$region_id]['#custom']['slogan'] = $info['slogan'];
+          $site_name = $vars['regions'][$region_id]['#custom']['site_name'] = $info['site_name'];
+          if (isset($info['logo'])) {
+            $logo_img = $vars['regions'][$region_id]['#custom']['logo_img'] = '<img src="' . $info['logo'] . '" alt="' . $site_name_and_slogan . '" id="logo" />';
+            $linked_logo_img = $vars['regions'][$region_id]['#custom']['linked_logo_img'] = l($logo_img, '<front>', array('rel' => 'home', 'title' => t($info['site_name']), 'html' => TRUE)); 
+          }
+          if (isset($info['site_name'])) {
+            $vars['regions'][$region_id]['#custom']['linked_site_name'] = l($info['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
+          }
+					
+					$vars['regions'][$region_id]['#theme_wrappers'] = array('region');
+					$vars['regions'][$region_id]['#markup'] = 'LOGO';
+					$vars['regions'][$region_id]['#region'] = $region_id;
+
+					break;
+				case 'menu': 
+					$vars['regions'][$region_id]['#custom'] = array();
+			    if (isset($info['main_menu'])) {
+            $vars['regions'][$region_id]['#custom']['main_menu'] = $info['main_menu'];
+          }
+			    if (isset($info['secondary_menu'])) {
+            $vars['regions'][$region_id]['#custom']['secondary_menu'] = $info['secondary_menu'];
+          }
+					$vars['regions'][$region_id]['#theme_wrappers'] = array('region');
+          $vars['regions'][$region_id]['#markup'] = 'MENU';
+          $vars['regions'][$region_id]['#region'] = $region_id;
+					break;
+			}
+		}
+		
+		break;
+	case 'location':
+		// custom build the location zone with our "custom" regions inside there
+		break;
+}
+
+$zone = $vars;
 $zone_regions = $zone['regions'];
 switch($zone['zone_type']) {
   case 'static':

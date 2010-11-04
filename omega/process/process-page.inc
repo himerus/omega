@@ -62,6 +62,17 @@ foreach ($theme_zones as $zone_ref => $regions) {
     $zone['regions'][$region] = isset($vars['page'][$region]) ? $vars['page'][$region] : '';
   }
   if ($zone['enabled']) {
+  	if ($zone['zid'] == 'branding') {
+  		// for the branding zone, we need to send additional vars to the zone process functions
+  		// that includes basic page data like slogan, logo, etc.
+  		$zone['info'] = array(
+  		  'slogan' => $vars['site_slogan'],
+  		  'site_name' => $vars['site_name'],
+  		  'logo' => $vars['logo'],
+  		  'main_menu' => $vars['main_menu'],
+        'secondary_menu' => $vars['secondary_menu'],
+  		);
+  	}
     $zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
   }
 }
