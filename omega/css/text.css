@@ -23,7 +23,7 @@ a:hover {
   text-decoration: none;
 }
 
-a:active, a.active {
+a:active {
   color: #202124;
   text-decoration: none;
   color: #000;

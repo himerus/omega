@@ -30,10 +30,12 @@ regions[page_bottom] = Page Bottom
 regions[content] = Content
 
 ; END REQUIRED REGIONS
+regions[custom_branding] = Custom Branding Area
 
 regions[sidebar_first] = Sidebar First
 regions[sidebar_second] = Sidebar Second
 
+regions[location_search] = Location Bar
 regions[header_first] = Header First
 regions[header_second] = Header Second
 
@@ -65,15 +67,15 @@ zones[preface][] = preface_first
 zones[preface][] = preface_second
 zones[preface][] = preface_third
 
+;-----/ The location zone is required and contains "special" content items
+zones[location][] = breadcrumb
+zones[location][] = location_search
+
 ;-----/ The content zone is required and contains required content items
 ;-----/ The content region should ALWAYS be first for source ordering.
 zones[content][] = content
 zones[content][] = sidebar_first
 zones[content][] = sidebar_second
-
-;-----/ The location zone is required and contains "special" content items
-zones[location][] = breadcrumb
-zones[location][] = search
 
 zones[postscript][] = postscript_first
 zones[postscript][] = postscript_second

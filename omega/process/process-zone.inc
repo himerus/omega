@@ -77,6 +77,20 @@ switch($zone['zid']) {
 		break;
 	case 'location':
 		// custom build the location zone with our "custom" regions inside there
+		foreach($zone_regions as $region_id => $region) {
+      switch($region_id) {
+        case 'breadcrumb':
+        	$vars['regions'][$region_id]['#custom'] = array();
+          $vars['regions'][$region_id]['#custom']['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
+          
+          $vars['regions'][$region_id]['#theme_wrappers'] = array('region');
+          $vars['regions'][$region_id]['#markup'] = $vars['regions'][$region_id]['#custom']['breadcrumb'];
+          $vars['regions'][$region_id]['#region'] = $region_id;	
+        	break;
+      }
+		}
+		//
+		
 		break;
 }
 
