@@ -36,6 +36,7 @@
   * @param $hook
   */
 function omega_preprocess(&$vars, $hook) {
+	//krumo($hook);
   // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
@@ -77,6 +78,7 @@ function omega_preprocess(&$vars, $hook) {
  * @param $hook
  */
 function omega_process(&$vars, $hook) {
+	//krumo($hook);
 // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
@@ -142,8 +144,11 @@ function omega_process_node(&$vars) {
   $vars['attributes'] .= drupal_attributes($vars['node_attributes']);
 }
 
-function omega_process_region__branding(&$vars) {
-	krumo('<strong>omega_process_region__branding()</strong> called.');
+function omega_preprocess_zone(&$vars) {
+  //krumo('WEEEEEWT, preprocess_zone called');
+}
+function omega_process_zone(&$vars) {
+  //krumo('WEEEEEWT, process_zone called');
 }
 
 
@@ -239,7 +244,34 @@ function omega_css_alter(&$css) {
  */
 function omega_theme($existing, $type, $theme, $path) {
 	$hooks = array();
-  
+  $variables = array(
+    'zid' => NULL, 
+    'type' => NULL, 
+    'enabled' => NULL, 
+    'wrapper' => NULL, 
+    'zone_type' => NULL, 
+    'container_width' => NULL, 
+    'regions' => NULL
+  );
+  $template_path = drupal_get_path('module', 'delta') .'/theme';
+  $preprocess_functions = array(
+    'template_preprocess', 
+    'template_preprocess_zone',
+    'omega_preprocess',
+    'omega_preprocess_zone',
+  );
+  $process_functions = array(
+    'template_process', 
+    'template_process_zone',
+    'omega_process',
+    'omega_process_zone'
+  );
+  $hooks['zone'] = array(
+    'variables' => $variables,
+    'pattern' => 'zone__',
+    'preprocess functions' => $preprocess_functions,
+    'process functions' => $process_functions,
+  );
   return $hooks;
 }
 /**

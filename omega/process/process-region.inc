@@ -23,7 +23,6 @@ if(isset($vars['elements']['#custom'])) {
 		$vars[$var] = $val;
 	}
 }
-
-if ($vars['elements']['#region'] == 'branding') {
-  //krumo($vars);
+if ($vars['elements']['#region'] == 'content') {
+ //krumo($vars);
 }

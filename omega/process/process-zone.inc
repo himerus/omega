@@ -36,6 +36,29 @@ $zone_regions = $zone['regions'];
 // but renaming the branding and location zones is pretty much forbade at this point.
 $info = isset($zone['info']) ? $zone['info'] : array();
 switch($zone['zid']) {
+	case 'content':
+		foreach($zone_regions as $region_id => $region) {
+      switch($region_id) {
+        case 'content':
+          $vars['regions'][$region_id]['#custom'] = array();
+          $vars['regions'][$region_id]['#custom']['title'] = $info['title'];
+          $vars['regions'][$region_id]['#custom']['tabs'] = $info['tabs']; 
+          $vars['regions'][$region_id]['#custom']['title_prefix'] = $info['title_prefix'];
+          $vars['regions'][$region_id]['#custom']['title_suffix'] = $info['title_suffix']; 
+          $vars['regions'][$region_id]['#custom']['title_attributes'] = $info['title_attributes_array'];
+          // set some default title settings.
+          $vars['regions'][$region_id]['#custom']['title_attributes_array']['id'] = 'page-title';
+          $classes = array(
+            'title-header',
+            'header-main',
+          );
+          // assign classes & attributes before sending along
+          $title_classes = $vars['regions'][$region_id]['#custom']['title_classes'] = implode(' ', $classes);
+          unset($vars['regions'][$region_id]['#custom']['title_attributes_array']['class']); 
+          $title_attr = $vars['regions'][$region_id]['#custom']['title_attributes'] = drupal_attributes($vars['regions'][$region_id]['#custom']['title_attributes_array']);
+        	break;
+      }
+		}
 	case 'branding':
 		foreach($zone_regions as $region_id => $region) {
 			switch($region_id) {
@@ -89,8 +112,6 @@ switch($zone['zid']) {
         	break;
       }
 		}
-		//
-		
 		break;
 }
 

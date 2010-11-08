@@ -66,12 +66,23 @@ foreach ($theme_zones as $zone_ref => $regions) {
   		// for the branding zone, we need to send additional vars to the zone process functions
   		// that includes basic page data like slogan, logo, etc.
   		$zone['info'] = array(
-  		  'slogan' => $vars['site_slogan'],
-  		  'site_name' => $vars['site_name'],
-  		  'logo' => $vars['logo'],
-  		  'main_menu' => $vars['main_menu'],
+        'slogan' => $vars['site_slogan'],
+        'site_name' => $vars['site_name'],
+        'logo' => $vars['logo'],
+        'main_menu' => $vars['main_menu'],
         'secondary_menu' => $vars['secondary_menu'],
-  		);
+      );
+  	}
+  	if($zone['zid'] == 'content') {
+  		// let's send some standard stuff to the content region template like
+  		// the title & attributes, along with the tabs for the page.
+  		$zone['info'] = array(
+        'title' => $vars['title'],
+  		  'title_prefix' => $vars['title_prefix'],
+  		  'title_suffix' => $vars['title_suffix'],
+  		  'title_attributes_array' => $vars['title_attributes_array'],
+        'tabs' => $vars['tabs'],
+      );
   	}
     $zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
   }
@@ -97,3 +108,4 @@ foreach($after as $k => $zone) {
     $vars['zones_below'] .= $zones['after'][$zone];
   }
 }
+//krumo($vars);
