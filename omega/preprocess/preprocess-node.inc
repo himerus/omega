@@ -48,3 +48,5 @@ foreach ($vars['classes_array'] as $key => $value) {
 // Prepare the arrays to handle the classes and ids for the node container.
 $vars['node_attributes']['id'] = drupal_html_id('node-' . $vars['type'] . '-' . $vars['nid']);
 $vars['node_attributes']['class'] = $vars['classes_array'];
+// adding a class to the title attributes
+$vars['title_attributes_array']['class'] = 'node-title';

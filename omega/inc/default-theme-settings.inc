@@ -28,6 +28,24 @@ $form['omega_general']['optional_css']['text_css'] = array(
   '#default_value' => theme_get_setting('text_css'),
   '#description' => t('text.css offers some generic typography to give the default text presenation a bit more love.'),
 );
+$form['omega_general']['optional_css']['table_css'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable tables.css'),
+  '#default_value' => theme_get_setting('table_css'),
+  '#description' => t('tables.css provides enhancements to the default table styles.'),
+);
+$form['omega_general']['optional_css']['form_css'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable forms.css'),
+  '#default_value' => theme_get_setting('form_css'),
+  '#description' => t('forms.css provides enhancements to the default form styles.'),
+);
+$form['omega_general']['optional_css']['pager_css'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable pagers.css'),
+  '#default_value' => theme_get_setting('pager_css'),
+  '#description' => t('tables.css provides enhancements to the default pager styles.'),
+);
 $form['omega_general']['optional_css']['regions_css'] = array(
   '#type' => 'checkbox',
   '#title' => t('Enable regions.css'),

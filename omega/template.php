@@ -19,7 +19,9 @@
  */
 
 // include general theme functions required both in template.php AND theme-settings.php
-  require_once(drupal_get_path('theme', 'omega') . '/inc/theme-functions.inc');
+require_once(drupal_get_path('theme', 'omega') . '/inc/theme-functions.inc');
+// include general theme override functions
+require_once(drupal_get_path('theme', 'omega') . '/inc/theme.inc');
 
 /**
   * Implements hook_preprocess().
@@ -145,10 +147,10 @@ function omega_process_node(&$vars) {
 }
 
 function omega_preprocess_zone(&$vars) {
-  //krumo('WEEEEEWT, preprocess_zone called');
+  
 }
 function omega_process_zone(&$vars) {
-  //krumo('WEEEEEWT, process_zone called');
+  
 }
 
 
@@ -160,51 +162,6 @@ function omega_process_zone(&$vars) {
 function rfilter($vars) {
   return count(array_filter($vars));
 }
-
-/**
- * ZEN - Returns HTML for a breadcrumb trail.
- *
- * @param $variables
- *   An associative array containing:
- *   - breadcrumb: An array containing the breadcrumb links.
- */
-function omega_breadcrumb($variables) {
-  $breadcrumb = $variables['breadcrumb'];
-  // Determine if we are to display the breadcrumb.
-  $show_breadcrumb = theme_get_setting('omega_breadcrumb');
-  if ($show_breadcrumb == 'yes' || $show_breadcrumb == 'admin' && arg(0) == 'admin') {
-
-    // Optionally get rid of the homepage link.
-    $show_breadcrumb_home = theme_get_setting('omega_breadcrumb_home');
-    if (!$show_breadcrumb_home) {
-      array_shift($breadcrumb);
-    }
-
-    // Return the breadcrumb with separators.
-    if (!empty($breadcrumb)) {
-      // Provide a navigational heading to give context for breadcrumb links to
-      // screen-reader users. Make the heading invisible with .element-invisible.
-      $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
-
-      $breadcrumb_separator = theme_get_setting('omega_breadcrumb_separator');
-      $trailing_separator = $title = '';
-      if (theme_get_setting('omega_breadcrumb_title')) {
-        $trailing_separator = $breadcrumb_separator;
-        $title = drupal_get_title();
-      }
-      elseif (theme_get_setting('omega_breadcrumb_trailing')) {
-        $trailing_separator = $breadcrumb_separator;
-      }
-      $output .= '<div class="breadcrumb">' . implode($breadcrumb_separator, $breadcrumb) . "$trailing_separator$title</div>";
-      return $output;
-    }
-  }
-  // Otherwise, return an empty string.
-  return '';
-}
-
-
-
 
 
 /**
@@ -238,7 +195,6 @@ function omega_css_alter(&$css) {
  *   
  * - The need here was to have the priority order be:
  *   - zone-ZONEID.tpl.php (the actual zone itself has a custom override)
- *   - zone-ZONETYPE.tpl.php (the zone type ('above', 'below', 'content'))
  *     each have their own custom template to use for more generic implementations
  *   - zone.tpl.php (default)
  */
@@ -274,101 +230,19 @@ function omega_theme($existing, $type, $theme, $path) {
   );
   return $hooks;
 }
+
 /**
  * Implements hook_theme_registry_alter()
- * 
- * @param array $registry
  * 
  * @see http://api.drupal.org/api/function/hook_theme_registry_alter/7
  */
 function omega_theme_registry_alter($registry) {
-  //krumo($registry);
+  
 }
-/*
-function omega_page_alter($page) {
-	global $theme_key, $theme_info;
-	// theme_key is the name of the current theme
-	//$vars['theme_key'] = $theme_key;
-	// theme_info is the array of theme information (region, settings, zones, etc.)
-	//$vars['theme_info'] = $theme_info;
-	// default container width will be used in special zones and zones without a 
-	// container width defined in theme settings
-	$default_container_width = theme_get_setting('omega_default_container_width');
-	// pulling just the zone data out of the theme_info array
-	$theme_zones = $theme_info->info['zones'];
-	// creating empty array to hold our custom zone[group] data
-	$zones = array(
-	  'before' => array(),
-	  'content' => array(),
-	  'after' => array(),
-	);
-	// separate out the specific content zone (a very special case)
-	$content_zone = $theme_zones['content'];
-	// zone keys give us a way to find the numerical position of the content zone
-	// thus giving us a way to split up the array into before and after content zones
-	$zone_keys = array_keys($theme_zones);
-	// content_position is the numberical location of the content zone
-	$content_position = array_search('content', $zone_keys);
-	// zones_before_content are all zones that appear before content in the array
-	$zones_before_content = array_slice($theme_zones, 0, $content_position, TRUE);
-	// zones_after_content are all zones that appear after content in the array
-	$zones_after_content = array_slice($theme_zones, $content_position + 1, count($theme_zones), TRUE);
-	
-	
 
-	foreach ($theme_zones as $zone_ref => $regions) {
-	  $zone = array();
-	  $zone['#zid'] = $zone_ref;
-	  if(array_key_exists($zone_ref, $zones_before_content)) {
-	    $zone['#type'] = 'before';
-	  }
-	  elseif(array_key_exists($zone_ref, $zones_after_content)) {
-	    $zone['#type'] = 'after';
-	  }
-	  else {
-	    $zone['#type'] = 'content';
-	  }
-	  $zone['#theme_wrappers'] = array('zone');
-	  //$zone['#sorted'] = TRUE;
-	  $zone['#enabled'] = theme_get_setting('omega_'. $zone_ref .'_enabled') || theme_get_setting('omega_'. $zone_ref .'_enabled') == 0 ? theme_get_setting('omega_'. $zone_ref .'_enabled') : 1;
-	  $zone['#wrapper'] = theme_get_setting('omega_'. $zone_ref .'_wrapper') ? theme_get_setting('omega_'. $zone_ref .'_wrapper') : 0;
-	  $zone['#zone_type'] = theme_get_setting('omega_'. $zone_ref .'_zone_type') ? theme_get_setting('omega_'. $zone_ref .'_zone_type') : 'static';
-	  $zone['#container_width'] = theme_get_setting('omega_'. $zone_ref .'_container_width') ? theme_get_setting('omega_'. $zone_ref .'_container_width') : $default_container_width;
-	  
-	  //$zone['regions'] = array();
-	  if ($zone['#enabled']) {
-      //$zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
-      $page[$zone['#zid']] = $zone;
-      $page[$zone['#zid']]['#markup'] = '';
-		  foreach($regions as $region) {
-	      $page[$zone['#zid']]['#markup'] .= render($page[$region]);
-	      $page[$zone['#zid']]['#regions'][$region] = $page[$region];
-	      unset($page[$region]);
-	    }
-    }
-	  
-	  
-	}
-	
-	// zones appearing before content on page
-	$page['zones_above'] = array();
-	$before = array_keys($zones_before_content);
-	foreach($before as $k => $zone) {
-	  if (isset($zones['before'][$zone])) {
-	    $page['zones_above'][$zone] = $zones['before'][$zone];
-	  }
-	}
-	// required content zone
-	$page['content_zone'] = $zones['content'];
-	// zones appearing after content on page
-	$page['zones_below'] = array();
-	$after = array_keys($zones_after_content);
-	foreach($after as $k => $zone) {
-	  if (isset($zones['after'][$zone])) {
-	    $page['zones_below'][$zone] = $zones['after'][$zone];
-	  }
-	}
-	
-	krumo($page);
+/**
+ * Implements hook_page_alter
+ */
+function omega_page_alter($page) {
+
 }
-*/

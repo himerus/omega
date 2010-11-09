@@ -55,7 +55,9 @@ h2 {
   font-size: 18px;
   margin: 0;	
 }
-
+h2.node-title {
+	font-size: 28px;
+}
 h3 {
   font-size: 21px;
 }
@@ -79,7 +81,10 @@ ol {
 ul {
   list-style: square;
 }
-
+.node ol,
+.node ul {
+	padding-left: 1em;
+}
 p,
 dl,
 hr,
