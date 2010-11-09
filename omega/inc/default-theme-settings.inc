@@ -34,6 +34,12 @@ $form['omega_general']['optional_css']['table_css'] = array(
   '#default_value' => theme_get_setting('table_css'),
   '#description' => t('tables.css provides enhancements to the default table styles.'),
 );
+$form['omega_general']['optional_css']['menu_css'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable menus.css'),
+  '#default_value' => theme_get_setting('menu_css'),
+  '#description' => t('tables.css provides enhancements to the default menu styles.'),
+);
 $form['omega_general']['optional_css']['form_css'] = array(
   '#type' => 'checkbox',
   '#title' => t('Enable forms.css'),

@@ -73,7 +73,7 @@
   }
 /* Pagers Color #################################################### */
 .item-list .pager {
-  background:#EEE;
+  background:#DDD;
   border:1px solid #CCC;
 }
 
@@ -96,16 +96,16 @@
   .pager li.pager-previous a,
   .pager li.pager-next a,
   .pager li.pager-last a {
-    background:#DDD;
+    background:#EEE;
   }
 
   .pager li.pager-next {
     border-left:1px solid #ccc;
   }
   .pager li a {
-    background: #DDD; 
+    background: #EEE; 
   }
   .pager li a:hover {
-    background:#EEE;
+    background:#FFF;
     color:#454545;
   }

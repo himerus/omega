@@ -31,6 +31,9 @@ if (theme_get_setting('pager_css') == '1') {
 if (theme_get_setting('form_css') == '1') {
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/forms.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE, 'weight', -94));
 }
+if (theme_get_setting('menu_css') == '1') {
+  drupal_add_css(drupal_get_path('theme', 'omega') . '/css/menus.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE, 'weight', -93));
+}
 
 // Add JavaScript for fluid width option
 if (theme_get_setting('omega_fixed_fluid') == 'fluid') {

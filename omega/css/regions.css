@@ -27,8 +27,7 @@
 	
 }
 #user-container .contextual-links-wrapper {
-	
-	right: -20px;
+	right: -30px;
 }
 #user-container .block {
 	float: right;
@@ -52,10 +51,30 @@
 #user-container .block-user form .form-item label {
 	display: inline;
 }
-#user-container .block-user form .form-item label,
-#user-container .block-user form .item-list  {
+#user-container .block-user form .form-item label  {
 	display: none;
 }
+#user-container .block-user .item-list,
+#user-container .block-user .item-list ul {
+  display: inline;
+}
+#user-container .block-user .item-list li {
+	margin-left: 5px;
+}
+#user-container .block-user .item-list a {
+	text-tranform: lowercase;
+	font-size: 11px;
+  display: block;
+  padding: 2px 5px;
+  display: inline-block;
+  border: 1px solid #CCC;
+  text-decoration: none;
+  background: #EEE;
+}
+#user-container .block-user .item-list a:hover {
+	background: #FFF;
+}
+
 #user-container .block-user .form-actions {
 	display: inline;
 }
@@ -83,12 +102,7 @@
   display: inline;
 }
 
-/* 2.) Main Menu Styles */
-#region-menu .primary-navigation {
-	background: #EEE;
-  border: 1px solid #DDD;
-  padding: 5px;
-}
+
 
 .block {
 	margin-bottom: 1.5em;
@@ -96,3 +110,4 @@
 #user-container .block {
 	margin-bottom: 0;
 }
+

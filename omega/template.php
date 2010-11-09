@@ -246,3 +246,22 @@ function omega_theme_registry_alter($registry) {
 function omega_page_alter($page) {
 
 }
+
+function omega_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    // for some reason the login form links are above the submit button
+    // WTF
+    case 'user_login_block':
+    	//drupal_set_message('<pre>'. print_r($form, TRUE) . '</pre>');
+      $form['links']['#weight'] = -100;
+      $form['links']['#markup'] = "";
+      
+      $items = array();
+		  if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
+		    $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
+		  }
+		  $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+		  $form['links']['#markup'] = theme('item_list', array('items' => $items));
+      break;
+  }
+}

@@ -13,3 +13,11 @@
  *
  * Default stylesheet for clean forms
  */
+
+/* Make the form text fields a little better looking by default */
+.form-text {
+  border: 1px solid #DDD;
+  padding: 4px;
+  background-color: #f5f5f5;
+  color: #CCC;
+}

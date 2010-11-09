@@ -52,10 +52,10 @@ td.active {
 	border-right: 1px solid #CCC;
 }
 tr.even td.active {
-  background: #dce8f7;
+  background: #e5e9ed;
 }
 tr.odd td.active {
-  background: #f4f4f4;
+  background: #f2f2f2;
 }
 
 tr:hover td,
