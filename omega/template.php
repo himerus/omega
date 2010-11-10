@@ -18,7 +18,7 @@
  *	     \__\/         \__\/         \__\/         \__\/         \__\/    
  */
 
-// include general theme functions required both in template.php AND theme-settings.php
+// include general functions required both in template.php AND theme-settings.php
 require_once(drupal_get_path('theme', 'omega') . '/inc/theme-functions.inc');
 // include general theme override functions
 require_once(drupal_get_path('theme', 'omega') . '/inc/theme.inc');
@@ -253,11 +253,12 @@ function omega_form_alter(&$form, &$form_state, $form_id) {
     // WTF
     case 'user_login_block':
     	//drupal_set_message('<pre>'. print_r($form, TRUE) . '</pre>');
-      $form['links']['#weight'] = -100;
+      //$form['links']['#weight'] = -100;
       $form['links']['#markup'] = "";
       
       $items = array();
-		  if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
+		  $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
+      if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
 		    $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
 		  }
 		  $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));

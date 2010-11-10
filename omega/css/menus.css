@@ -1,0 +1,60 @@
+/* $Id$ */
+
+/**
+ * Omega, for Drupal 6.x
+ * Jake Strawn - http://himerus.com
+ * Project Page - http://drupal.org/project/omega
+ *
+ * The defaults.css file is the default set of default styles
+ * normally available with the Omega base theme.
+ * All of these styles are easily overwritten, but here to give
+ * a bit more "sexy" right out of the box.
+ *
+ *
+ * Default stylesheet for clean forms
+ */
+
+/* Make the primary/secondary menus a little better looking by default */
+
+/* 2.) Main Menu Styles */
+
+#region-menu ul.main-menu {
+  background: #DDD;
+  border: 1px solid #CCC;
+  padding: 0;
+  margin-bottom: 1.5em;
+}
+
+#region-menu .primary-navigation ul.main-menu,
+#region-menu .primary-navigation ul.main-menu li {
+	margin: 0;
+	padding: 0;
+}
+
+#region-menu .primary-navigation ul.main-menu li a {
+  padding: 5px 10px;
+  display: inline-block;
+  border:0;
+  border-right: 1px solid #CCC;
+  text-decoration: none;
+  background: #EEE;
+}
+
+#region-menu .primary-navigation ul.main-menu li a:hover {
+  background: #FFF;
+}
+
+#region-menu .primary-navigation ul.secondary-menu li {
+	margin: 0;
+	border-right: 1px solid #CCC;
+}
+#region-menu .primary-navigation ul.secondary-menu li.last {
+  border-right: none;
+}
+#region-menu .primary-navigation ul.secondary-menu li a {
+  padding: 2px 5px;
+  display: inline-block;
+  border: 0;
+  text-decoration: none;
+  background: none;
+}

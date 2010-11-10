@@ -20,7 +20,7 @@ description = <a href="http://drupal.org/project/omega"><strong>Omega</strong></
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
-hidden = FALSE
+hidden = TRUE
 
 stylesheets[all][] = css/960.css
 

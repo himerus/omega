@@ -41,12 +41,12 @@
 .pager li.pager-ellipsis,
 .pager li.pager-current,
 .pager li a {
-  padding:4px 10px;
+  padding:4px 8px;
   text-decoration: none;
 }
 
   .pager li.pager-current {
-    padding:4px 10px;
+    padding:4px 8px;
     font-weight: bold; 
   }
 
@@ -54,7 +54,7 @@
   .pager li.pager-previous a,
   .pager li.pager-next a,
   .pager li.pager-last a {
-    width: 60px;
+    width: 50px;
     text-align:center;
     padding: 4px 0;
   }
@@ -62,7 +62,7 @@
   .pager li.pager-next {
     position: absolute;
     top: 0;
-    right: 60px;
+    right: 50px;
   }
   .pager li.pager-last,
   .pager li.pager-next.last {

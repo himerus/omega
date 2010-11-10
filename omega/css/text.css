@@ -79,11 +79,15 @@ ol {
 }
 
 ul {
-  list-style: square;
+  list-style: disc;
+}
+ul ul,
+ol ol {
+	padding-top: 0.5em;
 }
 .node ol,
 .node ul {
-	padding-left: 1em;
+	padding-left: 1.2em;
 }
 p,
 dl,
