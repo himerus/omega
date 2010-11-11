@@ -428,10 +428,12 @@ table th a.active:hover {
   line-height: 24px;
   padding: 0 0 0 24px;
 }
-.node .content ol {
+.node .content ol,
+.node .content ul {
   padding-left: 1.5em;
 }
-.node .content ol li {
+.node .content ol li,
+.node .content ul li {
   line-height: 24px;
   padding: 0;
 }
