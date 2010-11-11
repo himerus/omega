@@ -40,7 +40,9 @@
   background: #EEE;
 }
 
-#region-menu .primary-navigation ul.main-menu li a:hover {
+#region-menu .primary-navigation ul.main-menu li a:hover,
+#region-menu .primary-navigation ul.main-menu li.active-trail a,
+#region-menu .primary-navigation ul.main-menu li.active a {
   background: #FFF;
 }
 

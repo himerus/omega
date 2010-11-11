@@ -20,7 +20,7 @@ if (isset($vars['main_menu'])) {
   ));
 }
 else {
-  $vars['primary_nav'] = FALSE;
+  $vars['main_menu'] = FALSE;
 }
 if (isset($vars['secondary_menu'])) {
   $vars['secondary_menu'] = theme('links__system_secondary_menu', array(
@@ -36,5 +36,5 @@ if (isset($vars['secondary_menu'])) {
   ));
 }
 else {
-  $vars['secondary_nav'] = FALSE;
+  $vars['secondary_menu'] = FALSE;
 }
