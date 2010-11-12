@@ -4,16 +4,17 @@ $themes = list_themes();
 $theme = $form_state['build_info']['args'][0];
 $settings_theme_info = $themes[$theme]->info;
 
-for ($i = 0; $i <= 24; $i++) {
+for ($i = 0; $i <= 32; $i++) {
   $grids[$i] = $i;
 }
-for ($i = 0; $i <= 23; $i++) {
+for ($i = 0; $i <= 31; $i++) {
   $spacing[$i] = $i;
 }
 $containers = array(
   '12' => '12 column grid (940 usable pixels)',
   '16' => '16 column grid (940 usable pixels)',
   '24' => '24 column grid (950 usable pixels)',
+  '32' => '32 column grid (950 usable pixels)',
 );
 // Region Settings
 $form['omega_regions'] = array(

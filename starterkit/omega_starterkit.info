@@ -88,6 +88,7 @@ zones[postscript][] = postscript_fourth
 zones[footer][] = footer_first
 zones[footer][] = footer_second
 
+
 ; END CONTENT ZONES
 
 settings[reset_css] = '1'
