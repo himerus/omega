@@ -53,5 +53,10 @@
     if($('#user-login-form #edit-pass').val()) {
     	$('#user-login-form #edit-pass').css('background-image', 'none');
     }
+    // fix the switchtheme form
+    $('#switchtheme-switch-form #edit-theme').change(function(){
+    	$('#switchtheme-switch-form').submit();
+    });
+    
   });
 })(jQuery);

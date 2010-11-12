@@ -41,3 +41,14 @@
   margin: 0;  
 }
 
+#user-container .block-switchtheme {
+	display: block;
+  float: left;
+  clear: none;
+}
+#switchtheme-switch-form #edit-theme {
+	margin-top: 8px;
+}
+#switchtheme-switch-form .form-submit {
+	display: none;
+}

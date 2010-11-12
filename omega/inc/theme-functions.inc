@@ -143,7 +143,10 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
     // if we do have content for this region, let's create it.
     if (isset($info['data'])) {
       if (isset($info['primary'])) {
-        $width = _omega_dynamic_widths($info, $region_data, $container_width);;
+        $width = _omega_dynamic_widths($info, $region_data, $container_width);
+        // need to update the width of the primary region in case some elements
+        // were empty. This bug was only discovered when region(s) were empty
+        $region_data[$region]['width'] = $width;
         $region_classes[$region][] = ns('grid-' . $width);
       }
       else {
