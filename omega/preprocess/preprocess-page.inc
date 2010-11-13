@@ -5,7 +5,7 @@
  * @file
  * Contents of omega_preprocess_page().
  */
-
+//krumo($vars['main_menu']);
 if (isset($vars['main_menu'])) {
   $vars['main_menu'] = theme('links__system_main_menu', array(
     'links' => $vars['main_menu'],

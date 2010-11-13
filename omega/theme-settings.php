@@ -19,7 +19,6 @@
  *   A keyed array containing the current state of the form.
  */
 function omega_form_system_theme_settings_alter(&$form, &$form_state) {
-	
 	// provide a warning if the Delta module is not installed
 	if (!module_exists('omega_ui')) {
 		drupal_set_message('<p>Without the <a href="http://himer.us/omega-ui"><strong>Omega UI</strong></a> module, you will only be able to configure grid settings for your theme via the standard form.</p><p>The <a href="http://himer.us/omega-ui"><strong>Omega UI</strong></a> module enables both contextual theme settings and an advanced UI for configuring your <a href="http://himer.us/omega-theme"><strong>Omega</strong></a> subtheme.</p>', 'warning');
