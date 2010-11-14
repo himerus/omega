@@ -42,7 +42,12 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       'cache' => FALSE,
     )
   );
-
+  $form['omega'] = array(
+	  '#type' => 'vertical_tabs',
+	  '#weight' => -10,
+    '#default_tab' => 'defaults',
+	  '#description' => t('Configure how your regions are rendered. This area is currently a quick implementation of an interface to allow end users to quickly build out and adjust the default page layout. This feature will be improved over time, and include much more flexibility.'),
+	);
   // include general theme settings
   require_once(drupal_get_path('theme', 'omega') . '/inc/default-theme-settings.inc');
   
@@ -51,4 +56,5 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
   // include administrative functions for theme settings
   require_once(drupal_get_path('theme', 'omega') . '/inc/admin-theme-settings.inc');
+  //krumo($form);
 }

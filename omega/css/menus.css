@@ -23,6 +23,7 @@
   border: 1px solid #CCC;
   padding: 0;
   margin-bottom: 1.5em;
+  list-style-type: none;
 }
 
 #region-menu .primary-navigation ul.main-menu,
@@ -30,7 +31,9 @@
 	margin: 0;
 	padding: 0;
 }
-
+#region-menu .primary-navigation ul.main-menu li {
+	display: inline-block;
+}
 #region-menu .primary-navigation ul.main-menu li a {
   padding: 5px 10px;
   display: inline-block;
