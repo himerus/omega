@@ -116,13 +116,20 @@ function _omega_dynamic_widths($info, $regions, $container) {
 	foreach ($conditions AS $variable => $region) {
     if ((isset($regions[$variable]['data'])) && strlen($regions[$variable]['data']) > 0) {
       $width = $width - $region['width'];
-      if ($regions[$variable]['spacing']['prefix'] > 0) {
+      if ($regions[$variable]['spacing']['prefix']) {
         $width = $width - $regions[$variable]['spacing']['prefix'];
       }
-      if ($regions[$variable]['spacing']['suffix'] > 0) {
-        $width = $width - $regions[$variable]['spacing']['prefix'];
+      if ($regions[$variable]['spacing']['suffix']) {
+        $width = $width - $regions[$variable]['spacing']['suffix'];
       }
     }
+  }
+  // we must also subtract the prefix suffix from THIS item... DUH
+  if ($info['spacing']['prefix']) {
+    $width = $width - $info['spacing']['prefix'];
+  }
+  if ($info['spacing']['suffix']) {
+    $width = $width - $info['spacing']['suffix'];
   }
   return $width;
 }
@@ -148,6 +155,7 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
         // were empty. This bug was only discovered when region(s) were empty
         $region_data[$region]['width'] = $width;
         $region_classes[$region][] = ns('grid-' . $width);
+        
       }
       else {
         $width = $info['width'];
