@@ -151,7 +151,7 @@ function omega_breadcrumb($variables) {
       // screen-reader users. Make the heading invisible with .element-invisible.
       $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
 
-      $breadcrumb_separator = theme_get_setting('omega_breadcrumb_separator');
+      $breadcrumb_separator = '<span class="breadcrumb-separator">' . theme_get_setting('omega_breadcrumb_separator') . '</span>';
       $trailing_separator = $title = '';
       if (theme_get_setting('omega_breadcrumb_title')) {
         $trailing_separator = $breadcrumb_separator;
@@ -160,7 +160,7 @@ function omega_breadcrumb($variables) {
       elseif (theme_get_setting('omega_breadcrumb_trailing')) {
         $trailing_separator = $breadcrumb_separator;
       }
-      $output .= '<div class="breadcrumb">' . implode($breadcrumb_separator, $breadcrumb) . "$trailing_separator$title</div>";
+      $output .= '<div class="breadcrumb">' . implode($breadcrumb_separator, $breadcrumb) . $trailing_separator . '<span class="breadcrumb-page">' . $title . '</span></div>';
       return $output;
     }
   }
