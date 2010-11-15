@@ -3,7 +3,7 @@
 // General Settings
 $form['omega']['optional_css'] = array(
   '#type' => 'fieldset',
-  '#title' => t('Optional CSS Files'),
+  '#title' => t('Optional CSS'),
   '#description' => t('Here, you may disable default theme CSS provided by the Omega base theme.'),
   '#collapsible' => TRUE,
   '#collapsed' => FALSE,

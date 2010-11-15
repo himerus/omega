@@ -46,11 +46,11 @@
       });
       
       // hide the sidebar on theme settings page
-      $('.column-side').css('display', 'none');
+      //$('.column-side').css('display', 'none');
       // make the main column full width
-      $('.column-main').css('width', '100%');
+      //$('.column-main').css('width', '100%');
       // remove bg image
-      $('.form-layout-default').css('background', 'none');
+      //$('.form-layout-default').css('background', 'none');
     }
   };
 })(jQuery);

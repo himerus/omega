@@ -46,15 +46,21 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
 	  '#type' => 'vertical_tabs',
 	  '#weight' => -10,
     '#default_tab' => 'defaults',
-	  '#description' => t('Configure how your regions are rendered. This area is currently a quick implementation of an interface to allow end users to quickly build out and adjust the default page layout. This feature will be improved over time, and include much more flexibility.'),
 	);
-  // include general theme settings
-  require_once(drupal_get_path('theme', 'omega') . '/inc/default-theme-settings.inc');
-  
   // include Omega (grid) specific theme settings
   require_once(drupal_get_path('theme', 'omega') . '/inc/grid-theme-settings.inc');
-  
+	
+	// include general theme settings
+  require_once(drupal_get_path('theme', 'omega') . '/inc/default-theme-settings.inc');
+
   // include administrative functions for theme settings
   require_once(drupal_get_path('theme', 'omega') . '/inc/admin-theme-settings.inc');
+  
+  $form['theme_settings']['#collapsible'] = TRUE;
+  $form['theme_settings']['#collapsed'] = TRUE;
+  $form['logo']['#collapsible'] = TRUE;
+  $form['logo']['#collapsed'] = TRUE;
+  $form['favicon']['#collapsible'] = TRUE;
+  $form['favicon']['#collapsed'] = TRUE;
   //krumo($form);
 }

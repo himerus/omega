@@ -132,7 +132,7 @@ foreach ($zones AS $zone => $regions) {
   // allow for zone classes
   $form['omega']['zones'][$zone]['omega_' . $zone . '_zone_extra_classes'] = array(
     '#type' => 'textfield',
-    '#title' => t('Additional Classes'),
+    '#title' => t('Additional Zone Classes'),
     '#size' => 60,
     '#default_value' => theme_get_setting('omega_' . $zone . '_zone_extra_classes'),
     '#description' => t('You can quickly add custom CSS classes to your zone here.'),
@@ -213,7 +213,7 @@ foreach ($zones AS $zone => $regions) {
 	  $form['omega']['zones'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_extra_classes'] = array(
 	    '#prefix' => '<div class="classes_config">',
       '#type' => 'textfield',
-      '#title' => t('Additional Classes'),
+      '#title' => t('Additional Region Classes'),
       '#size' => 60,
       '#default_value' => t(theme_get_setting('omega_' . $zone . '_' . $region . '_region_extra_classes')),
       '#description' => t('You can quickly add custom CSS classes to your regions here.'),
