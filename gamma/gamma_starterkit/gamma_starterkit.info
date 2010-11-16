@@ -4,6 +4,7 @@ description = Gamma Sub-Theme starter kit
 screenshot = screenshot.png
 core       = 7.x
 base theme = gamma
+hidden = TRUE
 
 regions[sidebar_first] = sidebar first
 regions[sidebar_second] = sidebar second
