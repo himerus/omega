@@ -26,15 +26,15 @@
   list-style-type: none;
 }
 
-#region-menu .primary-navigation ul.main-menu,
-#region-menu .primary-navigation ul.main-menu li {
+#region-menu ul.main-menu,
+#region-menu ul.main-menu li {
 	margin: 0;
 	padding: 0;
 }
-#region-menu .primary-navigation ul.main-menu li {
+#region-menu ul.main-menu li {
 	display: inline-block;
 }
-#region-menu .primary-navigation ul.main-menu li a {
+#region-menu ul.main-menu li a {
   padding: 5px 10px;
   display: inline-block;
   border:0;
@@ -43,23 +43,33 @@
   background: #EEE;
 }
 
-#region-menu .primary-navigation ul.main-menu li a:hover,
-#region-menu .primary-navigation ul.main-menu li.active-trail a,
-#region-menu .primary-navigation ul.main-menu li.active a {
+#region-menu ul.main-menu li a:hover,
+#region-menu ul.main-menu li.active-trail a,
+#region-menu ul.main-menu li.active a {
   background: #FFF;
 }
 
-#region-menu .primary-navigation ul.secondary-menu li {
-	margin: 0;
-	border-right: 1px solid #CCC;
+#region-menu ul ul {
+  position: absolute;
+  z-index: 100;
+  display: none;
+  min-width: 150px;
 }
-#region-menu .primary-navigation ul.secondary-menu li.last {
-  border-right: none;
+#region-menu ul ul ul {
+  position: absolute;
+  top: 0.5em;
+  left: 165px;
+  z-index: 100;
+  display: none;
 }
-#region-menu .primary-navigation ul.secondary-menu li a {
-  padding: 2px 5px;
-  display: inline-block;
-  border: 0;
-  text-decoration: none;
-  background: none;
+#region-menu ul.secondary-items li {
+  display: block;
+  min-width: 150px;
+}
+#region-menu ul.secondary-items li a {
+	min-width: 150px;
+}
+#region-menu li.has-subitems:hover > ul,
+#region-menu li.has-subitems ul:hover {
+  display: block;
 }

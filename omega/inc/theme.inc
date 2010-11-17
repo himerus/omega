@@ -335,6 +335,10 @@ function omega_links($variables) {
           && (empty($link['language']) || $link['language']->language == $language_url->language)) {
         $class[] = 'active';
       }
+      // add a class for has a sub-menu
+      if(isset($link['below'])) {
+      	$class[] = 'has-subitems';
+      }
       $output .= '<li' . drupal_attributes(array('class' => $class)) . '>';
 
       if (isset($link['href'])) {
@@ -352,7 +356,15 @@ function omega_links($variables) {
         }
         $output .= '<span' . $span_attributes . '>' . $link['title'] . '</span>';
       }
-
+      // theme in nested links in the UL
+      if(isset($link['below'])) {
+      	$output .= theme('links', array(
+			    'links' => $link['below'],
+			    'attributes' => array(
+			      'class' => array('links', 'main-menu', 'secondary-items'),
+			    ),
+			  ));
+      }
       $i++;
       $output .= "</li>";
     }

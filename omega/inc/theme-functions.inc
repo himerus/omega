@@ -56,12 +56,12 @@ function ns() {
  * Stoopid function to just sort, then re-key an array
  */
 function omega_order_reorder($o) {
-	ksort($o);
-	$n = array();
-	foreach ($o AS $v) {
-		$n[] = $v;
-	}
-	return $n;
+  ksort($o);
+  $n = array();
+  foreach ($o AS $v) {
+    $n[] = $v;
+  }
+  return $n;
 }
 
 /**
@@ -113,7 +113,7 @@ function static_region_builder($regions, $container_width) {
 function _omega_dynamic_widths($info, $regions, $container) {
   $width = $container;
   $conditions = $info['related'];
-	foreach ($conditions AS $variable => $region) {
+  foreach ($conditions AS $variable => $region) {
     if ((isset($regions[$variable]['data'])) && strlen($regions[$variable]['data']) > 0) {
       $width = $width - $region['width'];
       if ($regions[$variable]['spacing']['prefix']) {
@@ -143,10 +143,10 @@ function _omega_dynamic_widths($info, $regions, $container) {
  * static_region_builder() instead.
  */
 function dynamic_region_builder($region_data, $container_width, $region_order) {
-	$region_classes = array();
+  $region_classes = array();
   // let's cycle the region data, and determine what we have
   foreach ($region_data AS $region => $info) {
-  	$region_classes[$region] = array();
+    $region_classes[$region] = array();
     // if we do have content for this region, let's create it.
     if (isset($info['data'])) {
       if (isset($info['primary'])) {
@@ -162,14 +162,14 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
         $region_classes[$region][] = ns('grid-' . $width);
       }
       
-	    if (isset($info['spacing'])) {
-	      foreach ($info['spacing'] AS $attribute => $value) {
-	        if ($value) {
-	          $region_classes[$region][] = ns($attribute . '-' . $value);
-	          $width = $width + $value;
-	        }
-	      }
-	    }
+      if (isset($info['spacing'])) {
+        foreach ($info['spacing'] AS $attribute => $value) {
+          if ($value) {
+            $region_classes[$region][] = ns($attribute . '-' . $value);
+            $width = $width + $value;
+          }
+        }
+      }
 
       // assign push/pull classes
       $region_movement = _omega_dynamic_zones($region, $region_data, $region_order, $container_width);
@@ -199,41 +199,41 @@ function _omega_dynamic_zones($region, $regions, $order, $width) {
   $actual_order = array_keys($regions);
   $actual_position = array_search($region, $actual_order);
   $desired_position = array_search($region, $order);
-  	foreach($actual_order as $delta => $region_id) {
-  		// don't react if the region is the one we are testing
-  		if ($region != $region_id) {  
-  			// get the actual position of the region we are testing against
-  		  $t_actual = $delta;
-  		  // get the desired positon of the region we are testing against.
-	      $t_desired = array_search($region_id, $order);
-	      
-	      if($regions[$region_id]['data'] && ($t_actual < $actual_position) && ($t_desired > $desired_position)) {
-	        $value['pull'] = $value['pull'] + omega_actual_region_width($regions[$region_id]);
-	      }
-  		  if($regions[$region_id]['data'] && ($t_actual > $actual_position) && ($t_desired < $desired_position)) {
+    foreach($actual_order as $delta => $region_id) {
+      // don't react if the region is the one we are testing
+      if ($region != $region_id) {  
+        // get the actual position of the region we are testing against
+        $t_actual = $delta;
+        // get the desired positon of the region we are testing against.
+        $t_desired = array_search($region_id, $order);
+        
+        if($regions[$region_id]['data'] && ($t_actual < $actual_position) && ($t_desired > $desired_position)) {
+          $value['pull'] = $value['pull'] + omega_actual_region_width($regions[$region_id]);
+        }
+        if($regions[$region_id]['data'] && ($t_actual > $actual_position) && ($t_desired < $desired_position)) {
           $value['push'] = $value['push'] + omega_actual_region_width($regions[$region_id]);
         }
         
         // possible solution for that edge cases mentioned above (position in the 
         // array doesn't change, but the position itself needs to.... hrm...)
         if ($value['push'] > 0 && $value['pull'] > 0) {
-        	//$value['push'] = 0;
-        	//$value['pull'] = $regions[$region]['width'];
-        	if ($value['push'] > $value['pull']) {
-        		$value['push'] = $value['push'] - $value['pull'];
+          //$value['push'] = 0;
+          //$value['pull'] = $regions[$region]['width'];
+          if ($value['push'] > $value['pull']) {
+            $value['push'] = $value['push'] - $value['pull'];
             $value['pull'] = 0;
-        	}
-        	elseif ($value['push'] < $value['pull']) {
-        		$value['pull'] = $value['pull'] - $value['push'];
-        		$value['push'] = 0;
-        	}
-        	elseif ($value['push'] == $value['pull']) {
-        		$value['push'] = 0;
-        		$value['pull'] = 0;
-        	}
+          }
+          elseif ($value['push'] < $value['pull']) {
+            $value['pull'] = $value['pull'] - $value['push'];
+            $value['push'] = 0;
+          }
+          elseif ($value['push'] == $value['pull']) {
+            $value['push'] = 0;
+            $value['pull'] = 0;
+          }
         }
-	    }
-  	}
+      }
+    }
   return $value;
 }
 
@@ -244,5 +244,24 @@ function _omega_dynamic_zones($region, $regions, $order, $width) {
  * have the "actual" width of the zone to run other computations against.
  */
 function omega_actual_region_width($r) {
-	return $r['width'] + $r['spacing']['prefix'] + $r['spacing']['suffix'];
+  return $r['width'] + $r['spacing']['prefix'] + $r['spacing']['suffix'];
+}
+
+function omega_menu_structure($menu) {
+  $items = array();
+  foreach($menu as $item) {
+  	$mlid = $item['link']['mlid'];
+  	$attributes = isset($item['link']['localized_options']['attributes']) ? $item['link']['localized_options']['attributes'] : array();
+    $items['menu-' . $mlid] = array(
+      'attributes' => $attributes,
+      'href' => $item['link']['href'],
+      'title' => $item['link']['title'],
+    );
+	  if(count($item['below']) > 0) {
+	  	// nest infinitely... (crosses fingers)
+	    $subitems = omega_menu_structure($item['below']);
+	    $items['menu-' . $mlid]['below'] = $subitems;
+	  }
+  }
+  return $items;
 }
