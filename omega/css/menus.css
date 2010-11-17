@@ -32,6 +32,7 @@
 	padding: 0;
 }
 #region-menu ul.main-menu li {
+	position: relative;
 	display: inline-block;
 }
 #region-menu ul.main-menu li a {
@@ -53,6 +54,7 @@
   position: absolute;
   z-index: 100;
   display: none;
+  left: -1px;
   min-width: 150px;
 }
 #region-menu ul ul ul {
@@ -68,6 +70,7 @@
 }
 #region-menu ul.secondary-items li a {
 	min-width: 150px;
+	border-right: 0;
 }
 #region-menu li.has-subitems:hover > ul,
 #region-menu li.has-subitems ul:hover {
