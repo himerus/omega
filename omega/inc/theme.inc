@@ -343,7 +343,7 @@ function omega_links($variables) {
 
       if (isset($link['href'])) {
         // Pass in $link as $options, they share the same keys.
-        $output .= l($link['title'], $link['href'], $link);
+        $output .= l(trim($link['title']), $link['href'], $link);
       }
       elseif (!empty($link['title'])) {
         // Some links are actually not links, but we wrap these in <span> for adding title and class attributes.
