@@ -19,13 +19,13 @@ $containers = array(
 // Region Settings
 
 // create a wrapper fieldset for default grid configurations
-$form['omega']['defaults'] = array(
+$form['omega_grid']['defaults'] = array(
   '#type' => 'fieldset',
   '#title' => t('960gs Default Config'),
   '#weight' => -100,
 );
 // provide default container width
-$form['omega']['defaults']['omega_default_container_width'] = array(
+$form['omega_grid']['defaults']['omega_default_container_width'] = array(
   '#type' => 'select',
   '#title' => t('Default container width'),
   '#default_value' => theme_get_setting('omega_default_container_width'),
@@ -35,7 +35,7 @@ $form['omega']['defaults']['omega_default_container_width'] = array(
 );
 // select fixed/fluid for all zones/entire site.
 $default_omega_layout = theme_get_setting('omega_fixed_fluid') ? theme_get_setting('omega_fixed_fluid') : 'fixed';
-$form['omega']['defaults']['omega_fixed_fluid'] = array(
+$form['omega_grid']['defaults']['omega_fixed_fluid'] = array(
   '#type' => 'radios',
   '#description' => t('You may select fluid layout, or the default fixed width layout.'),
   '#title' => t('Fixed / Fluid Layout'),
@@ -46,27 +46,20 @@ $form['omega']['defaults']['omega_fixed_fluid'] = array(
   ),
 );
 
-// Creating a wrapper fieldset for Zones
-$form['omega']['zones'] = array(
-  '#type' => 'fieldset',
-  '#title' => t('960gs Zone Config'),
-  '#description' => t('<p><strong>Zones</strong> are unique to the <a href="http://himer.us/omega-theme"><strong>Omega</strong></a> theme, and all subthemes based on it. In concept, zones are simply the container element for regions. Zones have a <em>container-xx</em> class applied to them, and various other container level configurations.</p><p>For more information on the concept and implementation of zones, please read <a href=""><strong>Zones & Regions in the Omega theme</strong></a>.</p>'),
-  '#weight' => -99,
-);
 $zones = $settings_theme_info['zones'];
 $all_regions = $settings_theme_info['regions'];
 // Looping over each zone, and region in that zone.
 foreach ($zones AS $zone => $regions) {
   // creating an additional fieldset for each zone 
-	$form['omega']['zones'][$zone] = array(
+	$form['omega_grid'][$zone] = array(
     '#type' => 'fieldset',
-    '#title' => t(ucwords($zone) . ' Configuration'),
-    '#prefix' => t('<h3 class="omega-accordion"><a href="#">' . ucwords($zone) . ' Zone Config</a></h3><div class="omega-accordion-content">'),
-    '#suffix' => '</div>', 
+    '#title' => t(ucwords($zone) . ' Zone Config'),
+    //'#prefix' => t('<h3 class="omega-accordion"><a href="#">' . ucwords($zone) . ' Zone Config</a></h3><div class="omega-accordion-content">'),
+    //'#suffix' => '</div>', 
   );
   // provide a quick enable/disable option for this zone
   $zone_enabled = theme_get_setting('omega_'. $zone .'_enabled') || theme_get_setting('omega_'. $zone .'_enabled') == 0 ? theme_get_setting('omega_'. $zone .'_enabled') : 1;
-  $form['omega']['zones'][$zone]['omega_'. $zone .'_enabled'] = array(
+  $form['omega_grid'][$zone]['omega_'. $zone .'_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable this Zone.'),
     '#description' => t('Disabling this zone will instantly hide the container and all regions within from being rendered on page.'),
@@ -75,14 +68,14 @@ foreach ($zones AS $zone => $regions) {
   );
   // provide a full width wrapper around the zone (allowing for design elements outside the grid)
   $zone_wrapper = theme_get_setting('omega_'. $zone .'_wrapper') ? theme_get_setting('omega_'. $zone .'_wrapper') : 0;
-  $form['omega']['zones'][$zone]['omega_'. $zone .'_wrapper'] = array(
+  $form['omega_grid'][$zone]['omega_'. $zone .'_wrapper'] = array(
     '#type' => 'checkbox',
     '#title' => t('Provide full width wrapper around this zone.'),
     '#description' => t('Enabling this feature will give a &lt;div&gt; wrapper around the zone itself, allowing you to theme in elements that appear outside the 960 pixel container zone.'),
     '#default_value' => $zone_wrapper,
   );
   // create a container width selection menu for EACH zone
-  $form['omega']['zones'][$zone]['omega_'. $zone .'_container_width'] = array(
+  $form['omega_grid'][$zone]['omega_'. $zone .'_container_width'] = array(
     '#type' => 'select',
     '#title' => t('Container width'),
     '#default_value' => theme_get_setting('omega_'. $zone .'_container_width'),
@@ -90,7 +83,7 @@ foreach ($zones AS $zone => $regions) {
   );
   // create a chooser for static/dynamic zone
   $zone_type = theme_get_setting('omega_'. $zone .'_zone_type') ? theme_get_setting('omega_'. $zone .'_zone_type') : 'static';
-  $form['omega']['zones'][$zone]['omega_'. $zone .'_zone_type'] = array(
+  $form['omega_grid'][$zone]['omega_'. $zone .'_zone_type'] = array(
     '#type' => 'radios',
     '#description' => t('<p><strong>Static</strong> Zones are displayed either inline or stacked based on settings.</p><p><strong>Dynamic</strong> Zones are always displayed inline, with a primary region and MUST fit inside the container wrap. Dynamic zones also allow for push & pull classes for content first ordering.'),
     '#title' => t('Zone Type'),
@@ -117,7 +110,7 @@ foreach ($zones AS $zone => $regions) {
   // decide which region is the primary item
   // the "primary" region is the one that will absorb the size of empty regions
   // that are related in the same zone.
-  $form['omega']['zones'][$zone]['omega_'. $zone .'_dynamic_zone_primary_region'] = array(
+  $form['omega_grid'][$zone]['omega_'. $zone .'_dynamic_zone_primary_region'] = array(
     '#type' => 'select',
     '#title' => t('Primary Region'),
     '#default_value' => theme_get_setting('omega_'. $zone .'_dynamic_zone_primary_region'),
@@ -130,7 +123,7 @@ foreach ($zones AS $zone => $regions) {
     ),
   );
   // allow for zone classes
-  $form['omega']['zones'][$zone]['omega_' . $zone . '_zone_extra_classes'] = array(
+  $form['omega_grid'][$zone]['omega_' . $zone . '_zone_extra_classes'] = array(
     '#type' => 'textfield',
     '#title' => t('Additional Zone Classes'),
     '#size' => 60,
@@ -154,15 +147,15 @@ foreach ($zones AS $zone => $regions) {
   	$weight = intval(theme_get_setting('omega_' . $zone . '_' . $region . '_region_weight') + 100);
 	  // create a fieldset around the regions so they can be weighted by the order
 	  // if they are a dynamic region.
-  	$form['omega']['zones'][$zone][$region] = array(
+  	$form['omega_grid'][$zone][$region] = array(
 	    '#type' => 'fieldset', 
 	  );
 	  // only add weight value to dynamic zones
   	if($zone_type == 'dynamic') {
-  		$form['omega']['zones'][$zone][$region]['#weight'] = $weight;
+  		$form['omega_grid'][$zone][$region]['#weight'] = $weight;
   	}
   	// create a prefix dropdown
-	  $form['omega']['zones'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_prefix'] = array(
+	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_prefix'] = array(
 	    '#prefix' => t('<h4 class="region-title">' . $region_name . $locked_flag . '</h4><div class="prefix_config">'),
 	    '#type' => 'select',
 	    '#title' => t('Prefix'),
@@ -171,7 +164,7 @@ foreach ($zones AS $zone => $regions) {
 	    '#suffix' => '</div>',
 	  );
 	  // create the width dropdown
-	  $form['omega']['zones'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_width'] = array(
+	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_width'] = array(
       '#prefix' => '<div class="width_config">',
 	    '#type' => 'select',
       '#title' => t('Width'),
@@ -180,7 +173,7 @@ foreach ($zones AS $zone => $regions) {
       '#suffix' => '</div>',
     );
     // create a suffix dropdown
-	  $form['omega']['zones'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_suffix'] = array(
+	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_suffix'] = array(
 	    '#prefix' => '<div class="suffix_config">',
 	    '#type' => 'select',
 	    '#title' => t('Suffix'),
@@ -194,7 +187,7 @@ foreach ($zones AS $zone => $regions) {
 	  	$weights[$i] = $i;
 	  }
 	  // allow for ordering the regions in dyanmic zones
-	  $form['omega']['zones'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_order'] = array(
+	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_order'] = array(
 	    '#prefix' => '<div class="weight_config">',
 		  '#type' => 'select',
 		  '#title' => t('Order'),
@@ -210,7 +203,7 @@ foreach ($zones AS $zone => $regions) {
 	    
 		);
 		// allow adding of classes for regions
-	  $form['omega']['zones'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_extra_classes'] = array(
+	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_extra_classes'] = array(
 	    '#prefix' => '<div class="classes_config">',
       '#type' => 'textfield',
       '#title' => t('Additional Region Classes'),

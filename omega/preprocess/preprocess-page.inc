@@ -8,8 +8,9 @@
 //krumo($vars['main_menu']);
 
 if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu')) {
+	$menu_depth = theme_get_setting('omega_menu_depth') ? theme_get_setting('omega_menu_depth') : 1;
 	// render the menus as nested ULs to style up some drop downs.
-  $menu = omega_menu_structure(menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'), 5, FALSE));
+  $menu = omega_menu_structure(menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'), $menu_depth, FALSE));
   $vars['main_menu'] = theme('links', array(
     'links' => $menu,
     'attributes' => array(
