@@ -57,6 +57,7 @@
     $('#switchtheme-switch-form #edit-theme').change(function(){
     	$('#switchtheme-switch-form').submit();
     });
-    
+    // fix menus that don't respect active trail because drupal links are stoopid
+    $('#region-menu ul li.active').parents('li').addClass('active');
   });
 })(jQuery);
