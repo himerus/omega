@@ -82,6 +82,7 @@ foreach ($theme_zones as $zone_ref => $regions) {
   		  'title_suffix' => $vars['title_suffix'],
   		  'title_attributes_array' => $vars['title_attributes_array'],
         'tabs' => $vars['tabs'],
+        'content_float' => isset($vars['page']['content_float']) ? $vars['page']['content_float'] : FALSE,
       );
   	}
     $zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);

@@ -22,24 +22,7 @@
  * 7.) 
  */
  
-/** ################# Geshi Code Filter CSS ####################### */
-/**
- * The main purpose for the Geshi Filter styles are for my personal use, and use in the demo version
- * of the Omega theme to style up code snippets a bit more pretty.
- */
- 
-.geshifilter {
-	font-size: 9px;
-	margin: 0;
-  padding: 10px;
-  line-height: 1.2em;
-  border: 1px solid #CCC;
-  background: #EEE;
-}
 
-.block code, .block .geshifilter {
-  margin: 0;  
-}
 
 #user-container .block-switchtheme {
 	display: block;

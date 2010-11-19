@@ -52,10 +52,16 @@ switch($zone['zid']) {
             'title-header',
             'header-main',
           );
+          // assign the content_float region if it exists
+          // this will be inserted into region--content.tpl.php
+          if(isset($info['content_float'])) {
+            //$vars['regions'][$region_id]['#custom']['content_float'] = render($info['content_float']);
+          }
           // assign classes & attributes before sending along
           $title_classes = $vars['regions'][$region_id]['#custom']['title_classes'] = implode(' ', $classes);
           unset($vars['regions'][$region_id]['#custom']['title_attributes_array']['class']); 
           $title_attr = $vars['regions'][$region_id]['#custom']['title_attributes'] = drupal_attributes($vars['regions'][$region_id]['#custom']['title_attributes_array']);
+          //krumo($vars['regions'][$region_id]);
         	break;
       }
 		}

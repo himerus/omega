@@ -28,12 +28,12 @@
 
 #region-menu ul.main-menu,
 #region-menu ul.main-menu li {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 #region-menu ul.main-menu li {
-	position: relative;
-	display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 #region-menu ul.main-menu li a {
   padding: 5px 10px;
@@ -69,8 +69,8 @@
   min-width: 150px;
 }
 #region-menu ul.secondary-items li a {
-	min-width: 150px;
-	border-right: 0;
+  min-width: 150px;
+  border-right: 0;
 }
 #region-menu li.has-subitems:hover > ul,
 #region-menu li.has-subitems ul:hover {
@@ -80,18 +80,18 @@
 /* Different styles for actual secondary menus that are NOT nested in the top
    level navigation */
 #region-menu ul.secondary-menu {
-	background: #DDD;
+  background: #DDD;
   border: 1px solid #CCC;
   padding: 0;
   margin-bottom: 1.5em;
   list-style-type: none;
-	display: block;
-	font-size: 0.8em;
-	border-top: 0;
+  display: block;
+  font-size: 0.8em;
+  border-top: 0;
 }
 #region-menu ul.secondary-menu li {
-	list-style-type: none;
-	display: inline-block;
+  list-style-type: none;
+  display: inline-block;
 }
 #region-menu ul.secondary-menu li a {
   padding: 5px 10px;

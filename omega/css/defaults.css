@@ -63,11 +63,11 @@
  */
 .logo-img, 
 .site-name-slogan {
-	display: inline-block;
-	float: left;
+  display: inline-block;
+  float: left;
 }
 .site-name-slogan {
-	margin-left: 20px;
+  margin-left: 20px;
 }
 h1.site-title ,
 h2.site-title {
@@ -79,15 +79,26 @@ h2.site-title a{
 }
 .site-title,
 .site-slogan {
-	margin: 0;
+  margin: 0;
 }
 .site-slogan {
   font-style: italic;
   font-weight: normal;
 }
 
-
-
+/*
+.inner-content .block{
+  display: inline;
+}
+.region-content-float {
+  width: 180px;
+  padding: 5px;
+  border: 1px solid red;
+  margin: 0 0 10px 10px;
+  
+  display: inline;
+}
+*/
 
 
 

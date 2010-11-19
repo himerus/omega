@@ -50,7 +50,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   );
   $form['omega_general'] = array(
     '#type' => 'vertical_tabs',
-    '#weight' => -10,
+    '#weight' => -9,
     '#default_tab' => 'defaults',
     '#prefix' => t('General Omega Settings'),
   );

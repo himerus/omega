@@ -38,6 +38,9 @@
     <?php if (isset($tabs) && count($tabs) > 0): ?>
       <div id="content-tabs" class=""><?php print render($tabs); ?></div><!-- /#content-tabs -->
     <?php endif; ?>
+    <?php if(isset($content_float)): ?>
+      <?php print $content_float; ?>
+    <?php endif; ?>
     <?php print $content; ?>
   </div>
 <?php endif; ?>
