@@ -32,7 +32,3 @@ if(isset($vars['elements']['#custom'])) {
 		$vars[$var] = $val;
 	}
 }
-if ($vars['elements']['#region'] == 'content') {
- //krumo($vars);
- //krumo($vars['elements']['#custom']['zid']);
-}

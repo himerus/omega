@@ -114,7 +114,7 @@ function _omega_dynamic_widths($info, $regions, $container) {
   $width = $container;
   $conditions = $info['related'];
   foreach ($conditions AS $variable => $region) {
-    if ((isset($regions[$variable]['data'])) && strlen($regions[$variable]['data']) > 0) {
+    if ((isset($regions[$variable]['data'])) && count($regions[$variable]['data']) > 0) {
       $width = $width - $region['width'];
       if ($regions[$variable]['spacing']['prefix']) {
         $width = $width - $regions[$variable]['spacing']['prefix'];

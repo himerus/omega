@@ -139,7 +139,7 @@ switch($zone['zone_type']) {
     $regions = array();
     foreach($zone_regions AS $region => $region_data) {
       $regions[$region] = array(
-        'data' => render($zone_regions[$region]),
+        'data' => element_children($zone_regions[$region]),
         //'data' => TRUE, // a test to enable data to always be true
         'width' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
         'spacing' => array(
@@ -164,7 +164,7 @@ switch($zone['zone_type']) {
     foreach($zone_regions AS $region => $region_data) {
     	$primary_region = theme_get_setting('omega_'. $zone['zid'] .'_dynamic_zone_primary_region') == $region ? TRUE : FALSE;
       $regions[$region] = array(
-        'data' => render($zone_regions[$region]),
+        'data' => element_children($zone_regions[$region]),
         'width' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
         'spacing' => array(
           'prefix' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_prefix'),
