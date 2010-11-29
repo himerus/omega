@@ -37,12 +37,16 @@ $zone_regions = $zone['regions'];
 // we will need to accomodate moving the custom REGIONS into a new zone as well,
 // but renaming the branding and location zones is pretty much forbade at this point.
 $info = isset($zone['info']) ? $zone['info'] : array();
+
+
+//$vars['regions'][$region_id]['#custom'] = array();
+
+
 switch($zone['zid']) {
 	case 'content':
 		foreach($zone_regions as $region_id => $region) {
       switch($region_id) {
         case 'content':
-          $vars['regions'][$region_id]['#custom'] = array();
           $vars['regions'][$region_id]['#custom']['title'] = $info['title'];
           $vars['regions'][$region_id]['#custom']['tabs'] = $info['tabs']; 
           $vars['regions'][$region_id]['#custom']['title_prefix'] = $info['title_prefix'];
@@ -71,7 +75,6 @@ switch($zone['zid']) {
 		foreach($zone_regions as $region_id => $region) {
 			switch($region_id) {
 				case 'branding':
-			    $vars['regions'][$region_id]['#custom'] = array();
           // custom build the branding zone with our "custom" regions inside there
           // Set a variable for the site name title and logo alt attributes text.
           $site_name_and_slogan = $vars['regions'][$region_id]['#custom']['site_name_and_slogan'] = $info['site_name'] . ' ' . $info['slogan'];
@@ -111,7 +114,7 @@ switch($zone['zid']) {
 		foreach($zone_regions as $region_id => $region) {
       switch($region_id) {
         case 'breadcrumb':
-        	$vars['regions'][$region_id]['#custom'] = array();
+        	
           $vars['regions'][$region_id]['#custom']['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
           
           $vars['regions'][$region_id]['#theme_wrappers'] = array('region');
@@ -123,8 +126,14 @@ switch($zone['zid']) {
 		break;
 }
 
+// Let's make sure to pass the zone id to the region processing function so we can use it later
 $zone = $vars;
 $zone_regions = $zone['regions'];
+foreach($zone_regions AS $region => $region_data) {
+  $vars['regions'][$region]['#custom']['zid'] = $zone['zid'];
+}
+
+
 switch($zone['zone_type']) {
   case 'static':
     $regions = array();
@@ -193,4 +202,6 @@ switch($zone['zone_type']) {
     }
     break;
 }
-//krumo($vars);
+if ($zone['zid'] == 'content') {
+  //krumo($vars);
+}
