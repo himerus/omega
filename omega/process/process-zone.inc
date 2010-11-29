@@ -47,6 +47,7 @@ switch($zone['zid']) {
 		foreach($zone_regions as $region_id => $region) {
       switch($region_id) {
         case 'content':
+          $vars['regions'][$region_id]['#custom'] = array();
           $vars['regions'][$region_id]['#custom']['title'] = $info['title'];
           $vars['regions'][$region_id]['#custom']['tabs'] = $info['tabs']; 
           $vars['regions'][$region_id]['#custom']['title_prefix'] = $info['title_prefix'];
@@ -77,6 +78,7 @@ switch($zone['zid']) {
 				case 'branding':
           // custom build the branding zone with our "custom" regions inside there
           // Set a variable for the site name title and logo alt attributes text.
+          $vars['regions'][$region_id]['#custom'] = array();
           $site_name_and_slogan = $vars['regions'][$region_id]['#custom']['site_name_and_slogan'] = $info['site_name'] . ' ' . $info['slogan'];
           $slogan = $vars['regions'][$region_id]['#custom']['slogan'] = $info['slogan'];
           $site_name = $vars['regions'][$region_id]['#custom']['site_name'] = $info['site_name'];
@@ -124,6 +126,11 @@ switch($zone['zid']) {
       }
 		}
 		break;
+  default:
+    foreach($zone_regions as $region_id => $region) {
+      $vars['regions'][$region_id]['#custom'] = array();
+    }
+    break;
 }
 
 // Let's make sure to pass the zone id to the region processing function so we can use it later
@@ -147,7 +154,12 @@ switch($zone['zone_type']) {
           'suffix' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_suffix')
         ),
       );
+      // special case for branding zone which is built in a different way (logo/slogan/menu)
+      if($zone['zid'] == 'branding') {
+        $regions[$region]['data'] = TRUE;
+      }
     }
+    
     // run static_region_builder() to return classes appropriate to each zone
     $vars['regions'][$region]['#omega_attributes'] = array();
     $vars['regions'][$region]['#omega_classes'] = array();

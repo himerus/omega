@@ -32,3 +32,6 @@ if(isset($vars['elements']['#custom'])) {
 		$vars[$var] = $val;
 	}
 }
+if($zone ==  'branding') {
+  //krumo($vars);
+}
