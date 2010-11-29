@@ -87,5 +87,6 @@
   text-indent: -2000em;
   height: 24px;
   width: 24px;
+  cursor: pointer;
   display: inline;
 }

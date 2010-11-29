@@ -5,9 +5,11 @@
  * @file
  * Contents of omega_preprocess_zone().
  */
-
 // set the basic attributes for this zone
 $zone = $vars;
+if($zone['zid'] == 'content') {
+  //krumo($zone);
+}
 $vars['attributes_array'] = array(
   'class' => array(
     'clearfix', 

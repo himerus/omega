@@ -5,7 +5,6 @@
  * @file
  * Contents of omega_process_region().
  */
-
 $omega_classes = isset($vars['elements']['#omega_classes']) ? $vars['elements']['#omega_classes'] : array();
 $omega_attributes = isset($vars['elements']['#omega_attributes']) ? $vars['elements']['#omega_attributes'] : array();
 

@@ -5,7 +5,6 @@
  * @file
  * Contents of omega_process_page().
  */
-
 // fix messages 
 // this should NOT be an empty string if it's freaking empty
 if (strlen($vars['messages']) == 0) {
@@ -109,4 +108,3 @@ foreach($after as $k => $zone) {
     $vars['zones_below'] .= $zones['after'][$zone];
   }
 }
-//krumo($vars);
