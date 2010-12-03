@@ -36,13 +36,6 @@ regions[user_bar_second] = User Bar Second
 regions[sidebar_first] = Sidebar First
 regions[sidebar_second] = Sidebar Second
 
-; content_float is a custom region that floats inside the primary content
-; region. It is NOT identified in theme settings not adding it to the 
-; zones[content] settings below. By default, this item is floated right
-; see css/defaults.css to override CSS.
-
-regions[content_float] = Content Float
-
 regions[location_search] = Location Bar
 
 regions[header_first] = Header First
@@ -94,7 +87,6 @@ zones[postscript][] = postscript_fourth
 
 zones[footer][] = footer_first
 zones[footer][] = footer_second
-
 
 ; END CONTENT ZONES
 

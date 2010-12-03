@@ -154,8 +154,8 @@ switch($zone['zone_type']) {
           'suffix' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_suffix')
         ),
       );
-      // special case for branding zone which is built in a different way (logo/slogan/menu)
-      if($zone['zid'] == 'branding') {
+      // special case for branding & location zones which are built in a different way (logo/slogan/menu)
+      if($zone['zid'] == 'branding' || $zone['zid'] == 'location') {
         $regions[$region]['data'] = TRUE;
       }
     }
