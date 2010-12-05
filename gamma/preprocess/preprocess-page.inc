@@ -20,7 +20,7 @@ else {
 
 
 // set the menu width for the user menu based on the custom theme settings.
-$vars['user_menu_width'] = theme_get_setting('omega_user_menu_width');
+//$vars['user_menu_width'] = theme_get_setting('omega_user_menu_width');
 
 /**
  * Render a user menu

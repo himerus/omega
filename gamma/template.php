@@ -29,7 +29,7 @@ if (theme_get_setting('gamma_fixed')) {
  * Implements hook_theme().
  */
 function gamma_theme(&$existing, $type, $theme, $path) {
-  $hooks = omega_theme($existing, $type, $theme, $path);
+  $hooks = array();
   // Add your theme hooks like this:
   /*
   $hooks['hook_name_here'] = array( // Details go here );
