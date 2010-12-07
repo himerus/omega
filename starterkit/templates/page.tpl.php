@@ -5,7 +5,6 @@
  * @file
  * Theme implementation to display a single Drupal page.
  */
- krumo('called page.tpl.php (omega starterkit)');
 ?>
 <div id="page" class="clearfix">
   <?php if (isset($zones_above)): ?>
