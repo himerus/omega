@@ -92,6 +92,11 @@ zones[footer][] = footer_second
 ; Set the default settings to be used in theme-settings.php
 settings[reset_css] = '1'
 settings[text_css] = '1'
+settings[table_css] = '1'
+settings[menu_css] = '1'
+settings[link_css] = '1'
+settings[form_css] = '1'
+settings[pager_css] = '1'
 settings[regions_css] = '1'
 settings[defaults_css] = '1'
 settings[custom_css] = '1'

@@ -1,15 +1,13 @@
 ; $Id$
-;      ___           ___           ___           ___           ___     
-;     /  /\         /  /\         /  /\         /  /\         /  /\    
-;    /  /::\       /  /::|       /  /::\       /  /::\       /  /::\   
-;   /  /:/\:\     /  /:|:|      /  /:/\:\     /  /:/\:\     /  /:/\:\  
-;  /  /:/  \:\   /  /:/|:|__   /  /::\ \:\   /  /:/  \:\   /  /::\ \:\ 
-; /__/:/ \__\:\ /__/:/_|::::\ /__/:/\:\ \:\ /__/:/_\_ \:\ /__/:/\:\_\:\
-; \  \:\ /  /:/ \__\/  /~~/:/ \  \:\ \:\_\/ \  \:\__/\_\/ \__\/  \:\/:/
-;  \  \:\  /:/        /  /:/   \  \:\ \:\    \  \:\ \:\        \__\::/ 
-;   \  \:\/:/        /  /:/     \  \:\_\/     \  \:\/:/        /  /:/  
-;    \  \::/        /__/:/       \  \:\        \  \::/        /__/:/   
-;     \__\/         \__\/         \__\/         \__\/         \__\/    
+
+;##########################################################################################
+;      _                _                                  _                     _
+;   __| | _____   _____| | ___  _ __  _ __ ___   ___ _ __ | |_    __ _  ___  ___| | _____
+;  / _` |/ _ \ \ / / _ \ |/ _ \| '_ \| '_ ` _ \ / _ \ '_ \| __|  / _` |/ _ \/ _ \ |/ / __|
+; | (_| |  __/\ V /  __/ | (_) | |_) | | | | | |  __/ | | | |_  | (_| |  __/  __/   <\__ \
+;  \__,_|\___| \_/ \___|_|\___/| .__/|_| |_| |_|\___|_| |_|\__|  \__, |\___|\___|_|\_\___/
+;                              |_|                               |___/
+;##########################################################################################
 
 name        = Omega Starter Kit
 description = Starterkit for <a href="http://himer.us/omega-theme"><strong>Omega</strong></a>. Make a copy of this subtheme to get started building your own <strong>Omega</strong> theme. For help see our <a href="http://project.developmentgeeks.com/omega/"><strong>documentation</strong></a> and <a href="http://vimeo.com/himerus"><strong>video</strong></a> tutorials. If you have a problem and need additional support please use the <a href="http://drupal.org/project/issues/omega"><strong>issue queue</strong></a>. Don't forget also to download and enable the <a href="http://himer.us/omega-ui"><strong>Omega UI</strong></a> and <a href="http://himer.us/delta-module"><strong>Delta</strong></a> modules to further enhance your experience.
@@ -90,27 +88,6 @@ zones[footer][] = footer_second
 
 ; END CONTENT ZONES
 
-settings[reset_css] = '1'
-settings[text_css] = '1'
-settings[table_css] = '1'
-settings[menu_css] = '1'
-settings[form_css] = '1'
-settings[pager_css] = '1'
-settings[regions_css] = '1'
-settings[defaults_css] = '1'
-settings[custom_css] = '1'
-settings[omega_render_search_box] = '1'
-settings[omega_search_default_text] = 'Search...'
-settings[configurable_separator] = ' | '
-settings[front_page_title_display] = 'title_slogan'
-settings[page_title_display_custom] = ''
-settings[other_page_title_display] = 'ptitle_stitle'
-settings[other_page_title_display_custom] = ''
-settings[omega_breadcrumb] = 'yes'
-settings[omega_breadcrumb_separator] = ' / '
-settings[omega_breadcrumb_home] = '1'
-settings[omega_breadcrumb_trailing] = '1'
-settings[omega_breadcrumb_title] = '1'
 settings[omega_default_container_width] = '16'
 settings[omega_fixed_fluid] = 'fixed'
 settings[omega_user_enabled] = '1'
@@ -256,6 +233,30 @@ settings[omega_footer_footer_second_region_width] = '16'
 settings[omega_footer_footer_second_region_suffix] = ''
 settings[omega_footer_footer_second_region_order] = '2'
 settings[omega_footer_footer_second_region_extra_classes] = 'footer-second-region'
+settings[omega_grid__active_tab] = 'edit-defaults'
+settings[reset_css] = '1'
+settings[text_css] = '1'
+settings[table_css] = '1'
+settings[menu_css] = '1'
+settings[link_css] = '1'
+settings[form_css] = '1'
+settings[pager_css] = '1'
+settings[regions_css] = '1'
+settings[defaults_css] = '1'
+settings[custom_css] = '1'
+settings[omega_render_search_box] = '1'
+settings[omega_search_default_text] = 'Search...'
+settings[configurable_separator] = ' | '
+settings[front_page_title_display] = 'title_slogan'
+settings[page_title_display_custom] = ''
+settings[other_page_title_display] = 'ptitle_stitle'
+settings[other_page_title_display_custom] = ''
+settings[omega_breadcrumb] = 'yes'
+settings[omega_breadcrumb_separator] = ' / '
+settings[omega_breadcrumb_home] = '1'
+settings[omega_breadcrumb_trailing] = '1'
+settings[omega_breadcrumb_title] = '1'
+settings[omega_menu_depth] = '1'
 settings[debug_grid_toggle] = ''
 settings[debug_grid_toggle_state] = ''
 settings[debug_grid_roles][2] = '0'
