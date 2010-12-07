@@ -251,7 +251,6 @@ function omega_menu_structure($menu) {
   $items = array();
   foreach($menu as $item) {
   	if(!$item['link']['hidden']) {
-  	  krumo($item);
     	$mlid = $item['link']['mlid'];
     	$attributes = isset($item['link']['localized_options']['attributes']) ? $item['link']['localized_options']['attributes'] : array();
       $items['menu-' . $mlid] = array(
