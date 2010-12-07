@@ -1,0 +1,56 @@
+/* $Id: regions.css,v 1.1.2.5 2010/11/10 00:46:20 himerus Exp $ */
+/**
+ * Omega, for Drupal 6.x
+ * Jake Strawn - http://himerus.com
+ * Project Page - http://drupal.org/project/omega
+ * 
+ * The regions.css file provides an overview of the available parent
+ * elements for the various regions of the page.tpl.php for easier 
+ * overriding at a glance.
+ *
+ *
+ * Omega CSS Table of Contents for regions.css
+ *
+ * 1.) User Container Styles
+ *     The styles in this section related to the user bar above the branding 
+ *     area. This is mainly "designed" to display the user menu and search blocks.
+ * 2.) Main Menu Styles
+ *     Default styling for the main menu
+ */ 
+
+/* 1.) User Container Styles */
+#user-outer-wrapper {
+	background: #EEE;
+	border-bottom: 1px solid #DDD;
+}
+#user-container {
+	
+}
+#user-container .contextual-links-wrapper {
+	right: -30px;
+}
+#user-container .block {
+	float: right;
+}
+#user-container .block h2 {
+  display: none;
+}
+#user-container .block ul {
+	margin-top: 5px;
+  list-style-type: none;
+  margin-bottom: 0;
+}
+#user-container .block ul li {
+  display: inline;
+}
+
+
+
+
+.block {
+	margin-bottom: 1.5em;
+}
+#user-container .block {
+	margin-bottom: 0;
+}
+

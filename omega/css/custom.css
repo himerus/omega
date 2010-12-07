@@ -1,0 +1,37 @@
+/* $Id: custom.css,v 1.1.2.4 2010/11/19 18:20:58 himerus Exp $ */
+/**
+ * Omega, for Drupal 6.x
+ * Jake Strawn - http://himerus.com
+ * Project Page - http://drupal.org/project/omega
+ * 
+ * The custom.css provides overrides for module based CSS for various items.
+ * This is the last CSS to be included in the Omega base theme, unless using additional
+ * CSS in the sub theme level. 
+ *
+ * I prefer to keep this file light and ONLY module related, but in your sub theme, it could
+ * be a decent place for those final overrides you may need to do on any elements
+ *
+ * Omega CSS Table of Contents for custom.css
+ *
+ * 1.) Geshi Code Filter CSS
+ * 2.) Vertical Tabs CSS
+ * 3.) Block Layouts
+ * 4.) 
+ * 5.) 
+ * 6.) 
+ * 7.) 
+ */
+ 
+
+
+#user-container .block-switchtheme {
+	display: block;
+  float: left;
+  clear: none;
+}
+#switchtheme-switch-form #edit-theme {
+	margin-top: 8px;
+}
+#switchtheme-switch-form .form-submit {
+	display: none;
+}

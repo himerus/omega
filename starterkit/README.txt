@@ -1,16 +1,7 @@
-$Id: README.txt,v 1.2 2010/04/02 16:49:58 himerus Exp $
-##########################################################################################
-      _                _                                  _                     _
-   __| | _____   _____| | ___  _ __  _ __ ___   ___ _ __ | |_    __ _  ___  ___| | _____
-  / _` |/ _ \ \ / / _ \ |/ _ \| '_ \| '_ ` _ \ / _ \ '_ \| __|  / _` |/ _ \/ _ \ |/ / __|
- | (_| |  __/\ V /  __/ | (_) | |_) | | | | | |  __/ | | | |_  | (_| |  __/  __/   <\__ \
-  \__,_|\___| \_/ \___|_|\___/| .__/|_| |_| |_|\___|_| |_|\__|  \__, |\___|\___|_|\_\___/
-                              |_|                               |___/
-##########################################################################################
-
-##########################################################################################
+$Id: README.txt,v 1.1.4.3 2010/10/18 03:46:03 himerus Exp $
+##########################################################
 ##### Omega Theme
-##########################################################################################
+##########################################################
 Project Page:   http://drupal.org/project/omega
 Issue Queue:    http://drupal.org/project/issues/omega
 Usage Stats:    http://drupal.org/project/usage/omega
@@ -18,7 +9,7 @@ Demo Page:      http://omega.himerus.com
 Maintainer(s):  Jake Strawn 
                 http://himerus.com
                 http://twitter.com/himerus
-##########################################################################################
+##########################################################
 
 Omega Theme Information
 =======================
@@ -60,7 +51,7 @@ Creating your Omega Sub Theme
 5.  Open theme-settings.php and search and replace omega_starterkit with
     "subtheme" or the appropriate name of the theme you are creating.
     
-6.  Visit admin/build/themes/settings/subtheme and configure to your 
+6.  Visit admin/appearance/settings/subtheme and configure to your 
     hearts desire!!
 
 Contributors

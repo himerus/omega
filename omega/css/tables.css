@@ -1,0 +1,65 @@
+/* $Id: tables.css,v 1.1.2.2 2010/11/09 13:38:45 himerus Exp $ */
+
+/**
+ * Omega, for Drupal 6.x
+ * Jake Strawn - http://himerus.com
+ * Project Page - http://drupal.org/project/omega
+ *
+ * The defaults.css file is the default set of default styles
+ * normally available with the Omega base theme.
+ * All of these styles are easily overwritten, but here to give
+ * a bit more "sexy" right out of the box.
+ *
+ *
+ * Default stylesheet for clean tables
+ */
+
+table {
+  border: 1px solid #CCC;
+  width: 100%;
+}
+thead th, th {
+  background: #f7f7f7;
+  border-bottom: 1px solid #ccc;
+  color: #333;
+}
+td, th {
+  padding: 4px 8px;
+}
+th a, th a:link, th a:visited {
+	text-decoration: none;
+}
+th a {
+	display: block;
+}
+th a img {
+  margin: 0 0 0 5px;
+}
+th.active {
+	background: #DDD;
+	border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+}
+/* Odd & Even Styles */
+tr.even td {
+  background: #F1F5FA;
+}
+tr.odd td {
+  background: #fff;
+}
+td.active {
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+}
+tr.even td.active {
+  background: #e5e9ed;
+}
+tr.odd td.active {
+  background: #f2f2f2;
+}
+
+tr:hover td,
+tr.even:hover td.active,
+tr.odd:hover td.active {
+	background: #FFFEEE;
+}

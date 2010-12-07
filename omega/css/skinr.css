@@ -1,0 +1,20 @@
+/* $Id: skinr.css,v 1.1.2.1 2010/11/10 00:46:20 himerus Exp $ */
+
+/**
+ * Omega, for Drupal 7.x
+ * Jake Strawn - http://himerus.com
+ * Project Page - http://drupal.org/project/omega
+ *
+ * The skinr.css file is the default set of custom styles that may be applied
+ * via the skinr module.
+ * 
+ * This file is included by default if the sknir module is enabled.
+ */
+
+.big {
+  font-size: 16px;
+}
+
+.bold {
+  font-weight: bold;
+}

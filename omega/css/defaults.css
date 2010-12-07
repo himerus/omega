@@ -1,0 +1,107 @@
+/* $Id: defaults.css,v 1.1.2.9 2010/11/19 18:20:58 himerus Exp $ */
+/**
+ * Omega, for Drupal 6.x
+ * Jake Strawn - http://himerus.com
+ * Project Page - http://drupal.org/project/omega
+ *
+ * The defaults.css file is the default set of default styles
+ * normally available with the Omega base theme.
+ * All of these styles are easily overwritten, but here to give
+ * a bit more "sexy" right out of the box.
+ *
+ *
+ * Omega CSS Table of Contents for defaults.css
+ *
+ * 1.) Generic Page Elements - pretty generic indeed.
+ * 2.) Content Tabs - styling for tabs. (view, edit, etc)
+ * 3.) Pager Navigation - Styling for pager navigation
+ * 4.) clear-block code - default drupal clear-block definitions
+ * 5.) Cleanup CSS - Primarily sizing & margins for default elements
+ * 6.)
+ * 7.)
+ */
+
+/** ################# 1.) Generic Page Elements ####################### */
+/* clearfix fix to prevent padding at bottom of page. FML */
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  font-size: 0;
+}
+/* Skip link */
+#skip-link a:link,
+#skip-link a:visited {
+  font-weight: bold;
+  background: #fff;
+  padding: 0px 5px;
+  text-decoration: none;
+  font-size: 80%;
+  text-align: right;
+  top: -99em;
+  left: auto;
+  position: absolute;
+}
+
+#skip-link a:hover,
+#skip-link a:focus,
+#skip-link a:active  {
+  height: auto;
+  width: auto;
+  overflow: visible;
+  top:0;
+  left:0;
+  position: fixed;
+  z-index: 1000;
+}
+
+/**
+ * Starting new region of CSS for the NEW defaults for 2.x
+ * Many of the above styles can likely be removed completely.
+ */
+.logo-img, 
+.site-name-slogan {
+  display: inline-block;
+  float: left;
+}
+.site-name-slogan {
+  margin-left: 20px;
+}
+h1.site-title ,
+h2.site-title {
+  font-size: 36px;
+}
+h1.site-title a,
+h2.site-title a{
+  text-decoration: none;;
+}
+.site-title,
+.site-slogan {
+  margin: 0;
+}
+.site-slogan {
+  font-style: italic;
+  font-weight: normal;
+}
+
+/*
+.inner-content .block{
+  display: inline;
+}
+.region-content-float {
+  width: 180px;
+  padding: 5px;
+  border: 1px solid red;
+  margin: 0 0 10px 10px;
+  
+  display: inline;
+}
+*/
+
+
+
+
+
+

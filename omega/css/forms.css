@@ -1,0 +1,92 @@
+/* $Id: forms.css,v 1.1.2.4 2010/11/29 16:25:34 himerus Exp $ */
+
+/**
+ * Omega, for Drupal 6.x
+ * Jake Strawn - http://himerus.com
+ * Project Page - http://drupal.org/project/omega
+ *
+ * The defaults.css file is the default set of default styles
+ * normally available with the Omega base theme.
+ * All of these styles are easily overwritten, but here to give
+ * a bit more "sexy" right out of the box.
+ *
+ *
+ * Default stylesheet for clean forms
+ */
+
+/* Make the form text fields a little better looking by default */
+
+.form-text {
+  border: 1px solid #DDD;
+  padding: 4px;
+  background-color: #f5f5f5;
+  color: #CCC;
+}
+
+#user-container .block-user {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+#user-container .block-user form .form-item,
+#user-container .block-user form .form-item label {
+  display: inline;
+}
+#user-container .block-user form .form-item label  {
+  display: none;
+}
+#user-container .block-user .item-list,
+#user-container .block-user .item-list ul {
+  display: inline;
+}
+#user-container .block-user .item-list li {
+  margin-left: 5px;
+}
+#user-container .block-user .item-list a {
+  text-tranform: lowercase;
+  font-size: 11px;
+  display: block;
+  padding: 2px 5px;
+  display: inline-block;
+  border: 1px solid #CCC;
+  text-decoration: none;
+  background: #EEE;
+}
+#user-container .block-user .item-list a:hover {
+  background: #FFF;
+}
+
+#user-container .block-user .form-actions {
+  display: inline;
+}
+#user-container .block-user .form-submit {
+  background: none;
+  border: none;
+  background: url('../i/login.png') no-repeat top left;
+  text-indent: -2000em;
+  height: 24px;
+  width: 24px;
+  display: none;
+}
+/* LOGIN BLOCK AWESOMESAUCE */
+#user-login-form #edit-name {
+  background: #f5f5f5 url('../i/login-text.png') no-repeat center left;
+}
+#user-login-form #edit-pass {
+  background: #f5f5f5 url('../i/password-text.png') no-repeat center left;
+}
+
+#user-container .block-search {
+  text-align: right;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+#user-container .block-search .form-submit {
+  background: none;
+  border: none;
+  background: url('../i/search.png') no-repeat top left;
+  text-indent: -2000em;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  display: inline;
+}
