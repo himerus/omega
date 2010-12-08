@@ -11,15 +11,18 @@
   <div id="zones-above" class="clearfix"><?php print $zones_above; ?></div>
   <?php endif; ?>
   
-  <?php if (isset($messages)): ?>
-  <div id="message-container" class="container-<?php print $default_container_width; ?> clearfix">
-    <div class="grid-<?php print $default_container_width; ?>">
-      <?php print $messages; ?>
+  <div id="zones-content">
+    <div id="zones-content-inner" class="clearfix">
+      <?php print $content_zone; ?>
+      <?php if (isset($messages)): ?>
+      <div id="message-container" class="container-<?php print $default_container_width; ?> clearfix">
+        <div class="grid-<?php print $default_container_width; ?>">
+          <?php print $messages; ?>
+        </div>
+      </div><!-- /.container-xx -->
+      <?php endif; ?>
     </div>
-  </div><!-- /.container-xx -->
-  <?php endif; ?>
-
-  <div id="zones-content" class="clearfix"><?php print $content_zone; ?></div>
+  </div>
   
   <?php if (isset($zones_below)): ?>
   <div id="zones-below" class="clearfix"><?php print $zones_below; ?></div>
