@@ -14,6 +14,6 @@
  * @param $form_state
  *   A keyed array containing the current state of the form.
  */
-function gamma_form_system_theme_settings_alter(&$form, &$form_state) {
-  // Include any changes to the theme settings here.
+function omega_starterkit_form_system_theme_settings_alter(&$form, &$form_state) {
+  // Include any changes to the theme settings here. 
 }

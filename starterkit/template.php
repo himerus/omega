@@ -17,8 +17,8 @@
 /**
  * Implements hook_theme().
  */
-function gamma_theme(&$existing, $type, $theme, $path) {
+function omega_starterkit_theme(&$existing, $type, $theme, $path) {
   $hooks = array();
-  //$hooks = omega_theme($existing, $type, $theme, $path);
+  
   return $hooks;
 }
