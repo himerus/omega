@@ -1,8 +1,8 @@
 <?php
-// $Id: page.tpl.php,v 1.1.2.6 2010/12/07 02:52:57 himerus Exp $
+// $Id: page.tpl.php,v 1.1.2.8 2010/12/08 05:11:05 himerus Exp $
 
 /**
- * @file
+ * @file 
  * Theme implementation to display a single Drupal page.
  */
 ?>

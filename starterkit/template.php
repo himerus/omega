@@ -1,5 +1,5 @@
 <?php
-// $Id: template.php,v 1.3.2.2.2.1 2010/11/01 16:26:38 himerus Exp $
+// $Id: template.php,v 1.3.2.2.2.3 2010/12/08 05:11:05 himerus Exp $
 
 /**
  * @file
@@ -19,6 +19,6 @@
  */
 function omega_starterkit_theme(&$existing, $type, $theme, $path) {
   $hooks = array();
-  //$hooks = omega_theme($existing, $type, $theme, $path);
+  
   return $hooks;
 }

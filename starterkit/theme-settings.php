@@ -1,5 +1,5 @@
 <?php
-// $Id: theme-settings.php,v 1.3.2.3 2010/08/03 14:19:52 himerus Exp $
+// $Id: theme-settings.php,v 1.3.2.3.2.2 2010/12/08 05:11:05 himerus Exp $
 
 /**
  * @file
@@ -15,5 +15,5 @@
  *   A keyed array containing the current state of the form.
  */
 function omega_starterkit_form_system_theme_settings_alter(&$form, &$form_state) {
-  // Include any changes to the theme settings here.
+  // Include any changes to the theme settings here. 
 }
