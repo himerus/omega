@@ -16,12 +16,12 @@
 
 
 /* Pagers Positioning #################################################### */
-.item-list {
+.item-list .pager {
   padding:0;
   margin: 0;
 }
 .item-list .pager li,
-.item-list ul li {
+.item-list .pager ul li {
   margin: 0;
   padding: 0;
   display: inline-block;
