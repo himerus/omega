@@ -1,5 +1,5 @@
 <?php
-// $Id: region--branding.tpl.php,v 1.1.2.2 2010/11/05 01:49:49 himerus Exp $
+// $Id: region--branding.tpl.php,v 1.1.2.3 2010/12/10 18:18:01 himerus Exp $
 
 /**
  * @file
@@ -31,7 +31,7 @@
 ?>
 <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
   <div class="branding-data">
-    <?php if($linked_logo_img): ?>
+    <?php if(isset($linked_logo_img)): ?>
     <div class="logo-img">
       <?php print $linked_logo_img; ?>
     </div>
@@ -42,7 +42,7 @@
       <?php else: ?>
       <h2 class="site-title"><?php print $linked_site_name; ?></h2>
       <?php endif; ?>
-      <?php if($slogan): ?>
+      <?php if(isset($slogan)): ?>
       <h6 class="site-slogan"><?php print $slogan; ?></h6>
       <?php endif; ?>
     </div>

@@ -1,4 +1,4 @@
-/* $Id: pagers.css,v 1.1.2.3 2010/11/10 00:46:20 himerus Exp $ */
+/* $Id: pagers.css,v 1.1.2.4 2010/12/09 20:09:36 himerus Exp $ */
 
 /**
  * Omega, for Drupal 6.x
@@ -16,12 +16,12 @@
 
 
 /* Pagers Positioning #################################################### */
-.item-list {
+.item-list .pager {
   padding:0;
   margin: 0;
 }
 .item-list .pager li,
-.item-list ul li {
+.item-list .pager ul li {
   margin: 0;
   padding: 0;
   display: inline-block;
