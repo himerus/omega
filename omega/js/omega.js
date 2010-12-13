@@ -25,6 +25,7 @@
     	$('#user-login-form').submit();
     	return false;
     });
+    /*
     // create some settings for the background images
     Drupal.settings.omega_usernmae_bg = $('#user-login-form #edit-name').css('background-image');
 	Drupal.settings.omega_usernmae_bg_full = $('#user-login-form #edit-name').css('background');
@@ -53,6 +54,7 @@
     if($('#user-login-form #edit-pass').val()) {
     	$('#user-login-form #edit-pass').css('background-image', 'none');
     }
+    */
     // fix the switchtheme form
     $('#switchtheme-switch-form #edit-theme').change(function(){
     	$('#switchtheme-switch-form').submit();

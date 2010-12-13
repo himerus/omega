@@ -68,13 +68,14 @@
   display: none;
 }
 /* LOGIN BLOCK AWESOMESAUCE */
+/*
 #user-login-form #edit-name {
   background: #f5f5f5 url('../i/login-text.png') no-repeat center left;
 }
 #user-login-form #edit-pass {
   background: #f5f5f5 url('../i/password-text.png') no-repeat center left;
 }
-
+*/
 #user-container .block-search {
   text-align: right;
   padding-top: 4px;
