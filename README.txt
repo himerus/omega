@@ -17,6 +17,8 @@ Usage Stats:    http://drupal.org/project/usage/omega
 Twitter:        http://twitter.com/Omeglicon
 Maintainer(s):  Jake Strawn 
                 http://himerus.com
+                http://developmentgeeks.com
+                http://facebook.com/developmentgeeks
                 http://drupal.org/user/159141
                 http://twitter.com/himerus
 ##########################################################################################
