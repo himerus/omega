@@ -61,29 +61,29 @@ foreach ($theme_zones as $zone_ref => $regions) {
     $zone['regions'][$region] = isset($vars['page'][$region]) ? $vars['page'][$region] : '';
   }
   if ($zone['enabled']) {
-  	if ($zone['zid'] == 'branding') {
-  		// for the branding zone, we need to send additional vars to the zone process functions
-  		// that includes basic page data like slogan, logo, etc.
-  		$zone['info'] = array(
+    if ($zone['zid'] == 'branding') {
+      // for the branding zone, we need to send additional vars to the zone process functions
+      // that includes basic page data like slogan, logo, etc.
+      $zone['info'] = array(
         'slogan' => $vars['site_slogan'],
         'site_name' => $vars['site_name'],
         'logo' => $vars['logo'],
         'main_menu' => $vars['main_menu'],
         'secondary_menu' => $vars['secondary_menu'],
       );
-  	}
-  	if($zone['zid'] == 'content') {
-  		// let's send some standard stuff to the content region template like
-  		// the title & attributes, along with the tabs for the page.
-  		$zone['info'] = array(
+    }
+    if($zone['zid'] == 'content') {
+      // let's send some standard stuff to the content region template like
+      // the title & attributes, along with the tabs for the page.
+      $zone['info'] = array(
         'title' => $vars['title'],
-  		  'title_prefix' => $vars['title_prefix'],
-  		  'title_suffix' => $vars['title_suffix'],
-  		  'title_attributes_array' => $vars['title_attributes_array'],
+        'title_prefix' => $vars['title_prefix'],
+        'title_suffix' => $vars['title_suffix'],
+        'title_attributes_array' => $vars['title_attributes_array'],
         'tabs' => $vars['tabs'],
         'content_float' => isset($vars['page']['content_float']) ? $vars['page']['content_float'] : FALSE,
       );
-  	}
+    }
     $zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
   }
 }

@@ -43,7 +43,7 @@ function omega_preprocess(&$vars, $hook) {
   global $theme_info;
   
   if (substr($hook, 0, 4) == 'zone') {
-  	$hook = 'zone';
+    $hook = 'zone';
   }
   // If there is a base theme, collect the names of all themes that may have
   // preprocess files to load.
@@ -197,7 +197,7 @@ function omega_css_alter(&$css) {
  *   - zone.tpl.php (default)
  */
 function omega_theme($existing, $type, $theme, $path) {
-	$hooks = array();
+  $hooks = array();
   $variables = array(
     'zid' => NULL, 
     'type' => NULL, 
@@ -252,12 +252,12 @@ function omega_form_alter(&$form, &$form_state, $form_id) {
       $form['links']['#markup'] = "";
       
       $items = array();
-		  $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
+      $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
       if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
-		    $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
-		  }
-		  $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
-		  $form['links']['#markup'] = theme('item_list', array('items' => $items));
+        $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
+      }
+      $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+      $form['links']['#markup'] = theme('item_list', array('items' => $items));
       break;
   }
 }

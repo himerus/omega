@@ -250,20 +250,20 @@ function omega_actual_region_width($r) {
 function omega_menu_structure($menu) {
   $items = array();
   foreach($menu as $item) {
-  	if(!$item['link']['hidden']) {
-    	$mlid = $item['link']['mlid'];
-    	$attributes = isset($item['link']['localized_options']['attributes']) ? $item['link']['localized_options']['attributes'] : array();
+    if(!$item['link']['hidden']) {
+      $mlid = $item['link']['mlid'];
+      $attributes = isset($item['link']['localized_options']['attributes']) ? $item['link']['localized_options']['attributes'] : array();
       $items['menu-' . $mlid] = array(
         'attributes' => $attributes,
         'href' => $item['link']['href'],
         'title' => $item['link']['title'],
       );
-  	  if(count($item['below']) > 0) {
-  	  	// nest infinitely... (crosses fingers)
-  	    $subitems = omega_menu_structure($item['below']);
-  	    $items['menu-' . $mlid]['below'] = $subitems;
-  	  }
-	  }
+      if(count($item['below']) > 0) {
+        // nest infinitely... (crosses fingers)
+        $subitems = omega_menu_structure($item['below']);
+        $items['menu-' . $mlid]['below'] = $subitems;
+      }
+    }
   }
   return $items;
 }
