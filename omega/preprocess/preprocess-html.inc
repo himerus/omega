@@ -5,6 +5,7 @@
  * @file
  * Contents of omega_preprocess_html().
  */
+ 
 // grid debugging
 global $user;
 $debug_access = FALSE;
@@ -81,5 +82,4 @@ if (!module_exists('page_title')) {
         }
     }
   }
-  //$vars['head_title'] = strip_tags($vars['head_title']); // Remove any potential html tags
 }

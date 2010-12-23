@@ -38,7 +38,6 @@ require_once(drupal_get_path('theme', 'omega') . '/inc/theme.inc');
   * @param $hook
   */
 function omega_preprocess(&$vars, $hook) {
-	//krumo($hook);
   // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
@@ -80,7 +79,6 @@ function omega_preprocess(&$vars, $hook) {
  * @param $hook
  */
 function omega_process(&$vars, $hook) {
-	//krumo($hook);
 // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
@@ -209,7 +207,6 @@ function omega_theme($existing, $type, $theme, $path) {
     'container_width' => NULL, 
     'regions' => NULL
   );
-  $template_path = drupal_get_path('module', 'delta') .'/theme';
   $preprocess_functions = array(
     'template_preprocess', 
     'template_preprocess_zone',
@@ -252,8 +249,6 @@ function omega_form_alter(&$form, &$form_state, $form_id) {
     // for some reason the login form links are above the submit button
     // WTF
     case 'user_login_block':
-    	//drupal_set_message('<pre>'. print_r($form, TRUE) . '</pre>');
-      //$form['links']['#weight'] = -100;
       $form['links']['#markup'] = "";
       
       $items = array();
