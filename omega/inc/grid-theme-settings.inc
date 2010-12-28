@@ -51,7 +51,7 @@ $all_regions = $settings_theme_info['regions'];
 // Looping over each zone, and region in that zone.
 foreach ($zones AS $zone => $regions) {
   // creating an additional fieldset for each zone 
-	$form['omega_grid'][$zone] = array(
+  $form['omega_grid'][$zone] = array(
     '#type' => 'fieldset',
     '#title' => t(ucwords($zone) . ' Zone Config'),
     //'#prefix' => t('<h3 class="omega-accordion"><a href="#">' . ucwords($zone) . ' Zone Config</a></h3><div class="omega-accordion-content">'),
@@ -135,82 +135,82 @@ foreach ($zones AS $zone => $regions) {
   // "special" regions (branding, menu, breadcrumb, search need to have a 
   // friendly name created on the fly with ucwords()
   foreach($regions as $region) {
-  	if (!isset($all_regions[$region]) || $region == 'content') {
-  		$locked_flag = ' (special region)';
-  		$region_name = ucwords(str_replace('_', ' ', $region));
-  	}
-  	else {
-  		$locked_flag = '';
-  		$region_name = $all_regions[$region];
-  	}
-  	// switch this area to place these region groups via weight of the region
-  	$weight = intval(theme_get_setting('omega_' . $zone . '_' . $region . '_region_weight') + 100);
-	  // create a fieldset around the regions so they can be weighted by the order
-	  // if they are a dynamic region.
-  	$form['omega_grid'][$zone][$region] = array(
-	    '#type' => 'fieldset', 
-	  );
-	  // only add weight value to dynamic zones
-  	if($zone_type == 'dynamic') {
-  		$form['omega_grid'][$zone][$region]['#weight'] = $weight;
-  	}
-  	// create a prefix dropdown
-	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_prefix'] = array(
-	    '#prefix' => t('<h4 class="region-title">' . $region_name . $locked_flag . '</h4><div class="prefix_config">'),
-	    '#type' => 'select',
-	    '#title' => t('Prefix'),
-	    '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_prefix'),
-	    '#options' => $spacing,
-	    '#suffix' => '</div>',
-	  );
-	  // create the width dropdown
-	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_width'] = array(
+    if (!isset($all_regions[$region]) || $region == 'content') {
+      $locked_flag = ' (special region)';
+      $region_name = ucwords(str_replace('_', ' ', $region));
+    }
+    else {
+      $locked_flag = '';
+      $region_name = $all_regions[$region];
+    }
+    // switch this area to place these region groups via weight of the region
+    $weight = intval(theme_get_setting('omega_' . $zone . '_' . $region . '_region_weight') + 100);
+    // create a fieldset around the regions so they can be weighted by the order
+    // if they are a dynamic region.
+    $form['omega_grid'][$zone][$region] = array(
+      '#type' => 'fieldset', 
+    );
+    // only add weight value to dynamic zones
+    if($zone_type == 'dynamic') {
+      $form['omega_grid'][$zone][$region]['#weight'] = $weight;
+    }
+    // create a prefix dropdown
+    $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_prefix'] = array(
+      '#prefix' => t('<h4 class="region-title">' . $region_name . $locked_flag . '</h4><div class="prefix_config">'),
+      '#type' => 'select',
+      '#title' => t('Prefix'),
+      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_prefix'),
+      '#options' => $spacing,
+      '#suffix' => '</div>',
+    );
+    // create the width dropdown
+    $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_width'] = array(
       '#prefix' => '<div class="width_config">',
-	    '#type' => 'select',
+      '#type' => 'select',
       '#title' => t('Width'),
       '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_width'),
       '#options' => $grids,
       '#suffix' => '</div>',
     );
     // create a suffix dropdown
-	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_suffix'] = array(
-	    '#prefix' => '<div class="suffix_config">',
-	    '#type' => 'select',
-	    '#title' => t('Suffix'),
-	    '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_suffix'),
-	    '#options' => $spacing,
-	    '#suffix' => '</div>',
-	  );
-	  // build a weight/order select based on the number of regions in the zone
-	  $weights = array();
-	  for ($i = 1; $i <= count($regions); $i++) {
-	  	$weights[$i] = $i;
-	  }
-	  // allow for ordering the regions in dyanmic zones
-	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_order'] = array(
-	    '#prefix' => '<div class="weight_config">',
-		  '#type' => 'select',
-		  '#title' => t('Order'),
-		  '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_order'),
-		  '#options' => $weights,
-		  //'#description' => t('Only used for dynamic zones, the weight will determine in what order the regions are rendered in page.tpl.php, and also on this form to demonstrate the order in which they will appear. However, source ordering will remain intact as defined in the zones[] array in your .info file.'),
-	    '#suffix' => '</div>',
-	    '#states' => array(
-	      'visible' => array(
-	        ':input[name="omega_'. $zone .'_zone_type"]' => array('value' => t('dynamic')),
-	      ),
-	    ),
-	    
-		);
-		// allow adding of classes for regions
-	  $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_extra_classes'] = array(
-	    '#prefix' => '<div class="classes_config">',
+    $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_suffix'] = array(
+      '#prefix' => '<div class="suffix_config">',
+      '#type' => 'select',
+      '#title' => t('Suffix'),
+      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_suffix'),
+      '#options' => $spacing,
+      '#suffix' => '</div>',
+    );
+    // build a weight/order select based on the number of regions in the zone
+    $weights = array();
+    for ($i = 1; $i <= count($regions); $i++) {
+      $weights[$i] = $i;
+    }
+    // allow for ordering the regions in dyanmic zones
+    $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_order'] = array(
+      '#prefix' => '<div class="weight_config">',
+      '#type' => 'select',
+      '#title' => t('Order'),
+      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_order'),
+      '#options' => $weights,
+      //'#description' => t('Only used for dynamic zones, the weight will determine in what order the regions are rendered in page.tpl.php, and also on this form to demonstrate the order in which they will appear. However, source ordering will remain intact as defined in the zones[] array in your .info file.'),
+      '#suffix' => '</div>',
+      '#states' => array(
+        'visible' => array(
+          ':input[name="omega_'. $zone .'_zone_type"]' => array('value' => t('dynamic')),
+        ),
+      ),
+      
+    );
+    // allow adding of classes for regions
+    $form['omega_grid'][$zone][$region]['omega_' . $zone . '_' . $region . '_region_extra_classes'] = array(
+      '#prefix' => '<div class="classes_config">',
       '#type' => 'textfield',
       '#title' => t('Additional Region Classes'),
       '#size' => 60,
       '#default_value' => t(theme_get_setting('omega_' . $zone . '_' . $region . '_region_extra_classes')),
       '#description' => t('You can quickly add custom CSS classes to your regions here.'),
-	    '#suffix' => '</div>',
+      '#suffix' => '</div>',
     );
   }
 }

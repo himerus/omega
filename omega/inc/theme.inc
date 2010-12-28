@@ -337,7 +337,7 @@ function omega_links($variables) {
       }
       // add a class for has a sub-menu
       if(isset($link['below'])) {
-      	$class[] = 'has-subitems';
+        $class[] = 'has-subitems';
       }
       $output .= '<li' . drupal_attributes(array('class' => $class)) . '>';
 
@@ -358,12 +358,12 @@ function omega_links($variables) {
       }
       // theme in nested links in the UL
       if(isset($link['below'])) {
-      	$output .= theme('links', array(
-			    'links' => $link['below'],
-			    'attributes' => array(
-			      'class' => array('links', 'main-menu', 'secondary-items'),
-			    ),
-			  ));
+        $output .= theme('links', array(
+          'links' => $link['below'],
+          'attributes' => array(
+            'class' => array('links', 'main-menu', 'secondary-items'),
+          ),
+        ));
       }
       $i++;
       $output .= "</li>";

@@ -38,13 +38,12 @@ require_once(drupal_get_path('theme', 'omega') . '/inc/theme.inc');
   * @param $hook
   */
 function omega_preprocess(&$vars, $hook) {
-	//krumo($hook);
   // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
   
   if (substr($hook, 0, 4) == 'zone') {
-  	$hook = 'zone';
+    $hook = 'zone';
   }
   // If there is a base theme, collect the names of all themes that may have
   // preprocess files to load.
@@ -80,7 +79,6 @@ function omega_preprocess(&$vars, $hook) {
  * @param $hook
  */
 function omega_process(&$vars, $hook) {
-	//krumo($hook);
 // Collect all information for the active theme.
   $themes_active = array();
   global $theme_info;
@@ -199,7 +197,7 @@ function omega_css_alter(&$css) {
  *   - zone.tpl.php (default)
  */
 function omega_theme($existing, $type, $theme, $path) {
-	$hooks = array();
+  $hooks = array();
   $variables = array(
     'zid' => NULL, 
     'type' => NULL, 
@@ -209,7 +207,6 @@ function omega_theme($existing, $type, $theme, $path) {
     'container_width' => NULL, 
     'regions' => NULL
   );
-  $template_path = drupal_get_path('module', 'delta') .'/theme';
   $preprocess_functions = array(
     'template_preprocess', 
     'template_preprocess_zone',
@@ -252,17 +249,15 @@ function omega_form_alter(&$form, &$form_state, $form_id) {
     // for some reason the login form links are above the submit button
     // WTF
     case 'user_login_block':
-    	//drupal_set_message('<pre>'. print_r($form, TRUE) . '</pre>');
-      //$form['links']['#weight'] = -100;
       $form['links']['#markup'] = "";
       
       $items = array();
-		  $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
+      $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
       if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
-		    $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
-		  }
-		  $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
-		  $form['links']['#markup'] = theme('item_list', array('items' => $items));
+        $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
+      }
+      $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+      $form['links']['#markup'] = theme('item_list', array('items' => $items));
       break;
   }
 }

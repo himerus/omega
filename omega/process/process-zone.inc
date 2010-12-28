@@ -43,8 +43,8 @@ $info = isset($zone['info']) ? $zone['info'] : array();
 
 
 switch($zone['zid']) {
-	case 'content':
-		foreach($zone_regions as $region_id => $region) {
+  case 'content':
+    foreach($zone_regions as $region_id => $region) {
       switch($region_id) {
         case 'content':
           $vars['regions'][$region_id]['#custom'] = array();
@@ -69,13 +69,13 @@ switch($zone['zid']) {
           unset($vars['regions'][$region_id]['#custom']['title_attributes_array']['class']); 
           $title_attr = $vars['regions'][$region_id]['#custom']['title_attributes'] = drupal_attributes($vars['regions'][$region_id]['#custom']['title_attributes_array']);
           //krumo($vars['regions'][$region_id]);
-        	break;
+          break;
       }
-		}
-	case 'branding':
-		foreach($zone_regions as $region_id => $region) {
-			switch($region_id) {
-				case 'branding':
+    }
+  case 'branding':
+    foreach($zone_regions as $region_id => $region) {
+      switch($region_id) {
+        case 'branding':
           // custom build the branding zone with our "custom" regions inside there
           // Set a variable for the site name title and logo alt attributes text.
           $vars['regions'][$region_id]['#custom'] = array();
@@ -89,43 +89,43 @@ switch($zone['zid']) {
           if (isset($info['site_name'])) {
             $vars['regions'][$region_id]['#custom']['linked_site_name'] = l($info['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
           }
-					
-					$vars['regions'][$region_id]['#theme_wrappers'] = array('region');
-					$vars['regions'][$region_id]['#markup'] = 'LOGO';
-					$vars['regions'][$region_id]['#region'] = $region_id;
+          
+          $vars['regions'][$region_id]['#theme_wrappers'] = array('region');
+          $vars['regions'][$region_id]['#markup'] = 'LOGO';
+          $vars['regions'][$region_id]['#region'] = $region_id;
 
-					break;
-				case 'menu': 
-					$vars['regions'][$region_id]['#custom'] = array();
-			    if (isset($info['main_menu'])) {
+          break;
+        case 'menu': 
+          $vars['regions'][$region_id]['#custom'] = array();
+          if (isset($info['main_menu'])) {
             $vars['regions'][$region_id]['#custom']['main_menu'] = $info['main_menu'];
           }
-			    if (isset($info['secondary_menu'])) {
+          if (isset($info['secondary_menu'])) {
             $vars['regions'][$region_id]['#custom']['secondary_menu'] = $info['secondary_menu'];
           }
-					$vars['regions'][$region_id]['#theme_wrappers'] = array('region');
+          $vars['regions'][$region_id]['#theme_wrappers'] = array('region');
           $vars['regions'][$region_id]['#markup'] = 'MENU';
           $vars['regions'][$region_id]['#region'] = $region_id;
-					break;
-			}
-		}
-		
-		break;
-	case 'location':
-		// custom build the location zone with our "custom" regions inside there
-		foreach($zone_regions as $region_id => $region) {
+          break;
+      }
+    }
+    
+    break;
+  case 'location':
+    // custom build the location zone with our "custom" regions inside there
+    foreach($zone_regions as $region_id => $region) {
       switch($region_id) {
         case 'breadcrumb':
-        	
+          
           $vars['regions'][$region_id]['#custom']['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
           
           $vars['regions'][$region_id]['#theme_wrappers'] = array('region');
           $vars['regions'][$region_id]['#markup'] = $vars['regions'][$region_id]['#custom']['breadcrumb'];
-          $vars['regions'][$region_id]['#region'] = $region_id;	
-        	break;
+          $vars['regions'][$region_id]['#region'] = $region_id; 
+          break;
       }
-		}
-		break;
+    }
+    break;
   default:
     foreach($zone_regions as $region_id => $region) {
       $vars['regions'][$region_id]['#custom'] = array();
@@ -174,7 +174,7 @@ switch($zone['zone_type']) {
     $regions = array();
     $region_order = array();
     foreach($zone_regions AS $region => $region_data) {
-    	$primary_region = theme_get_setting('omega_'. $zone['zid'] .'_dynamic_zone_primary_region') == $region ? TRUE : FALSE;
+      $primary_region = theme_get_setting('omega_'. $zone['zid'] .'_dynamic_zone_primary_region') == $region ? TRUE : FALSE;
       $regions[$region] = array(
         'data' => element_children($zone_regions[$region]),
         'width' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
@@ -185,17 +185,17 @@ switch($zone['zone_type']) {
       );
       // let's put in the array of related zones.
       if ($primary_region) {
-      	$regions[$region]['primary'] = TRUE;
-      	$related_regions = array();
-      	foreach($zone_regions AS $r => $d) {
+        $regions[$region]['primary'] = TRUE;
+        $related_regions = array();
+        foreach($zone_regions AS $r => $d) {
           // leave out the current region in related info
-      		if ($r != $region) {
-          	$related_regions[$r] = array(
-          	  'width' => theme_get_setting('omega_' . $zone['zid'] . '_' . $r . '_region_width'),
-          	);
+          if ($r != $region) {
+            $related_regions[$r] = array(
+              'width' => theme_get_setting('omega_' . $zone['zid'] . '_' . $r . '_region_width'),
+            );
           }
           $regions[$region]['related'] = $related_regions;
-      	}
+        }
       }
       $region_weight = intval(theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_order'));
       //krumo($region_weight);

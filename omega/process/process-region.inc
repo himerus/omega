@@ -27,11 +27,8 @@ $vars['attributes'] = drupal_attributes($vars['attributes_array']);
 
 // let's handle some special regions
 if(isset($vars['elements']['#custom'])) {
-	$cvars = $vars['elements']['#custom'];
-	foreach($cvars as $var => $val) {
-		$vars[$var] = $val;
-	}
-}
-if($zone ==  'branding') {
-  //krumo($vars);
+  $cvars = $vars['elements']['#custom'];
+  foreach($cvars as $var => $val) {
+    $vars[$var] = $val;
+  }
 }
