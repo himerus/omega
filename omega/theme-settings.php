@@ -1,5 +1,5 @@
 <?php
-// $Id: theme-settings.php,v 1.1.2.13 2010/11/29 16:25:34 himerus Exp $
+// $Id: theme-settings.php,v 1.1.2.14 2010/12/28 18:14:32 himerus Exp $
 
 /**
  * @file
