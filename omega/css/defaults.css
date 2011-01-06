@@ -86,21 +86,13 @@ h2.site-title a{
   font-weight: normal;
 }
 
-/*
-.inner-content .block{
-  display: inline;
+fieldset {
+  padding: 20px;
+  border: 1px solid #DDD;
 }
-.region-content-float {
-  width: 180px;
-  padding: 5px;
-  border: 1px solid red;
-  margin: 0 0 10px 10px;
-  
-  display: inline;
+fieldset legend {
+  font-weight: bold;
 }
-*/
-
-
 
 
 
