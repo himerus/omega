@@ -1,5 +1,5 @@
 <?php
-// $Id: process-region.inc,v 1.1.2.8 2010/11/29 23:01:06 himerus Exp $
+// $Id: process-region.inc,v 1.1.2.9 2010/12/28 18:14:32 himerus Exp $
 
 /**
  * @file

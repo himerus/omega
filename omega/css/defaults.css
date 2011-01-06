@@ -1,4 +1,4 @@
-/* $Id: defaults.css,v 1.1.2.9 2010/11/19 18:20:58 himerus Exp $ */
+/* $Id: defaults.css,v 1.1.2.11 2011/01/06 14:25:31 himerus Exp $ */
 /**
  * Omega, for Drupal 6.x
  * Jake Strawn - http://himerus.com
@@ -86,22 +86,11 @@ h2.site-title a{
   font-weight: normal;
 }
 
-/*
-.inner-content .block{
-  display: inline;
+/* Content Tabs */
+fieldset {
+  padding: 20px;
+  border: 1px solid #DDD;
 }
-.region-content-float {
-  width: 180px;
-  padding: 5px;
-  border: 1px solid red;
-  margin: 0 0 10px 10px;
-  
-  display: inline;
+fieldset legend {
+  font-weight: bold;
 }
-*/
-
-
-
-
-
-

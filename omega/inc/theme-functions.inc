@@ -1,5 +1,5 @@
 <?php
-// $Id: theme-functions.inc,v 1.1.2.14 2010/12/07 17:23:13 himerus Exp $
+// $Id: theme-functions.inc,v 1.1.2.15 2010/12/28 18:14:32 himerus Exp $
 
 /**
  * @file
