@@ -28,6 +28,9 @@ regions[page_bottom] = Page Bottom
 regions[content] = Content
 
 ; END REQUIRED CORE REGIONS
+
+; OPTIONAL CONTENT REGIONS
+
 regions[user_bar_first] = User Bar First
 regions[user_bar_second] = User Bar Second
 
