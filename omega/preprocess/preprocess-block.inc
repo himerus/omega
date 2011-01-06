@@ -19,3 +19,8 @@ switch ($vars['block_html_id']) {
     $vars['classes_array'][] = 'menu-block';
     break;
 }
+if(strlen($vars['elements']['#block']->title == 0)) {
+  // add a class to provide CSS for blocks without titles
+  // in those cases, we want to chop out that lower border.
+  $vars['classes_array'][] = 'block-without-title';
+}

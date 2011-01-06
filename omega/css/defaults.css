@@ -86,6 +86,7 @@ h2.site-title a{
   font-weight: normal;
 }
 
+/* Content Tabs */
 fieldset {
   padding: 20px;
   border: 1px solid #DDD;
@@ -93,7 +94,3 @@ fieldset {
 fieldset legend {
   font-weight: bold;
 }
-
-
-
-
