@@ -226,8 +226,13 @@ function omega_item_list($vars) {
  * links to remove theme completely when not present to avoid the
  * &nbsp; messing up the spacing/theming in the list.
  */
-function omega_views_mini_pager($tags = array(), $limit = 10, $element = 0, $parameters = array(), $quantity = 9) {
+function omega_views_mini_pager($vars) {
   global $pager_page_array, $pager_total;
+
+  $tags = $vars['tags'];
+  $element = $vars['element'];
+  $parameters = $vars['parameters'];
+  $quantity = $vars['quantity'];
 
   // Calculate various markers within this pager piece:
   // Middle is used to "center" pages around the current page.
@@ -242,40 +247,42 @@ function omega_views_mini_pager($tags = array(), $limit = 10, $element = 0, $par
   $li_previous = theme('pager_previous',
     array(
       'text' => (isset($tags[1]) ? $tags[1] : t('‹‹')),
-      'limit' => $limit,
       'element' => $element,
       'interval' => 1,
       'parameters' => $parameters,
     )
   );
+  if (empty($li_previous)) {
+    $li_previous = "";
+  }
 
   $li_next = theme('pager_next',
     array(
       'text' => (isset($tags[3]) ? $tags[3] : t('››')),
-      'limit' => $limit,
       'element' => $element,
       'interval' => 1,
       'parameters' => $parameters,
     )
   );
-  
+  if (empty($li_next)) {
+    $li_next = "";
+  }
+
   if ($pager_total[$element] > 1) {
-    if (!empty($li_previous)) {
-      $items[] = array(
-        'class' => array('pager-previous'),
-        'data' => $li_previous,
-      );
-    }
+    $items[] = array(
+      'class' => array('pager-previous'),
+      'data' => $li_previous,
+    );
+
     $items[] = array(
       'class' => array('pager-current'),
       'data' => t('@current of @max', array('@current' => $pager_current, '@max' => $pager_max)),
     );
-    if (!empty($li_next)) {
-      $items[] = array(
-        'class' => array('pager-next'),
-        'data' => $li_next,
-      );
-    }
+
+    $items[] = array(
+      'class' => array('pager-next'),
+      'data' => $li_next,
+    );
     return theme('item_list',
       array(
         'items' => $items,
@@ -286,6 +293,7 @@ function omega_views_mini_pager($tags = array(), $limit = 10, $element = 0, $par
     );
   }
 }
+
 
 function omega_links($variables) {
   $links = $variables['links'];
