@@ -12,7 +12,7 @@
   <div id="zones-above" class="clearfix"><?php print $zones_above; ?></div>
   <?php endif; ?>
   <div id="zones-content" class="clearfix">
-    <?php if ($action_links): ?>
+    <?php if (isset($action_links)): ?>
       <div id="actions-container" class="container-<?php print $default_container_width; ?> clearfix">
         <div class="grid-<?php print $default_container_width; ?>">
           <ul class="action-links">

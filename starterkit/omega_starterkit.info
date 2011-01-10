@@ -19,6 +19,14 @@ base theme = omega
 ; Do NOT remove the following commented lines. They will be used for 
 ; automated generation of the .info settings when rewritten.
 
+; ------- Declare default stylesheets
+
+;stylesheets[all][] = css/your_css_file.css
+
+; ------- Declare default JavaScript includes
+
+;scripts[] = js/your_js_file.js
+
 ; CONTENT REGIONS
 
 ; REQUIRED CORE REGIONS
