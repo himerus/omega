@@ -1,5 +1,5 @@
 <?php
-// $Id: theme-settings.php,v 1.1.2.14 2010/12/28 18:14:32 himerus Exp $
+// $Id: theme-settings.php,v 1.1.2.15 2011/01/11 00:51:18 himerus Exp $
 
 /**
  * @file
@@ -58,13 +58,13 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     '#prefix' => t('General Omega Settings'),
   );
   // include Omega (grid) specific theme settings
-  require_once(drupal_get_path('theme', 'omega') . '/inc/grid-theme-settings.inc');
+  require(drupal_get_path('theme', 'omega') . '/inc/grid-theme-settings.inc');
   
   // include general theme settings
-  require_once(drupal_get_path('theme', 'omega') . '/inc/default-theme-settings.inc');
+  require(drupal_get_path('theme', 'omega') . '/inc/default-theme-settings.inc');
 
   // include administrative functions for theme settings
-  require_once(drupal_get_path('theme', 'omega') . '/inc/admin-theme-settings.inc');
+  require(drupal_get_path('theme', 'omega') . '/inc/admin-theme-settings.inc');
   
   $form['theme_settings']['#collapsible'] = TRUE;
   $form['theme_settings']['#collapsed'] = TRUE;

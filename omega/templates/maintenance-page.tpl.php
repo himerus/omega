@@ -1,12 +1,12 @@
 <?php
-// $Id: maintenance-page.tpl.php,v 1.1.2.1 2010/10/29 01:49:59 himerus Exp $
+// $Id: maintenance-page.tpl.php,v 1.1.2.2 2011/01/10 22:48:33 himerus Exp $
 
 /**
  * @file
  * Default theme implementation to display a single Drupal page while offline.
  *
- * All the available variables are mirrored in page.tpl.php. Some may be left
- * blank but they are provided for consistency.
+ * All the available variables are mirrored in html.tpl.php and page.tpl.php.
+ * Some may be blank but they are provided for consistency.
  *
  * @see template_preprocess()
  * @see template_preprocess_maintenance_page()
@@ -23,72 +23,35 @@
   <?php print $scripts; ?>
 </head>
 <body class="<?php print $classes; ?>">
-  <div id="page">
-    <div id="header">
-      <div id="logo-title">
-
-        <?php if (!empty($logo)): ?>
-          <a href="<?php print $base_path; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-            <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
-          </a>
-        <?php endif; ?>
-
-        <div id="name-and-slogan">
-          <?php if (!empty($site_name)): ?>
-            <h1 id="site-name">
-              <a href="<?php print $base_path ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-            </h1>
-          <?php endif; ?>
-
-          <?php if (!empty($site_slogan)): ?>
-            <div id="site-slogan"><?php print $site_slogan; ?></div>
-          <?php endif; ?>
-        </div> <!-- /name-and-slogan -->
-      </div> <!-- /logo-title -->
-
-      <?php if (!empty($header)): ?>
-        <div id="header-region">
-          <?php print $header; ?>
+  <div id="page" class="clearfix">
+    <?php if (isset($zones_above)): ?>
+    <div id="zones-above" class="clearfix"><?php print $zones_above; ?></div>
+    <?php endif; ?>
+    <div id="zones-content" class="clearfix">
+      <?php if (isset($action_links)): ?>
+        <div id="actions-container" class="container-<?php print $default_container_width; ?> clearfix">
+          <div class="grid-<?php print $default_container_width; ?>">
+            <ul class="action-links">
+              <?php print render($action_links); ?>
+            </ul>
+          </div>
         </div>
       <?php endif; ?>
-
-    </div> <!-- /header -->
-
-    <div id="container" class="clearfix">
-
-      <?php if (!empty($sidebar_first)): ?>
-        <div id="sidebar-first" class="column sidebar">
-          <?php print $sidebar_first; ?>
-        </div> <!-- /sidebar-first -->
+      <?php if (isset($messages)): ?>
+      <div id="message-container" class="container-<?php print $default_container_width; ?> clearfix">
+        <div class="grid-<?php print $default_container_width; ?>">
+          <?php print $messages; ?>
+        </div>
+      </div><!-- /.container-xx -->
       <?php endif; ?>
-
-      <div id="main" class="column"><div id="main-squeeze">
-
-        <div id="content">
-          <?php if (!empty($title)): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
-          <?php if (!empty($messages)): print $messages; endif; ?>
-          <div id="content-content" class="clearfix">
-            <?php print $content; ?>
-          </div> <!-- /content-content -->
-        </div> <!-- /content -->
-
-      </div></div> <!-- /main-squeeze /main -->
-
-      <?php if (!empty($sidebar_second)): ?>
-        <div id="sidebar-second" class="column sidebar">
-          <?php print $sidebar_second; ?>
-        </div> <!-- /sidebar-second -->
-      <?php endif; ?>
-
-    </div> <!-- /container -->
-
-    <div id="footer-wrapper">
-      <div id="footer">
-        <?php if (!empty($footer)): print $footer; endif; ?>
-      </div> <!-- /footer -->
-    </div> <!-- /footer-wrapper -->
-
-  </div> <!-- /page -->
+    
+      <?php print $content_zone; ?>
+    </div>
+    
+    <?php if (isset($zones_below)): ?>
+    <div id="zones-below" class="clearfix"><?php print $zones_below; ?></div>
+    <?php endif; ?>
+  </div><!-- /#page -->
 
 </body>
 </html>
