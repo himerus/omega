@@ -5,9 +5,9 @@
  * @file
  * Contents of omega_preprocess_page().
  */
- 
+
 if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu')) {
-  $menu_depth = theme_get_setting('omega_menu_depth') ? theme_get_setting('omega_menu_depth') : 1;
+  $menu_depth = omega_theme_get_setting('omega_menu_depth') ? omega_theme_get_setting('omega_menu_depth') : 1;
   // render the menus as nested ULs to style up some drop downs.
   $vars['menu_data'] = $menu = omega_menu_structure(menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'), $menu_depth, FALSE));
   $vars['main_menu'] = theme('links', array(

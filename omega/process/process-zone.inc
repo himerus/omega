@@ -21,7 +21,7 @@ $vars['attributes_array'] = array(
 );
 
 // set the extra classes to assign to this zone.
-$zone_classes = explode(' ', theme_get_setting('omega_'. $zone['zid'] . '_zone_extra_classes'));
+$zone_classes = explode(' ', omega_theme_get_setting('omega_'. $zone['zid'] . '_zone_extra_classes'));
 foreach ($zone_classes as $class) {
   if($class) {
     $vars['attributes_array']['class'][] = $class;
@@ -148,10 +148,10 @@ switch($zone['zone_type']) {
       $regions[$region] = array(
         'data' => element_children($zone_regions[$region]),
         //'data' => TRUE, // a test to enable data to always be true
-        'width' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
+        'width' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
         'spacing' => array(
-          'prefix' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_prefix'),
-          'suffix' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_suffix')
+          'prefix' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_prefix'),
+          'suffix' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_suffix')
         ),
       );
       // special case for branding & location zones which are built in a different way (logo/slogan/menu)
@@ -174,13 +174,13 @@ switch($zone['zone_type']) {
     $regions = array();
     $region_order = array();
     foreach($zone_regions AS $region => $region_data) {
-      $primary_region = theme_get_setting('omega_'. $zone['zid'] .'_dynamic_zone_primary_region') == $region ? TRUE : FALSE;
+      $primary_region = omega_theme_get_setting('omega_'. $zone['zid'] .'_dynamic_zone_primary_region') == $region ? TRUE : FALSE;
       $regions[$region] = array(
         'data' => element_children($zone_regions[$region]),
-        'width' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
+        'width' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
         'spacing' => array(
-          'prefix' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_prefix'),
-          'suffix' => theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_suffix')
+          'prefix' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_prefix'),
+          'suffix' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_suffix')
         ),
       );
       // let's put in the array of related zones.
@@ -191,13 +191,13 @@ switch($zone['zone_type']) {
           // leave out the current region in related info
           if ($r != $region) {
             $related_regions[$r] = array(
-              'width' => theme_get_setting('omega_' . $zone['zid'] . '_' . $r . '_region_width'),
+              'width' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $r . '_region_width'),
             );
           }
           $regions[$region]['related'] = $related_regions;
         }
       }
-      $region_weight = intval(theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_order'));
+      $region_weight = intval(omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_order'));
       //krumo($region_weight);
       $region_order[$region_weight] = $region;
     }

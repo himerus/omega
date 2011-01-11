@@ -267,3 +267,23 @@ function omega_menu_structure($menu) {
   }
   return $items;
 }
+
+/**
+ * Custom implementation of theme_get_setting.
+ * Provides the ability for Omega theme settings to be overwritten by
+ * the Delta module, providing contextual theme settings.
+ */
+function omega_theme_get_setting($var) {
+  GLOBAL $delta_template;
+  if (!isset($delta_template) || !variable_get($delta_template) || !module_exists('delta')) {
+    // just return the var as normal/provide default value from the theme
+    return theme_get_setting($var); 
+  }
+  else {
+    // this will return the same value for the original var, but the value
+    // stored in the appropriate delta template
+    $variable = variable_get($delta_template);
+    $return = isset($variable[$var]) ? $variable[$var] : theme_get_setting($var);
+    return $return;
+  }
+}
