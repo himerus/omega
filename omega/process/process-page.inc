@@ -1,5 +1,5 @@
 <?php
-// $Id: process-page.inc,v 1.1.2.8 2010/12/28 18:14:32 himerus Exp $
+// $Id: process-page.inc,v 1.1.2.9 2011/01/11 21:26:32 himerus Exp $
 
 /**
  * @file
@@ -18,7 +18,7 @@ $vars['theme_key'] = $theme_key;
 $vars['theme_info'] = $theme_info;
 // default container width will be used in special zones and zones without a 
 // container width defined in theme settings
-$vars['default_container_width'] = theme_get_setting('omega_default_container_width');
+$vars['default_container_width'] = omega_theme_get_setting('omega_default_container_width');
 // pulling just the zone data out of the theme_info array
 $theme_zones = $theme_info->info['zones'];
 // creating empty array to hold our custom zone[group] data
@@ -51,10 +51,10 @@ foreach ($theme_zones as $zone_ref => $regions) {
   else {
     $zone['type'] = 'content';
   }
-  $zone['enabled'] = theme_get_setting('omega_'. $zone_ref .'_enabled') || theme_get_setting('omega_'. $zone_ref .'_enabled') == 0 ? theme_get_setting('omega_'. $zone_ref .'_enabled') : 1;
-  $zone['wrapper'] = theme_get_setting('omega_'. $zone_ref .'_wrapper') ? theme_get_setting('omega_'. $zone_ref .'_wrapper') : 0;
-  $zone['zone_type'] = theme_get_setting('omega_'. $zone_ref .'_zone_type') ? theme_get_setting('omega_'. $zone_ref .'_zone_type') : 'static';
-  $zone['container_width'] = theme_get_setting('omega_'. $zone_ref .'_container_width') ? theme_get_setting('omega_'. $zone_ref .'_container_width') : $vars['default_container_width'];
+  $zone['enabled'] = omega_theme_get_setting('omega_'. $zone_ref .'_enabled') || omega_theme_get_setting('omega_'. $zone_ref .'_enabled') == 0 ? omega_theme_get_setting('omega_'. $zone_ref .'_enabled') : 1;
+  $zone['wrapper'] = omega_theme_get_setting('omega_'. $zone_ref .'_wrapper') ? omega_theme_get_setting('omega_'. $zone_ref .'_wrapper') : 0;
+  $zone['zone_type'] = omega_theme_get_setting('omega_'. $zone_ref .'_zone_type') ? omega_theme_get_setting('omega_'. $zone_ref .'_zone_type') : 'static';
+  $zone['container_width'] = omega_theme_get_setting('omega_'. $zone_ref .'_container_width') ? omega_theme_get_setting('omega_'. $zone_ref .'_container_width') : $vars['default_container_width'];
   
   $zone['regions'] = array();
   foreach($regions as $region) {

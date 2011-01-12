@@ -1,5 +1,5 @@
 <?php
-// $Id: preprocess-html.inc,v 1.1.2.5 2010/12/28 18:14:32 himerus Exp $
+// $Id: preprocess-html.inc,v 1.1.2.6 2011/01/11 21:26:32 himerus Exp $
 
 /**
  * @file
@@ -9,7 +9,7 @@
 // grid debugging
 global $user;
 $debug_access = FALSE;
-$debug_roles = theme_get_setting('debug_grid_roles');
+$debug_roles = omega_theme_get_setting('debug_grid_roles');
 
 if (!isset($user->roles[1])) {
   // Check to see if $user has the appropriate role.
@@ -22,10 +22,10 @@ if (!isset($user->roles[1])) {
 }
 
 // if grid debug is ON, and user either has access by role, or is uid 1
-if(theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid == 1)) {
+if(omega_theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid == 1)) {
   $debug_settings = array(
-    'grid_overlay_on' => theme_get_setting('debug_grid_toggle'),
-    'grid_overlay_state' => theme_get_setting('debug_grid_toggle_state'),
+    'grid_overlay_on' => omega_theme_get_setting('debug_grid_toggle'),
+    'grid_overlay_state' => omega_theme_get_setting('debug_grid_toggle_state'),
   );
   drupal_add_js($debug_settings, 'setting');
   drupal_add_js(drupal_get_path('theme', 'omega') . '/js/debug.js', array('weight' => 1000, 'type' => 'file'));
@@ -35,7 +35,7 @@ if(theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid == 1))
 /**
  * Allow the default text in the search box to be 100% configurable via backend theme settings
  */
-$search_text_val = check_plain(theme_get_setting('omega_search_default_text')) ? check_plain(theme_get_setting('omega_search_default_text')) : 'search...';
+$search_text_val = check_plain(omega_theme_get_setting('omega_search_default_text')) ? check_plain(omega_theme_get_setting('omega_search_default_text')) : 'search...';
 $search_text = array(
   'default_search_text' => $search_text_val,
 );
@@ -47,9 +47,9 @@ if (!module_exists('page_title')) {
   $title = t(variable_get('site_name', ''));
   $slogan = t(variable_get('site_slogan', ''));
   $page_title = t(drupal_get_title());
-  $title_separator = theme_get_setting('configurable_separator');
+  $title_separator = omega_theme_get_setting('configurable_separator');
   if ($vars['is_front']) { // Front page title settings
-    switch (theme_get_setting('front_page_title_display')) {
+    switch (omega_theme_get_setting('front_page_title_display')) {
       case 'title_slogan':
         $vars['head_title'] = drupal_set_title(strip_tags($title . $title_separator . $slogan));
         break;
@@ -57,13 +57,13 @@ if (!module_exists('page_title')) {
         $vars['head_title'] = drupal_set_title(strip_tags($slogan . $title_separator . $title));
         break;
       case 'custom':
-        if (theme_get_setting('page_title_display_custom') !== '') {
-          $vars['head_title'] = drupal_set_title(strip_tags(t(theme_get_setting('page_title_display_custom'))));
+        if (omega_theme_get_setting('page_title_display_custom') !== '') {
+          $vars['head_title'] = drupal_set_title(strip_tags(t(omega_theme_get_setting('page_title_display_custom'))));
         }
     }
   }
   else { // Non-front page title settings
-    switch (theme_get_setting('other_page_title_display')) {
+    switch (omega_theme_get_setting('other_page_title_display')) {
       case 'ptitle_slogan':
         $vars['head_title'] = drupal_set_title(strip_tags($page_title . $title_separator . $slogan));
         break;
@@ -71,14 +71,14 @@ if (!module_exists('page_title')) {
         $vars['head_title'] = drupal_set_title(strip_tags($page_title . $title_separator . $title));
         break;
       case 'ptitle_custom':
-        if (theme_get_setting('other_page_title_display_custom') !== '') {
-          $vars['head_title'] = drupal_set_title(strip_tags($page_title . $title_separator . t(theme_get_setting('other_page_title_display_custom'))));
+        if (omega_theme_get_setting('other_page_title_display_custom') !== '') {
+          $vars['head_title'] = drupal_set_title(strip_tags($page_title . $title_separator . t(omega_theme_get_setting('other_page_title_display_custom'))));
         }
         break;
       case 'custom':
-        if (theme_get_setting('other_page_title_display_custom') !== '') {
+        if (omega_theme_get_setting('other_page_title_display_custom') !== '') {
           // make sure to wrap this in a t() or you might be sacrificing a kitten
-          $vars['head_title'] = drupal_set_title(strip_tags(t(theme_get_setting('other_page_title_display_custom'))));
+          $vars['head_title'] = drupal_set_title(strip_tags(t(omega_theme_get_setting('other_page_title_display_custom'))));
         }
     }
   }

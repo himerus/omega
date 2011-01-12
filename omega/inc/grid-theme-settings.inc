@@ -1,5 +1,5 @@
 <?php
-// $Id: grid-theme-settings.inc,v 1.1.2.13 2010/12/28 18:14:32 himerus Exp $
+// $Id: grid-theme-settings.inc,v 1.1.2.14 2011/01/11 21:26:32 himerus Exp $
 $themes = list_themes();
 $theme = $form_state['build_info']['args'][0];
 $settings_theme_info = $themes[$theme]->info;
@@ -28,13 +28,13 @@ $form['omega_grid']['defaults'] = array(
 $form['omega_grid']['defaults']['omega_default_container_width'] = array(
   '#type' => 'select',
   '#title' => t('Default container width'),
-  '#default_value' => theme_get_setting('omega_default_container_width'),
+  '#default_value' => omega_theme_get_setting('omega_default_container_width'),
   '#options' => $containers,
   '#weight' => -50,
   '#description' => t('This width is used for regions like $help, $messages and other non-important regions in page.tpl.php'),
 );
 // select fixed/fluid for all zones/entire site.
-$default_omega_layout = theme_get_setting('omega_fixed_fluid') ? theme_get_setting('omega_fixed_fluid') : 'fixed';
+$default_omega_layout = omega_theme_get_setting('omega_fixed_fluid') ? omega_theme_get_setting('omega_fixed_fluid') : 'fixed';
 $form['omega_grid']['defaults']['omega_fixed_fluid'] = array(
   '#type' => 'radios',
   '#description' => t('You may select fluid layout, or the default fixed width layout.'),
@@ -58,7 +58,7 @@ foreach ($zones AS $zone => $regions) {
     //'#suffix' => '</div>', 
   );
   // provide a quick enable/disable option for this zone
-  $zone_enabled = theme_get_setting('omega_'. $zone .'_enabled') || theme_get_setting('omega_'. $zone .'_enabled') == 0 ? theme_get_setting('omega_'. $zone .'_enabled') : 1;
+  $zone_enabled = omega_theme_get_setting('omega_'. $zone .'_enabled') || omega_theme_get_setting('omega_'. $zone .'_enabled') == 0 ? omega_theme_get_setting('omega_'. $zone .'_enabled') : 1;
   $form['omega_grid'][$zone]['omega_'. $zone .'_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable this Zone.'),
@@ -67,7 +67,7 @@ foreach ($zones AS $zone => $regions) {
   '#weight' => -50,
   );
   // provide a full width wrapper around the zone (allowing for design elements outside the grid)
-  $zone_wrapper = theme_get_setting('omega_'. $zone .'_wrapper') ? theme_get_setting('omega_'. $zone .'_wrapper') : 0;
+  $zone_wrapper = omega_theme_get_setting('omega_'. $zone .'_wrapper') ? omega_theme_get_setting('omega_'. $zone .'_wrapper') : 0;
   $form['omega_grid'][$zone]['omega_'. $zone .'_wrapper'] = array(
     '#type' => 'checkbox',
     '#title' => t('Provide full width wrapper around this zone.'),
@@ -78,11 +78,11 @@ foreach ($zones AS $zone => $regions) {
   $form['omega_grid'][$zone]['omega_'. $zone .'_container_width'] = array(
     '#type' => 'select',
     '#title' => t('Container width'),
-    '#default_value' => theme_get_setting('omega_'. $zone .'_container_width'),
+    '#default_value' => omega_theme_get_setting('omega_'. $zone .'_container_width'),
     '#options' => $containers,
   );
   // create a chooser for static/dynamic zone
-  $zone_type = theme_get_setting('omega_'. $zone .'_zone_type') ? theme_get_setting('omega_'. $zone .'_zone_type') : 'static';
+  $zone_type = omega_theme_get_setting('omega_'. $zone .'_zone_type') ? omega_theme_get_setting('omega_'. $zone .'_zone_type') : 'static';
   $form['omega_grid'][$zone]['omega_'. $zone .'_zone_type'] = array(
     '#type' => 'radios',
     '#description' => t('<p><strong>Static</strong> Zones are displayed either inline or stacked based on settings.</p><p><strong>Dynamic</strong> Zones are always displayed inline, with a primary region and MUST fit inside the container wrap. Dynamic zones also allow for push & pull classes for content first ordering.'),
@@ -113,7 +113,7 @@ foreach ($zones AS $zone => $regions) {
   $form['omega_grid'][$zone]['omega_'. $zone .'_dynamic_zone_primary_region'] = array(
     '#type' => 'select',
     '#title' => t('Primary Region'),
-    '#default_value' => theme_get_setting('omega_'. $zone .'_dynamic_zone_primary_region'),
+    '#default_value' => omega_theme_get_setting('omega_'. $zone .'_dynamic_zone_primary_region'),
     '#options' => $region_options,
     '#description' => t('The primary region is the one that will gain width when associated regions are empty.'),
     '#states' => array(
@@ -127,7 +127,7 @@ foreach ($zones AS $zone => $regions) {
     '#type' => 'textfield',
     '#title' => t('Additional Zone Classes'),
     '#size' => 60,
-    '#default_value' => theme_get_setting('omega_' . $zone . '_zone_extra_classes'),
+    '#default_value' => omega_theme_get_setting('omega_' . $zone . '_zone_extra_classes'),
     '#description' => t('You can quickly add custom CSS classes to your zone here.'),
   );
   // create friendly names for regions
@@ -144,7 +144,7 @@ foreach ($zones AS $zone => $regions) {
       $region_name = $all_regions[$region];
     }
     // switch this area to place these region groups via weight of the region
-    $weight = intval(theme_get_setting('omega_' . $zone . '_' . $region . '_region_weight') + 100);
+    $weight = intval(omega_theme_get_setting('omega_' . $zone . '_' . $region . '_region_weight') + 100);
     // create a fieldset around the regions so they can be weighted by the order
     // if they are a dynamic region.
     $form['omega_grid'][$zone][$region] = array(
@@ -159,7 +159,7 @@ foreach ($zones AS $zone => $regions) {
       '#prefix' => t('<h4 class="region-title">' . $region_name . $locked_flag . '</h4><div class="prefix_config">'),
       '#type' => 'select',
       '#title' => t('Prefix'),
-      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_prefix'),
+      '#default_value' => omega_theme_get_setting('omega_' . $zone . '_' . $region . '_region_prefix'),
       '#options' => $spacing,
       '#suffix' => '</div>',
     );
@@ -168,7 +168,7 @@ foreach ($zones AS $zone => $regions) {
       '#prefix' => '<div class="width_config">',
       '#type' => 'select',
       '#title' => t('Width'),
-      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_width'),
+      '#default_value' => omega_theme_get_setting('omega_' . $zone . '_' . $region . '_region_width'),
       '#options' => $grids,
       '#suffix' => '</div>',
     );
@@ -177,7 +177,7 @@ foreach ($zones AS $zone => $regions) {
       '#prefix' => '<div class="suffix_config">',
       '#type' => 'select',
       '#title' => t('Suffix'),
-      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_suffix'),
+      '#default_value' => omega_theme_get_setting('omega_' . $zone . '_' . $region . '_region_suffix'),
       '#options' => $spacing,
       '#suffix' => '</div>',
     );
@@ -191,7 +191,7 @@ foreach ($zones AS $zone => $regions) {
       '#prefix' => '<div class="weight_config">',
       '#type' => 'select',
       '#title' => t('Order'),
-      '#default_value' => theme_get_setting('omega_' . $zone . '_' . $region . '_region_order'),
+      '#default_value' => omega_theme_get_setting('omega_' . $zone . '_' . $region . '_region_order'),
       '#options' => $weights,
       //'#description' => t('Only used for dynamic zones, the weight will determine in what order the regions are rendered in page.tpl.php, and also on this form to demonstrate the order in which they will appear. However, source ordering will remain intact as defined in the zones[] array in your .info file.'),
       '#suffix' => '</div>',
@@ -208,7 +208,7 @@ foreach ($zones AS $zone => $regions) {
       '#type' => 'textfield',
       '#title' => t('Additional Region Classes'),
       '#size' => 60,
-      '#default_value' => t(theme_get_setting('omega_' . $zone . '_' . $region . '_region_extra_classes')),
+      '#default_value' => t(omega_theme_get_setting('omega_' . $zone . '_' . $region . '_region_extra_classes')),
       '#description' => t('You can quickly add custom CSS classes to your regions here.'),
       '#suffix' => '</div>',
     );
