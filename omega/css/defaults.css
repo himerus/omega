@@ -94,3 +94,17 @@ fieldset {
 fieldset legend {
   font-weight: bold;
 }
+
+/* Maintenance page */
+.maintenance-page #header {
+  margin-top: 160px;
+}
+.maint {
+  color: #234600;
+  background: #F8FFF0;
+  border: 3px solid #DDD;
+  padding: 35px 50px 50px 50px;
+  margin-top: 20px;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+}
