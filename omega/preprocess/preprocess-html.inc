@@ -1,5 +1,5 @@
 <?php
-// $Id: preprocess-html.inc,v 1.1.2.6 2011/01/11 21:26:32 himerus Exp $
+// $Id: preprocess-html.inc,v 1.1.2.7 2011/01/13 15:05:04 himerus Exp $
 
 /**
  * @file
@@ -44,41 +44,41 @@ drupal_add_js($search_text, 'setting');
 // ACQUIA-MARINA
 // Set site title, slogan, mission, page title & separator (unless using Page Title module)
 if (!module_exists('page_title')) {
-  $title = t(variable_get('site_name', ''));
-  $slogan = t(variable_get('site_slogan', ''));
-  $page_title = t(drupal_get_title());
+  $title = (omega_theme_get_setting('toggle_name') ? filter_xss_admin(variable_get('site_name', '')) : '');
+  $slogan = (omega_theme_get_setting('toggle_slogan') ? filter_xss_admin(variable_get('site_slogan', '')) : '');
+  $page_title = drupal_get_title();
   $title_separator = omega_theme_get_setting('configurable_separator');
   if ($vars['is_front']) { // Front page title settings
     switch (omega_theme_get_setting('front_page_title_display')) {
       case 'title_slogan':
-        $vars['head_title'] = drupal_set_title(strip_tags($title . $title_separator . $slogan));
+        $vars['head_title'] = drupal_set_title($title . $title_separator . $slogan, PASS_THROUGH);
         break;
       case 'slogan_title':
-        $vars['head_title'] = drupal_set_title(strip_tags($slogan . $title_separator . $title));
+        $vars['head_title'] = drupal_set_title($slogan . $title_separator . $title, PASS_THROUGH);
         break;
       case 'custom':
         if (omega_theme_get_setting('page_title_display_custom') !== '') {
-          $vars['head_title'] = drupal_set_title(strip_tags(t(omega_theme_get_setting('page_title_display_custom'))));
+          $vars['head_title'] = drupal_set_title(t(omega_theme_get_setting('page_title_display_custom')), PASS_THROUGH);
         }
     }
   }
   else { // Non-front page title settings
     switch (omega_theme_get_setting('other_page_title_display')) {
       case 'ptitle_slogan':
-        $vars['head_title'] = drupal_set_title(strip_tags($page_title . $title_separator . $slogan));
+        $vars['head_title'] = drupal_set_title($page_title . $title_separator . $slogan, PASS_THROUGH);
         break;
       case 'ptitle_stitle':
-        $vars['head_title'] = drupal_set_title(strip_tags($page_title . $title_separator . $title));
+        $vars['head_title'] = drupal_set_title($page_title . $title_separator . $title, PASS_THROUGH);
         break;
       case 'ptitle_custom':
         if (omega_theme_get_setting('other_page_title_display_custom') !== '') {
-          $vars['head_title'] = drupal_set_title(strip_tags($page_title . $title_separator . t(omega_theme_get_setting('other_page_title_display_custom'))));
+          $vars['head_title'] = drupal_set_title($page_title . $title_separator . t(omega_theme_get_setting('other_page_title_display_custom')), PASS_THROUGH);
         }
         break;
       case 'custom':
         if (omega_theme_get_setting('other_page_title_display_custom') !== '') {
           // make sure to wrap this in a t() or you might be sacrificing a kitten
-          $vars['head_title'] = drupal_set_title(strip_tags(t(omega_theme_get_setting('other_page_title_display_custom'))));
+          $vars['head_title'] = drupal_set_title(t(omega_theme_get_setting('other_page_title_display_custom')));
         }
     }
   }
