@@ -1,4 +1,4 @@
-$Id: CHANGELOG.txt,v 1.1.2.3 2011/01/13 15:05:04 himerus Exp $
+$Id: CHANGELOG.txt,v 1.1.2.4 2011/01/14 14:08:46 himerus Exp $
 ##########################################################################################
       _                _                                  _                     _
    __| | _____   _____| | ___  _ __  _ __ ___   ___ _ __ | |_    __ _  ___  ___| | _____
@@ -33,4 +33,8 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 
 1/13/2011
 =========
-#978812 - Head tile and strip tags
+#978812   - Head tile and strip tags
+
+1/14/2011
+=========
+#1024060  - Regions set to 0 (zero) width should not be rendered

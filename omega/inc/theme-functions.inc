@@ -1,5 +1,5 @@
 <?php
-// $Id: theme-functions.inc,v 1.1.2.16 2011/01/11 21:26:32 himerus Exp $
+// $Id: theme-functions.inc,v 1.1.2.17 2011/01/14 14:08:47 himerus Exp $
 
 /**
  * @file
@@ -93,6 +93,12 @@ function static_region_builder($regions, $container_width) {
         } 
       }
     }
+    // there is an edge case where if set to zero, a region will not get a grid class,
+    // which will cause issues with rendering. In theory, a region with a width set to
+    // zero in theme settings should NOT render at all... 
+    if ($info['width'] == 0) {
+      $region_classes[$region]['hidden'] = TRUE;
+    }
   }
   return $region_classes;
 }
@@ -170,6 +176,12 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
           }
         }
       }
+      // there is an edge case where if set to zero, a region will not get a grid class,
+      // which will cause issues with rendering. In theory, a region with a width set to
+      // zero in theme settings should NOT render at all... 
+      if ($width == 0) {
+        $region_classes[$region]['hidden'] = TRUE;
+      }
 
       // assign push/pull classes
       $region_movement = _omega_dynamic_zones($region, $region_data, $region_order, $container_width);
@@ -199,41 +211,38 @@ function _omega_dynamic_zones($region, $regions, $order, $width) {
   $actual_order = array_keys($regions);
   $actual_position = array_search($region, $actual_order);
   $desired_position = array_search($region, $order);
-    foreach($actual_order as $delta => $region_id) {
-      // don't react if the region is the one we are testing
-      if ($region != $region_id) {  
-        // get the actual position of the region we are testing against
-        $t_actual = $delta;
-        // get the desired positon of the region we are testing against.
-        $t_desired = array_search($region_id, $order);
-        
-        if($regions[$region_id]['data'] && ($t_actual < $actual_position) && ($t_desired > $desired_position)) {
-          $value['pull'] = $value['pull'] + omega_actual_region_width($regions[$region_id]);
+  foreach($actual_order as $delta => $region_id) {
+    // don't react if the region is the one we are testing
+    if ($region != $region_id) {  
+      // get the actual position of the region we are testing against
+      $t_actual = $delta;
+      // get the desired positon of the region we are testing against.
+      $t_desired = array_search($region_id, $order);
+      
+      if($regions[$region_id]['data'] && ($t_actual < $actual_position) && ($t_desired > $desired_position)) {
+        $value['pull'] = $value['pull'] + omega_actual_region_width($regions[$region_id]);
+      }
+      if($regions[$region_id]['data'] && ($t_actual > $actual_position) && ($t_desired < $desired_position)) {
+        $value['push'] = $value['push'] + omega_actual_region_width($regions[$region_id]);
+      }
+      // possible solution for that edge cases mentioned above (position in the 
+      // array doesn't change, but the position itself needs to.... hrm...)
+      if ($value['push'] > 0 && $value['pull'] > 0) {
+        if ($value['push'] > $value['pull']) {
+          $value['push'] = $value['push'] - $value['pull'];
+          $value['pull'] = 0;
         }
-        if($regions[$region_id]['data'] && ($t_actual > $actual_position) && ($t_desired < $desired_position)) {
-          $value['push'] = $value['push'] + omega_actual_region_width($regions[$region_id]);
+        elseif ($value['push'] < $value['pull']) {
+          $value['pull'] = $value['pull'] - $value['push'];
+          $value['push'] = 0;
         }
-        
-        // possible solution for that edge cases mentioned above (position in the 
-        // array doesn't change, but the position itself needs to.... hrm...)
-        if ($value['push'] > 0 && $value['pull'] > 0) {
-          //$value['push'] = 0;
-          //$value['pull'] = $regions[$region]['width'];
-          if ($value['push'] > $value['pull']) {
-            $value['push'] = $value['push'] - $value['pull'];
-            $value['pull'] = 0;
-          }
-          elseif ($value['push'] < $value['pull']) {
-            $value['pull'] = $value['pull'] - $value['push'];
-            $value['push'] = 0;
-          }
-          elseif ($value['push'] == $value['pull']) {
-            $value['push'] = 0;
-            $value['pull'] = 0;
-          }
+        elseif ($value['push'] == $value['pull']) {
+          $value['push'] = 0;
+          $value['pull'] = 0;
         }
       }
     }
+  }  
   return $value;
 }
 
