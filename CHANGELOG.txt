@@ -28,10 +28,13 @@ Maintainer(s):  Jake Strawn
 CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 
 ##########################################################################################
-##### Current Release: 7.x-2.0-alpha7
+##### Current Release: 7.x-2.0-alpha8
 ########################################################################################## 
 
 1/13/2011
 =========
 #978812   - Head tile and strip tags
+
+1/14/2011
+=========
 #1024060  - Regions set to 0 (zero) width should not be rendered
