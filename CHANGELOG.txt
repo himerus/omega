@@ -33,4 +33,5 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 
 1/13/2011
 =========
-#978812 - Head tile and strip tags
+#978812   - Head tile and strip tags
+#1024060  - Regions set to 0 (zero) width should not be rendered

@@ -168,6 +168,10 @@ switch($zone['zone_type']) {
     foreach($region_classes AS $region => $classes) {
       $vars['regions'][$region]['#omega_classes'] = $region_classes[$region];
       $vars['regions'][$region]['#omega_attributes']['id'] = array('region-'. $region);
+      if(array_key_exists('hidden', $classes)) {
+        // edge case; unset regions that are defined as zero width or "hidden"
+        unset($vars['regions'][$region]);
+      }
     }
     break;
   case 'dynamic':
@@ -198,7 +202,6 @@ switch($zone['zone_type']) {
         }
       }
       $region_weight = intval(omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_order'));
-      //krumo($region_weight);
       $region_order[$region_weight] = $region;
     }
     $region_order = omega_order_reorder($region_order);
@@ -206,11 +209,14 @@ switch($zone['zone_type']) {
     $vars['regions'][$region]['#omega_attributes'] = array();
     $vars['regions'][$region]['#omega_classes'] = array();
     $region_classes = dynamic_region_builder($regions, $zone['container_width'], $region_order);
-    //krumo($region_classes);
     // add the classes & attributes to the region to be processed on render()
     foreach($region_classes AS $region => $classes) {
       $vars['regions'][$region]['#omega_classes'] = $region_classes[$region];
-      $vars['regions'][$region]['#omega_attributes']['id'] = array('region-'. $region);
+      $vars['regions'][$region]['#omega_attributes']['id'] = array('region-'. $region);    
+      if(array_key_exists('hidden', $classes)) {
+        // edge case; unset regions that are defined as zero width or "hidden"
+        unset($vars['regions'][$region]);
+      }
     }
     break;
 }
