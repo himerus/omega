@@ -38,3 +38,4 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 1/14/2011
 =========
 #1024060  - Regions set to 0 (zero) width should not be rendered
+          - General cleanup, removing debug calls
