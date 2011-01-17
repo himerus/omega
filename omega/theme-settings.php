@@ -34,7 +34,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $delta_template = isset($form['delta_template']) ? $form['delta_template']['#value'] : NULL;
   
   // include general theme functions required both in template.php AND theme-settings.php
-  require(drupal_get_path('theme', 'omega') . '/inc/theme-functions.inc');
+  require_once(drupal_get_path('theme', 'omega') . '/inc/theme-functions.inc');
   
   // Add the form's custom CSS
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/omega_theme_settings.css', 
