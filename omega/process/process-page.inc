@@ -93,18 +93,29 @@ $vars['zones_above'] = '';
 $before = array_keys($zones_before_content);
 foreach($before as $k => $zone) {
   if (isset($zones['before'][$zone])) {
-    $vars['zones_above'] .= $zones['before'][$zone];
+    $vars['zones_above'] .= trim($zones['before'][$zone]);
   }
 }
 
 // required content zone
-$vars['content_zone'] = $zones['content']['content'];
+$vars['content_zone'] = trim($zones['content']['content']);
 
 // zones appearing after content on page
 $vars['zones_below'] = '';
 $after = array_keys($zones_after_content);
 foreach($after as $k => $zone) {
   if (isset($zones['after'][$zone])) {
-    $vars['zones_below'] .= $zones['after'][$zone];
+    $vars['zones_below'] .= trim($zones['after'][$zone]);
   }
+}
+
+// check for empty zone groups, and unset those to avoid empty div printing in page.tpl.php
+if (strlen($vars['zones_above']) == 0) {
+  unset($vars['zones_above']);
+}
+if (strlen($vars['content_zone']) == 0) {
+  unset($vars['content_zone']);
+}
+if (strlen($vars['zones_below']) == 0) {
+  unset($vars['zones_below']);
 }

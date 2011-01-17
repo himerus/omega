@@ -28,7 +28,15 @@ Maintainer(s):  Jake Strawn
 CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 
 ##########################################################################################
-##### Current Release: 7.x-2.0-alpha8
+##### Current Release: 7.x-2.0-alpha9
+########################################################################################## 
+
+
+
+
+
+##########################################################################################
+##### Changes since: 7.x-2.0-alpha8
 ########################################################################################## 
 
 1/13/2011
@@ -39,3 +47,11 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 =========
 #1024060  - Regions set to 0 (zero) width should not be rendered
           - General cleanup, removing debug calls
+          
+1/15/2011
+=========
+#1028552  - Avoid from rendering empty zones.
+
+1/16/2011
+=========
+#1029262  - Avoid from rendering empty zone groups.

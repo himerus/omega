@@ -123,10 +123,14 @@ switch($zone['zid']) {
 // Let's make sure to pass the zone id to the region processing function so we can use it later
 $zone = $vars;
 $zone_regions = $zone['regions'];
+$populated = FALSE;
 foreach($zone_regions AS $region => $region_data) {
   $vars['regions'][$region]['#custom']['zid'] = $zone['zid'];
+  if(element_children($zone_regions[$region])) {
+    $populated = TRUE;
+  }
 }
-
+$vars['populated'] = $populated;
 
 switch($zone['zone_type']) {
   case 'static':
