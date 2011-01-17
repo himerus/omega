@@ -126,7 +126,7 @@ $zone_regions = $zone['regions'];
 $populated = FALSE;
 foreach($zone_regions AS $region => $region_data) {
   $vars['regions'][$region]['#custom']['zid'] = $zone['zid'];
-  if(element_children($zone_regions[$region])) {
+  if(element_children($zone_regions[$region]) || $region == 'branding' || $region == 'breadcrumb') {
     $populated = TRUE;
   }
 }
@@ -158,7 +158,7 @@ switch($zone['zone_type']) {
     foreach($region_classes AS $region => $classes) {
       $vars['regions'][$region]['#omega_classes'] = $region_classes[$region];
       $vars['regions'][$region]['#omega_attributes']['id'] = array('region-'. $region);
-      if(array_key_exists('hidden', $classes)) {
+      if(array_key_exists('hidden', $classes) && !$regions[$region]['data']) {
         // edge case; unset regions that are defined as zero width or "hidden"
         unset($vars['regions'][$region]);
       }
