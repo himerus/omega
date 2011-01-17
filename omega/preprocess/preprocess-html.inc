@@ -46,7 +46,7 @@ drupal_add_js($search_text, 'setting');
 if (!module_exists('page_title')) {
   $title = (omega_theme_get_setting('toggle_name') ? filter_xss_admin(variable_get('site_name', '')) : '');
   $slogan = (omega_theme_get_setting('toggle_slogan') ? filter_xss_admin(variable_get('site_slogan', '')) : '');
-  $page_title = drupal_get_title();
+  $page_title = strip_tags(drupal_get_title());
   $title_separator = omega_theme_get_setting('configurable_separator');
   if ($vars['is_front']) { // Front page title settings
     switch (omega_theme_get_setting('front_page_title_display')) {
