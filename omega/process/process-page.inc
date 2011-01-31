@@ -10,7 +10,10 @@
 if (strlen($vars['messages']) == 0) {
   unset($vars['messages']);
 }
-
+// unset the action links array if it's empty
+if (!element_children($vars['action_links'])) {
+  unset($vars['action_links']);
+}
 global $theme_key, $theme_info;
 // theme_key is the name of the current theme
 $vars['theme_key'] = $theme_key;
