@@ -12,7 +12,7 @@
 ; the Omega Starterkit as a starting point for building your own theme. 
 ; By default, this theme is hidden on the Appearance page.
 
-name = Omega Core
+name = Omega
 description = <a href="http://himer.us/omega960"><strong>Omega</strong></a> is the core base theme for all <a href="http://drupal.org/project/omega"><strong>Omega</strong></a> subthemes. This theme should not be used, instead start from the Omega Starterkit.
 core = 7.x
 engine = phptemplate
