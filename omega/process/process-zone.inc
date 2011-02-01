@@ -116,6 +116,7 @@ switch($zone['zid']) {
   default:
     foreach($zone_regions as $region_id => $region) {
       $vars['regions'][$region_id]['#custom'] = array();
+      //krumo($zone_regions);
     }
     break;
 }
@@ -124,14 +125,42 @@ switch($zone['zid']) {
 $zone = $vars;
 $zone_regions = $zone['regions'];
 $populated = FALSE;
+$block_debug = omega_theme_get_setting('debug_block_toggle', FALSE);
 foreach($zone_regions AS $region => $region_data) {
   $vars['regions'][$region]['#custom']['zid'] = $zone['zid'];
-  if(element_children($zone_regions[$region]) || $region == 'branding' || $region == 'breadcrumb') {
+  // if we've turned on region debugging, let's create some dummy blocks. :)
+  if(omega_theme_get_setting('debug_block_toggle', FALSE)) {
+    global $theme_info;
+    $excluded_regions = array(
+      'branding', 'menu', 'location', 'user_bar_first', 'user_bar_second', 'page_top', 'page_bottom', 'breadcrumb',
+    );
+    if (!in_array($region, $excluded_regions)) {
+      $regions = $theme_info->info['regions'];
+      $vars['regions'][$region]['#theme_wrappers'] = array('region');
+      $block = new stdClass();
+      $block->delta = $region;
+      $block->region = $region;
+      $block->module = 'omega_tools';
+      $block->subject = $regions[$region];
+      $block->weight = -100;
+      $vars['regions'][$region]['omega_debug_'. $region] = array();
+      
+      $vars['regions'][$region]['#region'] = $region;
+      $vars['regions'][$region]['#sorted'] = FALSE;
+      $vars['regions'][$region]['omega_debug_'. $region]['#printed'] = FALSE;
+      $vars['regions'][$region]['omega_debug_'. $region]['#theme_wrappers'] = array('block');
+      $vars['regions'][$region]['omega_debug_'. $region]['#block'] = $block;
+      $vars['regions'][$region]['omega_debug_'. $region]['#markup'] = '<div class="region-data">'.$region.'</div>';
+    }
+  }
+  if(element_children($zone_regions[$region]) || $region == 'branding' || $region == 'breadcrumb' || $block_debug) {
     $populated = TRUE;
   }
 }
+$zone = $vars;
+$zone_regions = $zone['regions'];
+//krumo($zone);
 $vars['populated'] = $populated;
-
 switch($zone['zone_type']) {
   case 'static':
     $regions = array();

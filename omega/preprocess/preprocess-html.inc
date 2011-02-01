@@ -7,7 +7,7 @@
  */
  
 // grid debugging
-global $user;
+global $user, $theme_key, $theme_info;
 $debug_access = FALSE;
 $debug_roles = omega_theme_get_setting('debug_grid_roles');
 
@@ -31,6 +31,7 @@ if(omega_theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid 
   drupal_add_js(drupal_get_path('theme', 'omega') . '/js/debug.js', array('weight' => 1000, 'type' => 'file'));
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/debug.css');
 }
+
 
 /**
  * Allow the default text in the search box to be 100% configurable via backend theme settings
