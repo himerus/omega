@@ -30,7 +30,7 @@
 ?>
 <?php if ($content): ?>
   <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
-    <?php if($title): ?>
+    <?php if(isset($title)): ?>
       <?php print render($title_prefix); ?>
         <h1 class="<?php print $title_classes; ?>" <?php print $title_attributes; ?>><?php print $title; ?></h1>
       <?php print render($title_suffix); ?>

@@ -31,6 +31,15 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 ##### Current Release: 7.x-2.0-alpha9
 ########################################################################################## 
 
+2/03/2011
+=========
+#1050404  - undefined variable: title if title is not set on page
+
+2/02/2011
+=========
+#0000000  - general updates, removed placholder blocks from omega_tools, and turned those
+            into items rendered BY omega via a theme setting instead. Can be found under
+            the Grid Overlay/Debugging section of the theme settings page.
 
 1/17/2011
 =========
