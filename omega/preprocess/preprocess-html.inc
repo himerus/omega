@@ -1,5 +1,5 @@
 <?php
-// $Id: preprocess-html.inc,v 1.1.2.7 2011/01/13 15:05:04 himerus Exp $
+// $Id: preprocess-html.inc,v 1.1.2.9 2011/02/01 15:41:20 himerus Exp $
 
 /**
  * @file
@@ -7,7 +7,7 @@
  */
  
 // grid debugging
-global $user;
+global $user, $theme_key, $theme_info;
 $debug_access = FALSE;
 $debug_roles = omega_theme_get_setting('debug_grid_roles');
 
@@ -32,6 +32,7 @@ if(omega_theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid 
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/debug.css');
 }
 
+
 /**
  * Allow the default text in the search box to be 100% configurable via backend theme settings
  */
@@ -46,7 +47,7 @@ drupal_add_js($search_text, 'setting');
 if (!module_exists('page_title')) {
   $title = (omega_theme_get_setting('toggle_name') ? filter_xss_admin(variable_get('site_name', '')) : '');
   $slogan = (omega_theme_get_setting('toggle_slogan') ? filter_xss_admin(variable_get('site_slogan', '')) : '');
-  $page_title = drupal_get_title();
+  $page_title = strip_tags(drupal_get_title());
   $title_separator = omega_theme_get_setting('configurable_separator');
   if ($vars['is_front']) { // Front page title settings
     switch (omega_theme_get_setting('front_page_title_display')) {

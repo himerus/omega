@@ -1,5 +1,5 @@
 <?php
-// $Id: theme-settings.php,v 1.1.2.16 2011/01/11 21:26:32 himerus Exp $
+// $Id: theme-settings.php,v 1.1.2.18 2011/01/17 13:35:08 himerus Exp $
 
 /**
  * @file
@@ -34,7 +34,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $delta_template = isset($form['delta_template']) ? $form['delta_template']['#value'] : NULL;
   
   // include general theme functions required both in template.php AND theme-settings.php
-  require(drupal_get_path('theme', 'omega') . '/inc/theme-functions.inc');
+  require_once(drupal_get_path('theme', 'omega') . '/inc/theme-functions.inc');
   
   // Add the form's custom CSS
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/omega_theme_settings.css', 
@@ -78,5 +78,4 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['logo']['#collapsed'] = TRUE;
   $form['favicon']['#collapsible'] = TRUE;
   $form['favicon']['#collapsed'] = TRUE;
-  //krumo($form);
 }

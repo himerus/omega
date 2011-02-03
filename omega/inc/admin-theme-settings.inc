@@ -1,13 +1,21 @@
 <?php
-// $Id: admin-theme-settings.inc,v 1.1.2.4 2011/01/11 21:26:32 himerus Exp $
+// $Id: admin-theme-settings.inc,v 1.1.2.5 2011/02/01 15:41:20 himerus Exp $
 // Administrative Settings
 // overlay toggle options
+
 $form['omega_general']['grid_overlay'] = array(
   '#type' => 'fieldset',
   '#title' => t('Grid Overlay / Debugging'),
   '#collapsible' => TRUE,
   '#collapsed' => FALSE,
 );
+
+$form['omega_general']['grid_overlay']['debug_block_toggle'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable the debugging (placeholder) blocks for theme development & debugging.'),
+  '#default_value' => omega_theme_get_setting('debug_block_toggle'),
+);
+
 $form['omega_general']['grid_overlay']['debug_grid_toggle'] = array(
   '#type' => 'checkbox',
   '#title' => t('Enable grid overlay/toggle for selected roles.'),

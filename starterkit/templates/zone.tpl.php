@@ -1,5 +1,5 @@
 <?php
-// $Id: zone.tpl.php,v 1.1.2.2 2010/11/09 03:21:37 himerus Exp $
+// $Id: zone.tpl.php,v 1.1.2.3 2011/01/17 00:02:05 himerus Exp $
 /**
  * @file
  * Default theme implementation to display a region.
@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php if($enabled): ?>
+<?php if($enabled && $populated): ?>
 	<?php if($wrapper): ?><div id="<?php print $zid;?>-outer-wrapper" class="clearfix"><?php endif; ?>  
 	  <div class="<?php print $classes; ?>" <?php print $attributes;?>>
 	    <?php print render($regions); ?>

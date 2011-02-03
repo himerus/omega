@@ -1,5 +1,5 @@
 <?php
-// $Id: process-page.inc,v 1.1.2.9 2011/01/11 21:26:32 himerus Exp $
+// $Id: process-page.inc,v 1.1.2.11 2011/01/31 12:49:04 himerus Exp $
 
 /**
  * @file
@@ -10,7 +10,10 @@
 if (strlen($vars['messages']) == 0) {
   unset($vars['messages']);
 }
-
+// unset the action links array if it's empty
+if (!element_children($vars['action_links'])) {
+  unset($vars['action_links']);
+}
 global $theme_key, $theme_info;
 // theme_key is the name of the current theme
 $vars['theme_key'] = $theme_key;
@@ -93,18 +96,29 @@ $vars['zones_above'] = '';
 $before = array_keys($zones_before_content);
 foreach($before as $k => $zone) {
   if (isset($zones['before'][$zone])) {
-    $vars['zones_above'] .= $zones['before'][$zone];
+    $vars['zones_above'] .= trim($zones['before'][$zone]);
   }
 }
 
 // required content zone
-$vars['content_zone'] = $zones['content']['content'];
+$vars['content_zone'] = trim($zones['content']['content']);
 
 // zones appearing after content on page
 $vars['zones_below'] = '';
 $after = array_keys($zones_after_content);
 foreach($after as $k => $zone) {
   if (isset($zones['after'][$zone])) {
-    $vars['zones_below'] .= $zones['after'][$zone];
+    $vars['zones_below'] .= trim($zones['after'][$zone]);
   }
+}
+
+// check for empty zone groups, and unset those to avoid empty div printing in page.tpl.php
+if (strlen($vars['zones_above']) == 0) {
+  unset($vars['zones_above']);
+}
+if (strlen($vars['content_zone']) == 0) {
+  unset($vars['content_zone']);
+}
+if (strlen($vars['zones_below']) == 0) {
+  unset($vars['zones_below']);
 }

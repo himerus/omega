@@ -1,4 +1,4 @@
-;$Id: omega.info,v 1.1.2.9 2010/12/07 01:11:45 himerus Exp $
+;$Id: omega.info,v 1.1.2.11 2011/02/01 15:47:47 himerus Exp $
 ;##########################################################################################
 ;      _                _                                  _                     _
 ;   __| | _____   _____| | ___  _ __  _ __ ___   ___ _ __ | |_    __ _  ___  ___| | _____
@@ -13,11 +13,10 @@
 ; By default, this theme is hidden on the Appearance page.
 
 name = Omega
-description = <a href="http://drupal.org/project/omega"><strong>Omega</strong></a> is the core base theme for all <a href="http://drupal.org/project/omega"><strong>Omega</strong></a> subthemes...
+description = <a href="http://himer.us/omega960"><strong>Omega</strong></a> is the core base theme for all <a href="http://drupal.org/project/omega"><strong>Omega</strong></a> subthemes. This theme should not be used, instead start from the Omega Starterkit.
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
-hidden = TRUE
 
 stylesheets[all][] = css/960.css
 

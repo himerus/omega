@@ -1,4 +1,4 @@
-; $Id: omega_starterkit.info,v 1.3.2.4.2.16 2011/01/10 22:48:33 himerus Exp $
+; $Id: omega_starterkit.info,v 1.3.2.4.2.18 2011/02/01 16:06:41 himerus Exp $
 
 ;##########################################################################################
 ;      _                _                                  _                     _
@@ -10,7 +10,7 @@
 ;##########################################################################################
 
 name        = Omega Starter Kit
-description = Starterkit for <a href="http://himer.us/omega-theme"><strong>Omega</strong></a>. Make a copy of this subtheme to get started building your own <strong>Omega</strong> theme. For help see our <a href="http://project.developmentgeeks.com/omega/"><strong>documentation</strong></a> and <a href="http://vimeo.com/himerus"><strong>video</strong></a> tutorials. If you have a problem and need additional support please use the <a href="http://drupal.org/project/issues/omega"><strong>issue queue</strong></a>. Don't forget also to download and enable the <a href="http://himer.us/omega-ui"><strong>Omega UI</strong></a> and <a href="http://himer.us/delta-module"><strong>Delta</strong></a> modules to further enhance your experience.
+description = Starterkit for <a href="http://himer.us/omega960"><strong>Omega</strong></a>. Make a copy of this subtheme to get started building your own <strong>Omega</strong> theme. For help see our <a href="http://himeru.us/omega960"><strong>documentation</strong></a> and <a href="http://himerus.com"><strong>video</strong></a> tutorials. If you have a problem and need additional support please use the <a href="http://drupal.org/project/issues/omega"><strong>issue queue</strong></a>. Don't forget also to download and enable the <a href="http://himer.us/delta-module"><strong>Delta</strong></a> module for contextual layouts.
 screenshot = screenshot.png
 core       = 7.x
 base theme = omega
@@ -106,12 +106,12 @@ settings[omega_user_wrapper] = '1'
 settings[omega_user_container_width] = '16'
 settings[omega_user_zone_type] = 'static'
 settings[omega_user_dynamic_zone_primary_region] = 'user_bar_first'
-settings[omega_user_zone_extra_classes] = ''
+settings[omega_user_zone_extra_classes] = 'test-test-zone-test'
 settings[omega_user_user_bar_first_region_prefix] = ''
 settings[omega_user_user_bar_first_region_width] = '13'
 settings[omega_user_user_bar_first_region_suffix] = ''
 settings[omega_user_user_bar_first_region_order] = '1'
-settings[omega_user_user_bar_first_region_extra_classes] = ''
+settings[omega_user_user_bar_first_region_extra_classes] = 'test-test-region-test'
 settings[omega_user_user_bar_second_region_prefix] = ''
 settings[omega_user_user_bar_second_region_width] = '3'
 settings[omega_user_user_bar_second_region_suffix] = ''
@@ -186,14 +186,14 @@ settings[omega_content_wrapper] = '1'
 settings[omega_content_container_width] = '16'
 settings[omega_content_zone_type] = 'dynamic'
 settings[omega_content_dynamic_zone_primary_region] = 'content'
-settings[omega_content_zone_extra_classes] = 'content-zone'
+settings[omega_content_zone_extra_classes] = 'content-zone special-content-zone-class-test'
 settings[omega_content_content_region_prefix] = ''
-settings[omega_content_content_region_width] = '9'
+settings[omega_content_content_region_width] = '16'
 settings[omega_content_content_region_suffix] = ''
 settings[omega_content_content_region_order] = '2'
-settings[omega_content_content_region_extra_classes] = 'content-region'
+settings[omega_content_content_region_extra_classes] = 'content-region special-content-region-class'
 settings[omega_content_sidebar_first_region_prefix] = ''
-settings[omega_content_sidebar_first_region_width] = '4'
+settings[omega_content_sidebar_first_region_width] = '3'
 settings[omega_content_sidebar_first_region_suffix] = ''
 settings[omega_content_sidebar_first_region_order] = '1'
 settings[omega_content_sidebar_first_region_extra_classes] = 'sidebar-first-region'
@@ -267,8 +267,10 @@ settings[omega_breadcrumb_separator] = ' / '
 settings[omega_breadcrumb_home] = '1'
 settings[omega_breadcrumb_trailing] = '1'
 settings[omega_breadcrumb_title] = '1'
-settings[omega_menu_depth] = '1'
+settings[omega_menu_depth] = '5'
+settings[debug_block_toggle] = '1'
 settings[debug_grid_toggle] = ''
 settings[debug_grid_toggle_state] = ''
+settings[debug_grid_roles][3] = '3'
 settings[debug_grid_roles][2] = '0'
-settings[debug_grid_roles][3] = '0'
+settings[omega_general__active_tab] = 'edit-grid-overlay'

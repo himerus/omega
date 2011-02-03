@@ -1,5 +1,5 @@
 <?php
-// $Id: process-zone.inc,v 1.1.2.15 2011/01/14 14:08:47 himerus Exp $
+// $Id: process-zone.inc,v 1.1.2.19 2011/02/01 15:41:20 himerus Exp $
 
 /**
  * @file
@@ -7,9 +7,6 @@
  */
 // set the basic attributes for this zone
 $zone = $vars;
-if($zone['zid'] == 'content') {
-  //krumo($zone);
-}
 $vars['attributes_array'] = array(
   'class' => array(
     'clearfix', 
@@ -38,10 +35,6 @@ $zone_regions = $zone['regions'];
 // but renaming the branding and location zones is pretty much forbade at this point.
 $info = isset($zone['info']) ? $zone['info'] : array();
 
-
-//$vars['regions'][$region_id]['#custom'] = array();
-
-
 switch($zone['zid']) {
   case 'content':
     foreach($zone_regions as $region_id => $region) {
@@ -59,16 +52,10 @@ switch($zone['zid']) {
             'title-header',
             'header-main',
           );
-          // assign the content_float region if it exists
-          // this will be inserted into region--content.tpl.php
-          if(isset($info['content_float'])) {
-            //$vars['regions'][$region_id]['#custom']['content_float'] = render($info['content_float']);
-          }
           // assign classes & attributes before sending along
           $title_classes = $vars['regions'][$region_id]['#custom']['title_classes'] = implode(' ', $classes);
           unset($vars['regions'][$region_id]['#custom']['title_attributes_array']['class']); 
           $title_attr = $vars['regions'][$region_id]['#custom']['title_attributes'] = drupal_attributes($vars['regions'][$region_id]['#custom']['title_attributes_array']);
-          //krumo($vars['regions'][$region_id]);
           break;
       }
     }
@@ -129,6 +116,7 @@ switch($zone['zid']) {
   default:
     foreach($zone_regions as $region_id => $region) {
       $vars['regions'][$region_id]['#custom'] = array();
+      //krumo($zone_regions);
     }
     break;
 }
@@ -136,18 +124,49 @@ switch($zone['zid']) {
 // Let's make sure to pass the zone id to the region processing function so we can use it later
 $zone = $vars;
 $zone_regions = $zone['regions'];
+$populated = FALSE;
+$block_debug = omega_theme_get_setting('debug_block_toggle', FALSE);
 foreach($zone_regions AS $region => $region_data) {
   $vars['regions'][$region]['#custom']['zid'] = $zone['zid'];
+  // if we've turned on region debugging, let's create some dummy blocks. :)
+  if(omega_theme_get_setting('debug_block_toggle', FALSE)) {
+    global $theme_info;
+    $excluded_regions = array(
+      'branding', 'menu', 'location', 'user_bar_first', 'user_bar_second', 'page_top', 'page_bottom', 'breadcrumb',
+    );
+    if (!in_array($region, $excluded_regions)) {
+      $regions = $theme_info->info['regions'];
+      $vars['regions'][$region]['#theme_wrappers'] = array('region');
+      $block = new stdClass();
+      $block->delta = $region;
+      $block->region = $region;
+      $block->module = 'omega_tools';
+      $block->subject = $regions[$region];
+      $block->weight = -100;
+      $vars['regions'][$region]['omega_debug_'. $region] = array();
+      
+      $vars['regions'][$region]['#region'] = $region;
+      $vars['regions'][$region]['#sorted'] = FALSE;
+      $vars['regions'][$region]['omega_debug_'. $region]['#printed'] = FALSE;
+      $vars['regions'][$region]['omega_debug_'. $region]['#theme_wrappers'] = array('block');
+      $vars['regions'][$region]['omega_debug_'. $region]['#block'] = $block;
+      $vars['regions'][$region]['omega_debug_'. $region]['#markup'] = '<div class="region-data">'.$region.'</div>';
+    }
+  }
+  if(element_children($zone_regions[$region]) || $region == 'branding' || $region == 'breadcrumb' || $block_debug) {
+    $populated = TRUE;
+  }
 }
-
-
+$zone = $vars;
+$zone_regions = $zone['regions'];
+//krumo($zone);
+$vars['populated'] = $populated;
 switch($zone['zone_type']) {
   case 'static':
     $regions = array();
     foreach($zone_regions AS $region => $region_data) {
       $regions[$region] = array(
         'data' => element_children($zone_regions[$region]),
-        //'data' => TRUE, // a test to enable data to always be true
         'width' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
         'spacing' => array(
           'prefix' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_prefix'),
@@ -168,7 +187,7 @@ switch($zone['zone_type']) {
     foreach($region_classes AS $region => $classes) {
       $vars['regions'][$region]['#omega_classes'] = $region_classes[$region];
       $vars['regions'][$region]['#omega_attributes']['id'] = array('region-'. $region);
-      if(array_key_exists('hidden', $classes)) {
+      if(array_key_exists('hidden', $classes) && !$regions[$region]['data']) {
         // edge case; unset regions that are defined as zero width or "hidden"
         unset($vars['regions'][$region]);
       }
@@ -219,7 +238,4 @@ switch($zone['zone_type']) {
       }
     }
     break;
-}
-if ($zone['zid'] == 'content') {
-  //krumo($vars);
 }

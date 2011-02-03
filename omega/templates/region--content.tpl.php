@@ -1,5 +1,5 @@
 <?php
-// $Id: region--content.tpl.php,v 1.1.2.2 2010/11/19 18:20:58 himerus Exp $
+// $Id: region--content.tpl.php,v 1.1.2.3 2011/02/03 22:33:10 himerus Exp $
 
 /**
  * @file
@@ -30,7 +30,7 @@
 ?>
 <?php if ($content): ?>
   <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
-    <?php if($title): ?>
+    <?php if(isset($title)): ?>
       <?php print render($title_prefix); ?>
         <h1 class="<?php print $title_classes; ?>" <?php print $title_attributes; ?>><?php print $title; ?></h1>
       <?php print render($title_suffix); ?>

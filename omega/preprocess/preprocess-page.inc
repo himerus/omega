@@ -1,11 +1,30 @@
 <?php
-// $Id: preprocess-page.inc,v 1.1.2.17 2011/01/11 21:26:32 himerus Exp $
+// $Id: preprocess-page.inc,v 1.1.2.18 2011/02/01 15:41:20 himerus Exp $
 
 /**
  * @file
  * Contents of omega_preprocess_page().
  */
-
+// if debug blocks are on, add in the javascript that will put those on the page for us.
+if(omega_theme_get_setting('debug_block_toggle')) {
+  //$regions = system_region_list($theme_key);
+  //krumo($theme_info);
+  $regions = $theme_info->info['regions'];
+  $region_js = array();
+  $exclude_regions = array(
+    'page_top', 'page_bottom', 'user_bar_first', 'user_bar_second', 'dashboard_main', 'dashboard_inactive', 'dashboard_sidebar',
+  );
+  foreach ($regions AS $k => $v) {
+    if(!in_array($k, $exclude_regions)) {
+      $region_js[$k] = $v;
+    }
+  }
+  $block_settings = array(
+    'omega_debug_regions' => $region_js,
+  );
+  drupal_add_js($block_settings, 'setting');
+  drupal_add_js(drupal_get_path('theme', 'omega') . '/js/debug_blocks.js', array('weight' => 1000, 'type' => 'file'));
+}
 if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu')) {
   $menu_depth = omega_theme_get_setting('omega_menu_depth') ? omega_theme_get_setting('omega_menu_depth') : 1;
   // render the menus as nested ULs to style up some drop downs.

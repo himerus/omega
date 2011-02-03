@@ -1,4 +1,4 @@
-$Id: CHANGELOG.txt,v 1.1.2.4 2011/01/14 14:08:46 himerus Exp $
+$Id: CHANGELOG.txt,v 1.1.2.9 2011/02/03 22:33:10 himerus Exp $
 ##########################################################################################
       _                _                                  _                     _
    __| | _____   _____| | ___  _ __  _ __ ___   ___ _ __ | |_    __ _  ___  ___| | _____
@@ -28,7 +28,26 @@ Maintainer(s):  Jake Strawn
 CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 
 ##########################################################################################
-##### Current Release: 7.x-2.0-alpha7
+##### Current Release: 7.x-2.0-alpha9
+########################################################################################## 
+
+2/03/2011
+=========
+#1050404  - undefined variable: title if title is not set on page
+
+2/02/2011
+=========
+#0000000  - general updates, removed placholder blocks from omega_tools, and turned those
+            into items rendered BY omega via a theme setting instead. Can be found under
+            the Grid Overlay/Debugging section of the theme settings page.
+
+1/17/2011
+=========
+#1029442  - Problem with Admin theme settings - fatal error, ns()
+
+
+##########################################################################################
+##### Changes since: 7.x-2.0-alpha8
 ########################################################################################## 
 
 1/13/2011
@@ -38,3 +57,12 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 1/14/2011
 =========
 #1024060  - Regions set to 0 (zero) width should not be rendered
+          - General cleanup, removing debug calls
+          
+1/15/2011
+=========
+#1028552  - Avoid from rendering empty zones.
+
+1/16/2011
+=========
+#1029262  - Avoid from rendering empty zone groups.
