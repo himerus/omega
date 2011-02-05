@@ -1,5 +1,5 @@
 <?php
-// $Id: page.tpl.php,v 1.1.2.7 2011/01/10 22:48:33 himerus Exp $
+// $Id: page.tpl.php,v 1.1.2.8 2011/02/05 22:15:40 himerus Exp $
 
 /**
  * @file 
@@ -28,7 +28,9 @@
       </div>
     </div><!-- /.container-xx -->
     <?php endif; ?>
-    <?php print $content_zone; ?>
+    <?php if (isset($content_zone)): ?>
+      <?php print $content_zone; ?>
+    <?php endif; ?>
   </div>
   
   <?php if (isset($zones_below)): ?>

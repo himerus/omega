@@ -1,5 +1,5 @@
 <?php
-// $Id: process-page.inc,v 1.1.2.11 2011/01/31 12:49:04 himerus Exp $
+// $Id: process-page.inc,v 1.1.2.12 2011/02/05 22:15:40 himerus Exp $
 
 /**
  * @file
@@ -101,7 +101,7 @@ foreach($before as $k => $zone) {
 }
 
 // required content zone
-$vars['content_zone'] = trim($zones['content']['content']);
+$vars['content_zone'] = isset($zones['content']['content']) ? trim($zones['content']['content']) : FALSE;
 
 // zones appearing after content on page
 $vars['zones_below'] = '';
