@@ -101,7 +101,7 @@ foreach($before as $k => $zone) {
 }
 
 // required content zone
-$vars['content_zone'] = trim($zones['content']['content']);
+$vars['content_zone'] = isset($zones['content']['content']) ? trim($zones['content']['content']) : FALSE;
 
 // zones appearing after content on page
 $vars['zones_below'] = '';

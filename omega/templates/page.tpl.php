@@ -28,7 +28,9 @@
       </div>
     </div><!-- /.container-xx -->
     <?php endif; ?>
-    <?php print $content_zone; ?>
+    <?php if (isset($content_zone)): ?>
+      <?php print $content_zone; ?>
+    <?php endif; ?>
   </div>
   
   <?php if (isset($zones_below)): ?>
