@@ -1,4 +1,4 @@
-$Id: README.txt,v 1.2.4.3 2010/12/28 18:14:32 himerus Exp $
+$Id: README.txt,v 1.2.4.4 2011/02/07 20:26:15 himerus Exp $
 ##########################################################################################
       _                _                                  _                     _
    __| | _____   _____| | ___  _ __  _ __ ___   ___ _ __ | |_    __ _  ___  ___| | _____
@@ -11,6 +11,7 @@ $Id: README.txt,v 1.2.4.3 2010/12/28 18:14:32 himerus Exp $
 ##########################################################################################
 ##### Omega Theme
 ##########################################################################################
+Informational:  http://himer.us/omega960
 Project Page:   http://drupal.org/project/omega
 Issue Queue:    http://drupal.org/project/issues/omega
 Usage Stats:    http://drupal.org/project/usage/omega
@@ -26,7 +27,7 @@ Maintainer(s):  Jake Strawn
 Omega Theme Information
 =======================
 The Omega Theme is a powerful and free Drupal theme based on the 960gs. 
-It harneses the power and features of many popular themes to provide an 
+It harnesses the power and features of many popular themes to provide an 
 excellent base theme, and sub-theming system to help you quickly prototype 
 and theme your site...
 
