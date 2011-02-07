@@ -1,37 +1,45 @@
 $Id$
-##########################################################
+##########################################################################################
+      _                _                                  _                     _
+   __| | _____   _____| | ___  _ __  _ __ ___   ___ _ __ | |_    __ _  ___  ___| | _____
+  / _` |/ _ \ \ / / _ \ |/ _ \| '_ \| '_ ` _ \ / _ \ '_ \| __|  / _` |/ _ \/ _ \ |/ / __|
+ | (_| |  __/\ V /  __/ | (_) | |_) | | | | | |  __/ | | | |_  | (_| |  __/  __/   <\__ \
+  \__,_|\___| \_/ \___|_|\___/| .__/|_| |_| |_|\___|_| |_|\__|  \__, |\___|\___|_|\_\___/
+                              |_|                               |___/
+##########################################################################################
+
+##########################################################################################
 ##### Omega Theme
-##########################################################
+##########################################################################################
+Informational:  http://himer.us/omega960
 Project Page:   http://drupal.org/project/omega
 Issue Queue:    http://drupal.org/project/issues/omega
 Usage Stats:    http://drupal.org/project/usage/omega
-Demo Page:      http://omega.himerus.com
+Twitter:        http://twitter.com/Omeglicon
 Maintainer(s):  Jake Strawn 
                 http://himerus.com
+                http://developmentgeeks.com
+                http://facebook.com/developmentgeeks
+                http://drupal.org/user/159141
                 http://twitter.com/himerus
-##########################################################
+##########################################################################################
 
 Omega Theme Information
 =======================
 The Omega Theme is a powerful and free Drupal theme based on the 960gs. 
-It harneses the power and features of many popular themes to provide an 
+It harnesses the power and features of many popular themes to provide an 
 excellent base theme, and sub-theming system to help you quickly prototype 
 and theme your site...
 
 Additional 960gs/Omega Resources
 ================================
-  * I recently presented at DrupalCamp Montreal on the 960gs and Omega theme. 
-    The information on this presentation along with slides & video can be found here.
-    http://himerus.com/drupalcamp-montreal-advanced-960gs-theming-omega
+  * http://himerus.com - for various videos on the Omega theme
+  
+  * http://himerus.com/drupalcamp-montreal-advanced-960gs-theming-omega
     
-  * I presented on 960gs and the ninesixty theme at Drupalcon Paris with Todd 
-    from Four Kitchens. You can download the slides here, and watch the video here.
-    http://himerus.com/drupalcon-paris-accelerated-grid-theming-using-ninesixty
+  * http://himerus.com/drupalcon-paris-accelerated-grid-theming-using-ninesixty
     
-  * I will be presenting this April at Drupalcon San Fransisco on the Omgea theme 
-    in a presentation titled: Elevating 960gs in Drupal with the Omega theme. 
-    You may find information on the session and sign up here
-    http://sf2010.drupal.org/conference/sessions/elevating-960gs-drupal-omega-theme
+  * http://sf2010.drupal.org/conference/sessions/elevating-960gs-drupal-omega-theme
 
 Creating your Omega Sub Theme
 =============================
