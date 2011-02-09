@@ -8,7 +8,7 @@
 // adding a class to the title attributes
 $vars['title_attributes_array']['class'] = 'block-title';
 // give blocks placed through the menu_tree theme wrapper a specific class for proper theming
-if (substr($vars['elements']['#theme_wrappers'][0], 0, 9) == 'menu_tree') {
+if (isset($vars['elements']['#theme_wrappers'][0]) && substr($vars['elements']['#theme_wrappers'][0], 0, 9) == 'menu_tree') {
   $vars['classes_array'][] = 'menu-block';
 }
 // add the menu-block class to some default blocks in Drupal for proper styling.

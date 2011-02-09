@@ -29,9 +29,20 @@ Maintainer(s):  Jake Strawn
 CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 
 ##########################################################################################
-##### Current Release: 7.x-2.0-alpha11
+##### Current Release: 7.x-2.0-alpha12
 ##### Pending changes for Next Release
 ########################################################################################## 
+
+
+
+##########################################################################################
+##### Changes in: 7.x-2.0-alpha11
+########################################################################################## 
+
+2/09/2011
+=========
+#1055376  - Undefined index error in preprocess_block by ngmaloney
+#1054442  - Documentation link not right
 
 2/05/2011
 =========
