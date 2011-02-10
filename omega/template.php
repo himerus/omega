@@ -197,6 +197,7 @@ function omega_css_alter(&$css) {
  *   - zone.tpl.php (default)
  */
 function omega_theme($existing, $type, $theme, $path) {
+  //krumo($path);
   $hooks = array();
   $variables = array(
     'zid' => NULL, 
@@ -220,6 +221,8 @@ function omega_theme($existing, $type, $theme, $path) {
     'omega_process_zone'
   );
   $hooks['zone'] = array(
+    'template' => 'zone',
+    'path' => $path . '/templates',
     'variables' => $variables,
     'pattern' => 'zone__',
     'preprocess functions' => $preprocess_functions,
@@ -234,7 +237,7 @@ function omega_theme($existing, $type, $theme, $path) {
  * @see http://api.drupal.org/api/function/hook_theme_registry_alter/7
  */
 function omega_theme_registry_alter($registry) {
-  
+  //krumo($registry['zone']);
 }
 
 /**

@@ -39,6 +39,10 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 #0000000  - Fixing empty h1 in region--content.tpl.php
 #0000000  - Removing unmodified core templates in omega/omega/templates
 #0000000  - Syncing omega.info and omega_starterkit.info
+#0000000  - Starting work on turning zones into a renderable array
+          - This change makes this branch potentially unstable until complete
+          - Using github, you should only be using the master branch for now
+
 
 ##########################################################################################
 ##### Changes in: 7.x-2.0-alpha11
