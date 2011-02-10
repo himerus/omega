@@ -228,3 +228,10 @@ settings[debug_grid_toggle_state] = ''
 settings[debug_grid_roles][2] = '0'
 settings[omega_admin__active_tab] = ''
 settings[general_settings__active_tab] = ''
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "7.x-2.0-alpha12"
+core = "7.x"
+project = "omega"
+datestamp = "1297291359"
+

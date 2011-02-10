@@ -1,5 +1,5 @@
 <?php
-// $Id: preprocess-block.inc,v 1.1.2.5 2011/01/06 15:34:20 himerus Exp $
+// $Id: preprocess-block.inc,v 1.1.2.6 2011/02/09 22:36:33 himerus Exp $
 /**
  * @file
  * Contents of omega_preprocess_block().
