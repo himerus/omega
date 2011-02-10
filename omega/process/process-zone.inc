@@ -41,7 +41,7 @@ switch($zone['zid']) {
       switch($region_id) {
         case 'content':
           $vars['regions'][$region_id]['#custom'] = array();
-          $vars['regions'][$region_id]['#custom']['title'] = $info['title'];
+          $vars['regions'][$region_id]['#custom']['title'] = strlen($info['title']) == 0 ? FALSE : $info['title'];
           $vars['regions'][$region_id]['#custom']['tabs'] = $info['tabs']; 
           $vars['regions'][$region_id]['#custom']['title_prefix'] = $info['title_prefix'];
           $vars['regions'][$region_id]['#custom']['title_suffix'] = $info['title_suffix']; 
