@@ -5,11 +5,12 @@
  * @file 
  * Theme implementation to display a single Drupal page.
  */
- drupal_set_message('<strong>page.tpl.php</strong> called (omega)');
+ //drupal_set_message('<strong>page.tpl.php</strong> called (omega)');
+ //krumo($page['zones_above']);
 ?>
 <div id="page" class="clearfix">
-  <?php if (isset($zones_above)): ?>
-  <div id="zones-above" class="clearfix"><?php print render($zones_above); ?></div>
+  <?php if (isset($page['zones_above'])): ?>
+  <div id="zones-above" class="clearfix"><?php print render($page['zones_above']); ?></div>
   <?php endif; ?>
   <div id="zones-content" class="clearfix">
     <?php if (isset($action_links)): ?>
@@ -28,12 +29,12 @@
       </div>
     </div><!-- /.container-xx -->
     <?php endif; ?>
-    <?php if (isset($content_zone)): ?>
-      <?php print render($content_zone); ?>
+    <?php if (isset($page['content_zone'])): ?>
+      <?php print render($page['content_zone']); ?>
     <?php endif; ?>
   </div>
   
-  <?php if (isset($zones_below)): ?>
-  <div id="zones-below" class="clearfix"><?php print render($zones_below); ?></div>
+  <?php if (isset($zones['zones_below'])): ?>
+  <div id="zones-below" class="clearfix"><?php print render($page['zones_below']); ?></div>
   <?php endif; ?>
 </div><!-- /#page -->

@@ -77,3 +77,151 @@ else {
     $vars['secondary_menu'] = FALSE;
   }
 }
+
+// fix messages 
+// this should NOT be an empty string if it's freaking empty
+if (isset($vars['messages']) && strlen($vars['messages']) == 0) {
+  unset($vars['messages']);
+}
+// unset the action links array if it's empty
+if (!$vars['action_links']) {
+  unset($vars['action_links']);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+global $theme_key, $theme_info;
+// theme_key is the name of the current theme
+$vars['theme_key'] = $theme_key;
+// theme_info is the array of theme information (region, settings, zones, etc.)
+$vars['theme_info'] = $theme_info;
+// default container width will be used in special zones and zones without a 
+// container width defined in theme settings
+$vars['default_container_width'] = omega_theme_get_setting('omega_default_container_width');
+// pulling just the zone data out of the theme_info array
+$theme_zones = $theme_info->info['zones'];
+// creating empty array to hold our custom zone[group] data
+$zones = array(
+  'before' => array(),
+  'content' => array(),
+  'after' => array(),
+);
+// separate out the specific content zone (a very special case)
+$content_zone = $theme_zones['content'];
+// zone keys give us a way to find the numerical position of the content zone
+// thus giving us a way to split up the array into before and after content zones
+$zone_keys = array_keys($theme_zones);
+// content_position is the numberical location of the content zone
+$content_position = array_search('content', $zone_keys);
+// zones_before_content are all zones that appear before content in the array
+$zones_before_content = array_slice($theme_zones, 0, $content_position, TRUE);
+// zones_after_content are all zones that appear after content in the array
+$zones_after_content = array_slice($theme_zones, $content_position + 1, count($theme_zones), TRUE);
+
+foreach ($theme_zones as $zone_ref => $regions) {
+  $zone = array();
+  $zone['zid'] = $zone_ref;
+  $zone['enabled'] = omega_theme_get_setting('omega_'. $zone_ref .'_enabled') || omega_theme_get_setting('omega_'. $zone_ref .'_enabled') == 0 ? omega_theme_get_setting('omega_'. $zone_ref .'_enabled') : 1;
+  $zone['wrapper'] = omega_theme_get_setting('omega_'. $zone_ref .'_wrapper') ? omega_theme_get_setting('omega_'. $zone_ref .'_wrapper') : 0;
+  $zone['zone_type'] = omega_theme_get_setting('omega_'. $zone_ref .'_zone_type') ? omega_theme_get_setting('omega_'. $zone_ref .'_zone_type') : 'static';
+  $zone['container_width'] = omega_theme_get_setting('omega_'. $zone_ref .'_container_width') ? omega_theme_get_setting('omega_'. $zone_ref .'_container_width') : $vars['default_container_width'];
+  
+  if ($zone['enabled']) {
+    if(array_key_exists($zone_ref, $zones_before_content)) {
+      $zone['type'] = 'before';
+    }
+    elseif(array_key_exists($zone_ref, $zones_after_content)) {
+      $zone['type'] = 'after';
+    }
+    else {
+      $zone['type'] = 'content';
+    }
+    $zone['#regions'] = array();
+    foreach($regions as $region) {
+      $zone['#regions'][$region] = isset($vars['page'][$region]) && is_array($vars['page'][$region]) ? $vars['page'][$region] : '';
+      // we need to unset the region in the main $vars['page'] array now so that it isn't 'printed' before we get to it
+      unset($vars['page'][$region]);
+    }
+    $zone['#theme_wrappers'][] = 'zone';
+    $zone['#zone'] = $zone['zid'];  
+    $zone['#theme_hook_suggestions'][] = 'zone__' . $zone['zid'];
+    $zone['#theme_hook_suggestions'][] = 'zone__' . $zone['type'];
+    $zone['#theme_hook_suggestions'][] = 'zone'; 
+    
+    // pass page level data to each zone so that it could be implemented anywhere (title, tabs, etc.)
+    $zone['#omega'] = array(
+    'page_data' => array(
+      'title_attributes_array' => $vars['title_attributes_array'],
+      'content_attributes_array' => $vars['content_attributes_array'],
+      'title_prefix' => $vars['title_prefix'],
+      'title_suffix' => $vars['title_suffix'],
+      'feed_icons' => $vars['feed_icons'],
+      'logo' => $vars['logo'],
+      'main_menu' => $vars['main_menu'],
+      'secondary_menu' => $vars['secondary_menu'],
+      'site_name' => $vars['site_name'],
+      'tabs' => $vars['tabs'],
+      'menu_data' => $vars['menu_data'],
+      'default_container_width' => $vars['default_container_width']
+    ),
+  );    
+    // assign the zone to the proper group of zones
+    $zones[$zone['type']][$zone['zid']] = $zone;
+  }
+}
+
+
+
+
+/**
+  * Zone Assignments
+  * 
+  * Assign the zones to the page object to pass to page.tpl.php
+  * The zones are grouped in zones_above, content_zone, and zones_below
+  * This allows for dynamic region/zone placements on the fly via 
+  * theme settings, the Delta module, and more without ever needing to 
+  * edit page.tpl.php
+  */
+  
+// zones appearing before content on page
+$vars['page']['zones_above'] = array();
+$before = array_keys($zones_before_content);
+foreach($before as $k => $zone) {
+  if (isset($zones['before'][$zone])) {
+    $vars['page']['zones_above'][$zone] = $zones['before'][$zone];
+  }
+}
+
+// required content zone
+$vars['page']['content_zone'] = isset($zones['content']['content']) ? $zones['content']['content'] : FALSE;
+
+// zones appearing after content on page
+$vars['page']['zones_below'] = array();
+$after = array_keys($zones_after_content);
+foreach($after as $k => $zone) {
+  if (isset($zones['after'][$zone])) {
+    $vars['page']['zones_below'][$zone] = $zones['after'][$zone];
+  }
+}
+//krumo($vars);

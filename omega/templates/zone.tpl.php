@@ -22,12 +22,13 @@
  * @see template_process()
  * @see template_process_zone()
  */
-  drupal_set_message('<strong>zone.tpl.php</strong> called (omega)');
+  //drupal_set_message('<strong>zone.tpl.php</strong> called (omega)');
+  //krumo($attributes);
 ?>
 
 <?php if($enabled && $populated): ?>
 	<?php if($wrapper): ?><div id="<?php print $zid;?>-outer-wrapper" class="clearfix"><?php endif; ?>  
-	  <div <?php print $attributes;?>>
+	  <div <?php print $attributes; ?>>
 	    <?php print render($regions); ?>
 	  </div>
 	<?php if($wrapper): ?></div><?php endif; ?>
