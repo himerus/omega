@@ -1,6 +1,6 @@
 <?php
 // $Id: process-page.inc,v 1.1.2.12 2011/02/05 22:15:40 himerus Exp $
-
+//krumo($vars);
 /**
  * @file
  * Contents of omega_process_page().
@@ -61,7 +61,7 @@ foreach ($theme_zones as $zone_ref => $regions) {
   
   $zone['regions'] = array();
   foreach($regions as $region) {
-    $zone['regions'][$region] = isset($vars['page'][$region]) ? $vars['page'][$region] : '';
+    $zone['regions'][$region] = isset($vars['page'][$region]) && is_array($vars['page'][$region]) ? $vars['page'][$region] : '';
   }
   if ($zone['enabled']) {
     if ($zone['zid'] == 'branding') {
@@ -87,32 +87,37 @@ foreach ($theme_zones as $zone_ref => $regions) {
         'content_float' => isset($vars['page']['content_float']) ? $vars['page']['content_float'] : FALSE,
       );
     }
-    $zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
+    
+    $zone['#theme_wrappers'][] = 'zone';
+    $zone['#zone'] = $zone['zid'];  
+    //$zones[$zone['type']][$zone['zid']] = theme(array('zone__' . $zone['zid'], 'zone__' . $zone['type'], 'zone'), $zone);
+    $zones[$zone['type']][$zone['zid']] = $zone;
   }
 }
 
 // zones appearing before content on page
-$vars['zones_above'] = '';
+$vars['zones_above'] = array();
 $before = array_keys($zones_before_content);
 foreach($before as $k => $zone) {
   if (isset($zones['before'][$zone])) {
-    $vars['zones_above'] .= trim($zones['before'][$zone]);
+    $vars['zones_above'][$zone] = $zones['before'][$zone];
   }
 }
 
 // required content zone
-$vars['content_zone'] = isset($zones['content']['content']) ? trim($zones['content']['content']) : FALSE;
+$vars['content_zone'] = isset($zones['content']['content']) ? $zones['content']['content'] : FALSE;
 
 // zones appearing after content on page
-$vars['zones_below'] = '';
+$vars['zones_below'] = array();
 $after = array_keys($zones_after_content);
 foreach($after as $k => $zone) {
   if (isset($zones['after'][$zone])) {
-    $vars['zones_below'] .= trim($zones['after'][$zone]);
+    $vars['zones_below'][$zone] = $zones['after'][$zone];
   }
 }
 
 // check for empty zone groups, and unset those to avoid empty div printing in page.tpl.php
+/*
 if (strlen($vars['zones_above']) == 0) {
   unset($vars['zones_above']);
 }
@@ -122,3 +127,5 @@ if (strlen($vars['content_zone']) == 0) {
 if (strlen($vars['zones_below']) == 0) {
   unset($vars['zones_below']);
 }
+*/
+//krumo($vars);

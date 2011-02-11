@@ -5,11 +5,11 @@
  * @file 
  * Theme implementation to display a single Drupal page.
  */
-
+ drupal_set_message('<strong>page.tpl.php</strong> called (omega)');
 ?>
 <div id="page" class="clearfix">
   <?php if (isset($zones_above)): ?>
-  <div id="zones-above" class="clearfix"><?php print $zones_above; ?></div>
+  <div id="zones-above" class="clearfix"><?php print render($zones_above); ?></div>
   <?php endif; ?>
   <div id="zones-content" class="clearfix">
     <?php if (isset($action_links)): ?>
@@ -29,11 +29,11 @@
     </div><!-- /.container-xx -->
     <?php endif; ?>
     <?php if (isset($content_zone)): ?>
-      <?php print $content_zone; ?>
+      <?php print render($content_zone); ?>
     <?php endif; ?>
   </div>
   
   <?php if (isset($zones_below)): ?>
-  <div id="zones-below" class="clearfix"><?php print $zones_below; ?></div>
+  <div id="zones-below" class="clearfix"><?php print render($zones_below); ?></div>
   <?php endif; ?>
 </div><!-- /#page -->

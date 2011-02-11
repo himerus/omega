@@ -5,8 +5,15 @@
  * @file
  * Contents of omega_preprocess_zone().
  */
+ 
+$zone = $vars['zone'];
+krumo($zone);
+$vars['theme_hook_suggestions'][] = 'zone__' . $zone['zid'];
+$vars['theme_hook_suggestions'][] = 'zone__' . $zone['type'];
+$vars['theme_hook_suggestions'][] = 'zone'; 
+
 // set the basic attributes for this zone
-$zone = $vars;
+$zone = $vars['zone'];
 $vars['attributes_array'] = array(
   'class' => array(
     'clearfix', 
@@ -20,16 +27,15 @@ $vars['attributes_array'] = array(
 // set the extra classes to assign to this zone.
 $zone_classes = explode(' ', omega_theme_get_setting('omega_'. $zone['zid'] . '_zone_extra_classes'));
 foreach ($zone_classes as $class) {
-  if($class) {
+  if(isset($class)) {
     $vars['attributes_array']['class'][] = $class;
   }
 }
-$vars['classes'] = implode(' ', $vars['attributes_array']['class']);
-unset($vars['attributes_array']['class']);
-// render the attributes to the template
+$vars['classes_array'] = $vars['attributes_array']['class'];
 $vars['attributes'] = drupal_attributes($vars['attributes_array']);
 
 $zone_regions = $zone['regions'];
+krumo($zone);
 // Let's provide our custom cases for branding, menu, breadcrumb and search
 // we will need to accomodate moving the custom REGIONS into a new zone as well,
 // but renaming the branding and location zones is pretty much forbade at this point.
@@ -122,9 +128,13 @@ switch($zone['zid']) {
 }
 
 // Let's make sure to pass the zone id to the region processing function so we can use it later
+$populated = FALSE;
+
+/*
+
 $zone = $vars;
 $zone_regions = $zone['regions'];
-$populated = FALSE;
+
 $block_debug = omega_theme_get_setting('debug_block_toggle', FALSE);
 foreach($zone_regions AS $region => $region_data) {
   $vars['regions'][$region]['#custom']['zid'] = $zone['zid'];
@@ -157,7 +167,8 @@ foreach($zone_regions AS $region => $region_data) {
     $populated = TRUE;
   }
 }
-$zone = $vars;
+*/
+$zone = $vars['zone'];
 $zone_regions = $zone['regions'];
 //krumo($zone);
 $vars['populated'] = $populated;
@@ -165,6 +176,7 @@ switch($zone['zone_type']) {
   case 'static':
     $regions = array();
     foreach($zone_regions AS $region => $region_data) {
+    //krumo($zone_regions[$region]);
       $regions[$region] = array(
         'data' => element_children($zone_regions[$region]),
         'width' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
@@ -178,18 +190,21 @@ switch($zone['zone_type']) {
         $regions[$region]['data'] = TRUE;
       }
     }
-    
+    //krumo($regions);
     // run static_region_builder() to return classes appropriate to each zone
-    $vars['regions'][$region]['#omega_attributes'] = array();
-    $vars['regions'][$region]['#omega_classes'] = array();
+    //$vars['zone']['regions'][$region]['#omega_attributes'] = array();
+    //$vars['zone']['regions'][$region]['#omega_classes'] = array();
     $region_classes = static_region_builder($regions, $zone['container_width']);
+    //krumo($region_classes);
     // add the classes & attributes to the region to be processed on render()
     foreach($region_classes AS $region => $classes) {
-      $vars['regions'][$region]['#omega_classes'] = $region_classes[$region];
-      $vars['regions'][$region]['#omega_attributes']['id'] = array('region-'. $region);
+    //krumo($region);
+      $vars['zone']['regions'][$region]['#omega_classes'] = $region_classes[$region];
+      $region_id = 'region-'. $region;
+      $vars['zone']['regions'][$region]['#omega_attributes']['id'] = $region_id;
       if(array_key_exists('hidden', $classes) && !$regions[$region]['data']) {
         // edge case; unset regions that are defined as zero width or "hidden"
-        unset($vars['regions'][$region]);
+        unset($vars['zone']['regions'][$region]);
       }
     }
     break;
@@ -238,4 +253,7 @@ switch($zone['zone_type']) {
       }
     }
     break;
+}
+if($zone['zid'] == 'user') {
+  krumo($vars);
 }

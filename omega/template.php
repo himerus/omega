@@ -144,12 +144,7 @@ function omega_process_node(&$vars) {
   $vars['attributes'] .= drupal_attributes($vars['node_attributes']);
 }
 
-function omega_preprocess_zone(&$vars) {
-  
-}
-function omega_process_zone(&$vars) {
-  
-}
+
 
 
 /**
@@ -199,6 +194,7 @@ function omega_css_alter(&$css) {
 function omega_theme($existing, $type, $theme, $path) {
   //krumo($path);
   $hooks = array();
+  /*
   $variables = array(
     'zid' => NULL, 
     'type' => NULL, 
@@ -208,6 +204,7 @@ function omega_theme($existing, $type, $theme, $path) {
     'container_width' => NULL, 
     'regions' => NULL
   );
+  */
   $preprocess_functions = array(
     'template_preprocess', 
     'template_preprocess_zone',
@@ -220,6 +217,7 @@ function omega_theme($existing, $type, $theme, $path) {
     'omega_process',
     'omega_process_zone'
   );
+  /*
   $hooks['zone'] = array(
     'template' => 'zone',
     'path' => $path . '/templates',
@@ -228,8 +226,73 @@ function omega_theme($existing, $type, $theme, $path) {
     'preprocess functions' => $preprocess_functions,
     'process functions' => $process_functions,
   );
+  */
+  
+  $hooks['zone'] = array(
+    'template' => 'zone',
+    'path' => $path . '/templates',
+    'render element' => 'zone',
+    'pattern' => 'zone__',
+    'preprocess functions' => $preprocess_functions,
+    'process functions' => $process_functions,
+  );
+  
   return $hooks;
 }
+
+
+/**
+ * Implements hook_page_alter
+ */
+function omega_page_alter($page) {
+  // Find all non-empty page regions, and add a theme wrapper function that
+  // allows them to be consistently themed.
+  /*
+  global $theme_info;
+  $zones = $theme_info->info['zones'];
+  //$regions = system_region_list($GLOBALS['theme']);
+  foreach ($zones as $zid => $zone_regions) {
+    // create our zones element in $page
+    $page['zones'][$zid] = array();
+    //krumo($zone_regions);
+    // we should loop over the zone_regions and bring data into our zone structure
+    foreach ($zone_regions as $region) {
+      if (!empty($page[$region])) {
+        //krumo($page[$region]);
+        $page['zones'][$zid][$region] = $page[$region];
+      }
+    }
+    if(!empty($page['zones'][$zid])) {
+      // set the data for theme wrapper and zone id
+      $page['zones'][$zid]['#theme_wrappers'][] = 'zone';
+      $page['zones'][$zid]['#zone'] = $zid;  
+    }
+  }
+  krumo($page);
+  */
+}
+
+function omega_preprocess_zone(&$vars) {
+  
+  //krumo($vars);
+}
+
+function omega_process_zone(&$vars) {
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Implements hook_theme_registry_alter()
@@ -238,13 +301,6 @@ function omega_theme($existing, $type, $theme, $path) {
  */
 function omega_theme_registry_alter($registry) {
   //krumo($registry['zone']);
-}
-
-/**
- * Implements hook_page_alter
- */
-function omega_page_alter($page) {
-
 }
 
 function omega_form_alter(&$form, &$form_state, $form_id) {
@@ -266,6 +322,32 @@ function omega_form_alter(&$form, &$form_state, $form_id) {
 }
 
 
+/*
+// example of the region rendering code
 
+function system_page_alter(&$page) {
+  // Find all non-empty page regions, and add a theme wrapper function that
+  // allows them to be consistently themed.
+  $regions = system_region_list($GLOBALS['theme']);
+  foreach (array_keys($regions) as $region) {
+    if (!empty($page[$region])) {
+      $page[$region]['#theme_wrappers'][] = 'region';
+      $page[$region]['#region'] = $region;
+    }
+  }
+}
+function template_preprocess_region(&$variables) {
+  // Create the $content variable that templates expect.
+  $variables['content'] = $variables['elements']['#children'];
+  $variables['region'] = $variables['elements']['#region'];
 
-
+  $variables['classes_array'][] = drupal_region_class($variables['region']);
+  $variables['theme_hook_suggestions'][] = 'region__' . $variables['region'];
+}
+// region.tpl.php
+<?php if ($content): ?>
+  <div class="<?php print $classes; ?>">
+    <?php print $content; ?>
+  </div>
+<?php endif; ?>
+*/
