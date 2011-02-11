@@ -42,7 +42,60 @@ foreach ($zone_classes as $class) {
 $vars['classes_array'] = $vars['attributes_array']['class'];
 $vars['attributes'] = drupal_attributes($vars['attributes_array']);
 
-$populated = TRUE;
+
+$populated = FALSE;
+$zone_regions = $zone['#regions'];
+$block_debug = omega_theme_get_setting('debug_block_toggle', FALSE);
+foreach($zone_regions AS $region => $region_data) {
+  // if we've turned on region debugging, let's create some dummy blocks. :)
+  if($block_debug) {
+    global $theme_info;
+    $excluded_regions = array(
+      'branding', 
+      'menu', 
+      'location', 
+      'user_bar_first', 
+      'user_bar_second', 
+      'page_top', 
+      'page_bottom', 
+      'breadcrumb',
+    );
+    if (!in_array($region, $excluded_regions)) {
+      $regions = $theme_info->info['regions'];
+      $zone['#regions'][$region]['#theme_wrappers'] = array('region');
+      $block = new stdClass();
+      $block->delta = $region;
+      $block->region = $region;
+      $block->module = 'omega_tools';
+      $block->subject = $regions[$region];
+      $block->weight = -100;
+      $zone['#regions'][$region]['omega_debug_'. $region] = array();
+      
+      $zone['#regions'][$region]['#region'] = $region;
+      $zone['#regions'][$region]['#sorted'] = FALSE;
+      $zone['#regions'][$region]['omega_debug_'. $region]['#printed'] = FALSE;
+      $zone['#regions'][$region]['omega_debug_'. $region]['#theme_wrappers'] = array('block');
+      $zone['#regions'][$region]['omega_debug_'. $region]['#block'] = $block;
+      $zone['#regions'][$region]['omega_debug_'. $region]['#markup'] = '<div class="region-data">'.$region.'</div>';
+    }
+  }
+  if(element_children($zone_regions[$region]) || $region == 'branding' || $region == 'breadcrumb' || $block_debug) {
+    $populated = TRUE;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $zone_regions = $zone['#regions'];
 $zone['populated'] = $populated;
@@ -104,24 +157,63 @@ if(isset($zone['#omega'])) {
 
 // cycle regions again and assign custom data for later rendering
 foreach($zone_regions AS $region => $region_data) {
-  $zone['#regions'][$region]['#omega'] = array(
-    'classes' => isset($region_classes[$region]) ? $region_classes[$region] : array(),
-    'attributes' => array('id' => 'region-' . $region),
-    'page_data' => array(
-      'title_attributes_array' => $vars['title_attributes_array'],
-      'content_attributes_array' => $vars['content_attributes_array'],
-      'title_prefix' => $vars['title_prefix'],
-      'title_suffix' => $vars['title_suffix'],
-      'feed_icons' => $vars['feed_icons'],
-      'logo' => $vars['logo'],
-      'main_menu' => $vars['main_menu'],
-      'secondary_menu' => $vars['secondary_menu'],
-      'site_name' => $vars['site_name'],
-      'tabs' => $vars['tabs'],
-      'menu_data' => $vars['menu_data'],
-    ),
-  );
-  
+  /*
+  // if we've turned on region debugging, let's create some dummy blocks. :)
+  if(omega_theme_get_setting('debug_block_toggle', FALSE)) {
+    global $theme_info;
+    $excluded_regions = array(
+      'branding', 
+      'menu', 
+      'location', 
+      'user_bar_first', 
+      'user_bar_second', 
+      'page_top', 
+      'page_bottom', 
+      'breadcrumb',
+    );
+    if (!in_array($region, $excluded_regions)) {
+      $regions = $theme_info->info['regions'];
+      $zone['#regions'][$region]['#theme_wrappers'] = array('region');
+      $block = new stdClass();
+      $block->delta = $region;
+      $block->region = $region;
+      $block->module = 'omega_tools';
+      $block->subject = $regions[$region];
+      $block->weight = -100;
+      $zone['#regions'][$region]['omega_debug_'. $region] = array();
+      
+      $zone['#regions'][$region]['#region'] = $region;
+      $zone['#regions'][$region]['#sorted'] = FALSE;
+      $zone['#regions'][$region]['omega_debug_'. $region]['#printed'] = FALSE;
+      $zone['#regions'][$region]['omega_debug_'. $region]['#theme_wrappers'] = array('block');
+      $zone['#regions'][$region]['omega_debug_'. $region]['#block'] = $block;
+      $zone['#regions'][$region]['omega_debug_'. $region]['#markup'] = '<div class="region-data">'.$region.'</div>';
+    }
+  }
+  */
+  if(element_children($zone['#regions'][$region])) { 
+    // pass data along down the chain to the region 
+    $zone['#regions'][$region]['#omega'] = array(
+      'classes' => isset($region_classes[$region]) ? $region_classes[$region] : array(),
+      'attributes' => array('id' => 'region-' . $region),
+      'page_data' => array(
+        'title_attributes_array' => $vars['title_attributes_array'],
+        'content_attributes_array' => $vars['content_attributes_array'],
+        'title_prefix' => $vars['title_prefix'],
+        'title_suffix' => $vars['title_suffix'],
+        'feed_icons' => $vars['feed_icons'],
+        'logo' => $vars['logo'],
+        'main_menu' => $vars['main_menu'],
+        'secondary_menu' => $vars['secondary_menu'],
+        'site_name' => $vars['site_name'],
+        'tabs' => $vars['tabs'],
+        'menu_data' => $vars['menu_data'],
+      ),
+    );
+  }
+  else {
+    unset($zone['#regions'][$region]);
+  }
 }
 
 
@@ -129,10 +221,12 @@ $vars['enabled'] = $zone['enabled'];
 $vars['populated'] = $zone['populated'];
 $vars['wrapper'] = $zone['wrapper'];
 $vars['zid'] = $zone['zid'];
+$vars['theme_hook_suggestions'] = $zone['#theme_hook_suggestions'];
 // moving the region data out of $vars['zone'] so that it can be rendered as before in zone.tpl.php
-$vars['regions'] = $zone['#regions'];
-
+$vars['regions'] = count($zone['#regions']) == 0 ? array('#printed' => TRUE) : $zone['#regions'];
 if($zone['zid'] == 'user') {
   //krumo($vars);
   //krumo($region_classes);
 }
+
+//krumo($vars);

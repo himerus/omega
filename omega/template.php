@@ -194,7 +194,7 @@ function omega_css_alter(&$css) {
 function omega_theme($existing, $type, $theme, $path) {
   //krumo($path);
   $hooks = array();
-  /*
+  
   $variables = array(
     'zid' => NULL, 
     'type' => NULL, 
@@ -204,7 +204,7 @@ function omega_theme($existing, $type, $theme, $path) {
     'container_width' => NULL, 
     'regions' => NULL
   );
-  */
+  
   $preprocess_functions = array(
     'template_preprocess', 
     'template_preprocess_zone',

@@ -140,7 +140,9 @@ $zones_before_content = array_slice($theme_zones, 0, $content_position, TRUE);
 $zones_after_content = array_slice($theme_zones, $content_position + 1, count($theme_zones), TRUE);
 
 foreach ($theme_zones as $zone_ref => $regions) {
+  
   $zone = array();
+  //$zone['zone'] = array();
   $zone['zid'] = $zone_ref;
   $zone['enabled'] = omega_theme_get_setting('omega_'. $zone_ref .'_enabled') || omega_theme_get_setting('omega_'. $zone_ref .'_enabled') == 0 ? omega_theme_get_setting('omega_'. $zone_ref .'_enabled') : 1;
   $zone['wrapper'] = omega_theme_get_setting('omega_'. $zone_ref .'_wrapper') ? omega_theme_get_setting('omega_'. $zone_ref .'_wrapper') : 0;
@@ -159,11 +161,11 @@ foreach ($theme_zones as $zone_ref => $regions) {
     }
     $zone['#regions'] = array();
     foreach($regions as $region) {
-      $zone['#regions'][$region] = isset($vars['page'][$region]) && is_array($vars['page'][$region]) ? $vars['page'][$region] : '';
+      $zone['#regions'][$region] = isset($vars['page'][$region]) && is_array($vars['page'][$region]) ? $vars['page'][$region] : array();
       // we need to unset the region in the main $vars['page'] array now so that it isn't 'printed' before we get to it
       unset($vars['page'][$region]);
     }
-    $zone['#theme_wrappers'][] = 'zone';
+    $zone['#theme'][] = 'zone';
     $zone['#zone'] = $zone['zid'];  
     $zone['#theme_hook_suggestions'][] = 'zone__' . $zone['zid'];
     $zone['#theme_hook_suggestions'][] = 'zone__' . $zone['type'];

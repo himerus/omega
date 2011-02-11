@@ -34,7 +34,7 @@
     <?php endif; ?>
   </div>
   
-  <?php if (isset($zones['zones_below'])): ?>
+  <?php if (isset($page['zones_below'])): ?>
   <div id="zones-below" class="clearfix"><?php print render($page['zones_below']); ?></div>
   <?php endif; ?>
 </div><!-- /#page -->
