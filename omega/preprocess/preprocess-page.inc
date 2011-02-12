@@ -78,17 +78,6 @@ else {
   }
 }
 
-// fix messages 
-// this should NOT be an empty string if it's freaking empty
-if (isset($vars['messages']) && strlen($vars['messages']) == 0) {
-  unset($vars['messages']);
-}
-// unset the action links array if it's empty
-if (!$vars['action_links']) {
-  unset($vars['action_links']);
-}
-
-
 
 
 
@@ -179,8 +168,15 @@ foreach ($theme_zones as $zone_ref => $regions) {
       $logo_img = $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $site_name_and_slogan . '" id="logo" />';
       $linked_logo_img = $vars['linked_logo_img'] = l($logo_img, '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)); 
     }
+    else {
+      $logo_img = $vars['logo_img'] = FALSE;
+      $linked_logo_img = $vars['linked_logo_img'] = FALSE;
+    }
     if (isset($vars['site_name'])) {
       $linked_site_name = $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
+    }
+    else {
+      $linked_site_name = $vars['linked_site_name'] = FALSE;
     }
     $title = drupal_set_title();
     $vars['title'] = !strlen($title) ? FALSE : $title;
