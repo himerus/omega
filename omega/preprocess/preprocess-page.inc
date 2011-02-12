@@ -78,28 +78,6 @@ else {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 global $theme_key, $theme_info;
 // theme_key is the name of the current theme
 $vars['theme_key'] = $theme_key;
@@ -208,9 +186,6 @@ foreach ($theme_zones as $zone_ref => $regions) {
     $zones[$zone['type']][$zone['zid']] = $zone;
   }
 }
-
-
-
 
 /**
   * Zone Assignments
