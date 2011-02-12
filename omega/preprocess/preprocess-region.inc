@@ -43,6 +43,6 @@ if(isset($vars['elements']['#omega'])) {
   }
 }
 
-if ($vars['region'] == 'user_bar_first') {
+if ($vars['region'] == 'branding') {
   //krumo($vars);
 }

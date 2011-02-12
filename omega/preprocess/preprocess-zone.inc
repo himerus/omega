@@ -59,10 +59,10 @@ foreach($zone_regions AS $region => $region_data) {
   // let's account for a couple special regions
   switch($region) {
     case 'branding':
-    //case 'menu':
-    //case 'breadcrumb':
+    case 'menu':
+    case 'breadcrumb':
       $zone['#regions'][$region]['#theme_wrappers']= array('region');
-      $zone['#regions'][$region]['#markup'] = 'CUSTOM';
+      $zone['#regions'][$region]['#markup'] = 'CUSTOM CONTENT rendered by custom region.tpl.php';
       $zone['#regions'][$region]['#region'] = $region;
       $zone['#regions'][$region]['#theme_hook_suggestions'][] = 'region__' . $region;
       $zone['#regions'][$region]['#theme_hook_suggestions'][] = 'region'; 
@@ -136,10 +136,9 @@ $region_order = array();
 foreach($zone_regions AS $region => $region_data) {
   $region_width = omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width');
   $region_data = is_array($zone_regions[$region]) ? $zone_regions[$region] : FALSE;
-  
   $regions[$region] = array(
     'data' => $region_data,
-    'width' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_width'),
+    'width' => $region_width,
     'spacing' => array(
       'prefix' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_prefix'),
       'suffix' => omega_theme_get_setting('omega_' . $zone['zid'] . '_' . $region . '_region_suffix')
@@ -167,7 +166,6 @@ foreach($zone_regions AS $region => $region_data) {
   }
 }
 
-
 // run the appropriate region builder
 // all this does is assign the appropriate 960.gs classes to the regions
 switch($zone['zone_type']) {
@@ -180,6 +178,17 @@ switch($zone['zone_type']) {
     break;
 }
 
+// Set any region disabled by a size of zero, set it to look like it was already printed,
+// making it not renderable again when drupal passes over the regions in the zone.
+foreach($zone_regions AS $region => $region_data) {
+  if(array_key_exists('hidden', $region_classes[$region])) {
+    // edge case; unset regions that are defined as zero width or "hidden"
+    $zone['#regions'][$region]['#printed'] = TRUE;
+    //krumo($region . ' should be hidden...');
+  }
+}
+
+
 // let's handle some special regions
 if(isset($zone['#omega'])) {
   $cvars = $zone['#omega']['page_data'];
@@ -190,23 +199,31 @@ if(isset($zone['#omega'])) {
 
 // cycle regions again and assign custom data for later rendering
 foreach($zone_regions AS $region => $region_data) {
-  if(element_children($zone['#regions'][$region])) { 
+  $special_regions = array('branding', 'menu', 'breadcrumb');
+  if(element_children($zone['#regions'][$region]) || in_array($region, $special_regions)) { 
     // pass data along down the chain to the region 
     $zone['#regions'][$region]['#omega'] = array(
       'classes' => isset($region_classes[$region]) ? $region_classes[$region] : array(),
       'attributes' => array('id' => 'region-' . $region),
       'page_data' => array(
-        'title_attributes_array' => $vars['title_attributes_array'],
         'content_attributes_array' => $vars['content_attributes_array'],
+        'title' => $vars['title'],
         'title_prefix' => $vars['title_prefix'],
         'title_suffix' => $vars['title_suffix'],
+        'title_attributes_array' => $vars['title_attributes_array'],
         'feed_icons' => $vars['feed_icons'],
         'logo' => $vars['logo'],
         'main_menu' => $vars['main_menu'],
         'secondary_menu' => $vars['secondary_menu'],
         'site_name' => $vars['site_name'],
+        'slogan' => $vars['slogan'],
+        'logo_img' => $vars['logo_img'],
+        'linked_logo_img' => $vars['linked_logo_img'],
+        'linked_site_name' => $vars['linked_site_name'],
         'tabs' => $vars['tabs'],
         'menu_data' => $vars['menu_data'],
+        'breadcrumb' => $vars['breadcrumb'],
+        'default_container_width' => $vars['default_container_width'],
       ),
     );
   }
@@ -224,6 +241,6 @@ $vars['theme_hook_suggestions'] = $zone['#theme_hook_suggestions'];
 $vars['regions'] = $zone['#regions'];
 
 
-if($zone['zid'] == 'branding') {
+if($zone['zid'] == 'content') {
   //krumo($vars);
 }

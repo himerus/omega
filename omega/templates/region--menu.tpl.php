@@ -1,5 +1,5 @@
 <?php
-// $Id: region--breadcrumb.tpl.php,v 1.1.2.1 2010/11/05 01:50:26 himerus Exp $
+// $Id: region--menu.tpl.php,v 1.1.2.1 2010/11/04 03:25:45 himerus Exp $
 
 /**
  * @file
@@ -29,7 +29,16 @@
  */
 ?>
 <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
-  <?php if ($content): ?>
-    <?php print $content; ?>
-  <?php endif; ?>
+  <div class="primary-navigation">
+    <?php if($main_menu): ?>
+    <div class="main-menu">
+      <?php print $main_menu; ?>
+    </div>
+    <?php endif; ?>
+    <?php if($secondary_menu): ?>
+    <div class="main-menu">
+      <?php print $secondary_menu; ?>
+    </div>
+    <?php endif; ?>
+  </div>
 </div>

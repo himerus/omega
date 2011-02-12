@@ -30,9 +30,9 @@
 ?>
 <?php if (isset($content)): ?>
   <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
-    <?php if(isset($title)): ?>
+    <?php if($title): ?>
       <?php print render($title_prefix); ?>
-        <h1 class="<?php print $title_classes; ?>" <?php print $title_attributes; ?>><?php print $title; ?></h1>
+        <h1 <?php print $title_attributes; ?>><?php print $title; ?></h1>
       <?php print render($title_suffix); ?>
     <?php endif; ?>
     <?php if (isset($tabs) && count($tabs) > 0): ?>

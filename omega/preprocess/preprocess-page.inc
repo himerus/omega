@@ -172,22 +172,42 @@ foreach ($theme_zones as $zone_ref => $regions) {
     $zone['#theme_hook_suggestions'][] = 'zone'; 
     
     // pass page level data to each zone so that it could be implemented anywhere (title, tabs, etc.)
+    $site_name = $vars['site_name'];
+    $site_name_and_slogan = $vars['site_name'] . ' ' . $vars['site_slogan'];
+    $vars['slogan'] = $vars['site_slogan'];
+    if (isset($vars['logo'])) {
+      $logo_img = $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $site_name_and_slogan . '" id="logo" />';
+      $linked_logo_img = $vars['linked_logo_img'] = l($logo_img, '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)); 
+    }
+    if (isset($vars['site_name'])) {
+      $linked_site_name = $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
+    }
+    $title = drupal_set_title();
+    $vars['title'] = !strlen($title) ? FALSE : $title;
+    $vars['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
     $zone['#omega'] = array(
-    'page_data' => array(
-      'title_attributes_array' => $vars['title_attributes_array'],
-      'content_attributes_array' => $vars['content_attributes_array'],
-      'title_prefix' => $vars['title_prefix'],
-      'title_suffix' => $vars['title_suffix'],
-      'feed_icons' => $vars['feed_icons'],
-      'logo' => $vars['logo'],
-      'main_menu' => $vars['main_menu'],
-      'secondary_menu' => $vars['secondary_menu'],
-      'site_name' => $vars['site_name'],
-      'tabs' => $vars['tabs'],
-      'menu_data' => $vars['menu_data'],
-      'default_container_width' => $vars['default_container_width']
-    ),
-  );    
+      'page_data' => array(
+        'content_attributes_array' => $vars['content_attributes_array'],
+        'title' => $vars['title'],
+        'title_prefix' => $vars['title_prefix'],
+        'title_suffix' => $vars['title_suffix'],
+        'title_attributes_array' => $vars['title_attributes_array'],
+        'feed_icons' => $vars['feed_icons'],
+        'logo' => $vars['logo'],
+        'main_menu' => $vars['main_menu'],
+        'secondary_menu' => $vars['secondary_menu'],
+        'site_name' => $vars['site_name'],
+        'slogan' => $vars['slogan'],
+        'logo_img' => $vars['logo_img'],
+        'linked_logo_img' => $vars['linked_logo_img'],
+        'linked_site_name' => $vars['linked_site_name'],
+        'tabs' => $vars['tabs'],
+        'menu_data' => $vars['menu_data'],
+        'breadcrumb' => $vars['breadcrumb'],
+        'default_container_width' => $vars['default_container_width'],
+      ),
+    );
+    
     // assign the zone to the proper group of zones
     $zones[$zone['type']][$zone['zid']] = $zone;
   }
@@ -226,4 +246,3 @@ foreach($after as $k => $zone) {
     $vars['page']['zones_below'][$zone] = $zones['after'][$zone];
   }
 }
-//krumo($vars);

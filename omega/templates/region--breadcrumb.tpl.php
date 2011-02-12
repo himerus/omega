@@ -27,19 +27,9 @@
  * @see template_process()
  * @see template_process_region()
  */
-//drupal_set_message('<strong>region--branding.tpl.php</strong> loaded... (omega)');
 ?>
 <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
-  <div class="primary-navigation">
-    <?php if($main_menu): ?>
-    <div class="main-menu">
-      <?php print $main_menu; ?>
-    </div>
-    <?php endif; ?>
-    <?php if($secondary_menu): ?>
-    <div class="main-menu">
-      <?php print $secondary_menu; ?>
-    </div>
-    <?php endif; ?>
-  </div>
+  <?php if (isset($breadcrumb)): ?>
+    <?php print $breadcrumb; ?>
+  <?php endif; ?>
 </div>
