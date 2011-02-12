@@ -5,8 +5,6 @@
  * @file 
  * Theme implementation to display a single Drupal page.
  */
- //drupal_set_message('<strong>page.tpl.php</strong> called (omega)');
- //krumo($page['zones_above']);
 ?>
 <div id="page" class="clearfix">
   <?php if (isset($page['zones_above'])): ?>

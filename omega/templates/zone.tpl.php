@@ -22,8 +22,6 @@
  * @see template_process()
  * @see template_process_zone()
  */
-  //drupal_set_message('<strong>zone.tpl.php</strong> called (omega)');
-  //krumo($zone);
 ?>
 
 <?php if($enabled && $populated): ?>
