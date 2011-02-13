@@ -95,12 +95,6 @@ $form['omega_general']['search_settings'] = array(
   '#collapsible' => TRUE,
   '#collapsed' => FALSE,
 );
-$form['omega_general']['search_settings']['omega_render_search_box'] = array(
-  '#type' => 'checkbox',
-  '#title' => t('Render tradional search box in theme.'),
-  '#description' => t('By default in Drupal 7, the search box is no longer rendered in the theme. Enabling this setting will recreate that Drupal 6 behavior, allowing the search box to be renderd in the theme, AND as a block elsewhere should you choose.'),
-  '#default_value' => omega_theme_get_setting('omega_render_search_box'),
-);
 $form['omega_general']['search_settings']['omega_search_default_text'] = array(
   '#type' => 'textfield',
   '#title' => t('Custom Default Search Text'),
