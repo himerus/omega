@@ -305,18 +305,19 @@ function omega_theme_registry_alter($registry) {
 
 function omega_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
-    // for some reason the login form links are above the submit button
-    // WTF
+    // add a login link to the horizontal login bar block
     case 'user_login_block':
-      $form['links']['#markup'] = "";
-      
-      $items = array();
-      $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
-      if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
-        $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
+      if(omega_theme_get_setting('user_login_form')) {
+        $form['links']['#markup'] = "";
+        
+        $items = array();
+        $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
+        if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
+          $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
+        }
+        $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+        $form['links']['#markup'] = theme('item_list', array('items' => $items));
       }
-      $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
-      $form['links']['#markup'] = theme('item_list', array('items' => $items));
       break;
   }
 }
