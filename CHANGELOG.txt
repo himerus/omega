@@ -39,10 +39,20 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 #0000000  - Fixing empty h1 in region--content.tpl.php
 #0000000  - Removing unmodified core templates in omega/omega/templates
 #0000000  - Syncing omega.info and omega_starterkit.info
-#0000000  - Starting work on turning zones into a renderable array
-          - This change makes this branch potentially unstable until complete
-          - Using github, you should only be using the master branch for now
-
+#1060320  - Starting work on turning zones into a renderable array
+          - Zones ARE now renderable arrays
+          - This requires editing page.tpl.php in order for content to render again
+          - Please compare the current version in omega starterkit for proper syntax
+          - See: http://drupal.org/node/1060320 for more information
+          
+#0000000  - Adding theme setting for form alters, currently only the login form links          
+#0000000  - Removing theme setting for traditional search block as it was not being used
+#0000000  - Cleaning up default region placements and sizing for omega/starterkit
+#0000000  - Omega BASE now usable again
+          - The starterkit and any subthemes WERE working, but Omega base wouldn't work
+          - should it have been enabled (which is not recommended anyway)
+          - the above modifications made Omega work standalone again.
+          
 
 ##########################################################################################
 ##### Changes in: 7.x-2.0-alpha11
