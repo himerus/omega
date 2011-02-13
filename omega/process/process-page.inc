@@ -7,6 +7,6 @@ if (isset($vars['messages']) && strlen($vars['messages']) == 0) {
 }
 
 // unset the action links array if it's empty
-if (isset($vars['action_links']) && strlen($vars['action_links']) == 0) {
+if (isset($vars['action_links']) && count($vars['action_links']) == 0) {
   unset($vars['action_links']);
 }
