@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /*
 ##########################################################################################
@@ -144,9 +143,11 @@ function omega_process_node(&$vars) {
   $vars['attributes'] .= drupal_attributes($vars['node_attributes']);
 }
 
+
 function omega_preprocess_zone(&$vars) {
   
 }
+
 function omega_process_zone(&$vars) {
   
 }
@@ -198,15 +199,6 @@ function omega_css_alter(&$css) {
  */
 function omega_theme($existing, $type, $theme, $path) {
   $hooks = array();
-  $variables = array(
-    'zid' => NULL, 
-    'type' => NULL, 
-    'enabled' => NULL, 
-    'wrapper' => NULL, 
-    'zone_type' => NULL, 
-    'container_width' => NULL, 
-    'regions' => NULL
-  );
   $preprocess_functions = array(
     'template_preprocess', 
     'template_preprocess_zone',
@@ -220,7 +212,9 @@ function omega_theme($existing, $type, $theme, $path) {
     'omega_process_zone'
   );
   $hooks['zone'] = array(
-    'variables' => $variables,
+    'template' => 'zone',
+    'path' => $path . '/templates',
+    'render element' => 'zone',
     'pattern' => 'zone__',
     'preprocess functions' => $preprocess_functions,
     'process functions' => $process_functions,
@@ -228,14 +222,6 @@ function omega_theme($existing, $type, $theme, $path) {
   return $hooks;
 }
 
-/**
- * Implements hook_theme_registry_alter()
- * 
- * @see http://api.drupal.org/api/function/hook_theme_registry_alter/7
- */
-function omega_theme_registry_alter($registry) {
-  
-}
 
 /**
  * Implements hook_page_alter
@@ -246,23 +232,26 @@ function omega_page_alter($page) {
 
 function omega_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
-    // for some reason the login form links are above the submit button
-    // WTF
+    // add a login link to the horizontal login bar block
     case 'user_login_block':
-      $form['links']['#markup'] = "";
-      
-      $items = array();
-      $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
-      if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
-        $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
+      if(omega_theme_get_setting('user_login_form')) {
+        $form['links']['#markup'] = "";
+        
+        $items = array();
+        $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
+        if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
+          $items[] = l(t('Register'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'))));
+        }
+        $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+        $form['links']['#markup'] = theme('item_list', array('items' => $items));
       }
-      $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
-      $form['links']['#markup'] = theme('item_list', array('items' => $items));
       break;
   }
 }
 
-
-
-
-
+// hook_html_head_alter().
+function omega_html_head_alter(&$head_elements) {
+  $head_elements['system_meta_content_type']['#attributes'] = array(
+    'charset' => 'utf-8',
+  );
+}

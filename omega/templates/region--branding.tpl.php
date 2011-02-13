@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * @file
@@ -27,7 +26,6 @@
  * @see template_process()
  * @see template_process_region()
  */
-//drupal_set_message('<strong>region--branding.tpl.php</strong> loaded... (omega)');
 ?>
 <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
   <div class="branding-data">
@@ -36,7 +34,7 @@
       <?php print $linked_logo_img; ?>
     </div>
     <?php endif; ?>
-    <div class="site-name-slogan">
+    <hgroup class="site-name-slogan">
       <?php if ($is_front): ?>
       <h1 class="site-title"><?php print $linked_site_name; ?></h1>
       <?php else: ?>
@@ -45,6 +43,6 @@
       <?php if(isset($slogan)): ?>
       <h6 class="site-slogan"><?php print $slogan; ?></h6>
       <?php endif; ?>
-    </div>
+    </hgroup>
   </div>
 </div>

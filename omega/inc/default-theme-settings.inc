@@ -1,5 +1,4 @@
 <?php
-// $Id$
 // General Settings
 $form['omega_general']['optional_css'] = array(
   '#type' => 'fieldset',
@@ -68,20 +67,32 @@ $form['omega_general']['optional_css']['custom_css'] = array(
   '#default_value' => omega_theme_get_setting('custom_css'),
   '#description' => t('custom.css provides some additional CSS that is module related, and not a part of core drupal. Can be disabled and used as a reference for certain items. Contributed CSS that is not directly related to core markup will be in this file.'),
 );
-
-  // Page titles
+if (arg(2) != 'delta') {
+  // Form Settings
+  $form['omega_general']['form_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Form Settings'),
+    '#description' => t('In this section, you can control various form elements throughout the site, and if Omega should perform alterations on those forms.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['omega_general']['form_settings']['user_login_form'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Modify Login Block'),
+    '#default_value' => omega_theme_get_setting('user_login_form'),
+    '#description' => t('<p>The links on the login form are somewhat ugly, and lack a way to add a link without writing over the #markup in the $form[links] section. This modification adds a login link inline with the password request and register links, making a horizontal login block much nicer.</p>'),
+  );
+  if (module_exists('delta')) {
+    $form['omega_general']['form_settings']['user_login_form']['#description'] .= t('<p><strong>Notice:</strong> This is a global setting, and is unaffected by Delta overrides.</p>');
+  }
+}
+// Page titles
 $form['omega_general']['search_settings'] = array(
   '#type' => 'fieldset',
   '#title' => t('Search Settings'),
   '#description' => t('You may configure search settings here.'),
   '#collapsible' => TRUE,
   '#collapsed' => FALSE,
-);
-$form['omega_general']['search_settings']['omega_render_search_box'] = array(
-  '#type' => 'checkbox',
-  '#title' => t('Render tradional search box in theme.'),
-  '#description' => t('By default in Drupal 7, the search box is no longer rendered in the theme. Enabling this setting will recreate that Drupal 6 behavior, allowing the search box to be renderd in the theme, AND as a block elsewhere should you choose.'),
-  '#default_value' => omega_theme_get_setting('omega_render_search_box'),
 );
 $form['omega_general']['search_settings']['omega_search_default_text'] = array(
   '#type' => 'textfield',

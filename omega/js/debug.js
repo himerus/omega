@@ -1,5 +1,3 @@
-//$Id$
-
 (function ($) {
   Drupal.grid_debug = function (context) {
     // add toolbar items

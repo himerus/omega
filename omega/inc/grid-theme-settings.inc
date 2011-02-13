@@ -1,5 +1,4 @@
 <?php
-// $Id$
 $themes = list_themes();
 $theme = $form_state['build_info']['args'][0];
 $settings_theme_info = $themes[$theme]->info;

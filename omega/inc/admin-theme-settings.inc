@@ -1,5 +1,4 @@
 <?php
-// $Id$
 // Administrative Settings
 // overlay toggle options
 

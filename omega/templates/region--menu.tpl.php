@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * @file
@@ -27,7 +26,6 @@
  * @see template_process()
  * @see template_process_region()
  */
-//drupal_set_message('<strong>region--branding.tpl.php</strong> loaded... (omega)');
 ?>
 <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
   <div class="primary-navigation">

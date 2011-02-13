@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * Returns HTML for a query pager.
