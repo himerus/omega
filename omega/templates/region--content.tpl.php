@@ -29,7 +29,8 @@
  */
 ?>
 <?php if (isset($content)): ?>
-  <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
+  <?php $tag = $title ? 'section' : 'div'; ?>
+  <<?php print $tag; ?> class="<?php print $classes; ?>" <?php print $attributes; ?>>
     <?php if($title): ?>
       <?php print render($title_prefix); ?>
         <h1 <?php print $title_attributes; ?>><?php print $title; ?></h1>
@@ -41,5 +42,5 @@
     <?php if(isset($content)): ?>
       <?php print $content; ?>
     <?php endif; ?>
-  </div>
+  </<?php print $tag; ?>>
 <?php endif; ?>

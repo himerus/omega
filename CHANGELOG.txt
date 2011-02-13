@@ -53,6 +53,8 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
           - should it have been enabled (which is not recommended anyway)
           - the above modifications made Omega work standalone again.
           
+#1060338  - Starting HTML5 upgrade on the html5 branch on github.
+          -           
 
 ##########################################################################################
 ##### Changes in: 7.x-2.0-alpha11

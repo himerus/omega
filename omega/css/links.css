@@ -1,4 +1,5 @@
-div.links {
+div.links,
+nav.links {
   margin-bottom: 10px;
 }
 ul.links {
