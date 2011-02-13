@@ -9,9 +9,9 @@
 ?>
 <div id="page" class="clearfix">
   <?php if (isset($page['zones_above'])): ?>
-  <div id="zones-above" class="clearfix"><?php print render($page['zones_above']); ?></div>
+  <header id="zones-above" class="clearfix"><?php print render($page['zones_above']); ?></header>
   <?php endif; ?>
-  <div id="zones-content" class="clearfix">
+  <section id="zones-content" class="clearfix">
     <?php if (isset($action_links)): ?>
       <div id="actions-container" class="container-<?php print $default_container_width; ?> clearfix">
         <div class="grid-<?php print $default_container_width; ?>">
@@ -31,9 +31,9 @@
     <?php if (isset($page['content_zone'])): ?>
       <?php print render($page['content_zone']); ?>
     <?php endif; ?>
-  </div>
+  </section>
   
   <?php if (isset($page['zones_below'])): ?>
-  <div id="zones-below" class="clearfix"><?php print render($page['zones_below']); ?></div>
+  <footer id="zones-below" class="clearfix"><?php print render($page['zones_below']); ?></footer>
   <?php endif; ?>
 </div><!-- /#page -->
