@@ -1,5 +1,3 @@
-//$Id: omega_admin.js,v 1.1.2.4 2010/11/15 02:52:31 himerus Exp $
-
 (function ($) {
   Drupal.behaviors.omegaAdmin = {
     attach: function (context) {

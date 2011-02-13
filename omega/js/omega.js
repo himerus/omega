@@ -1,4 +1,3 @@
-// $Id: omega.js,v 1.1.2.7 2010/12/13 23:45:39 himerus Exp $
 (function ($) {
   function populateElement(selector, defvalue) {
       if ($.trim($(selector).val()) == "") {

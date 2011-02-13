@@ -1,5 +1,4 @@
 <?php
-// $Id: grid-theme-settings.inc,v 1.1.2.14 2011/01/11 21:26:32 himerus Exp $
 $themes = list_themes();
 $theme = $form_state['build_info']['args'][0];
 $settings_theme_info = $themes[$theme]->info;

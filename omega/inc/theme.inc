@@ -1,5 +1,4 @@
 <?php
-// $Id: theme.inc,v 1.1.2.6 2011/01/10 22:27:35 himerus Exp $
 
 /**
  * Returns HTML for a query pager.

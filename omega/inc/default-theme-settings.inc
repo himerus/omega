@@ -1,5 +1,4 @@
 <?php
-// $Id: default-theme-settings.inc,v 1.1.2.8 2011/01/11 21:26:32 himerus Exp $
 // General Settings
 $form['omega_general']['optional_css'] = array(
   '#type' => 'fieldset',

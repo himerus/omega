@@ -1,4 +1,3 @@
-$Id: CHANGELOG.txt,v 1.1.2.11 2011/02/09 22:36:33 himerus Exp $
 ##########################################################################################
       _                _                                  _                     _
    __| | _____   _____| | ___  _ __  _ __ ___   ___ _ __ | |_    __ _  ___  ___| | _____
@@ -33,8 +32,8 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
 ##### Pending changes for Next Release
 ########################################################################################## 
 
-2/10/2011
-=========
+2/10/2011 - 2/13/2011
+=====================
 #0000000  - Fixing template diffs between base & starterkit
 #0000000  - Fixing empty h1 in region--content.tpl.php
 #0000000  - Removing unmodified core templates in omega/omega/templates
@@ -54,7 +53,12 @@ CHANGELOG.txt to start tracking changes/upgrade data for 7.x-2.x
           - the above modifications made Omega work standalone again.
           
 #1060338  - Starting HTML5 upgrade on the html5 branch on github.
-          -           
+          - HTML5 Update complete, and will require some level of template editing on 
+          - existing subthemes. Pay special attention to html.tpl.php, page.tpl.php and 
+          - node.tpl.php in your pre-existing subthemes. Any other templates you have 
+          - edited "may" require updating, if in doubt refer to templates in omega/omega          
+
+#0000000  - Removing all CVS id tags
 
 ##########################################################################################
 ##### Changes in: 7.x-2.0-alpha11

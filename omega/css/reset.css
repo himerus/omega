@@ -1,15 +1,3 @@
-/* $Id: reset.css,v 1.1.2.3 2011/01/11 02:47:46 himerus Exp $ */
-
-/**
- * Eric Meyer's Reset CSS
- *
- * v1.0 | 20080212
- * http://meyerweb.com/eric/tools/css/reset/
- *
- * Changes to the original Reset CSS:
- *   - "outline" attributes have been commented out for accessibility reasons
- */
-
 html, body, div {
   margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;
 }

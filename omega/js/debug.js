@@ -1,5 +1,3 @@
-//$Id: debug.js,v 1.1.2.2 2010/11/15 02:52:31 himerus Exp $
-
 (function ($) {
   Drupal.grid_debug = function (context) {
     // add toolbar items

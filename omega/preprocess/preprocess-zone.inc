@@ -1,5 +1,4 @@
 <?php
-// $Id: preprocess-zone.inc,v 1.1.2.5 2010/11/29 16:25:34 himerus Exp $
 
 /**
  * @file

@@ -1,5 +1,4 @@
 <?php
-// $Id: region--menu.tpl.php,v 1.1.2.1 2010/11/04 03:25:45 himerus Exp $
 
 /**
  * @file

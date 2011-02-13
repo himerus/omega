@@ -1,5 +1,4 @@
 <?php
-// $Id: page.tpl.php,v 1.1.2.10 2011/01/10 22:48:33 himerus Exp $
 
 /**
  * @file 

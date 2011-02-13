@@ -1,5 +1,4 @@
 <?php
-// $Id: zone.tpl.php,v 1.1.2.7 2011/01/17 00:02:05 himerus Exp $
 /**
  * @file
  * Default theme implementation to display a region.

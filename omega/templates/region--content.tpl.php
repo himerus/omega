@@ -1,5 +1,4 @@
 <?php
-// $Id: region--content.tpl.php,v 1.1.2.3 2011/02/03 22:33:10 himerus Exp $
 
 /**
  * @file

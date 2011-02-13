@@ -1,5 +1,4 @@
 <?php
-// $Id: preprocess-page.inc,v 1.1.2.18 2011/02/01 15:41:20 himerus Exp $
 
 /**
  * @file

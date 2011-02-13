@@ -1,5 +1,4 @@
 <?php
-// $Id: theme-settings.php,v 1.1.2.18 2011/01/17 13:35:08 himerus Exp $
 
 /**
  * @file

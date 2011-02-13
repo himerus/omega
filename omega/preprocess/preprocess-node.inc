@@ -1,5 +1,4 @@
 <?php
-// $Id: preprocess-node.inc,v 1.1.2.2 2010/11/09 03:21:37 himerus Exp $
 
 /**
  * @file

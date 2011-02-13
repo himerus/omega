@@ -1,6 +1,3 @@
-<?php
-// $Id: comment.tpl.php,v 1.2.4.7 2010/10/19 22:41:25 jmburnz Exp $
-?>
 <article class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <?php print $unpublished; ?>

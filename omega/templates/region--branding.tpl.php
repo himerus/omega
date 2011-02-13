@@ -1,5 +1,4 @@
 <?php
-// $Id: region--branding.tpl.php,v 1.1.2.3 2010/12/10 18:18:01 himerus Exp $
 
 /**
  * @file

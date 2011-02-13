@@ -1,5 +1,4 @@
 <?php
-// $Id: theme-functions.inc,v 1.1.2.17 2011/01/14 14:08:47 himerus Exp $
 
 /**
  * @file

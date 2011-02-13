@@ -1,5 +1,4 @@
 <?php
-// $Id: preprocess-region.inc,v 1.1.2.7 2010/12/28 18:14:32 himerus Exp $
 
 /**
  * @file

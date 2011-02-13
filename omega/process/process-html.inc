@@ -1,5 +1,4 @@
 <?php
-// $Id: process-html.inc,v 1.1.2.6 2011/01/11 21:26:32 himerus Exp $
 
 /**
  * @file
