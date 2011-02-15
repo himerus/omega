@@ -156,6 +156,7 @@ foreach ($theme_zones as $zone_ref => $regions) {
       $linked_site_name = $vars['linked_site_name'] = FALSE;
     }
     $title = drupal_set_title();
+    $vars['menu_data'] = isset($vars['menu_data']) ? $vars['menu_data'] : FALSE;
     $vars['title'] = !strlen($title) ? FALSE : $title;
     $vars['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
     $zone['#omega'] = array(
