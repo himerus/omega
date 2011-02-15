@@ -41,7 +41,3 @@ if(isset($vars['elements']['#omega'])) {
     $vars[$var] = $val;
   }
 }
-
-if ($vars['region'] == 'branding') {
-  //krumo($vars);
-}

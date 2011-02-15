@@ -196,6 +196,7 @@ if(isset($zone['#omega'])) {
   }
 }
 
+$vars['menu_data'] = isset($vars['menu_data']) ? $vars['menu_data'] : FALSE;
 // cycle regions again and assign custom data for later rendering
 foreach($zone_regions AS $region => $region_data) {
   $special_regions = array('branding', 'menu', 'breadcrumb');
@@ -204,6 +205,7 @@ foreach($zone_regions AS $region => $region_data) {
     $zone['#regions'][$region]['#omega'] = array(
       'classes' => isset($region_classes[$region]) ? $region_classes[$region] : array(),
       'attributes' => array('id' => 'region-' . $region),
+      'zid' => $zone['zid'],
       'page_data' => array(
         'content_attributes_array' => $vars['content_attributes_array'],
         'title' => $vars['title'],
@@ -238,8 +240,3 @@ $vars['zid'] = $zone['zid'];
 $vars['theme_hook_suggestions'] = $zone['#theme_hook_suggestions'];
 // moving the region data out of $vars['zone'] so that it can be rendered as before in zone.tpl.php
 $vars['regions'] = $zone['#regions'];
-
-
-if($zone['zid'] == 'content') {
-  //krumo($vars);
-}
