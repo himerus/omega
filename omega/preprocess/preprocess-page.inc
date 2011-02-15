@@ -22,7 +22,7 @@ if(omega_theme_get_setting('debug_block_toggle')) {
     'omega_debug_regions' => $region_js,
   );
   drupal_add_js($block_settings, 'setting');
-  drupal_add_js(drupal_get_path('theme', 'omega') . '/js/debug_blocks.js', array('weight' => 1000, 'type' => 'file'));
+  //drupal_add_js(drupal_get_path('theme', 'omega') . '/js/debug_blocks.js', array('weight' => 1000, 'type' => 'file'));
 }
 if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu')) {
   $menu_depth = omega_theme_get_setting('omega_menu_depth') ? omega_theme_get_setting('omega_menu_depth') : 1;
