@@ -34,8 +34,10 @@ CHANGELOG.txt to track changes to the Omega theme.
 
 2/16/2011
 =========
+#1061500  - FIXING: Additional Region Classes not being Applied
+#1063780  - Add first/last & zebra classes to the regions in a zone
 #1062418  - Zebra class + first/last classes for blocks
-#1062780  - Php varnings when posting a comment
+#1062780  - PHP varnings when posting a comment
 
 ##########################################################################################
 ##### Changes in: 7.x-2.0-beta2

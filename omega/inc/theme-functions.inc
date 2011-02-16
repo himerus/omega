@@ -79,6 +79,8 @@ function omega_order_reorder($o) {
 function static_region_builder($regions, $container_width) {
   // let's cycle the region data, and determine what we have
   $region_classes = array();
+  $count = count($regions);
+  $current = 1;
   foreach ($regions AS $region => $info) {
     // if we do have content for this region, let's create it.
     $region_classes[$region] = array();
@@ -97,6 +99,17 @@ function static_region_builder($regions, $container_width) {
     // zero in theme settings should NOT render at all... 
     if ($info['width'] == 0) {
       $region_classes[$region]['hidden'] = TRUE;
+    }
+    else {
+      // apply some first/last classes & zebra striping
+      if($current == 1) {
+        $region_classes[$region][] = 'first';
+      }
+      elseif($current == $count) {
+        $region_classes[$region][] = 'last';
+      }
+      $region_classes[$region][] = ($current % 2) ? 'odd' : 'even';
+      $current++;
     }
   }
   return $region_classes;
@@ -149,6 +162,8 @@ function _omega_dynamic_widths($info, $regions, $container) {
  */
 function dynamic_region_builder($region_data, $container_width, $region_order) {
   $region_classes = array();
+  $count = count($region_order) - 1;
+  $current = 1;
   // let's cycle the region data, and determine what we have
   foreach ($region_data AS $region => $info) {
     $region_classes[$region] = array();
@@ -195,7 +210,16 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
       if($push) {
         $region_classes[$region][] = $push; 
       }
-      
+      if($region_order[0] == $region) {
+        $region_classes[$region][] = 'first'; 
+      }
+      if($region_order[$count] == $region) {
+        $region_classes[$region][] = 'last'; 
+      }
+      $item_loc = array_search($region, $region_order);
+      $item_zebra = (int) $item_loc;
+      $region_classes[$region][] = (($item_zebra + 1) % 2) ? 'odd' : 'even';
+      $current++;
     }
     
   }
