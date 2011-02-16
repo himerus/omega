@@ -22,3 +22,13 @@ if(isset($block_data->subject) && strlen($block_data->subject) == 0) {
   // in those cases, we want to chop out that lower border.
   $vars['classes_array'][] = 'block-without-title';
 }
+
+// add odd/even zebra classes into the array of classes
+$vars['classes_array'][] = $vars['block_zebra'];
+if($vars['block_id'] == 1) {
+  $vars['classes_array'][] = 'first';
+}
+// The last_in_region property is set in omega_page_alter().
+if (isset($vars['block']->last_in_region)) {
+  $vars['classes_array'][] = 'last';
+}
