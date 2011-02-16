@@ -227,7 +227,28 @@ function omega_theme($existing, $type, $theme, $path) {
  * Implements hook_page_alter
  */
 function omega_page_alter($page) {
-
+/**
+ * Implements hook_page_alter().
+ *
+ * Look for the last block in the region. This is impossible to determine from
+ * within a preprocess_block function.
+ *
+ * @param $page
+ *   Nested array of renderable elements that make up the page.
+ */
+  // Look in each visible region for blocks.
+  foreach (system_region_list($GLOBALS['theme'], REGIONS_VISIBLE) as $region => $name) {
+    if (!empty($page[$region])) {
+      // Find the last block in the region.
+      $blocks = array_reverse(element_children($page[$region]));
+      while ($blocks && !isset($page[$region][$blocks[0]]['#block'])) {
+        array_shift($blocks);
+      }
+      if ($blocks) {
+        $page[$region][$blocks[0]]['#block']->last_in_region = TRUE;
+      }
+    }
+  }
 }
 
 function omega_form_alter(&$form, &$form_state, $form_id) {

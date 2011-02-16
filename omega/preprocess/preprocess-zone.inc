@@ -205,6 +205,7 @@ foreach($zone_regions AS $region => $region_data) {
     $zone['#regions'][$region]['#omega'] = array(
       'classes' => isset($region_classes[$region]) ? $region_classes[$region] : array(),
       'attributes' => array('id' => 'region-' . $region),
+      'zid' => $zone['zid'],
       'page_data' => array(
         'content_attributes_array' => $vars['content_attributes_array'],
         'title' => $vars['title'],

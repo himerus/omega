@@ -22,7 +22,6 @@ if(omega_theme_get_setting('debug_block_toggle')) {
     'omega_debug_regions' => $region_js,
   );
   drupal_add_js($block_settings, 'setting');
-  //drupal_add_js(drupal_get_path('theme', 'omega') . '/js/debug_blocks.js', array('weight' => 1000, 'type' => 'file'));
 }
 if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu')) {
   $menu_depth = omega_theme_get_setting('omega_menu_depth') ? omega_theme_get_setting('omega_menu_depth') : 1;
@@ -156,9 +155,9 @@ foreach ($theme_zones as $zone_ref => $regions) {
       $linked_site_name = $vars['linked_site_name'] = FALSE;
     }
     $title = drupal_set_title();
-    $vars['menu_data'] = isset($vars['menu_data']) ? $vars['menu_data'] : FALSE;
     $vars['title'] = !strlen($title) ? FALSE : $title;
     $vars['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
+    $vars['menu_data'] = isset($vars['menu_data']) ? $vars['menu_data'] : FALSE;
     $zone['#omega'] = array(
       'page_data' => array(
         'content_attributes_array' => $vars['content_attributes_array'],
