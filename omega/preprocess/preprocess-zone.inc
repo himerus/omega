@@ -46,15 +46,6 @@ $populated = FALSE;
 $zone_regions = $zone['#regions'];
 $block_debug = omega_theme_get_setting('debug_block_toggle', FALSE);
 foreach($zone_regions AS $region => $region_data) {
-  
-  
-  
-  
-  
-  
-  
-  
-  
   // let's account for a couple special regions
   switch($region) {
     case 'branding':
@@ -67,16 +58,6 @@ foreach($zone_regions AS $region => $region_data) {
       $zone['#regions'][$region]['#theme_hook_suggestions'][] = 'region'; 
     break;
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   // if we've turned on region debugging, let's create some dummy blocks. :)
   if($block_debug) {
     global $theme_info;

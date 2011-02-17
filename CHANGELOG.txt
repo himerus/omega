@@ -32,6 +32,9 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+2/17/2011
+=========
+#0000000  - Adding an XHTML Starterkit for those that don't want to use HTML5
 
 
 ##########################################################################################

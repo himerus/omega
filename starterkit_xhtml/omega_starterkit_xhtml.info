@@ -7,8 +7,8 @@
 ;                              |_|                               |___/
 ;##########################################################################################
 
-name        = Omega HTML5 Starter Kit
-description = HTML5 Starterkit for <a href="http://himer.us/omega960"><strong>Omega</strong></a>. Make a copy of this subtheme to get started building your own <strong>Omega</strong> theme. For help see our <a href="http://himer.us/omega960"><strong>documentation</strong></a> and <a href="http://himerus.com"><strong>video</strong></a> tutorials. If you have a problem and need additional support please use the <a href="http://drupal.org/project/issues/omega"><strong>issue queue</strong></a>. Don't forget also to download and enable the <a href="http://himer.us/delta-module"><strong>Delta</strong></a> module for contextual layouts.
+name        = Omega XHTML Starter Kit
+description = XHTML Starterkit for <a href="http://himer.us/omega960"><strong>Omega</strong></a>. Make a copy of this subtheme to get started building your own <strong>Omega</strong> theme. For help see our <a href="http://himer.us/omega960"><strong>documentation</strong></a> and <a href="http://himerus.com"><strong>video</strong></a> tutorials. If you have a problem and need additional support please use the <a href="http://drupal.org/project/issues/omega"><strong>issue queue</strong></a>. Don't forget also to download and enable the <a href="http://himer.us/delta-module"><strong>Delta</strong></a> module for contextual layouts.
 screenshot = screenshot.png
 core       = 7.x
 base theme = omega
