@@ -4,6 +4,8 @@
  * @file
  * Contents of omega_preprocess_html().
  */
+
+$vars['rdf'] = new stdClass;
 if (module_exists('rdf')) {
   $vars['doctype'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">' . "\n";
   $vars['rdf']->version = ' version="HTML+RDFa 1.1"';
@@ -16,7 +18,6 @@ else {
   $vars['rdf']->namespaces = '';
   $vars['rdf']->profile = '';
 }
-  
 // grid debugging
 global $user, $theme_key, $theme_info;
 $debug_access = FALSE;
