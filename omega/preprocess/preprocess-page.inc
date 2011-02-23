@@ -23,6 +23,7 @@ if(omega_theme_get_setting('debug_block_toggle')) {
   );
   drupal_add_js($block_settings, 'setting');
 }
+
 if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu')) {
   $menu_depth = omega_theme_get_setting('omega_menu_depth') ? omega_theme_get_setting('omega_menu_depth') : 1;
   // render the menus as nested ULs to style up some drop downs.
