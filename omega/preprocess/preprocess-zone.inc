@@ -51,8 +51,10 @@ foreach($zone_regions AS $region => $region_data) {
     case 'branding':
     case 'menu':
     case 'breadcrumb':
+      // we have now made branding and menu REAL regions, but if they aren't defined in the .info file
+      // for an existing subtheme, they must be dynamically created.
+      // this will be skipped over for new subthemes
       $zone['#regions'][$region]['#theme_wrappers']= array('region');
-      $zone['#regions'][$region]['#markup'] = 'CUSTOM CONTENT rendered by custom region.tpl.php';
       $zone['#regions'][$region]['#region'] = $region;
       $zone['#regions'][$region]['#theme_hook_suggestions'][] = 'region__' . $region;
       $zone['#regions'][$region]['#theme_hook_suggestions'][] = 'region'; 
@@ -195,6 +197,7 @@ foreach($zone_regions AS $region => $region_data) {
         'title_attributes_array' => $vars['title_attributes_array'],
         'feed_icons' => $vars['feed_icons'],
         'logo' => $vars['logo'],
+        'menu_type' => $vars['menu_type'],
         'main_menu' => $vars['main_menu'],
         'secondary_menu' => $vars['secondary_menu'],
         'site_name' => $vars['site_name'],

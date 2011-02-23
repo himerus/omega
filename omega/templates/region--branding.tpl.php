@@ -45,4 +45,5 @@
       <?php endif; ?>
     </hgroup>
   </div>
+  <?php print $content; ?>
 </div>

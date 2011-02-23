@@ -240,10 +240,42 @@ $form['omega_general']['menu'] = array(
   '#collapsible' => TRUE,
   '#collapsed' => FALSE,
 );
+
+
+
+/**
+ * Changing the menu structures for Omega. Using menus as blocks seems to be the new preferred method, and 
+ * where Drupal will be going.
+ * However, to not break the implementations on current sites, the Omega Dropdowns will stay in place.
+ * For sites without the theme setting set at all (existing sites) This value will still be set to 'omega'
+ * For new sites, the default will be 'drupal'
+ *
+ * It is highly recommended to use a module like Superfish or Nice Menus for dropdown menus, and not rely
+ * on the theme for this functionality
+ */
+
+// the default value here IS 'omgea', which will prevent breaking of existing sites running Omega.
+$menu_type = omega_theme_get_setting('omega_menu_type') ? omega_theme_get_setting('omega_menu_type') : 'omega';
+$form['omega_general']['menu']['omega_menu_type'] = array(
+  '#type' => 'radios',
+  '#description' => t('Select the type of menus to generate.'),
+  '#title' => t('Menu Type'),
+  '#default_value' => $menu_type,
+  '#options' => array(
+    'omega' => t('Omega Dropdown Menus (To be phased out)'),
+    'drupal' => t('Drupal Default Primary/Secondary Menus (default)'),
+    'none' => t('No Menu (Rely on menu blocks and/or contributed modules (Recommended)'),
+  ),
+);
 $form['omega_general']['menu']['omega_menu_depth'] = array(
   '#type' => 'select',
   '#title' => t('Depth of menu to display'),
   '#description' => t('<p>If in your menu settings, you have selected to use the same menu for primary & secondary navigations, Omega will render the menu as dropdown menus assuming you have menu.css enabled in the Optional CSS section of your theme settings.</p><p>This option will determine how deep your menus will be. 1 level only shows the top level, 2 shows the top level plus the next level down, etc.</p>'),
   '#default_value' => omega_theme_get_setting('omega_menu_depth'),
   '#options' => $menu_depth,
+  '#states' => array(
+    'visible' => array(
+      ':input[name="omega_menu_type"]' => array('value' => t('omega')),
+    ),
+  ),
 );

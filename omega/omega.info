@@ -38,6 +38,9 @@ regions[content] = Content
 regions[user_bar_first] = User Bar First
 regions[user_bar_second] = User Bar Second
 
+regions[branding] = Branding
+regions[menu] = Menu
+
 regions[sidebar_first] = Sidebar First
 regions[sidebar_second] = Sidebar Second
 
@@ -263,6 +266,7 @@ settings[omega_breadcrumb_separator] = ' / '
 settings[omega_breadcrumb_home] = '1'
 settings[omega_breadcrumb_trailing] = '1'
 settings[omega_breadcrumb_title] = '1'
+settings[omega_menu_type] = 'drupal'
 settings[omega_menu_depth] = '5'
 settings[debug_block_toggle] = '0'
 settings[debug_grid_toggle] = ''
