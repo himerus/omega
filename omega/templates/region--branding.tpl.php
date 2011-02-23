@@ -28,7 +28,7 @@
  */
 ?>
 <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
-  <div class="branding-data">
+  <div class="branding-data clearfix">
     <?php if(isset($linked_logo_img)): ?>
     <div class="logo-img">
       <?php print $linked_logo_img; ?>
