@@ -32,6 +32,10 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+2/24/2011
+=========
+#1071666  - Missing page titles
+
 2/23/2011
 =========
 #1070640  - Make Branding & Menu regions "real" regions
