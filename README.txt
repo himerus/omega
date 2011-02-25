@@ -32,6 +32,8 @@ and theme your site...
 
 Additional 960gs/Omega Resources
 ================================
+  * http://himer.us/omega960 - Informational
+
   * http://himerus.com - for various videos on the Omega theme
   
   * http://himerus.com/drupalcamp-montreal-advanced-960gs-theming-omega
