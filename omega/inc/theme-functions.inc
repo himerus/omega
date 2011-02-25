@@ -79,6 +79,8 @@ function omega_order_reorder($o) {
 function static_region_builder($regions, $container_width) {
   // let's cycle the region data, and determine what we have
   $region_classes = array();
+  $count = count($regions);
+  $current = 1;
   foreach ($regions AS $region => $info) {
     // if we do have content for this region, let's create it.
     $region_classes[$region] = array();
@@ -91,6 +93,23 @@ function static_region_builder($regions, $container_width) {
           $region_classes[$region][] = ns($attribute . '-' . $value);
         } 
       }
+    }
+    // there is an edge case where if set to zero, a region will not get a grid class,
+    // which will cause issues with rendering. In theory, a region with a width set to
+    // zero in theme settings should NOT render at all... 
+    if ($info['width'] == 0) {
+      $region_classes[$region]['hidden'] = TRUE;
+    }
+    else {
+      // apply some first/last classes & zebra striping
+      if($current == 1) {
+        $region_classes[$region][] = 'first';
+      }
+      elseif($current == $count) {
+        $region_classes[$region][] = 'last';
+      }
+      $region_classes[$region][] = ($current % 2) ? 'odd' : 'even';
+      $current++;
     }
   }
   return $region_classes;
@@ -143,6 +162,8 @@ function _omega_dynamic_widths($info, $regions, $container) {
  */
 function dynamic_region_builder($region_data, $container_width, $region_order) {
   $region_classes = array();
+  $count = count($region_order) - 1;
+  $current = 1;
   // let's cycle the region data, and determine what we have
   foreach ($region_data AS $region => $info) {
     $region_classes[$region] = array();
@@ -169,6 +190,12 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
           }
         }
       }
+      // there is an edge case where if set to zero, a region will not get a grid class,
+      // which will cause issues with rendering. In theory, a region with a width set to
+      // zero in theme settings should NOT render at all... 
+      if ($width == 0) {
+        $region_classes[$region]['hidden'] = TRUE;
+      }
 
       // assign push/pull classes
       $region_movement = _omega_dynamic_zones($region, $region_data, $region_order, $container_width);
@@ -183,7 +210,16 @@ function dynamic_region_builder($region_data, $container_width, $region_order) {
       if($push) {
         $region_classes[$region][] = $push; 
       }
-      
+      if($region_order[0] == $region) {
+        $region_classes[$region][] = 'first'; 
+      }
+      if($region_order[$count] == $region) {
+        $region_classes[$region][] = 'last'; 
+      }
+      $item_loc = array_search($region, $region_order);
+      $item_zebra = (int) $item_loc;
+      $region_classes[$region][] = (($item_zebra + 1) % 2) ? 'odd' : 'even';
+      $current++;
     }
     
   }
@@ -198,41 +234,38 @@ function _omega_dynamic_zones($region, $regions, $order, $width) {
   $actual_order = array_keys($regions);
   $actual_position = array_search($region, $actual_order);
   $desired_position = array_search($region, $order);
-    foreach($actual_order as $delta => $region_id) {
-      // don't react if the region is the one we are testing
-      if ($region != $region_id) {  
-        // get the actual position of the region we are testing against
-        $t_actual = $delta;
-        // get the desired positon of the region we are testing against.
-        $t_desired = array_search($region_id, $order);
-        
-        if($regions[$region_id]['data'] && ($t_actual < $actual_position) && ($t_desired > $desired_position)) {
-          $value['pull'] = $value['pull'] + omega_actual_region_width($regions[$region_id]);
+  foreach($actual_order as $delta => $region_id) {
+    // don't react if the region is the one we are testing
+    if ($region != $region_id) {  
+      // get the actual position of the region we are testing against
+      $t_actual = $delta;
+      // get the desired positon of the region we are testing against.
+      $t_desired = array_search($region_id, $order);
+      
+      if($regions[$region_id]['data'] && ($t_actual < $actual_position) && ($t_desired > $desired_position)) {
+        $value['pull'] = $value['pull'] + omega_actual_region_width($regions[$region_id]);
+      }
+      if($regions[$region_id]['data'] && ($t_actual > $actual_position) && ($t_desired < $desired_position)) {
+        $value['push'] = $value['push'] + omega_actual_region_width($regions[$region_id]);
+      }
+      // possible solution for that edge cases mentioned above (position in the 
+      // array doesn't change, but the position itself needs to.... hrm...)
+      if ($value['push'] > 0 && $value['pull'] > 0) {
+        if ($value['push'] > $value['pull']) {
+          $value['push'] = $value['push'] - $value['pull'];
+          $value['pull'] = 0;
         }
-        if($regions[$region_id]['data'] && ($t_actual > $actual_position) && ($t_desired < $desired_position)) {
-          $value['push'] = $value['push'] + omega_actual_region_width($regions[$region_id]);
+        elseif ($value['push'] < $value['pull']) {
+          $value['pull'] = $value['pull'] - $value['push'];
+          $value['push'] = 0;
         }
-        
-        // possible solution for that edge cases mentioned above (position in the 
-        // array doesn't change, but the position itself needs to.... hrm...)
-        if ($value['push'] > 0 && $value['pull'] > 0) {
-          //$value['push'] = 0;
-          //$value['pull'] = $regions[$region]['width'];
-          if ($value['push'] > $value['pull']) {
-            $value['push'] = $value['push'] - $value['pull'];
-            $value['pull'] = 0;
-          }
-          elseif ($value['push'] < $value['pull']) {
-            $value['pull'] = $value['pull'] - $value['push'];
-            $value['push'] = 0;
-          }
-          elseif ($value['push'] == $value['pull']) {
-            $value['push'] = 0;
-            $value['pull'] = 0;
-          }
+        elseif ($value['push'] == $value['pull']) {
+          $value['push'] = 0;
+          $value['pull'] = 0;
         }
       }
     }
+  }  
   return $value;
 }
 
@@ -272,17 +305,20 @@ function omega_menu_structure($menu) {
  * Provides the ability for Omega theme settings to be overwritten by
  * the Delta module, providing contextual theme settings.
  */
-function omega_theme_get_setting($var) {
-  GLOBAL $delta_template;
+function omega_theme_get_setting($var, $theme = NULL) {
+  GLOBAL $delta_template, $theme_key;
+  if (!$theme) {
+    $theme = $theme_key;
+  }
   if (!isset($delta_template) || !variable_get($delta_template) || !module_exists('delta')) {
     // just return the var as normal/provide default value from the theme
-    return theme_get_setting($var); 
+    return theme_get_setting($var, $theme); 
   }
   else {
     // this will return the same value for the original var, but the value
     // stored in the appropriate delta template
     $variable = variable_get($delta_template);
-    $return = isset($variable[$var]) ? $variable[$var] : theme_get_setting($var);
+    $return = isset($variable[$var]) ? $variable[$var] : theme_get_setting($var, $theme);
     return $return;
   }
 }

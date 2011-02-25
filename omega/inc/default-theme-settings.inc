@@ -39,9 +39,9 @@ $form['omega_general']['optional_css']['link_css'] = array(
 );
 $form['omega_general']['optional_css']['form_css'] = array(
   '#type' => 'checkbox',
-  '#title' => t('Enable forms.css'),
+  '#title' => t('Enable forms.css & formalize.css'),
   '#default_value' => omega_theme_get_setting('form_css'),
-  '#description' => t('forms.css provides enhancements to the default form styles.'),
+  '#description' => t('forms.css provides enhancements to the default form styles. formalize.css is also added via this setting. More about formalize.css can be found at <a href="http://formalize.me">formalize.me</a>'),
 );
 $form['omega_general']['optional_css']['pager_css'] = array(
   '#type' => 'checkbox',
@@ -67,28 +67,47 @@ $form['omega_general']['optional_css']['custom_css'] = array(
   '#default_value' => omega_theme_get_setting('custom_css'),
   '#description' => t('custom.css provides some additional CSS that is module related, and not a part of core drupal. Can be disabled and used as a reference for certain items. Contributed CSS that is not directly related to core markup will be in this file.'),
 );
-
-  // Page titles
-$form['omega_general']['search_settings'] = array(
-  '#type' => 'fieldset',
-  '#title' => t('Search Settings'),
-  '#description' => t('You may configure search settings here.'),
-  '#collapsible' => TRUE,
-  '#collapsed' => FALSE,
-);
-$form['omega_general']['search_settings']['omega_render_search_box'] = array(
-  '#type' => 'checkbox',
-  '#title' => t('Render tradional search box in theme.'),
-  '#description' => t('By default in Drupal 7, the search box is no longer rendered in the theme. Enabling this setting will recreate that Drupal 6 behavior, allowing the search box to be renderd in the theme, AND as a block elsewhere should you choose.'),
-  '#default_value' => omega_theme_get_setting('omega_render_search_box'),
-);
-$form['omega_general']['search_settings']['omega_search_default_text'] = array(
-  '#type' => 'textfield',
-  '#title' => t('Custom Default Search Text'),
-  '#size' => 60,
-  '#default_value' => omega_theme_get_setting('omega_search_default_text'),
-  '#description' => t('Enter default value to use in search boxes.'),
-);
+if (arg(2) != 'delta') {
+  // Form Settings
+  $form['omega_general']['form_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Form Settings'),
+    '#description' => t('In this section, you can control various form elements throughout the site, and if Omega should perform alterations on those forms.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['omega_general']['form_settings']['user_login_form'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Modify Login Block'),
+    '#default_value' => omega_theme_get_setting('user_login_form'),
+    '#description' => t('<p>The links on the login form are somewhat ugly, and lack a way to add a link without writing over the #markup in the $form[links] section. This modification adds a login link inline with the password request and register links, making a horizontal login block much nicer.</p>'),
+  );
+  if (module_exists('delta')) {
+    $form['omega_general']['form_settings']['user_login_form']['#description'] .= t('<p><strong>Notice:</strong> This is a global setting, and is unaffected by Delta overrides.</p>');
+  }
+  $form['omega_general']['form_settings']['user_login_name_placeholder'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Placeholder text for Username Field'),
+    '#size' => 60,
+    '#default_value' => omega_theme_get_setting('user_login_name_placeholder'),
+    '#description' => t('Only works via HTML5 aware browsers.'),
+  );
+  $form['omega_general']['form_settings']['user_login_pass_placeholder'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Placeholder text for Password Field'),
+    '#size' => 60,
+    '#default_value' => omega_theme_get_setting('user_login_pass_placeholder'),
+    '#description' => t('Only works via HTML5 aware browsers.'),
+  );
+  $form['omega_general']['form_settings']['omega_search_default_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Placeholder text for Search field'),
+    '#size' => 60,
+    '#default_value' => omega_theme_get_setting('omega_search_default_text'),
+    '#description' => t('Only works via HTML5 aware browsers.'),
+  );
+}
+// Page titles
 $form['omega_general']['page_format_titles'] = array(
   '#type' => 'fieldset',
   '#title' => t('Page titles'),
@@ -228,10 +247,42 @@ $form['omega_general']['menu'] = array(
   '#collapsible' => TRUE,
   '#collapsed' => FALSE,
 );
+
+
+
+/**
+ * Changing the menu structures for Omega. Using menus as blocks seems to be the new preferred method, and 
+ * where Drupal will be going.
+ * However, to not break the implementations on current sites, the Omega Dropdowns will stay in place.
+ * For sites without the theme setting set at all (existing sites) This value will still be set to 'omega'
+ * For new sites, the default will be 'drupal'
+ *
+ * It is highly recommended to use a module like Superfish or Nice Menus for dropdown menus, and not rely
+ * on the theme for this functionality
+ */
+
+// the default value here IS 'omgea', which will prevent breaking of existing sites running Omega.
+$menu_type = omega_theme_get_setting('omega_menu_type') ? omega_theme_get_setting('omega_menu_type') : 'omega';
+$form['omega_general']['menu']['omega_menu_type'] = array(
+  '#type' => 'radios',
+  '#description' => t('Select the type of menus to generate.'),
+  '#title' => t('Menu Type'),
+  '#default_value' => $menu_type,
+  '#options' => array(
+    'omega' => t('Omega Dropdown Menus (To be phased out)'),
+    'drupal' => t('Drupal Default Primary/Secondary Menus (default)'),
+    'none' => t('No Menu (Rely on menu blocks and/or contributed modules (Recommended)'),
+  ),
+);
 $form['omega_general']['menu']['omega_menu_depth'] = array(
   '#type' => 'select',
   '#title' => t('Depth of menu to display'),
   '#description' => t('<p>If in your menu settings, you have selected to use the same menu for primary & secondary navigations, Omega will render the menu as dropdown menus assuming you have menu.css enabled in the Optional CSS section of your theme settings.</p><p>This option will determine how deep your menus will be. 1 level only shows the top level, 2 shows the top level plus the next level down, etc.</p>'),
   '#default_value' => omega_theme_get_setting('omega_menu_depth'),
   '#options' => $menu_depth,
+  '#states' => array(
+    'visible' => array(
+      ':input[name="omega_menu_type"]' => array('value' => t('omega')),
+    ),
+  ),
 );

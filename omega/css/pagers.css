@@ -1,19 +1,3 @@
-
-/**
- * Omega, for Drupal 6.x
- * Jake Strawn - http://himerus.com
- * Project Page - http://drupal.org/project/omega
- *
- * The defaults.css file is the default set of default styles
- * normally available with the Omega base theme.
- * All of these styles are easily overwritten, but here to give
- * a bit more "sexy" right out of the box.
- *
- *
- * Default stylesheet for clean pagers
- */
-
-
 /* Pagers Positioning #################################################### */
 .item-list .pager {
   padding:0;

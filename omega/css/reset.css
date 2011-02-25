@@ -1,34 +1,37 @@
-
-/**
- * Eric Meyer's Reset CSS
- *
- * v1.0 | 20080212
- * http://meyerweb.com/eric/tools/css/reset/
- *
- * Changes to the original Reset CSS:
- *   - "outline" attributes have been commented out for accessibility reasons
- */
-
 html, body, div {
-  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;
+  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; font: inherit;
 }
+
 h1, h2, h3, h4, h5, h6 {
-  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;
+  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; font: inherit; font-weight: bold;
 }
-a, p, ul, ol, li, span {
-  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;
+
+a, p, ul, ol, li, img, span, strong, em {
+  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; font: inherit;
 }
+
 table, tbody, tfoot, thead, tr, th, td {
-  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;
+  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; font: inherit;
 }
 
 applet, object, iframe, blockquote, pre, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center, dl, dt, dd, 
-caption, fieldset, form, label, legend,
- {
-  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;
+del, dfn, font, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd, caption, fieldset, form, label, legend {
+  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; font: inherit;
+}
+
+article, aside, figure, footer, header, hgroup, section {
+  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; font: inherit;
+}
+
+canvas, details, embed, figcaption, menu, nav, output, ruby, summary, time, mark, audio, video {
+  margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; font: inherit;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
 }
 
 body {

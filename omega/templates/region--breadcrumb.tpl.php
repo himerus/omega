@@ -28,7 +28,7 @@
  */
 ?>
 <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
-  <?php if ($content): ?>
-    <?php print $content; ?>
+  <?php if (isset($breadcrumb)): ?>
+    <?php print $breadcrumb; ?>
   <?php endif; ?>
 </div>

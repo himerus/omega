@@ -10,6 +10,7 @@
 ##########################################################################################
 ##### Omega Theme
 ##########################################################################################
+Informational:  http://himer.us/omega960
 Project Page:   http://drupal.org/project/omega
 Issue Queue:    http://drupal.org/project/issues/omega
 Usage Stats:    http://drupal.org/project/usage/omega
@@ -25,7 +26,7 @@ Maintainer(s):  Jake Strawn
 Omega Theme Information
 =======================
 The Omega Theme is a powerful and free Drupal theme based on the 960gs. 
-It harneses the power and features of many popular themes to provide an 
+It harnesses the power and features of many popular themes to provide an 
 excellent base theme, and sub-theming system to help you quickly prototype 
 and theme your site...
 

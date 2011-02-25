@@ -23,9 +23,9 @@
  */
 ?>
 
-<?php if($enabled): ?>
-	<?php if($wrapper): ?><div id="<?php print $zid;?>-outer-wrapper"><?php endif; ?>  
-	  <div class="<?php print $classes; ?>" <?php print $attributes;?>>
+<?php if($enabled && $populated): ?>
+	<?php if($wrapper): ?><div id="<?php print $zid;?>-outer-wrapper" class="clearfix"><?php endif; ?>  
+	  <div <?php print $attributes; ?>>
 	    <?php print render($regions); ?>
 	  </div>
 	<?php if($wrapper): ?></div><?php endif; ?>

@@ -1,3 +1,8 @@
 <?php
 
-require(drupal_get_path('theme', 'omega') . '/process/process-page.inc');
+/**
+ * @file
+ * Contents of omega_process_maintenance_page().
+ * @todo This needs work.
+ */
+

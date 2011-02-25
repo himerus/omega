@@ -27,19 +27,19 @@
  * @see template_process_region()
  */
 ?>
-<?php if ($content): ?>
-  <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
+<?php if (isset($content)): ?>
+  <?php $tag = $title ? 'section' : 'div'; ?>
+  <<?php print $tag; ?> class="<?php print $classes; ?>" <?php print $attributes; ?>>
     <?php if($title): ?>
       <?php print render($title_prefix); ?>
-        <h1 class="<?php print $title_classes; ?>" <?php print $title_attributes; ?>><?php print $title; ?></h1>
+        <h1 <?php print $title_attributes; ?>><?php print $title; ?></h1>
       <?php print render($title_suffix); ?>
     <?php endif; ?>
     <?php if (isset($tabs) && count($tabs) > 0): ?>
       <div id="content-tabs" class=""><?php print render($tabs); ?></div><!-- /#content-tabs -->
     <?php endif; ?>
-    <?php if(isset($content_float)): ?>
-      <?php print $content_float; ?>
+    <?php if(isset($content)): ?>
+      <?php print $content; ?>
     <?php endif; ?>
-    <?php print $content; ?>
-  </div>
+  </<?php print $tag; ?>>
 <?php endif; ?>

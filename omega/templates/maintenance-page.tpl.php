@@ -22,35 +22,46 @@
   <?php print $scripts; ?>
 </head>
 <body class="<?php print $classes; ?>">
-  <div id="page" class="clearfix">
-    <?php if (isset($zones_above)): ?>
-    <div id="zones-above" class="clearfix"><?php print $zones_above; ?></div>
-    <?php endif; ?>
-    <div id="zones-content" class="clearfix">
-      <?php if (isset($action_links)): ?>
-        <div id="actions-container" class="container-<?php print $default_container_width; ?> clearfix">
-          <div class="grid-<?php print $default_container_width; ?>">
-            <ul class="action-links">
-              <?php print render($action_links); ?>
-            </ul>
+  <div id="page" class="container-16 clearfix">
+    <div id="header" class="grid-16">
+      <div id="logo-title">
+        <div class="branding-data">
+        <?php if (!empty($logo)): ?>
+          
+            <div class="logo-img">
+            <a href="<?php print $base_path; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
+              <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
+            </a>
           </div>
+        <?php endif; ?>
+        </div>
+        <div id="name-and-slogan" class="site-name-slogan">
+          <h1 class="site-title"><a href="<?php print $base_path ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a></h1>
+          <?php if(isset($site_slogan)): ?>
+          <h6 class="site-slogan"><?php print $site_slogan; ?></h6>
+          <?php endif; ?>
+        </div> <!-- /name-and-slogan -->
+      </div> <!-- /logo-title -->
+
+      <?php if (!empty($header)): ?>
+        <div id="header-region">
+          <?php print $header; ?>
         </div>
       <?php endif; ?>
-      <?php if (isset($messages)): ?>
-      <div id="message-container" class="container-<?php print $default_container_width; ?> clearfix">
-        <div class="grid-<?php print $default_container_width; ?>">
-          <?php print $messages; ?>
-        </div>
-      </div><!-- /.container-xx -->
-      <?php endif; ?>
-    
-      <?php print $content_zone; ?>
+
+    </div> <!-- /header -->
+    <div id="messages" class="grid-16">
+      <?php if (!empty($messages)): print $messages; endif; ?>
     </div>
     
-    <?php if (isset($zones_below)): ?>
-    <div id="zones-below" class="clearfix"><?php print $zones_below; ?></div>
-    <?php endif; ?>
-  </div><!-- /#page -->
-
+    <div id="container" class="grid-16 clearfix">
+      <div id="content" class="maint">
+        <?php if (!empty($title)): ?><h2 class="page-title" id="page-title"><?php print $title; ?></h2><?php endif; ?>
+        <div id="content-content" class="clearfix">
+          <?php print $content; ?>
+        </div> <!-- /content-content -->
+      </div> <!-- /content -->
+    </div> <!-- /container -->
+  </div> <!-- /page -->
 </body>
 </html>

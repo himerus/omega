@@ -26,19 +26,29 @@
  * @see template_process()
  * @see template_process_region()
  */
-//drupal_set_message('<strong>region--branding.tpl.php</strong> loaded... (omega)');
 ?>
 <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
+  <?php if($menu_type == 'drupal'): ?>
   <div class="primary-navigation">
     <?php if($main_menu): ?>
     <div class="main-menu">
       <?php print $main_menu; ?>
-    </div>
-    <?php endif; ?>
-    <?php if($secondary_menu): ?>
-    <div class="main-menu">
-      <?php print $secondary_menu; ?>
+      <?php if($secondary_menu): ?>
+        <div class="secondary-menu">
+          <?php print $secondary_menu; ?>
+        </div>
+      <?php endif; ?>
     </div>
     <?php endif; ?>
   </div>
+  <?php elseif($menu_type == 'omega'):  ?>
+  <div class="primary-navigation">
+    <?php if($main_menu): ?>
+      <div class="main-menu">
+        <?php print $main_menu; ?>
+      </div>
+    <?php endif; ?>
+  </div>
+  <?php endif; ?>
+  <?php print $content; ?>
 </div>

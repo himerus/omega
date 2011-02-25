@@ -1,12 +1,3 @@
-/**
- * Omega, for Drupal 6.x
- * Jake Strawn - http://himerus.com
- * Project Page - http://drupal.org/project/omega
- * 
- * The text.css file should not contain any styles other than basic
- * font manipulation. 
- */
- 
 /** ################# Custom CSS Styles ####################### */
 body {
   font: 13px/1.5 Verdana,Helvetica,Arial,sans-serif;
