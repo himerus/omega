@@ -27,28 +27,18 @@
  * @see template_process_region()
  */
 ?>
-<div class="<?php print $classes; ?>" <?php print $attributes; ?>>
-  <?php if($menu_type == 'drupal'): ?>
-  <div class="primary-navigation">
-    <?php if($main_menu): ?>
-    <div class="main-menu">
-      <?php print $main_menu; ?>
-      <?php if($secondary_menu): ?>
-        <div class="secondary-menu">
-          <?php print $secondary_menu; ?>
-        </div>
-      <?php endif; ?>
-    </div>
+<?php if (isset($content)): ?>
+  <div class="<?php print $classes; ?>" <?php print $attributes; ?>>
+    <?php if($title): ?>
+      <?php print render($title_prefix); ?>
+        <h1 <?php print $title_attributes; ?>><?php print $title; ?></h1>
+      <?php print render($title_suffix); ?>
+    <?php endif; ?>
+    <?php if (isset($tabs) && count($tabs) > 0): ?>
+      <div id="content-tabs" class=""><?php print render($tabs); ?></div><!-- /#content-tabs -->
+    <?php endif; ?>
+    <?php if(isset($content)): ?>
+      <?php print $content; ?>
     <?php endif; ?>
   </div>
-  <?php elseif($menu_type == 'omega'):  ?>
-  <div class="primary-navigation">
-    <?php if($main_menu): ?>
-      <div class="main-menu">
-        <?php print $main_menu; ?>
-      </div>
-    <?php endif; ?>
-  </div>
-  <?php endif; ?>
-  <?php print $content; ?>
-</div>
+<?php endif; ?>

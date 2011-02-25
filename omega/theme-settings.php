@@ -25,7 +25,8 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
   // display information regarding the delta module, and how it interacts with an omega subtheme.
   if (module_exists('delta') && arg(2) != 'delta') {
-    drupal_set_message('<p>You have the <a href="http://drupal.org/project/delta"><strong>Delta</strong></a> module installed, enabling advanced contextual theme settings. The settings provided on this page serve as the default theme settings when creating a new <a href="http://drupal.org/project/delta"><strong>Delta</strong></a> theme settings template, yet can be overwritten by <a href="http://drupal.org/project/delta"><strong>Delta</strong></a> based on the settings of your <a href="http://drupal.org/project/delta"><strong>Delta</strong></a> templates and overrides.</p>');
+    $form['delta_notice']['#markup'] = t('<div class="messages status"><p>You have the <a href="http://drupal.org/project/delta"><strong>Delta</strong></a> module installed, enabling advanced contextual theme settings. The settings provided on this page serve as the default theme settings when creating a new <a href="http://drupal.org/project/delta"><strong>Delta</strong></a> theme settings template, yet can be overwritten by <a href="http://drupal.org/project/delta"><strong>Delta</strong></a> based on the settings of your <a href="http://drupal.org/project/delta"><strong>Delta</strong></a> templates and overrides.</p></div>');
+    $form['delta_notice']['#weight'] = -1000;
   }
   
   // allow delta to load it's own custom form data, emulating a custom theme.

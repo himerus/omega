@@ -29,10 +29,13 @@
 }
 
 #region-menu ul.main-menu li a:hover,
-#region-menu ul.main-menu li:hover > a {
+#region-menu ul.main-menu li:hover > a,
+#region-menu div.main-menu > ul.main-menu > li.active-trail > a {
   background-color: #FFF;
 }
-
+#region-menu ul.main-menu li.active-trail > a {
+  color: #000;
+}
 #region-menu ul ul {
   position: absolute;
   z-index: 100;

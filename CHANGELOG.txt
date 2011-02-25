@@ -32,6 +32,28 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+2/24/2011
+=========
+#1071666  - Missing page titles
+#0000000  - Update form.css and introduce formalize.me library for form defaultification
+#0000000  - FIXING that one issue with name/pass HTML5 placeholder text
+#0000000  - CHANGING search field default value to use HTML5 placeholder text
+
+2/23/2011
+=========
+#1070640  - Make Branding & Menu regions "real" regions
+#1070628  - Restructure Menu Options/Rendering
+#1066444  - Would it be possible to add an "active-trail" class for drop-down menus?
+
+2/20/2011
+=========
+#1067694  - HTML5 additions to Reset CSS
+#1065270  - Strict warning: Creating default object from empty value
+
+2/17/2011
+=========
+#0000000  - Adding an XHTML Starterkit for those that don't want to use HTML5
+#0000000  - Make the screenshot.png files in core & starterkits more obvious
 
 
 ##########################################################################################

@@ -23,7 +23,12 @@ if(omega_theme_get_setting('debug_block_toggle')) {
   );
   drupal_add_js($block_settings, 'setting');
 }
-if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu')) {
+
+
+$vars['menu_type'] = $menu_type = omega_theme_get_setting('omega_menu_type') ? omega_theme_get_setting('omega_menu_type') : 'omega';
+
+// render the Omega Dropdowns. These are set to be phased out, but cannot be removed for sanity on existing sites.
+if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu') && $menu_type == 'omega') {
   $menu_depth = omega_theme_get_setting('omega_menu_depth') ? omega_theme_get_setting('omega_menu_depth') : 1;
   // render the menus as nested ULs to style up some drop downs.
   $vars['menu_data'] = $menu = omega_menu_structure(menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'), $menu_depth, FALSE));
@@ -40,7 +45,8 @@ if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_se
   ));
   $vars['secondary_menu'] = FALSE;
 }
-else {
+// render default Drupal primary/secondary menus
+elseif(variable_get('menu_main_links_source', 'main-menu') != variable_get('menu_secondary_links_source', 'user-menu') ||$menu_type == 'drupal') {
   // render default main & secondary menus (separate menus)
   if (isset($vars['main_menu'])) {
     $vars['main_menu'] = theme('links__system_main_menu', array(
@@ -154,8 +160,8 @@ foreach ($theme_zones as $zone_ref => $regions) {
     else {
       $linked_site_name = $vars['linked_site_name'] = FALSE;
     }
-    $title = drupal_set_title();
-    $vars['title'] = !strlen($title) ? FALSE : $title;
+    $title = isset($vars['title']) ? $vars['title'] : drupal_get_title();
+    $vars['title'] = $title;
     $vars['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
     $vars['menu_data'] = isset($vars['menu_data']) ? $vars['menu_data'] : FALSE;
     $zone['#omega'] = array(
@@ -167,6 +173,7 @@ foreach ($theme_zones as $zone_ref => $regions) {
         'title_attributes_array' => $vars['title_attributes_array'],
         'feed_icons' => $vars['feed_icons'],
         'logo' => $vars['logo'],
+        'menu_type' => $vars['menu_type'],
         'main_menu' => $vars['main_menu'],
         'secondary_menu' => $vars['secondary_menu'],
         'site_name' => $vars['site_name'],
