@@ -44,17 +44,6 @@ if(omega_theme_get_setting('debug_grid_toggle') && ($debug_access || $user->uid 
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/debug.css');
 }
 
-
-/**
- * Allow the default text in the search box to be 100% configurable via backend theme settings
- */
-$search_text_val = check_plain(omega_theme_get_setting('omega_search_default_text')) ? check_plain(omega_theme_get_setting('omega_search_default_text')) : 'search...';
-$search_text = array(
-  'default_search_text' => $search_text_val,
-);
-drupal_add_js($search_text, 'setting');
-
-// ACQUIA-MARINA
 // Set site title, slogan, mission, page title & separator (unless using Page Title module)
 if (!module_exists('page_title')) {
   $title = (omega_theme_get_setting('toggle_name') ? filter_xss_admin(variable_get('site_name', '')) : '');

@@ -20,6 +20,7 @@ screenshot = screenshot.png
 stylesheets[all][] = css/960.css
 
 scripts[] = js/omega.js
+
 ; Do NOT remove the following commented lines. They will be used for 
 ; automated generation of the .info settings when rewritten.
 

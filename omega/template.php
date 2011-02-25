@@ -266,6 +266,15 @@ function omega_form_alter(&$form, &$form_state, $form_id) {
         $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
         $form['links']['#markup'] = theme('item_list', array('items' => $items));
       }
+    
+      // HTML5 placeholder attribute
+      $form['name']['#attributes']['placeholder'] = omega_theme_get_setting('user_login_name_placeholder');
+      $form['pass']['#attributes']['placeholder'] = omega_theme_get_setting('user_login_pass_placeholder');
+
+      break;
+    case 'search_block_form':
+      // HTML5 placeholder attribute
+      $form['search_block_form']['#attributes']['placeholder'] = omega_theme_get_setting('omega_search_default_text');
       break;
   }
 }

@@ -32,6 +32,8 @@ if (omega_theme_get_setting('pager_css') == '1') {
 }
 if (omega_theme_get_setting('form_css') == '1') {
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/forms.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE, 'weight', -93));
+  drupal_add_css(drupal_get_path('theme', 'omega') . '/css/formalize.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE, 'weight', -50));
+  drupal_add_js(drupal_get_path('theme', 'omega') . '/js/jquery.formalize.js');
 }
 if (omega_theme_get_setting('menu_css') == '1') {
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/menus.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE, 'weight', -92));
@@ -46,3 +48,4 @@ if (omega_theme_get_setting('omega_fixed_fluid') == 'fluid') {
   drupal_add_js(array('fluid_grid' => omega_theme_get_setting('omega_fixed_fluid')), 'setting');
 }
 $vars['styles']  = drupal_get_css();
+$vars['scripts'] = drupal_get_js();

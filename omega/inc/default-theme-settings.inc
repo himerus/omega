@@ -39,9 +39,9 @@ $form['omega_general']['optional_css']['link_css'] = array(
 );
 $form['omega_general']['optional_css']['form_css'] = array(
   '#type' => 'checkbox',
-  '#title' => t('Enable forms.css'),
+  '#title' => t('Enable forms.css & formalize.css'),
   '#default_value' => omega_theme_get_setting('form_css'),
-  '#description' => t('forms.css provides enhancements to the default form styles.'),
+  '#description' => t('forms.css provides enhancements to the default form styles. formalize.css is also added via this setting. More about formalize.css can be found at <a href="http://formalize.me">formalize.me</a>'),
 );
 $form['omega_general']['optional_css']['pager_css'] = array(
   '#type' => 'checkbox',
@@ -85,22 +85,29 @@ if (arg(2) != 'delta') {
   if (module_exists('delta')) {
     $form['omega_general']['form_settings']['user_login_form']['#description'] .= t('<p><strong>Notice:</strong> This is a global setting, and is unaffected by Delta overrides.</p>');
   }
+  $form['omega_general']['form_settings']['user_login_name_placeholder'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Placeholder text for Username Field'),
+    '#size' => 60,
+    '#default_value' => omega_theme_get_setting('user_login_name_placeholder'),
+    '#description' => t('Only works via HTML5 aware browsers.'),
+  );
+  $form['omega_general']['form_settings']['user_login_pass_placeholder'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Placeholder text for Password Field'),
+    '#size' => 60,
+    '#default_value' => omega_theme_get_setting('user_login_pass_placeholder'),
+    '#description' => t('Only works via HTML5 aware browsers.'),
+  );
+  $form['omega_general']['form_settings']['omega_search_default_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Placeholder text for Search field'),
+    '#size' => 60,
+    '#default_value' => omega_theme_get_setting('omega_search_default_text'),
+    '#description' => t('Only works via HTML5 aware browsers.'),
+  );
 }
 // Page titles
-$form['omega_general']['search_settings'] = array(
-  '#type' => 'fieldset',
-  '#title' => t('Search Settings'),
-  '#description' => t('You may configure search settings here.'),
-  '#collapsible' => TRUE,
-  '#collapsed' => FALSE,
-);
-$form['omega_general']['search_settings']['omega_search_default_text'] = array(
-  '#type' => 'textfield',
-  '#title' => t('Custom Default Search Text'),
-  '#size' => 60,
-  '#default_value' => omega_theme_get_setting('omega_search_default_text'),
-  '#description' => t('Enter default value to use in search boxes.'),
-);
 $form['omega_general']['page_format_titles'] = array(
   '#type' => 'fieldset',
   '#title' => t('Page titles'),

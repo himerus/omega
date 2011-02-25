@@ -35,6 +35,9 @@ CHANGELOG.txt to track changes to the Omega theme.
 2/24/2011
 =========
 #1071666  - Missing page titles
+#0000000  - Update form.css and introduce formalize.me library for form defaultification
+#0000000  - FIXING that one issue with name/pass HTML5 placeholder text
+#0000000  - CHANGING search field default value to use HTML5 placeholder text
 
 2/23/2011
 =========
