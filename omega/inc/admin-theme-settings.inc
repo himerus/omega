@@ -1,5 +1,4 @@
 <?php
-// $Id$
 // Administrative Settings
 // overlay toggle options
 $form['omega_general']['grid_overlay'] = array(

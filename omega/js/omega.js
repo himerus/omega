@@ -1,4 +1,3 @@
-// $Id$
 (function ($) {
   function populateElement(selector, defvalue) {
       if ($.trim($(selector).val()) == "") {

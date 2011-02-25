@@ -1,5 +1,4 @@
 <?php
-// $Id$
 // General Settings
 $form['omega_general']['optional_css'] = array(
   '#type' => 'fieldset',
