@@ -177,7 +177,7 @@ function omega_css_alter(&$css) {
     if (isset($css[$css_960])) {
       $css[$css_960]['data'] = drupal_get_path('theme', 'omega') . '/css/960-fluid.css';
     }
-  }
+  }  
 }
 
 /**
