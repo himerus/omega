@@ -129,6 +129,6 @@ if (module_exists('skinr')) {
 // Add JavaScript for fluid width option
 if (omega_theme_get_setting('omega_fixed_fluid') == 'fluid') {
   drupal_add_js(array('fluid_grid' => omega_theme_get_setting('omega_fixed_fluid')), 'setting');
-}
+} 
 $vars['styles']  = drupal_get_css();
 $vars['scripts'] = drupal_get_js();

@@ -138,10 +138,11 @@ foreach ($theme_zones as $zone_ref => $regions) {
     }
     $zone['#theme'][] = 'zone';
     $zone['#zone'] = $zone['zid'];  
-    $zone['#theme_hook_suggestions'][] = 'zone__' . $zone['zid'];
-    $zone['#theme_hook_suggestions'][] = 'zone__' . $zone['type'];
-    $zone['#theme_hook_suggestions'][] = 'zone'; 
     
+    $zone['#theme_hook_suggestions'][] = 'zone'; 
+    $zone['#theme_hook_suggestions'][] = 'zone__' . $zone['type'];
+    $zone['#theme_hook_suggestions'][] = 'zone__' . $zone['zid'];
+
     // pass page level data to each zone so that it could be implemented anywhere (title, tabs, etc.)
     $site_name = $vars['site_name'];
     $site_name_and_slogan = $vars['site_name'] . ' ' . $vars['site_slogan'];

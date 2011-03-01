@@ -14,10 +14,10 @@ core       = 7.x
 base theme = omega
 
 ; ------- Declare default stylesheets
-;stylesheets[all][] = css/your_css_file.css
+stylesheets[all][] = css/subtheme.css
 
 ; ------- Declare default JavaScript includes
-;scripts[] = js/your_js_file.js
+scripts[] = js/custom.js
 
 
 ; Do NOT remove the following commented lines. They will be used for 
