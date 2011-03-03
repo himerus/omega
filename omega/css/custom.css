@@ -1,16 +1,4 @@
 
-#user-container .block-switchtheme {
-	display: block;
-  float: left;
-  clear: none;
-}
-#switchtheme-switch-form #edit-theme {
-	margin-top: 8px;
-}
-#switchtheme-switch-form .form-submit {
-	display: none;
-}
-
 /* Block Debugging CSS */
 .block-omega-tools .content {
 	font-size: 9px;
