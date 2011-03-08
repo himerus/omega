@@ -32,6 +32,11 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+
+3/08/2011 - DrupalCon Chicago Commits!
+======================================
+#1082418  - Text formating gone?
+
 3/03/2011
 =========
 #1080404  - display:none for switchtheme submit

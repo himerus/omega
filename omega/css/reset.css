@@ -38,6 +38,14 @@ body {
   line-height: 1;
 }
 
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
 ol, ul {
   list-style: none;
 }
