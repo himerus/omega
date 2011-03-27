@@ -10,9 +10,9 @@ for ($i = 0; $i <= 23; $i++) {
   $spacing[$i] = $i;
 }
 $containers = array(
-  '12' => '12 column grid (940 usable pixels)',
-  '16' => '16 column grid (940 usable pixels)',
-  '24' => '24 column grid (950 usable pixels)',
+  '12' => '12 column grid',
+  '16' => '16 column grid',
+  '24' => '24 column grid',
 );
 // Region Settings
 
@@ -31,6 +31,20 @@ $form['omega_grid']['defaults']['omega_default_container_width'] = array(
   '#weight' => -50,
   '#description' => t('This width is used for regions like $help, $messages and other non-important regions in page.tpl.php'),
 );
+
+// use a responsive grid instead of the default 960gs
+$responsive = omega_theme_get_setting('omega_responsive_grid') ? omega_theme_get_setting('omega_responsive_grid') : 'enabled';
+$form['omega_grid']['defaults']['omega_responsive_grid'] = array(
+  '#type' => 'radios',
+  '#description' => t('Enable adaptive/responsive grid layout. This allows the grid to resize based on the size of the users device. This incorporates mobile first design, so the default behavior is to show the simplest (stacked) version of the layout, and for devices that meet certain display criteria (width), new CSS and grid sizing will be applied. <strong>Implementing this feature will ignore the fixed/fluid setting as it currently is only available for the fixed size grid.</strong>'),
+  '#title' => t('Enable / Disable Responsive Grid Layout'),
+  '#default_value' => $responsive,
+  '#options' => array(
+    'enabled' => t('Enable responsive grid sizing (theme default)'),
+    'disabled' => t('Disable responsive grid sizing'),
+  ),
+);
+
 // select fixed/fluid for all zones/entire site.
 $default_omega_layout = omega_theme_get_setting('omega_fixed_fluid') ? omega_theme_get_setting('omega_fixed_fluid') : 'fixed';
 $form['omega_grid']['defaults']['omega_fixed_fluid'] = array(
@@ -41,6 +55,11 @@ $form['omega_grid']['defaults']['omega_fixed_fluid'] = array(
   '#options' => array(
     'fixed' => t('Fixed width (theme default)'),
     'fluid' => t('Fluid width'),
+  ),
+  '#states' => array(
+    'visible' => array(
+      ':input[name="omega_responsive_grid"]' => array('value' => t('disabled')),
+    ),
   ),
 );
 
