@@ -137,5 +137,14 @@ if (omega_theme_get_setting('omega_fixed_fluid') == 'fluid') {
 // instead, we'll just revert to giving them the default 960gs
 drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960-ie.css', array('browsers' => array('IE' => 'lt IE 9', '!IE' => FALSE), 'group' => CSS_THEME, 'every_page' => TRUE, 'weight', 100));
 
+// turn off the android zoom/scale options since we render a mobile version
+$meta_viewport = array(
+  '#tag' => 'meta', 
+  '#attributes' => array(
+    'name' => 'viewport',
+    'content' => 'width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;',
+  ),
+);
+drupal_add_html_head($meta_viewport, 'omega_viewport');
 $vars['styles']  = drupal_get_css();
 $vars['scripts'] = drupal_get_js();
