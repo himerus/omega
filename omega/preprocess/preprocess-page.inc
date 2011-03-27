@@ -165,6 +165,10 @@ foreach ($theme_zones as $zone_ref => $regions) {
     $vars['title'] = $title;
     $vars['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
     $vars['menu_data'] = isset($vars['menu_data']) ? $vars['menu_data'] : FALSE;
+    $vars['title_attributes_array'] = array(
+      'id' => 'page-title',
+      'class' => array('title'),
+    );
     $zone['#omega'] = array(
       'page_data' => array(
         'content_attributes_array' => $vars['content_attributes_array'],
