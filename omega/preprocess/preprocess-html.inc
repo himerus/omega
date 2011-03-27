@@ -130,5 +130,12 @@ if (module_exists('skinr')) {
 if (omega_theme_get_setting('omega_fixed_fluid') == 'fluid') {
   drupal_add_js(array('fluid_grid' => omega_theme_get_setting('omega_fixed_fluid')), 'setting');
 } 
+
+
+// Attempt to push back in 960.css for IE < 9 (which all don't support media queries)
+// this is a must have or all IE browsers < 9 will be given the mobile version
+// instead, we'll just revert to giving them the default 960gs
+drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960-ie.css', array('browsers' => array('IE' => 'lt IE 9', '!IE' => FALSE), 'group' => CSS_THEME, 'every_page' => TRUE, 'weight', 100));
+
 $vars['styles']  = drupal_get_css();
 $vars['scripts'] = drupal_get_js();
