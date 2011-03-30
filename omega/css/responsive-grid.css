@@ -60,7 +60,7 @@
 
 
 /* Grid Styles for default 960.gs */
-@media all and (max-width: 1219px) and (min-width: 980px) and (min-device-width: 980px) {
+@media all and (max-width: 1219px) and (min-width: 980px) and (min-device-width: 980px), (max-device-width: 1024px) and (orientation:landscape) {
   /* 960gs container sizing */
   .container-12, .container-16, .container-24, .container-32 {margin-left:auto;margin-right:auto;width:960px}
   /* 12 Column 960gs */
