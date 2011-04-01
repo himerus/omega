@@ -32,6 +32,14 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+4/01/2011
+================================================
+Note: these commits came between 03/08 and 04/01
+================================================
+#0000000  - Updates for responsive style layouts
+#0000000  - Removing 32 column grid support
+#1085990  - duplicate specification of attribute "class"
+#1090562  - CSS3 media queries for dynamic layouts?
 
 3/08/2011 - DrupalCon Chicago Commits!
 ======================================

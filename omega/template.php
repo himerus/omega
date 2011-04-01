@@ -170,27 +170,11 @@ function rfilter($vars) {
  * @param $css
  *   An array of all CSS items (files and inline CSS) being requested on the page.
  */
-/*
+
 function omega_css_alter(&$css) {
-  // enable responsive grid
-  if (theme_get_setting('omega_responsive_grid') == 'enabled') {
-    $css_960 = drupal_get_path('theme', 'omega') . '/css/960.css';
-    if (isset($css[$css_960])) {
-      $css[$css_960]['data'] = drupal_get_path('theme', 'omega') . '/css/responsive-grid.css';
-    }
-  }
-  else {
-    // if responsive is off, then we can enable the fluid option
-    // fluid width option
-    if (theme_get_setting('omega_fixed_fluid') == 'fluid') {
-      $css_960 = drupal_get_path('theme', 'omega') . '/css/960.css';
-      if (isset($css[$css_960])) {
-        $css[$css_960]['data'] = drupal_get_path('theme', 'omega') . '/css/960-fluid.css';
-      }
-    }
-  }
+  
 }
-*/
+
 /**
  * Implements hook_theme().
  *
