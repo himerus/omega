@@ -88,20 +88,81 @@ $form['omega_grid']['defaults']['omega_responsive_large'] = array(
   '#states' => $responsive_state,
 );
 
-// viewport scaling
-$responsive_viewport = omega_theme_get_setting('omega_responsive_viewport') ? omega_theme_get_setting('omega_responsive_viewport') : 'disabled';
-$form['omega_grid']['defaults']['omega_responsive_viewport'] = array(
+
+$viewport_scales = array(
+  '1.0' => '1.0',
+  '1.5' => '1.5',
+  '2.0' => '2.0',
+  '2.5' => '2.5',
+  '3.0' => '3.0',
+  '3.5' => '3.5',
+  '4.0' => '4.0',
+  '4.5' => '4.5',
+  '5.0' => '5.0',
+  '5.5' => '5.5',
+  '6.0' => '6.0',
+  '6.5' => '6.5',
+  '7.0' => '7.0',
+  '7.5' => '7.5',
+  '8.0' => '8.0',
+  '8.5' => '8.5',
+  '9.0' => '9.0',
+  '9.5' => '9.5',
+  '10' => '10.0',
+);
+$viewport_state = array(
+  'visible' => array(
+    ':input[name="omega_customize_viewport"]' => array('value' => t('on')),
+  )
+);
+// viewport properties
+$responsive_viewport = omega_theme_get_setting('omega_customize_viewport') ? omega_theme_get_setting('omega_customize_viewport') : 'on';
+$form['omega_grid']['defaults']['omega_customize_viewport'] = array(
   '#type' => 'radios',
-  '#title' => t('Enable / Disable Viewport Scaling'),
-  '#description' => t('Enable/Disable Viewport scaling on mobile devices. By default, smart phones like iPhone/Android will attempt to auto scale a website when viewing in the internal browser. Disabling this setting will modify that feature, and tell the mobile device to respect our theme as we have a mobile version. Leaving this option enabled will leave the mobile scaling unaffected.'),
+  '#title' => t('Customize Viewport settings on iOS and Android devices'),
+  '#description' => t('By default, most mobile browsers choose their own way to handle page rendering by using the viewport meta tag. iOS and Android are "capable" of displaying full size websites by simply scaling down the view. However, when using a truly mobile version of your theme, you will/may want to customize these settings. More information in the <a href="http://omega.developmentgeeks.com">Omega documentation</a>'),
   '#default_value' => $responsive_viewport,
   '#options' => array(
-    'enabled' => t('Do NOT modify viewport scaling (enable)'),
-    'disabled' => t('Modify viewport scaling (disable)'),
+    'on' => t('Allow customizing Viewport meta properties'),
+    'off' => t('Do NOT modify Viewport meta properties (let device choose)'),
   ),
   '#states' => $responsive_state,
 );
-
+$initial_scale = omega_theme_get_setting('omega_viewport_initial_scale') ? omega_theme_get_setting('omega_viewport_initial_scale') : '1.0';
+$form['omega_grid']['defaults']['omega_viewport_initial_scale'] = array(
+  '#type' => 'select',
+  '#title' => t('initial-scale'),
+  '#default_value' => $initial_scale,
+  '#options' => $viewport_scales,
+  '#description' => t('The initial scaling of the page. This should almost always be set to 1.0.'),
+  '#states' => $viewport_state,
+);
+$min_scale = omega_theme_get_setting('omega_viewport_min_scale') ? omega_theme_get_setting('omega_viewport_min_scale') : '1.0';
+$form['omega_grid']['defaults']['omega_viewport_min_scale'] = array(
+  '#type' => 'select',
+  '#title' => t('min-scale'),
+  '#default_value' => $min_scale,
+  '#options' => $viewport_scales,
+  '#description' => t('The minimum scaling of the site. (how far OUT the user can zoom) This should usually be the same as your initial-scale setting.'),
+  '#states' => $viewport_state,
+);
+$max_scale = omega_theme_get_setting('omega_viewport_max_scale') ? omega_theme_get_setting('omega_viewport_max_scale') : '1.0';
+$form['omega_grid']['defaults']['omega_viewport_max_scale'] = array(
+  '#type' => 'select',
+  '#title' => t('max-scale'),
+  '#default_value' => $max_scale,
+  '#options' => $viewport_scales,
+  '#description' => t('The maximum scaling of the site. (how far IN the user can zoom) This can be any value between 1 and 10, but should not be too big if you want to preserve your mobile look and feel.'),
+  '#states' => $viewport_state,
+);
+$user_scale = omega_theme_get_setting('omega_viewport_user_scale') ? omega_theme_get_setting('omega_viewport_user_scale') : 'no';
+$form['omega_grid']['defaults']['omega_viewport_user_scale'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('user-scalable'),
+  '#description' => t('Determine if a user can resize the screen. This is usually accomplished via multi-touch gestures on iOS and Android devices. If your mobile theme is very customized and presented with good typography and graphics for a reduced mobile size, it is recommended to leave this setting unchecked. If it is left unchecked, the min-scale and max-scale properties will be ignored. <strong>Note: HTC Android devices do NOT (currently) respect the viewport meta tag for user-scalable. It will render at the appropriate initial-scale set above, but a user can still zoom in/out.</strong>'),
+  '#default_value' => $user_scale,
+  '#states' => $viewport_state,
+);
 
 // select fixed/fluid for all zones/entire site.
 $default_omega_layout = omega_theme_get_setting('omega_fixed_fluid') ? omega_theme_get_setting('omega_fixed_fluid') : 'fixed';

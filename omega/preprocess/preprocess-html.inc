@@ -180,12 +180,17 @@ if (theme_get_setting('omega_responsive_grid') == 'enabled') {
     )
   );
   // turn off the android zoom/scale options since we render a mobile version
-  if(omega_theme_get_setting('omega_responsive_viewport') == 'disabled') {
+  $responsive_viewport = omega_theme_get_setting('omega_customize_viewport') ? omega_theme_get_setting('omega_customize_viewport') : 'on';
+  if(omega_theme_get_setting('omega_customize_viewport') == 'on') {
+    $initial_scale = omega_theme_get_setting('omega_viewport_initial_scale') ? omega_theme_get_setting('omega_viewport_initial_scale') : '1.0';
+    $min_scale = omega_theme_get_setting('omega_viewport_min_scale') ? omega_theme_get_setting('omega_viewport_min_scale') : '1.0';
+    $max_scale = omega_theme_get_setting('omega_viewport_max_scale') ? omega_theme_get_setting('omega_viewport_max_scale') : '1.0';
+    $user_scale = omega_theme_get_setting('omega_viewport_user_scale') ? '1' : '0';
     $meta_viewport = array(
       '#tag' => 'meta', 
       '#attributes' => array(
         'name' => 'viewport',
-        'content' => 'width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;',
+        'content' => 'width=device-width; initial-scale='.$initial_scale.'; maximum-scale='.$max_scale.'; minimum-scale='.$min_scale.'; user-scalable='.$user_scale.';',
       ),
     );
     drupal_add_html_head($meta_viewport, 'omega_viewport');
