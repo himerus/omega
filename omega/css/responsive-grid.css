@@ -13,8 +13,5 @@
 /* This gives us space between the browser/viewport chrome */
 /* This is reset by EACH of the grid definitions should the @media query fire off */
 .container-12, .container-16, .container-24 {
-  margin-left:5px;
-  margin-right:5px;
-  width: 98%;
-  margin: 0 1%;
+  margin: 0 5px;
 }
