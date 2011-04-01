@@ -170,6 +170,7 @@ function rfilter($vars) {
  * @param $css
  *   An array of all CSS items (files and inline CSS) being requested on the page.
  */
+/*
 function omega_css_alter(&$css) {
   // enable responsive grid
   if (theme_get_setting('omega_responsive_grid') == 'enabled') {
@@ -189,7 +190,7 @@ function omega_css_alter(&$css) {
     }
   }
 }
-
+*/
 /**
  * Implements hook_theme().
  *

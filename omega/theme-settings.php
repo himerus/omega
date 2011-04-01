@@ -55,13 +55,13 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     '#type' => 'vertical_tabs',
     '#weight' => -10,
     '#default_tab' => 'defaults',
-    '#prefix' => t('960gs Omega Settings'),
+    '#prefix' => t('<h3>Omega Grid Settings</h3>'),
   );
   $form['omega_general'] = array(
     '#type' => 'vertical_tabs',
     '#weight' => -9,
     '#default_tab' => 'defaults',
-    '#prefix' => t('General Omega Settings'),
+    '#prefix' => t('<h3>Omega General Settings</h3>'),
   );
   // include Omega (grid) specific theme settings
   require(drupal_get_path('theme', 'omega') . '/inc/grid-theme-settings.inc');

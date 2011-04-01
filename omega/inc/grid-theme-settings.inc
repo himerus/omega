@@ -19,7 +19,7 @@ $containers = array(
 // create a wrapper fieldset for default grid configurations
 $form['omega_grid']['defaults'] = array(
   '#type' => 'fieldset',
-  '#title' => t('960gs Default Config'),
+  '#title' => t('Omega Layout Configuration'),
   '#weight' => -100,
 );
 // provide default container width
@@ -33,7 +33,7 @@ $form['omega_grid']['defaults']['omega_default_container_width'] = array(
 );
 
 // use a responsive grid instead of the default 960gs
-$responsive = omega_theme_get_setting('omega_responsive_grid') ? omega_theme_get_setting('omega_responsive_grid') : 'enabled';
+$responsive = omega_theme_get_setting('omega_responsive_grid') ? omega_theme_get_setting('omega_responsive_grid') : 'disabled';
 $form['omega_grid']['defaults']['omega_responsive_grid'] = array(
   '#type' => 'radios',
   '#description' => t('Enable adaptive/responsive grid layout. This allows the grid to resize based on the size of the users device. This incorporates mobile first design, so the default behavior is to show the simplest (stacked) version of the layout, and for devices that meet certain display criteria (width), new CSS and grid sizing will be applied. <strong>Implementing this feature will ignore the fixed/fluid setting as it currently is only available for the fixed size grid.</strong>'),
@@ -44,6 +44,64 @@ $form['omega_grid']['defaults']['omega_responsive_grid'] = array(
     'disabled' => t('Disable responsive grid sizing'),
   ),
 );
+// in order to not have to define this state over and over, assign it to a var
+// when the responsive grid is enabled, any #states set with $responsive_state will be visible
+$responsive_state = array(
+  'visible' => array(
+    ':input[name="omega_responsive_grid"]' => array('value' => t('enabled')),
+  )
+);
+// select fixed/fluid for all zones/entire site.
+$form['omega_grid']['defaults']['omega_responsive_mobile'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable mobile sizing'),
+  '#description' => t('This option cannot be disabled as Omega, and all subthemes designed in a responsive manner are mobile first, then add other sizes for browsers that can support @media queries.'),
+  '#default_value' => 1,
+  '#disabled' => TRUE,
+  '#states' => $responsive_state,
+);
+
+$responsive_medium = omega_theme_get_setting('omega_responsive_medium') ? omega_theme_get_setting('omega_responsive_medium') : 0;
+$form['omega_grid']['defaults']['responsive_settings']['omega_responsive_medium'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable 720px grid (medium)'),
+  '#description' => t('The 720px grid is designed to work well for tablets in a portrait viewing mode.'),
+  '#default_value' => $responsive_medium,
+  '#states' => $responsive_state,
+);
+
+$responsive_default = omega_theme_get_setting('omega_responsive_default') ? omega_theme_get_setting('omega_responsive_default') : 0;
+$form['omega_grid']['defaults']['omega_responsive_default'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable 960px grid (default)'),
+  '#description' => t('The 960px grid is designed to work well for tablets in a landscape viewing mode and most web browsers.'),
+  '#default_value' => $responsive_default,
+  '#states' => $responsive_state,
+);
+
+$responsive_large = omega_theme_get_setting('omega_responsive_large') ? omega_theme_get_setting('omega_responsive_large') : 0;
+$form['omega_grid']['defaults']['omega_responsive_large'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable 1200px grid (large)'),
+  '#description' => t('The 1200px grid is designed to work well for users with a lot of screen real estate. However, this may not look well in a single sidebar layout. Design considerations must be made when using this layout.'),
+  '#default_value' => $responsive_large,
+  '#states' => $responsive_state,
+);
+
+// viewport scaling
+$responsive_viewport = omega_theme_get_setting('omega_responsive_viewport') ? omega_theme_get_setting('omega_responsive_viewport') : 'disabled';
+$form['omega_grid']['defaults']['omega_responsive_viewport'] = array(
+  '#type' => 'radios',
+  '#title' => t('Enable / Disable Viewport Scaling'),
+  '#description' => t('Enable/Disable Viewport scaling on mobile devices. By default, smart phones like iPhone/Android will attempt to auto scale a website when viewing in the internal browser. Disabling this setting will modify that feature, and tell the mobile device to respect our theme as we have a mobile version. Leaving this option enabled will leave the mobile scaling unaffected.'),
+  '#default_value' => $responsive_viewport,
+  '#options' => array(
+    'enabled' => t('Do NOT modify viewport scaling (enable)'),
+    'disabled' => t('Modify viewport scaling (disable)'),
+  ),
+  '#states' => $responsive_state,
+);
+
 
 // select fixed/fluid for all zones/entire site.
 $default_omega_layout = omega_theme_get_setting('omega_fixed_fluid') ? omega_theme_get_setting('omega_fixed_fluid') : 'fixed';
@@ -53,7 +111,7 @@ $form['omega_grid']['defaults']['omega_fixed_fluid'] = array(
   '#title' => t('Fixed / Fluid Layout'),
   '#default_value' => $default_omega_layout,
   '#options' => array(
-    'fixed' => t('Fixed width (theme default)'),
+    'fixed' => t('Fixed width 960 Grid (theme default)'),
     'fluid' => t('Fluid width'),
   ),
   '#states' => array(

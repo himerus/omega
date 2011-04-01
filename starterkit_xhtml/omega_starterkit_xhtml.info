@@ -99,6 +99,12 @@ zones[footer][] = footer_second
 ; END CONTENT ZONES
 
 settings[omega_default_container_width] = '12'
+settings[omega_responsive_grid] = 'enabled'
+settings[omega_responsive_mobile] = '1'
+settings[omega_responsive_medium] = '1'
+settings[omega_responsive_default] = '1'
+settings[omega_responsive_large] = '1'
+settings[omega_responsive_viewport] = 'disabled'
 settings[omega_fixed_fluid] = 'fixed'
 settings[omega_user_enabled] = '1'
 settings[omega_user_wrapper] = '1'

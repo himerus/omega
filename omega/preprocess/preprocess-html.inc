@@ -126,25 +126,91 @@ if (module_exists('skinr')) {
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/skinr.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE, 'weight', 1));
 }
 
-// Add JavaScript for fluid width option
-if (omega_theme_get_setting('omega_fixed_fluid') == 'fluid') {
-  drupal_add_js(array('fluid_grid' => omega_theme_get_setting('omega_fixed_fluid')), 'setting');
-} 
 
 
-// Attempt to push back in 960.css for IE < 9 (which all don't support media queries)
-// this is a must have or all IE browsers < 9 will be given the mobile version
-// instead, we'll just revert to giving them the default 960gs
-drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960-ie.css', array('browsers' => array('IE' => 'lt IE 9', '!IE' => FALSE), 'group' => CSS_THEME, 'every_page' => TRUE, 'weight', 100));
 
-// turn off the android zoom/scale options since we render a mobile version
-$meta_viewport = array(
-  '#tag' => 'meta', 
-  '#attributes' => array(
-    'name' => 'viewport',
-    'content' => 'width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;',
-  ),
-);
-drupal_add_html_head($meta_viewport, 'omega_viewport');
+
+
+// responsive grid css
+if (theme_get_setting('omega_responsive_grid') == 'enabled') {
+  // first, include our defaults (mobile stacked with no grid styles respected)
+  drupal_add_css(drupal_get_path('theme', 'omega') . '/css/responsive-grid.css', array(
+    'group' => CSS_THEME, 
+    'every_page' => TRUE, 
+    'weight', 1,
+    )
+  );
+  // now let's add in our sized grids
+  // 720px grid (if enabled)
+  if(omega_theme_get_setting('omega_responsive_medium')) {
+    drupal_add_css(drupal_get_path('theme', 'omega') . '/css/720.css', array(
+      'group' => CSS_THEME, 
+      'every_page' => TRUE, 
+      'weight', 2,
+      )
+    );
+  }
+  if(omega_theme_get_setting('omega_responsive_default')) {
+    drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960.css', array(
+      'group' => CSS_THEME, 
+      'every_page' => TRUE, 
+      'weight', 3,
+      )
+    );
+  }
+  if(omega_theme_get_setting('omega_responsive_large')) {
+    drupal_add_css(drupal_get_path('theme', 'omega') . '/css/1200.css', array(
+      'group' => CSS_THEME, 
+      'every_page' => TRUE, 
+      'weight', 4,
+      )
+    );
+  }
+  // Attempt to push back in 960.css for IE < 9 (which all don't support media queries)
+  // this is a must have or all IE browsers < 9 will be given the mobile version
+  // instead, we'll just revert to giving them the default 960gs
+  drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960-base.css', array(
+    'browsers' => array(
+      'IE' => 'lt IE 9', 
+      '!IE' => FALSE
+    ), 
+    'group' => CSS_THEME, 
+    'every_page' => TRUE, 
+    'weight', 100,
+    )
+  );
+  // turn off the android zoom/scale options since we render a mobile version
+  if(omega_theme_get_setting('omega_responsive_viewport') == 'disabled') {
+    $meta_viewport = array(
+      '#tag' => 'meta', 
+      '#attributes' => array(
+        'name' => 'viewport',
+        'content' => 'width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;',
+      ),
+    );
+    drupal_add_html_head($meta_viewport, 'omega_viewport');
+  }
+}
+// default fixed/fluid 960gs
+else {
+  if(omega_theme_get_setting('omega_fixed_fluid') == 'fixed') {
+    drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960-base.css', array(
+      'group' => CSS_THEME, 
+      'every_page' => TRUE, 
+      'weight', 100,
+      )
+    );
+  }
+  else {
+    drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960-fluid.css', array(
+      'group' => CSS_THEME, 
+      'every_page' => TRUE, 
+      'weight', 100,
+      )
+    );
+    drupal_add_js(array('fluid_grid' => omega_theme_get_setting('omega_fixed_fluid')), 'setting');
+  }
+}
+
 $vars['styles']  = drupal_get_css();
 $vars['scripts'] = drupal_get_js();
