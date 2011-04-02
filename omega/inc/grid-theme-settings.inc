@@ -113,6 +113,7 @@ $viewport_scales = array(
 $viewport_state = array(
   'visible' => array(
     ':input[name="omega_customize_viewport"]' => array('value' => t('on')),
+    ':input[name="omega_responsive_grid"]' => array('value' => t('enabled')),
   )
 );
 // viewport properties
