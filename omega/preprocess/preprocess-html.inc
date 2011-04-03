@@ -135,7 +135,7 @@ if (module_exists('skinr')) {
 if (theme_get_setting('omega_responsive_grid') == 'enabled') {
   // first, include our defaults (mobile stacked with no grid styles respected)
   drupal_add_css(drupal_get_path('theme', 'omega') . '/css/responsive-grid.css', array(
-    'group' => CSS_THEME, 
+    'group' => CSS_DEFAULT, 
     'every_page' => TRUE, 
     'weight', 1,
     )
@@ -144,7 +144,7 @@ if (theme_get_setting('omega_responsive_grid') == 'enabled') {
   // 720px grid (if enabled)
   if(omega_theme_get_setting('omega_responsive_medium')) {
     drupal_add_css(drupal_get_path('theme', 'omega') . '/css/720.css', array(
-      'group' => CSS_THEME, 
+      'group' => CSS_DEFAULT, 
       'every_page' => TRUE, 
       'weight', 2,
       )
@@ -152,7 +152,7 @@ if (theme_get_setting('omega_responsive_grid') == 'enabled') {
   }
   if(omega_theme_get_setting('omega_responsive_default')) {
     drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960.css', array(
-      'group' => CSS_THEME, 
+      'group' => CSS_DEFAULT, 
       'every_page' => TRUE, 
       'weight', 3,
       )
@@ -160,7 +160,7 @@ if (theme_get_setting('omega_responsive_grid') == 'enabled') {
   }
   if(omega_theme_get_setting('omega_responsive_large')) {
     drupal_add_css(drupal_get_path('theme', 'omega') . '/css/1200.css', array(
-      'group' => CSS_THEME, 
+      'group' => CSS_DEFAULT, 
       'every_page' => TRUE, 
       'weight', 4,
       )
@@ -174,7 +174,7 @@ if (theme_get_setting('omega_responsive_grid') == 'enabled') {
       'IE' => 'lt IE 9', 
       '!IE' => FALSE
     ), 
-    'group' => CSS_THEME, 
+    'group' => CSS_DEFAULT, 
     'every_page' => TRUE, 
     'weight', 100,
     )
@@ -200,7 +200,7 @@ if (theme_get_setting('omega_responsive_grid') == 'enabled') {
 else {
   if(omega_theme_get_setting('omega_fixed_fluid') == 'fixed') {
     drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960-base.css', array(
-      'group' => CSS_THEME, 
+      'group' => CSS_DEFAULT, 
       'every_page' => TRUE, 
       'weight', 100,
       )
@@ -208,7 +208,7 @@ else {
   }
   else {
     drupal_add_css(drupal_get_path('theme', 'omega') . '/css/960-fluid.css', array(
-      'group' => CSS_THEME, 
+      'group' => CSS_DEFAULT, 
       'every_page' => TRUE, 
       'weight', 100,
       )
