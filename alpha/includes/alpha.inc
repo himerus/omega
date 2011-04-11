@@ -10,16 +10,11 @@ function alpha_invoke($type, $hook, &$vars) {
 
   if (!empty($registry[$type][$hook])) {    
     foreach ($registry[$type][$hook] as $item) {
-      $file = $type . '-' . str_replace('_', '-', $hook) . '.inc';
-      $file = DRUPAL_ROOT . '/' . drupal_get_path('theme', $item['theme']) . '/' . $type . '/' . $file;
-      
-      if (is_file($file)) {
-        include_once $file;      
-        
-        $function = implode('_', array($item['theme'], 'alpha', $type, $hook));      
-        
-        if (function_exists($function)) {
-          $function($vars);
+      if (is_file($item['path'])) {
+        include_once $item['path'];      
+       
+        if (function_exists($item['function'])) {
+          $item['function']($vars);
         }
       }
     }
@@ -54,13 +49,15 @@ function alpha_build_registry($theme, $registry) {
       if (!empty($info[$key])) {
         foreach (alpha_theme_trail($theme) as $name => $friendly) {
           $file = $type . '-' . str_replace('_', '-', $item) . '.inc';    
-          $path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $name) . '/' . $type;
+          $path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $name) . '/' . $type . '/' . $file;
           
-          if (is_file($path . '/' . $file)) {
+          if (is_file($path)) {
             $cache[$type][$item][] = array(
               'type' => $type,
               'hook' => $item,
               'theme' => $name,
+              'path' => $path,
+              'function' => $name . '_alpha_' . $type . '_' . $item,
             );
           }
         }
@@ -101,7 +98,7 @@ function alpha_css_options($key) {
   
   $output = array(); 
   foreach ($items as $key => $info) {
-    $output[$key] = t('<strong>@name</strong> (@media) - !description', array('@name' => ucwords(str_replace('_', ' ', $key)), '@media' => $info['media'], '!description' => $info['description']));
+    $output[$key] = t('<strong>@name</strong> (@media) - !description', array('@name' => $info['name'], '@media' => $info['media'], '!description' => $info['description']));
   }
   
   return $output;
@@ -157,7 +154,7 @@ function alpha_css($key) {
       $output[$name] = array(
         'name' => $info['name'],
         'file' => $info['file'],
-        'path' => DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme) . '/css/' . $info['file'],
+        'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
         'description' => isset($info['description']) ? $info['description'] : '',
         'media' => isset($info['media']) ? $info['media'] : 'all',
       );
@@ -176,7 +173,7 @@ function alpha_grids($key) {
     foreach ($data as $name => $info) {
       $output[$name] = array(
         'name' => $info['name'],
-        'path' => DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme) . '/css/grid/' . $name,
+        'path' => drupal_get_path('theme', $theme) . '/css/grid/' . $name,
         'columns' => array_map('trim', explode(',', $info['columns'])),
       );
     }

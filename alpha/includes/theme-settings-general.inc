@@ -202,7 +202,7 @@ function alpha_theme_settings_css_validate(&$element, &$form_state) {
   $theme = $form_state['build_info']['args'][0];
 
   $value = array();
-  $info = alpha_css_info($theme);
+  $info = alpha_css($theme);
   
   foreach ($element['#value'] as $item) {
     if (isset($info[$item])) {
