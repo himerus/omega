@@ -1,10 +1,9 @@
-name = Omega
+name = Alpha
 description = @todo
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
 version = 3.x
-base theme = alpha
 
 ; REGIONS
 
@@ -21,7 +20,12 @@ zones[content][regions][] = sidebar_second
 
 ; OPTIONAL STYLESHEETS
 
-css[test][name] = Test
-css[test][media] = screen
-css[test][file] = test.css
-css[test][description] = This is just a test.
+css[reset][name] = Reset
+css[reset][media] = screen
+css[reset][file] = reset.css
+css[reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
+
+; CSS GRID SYSTEMS
+
+grids[default][name] = Default (960px)
+grids[default][columns] = 12, 16, 24, 32
