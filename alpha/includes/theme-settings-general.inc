@@ -147,7 +147,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   
   $form['alpha_settings']['styles']['alpha_css'] = array(
     '#type' => 'checkboxes',
-    '#options' => $settings['css'],
+    '#options' => alpha_css_options($theme),
     '#default_value' => array_keys($settings['css']),
     '#element_validate' => array('alpha_theme_settings_css_validate'),
   );
