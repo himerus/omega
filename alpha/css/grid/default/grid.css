@@ -4,7 +4,7 @@
  * ==========================================================
  */
 
-.container-12, .container-16, .container-24, .container-32 {
+.container-12, .container-16, .container-24 {
 	margin-left: auto;
 	margin-right: auto;
 	width: 960px;
@@ -18,8 +18,7 @@
 
 .grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, 
 .grid-11, .grid-12, .grid-13, .grid-14, .grid-15, .grid-16, .grid-17, .grid-18, .grid-19, 
-.grid-20, .grid-21, .grid-22, .grid-23, .grid-24, .grid-25, .grid-26, .grid-27, .grid-28, 
-.grid-29, .grid-30, .grid-31, .grid-32 {
+.grid-20, .grid-21, .grid-22, .grid-23, .grid-24 {
 	display: inline;
 	float: left;
 	position: relative;
@@ -34,9 +33,9 @@
  */
 
 .alpha {
-	margin-left: 0;
+	margin-left: 0 !important;
 }
 
 .omega {
-	margin-right: 0;
+	margin-right: 0 !important;
 }

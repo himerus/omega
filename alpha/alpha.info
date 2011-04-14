@@ -13,10 +13,7 @@ regions[sidebar_second] = Sidebar Second
 
 ; ZONES
 
-zones[content][name] = Content
-zones[content][regions][] = content
-zones[content][regions][] = sidebar_first
-zones[content][regions][] = sidebar_second
+zones[content] = Content
 
 ; OPTIONAL STYLESHEETS
 
@@ -28,4 +25,11 @@ css[reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css
 ; CSS GRID SYSTEMS
 
 grids[default][name] = Default (960px)
-grids[default][columns] = 12, 16, 24, 32
+grids[default][columns][] = 12
+grids[default][columns][] = 16
+grids[default][columns][] = 24
+
+grids[fluid][name] = Fluid
+grids[fluid][columns][] = 12
+grids[fluid][columns][] = 16
+grids[fluid][columns][] = 24

@@ -1,5 +1,8 @@
-.vertical-tabs fieldset fieldset legend {
-  display: inline-block;
+.alpha-notice {
+  border: #EEDD55 1px solid;
+  margin: 6px 0 30px 0;
+  padding: 10px;
+  color: #884400;
 }
  
 div.vertical-tabs .vertical-tabs-panes fieldset fieldset {
@@ -12,7 +15,14 @@ div.vertical-tabs .vertical-tabs-panes fieldset fieldset legend {
   display: inline-block;
 }
 
-.alpha-region-configuration .form-item {
+.form-item-alpha-responsive-narrow-media,
+.form-item-alpha-responsive-normal-media,
+.form-item-alpha-responsive-wide-media {
+  margin-left: 20px !important;
+  border: none !important;
+}
+
+.alpha-inline .form-item {
   padding-top: 5px;
   margin-right: 20px !important;
   float: left;

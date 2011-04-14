@@ -14,10 +14,9 @@ regions[sidebar_second] = Sidebar Second
 
 ; ZONES
 
-zones[content][name] = Content
-zones[content][regions][] = content
-zones[content][regions][] = sidebar_first
-zones[content][regions][] = sidebar_second
+zones[content] = Content
+zones[postscript] = Postscript
+zones[preface] = Preface
 
 ; OPTIONAL STYLESHEETS
 

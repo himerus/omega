@@ -1,0 +1,32 @@
+/*
+ * ==========================================================
+ * Debug
+ * ==========================================================
+ */
+
+body.alpha-grid-debug .grid-1:hover, body.alpha-grid-debug .grid-2:hover, body.alpha-grid-debug .grid-3:hover, body.alpha-grid-debug .grid-4:hover,
+body.alpha-grid-debug .grid-5:hover, body.alpha-grid-debug .grid-6:hover, body.alpha-grid-debug .grid-7:hover, body.alpha-grid-debug .grid-8:hover,
+body.alpha-grid-debug .grid-9:hover, body.alpha-grid-debug .grid-10:hover, body.alpha-grid-debug .grid-11:hover, body.alpha-grid-debug .grid-12:hover,
+body.alpha-grid-debug .grid-13:hover, body.alpha-grid-debug .grid-14:hover, body.alpha-grid-debug .grid-15:hover, body.alpha-grid-debug .grid-16:hover,
+body.alpha-grid-debug .grid-17:hover, body.alpha-grid-debug .grid-18:hover, body.alpha-grid-debug .grid-19:hover, body.alpha-grid-debug .grid-20:hover,
+body.alpha-grid-debug .grid-21:hover, body.alpha-grid-debug .grid-22:hover, body.alpha-grid-debug .grid-23:hover, body.alpha-grid-debug .grid-24:hover
+body.alpha-grid-debug .grid-25:hover, body.alpha-grid-debug .grid-26:hover, body.alpha-grid-debug .grid-27:hover, body.alpha-grid-debug .grid-28:hover,
+body.alpha-grid-debug .grid-29:hover, body.alpha-grid-debug .grid-30:hover, body.alpha-grid-debug .grid-31:hover, body.alpha-grid-debug .grid-32:hover {
+  background-color: rgba(0, 115, 186, .2);
+  outline: 1px dashed #0073ba;
+}
+
+body.alpha-grid-debug .block-alpha-debug {
+  font-size: 14px;
+  margin: 0;
+  padding: 10px;
+  color: #555;
+  border: 1px dashed #888888;
+  background-color: rgba(255, 255, 255, .5);
+}
+
+body.alpha-grid-debug .block-alpha-debug h2 {
+  color: #000;
+  font-size: 14px;
+  margin: 0 0 10px 0;
+}
