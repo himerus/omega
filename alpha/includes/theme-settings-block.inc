@@ -56,6 +56,7 @@ function alpha_theme_settings_block(&$form, &$form_state) {
     
     $form['alpha_settings']['special_blocks'][$item . '_settings']['alpha_blocks_' . $item . '_weight'] = array(
       '#type' => 'weight',
+      '#delta' => 50,
       '#title' => t('Weight'),
       '#default_value' => alpha_theme_get_setting('alpha_blocks_' . $item . '_weight', $theme),
       '#description' => t('The weight for this block (relative to its region).'),

@@ -93,8 +93,8 @@ function alpha_scale_options($start, $end, $step) {
 /*
  * @todo
  */
-function alpha_css_options($key) {
-  $items = alpha_css($key);
+function alpha_css_options($key, $responsive = FALSE) {
+  $items = alpha_css($key, $responsive);
   
   $output = array(); 
   foreach ($items as $key => $info) {
@@ -161,17 +161,19 @@ function alpha_column_options($max) {
 /*
  * @todo
  */
-function alpha_css($key) {
+function alpha_css($key, $responsive = FALSE) {
   $output = array();
   foreach (alpha_info($key, 'css') as $theme => $data) {
-    foreach ($data as $name => $info) {    
-      $output[$name] = array(
-        'name' => $info['name'],
-        'file' => $info['file'],
-        'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
-        'description' => isset($info['description']) ? $info['description'] : '',
-        'media' => isset($info['media']) ? $info['media'] : 'all',
-      );
+    foreach ($data as $name => $info) {
+      if (($responsive && $info['media'] == 'responsive') || (!$responsive && $info['media'] != 'responsive')) {
+        $output[$name] = array(
+          'name' => $info['name'],
+          'file' => $info['file'],
+          'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
+          'description' => isset($info['description']) ? $info['description'] : '',
+          'media' => isset($info['media']) ? $info['media'] : 'all',
+        );
+      }
     }
   }
 
@@ -220,6 +222,12 @@ function alpha_include_grid($name, $columns = NULL) {
               $media = alpha_theme_get_setting('alpha_responsive_' . $type . '_media', $theme_key, 'all');
               $media = !empty($media) ? $media : 'all';
               $file = $path . '/' . $type . '/' . $type . '-' . $columns . '.css';            
+              
+              $css = alpha_theme_get_setting('alpha_responsive_' . $type . '_css', $theme_key, array());
+              
+              foreach ($css as $item) {
+                drupal_add_css($item['path'], array('media' => $media, 'weight' => $weight));
+              }
               
               drupal_add_css($file, array('media' => $media, 'weight' => $weight));
             }
@@ -339,7 +347,7 @@ function alpha_regions($key) {
         'suffix' => alpha_region_get_setting('suffix', $region, $key, 0),
         'css' => alpha_region_get_setting('css', $region, $key),
         'weight' => alpha_region_get_setting('weight', $region, $key, 0),
-        'primary' => isset($zone) && isset($zones[$zone]) ? alpha_zone_get_setting('primar', $zone, $key) == $region : FALSE,
+        'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
         'css' => alpha_region_get_setting('css', $region, $key),
       );
     }
@@ -381,6 +389,9 @@ function alpha_info($key, $item) {
   return $output[$key][$item];
 }
 
+/*
+ * @todo
+ */
 function alpha_settings($key) {
   return array(
     'grid' => alpha_theme_get_setting('alpha_grid', $key, 'default'),
@@ -389,15 +400,18 @@ function alpha_settings($key) {
    	  'enabled' => alpha_theme_get_setting('alpha_responsive', $key, FALSE),
       'narrow' => array(
         'enabled' => alpha_theme_get_setting('alpha_responsive_narrow', $key, FALSE),
-        'media' => alpha_theme_get_setting('alpha_responsive_narrow_media', $key),
-      ),      
+        'media' => alpha_theme_get_setting('alpha_responsive_narrow_media', $key, 'all'),
+        'css' => alpha_theme_get_setting('alpha_responsive_narrow_css', $key, array()),
+      ),
       'normal' => array(
         'enabled' => alpha_theme_get_setting('alpha_responsive_normal', $key, TRUE),
-        'media' => alpha_theme_get_setting('alpha_responsive_normal_media', $key),
+        'media' => alpha_theme_get_setting('alpha_responsive_normal_media', $key, 'all'),
+        'css' => alpha_theme_get_setting('alpha_responsive_normal_css', $key, array()),
       ),
       'wide' => array(
         'enabled' => alpha_theme_get_setting('alpha_responsive_wide', $key, FALSE),
-        'media' => alpha_theme_get_setting('alpha_responsive_wide_media', $key),
+        'media' => alpha_theme_get_setting('alpha_responsive_wide_media', $key, 'all'),
+        'css' => alpha_theme_get_setting('alpha_responsive_wide_css', $key, array()),
       ),
     ),
     'viewport' => array(
@@ -416,6 +430,10 @@ function alpha_settings($key) {
   );
 }
 
+
+/*
+ * @todo
+ */
 function alpha_debug_access($user, $roles) {
   foreach ($roles as $role => $assigned) {
     if ($assigned && isset($user->roles[$role])) {
@@ -426,6 +444,10 @@ function alpha_debug_access($user, $roles) {
   return FALSE;
 }
 
+
+/*
+ * @todo
+ */
 function alpha_regions_exclude() {
   return array(
   	'page_top', 'page_bottom', 'user_bar_first', 'user_bar_second', 
@@ -433,6 +455,10 @@ function alpha_regions_exclude() {
   );
 }
 
+
+/*
+ * @todo
+ */
 function alpha_debug_block($region, $info) {
   $block = new stdClass();
   $block->delta = $region;

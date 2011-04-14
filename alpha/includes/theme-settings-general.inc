@@ -7,6 +7,8 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $theme = $form_state['build_info']['args'][0];
   $scales = alpha_scale_options(1, 10, 0.5);  
   $settings = alpha_settings($theme);
+  $optional = alpha_css_options($theme);
+  $responsive = alpha_css_options($theme, TRUE);
   
   $form['alpha_settings'] = array(
     '#type' => 'vertical_tabs',
@@ -53,7 +55,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     ),
   ); 
   
-  $responsive = array(
+  $options = array(
     'narrow' => array(
       'description' => t('The narrow grid is designed to work well for tablets in a portrait viewing mode.'),
       'media' => 'all',
@@ -68,7 +70,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     ),
   );
   
-  foreach ($responsive as $type => $item) {  
+  foreach ($options as $type => $item) {  
     $form['alpha_settings']['layout']['responsive_settings']['alpha_responsive_' . $type] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable @type grid', array('@type' => $type)),
@@ -86,7 +88,28 @@ function alpha_theme_settings_general(&$form, &$form_state) {
           ':input[name="alpha_responsive_' . $type . '"]' => array('checked' => TRUE),
         ),
       ),   
-    ); 
+    );
+
+    if (!empty($optional)) {
+      $form['alpha_settings']['layout']['responsive_settings']['styles_' . $type] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Optional styles'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#states' => array(
+          'visible' => array(
+            ':input[name="alpha_responsive_' . $type . '"]' => array('checked' => TRUE),
+          ),
+        ), 
+      );
+      
+      $form['alpha_settings']['layout']['responsive_settings']['styles_' . $type]['alpha_responsive_' . $type . '_css'] = array(
+        '#type' => 'checkboxes',
+        '#options' => $responsive,
+        '#default_value' => array_keys($settings['responsive'][$type]['css']),
+        '#element_validate' => array('alpha_theme_settings_css_validate'),
+      );
+    }
   }
   
   $form['alpha_settings']['layout']['responsive_settings']['alpha_viewport'] = array(
@@ -138,19 +161,21 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#default_value' => $settings['viewport']['user'],
   );
   
-  $form['alpha_settings']['styles'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Toggle styles'),
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-  );
-  
-  $form['alpha_settings']['styles']['alpha_css'] = array(
-    '#type' => 'checkboxes',
-    '#options' => alpha_css_options($theme),
-    '#default_value' => array_keys($settings['css']),
-    '#element_validate' => array('alpha_theme_settings_css_validate'),
-  );
+  if (!empty($optional)) {  
+    $form['alpha_settings']['styles'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Toggle styles'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
+    
+    $form['alpha_settings']['styles']['alpha_css'] = array(
+      '#type' => 'checkboxes',
+      '#options' => $optional,
+      '#default_value' => array_keys($settings['css']),
+      '#element_validate' => array('alpha_theme_settings_css_validate'),
+    );
+  }
   
   $form['alpha_settings']['overlay'] = array(
     '#type' => 'fieldset',

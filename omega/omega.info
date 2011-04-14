@@ -21,6 +21,6 @@ zones[preface] = Preface
 ; OPTIONAL STYLESHEETS
 
 css[test][name] = Test
-css[test][media] = screen
+css[test][media] = responsive
 css[test][file] = test.css
 css[test][description] = This is just a test.
