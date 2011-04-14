@@ -9,7 +9,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $settings = alpha_settings($theme);
   $optional = alpha_css_options($theme);
   $responsive = alpha_css_options($theme, TRUE);
-  
+  krumo($settings);
   $form['alpha_settings'] = array(
     '#type' => 'vertical_tabs',
     '#weight' => -10,
@@ -35,14 +35,6 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#description' => t('<p>The responsive layout allows the grid to resize based on the size of the users device. This incorporates mobile first design, so the default behavior is to show the simplest (stacked) version of the layout, and for devices that meet certain display criteria (width), new CSS and grid sizing will be applied.</p><p class="marker">The fluid grid doesn\'t support this feature.</p>'),
     '#title' => t('Responsive grid layout'),
     '#default_value' => $settings['responsive']['enabled'],
-    '#states' => array(
-      'unchecked' => array(
-      	':input[name="alpha_grid"]' => array('value' => 'fluid'),
-      ),
-      'disabled' => array(
-      	':input[name="alpha_grid"]' => array('value' => 'fluid'),
-      ),
-    ),
   );
   
   $form['alpha_settings']['layout']['responsive_settings'] = array(
@@ -106,6 +98,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       $form['alpha_settings']['layout']['responsive_settings']['styles_' . $type]['alpha_responsive_' . $type . '_css'] = array(
         '#type' => 'checkboxes',
         '#options' => $responsive,
+        '#responsive' => TRUE,
         '#default_value' => array_keys($settings['responsive'][$type]['css']),
         '#element_validate' => array('alpha_theme_settings_css_validate'),
       );
@@ -172,6 +165,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     $form['alpha_settings']['styles']['alpha_css'] = array(
       '#type' => 'checkboxes',
       '#options' => $optional,
+      '#responsive' => FALSE,
       '#default_value' => array_keys($settings['css']),
       '#element_validate' => array('alpha_theme_settings_css_validate'),
     );
@@ -223,7 +217,7 @@ function alpha_theme_settings_css_validate(&$element, &$form_state) {
   $theme = $form_state['build_info']['args'][0];
 
   $value = array();
-  $info = alpha_css($theme);
+  $info = alpha_css($theme, $element['#responsive']);
   
   foreach ($element['#value'] as $item) {
     if (isset($info[$item])) {

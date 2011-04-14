@@ -187,7 +187,8 @@ function alpha_include_grid($name, $columns = NULL) {
   global $theme_key, $language;
 
   $grid = alpha_grids($theme_key, $name);
-
+  $settings = alpha_settings($theme_key);
+  
   if (!empty($grid)) {
     $file = $grid['path'] . '/grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css');
     
@@ -212,24 +213,20 @@ function alpha_include_grid($name, $columns = NULL) {
         // being included in order to make sure that even browsers / devices that are 
         // incapable of reading the @media tag properly will at least have the
         // normal width grid CSS.
-        if (alpha_theme_get_setting('alpha_responsive', $theme_key, FALSE)) {
+        if ($settings['responsive']['enabled']) {
           // In this case we need to include all the enabled sizes in the order
           // 'narrow' => 'normal' => 'wide'.
           $order = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
                   
           foreach ($order as $type => $weight) {
-            if ($type == 'normal' || ($grid[$type] && alpha_theme_get_setting('alpha_responsive_' . $type, $theme_key, FALSE))) {
-              $media = alpha_theme_get_setting('alpha_responsive_' . $type . '_media', $theme_key, 'all');
-              $media = !empty($media) ? $media : 'all';
-              $file = $path . '/' . $type . '/' . $type . '-' . $columns . '.css';            
+            if ($type == 'normal' || ($grid[$type] && $settings['responsive'][$type]['enabled'])) {
+              $file = $path . '/' . $type . '/' . $type . '-' . $columns . '.css';             
+
+              drupal_add_css($file, array('media' => $settings['responsive'][$type]['media'], 'weight' => $weight));
               
-              $css = alpha_theme_get_setting('alpha_responsive_' . $type . '_css', $theme_key, array());
-              
-              foreach ($css as $item) {
-                drupal_add_css($item['path'], array('media' => $media, 'weight' => $weight));
+              foreach ($settings['responsive'][$type]['css'] as $item) {
+                drupal_add_css($item['path'], array('media' => $settings['responsive'][$type]['media'], 'weight' => $weight));
               }
-              
-              drupal_add_css($file, array('media' => $media, 'weight' => $weight));
             }
           }          
         }
