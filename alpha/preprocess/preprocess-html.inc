@@ -13,8 +13,8 @@ function alpha_alpha_preprocess_html(&$vars) {
   }
   
   if($settings['debug']['grid'] && alpha_debug_access($vars['user'], $settings['debug']['roles'])) {
-    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/debug.css');
-    
+    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/debug.css', array('weight' => 1));
+
     $vars['classes_array'][] = 'alpha-grid-debug';
-  }  
+  }
 }

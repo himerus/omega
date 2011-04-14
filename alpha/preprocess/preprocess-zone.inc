@@ -1,9 +1,15 @@
 <?php
 
 function alpha_alpha_preprocess_zone(&$vars) {
-  alpha_include_grid($vars['elements']['#page']['#alpha']['grid'], $vars['elements']['#zone']['columns']);
-
+  $settings = $vars['elements']['#page']['#alpha'];
   $zone = $vars['elements']['#zone'];
+  
+  alpha_include_grid($settings['grid'], $zone['columns']);
+  
+  if($settings['debug']['grid'] && alpha_debug_access($vars['user'], $settings['debug']['roles'])) {
+    alpha_debug_grid($settings, $zone['columns']);
+  } 
+  
   $vars['zone'] = $zone['zone'];  
   
   $vars['theme_hook_suggestions'][] = 'zone';

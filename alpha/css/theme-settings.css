@@ -15,11 +15,13 @@ div.vertical-tabs .vertical-tabs-panes fieldset fieldset legend {
   display: inline-block;
 }
 
+#edit-styles-narrow,
+#edit-styles-normal,
+#edit-styles-wide,
 .form-item-alpha-responsive-narrow-media,
 .form-item-alpha-responsive-normal-media,
 .form-item-alpha-responsive-wide-media {
   margin-left: 20px !important;
-  border: none !important;
 }
 
 .alpha-inline .form-item {

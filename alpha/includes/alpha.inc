@@ -184,17 +184,16 @@ function alpha_css($key, $responsive = FALSE) {
  * @todo
  */
 function alpha_include_grid($name, $columns = NULL) {
-  global $theme_key, $language;
+  global $theme_key, $language, $user;
 
   $grid = alpha_grids($theme_key, $name);
   $settings = alpha_settings($theme_key);
-  
+
   if (!empty($grid)) {
     $file = $grid['path'] . '/grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css');
+    $files[$file] = array('weight' => -4);
     
-    drupal_add_css($file, array('weight' => -4));
-    
-    if (isset($columns) && isset($grid['columns'][$columns])) {   
+    if (isset($columns) && isset($grid['columns'][$columns])) {
       // Column layouts can be provided by subthemes, therefore each column needs
       // to be included using the path that the column-defining theme
       // resides in. This path can be used for all additional .css files.
@@ -202,40 +201,29 @@ function alpha_include_grid($name, $columns = NULL) {
 
       // If the current grid is fluid the files and pathes are a bit different.
       if ($grid['type'] == 'fluid') {
-        $file = $path . '/columns/fluid-' . $columns . '.css';
-        $files[$file] = 'all';
+        $files[$path . '/columns/fluid-' . $columns . '.css'] = array();
       }
       // If the current grid is a fixed pixel grid we need to do a little bit more
       // (at least if responsive grids are enabled).
       else {
-        // We need to react on the 'alpha_responsive_grid' setting and choose the
-        // proper CSS files accordingly. The normal width grid CSS files are ALWAYS
-        // being included in order to make sure that even browsers / devices that are 
-        // incapable of reading the @media tag properly will at least have the
-        // normal width grid CSS.
-        if ($settings['responsive']['enabled']) {
-          // In this case we need to include all the enabled sizes in the order
-          // 'narrow' => 'normal' => 'wide'.
-          $order = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
-                  
-          foreach ($order as $type => $weight) {
-            if ($type == 'normal' || ($grid[$type] && $settings['responsive'][$type]['enabled'])) {
-              $file = $path . '/' . $type . '/' . $type . '-' . $columns . '.css';             
-
-              drupal_add_css($file, array('media' => $settings['responsive'][$type]['media'], 'weight' => $weight));
-              
-              foreach ($settings['responsive'][$type]['css'] as $item) {
-                drupal_add_css($item['path'], array('media' => $settings['responsive'][$type]['media'], 'weight' => $weight));
-              }
+        $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
+                    
+        foreach ($widths as $type => $weight) {
+          if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
+            $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
+            $file = $path . '/' . $type . '/' . $type . '-' . $columns . '.css';
+            $files[$file] = array('media' => $media, 'weight' => $weight);
+  
+            foreach ($settings['responsive'][$type]['css'] as $item) {
+              $files[$item['path']] = array('media' => $media, 'weight' => $weight);
             }
-          }          
-        }
-        else {
-          $file = $path . '/normal/normal-' . $columns . '.css';
-          
-          drupal_add_css($file);
+          }        
         }
       }
+    }
+    
+    foreach ($files as $file => $options) {
+      drupal_add_css($file, $options);
     }
   }
 }
@@ -470,4 +458,30 @@ function alpha_debug_block($region, $info) {
     '#block' => $block,
     '#markup' => '<div class="alpha-debug-region-data">' . t('This is a debugging block.') . '</div>',
   );
+}
+
+/*
+ * @todo
+ */
+function alpha_debug_grid($settings, $columns) {
+  global $theme_key;
+  
+  $debug = &drupal_static(__FUNCTION__);
+  $grid = alpha_grids($theme_key, $settings['grid']);
+  
+  if ($grid['type'] != 'fluid' && !$debug[$columns]) {
+    $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
+                
+    foreach ($widths as $type => $weight) {
+      if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
+        $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
+        $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
+        $css = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . $path . '); }';
+        
+        drupal_add_css($css, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
+      }        
+    }
+  }
+  
+  $debug[$columns] = TRUE;
 }
