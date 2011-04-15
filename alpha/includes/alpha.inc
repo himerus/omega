@@ -335,7 +335,6 @@ function alpha_regions($key) {
         'css' => alpha_region_get_setting('css', $region, $key),
         'weight' => alpha_region_get_setting('weight', $region, $key, 0),
         'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
-        'css' => alpha_region_get_setting('css', $region, $key),
       );
       
       $output[$region]['width'] = $output[$region]['columns'] + $output[$region]['prefix'] + $output[$region]['suffix'];
@@ -488,7 +487,7 @@ function alpha_debug_grid($settings, $columns) {
     foreach ($widths as $type => $weight) {
       if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
         $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
-        $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
+        $path = url($grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png');
         $css = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . $path . '); }';
         
         drupal_add_css($css, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
