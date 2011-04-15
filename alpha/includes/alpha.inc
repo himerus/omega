@@ -424,7 +424,7 @@ function alpha_settings($key) {
   
   $settings['debug']['roles'] = is_array($settings['debug']['roles']) ? $settings['debug']['roles'] : array();
   $settings['css'] = is_array($settings['css']) ? $settings['css'] : array();
-  
+
   return $settings;
 }
 

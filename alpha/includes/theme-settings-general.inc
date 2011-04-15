@@ -100,8 +100,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
         '#type' => 'checkboxes',
         '#options' => $responsive,
         '#responsive' => TRUE,
-        '#default_value' => array_keys($settings['responsive'][$type]['css']),
-        '#element_validate' => array('alpha_theme_settings_css_validate'),
+        '#default_value' => $settings['responsive'][$type]['css'],
       );
     }
   }
@@ -167,8 +166,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#type' => 'checkboxes',
       '#options' => $optional,
       '#responsive' => FALSE,
-      '#default_value' => array_keys($settings['css']),
-      '#element_validate' => array('alpha_theme_settings_css_validate'),
+      '#default_value' => $settings['css'],
     );
   }
   
@@ -209,24 +207,4 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     $form['alpha_settings'][$element] = $form[$element];
     unset($form[$element], $form['alpha_settings'][$element]['#description'], $form['alpha_settings'][$element]['#attributes']);
   }  
-}
-
-/*
- * @todo
- */
-function alpha_theme_settings_css_validate(&$element, &$form_state) {
-  $theme = $form_state['build_info']['args'][0];
-
-  $value = array();
-  $info = alpha_css($theme, $element['#responsive']);
-  
-  foreach ($element['#value'] as $item) {
-    if (isset($info[$item])) {
-      $value[$item] = $info[$item];
-      
-      unset($value[$item]['description']);
-    }
-  }
-
-  form_set_value($element, $value, $form_state);
 }

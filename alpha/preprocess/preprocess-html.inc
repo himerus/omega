@@ -8,9 +8,12 @@ function alpha_alpha_preprocess_html(&$vars) {
   
   $settings = alpha_settings($theme_key);
   $access = alpha_debug_access($vars['user'], $settings['debug']['roles']);
+  $css = alpha_css($theme_key);
 
-  foreach ($settings['css'] as $item) {
-    drupal_add_css($item['path'], array('media' => $item['media']));
+  foreach ($settings['css'] as $item => $enabled) {
+    if (isset($css[$item]) && $enabled) {
+      drupal_add_css($css[$item]['path'], array('media' => $css[$item]['media']));
+    }    
   }
   
   if(($settings['debug']['grid'] || $settings['debug']['block']) && $access) {
