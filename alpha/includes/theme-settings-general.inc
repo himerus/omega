@@ -9,7 +9,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $settings = alpha_settings($theme);
   $optional = alpha_css_options($theme);
   $responsive = alpha_css_options($theme, TRUE);
-  krumo($settings);
+
   $form['alpha_settings'] = array(
     '#type' => 'vertical_tabs',
     '#weight' => -10,

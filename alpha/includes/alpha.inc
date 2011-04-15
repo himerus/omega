@@ -469,7 +469,7 @@ function alpha_debug_grid($settings, $columns) {
   $debug = &drupal_static(__FUNCTION__);
   $grid = alpha_grids($theme_key, $settings['grid']);
   
-  if ($grid['type'] != 'fluid' && !$debug[$columns]) {
+  if ($grid['type'] != 'fluid' && !isset($debug[$columns])) {
     $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
                 
     foreach ($widths as $type => $weight) {
