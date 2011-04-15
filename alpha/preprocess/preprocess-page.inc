@@ -26,14 +26,11 @@ function alpha_alpha_preprocess_page(&$vars) {
         $regions[$item['zone']][$region]['#region'] = $item;
         $regions[$item['zone']][$region]['#page'] = &$vars;
         
-        if ($item['primary']) {
-          $regions[$item['zone']][$region]['#weight'] = -100;
-        }
-        
         if ($vars['#alpha']['debug']['block']) {
           $regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item);
           $regions[$item['zone']][$region]['#sorted'] = FALSE;
           $regions[$item['zone']][$region]['#region'] = $item;
+          $regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
           $regions[$item['zone']][$region]['#zone'] = $zones[$item['zone']];
           $regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
         }
@@ -42,20 +39,35 @@ function alpha_alpha_preprocess_page(&$vars) {
       unset($vars['page'][$region]);
     }   
   }
-  
+
+
   foreach ($zones as $zone => $item) {
     if (isset($item['section']) && isset($sections[$item['section']]) && isset($regions[$zone])) {
       if (!empty($item['primary']) && isset($regions[$zone][$item['primary']])) {
-        foreach ($regions[$zone] as $region_outer => $info_outer) {
-          foreach ($regions[$zone] as $region_inner => $info_inner) {
-            $regions[$zone][$region_outer]['#companions'][$region_inner] = $info_inner['#region'];
-          }
+        $primary = &$regions[$zone][$item['primary']];
+        
+        $primary['#weight'] = -100;
+        $primary['#region']['columns'] = $item['columns'] - $primary['#region']['prefix'] - $primary['#region']['suffix'];
+        $primary['#region']['width'] = $item['columns'];
+      
+        foreach ($regions[$zone] as $region => $info) {
+          if ($region != $item['primary']) {
+            $primary['#region']['columns'] -= $info['#region']['width'];
+            $primary['#region']['width'] -= $info['#region']['width'];
+
+            if ($primary['#region']['weight'] > $info['#region']['weight']) {
+              $primary['#region']['push'] += $info['#region']['width'];              
+              $regions[$zone][$region]['#region']['pull'] = &$primary['#region']['width'];
+            }
+          }         
         }
       } 
       
       $vars['page'][$item['section'] . '_section'][$zone] = $regions[$zone];
       $vars['page'][$item['section'] . '_section'][$zone]['#theme_wrappers'][] = 'zone';
       $vars['page'][$item['section'] . '_section'][$zone]['#zone'] = $item;
+      $vars['page'][$item['section'] . '_section'][$zone]['#weight'] = (int) $item['weight'];
+      $vars['page'][$item['section'] . '_section'][$zone]['#sorted'] = FALSE;
       $vars['page'][$item['section'] . '_section'][$zone]['#page'] = &$vars;
     }
   }

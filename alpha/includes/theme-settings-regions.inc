@@ -50,6 +50,7 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
     $form['alpha_settings']['regions'][$zone][$region] = array(
       '#type' => 'fieldset',
       '#title' => $item['name'],
+      '#weight' => $item['weight'],
       '#attributes' => array(
         'class' => array('alpha-inline'),
       ),

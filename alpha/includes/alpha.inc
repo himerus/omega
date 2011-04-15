@@ -330,11 +330,15 @@ function alpha_regions($key) {
         'prefix' => alpha_region_get_setting('prefix', $region, $key, 0),
         'columns' => alpha_region_get_setting('columns', $region, $key, 0),
         'suffix' => alpha_region_get_setting('suffix', $region, $key, 0),
+        'push' => 0,
+        'pull' => 0,
         'css' => alpha_region_get_setting('css', $region, $key),
         'weight' => alpha_region_get_setting('weight', $region, $key, 0),
         'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
         'css' => alpha_region_get_setting('css', $region, $key),
       );
+      
+      $output[$region]['width'] = $output[$region]['columns'] + $output[$region]['prefix'] + $output[$region]['suffix'];
     }
   }
   
