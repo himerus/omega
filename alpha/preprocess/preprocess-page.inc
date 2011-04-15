@@ -13,19 +13,11 @@ function alpha_alpha_preprocess_page(&$vars) {
   $regions = array();
   foreach (alpha_regions($theme_key) as $region => $item) {
     if (isset($zones[$item['zone']]) && $zones[$item['zone']]['enabled']) {
-      if (!empty($vars['page'][$region]) || $vars['#alpha']['debug']['block']) {
-        foreach ($vars['page'][$region] as $key => $block) {
-          // If the user -god knows why- didnt assignt the "Main page content" block
-          // we need to give it a #weight manually so we can still sort it properly.
-          if ($key[0] !== '#' && !isset($block['#weight'])) {
-            $vars['page'][$region][$key]['#weight'] = 0;
-          }
-        }
-        
-        $regions[$item['zone']][$region] = $vars['page'][$region];      
-        $regions[$item['zone']][$region]['#region'] = $item;
+      if (!empty($vars['page'][$region]) || $vars['#alpha']['debug']['block']) {        
+        $regions[$item['zone']][$region] = $vars['page'][$region];
+        $regions[$item['zone']][$region]['#region'] = $region;      
+        $regions[$item['zone']][$region]['#data'] = $item;
         $regions[$item['zone']][$region]['#page'] = &$vars;
-        $regions[$item['zone']][$region]['#zone'] = $zones[$item['zone']];
         $regions[$item['zone']][$region]['#sorted'] = FALSE;
         $regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
         
@@ -46,25 +38,25 @@ function alpha_alpha_preprocess_page(&$vars) {
         $primary = &$regions[$zone][$item['primary']];
         
         $primary['#weight'] = -100;
-        $primary['#region']['columns'] = $item['columns'] - $primary['#region']['prefix'] - $primary['#region']['suffix'];
-        $primary['#region']['width'] = $item['columns'];
+        $primary['#data']['columns'] = $item['columns'] - $primary['#region']['prefix'] - $primary['#data']['suffix'];
+        $primary['#data']['width'] = $item['columns'];
       
         $pull = array();
         
         foreach ($regions[$zone] as $region => $info) {
           if ($region != $item['primary']) {
-            $primary['#region']['columns'] -= $info['#region']['width'];
-            $primary['#region']['width'] -= $info['#region']['width'];
+            $primary['#data']['columns'] -= $info['#data']['width'];
+            $primary['#data']['width'] -= $info['#data']['width'];
 
-            if ($primary['#region']['weight'] > $info['#region']['weight']) {
-              $primary['#region']['push'] += $info['#region']['width'];              
-              $pull[$region] = &$primary['#region']['width'];
+            if ($primary['#data']['weight'] > $info['#data']['weight']) {
+              $primary['#data']['push'] += $info['#data']['width'];              
+              $pull[$region] = &$primary['#data']['width'];
             }
           }         
         }
         
         foreach ($pull as $region => $value) {
-          $regions[$zone][$region]['#region']['pull'] = $value;
+          $regions[$zone][$region]['#data']['pull'] = $value;
         }
       }
       
