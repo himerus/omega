@@ -189,41 +189,29 @@ function alpha_include_grid($name, $columns = NULL) {
   $grid = alpha_grids($theme_key, $name);
   $settings = alpha_settings($theme_key);
 
-  if (!empty($grid)) {
-    $file = $grid['path'] . '/grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css');
-    $files[$file] = array('weight' => -4);
-    
-    if (isset($columns) && isset($grid['columns'][$columns])) {
-      // Column layouts can be provided by subthemes, therefore each column needs
-      // to be included using the path that the column-defining theme
-      // resides in. This path can be used for all additional .css files.
-      $path = $grid['columns'][$columns];
+  if (!empty($grid) && isset($columns) && isset($grid['columns'][$columns])) {
+    $path = $grid['columns'][$columns];
 
-      // If the current grid is fluid the files and pathes are a bit different.
-      if ($grid['type'] == 'fluid') {
-        $files[$path . '/columns/fluid-' . $columns . '.css'] = array();
-      }
-      // If the current grid is a fixed pixel grid we need to do a little bit more
-      // (at least if responsive grids are enabled).
-      else {
-        $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
-                    
-        foreach ($widths as $type => $weight) {
-          if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
-            $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
-            $file = $path . '/' . $type . '/' . $type . '-' . $columns . '.css';
-            $files[$file] = array('media' => $media, 'weight' => $weight);
-
-            foreach ($settings['responsive'][$type]['css'] as $item) {
-              $files[$item['path']] = array('media' => $media, 'weight' => $weight);
-            }
-          }        
-        }
-      }
+    if ($grid['type'] == 'fluid') {
+      drupal_add_css($path . '/fluid-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'));
+      drupal_add_css($path . '/columns/fluid-' . $columns . '.css');
     }
-    
-    foreach ($files as $file => $options) {
-      drupal_add_css($file, $options);
+    else {
+      $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
+
+      foreach ($widths as $type => $weight) {
+        if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
+          $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
+          $options = array('media' => $media, 'weight' => $weight);
+          
+          drupal_add_css($path . '/' . $type . '/' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
+          drupal_add_css($path . '/' . $type . '/' . $type . '-' . $columns . '.css', $options);
+          
+          foreach ($settings['responsive'][$type]['css'] as $item) {
+            drupal_add_css($item['path'], $options);
+          }
+        }        
+      }
     }
   }
 }
@@ -389,17 +377,17 @@ function alpha_settings($key) {
       'narrow' => array(
         'enabled' => alpha_theme_get_setting('alpha_responsive_narrow', $key, FALSE),
         'media' => alpha_theme_get_setting('alpha_responsive_narrow_media', $key, 'all'),
-        'css' => alpha_theme_get_setting('alpha_responsive_narrow_css', $key, array()),
+        'css' => alpha_theme_get_setting('alpha_responsive_narrow_css', $key),
       ),
       'normal' => array(
         'enabled' => alpha_theme_get_setting('alpha_responsive_normal', $key, TRUE),
         'media' => alpha_theme_get_setting('alpha_responsive_normal_media', $key, 'all'),
-        'css' => alpha_theme_get_setting('alpha_responsive_normal_css', $key, array()),
+        'css' => alpha_theme_get_setting('alpha_responsive_normal_css', $key),
       ),
       'wide' => array(
         'enabled' => alpha_theme_get_setting('alpha_responsive_wide', $key, FALSE),
         'media' => alpha_theme_get_setting('alpha_responsive_wide_media', $key, 'all'),
-        'css' => alpha_theme_get_setting('alpha_responsive_wide_css', $key, array()),
+        'css' => alpha_theme_get_setting('alpha_responsive_wide_css', $key),
       ),
     ),
     'viewport' => array(
@@ -412,8 +400,7 @@ function alpha_settings($key) {
     'debug' => array(
       'block' => alpha_theme_get_setting('alpha_debug_block_toggle', $key, FALSE),
       'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', $key, FALSE),
-      'auto' => alpha_theme_get_setting('alpha_debug_grid_load', $key, FALSE),
-      'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key, array()),
+      'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key),
     ),
   );
   
@@ -446,10 +433,7 @@ function alpha_debug_access($user, $roles) {
  * @todo
  */
 function alpha_regions_exclude() {
-  return array(
-  	'page_top', 'page_bottom', 'user_bar_first', 'user_bar_second', 
-  	'dashboard_main', 'dashboard_inactive', 'dashboard_sidebar',
-  );
+  return array('page_top', 'page_bottom');
 }
 
 
@@ -487,8 +471,8 @@ function alpha_debug_grid($settings, $columns) {
     foreach ($widths as $type => $weight) {
       if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
         $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
-        $path = url($grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png');
-        $css = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . $path . '); }';
+        $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
+        $css = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . url($path) . '); }';
         
         drupal_add_css($css, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
       }        

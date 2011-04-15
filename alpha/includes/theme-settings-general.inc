@@ -189,13 +189,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#title' => t('Enable grid overlay for selected roles.'),
     '#default_value' => $settings['debug']['grid'],
   );
-  
-  $form['alpha_settings']['overlay']['alpha_debug_grid_load'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Turn on grid overlay on page load by default.'),
-    '#default_value' => $settings['debug']['auto'],
-  );
- 
+
   $form['alpha_settings']['overlay']['alpha_debug_grid_roles'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Roles that may use the grid overlay / debugging tool.'),
