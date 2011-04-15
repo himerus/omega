@@ -25,13 +25,12 @@ function alpha_alpha_preprocess_page(&$vars) {
         $regions[$item['zone']][$region] = $vars['page'][$region];      
         $regions[$item['zone']][$region]['#region'] = $item;
         $regions[$item['zone']][$region]['#page'] = &$vars;
+        $regions[$item['zone']][$region]['#zone'] = $zones[$item['zone']];
+        $regions[$item['zone']][$region]['#sorted'] = FALSE;
+        $regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
         
         if ($vars['#alpha']['debug']['block']) {
           $regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item);
-          $regions[$item['zone']][$region]['#sorted'] = FALSE;
-          $regions[$item['zone']][$region]['#region'] = $item;
-          $regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
-          $regions[$item['zone']][$region]['#zone'] = $zones[$item['zone']];
           $regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
         }
       }

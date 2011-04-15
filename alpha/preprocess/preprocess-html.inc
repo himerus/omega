@@ -8,7 +8,7 @@ function alpha_alpha_preprocess_html(&$vars) {
   
   $settings = alpha_settings($theme_key);
   $access = alpha_debug_access($vars['user'], $settings['debug']['roles']);
-  
+
   foreach ($settings['css'] as $item) {
     drupal_add_css($item['path'], array('media' => $item['media']));
   }

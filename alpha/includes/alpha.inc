@@ -213,7 +213,7 @@ function alpha_include_grid($name, $columns = NULL) {
             $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
             $file = $path . '/' . $type . '/' . $type . '-' . $columns . '.css';
             $files[$file] = array('media' => $media, 'weight' => $weight);
-  
+
             foreach ($settings['responsive'][$type]['css'] as $item) {
               $files[$item['path']] = array('media' => $media, 'weight' => $weight);
             }
@@ -382,7 +382,7 @@ function alpha_info($key, $item) {
  * @todo
  */
 function alpha_settings($key) {
-  return array(
+  $settings = array(
     'grid' => alpha_theme_get_setting('alpha_grid', $key, 'default'),
     'css' => alpha_theme_get_setting('alpha_css', $key, array()),
     'responsive' => array(
@@ -417,6 +417,15 @@ function alpha_settings($key) {
       'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key, array()),
     ),
   );
+  
+  foreach (array('narrow', 'normal', 'wide') as $type) {
+    $settings['responsive'][$type]['css'] = is_array($settings['responsive'][$type]['css']) ? $settings['responsive'][$type]['css'] : array();
+  }
+  
+  $settings['debug']['roles'] = is_array($settings['debug']['roles']) ? $settings['debug']['roles'] : array();
+  $settings['css'] = is_array($settings['css']) ? $settings['css'] : array();
+  
+  return $settings;
 }
 
 
