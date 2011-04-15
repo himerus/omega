@@ -98,7 +98,7 @@ function alpha_css_options($key, $responsive = FALSE) {
   
   $output = array(); 
   foreach ($items as $key => $info) {
-    $output[$key] = t('<strong>@name</strong> (@media) - !description', array('@name' => $info['name'], '@media' => $info['media'], '!description' => $info['description']));
+    $output[$key] = t('<strong>@name</strong> (@media) - @file: !description', array('@name' => $info['name'], '@file' => $info['file'], '@media' => $info['media'], '!description' => $info['description']));
   }
   
   return $output;
@@ -169,6 +169,7 @@ function alpha_css($key, $responsive = FALSE) {
         $output[$name] = array(
           'name' => $info['name'],
           'file' => $info['file'],
+          'weight' => isset($info['weight']) ? $info['weight'] : 0,
           'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
           'description' => isset($info['description']) ? $info['description'] : '',
           'media' => isset($info['media']) ? $info['media'] : 'all',
@@ -188,7 +189,8 @@ function alpha_include_grid($name, $columns = NULL) {
 
   $grid = alpha_grids($theme_key, $name);
   $settings = alpha_settings($theme_key);
-
+  $css = alpha_css($theme_key, TRUE);
+  
   if (!empty($grid) && isset($columns) && isset($grid['columns'][$columns])) {
     $path = $grid['columns'][$columns];
 
@@ -207,8 +209,10 @@ function alpha_include_grid($name, $columns = NULL) {
           drupal_add_css($path . '/' . $type . '/' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
           drupal_add_css($path . '/' . $type . '/' . $type . '-' . $columns . '.css', $options);
           
-          foreach ($settings['responsive'][$type]['css'] as $item) {
-            drupal_add_css($item['path'], $options);
+          foreach ($settings['responsive'][$type]['css'] as $item => $enabled) {
+            if (isset($css[$item]) && $enabled) {
+              drupal_add_css($item['path'], $options);
+            }
           }
         }        
       }

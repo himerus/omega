@@ -12,8 +12,10 @@ function alpha_alpha_preprocess_html(&$vars) {
 
   foreach ($settings['css'] as $item => $enabled) {
     if (isset($css[$item]) && $enabled) {
-      drupal_add_css($css[$item]['path'], array('media' => $css[$item]['media']));
-    }    
+      $weight = $css[$item]['weight'] >= 0 ? $css[$item]['weight'] : $css[$item]['weight'] - 3;
+      
+      drupal_add_css($css[$item]['path'], array('media' => $css[$item]['media'], 'weight' => $weight));
+    }
   }
   
   if(($settings['debug']['grid'] || $settings['debug']['block']) && $access) {

@@ -42,7 +42,6 @@ regions[postscript_fourth] = Postscript Fourth
 regions[footer_first] = Footer First
 regions[footer_second] = Footer Second
 
-
 ; ZONES
 
 zones[user] = User
@@ -53,7 +52,6 @@ zones[preface] = Preface
 zones[content] = Content
 zones[postscript] = Postscript
 zones[footer] = Footer
-
 
 ; OPTIONAL STYLESHEETS
 
