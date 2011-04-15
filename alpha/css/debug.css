@@ -16,10 +16,11 @@ body.alpha-grid-debug .grid-21:hover, body.alpha-grid-debug .grid-22:hover, body
 
 body.alpha-region-debug .block-alpha-debug {
   font-size: 14px;
+  line-height: 18px;
   margin: 0;
   padding: 10px;
   color: #555;
-  border: 1px dashed #888888;
+  outline: 1px dashed #888888;
   background-color: rgba(255, 255, 255, .5);
 }
 
@@ -27,4 +28,5 @@ body.alpha-region-debug .block-alpha-debug h2 {
   color: #000;
   font-size: 14px;
   margin: 0 0 10px 0;
+  font-weight: bold;
 }

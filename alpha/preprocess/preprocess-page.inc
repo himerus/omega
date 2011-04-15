@@ -34,6 +34,7 @@ function alpha_alpha_preprocess_page(&$vars) {
           $regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item);
           $regions[$item['zone']][$region]['#sorted'] = FALSE;
           $regions[$item['zone']][$region]['#region'] = $item;
+          $regions[$item['zone']][$region]['#zone'] = $zones[$item['zone']];
           $regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
         }
       }
@@ -45,10 +46,12 @@ function alpha_alpha_preprocess_page(&$vars) {
   foreach ($zones as $zone => $item) {
     if (isset($item['section']) && isset($sections[$item['section']]) && isset($regions[$zone])) {
       if (!empty($item['primary']) && isset($regions[$zone][$item['primary']])) {
-        foreach ($regions[$zone] as $region => $info) {
-          $regions[$zone][$region]['#companions'] = $regions[$zone];
+        foreach ($regions[$zone] as $region_outer => $info_outer) {
+          foreach ($regions[$zone] as $region_inner => $info_inner) {
+            $regions[$zone][$region_outer]['#companions'][$region_inner] = $info_inner['#region'];
+          }
         }
-      }      
+      } 
       
       $vars['page'][$item['section'] . '_section'][$zone] = $regions[$zone];
       $vars['page'][$item['section'] . '_section'][$zone]['#theme_wrappers'][] = 'zone';

@@ -24,4 +24,16 @@ function alpha_alpha_preprocess_html(&$vars) {
       $vars['classes_array'][] = 'alpha-region-debug';
     }
   }
+
+  if($settings['responsive']['enabled'] && $settings['viewport']['enabled']) {
+    $meta = array(
+  	  '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'viewport',
+        'content' => 'width=device-width; initial-scale=' . $settings['viewport']['initial'] . '; maximum-scale=' . $settings['viewport']['max'] . '; minimum-scale=' . $settings['viewport']['min'] . '; user-scalable=' . $settings['viewport']['user'] . ';',
+      ),
+    );
+
+    drupal_add_html_head($meta, 'alpha-viewport');
+  }  
 }
