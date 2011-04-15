@@ -1,6 +1,6 @@
 <?php
 
-function alpha_alpha_preprocess_region(&$vars) {
+function alpha_alpha_preprocess_region(&$vars) {  
   $region = $vars['elements']['#region'];
   $zone = $vars['elements']['#zone'];
   

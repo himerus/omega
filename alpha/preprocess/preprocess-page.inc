@@ -50,6 +50,8 @@ function alpha_alpha_preprocess_page(&$vars) {
         $primary['#region']['columns'] = $item['columns'] - $primary['#region']['prefix'] - $primary['#region']['suffix'];
         $primary['#region']['width'] = $item['columns'];
       
+        $pull = array();
+        
         foreach ($regions[$zone] as $region => $info) {
           if ($region != $item['primary']) {
             $primary['#region']['columns'] -= $info['#region']['width'];
@@ -57,11 +59,15 @@ function alpha_alpha_preprocess_page(&$vars) {
 
             if ($primary['#region']['weight'] > $info['#region']['weight']) {
               $primary['#region']['push'] += $info['#region']['width'];              
-              $regions[$zone][$region]['#region']['pull'] = &$primary['#region']['width'];
+              $pull[$region] = &$primary['#region']['width'];
             }
           }         
         }
-      } 
+        
+        foreach ($pull as $region => $value) {
+          $regions[$zone][$region]['#region']['pull'] = $value;
+        }
+      }
       
       $vars['page'][$item['section'] . '_section'][$zone] = $regions[$zone];
       $vars['page'][$item['section'] . '_section'][$zone]['#theme_wrappers'][] = 'zone';
