@@ -87,6 +87,9 @@ function alpha_theme_settings_zones(&$form, &$form_state) {
   }
 }
 
+/*
+ * @todo
+ */
 function alpha_theme_settings_primary_region_validate($element, &$form_state) {
   if ($element['#value'] == '_none') {
     form_set_value($element, NULL, $form_state);

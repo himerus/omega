@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * @todo
+ */
 function alpha_alpha_preprocess_page(&$vars) {
   global $theme_key;
   
@@ -13,7 +16,7 @@ function alpha_alpha_preprocess_page(&$vars) {
   $regions = array();
   foreach (alpha_regions($theme_key) as $region => $item) {
     if (isset($zones[$item['zone']]) && $zones[$item['zone']]['enabled']) {
-      if (!empty($vars['page'][$region]) || $vars['#alpha']['debug']['block']) {        
+      if (!empty($vars['page'][$region]) || $vars['#alpha']['debug']['block']) {
         $regions[$item['zone']][$region] = $vars['page'][$region];
         $regions[$item['zone']][$region]['#region'] = $region;      
         $regions[$item['zone']][$region]['#data'] = $item;
@@ -30,7 +33,6 @@ function alpha_alpha_preprocess_page(&$vars) {
       unset($vars['page'][$region]);
     }   
   }
-
 
   foreach ($zones as $zone => $item) {
     if (isset($item['section']) && isset($sections[$item['section']]) && isset($regions[$zone])) {
@@ -60,6 +62,8 @@ function alpha_alpha_preprocess_page(&$vars) {
         }
       }
       
+      $item['type'] = $item['primary'] && isset($regions[$zone][$item['primary']]) ? 'dynamic' : 'static';
+      
       $vars['page'][$item['section'] . '_section'][$zone] = $regions[$zone];
       $vars['page'][$item['section'] . '_section'][$zone]['#theme_wrappers'][] = 'zone';
       $vars['page'][$item['section'] . '_section'][$zone]['#zone'] = $item;
@@ -68,7 +72,7 @@ function alpha_alpha_preprocess_page(&$vars) {
       $vars['page'][$item['section'] . '_section'][$zone]['#page'] = &$vars;
     }
   }
-  
+
   foreach ($sections as $section => $item) {
     if (!empty($vars['page'][$section . '_section'])) {   
       $vars['page'][$section . '_section']['#theme_wrappers'][] = 'section';
