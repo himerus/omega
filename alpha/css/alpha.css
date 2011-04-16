@@ -7,3 +7,9 @@
   visibility: hidden;
   font-size: 0;
 }
+
+/* Give pagers and inline LI items simple styling without all the junk from core */
+ul.inline li,
+ul.pager li {
+  display: inline;
+}

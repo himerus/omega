@@ -26,7 +26,7 @@ css[reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css
 css[alpha][name] = Alpha
 css[alpha][media] = screen
 css[alpha][file] = alpha.css
-css[alpha][description] = Default styles for Alpha/Omega base theme.
+css[alpha][description] = Default styles & resets for Alpha/Omega base theme.
 
 css[mobile][name] = Mobile
 css[mobile][media] = screen
