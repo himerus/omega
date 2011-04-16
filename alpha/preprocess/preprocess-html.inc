@@ -10,6 +10,20 @@ function alpha_alpha_preprocess_html(&$vars) {
   $access = alpha_debug_access($vars['user'], $settings['debug']['roles']);
   $css = alpha_css($theme_key);
 
+  $vars['rdf'] = new stdClass;
+  if (module_exists('rdf')) {
+    $vars['doctype'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">' . "\n";
+    $vars['rdf']->version = ' version="HTML+RDFa 1.1"';
+    $vars['rdf']->namespaces = $vars['rdf_namespaces'];
+    $vars['rdf']->profile = ' profile="' . $vars['grddl_profile'] . '"';
+  } 
+  else {
+    $vars['doctype'] = '<!DOCTYPE html>' . "\n";
+    $vars['rdf']->version = '';
+    $vars['rdf']->namespaces = '';
+    $vars['rdf']->profile = '';
+  }
+
   foreach ($settings['css'] as $item => $enabled) {
     if (isset($css[$item]) && $enabled) {
       $weight = $css[$item]['weight'] >= 0 ? $css[$item]['weight'] : $css[$item]['weight'] - 3;

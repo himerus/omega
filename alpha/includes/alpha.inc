@@ -162,59 +162,70 @@ function alpha_column_options($max) {
  * @todo
  */
 function alpha_css($key, $responsive = FALSE) {
-  $output = array();
-  foreach (alpha_info($key, 'css') as $theme => $data) {
-    foreach ($data as $name => $info) {
-      if (($responsive && $info['media'] == 'responsive') || (!$responsive && $info['media'] != 'responsive')) {
-        $output[$name] = array(
-          'name' => $info['name'],
-          'file' => $info['file'],
-          'weight' => isset($info['weight']) ? $info['weight'] : 0,
-          'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
-          'description' => isset($info['description']) ? $info['description'] : '',
-          'media' => isset($info['media']) ? $info['media'] : 'all',
-        );
+  $output = &drupal_static(__FUNCTION__);
+  
+  if (!isset($output[$key][$responsive])) {
+    $output[$key][$responsive] = array();  
+
+    foreach (alpha_info($key, 'css') as $theme => $data) {
+      foreach ($data as $name => $info) {
+        if (($responsive && $info['media'] == 'responsive') || (!$responsive && $info['media'] != 'responsive')) {
+          $output[$key][$responsive][$name] = array(
+            'name' => $info['name'],
+            'file' => $info['file'],
+            'weight' => isset($info['weight']) ? $info['weight'] : 0,
+            'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
+            'description' => isset($info['description']) ? $info['description'] : '',
+            'media' => isset($info['media']) ? $info['media'] : 'all',
+          );
+        }
       }
     }
   }
 
-  return $output;
+  return $output[$key][$responsive];
 }
 
 /*
  * @todo
  */
-function alpha_include_grid($name, $columns = NULL) {
+function alpha_include_grid($name, $columns) {
   global $theme_key, $language, $user;
 
-  $grid = alpha_grids($theme_key, $name);
-  $settings = alpha_settings($theme_key);
-  $css = alpha_css($theme_key, TRUE);
+  $included = &drupal_static(__FUNCTION__);
   
-  if (!empty($grid) && isset($columns) && isset($grid['columns'][$columns])) {
-    $path = $grid['columns'][$columns];
-
-    if ($grid['type'] == 'fluid') {
-      drupal_add_css($path . '/fluid-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'));
-      drupal_add_css($path . '/columns/fluid-' . $columns . '.css');
-    }
-    else {
-      $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
-
-      foreach ($widths as $type => $weight) {
-        if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
-          $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
-          $options = array('media' => $media, 'weight' => $weight);
-          
-          drupal_add_css($path . '/' . $type . '/' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
-          drupal_add_css($path . '/' . $type . '/' . $type . '-' . $columns . '.css', $options);
-          
-          foreach ($settings['responsive'][$type]['css'] as $item => $enabled) {
-            if (isset($css[$item]) && $enabled) {
-              drupal_add_css($item['path'], $options);
+  if (!isset($included[$name][$columns]) || !$included[$name][$columns]) {
+    $included[$name][$columns] = TRUE;
+    
+    $grid = alpha_grids($theme_key, $name);
+    $settings = alpha_settings($theme_key);
+    $css = alpha_css($theme_key, TRUE);
+    
+    if (!empty($grid) && isset($columns) && isset($grid['columns'][$columns])) {
+      $path = $grid['columns'][$columns];
+  
+      if ($grid['type'] == 'fluid') {
+        drupal_add_css($path . '/fluid-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'));
+        drupal_add_css($path . '/columns/fluid-' . $columns . '.css');
+      }
+      else {
+        $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
+  
+        foreach ($widths as $type => $weight) {
+          if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
+            $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
+            $options = array('media' => $media, 'weight' => $weight);
+            
+            drupal_add_css($path . '/' . $type . '/' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
+            drupal_add_css($path . '/' . $type . '/' . $type . '-' . $columns . '.css', $options);
+            
+            foreach ($settings['responsive'][$type]['css'] as $item => $enabled) {              
+              if (isset($css[$item]) && $enabled) {
+                drupal_add_css($css[$item]['path'], $options);
+              }
             }
-          }
-        }        
+          }        
+        }
       }
     }
   }

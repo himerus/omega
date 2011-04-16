@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * @todo
+ */
 function alpha_alpha_preprocess_region(&$vars) {
   if (isset($vars['elements']['#page']['#alpha'])) {
     $region = $vars['elements']['#data'];

@@ -1,9 +1,11 @@
 <?php
 
+/*
+ * @todo
+ */
 function alpha_alpha_preprocess_section(&$vars) {
   $vars['section'] = $vars['elements']['#section'];
-  
-  $vars['theme_hook_suggestions'][] = 'section';
+
   $vars['theme_hook_suggestions'][] = 'section__' . $vars['section'];
   
   $vars['content'] = $vars['elements']['#children'];
