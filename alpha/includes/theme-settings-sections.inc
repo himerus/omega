@@ -26,7 +26,7 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
   foreach ($sections as $key => $section) {
     $form['alpha_settings']['sections']['section_' . $key] = array(
       '#type' => 'fieldset',
-      '#title' => $section,
+      '#title' => $section . ' ' . t('Section'),
       '#description' => t('This section is empty.'),
     );
   }
@@ -38,7 +38,7 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
     
     $form['alpha_settings']['sections'][$section]['zone_' . $zone] = array(
       '#type' => 'fieldset',
-      '#title' => $item['name'],
+      '#title' => $item['name'] . ' ' . t('Zone'),
       '#weight' => $item['weight'],
       '#attributes' => array(
         'class' => array('alpha-inline'),

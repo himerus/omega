@@ -69,7 +69,24 @@ function alpha_theme_registry_alter(&$registry) {
   alpha_build_registry($theme_key, $registry);
 }
 
+/**
+ * Implements hook_css_alter().
+ * @TODO: Once http://drupal.org/node/901062 is resolved, determine whether
+ * this can be implemented in the .info file instead.
+ *
+ * Omitted:
+ * - color.css
+ * - contextual.css
+ * - dashboard.css
+ * - field_ui.css
+ * - image.css
+ * - locale.css
+ * - shortcut.css
+ * - simpletest.css
+ * - toolbar.css
+ */
 function alpha_css_alter(&$css) {
+  //krumo($css);
   $exclude = array(
     //'misc/vertical-tabs.css' => FALSE,
     'modules/aggregator/aggregator.css' => FALSE,

@@ -29,3 +29,19 @@ div.vertical-tabs .vertical-tabs-panes fieldset fieldset legend {
   margin-right: 20px !important;
   float: left;
 }
+
+.alpha-media-query {
+  width: 95%;
+}
+
+fieldset fieldset {
+    background-color: #F8F8F8;
+}
+
+fieldset fieldset fieldset {
+    background-color: #FFFFFF;
+}
+
+fieldset fieldset fieldset fieldset {
+    background-color: #F8F8F8;
+}

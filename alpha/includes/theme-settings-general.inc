@@ -76,6 +76,9 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#description' => t('The @media tag that you want to use for the @type grid.', array('@type' => $type)),
       '#default_value' => $settings['responsive'][$type]['media'],
       '#maxlength' => 255,
+      '#attributes' => array(
+        'class' => array('alpha-media-query'),
+      ),
       '#states' => array(
         'visible' => array(
           ':input[name="alpha_responsive_' . $type . '"]' => array('checked' => TRUE),
