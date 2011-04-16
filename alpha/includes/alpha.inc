@@ -5,8 +5,11 @@
  */
 function alpha_invoke($type, $hook, &$vars) {
   global $theme_key;
+  static $registry = NULL;
 
-  $registry = variable_get('alpha_theme_registry_' . $theme_key);
+  if (!isset($registry)) {
+    $registry = variable_get('alpha_theme_registry_' . $theme_key);
+  }
 
   if (!empty($registry[$type][$hook])) {    
     foreach ($registry[$type][$hook] as $item) {
