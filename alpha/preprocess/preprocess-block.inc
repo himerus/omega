@@ -32,4 +32,24 @@ function alpha_alpha_preprocess_block(&$vars) {
   if (isset($vars['block']->last_in_region)) {
     $vars['classes_array'][] = 'last';
   }
+  
+  if(isset($vars['block']->block_type) && $vars['block']->module == 'alpha_blockify') {
+    $block = $vars['block'];
+    $vars['classes_array'][] = $vars['block']->block_type;
+    switch($block->block_type) {
+      case 'branding':
+        $vars['site_name'] = $block->vars['site_name'];
+        $vars['linked_site_name'] = $linked_site_name = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
+        $vars['site_slogan'] = $block->vars['site_slogan'];
+        
+        if(isset($block->vars['logo'])) {
+          $vars['logo'] = $block->vars['logo'];
+          $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $site_name_and_slogan . '" id="logo" />';
+          $vars['linked_logo_img'] = l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)); 
+        }
+        break;
+      default:
+        break;
+    }
+  }
 }

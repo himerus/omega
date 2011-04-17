@@ -42,7 +42,7 @@ function alpha_theme($existing, $type, $theme, $path) {
         'alpha_process',
         'alpha_process_zone'
       ),
-    ),  
+    ),
   );
 }
 

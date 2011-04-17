@@ -55,10 +55,10 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
-css[test][name] = Test
-css[test][media] = responsive
-css[test][file] = test.css
-css[test][description] = This is just a test.
+css[text][name] = Text Styles
+css[text][media] = all
+css[text][file] = text.css
+css[text][description] = Default text styles for Omega.
 
 ; THEME SETTINGS (DEFAULTS)
 

@@ -5,11 +5,10 @@
  */
 function alpha_alpha_preprocess_page(&$vars) {
   global $theme_key;
-  
   $sections = alpha_sections();
   $zones = alpha_zones($theme_key);
   
-  $vars['#alpha'] = alpha_settings($theme_key);
+  $settings = $vars['#alpha'] = alpha_settings($theme_key);
   
   alpha_include_grid($vars['#alpha']['grid']);
 
@@ -29,7 +28,28 @@ function alpha_alpha_preprocess_page(&$vars) {
           $regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
         }
       }
-      
+      // insert the branding "block" if it is enabled for this region
+      if($region == $settings['blocks']['branding']['region'] && $settings['blocks']['branding']['enabled']) {
+        $branding = $settings['blocks']['branding'];        
+        
+        $block = new stdClass();
+        $block->delta = $region;
+        $block->region = $region;
+        $block->module = 'alpha_blockify';
+        $block->subject = $info['name'];
+        $block->weight = $branding['weight'];
+        $block->block_type = 'branding';
+        $block->vars = array(
+          'site_name' => $vars['site_name'],
+          'site_slogan' => $vars['site_slogan'],
+          'logo' => $vars['logo'],
+        );
+        $regions[$item['zone']][$region]['alpha_branding_block'] = array(
+      	'#printed' => FALSE,
+          '#theme_wrappers' => array('block'),
+          '#block' => $block,
+        );
+      }
       unset($vars['page'][$region]);
     }   
   }

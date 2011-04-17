@@ -419,6 +419,16 @@ function alpha_settings($key) {
       'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', $key, FALSE),
       'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key),
     ),
+    // adding in fake block rendering settings to be passed through
+    'blocks' => array(
+      'branding' => array(
+        'enabled' => alpha_theme_get_setting('alpha_blocks_branding', $theme, TRUE),
+        'region' => alpha_theme_get_setting('alpha_blocks_branding_region', $theme),
+        'weight' => alpha_theme_get_setting('alpha_blocks_branding_weight', $theme),
+        'name' => alpha_theme_get_setting('alpha_blocks_branding_name_hidden', $theme),
+        'slogan' => alpha_theme_get_setting('alpha_blocks_branding_slogan_hidden', $theme, TRUE),
+      ),
+    ),
   );
   
   foreach (array('narrow', 'normal', 'wide') as $type) {
@@ -427,7 +437,7 @@ function alpha_settings($key) {
   
   $settings['debug']['roles'] = is_array($settings['debug']['roles']) ? $settings['debug']['roles'] : array();
   $settings['css'] = is_array($settings['css']) ? $settings['css'] : array();
-
+  $settings['blocks'] = is_array($settings['blocks']) ? $settings['blocks'] : array();
   return $settings;
 }
 
@@ -472,6 +482,9 @@ function alpha_debug_block($region, $info) {
     '#markup' => '<div class="alpha-debug-region-data">' . t('This is a debugging block.') . '</div>',
   );
 }
+
+
+
 
 /*
  * @todo
