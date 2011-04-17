@@ -5,8 +5,7 @@
  */
 function alpha_invoke($type, $hook, &$vars) {
   global $theme_key;
-  static $registry = NULL;
-
+  $registry = &drupal_static(__FUNCTION__);
   if (!isset($registry)) {
     $registry = variable_get('alpha_theme_registry_' . $theme_key);
   }
