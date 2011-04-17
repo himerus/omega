@@ -44,7 +44,7 @@ function alpha_alpha_preprocess_block(&$vars) {
         
         if(isset($block->vars['logo'])) {
           $vars['logo'] = $block->vars['logo'];
-          $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $site_name_and_slogan . '" id="logo" />';
+          $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $vars['site_name'] . '" id="logo" />';
           $vars['linked_logo_img'] = l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)); 
         }
         break;

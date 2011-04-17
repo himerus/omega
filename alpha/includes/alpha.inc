@@ -422,11 +422,11 @@ function alpha_settings($key) {
     // adding in fake block rendering settings to be passed through
     'blocks' => array(
       'branding' => array(
-        'enabled' => alpha_theme_get_setting('alpha_blocks_branding', $theme, TRUE),
-        'region' => alpha_theme_get_setting('alpha_blocks_branding_region', $theme),
-        'weight' => alpha_theme_get_setting('alpha_blocks_branding_weight', $theme),
-        'name' => alpha_theme_get_setting('alpha_blocks_branding_name_hidden', $theme),
-        'slogan' => alpha_theme_get_setting('alpha_blocks_branding_slogan_hidden', $theme, TRUE),
+        'enabled' => alpha_theme_get_setting('alpha_blocks_branding', $key, TRUE),
+        'region' => alpha_theme_get_setting('alpha_blocks_branding_region', $key),
+        'weight' => alpha_theme_get_setting('alpha_blocks_branding_weight', $key),
+        'name' => alpha_theme_get_setting('alpha_blocks_branding_name_hidden', $key),
+        'slogan' => alpha_theme_get_setting('alpha_blocks_branding_slogan_hidden', $key, TRUE),
       ),
     ),
   );
