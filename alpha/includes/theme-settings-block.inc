@@ -2,6 +2,7 @@
 
 function alpha_theme_settings_block(&$form, &$form_state) {
   $theme = $form_state['build_info']['args'][0];
+  $options = alpha_region_options($theme);
   
   $notice = module_exists('blockify') ?
     t("<p class=\"alpha-notice\">Alpha has detected that you are running the !blockify module. The settings on this page won't have any effect while the !blockify module is activated. However, we strongly recommend using the !blockify module instead of the <em>special blocks</em> provided by Omega.</p>", array('!blockify' => '<a href="http://drupal.org/project/blockify">Blockify</a>')) :
@@ -43,7 +44,7 @@ function alpha_theme_settings_block(&$form, &$form_state) {
     $form['alpha_settings']['special_blocks'][$item . '_settings']['alpha_blocks_' . $item . '_region'] = array(
       '#type' => 'select',
       '#title' => t('Region'),
-      '#options' => $form_state['#regions'],
+      '#options' => $options,
       '#default_value' => alpha_theme_get_setting('alpha_blocks_' . $item . '_region', $theme),
       '#description' => t('The region in which this block should be rendered in.'),
     );   

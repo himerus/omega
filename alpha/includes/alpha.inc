@@ -151,12 +151,12 @@ function alpha_container_options($key, $grid) {
 /*
  * @todo
  */
-function alpha_region_options($key, $grid) {
-  $grids = alpha_regions($key);
+function alpha_region_options($key) {
+  $regions = alpha_regions($key);
   
   $output = array();  
-  foreach ($grids[$grid]['columns'] as $count => $path) {
-    $output[$count] = t('@count columns', array('@count' => $count));
+  foreach ($regions as $region => $item) {
+    $output[$region] = $item['name'];
   }
   
   return $output;

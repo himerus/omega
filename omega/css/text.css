@@ -1,6 +1,6 @@
 /** ################# Custom CSS Styles ####################### */
 body {
-  font: 13px/1.3846 Verdana,Helvetica,Arial,sans-serif;
+  font: 13px/1.5 Verdana,Helvetica,Arial,sans-serif;
 }
 
 a:link, a:visited {
@@ -16,6 +16,7 @@ a:hover {
 a:active {
   color: #202124;
   text-decoration: none;
+  color: #000;
 }
 
 hr {
@@ -33,42 +34,34 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 36px;
-  line-height: 1.25;
 }
 
 h2 {
   font-size: 28px;
-  line-height: 1.2857;
 }
 
 /* make it a bit smaller for block headers */
-h2.block-title {
+.block h2 {
   font-size: 18px;
-  line-height: 1.333333;
   margin: 0;	
 }
 h2.node-title {
 	font-size: 28px;
-	line-height: 1.2857;
 }
 h3 {
   font-size: 21px;
-  line-height: 1.2857; 
 }
 
 h4 {
   font-size: 19px;
-  line-height: 1.2632;
 }
 
 h5 {
   font-size: 17px;
-  line-height: 1.4118;
 }
 
 h6 {
   font-size: 15px;
-  line-height: 1.4;
 }
 
 ol {
@@ -101,12 +94,11 @@ pre,
 table,
 address,
 fieldset {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 dt, .admin h3 {
   font-size: 18px;
-  line-height: 1.3333;
   margin: 0;
 }
 
