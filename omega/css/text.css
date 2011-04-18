@@ -42,9 +42,7 @@ h2 {
 }
 
 /* make it a bit smaller for block headers */
-/* @jessebeach h2 can appear in content as well, which appears in a block. This
- * needs to be scoped to sidebars or something other than .block */
-.block h2 {
+h2.block-title {
   font-size: 18px;
   line-height: 1.333333;
   margin: 0;	
