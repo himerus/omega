@@ -425,8 +425,8 @@ function alpha_settings($key) {
         'enabled' => alpha_theme_get_setting('alpha_blocks_branding', $key, TRUE),
         'region' => alpha_theme_get_setting('alpha_blocks_branding_region', $key),
         'weight' => alpha_theme_get_setting('alpha_blocks_branding_weight', $key),
-        'name' => alpha_theme_get_setting('alpha_blocks_branding_name_hidden', $key),
-        'slogan' => alpha_theme_get_setting('alpha_blocks_branding_slogan_hidden', $key, TRUE),
+        'name_hidden' => alpha_theme_get_setting('alpha_blocks_branding_name_hidden', $key, TRUE),
+        'slogan_hidden' => alpha_theme_get_setting('alpha_blocks_branding_slogan_hidden', $key, TRUE),
       ),
     ),
   );

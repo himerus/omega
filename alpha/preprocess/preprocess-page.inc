@@ -39,6 +39,8 @@ function alpha_alpha_preprocess_page(&$vars) {
         $block->subject = $info['name'];
         $block->weight = $branding['weight'];
         $block->block_type = 'branding';
+        $block->name_hidden = $branding['name_hidden'];
+        $block->slogan_hidden = $branding['slogan_hidden'];
         $block->vars = array(
           'site_name' => $vars['site_name'],
           'site_slogan' => $vars['site_slogan'],

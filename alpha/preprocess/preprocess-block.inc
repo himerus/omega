@@ -41,7 +41,8 @@ function alpha_alpha_preprocess_block(&$vars) {
         $vars['site_name'] = $block->vars['site_name'];
         $vars['linked_site_name'] = $linked_site_name = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
         $vars['site_slogan'] = $block->vars['site_slogan'];
-        
+        $vars ['site_name_visibility'] = !$block->name_hidden ? '' : ' element-invisible';
+        $vars ['site_slogan_visibility'] = !$block->slogan_hidden ? '' : ' element-invisible';
         if(isset($block->vars['logo'])) {
           $vars['logo'] = $block->vars['logo'];
           $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $vars['site_name'] . '" id="logo" />';
