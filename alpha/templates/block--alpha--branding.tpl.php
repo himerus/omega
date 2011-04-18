@@ -1,8 +1,8 @@
 <div<?php print $attributes; ?>>
   <div class="branding-data clearfix">
-    <?php if (isset($linked_logo_img)) : ?>
+    <?php if (isset($logo_img_linked)) : ?>
     <div class="logo-img">
-      <?php print $linked_logo_img; ?>
+      <?php print $logo_img_linked; ?>
     </div>
     <?php endif; ?>
     
