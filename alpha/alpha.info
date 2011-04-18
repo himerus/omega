@@ -34,6 +34,33 @@ css[mobile][file] = mobile.css
 css[mobile][weight] = -1
 css[mobile][description] = Default stylesheet for mobile styles.
 
+; STYLESHEETS FOR EXCLUSION
+
+exclude[misc/vertical-tabs.css] = This requires a description.
+exclude[modules/aggregator/aggregator.css] = This requires a description.
+exclude[modules/block/block.css] = This requires a description.
+exclude[modules/dblog/dblog.css] = This requires a description.
+exclude[modules/file/file.css] = This requires a description.
+exclude[modules/filter/filter.css] = This requires a description.
+exclude[modules/help/help.css] = This requires a description.
+exclude[modules/menu/menu.css] = This requires a description.
+exclude[modules/openid/openid.css] = This requires a description.
+exclude[modules/profile/profile.css] = This requires a description.
+exclude[modules/statistics/statistics.css] = This requires a description.
+exclude[modules/syslog/syslog.css] = This requires a description.
+exclude[modules/system/admin.css] = This requires a description.
+exclude[modules/system/maintenance.css] = This requires a description.
+exclude[modules/system/system.css] = This requires a description.
+exclude[modules/system/system.admin.css] = This requires a description.
+exclude[modules/system/system.base.css] = This requires a description.
+exclude[modules/system/system.maintenance.css] = This requires a description.
+exclude[modules/system/system.menus.css] = This requires a description.
+exclude[modules/system/system.messages.css] = This requires a description.
+exclude[modules/system/system.theme.css] = This requires a description.
+exclude[modules/taxonomy/taxonomy.css] = This requires a description.
+exclude[modules/tracker/tracker.css] = This requires a description.
+exclude[modules/update/update.css] = This requires a description.
+
 ; CSS GRID SYSTEMS
 
 grids[default][name] = Default (960px)

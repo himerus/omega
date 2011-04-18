@@ -60,6 +60,10 @@ css[text][media] = all
 css[text][file] = text.css
 css[text][description] = Default text styles for Omega.
 
+; OPTIONAL STYLESHEETS
+
+exclude[test/test.css] = Test
+
 ; THEME SETTINGS (DEFAULTS)
 
 settings[alpha_zone_content_enabled] = '1'

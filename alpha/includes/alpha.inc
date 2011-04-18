@@ -5,6 +5,7 @@
  */
 function alpha_invoke($type, $hook, &$vars) {
   global $theme_key;
+  
   $registry = &drupal_static(__FUNCTION__);
   if (!isset($registry)) {
     $registry = variable_get('alpha_theme_registry_' . $theme_key);
@@ -105,6 +106,26 @@ function alpha_css_options($key, $responsive = FALSE) {
   
   return $output;
 }
+
+/*
+ * @todo
+ */
+function alpha_style_options($key) {
+  $items = alpha_styles($key);
+  
+  $output = array(); 
+  foreach ($items as $key => $info) {
+    if ($info['type'] == 'exclude') {
+      $output[$key] = t('<strong>@file</strong> - Defined by @name: !description', array('@name' => $info['name'], '@file' => basename($key), '!description' => $info['description']));
+    }
+    else {
+      $output[$key] = t('<strong>@file</strong> (@media) - Belongs to @name', array('@name' => $info['name'], '@file' => basename($key), '@media' => t($info['media'])));
+    }
+  }
+  
+  return $output;
+}
+
 
 /*
  * @todo
@@ -415,6 +436,7 @@ function alpha_settings($key) {
     $settings[$key] = array(
       'grid' => alpha_theme_get_setting('alpha_grid', $key, 'default'),
       'css' => alpha_theme_get_setting('alpha_css', $key, array()),
+      'exclude' => alpha_theme_get_setting('alpha_exclude', $key, array()),      
       'responsive' => array(
   		'enabled' => alpha_theme_get_setting('alpha_responsive', $key, FALSE),
         'narrow' => array(
@@ -601,4 +623,59 @@ function alpha_special_blocks() {
     'tabs' => t('Tabs'),
     'breadcrumb' => t('Breadrcumb'), 
   );
+}
+
+/*
+ * @todo
+ */
+function alpha_styles($key) {
+  $themes = list_themes();
+  
+  $styles = array();
+  foreach (system_rebuild_module_data() as $module => $data) {
+    if (!empty($data->info['stylesheets'])) {
+      foreach ($data->info['stylesheets'] as $media => $content) {        
+        foreach ($content as $file) {          
+          $styles[$file] = array(
+            'type' => 'module',
+            'source' => $module,
+            'name' => $data->info['name'],
+            'file' => $file,
+            'media' => $media,
+          	'description' => NULL,
+          );
+        }
+      }
+    }
+  }
+  
+  foreach (alpha_info($key, 'stylesheets') as $theme => $data) {
+    foreach ($data as $media => $content) {
+      foreach ($content as $file) {
+        $styles[$file] = array(
+          'type' => 'theme',
+          'source' => $theme,
+          'name' => $themes[$theme]->info['name'],
+          'file' => $file,
+          'media' => $media,
+          'description' => NULL,
+        );
+      }
+    }
+  }
+  
+  foreach (alpha_info($key, 'exclude') as $theme => $data) {
+    foreach ($data as $file => $description) {
+      $styles[$file] = array(
+        'type' => 'exclude',
+        'source' => $theme,
+        'name' => $themes[$theme]->info['name'],
+        'file' => $file,
+        'media' => NULL,
+        'description' => $description,
+      );
+    }
+  }
+  
+  return $styles;
 }
