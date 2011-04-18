@@ -1,8 +1,7 @@
 <?php
 
-/**
- * @file
- * Contents of omega_preprocess_node().
+/*
+ * @todo
  */
 function alpha_alpha_preprocess_node(&$vars) {
   // Add a class to allow styling of nodes of a specific type.
@@ -47,6 +46,7 @@ function alpha_alpha_preprocess_node(&$vars) {
   // Prepare the arrays to handle the classes and ids for the node container.
   $vars['attributes_array']['id'] = drupal_html_id('node-' . $vars['type'] . '-' . $vars['nid']);
   $vars['attributes_array']['class'] = $vars['classes_array'];
+  
   // adding a class to the title attributes
   $vars['title_attributes_array']['class'] = 'node-title';
 }

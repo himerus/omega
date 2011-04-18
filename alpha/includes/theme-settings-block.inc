@@ -7,12 +7,6 @@ function alpha_theme_settings_block(&$form, &$form_state) {
     t("<p class=\"alpha-notice\">Alpha has detected that you are running the !blockify module. The settings on this page won't have any effect while the !blockify module is activated. However, we strongly recommend using the !blockify module instead of the <em>special blocks</em> provided by Omega.</p>", array('!blockify' => '<a href="http://drupal.org/project/blockify">Blockify</a>')) :
     t('<p class="alpha-notice">This feature tries to fix some of the rather inflexible parts of a standard Drupal page by wrapping them in <em>fake</em> blocks. For a real solution, please use the !blockify module instead (recommended).</p>', array('!blockify' => '<a href="http://drupal.org/project/blockify">Blockify</a>'));
   
-  $blocks = array(
-  	'branding' => t('Branding'), 
-  	'messages' => t('Messages'), 
-  	'action_links' => t('Action links'), 
-  );
-  
   $form['alpha_settings']['special_blocks'] = array(
     '#weight' => -7,
     '#type' => 'fieldset',
@@ -24,7 +18,7 @@ function alpha_theme_settings_block(&$form, &$form_state) {
     '#markup' => $notice,
   );
    
-  foreach ($blocks as $item => $name) {
+  foreach (alpha_special_blocks() as $item => $name) {
     $form['alpha_settings']['special_blocks']['alpha_blocks_' . $item] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable the @name block', array('@name' => $name)),
@@ -49,7 +43,7 @@ function alpha_theme_settings_block(&$form, &$form_state) {
     $form['alpha_settings']['special_blocks'][$item . '_settings']['alpha_blocks_' . $item . '_region'] = array(
       '#type' => 'select',
       '#title' => t('Region'),
-      '#options' => system_region_list($theme),
+      '#options' => $form_state['#regions'],
       '#default_value' => alpha_theme_get_setting('alpha_blocks_' . $item . '_region', $theme),
       '#description' => t('The region in which this block should be rendered in.'),
     );   

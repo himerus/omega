@@ -25,4 +25,6 @@ function alpha_alpha_preprocess_region(&$vars) {
       $vars['classes_array'] = array_merge($vars['classes_array'], array_map('drupal_html_class', explode(' ', $region['css'])));
     }
   }
+  
+  $vars['attributes_array']['class'] = $vars['classes_array'];
 }

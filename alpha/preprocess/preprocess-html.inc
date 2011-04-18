@@ -54,5 +54,7 @@ function alpha_alpha_preprocess_html(&$vars) {
     );
 
     drupal_add_html_head($meta, 'alpha-viewport');
-  }  
+  } 
+  
+  $vars['attributes_array']['class'] = $vars['classes_array'];
 }

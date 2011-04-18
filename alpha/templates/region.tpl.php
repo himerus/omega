@@ -1,5 +1,5 @@
 <?php if (!empty($content)): ?>
-  <div class="<?php print $classes; ?>">
+  <div<?php print $attributes; ?>>
     <?php print $content; ?>
   </div>
 <?php endif; ?>

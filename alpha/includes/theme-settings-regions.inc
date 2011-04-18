@@ -54,6 +54,7 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
       'class' => array('alpha-unassigned'),
     ),
   );
+  
   foreach($regions as $region => $item) {
     $section = isset($zone_sections[$item['zone']]) ? 'section_' . $zone_sections[$item['zone']] : 'unassigned';
     

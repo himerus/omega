@@ -1,3 +1,3 @@
-<section id="<?php print $sid; ?>" class="<?php print $classes; ?>">
+<section<?php print $attributes; ?>>
   <?php print $content; ?>
 </section>

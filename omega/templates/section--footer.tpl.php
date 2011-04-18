@@ -1,3 +1,3 @@
-<footer id="<?php print $sid; ?>" class="<?php print $classes; ?>">
+<footer<?php print $attributes; ?>>
   <?php print $content; ?>
 </footer>

@@ -1,3 +1,3 @@
-<header id="<?php print $sid; ?>" class="<?php print $classes; ?>">
+<header<?php print $attributes; ?>>
   <?php print $content; ?>
 </header>

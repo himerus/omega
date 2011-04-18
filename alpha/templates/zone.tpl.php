@@ -1,5 +1,5 @@
-<?php if ($wrapper) : ?><div id="<?php print $zid; ?>-outer-wrapper" class="clearfix"><?php endif; ?>  
-  <div id="<?php print $zid; ?>" class="<?php print $classes; ?>">
+<?php if ($wrapper) : ?><div<?php print $wrapper_attributes; ?>><?php endif; ?>  
+  <div<?php print $attributes; ?>>
     <?php print $content; ?>
   </div>
 <?php if ($wrapper) : ?></div><?php endif; ?>

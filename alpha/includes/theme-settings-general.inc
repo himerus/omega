@@ -86,7 +86,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       ),   
     );
 
-    if (!empty($optional)) {
+    if (!empty($responsive)) {
       $form['alpha_settings']['layout']['responsive_settings']['styles_' . $type] = array(
         '#type' => 'fieldset',
         '#title' => t('Optional styles'),
