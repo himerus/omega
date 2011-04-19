@@ -12,7 +12,7 @@ function alpha_alpha_preprocess_zone(&$vars) {
   if($settings['debug']['grid'] && alpha_debug_access($vars['user'], $settings['debug']['roles'])) {
     alpha_debug_grid($settings, $zone['columns']);
   } 
-  drupal_set_message('test');
+
   $vars['theme_hook_suggestions'][] = 'zone__' . $vars['elements']['#zone'];
   
   $vars['columns'] = $zone['columns'];
