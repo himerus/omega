@@ -578,7 +578,6 @@ function alpha_zones($key) {
         $output[$key][$zone] = array(
           'zone' => $zone,
           'name' => $name,
-          'enabled' => alpha_zone_get_setting('enabled', $zone, $key, TRUE),
           'columns' => alpha_zone_get_setting('columns', $zone, $key, 0),
           'section' => alpha_zone_get_setting('section', $zone, $key),
           'weight' => alpha_zone_get_setting('weight', $zone, $key, 0),

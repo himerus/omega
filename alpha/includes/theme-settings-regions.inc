@@ -48,8 +48,7 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
   
   foreach ($zones as $key => $zone) {
     $section = isset($sections[$zone['section']]) ? 'section_' . $zone['section'] : 'unassigned';
-    $class = $zone['enabled'] ? 'alpha-zone-enabled' : 'alpha-zone-disabled';
-    
+
     unset($form['alpha_settings']['regions'][$section]['#description']);
     
     $form['alpha_settings']['regions'][$section]['zone_' . $key] = array(
@@ -57,9 +56,6 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
       '#title' => $zone['name'] . ' ' . t('Zone'),
       '#description' => t('This zone is empty.'),
       '#weight' => $zone['weight'],
-      '#attributes' => array(
-        'class' => array($class),
-      ),
     );
   }
   

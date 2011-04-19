@@ -30,6 +30,10 @@ div.vertical-tabs .vertical-tabs-panes fieldset fieldset legend {
   float: left;
 }
 
+.alpha-inline .form-type-checkbox {
+  float: none;
+}
+
 .alpha-media-query {
   width: 95%;
 }

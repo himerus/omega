@@ -13,7 +13,7 @@ function alpha_alpha_preprocess_page(&$vars) {
   
   $zone_regions = array();
   foreach ($regions as $region => $item) {
-    if (isset($zones[$item['zone']]) && $zones[$item['zone']]['enabled']) {
+    if (isset($zones[$item['zone']]) && isset($sections[$zones[$item['zone']]['section']])) {
       if (!empty($vars['page'][$region]) || $settings['debug']['block']) {
         $zone_regions[$item['zone']][$region] = $vars['page'][$region];
         $zone_regions[$item['zone']][$region]['#region'] = $region;      
