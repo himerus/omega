@@ -505,41 +505,55 @@ function alpha_region_get_setting($name, $region, $theme = NULL, $default = NULL
  * 	 An array of grids or the grid defined by $grid.
  */
 function alpha_grids($key, $grid = NULL) {
-  $output = &drupal_static(__FUNCTION__);
+  $grids = &drupal_static(__FUNCTION__);
   
-  if (!isset($output[$key])) {
-    $output[$key] = array();
-    
-    foreach (alpha_info($key, 'grids') as $theme => $data) {
-      foreach ($data as $name => $info) {
-        $path = drupal_get_path('theme', $theme) . '/css/grid/' . $name;
-        $fluid = $name == 'fluid';
-        
-        if (!isset($output[$key][$name])) {
-          $output[$key][$name] = array(
-            'name' => $info['name'],
-            'type' => $fluid ? 'fluid' : 'fixed',
-            'path' => $path,
-            'normal' => !$fluid ? is_dir($path . '/normal') : FALSE,
-            'narrow' => !$fluid ? is_dir($path . '/narrow') : FALSE,
-            'wide' => !$fluid ? is_dir($path . '/wide') : FALSE,
-            'columns' => array(),
-          );
-        }  
-          
-        foreach ($info['columns'] as $column) {
-          $output[$key][$name]['columns'][$column] = $path;
-        }   
-      }
-    }
+  if (!isset($grids[$key])) {
+    $grids[$key] = variable_get('alpha_grids_' . $key, array());
   }
 
   if (isset($grid)) {
-    return isset($output[$key][$grid]) ? $output[$key][$grid] : FALSE;
+    return isset($grids[$key][$grid]) ? $grids[$key][$grid] : FALSE;
   } 
   else {
-    return $output[$key];
+    return $grids[$key];
   }
+}
+
+/**
+ * Retrieves all available grids for a theme and caches them in a 
+ * variable.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available grids for.
+ */
+function alpha_register_grids($key) {
+  $cache = array();
+  
+  foreach (alpha_info($key, 'grids') as $theme => $data) {
+    foreach ($data as $name => $info) {
+      $path = drupal_get_path('theme', $theme) . '/css/grid/' . $name;
+      $fluid = $name == 'fluid';
+      
+      if (!isset($cache[$key][$name])) {
+        $cache[$key][$name] = array(
+          'name' => $info['name'],
+          'type' => $fluid ? 'fluid' : 'fixed',
+          'path' => $path,
+          'normal' => !$fluid ? is_dir($path . '/normal') : FALSE,
+          'narrow' => !$fluid ? is_dir($path . '/narrow') : FALSE,
+          'wide' => !$fluid ? is_dir($path . '/wide') : FALSE,
+          'columns' => array(),
+        );
+      }  
+        
+      foreach ($info['columns'] as $column) {
+        $cache[$key][$name]['columns'][$column] = $path;
+      }   
+    }
+  }
+
+  variable_set('alpha_grids_' . $key, $cache[$key]);
 }
 
 /**
@@ -793,7 +807,35 @@ function alpha_debug_block($region, $subject) {
 	'#printed' => FALSE,
     '#theme_wrappers' => array('block'),
     '#block' => $block,
-    '#markup' => '<div class="alpha-debug-region-data">' . t('This is a debugging block.') . '</div>',
+    '#markup' => '<div class="alpha-debug-region">' . t('This is a debugging block.') . '</div>',
+  );
+}
+
+/**
+ * Builds and returns a debugging block.
+ * 
+ * @param $region
+ *   The region that the block will be placed in.
+ * 
+ * @param $info
+ *   The region information.
+ * 
+ * @return
+ *   A debugging block in a renderable array.
+ */
+function alpha_grid_block($grid) {
+  $block = new stdClass();
+  $block->delta = 'grid';
+  $block->region = 'page_bottom';
+  $block->module = 'alpha';
+  $block->subject = t('Grid debugging block for @name', array('@name' => $grid));
+  $block->weight = -100;
+
+  return array(
+	'#printed' => FALSE,
+    '#theme_wrappers' => array('block'),
+    '#block' => $block,
+    '#markup' => '<div class="alpha-debug-grid element-invisible">' . t('This is a debugging block.') . '</div>',
   );
 }
 
@@ -820,9 +862,11 @@ function alpha_debug_grid($settings, $columns) {
       if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
         $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
         $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
-        $css = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . url($path) . '); }';
+        $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . url($path) . '); }' . "\n";
+        $indicator = 'body.alpha-grid-debug .block-grid { background-position: ' . $weight * 150 . 'px 0; }';
         
-        drupal_add_css($css, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
+        drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
+        drupal_add_css($indicator, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
       }        
     }
   }

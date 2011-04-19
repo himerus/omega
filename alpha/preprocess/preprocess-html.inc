@@ -9,7 +9,18 @@ function alpha_alpha_preprocess_html(&$vars) {
   $settings = alpha_settings($theme_key);
   $access = alpha_debug_access($vars['user'], $settings['debug']['roles']);
   $css = alpha_css($theme_key);
-
+  $grid = alpha_grids($theme_key, $settings['grid']);
+  
+  if ($settings['debug']['grid'] && $grid['type'] == 'fixed') {
+    if (empty($vars['page']['page_bottom'])) {
+      $vars['page']['page_bottom']['#region'] = 'page_bottom';
+      $vars['page']['page_bottom']['#theme_wrappers'] = array('region');
+      $vars['page']['page_bottom']['#sorted'] = FALSE;
+    }
+    
+    $vars['page']['page_bottom']['alpha_grid'] = alpha_grid_block($grid['name']);
+  }
+  
   $vars['rdf'] = new stdClass;
   if (module_exists('rdf')) {
     $vars['doctype'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">' . "\n";
@@ -33,7 +44,7 @@ function alpha_alpha_preprocess_html(&$vars) {
   }
   
   if(($settings['debug']['grid'] || $settings['debug']['block']) && $access) {
-    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/debug.css', array('weight' => 1));
+    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/debug.css', array('weight' => -5));
 
     if ($settings['debug']['grid']) {
       $vars['classes_array'][] = 'alpha-grid-debug';

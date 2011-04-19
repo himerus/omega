@@ -14,6 +14,15 @@ body.alpha-grid-debug .grid-21:hover, body.alpha-grid-debug .grid-22:hover, body
   outline: 1px dashed #0073ba;
 }
 
+body.alpha-grid-debug .block-grid {
+  background: url(../images/resize-handle.png) no-repeat 0 0;
+  width: 150px;
+  height: 150px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+
 body.alpha-region-debug .block-debug {
   font-size: 14px;
   line-height: 18px;

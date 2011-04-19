@@ -67,6 +67,7 @@ function alpha_theme_registry_alter(&$registry) {
   global $theme_key;
 
   alpha_build_registry($theme_key, $registry);
+  alpha_register_grids($theme_key);
 }
 
 /**

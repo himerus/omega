@@ -45,4 +45,4 @@ Creating your Omega Sub Theme (Manually)
 Contributors
 ============
 - himerus (Jake Strawn)
-- sumsi (Sebastian Siemssen)
+- fubhy (Sebastian Siemssen)

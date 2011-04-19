@@ -10,11 +10,11 @@ function alpha_alpha_preprocess_page(&$vars) {
   $zones = alpha_zones($theme_key);
   $settings = $vars['#alpha'] = alpha_settings($theme_key);
   $regions = alpha_regions($theme_key);
-
+  
   $zone_regions = array();
   foreach ($regions as $region => $item) {
     if (isset($zones[$item['zone']]) && $zones[$item['zone']]['enabled']) {
-      if (!empty($vars['page'][$region]) || $vars['#alpha']['debug']['block']) {
+      if (!empty($vars['page'][$region]) || $settings['debug']['block']) {
         $zone_regions[$item['zone']][$region] = $vars['page'][$region];
         $zone_regions[$item['zone']][$region]['#region'] = $region;      
         $zone_regions[$item['zone']][$region]['#data'] = $item;
@@ -22,7 +22,7 @@ function alpha_alpha_preprocess_page(&$vars) {
         $zone_regions[$item['zone']][$region]['#sorted'] = FALSE;
         $zone_regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
         
-        if ($vars['#alpha']['debug']['block']) {
+        if ($settings['debug']['block']) {
           $zone_regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item['name']);
           $zone_regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
         }

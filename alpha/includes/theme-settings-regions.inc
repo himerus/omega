@@ -7,6 +7,7 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
   $containers = $form_state['#containers'];
   $options = alpha_zone_options($theme);
   $columns = $spacing = alpha_column_options(max(array_keys($containers)));  
+  $sections = alpha_sections();
   
   unset($columns[0]);
   array_pop($spacing);
@@ -17,24 +18,41 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
     '#weight' => -8,
   ); 
   
-  // adding in section wrappers (header,content,footer)
-  $sections = alpha_sections();
-  $section_keys = array();
-  // create outer fieldsets for the sections
+  $form['alpha_settings']['regions']['unassigned'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Unassigned zones'),
+    '#description' => t('There are no unassigned zones.'),
+    '#weight' => 100,
+    '#attributes' => array(
+      'class' => array('alpha-unassigned'),
+    ),
+  );
+  
+  $form['alpha_settings']['regions']['unassigned']['unassigned'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Unassigned regions'),
+    '#description' => t('There are no unassigned regions.'),
+    '#weight' => 100,
+    '#attributes' => array(
+      'class' => array('alpha-unassigned'),
+    ),
+  );
+  
   foreach ($sections as $key => $section) {
     $form['alpha_settings']['regions']['section_' . $key] = array(
       '#type' => 'fieldset',
       '#title' => $section . ' ' . t('Section'),
       '#description' => t('This section is empty.'),
     );
-    $section_keys[$key] = $key;
   }
-  $zone_sections = array();
+  
   foreach ($zones as $key => $zone) {
-    $zone_sections[$key] = $zone['section'];
+    $section = isset($sections[$zone['section']]) ? 'section_' . $zone['section'] : 'unassigned';
     $class = $zone['enabled'] ? 'alpha-zone-enabled' : 'alpha-zone-disabled';
     
-    $form['alpha_settings']['regions']['section_' . $zone['section']]['zone_' . $key] = array(
+    unset($form['alpha_settings']['regions'][$section]['#description']);
+    
+    $form['alpha_settings']['regions'][$section]['zone_' . $key] = array(
       '#type' => 'fieldset',
       '#title' => $zone['name'] . ' ' . t('Zone'),
       '#description' => t('This zone is empty.'),
@@ -45,21 +63,10 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
     );
   }
   
-  $form['alpha_settings']['regions']['unassigned'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Unassigned regions'),
-    '#description' => t('There are no unassigned regions.'),
-    '#weight' => 100,
-    '#attributes' => array(
-      'class' => array('alpha-unassigned'),
-    ),
-  );
-  
   foreach($regions as $region => $item) {
-    $section = isset($zone_sections[$item['zone']]) ? 'section_' . $zone_sections[$item['zone']] : 'unassigned';
-    
     $zone = isset($zones[$item['zone']]) ? 'zone_' . $item['zone'] : 'unassigned';
-    unset($form['alpha_settings']['regions'][$section]['#description']);
+    $section = isset($zones[$item['zone']]) && isset($sections[$zones[$item['zone']]['section']]) ? 'section_' . $zones[$item['zone']]['section'] : 'unassigned';
+    
     unset($form['alpha_settings']['regions'][$section][$zone]['#description']);
 
     $form['alpha_settings']['regions'][$section][$zone][$region] = array(

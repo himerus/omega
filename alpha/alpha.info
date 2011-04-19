@@ -18,18 +18,18 @@ zones[content] = Content
 ; OPTIONAL STYLESHEETS
 
 css[reset][name] = Reset
-css[reset][media] = screen
+css[reset][media] = all
 css[reset][file] = reset.css
 css[reset][weight] = -2
 css[reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
 
 css[alpha][name] = Alpha
-css[alpha][media] = screen
+css[alpha][media] = all
 css[alpha][file] = alpha.css
 css[alpha][description] = Default styles & resets for Alpha/Omega base theme.
 
 css[mobile][name] = Mobile
-css[mobile][media] = screen
+css[mobile][media] = all
 css[mobile][file] = mobile.css
 css[mobile][weight] = -1
 css[mobile][description] = Default stylesheet for mobile styles.
