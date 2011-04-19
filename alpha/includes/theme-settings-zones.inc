@@ -3,7 +3,7 @@
 /*
  * @todo
  */
-function alpha_theme_settings_sections(&$form, &$form_state) {  
+function alpha_theme_settings_zones(&$form, &$form_state) {  
   $sections = alpha_sections();
   $zones = $form_state['#zones'];
   $containers = $form_state['#containers'];
@@ -15,13 +15,13 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
     }
   }
   
-  $form['alpha_settings']['sections'] = array(
+  $form['alpha_settings']['zones'] = array(
     '#weight' => -9,
     '#type' => 'fieldset',
-    '#title' => t('Section configuration'),
+    '#title' => t('Zone configuration'),
   );
   
-  $form['alpha_settings']['sections']['unassigned'] = array(
+  $form['alpha_settings']['zones']['unassigned'] = array(
     '#type' => 'fieldset',
     '#title' => t('Unassigned zones'),
     '#description' => t('There are no unassigned zones.'),
@@ -32,7 +32,7 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
   );
   
   foreach ($sections as $key => $section) {
-    $form['alpha_settings']['sections']['section_' . $key] = array(
+    $form['alpha_settings']['zones']['section_' . $key] = array(
       '#type' => 'fieldset',
       '#title' => $section . ' ' . t('Section'),
       '#description' => t('This section is empty.'),
@@ -43,9 +43,9 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
     $section = isset($sections[$item['section']]) ? 'section_' . $item['section'] : 'unassigned';
     $item['regions'] = !empty($item['regions']) ? $item['regions'] : array();
     
-    unset($form['alpha_settings']['sections'][$section]['#description']);
+    unset($form['alpha_settings']['zones'][$section]['#description']);
     
-    $form['alpha_settings']['sections'][$section]['zone_' . $zone] = array(
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone] = array(
       '#type' => 'fieldset',
       '#title' => $item['name'] . ' ' . t('Zone'),
       '#weight' => $item['weight'],
@@ -55,14 +55,14 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
     );
     
     // Provide a full width wrapper around the zone (allowing for design elements outside the grid)
-    $form['alpha_settings']['sections'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_wrapper'] = array(
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_wrapper'] = array(
       '#type' => 'checkbox',
       '#title' => t('Provide full width wrapper around this zone'),
       '#description' => t('Enabling this feature will give a &lt;div&gt; wrapper around the zone itself, allowing you to theme in elements that appear outside the 960 pixel container zone.'),
       '#default_value' => $item['wrapper'],
     );
     
-    $form['alpha_settings']['sections'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_section'] = array(
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_section'] = array(
       '#type' => 'select',
       '#title' => t('Section'),
       '#default_value' => $item['section'],
@@ -70,14 +70,14 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
       '#options' => array('_none' => '- None -') + $sections,
     );
     
-    $form['alpha_settings']['sections'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_weight'] = array(
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_weight'] = array(
       '#type' => 'weight',
       '#title' => t('Weight'),
       '#default_value' => $item['weight'],
     );
           
     // Create a container width selection menu for EACH zone
-    $form['alpha_settings']['sections'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_columns'] = array(
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_columns'] = array(
       '#type' => 'select',
       '#title' => t('Column count'),
       '#default_value' => $item['columns'],
@@ -86,7 +86,7 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
     
     // Decide which region is the primary item.
     // The primary region is the one that will absorb the size of empty regions that are related in the same zone.
-    $form['alpha_settings']['sections'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_primary'] = array(
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_primary'] = array(
       '#type' => 'select',
       '#title' => t('Primary Region'),
       '#default_value' => $item['primary'],
@@ -95,20 +95,11 @@ function alpha_theme_settings_sections(&$form, &$form_state) {
     );
     
     // Allow for zone classes
-    $form['alpha_settings']['sections'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_css'] = array(
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_css'] = array(
       '#type' => 'textfield',
       '#title' => t('Additional zone classes'),
       '#size' => 60,
       '#default_value' => $item['css'],
     );
   }
-}
-
-/*
- * @todo
- */
-function alpha_theme_settings_primary_region_validate($element, &$form_state) {
-  if ($element['#value'] == '_none') {
-    form_set_value($element, NULL, $form_state);
-  }  
 }

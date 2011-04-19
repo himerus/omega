@@ -15,7 +15,7 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   $form_state['#containers'] = alpha_container_options($theme, alpha_theme_get_setting('alpha_grid', $theme, 'default'));
      
   require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-general.inc';
-  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-sections.inc';
+  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-zones.inc';
   require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-regions.inc';
   
   if (module_exists('delta') && arg(2) != 'delta') {
@@ -23,7 +23,7 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   }
   
   alpha_theme_settings_general($form, $form_state);
-  alpha_theme_settings_sections($form, $form_state);
+  alpha_theme_settings_zones($form, $form_state);
   alpha_theme_settings_regions($form, $form_state);
 }
 
