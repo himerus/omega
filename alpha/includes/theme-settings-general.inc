@@ -9,7 +9,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $settings = alpha_settings($theme);
   $optional = alpha_css_options($theme);
   $responsive = alpha_css_options($theme, TRUE);
-  $styles = alpha_style_options($theme);
+  $exclude = alpha_exclude_options($theme);
   
   $form['alpha_settings'] = array(
     '#type' => 'vertical_tabs',
@@ -158,7 +158,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#default_value' => $settings['viewport']['user'],
   );
   
-  if (!empty($optional) || !empty($styles)) {  
+  if (!empty($optional) || !empty($exclude)) {  
     $form['alpha_settings']['styles'] = array(
       '#type' => 'fieldset',
       '#title' => t('Toggle styles'),
@@ -172,18 +172,16 @@ function alpha_theme_settings_general(&$form, &$form_state) {
         '#description' => t('You can choose from this list to enable optional stylesheets.'),
         '#type' => 'checkboxes',
         '#options' => $optional,
-        '#responsive' => FALSE,
         '#default_value' => $settings['css'],
       );
     }
     
-    if (!empty($styles)) {
+    if (!empty($exclude)) {
       $form['alpha_settings']['styles']['alpha_exclude'] = array(
         '#title' => t('Disable module and theme stylesheets'),
         '#description' => t('Alpha will remove the selected stylesheets from your pages.'),
         '#type' => 'checkboxes',
-        '#options' => $styles,
-        '#responsive' => FALSE,
+        '#options' => $exclude,
         '#default_value' => $settings['exclude'],
       );
     }

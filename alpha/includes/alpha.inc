@@ -1,16 +1,36 @@
 <?php 
 
-/*
- * @todo
+/**
+ * @file
+ * Helper functions for the Alpha base theme.
+ */
+
+/**
+ * Invokes a preprocess or process hook in all base themes aswell 
+ * as the subtheme (in that order) by including the corresponding 
+ * .inc file and calling the associated function.
+ * 
+ * @param $type
+ * 	 The type of the hook. Can be preprocess or process.
+ * 
+ * @param $hook
+ * 	 The name of the hook.
+ * 
+ * @param &$vars
+ *   An array of variables belonging to the (pre)process hook.
+ *   Handed by reference.
  */
 function alpha_invoke($type, $hook, &$vars) {
   global $theme_key;
   
+  // Fetch the hook registry from cache or static (if already populated).
   $registry = &drupal_static(__FUNCTION__);
   if (!isset($registry)) {
-    $registry = variable_get('alpha_theme_registry_' . $theme_key);
+    $registry = variable_get('alpha_theme_registry_' . $theme_key, array());
   }
 
+  // If one of the themes in the theme trail implements this hook
+  // include the corresponding .inc file and call the associated function.
   if (!empty($registry[$type][$hook])) {    
     foreach ($registry[$type][$hook] as $item) {
       if (is_file($item['path'])) {
@@ -24,36 +44,66 @@ function alpha_invoke($type, $hook, &$vars) {
   }
 }
 
-/*
- * @todo
+/**
+ * Builds the full theme trail (deepest base theme first, subtheme last)
+ * for a theme.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 to retrieve the theme trail for.
+ * 
+ * @param $hook
+ * 	 The name of the hook.
+ * 
+ * @return 
+ * 	 An array of all themes in the trail, keyed by theme key.
  */
-function alpha_theme_trail($name) {
+function alpha_theme_trail($key) {
   $static = &drupal_static(__FUNCTION__);
   
   if (!isset($static)) {
     $themes = list_themes();
-    $static[$name] = !empty($themes[$name]->info['base theme']) ? system_find_base_themes($themes, $name) : array();
     
-    $static[$name][$themes[$name]->name] = $themes[$name]->info['name'];
+    // Fetch all base themes as an array (automatically sorted properly).
+    $static[$key] = !empty($themes[$key]->info['base theme']) ? system_find_base_themes($themes, $key) : array();
+    
+    // Add our current subtheme ($key) to that array.
+    $static[$key][$themes[$key]->name] = $themes[$key]->info['name'];
   }
 
-  return $static[$name];
+  return $static[$key];
 }
 
-/*
- * @todo
+/**
+ * Builds the hook registry tree for a theme and its ancestors
+ * and saves it as a variable.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 to build the registry for.
+ * 
+ * @param $registry
+ * 	 The theme registry as an array.
+ * 
+ * @see 
+ * 	 hook_theme_registry_alter().
  */
-function alpha_build_registry($theme, $registry) {
+function alpha_build_registry($key, $registry) {
   $cache = array();
+  
+  // Loop through all items in the registry items and check for
+  // existing (pre)process hooks in our theme trail.
   foreach ($registry as $item => $info) {
     foreach (array('preprocess', 'process') as $type) {
       $key = $type . ' functions';
      
+      // Only process this array if it has hooks of this $type.
       if (!empty($info[$key])) {
-        foreach (alpha_theme_trail($theme) as $name => $friendly) {
+        foreach (alpha_theme_trail($key) as $name => $friendly) {
           $file = $type . '-' . str_replace('_', '-', $item) . '.inc';    
           $path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $name) . '/' . $type . '/' . $file;
           
+          // If the corresponding file exists add it to the registry.
           if (is_file($path)) {
             $cache[$type][$item][] = array(
               'type' => $type,
@@ -68,11 +118,26 @@ function alpha_build_registry($theme, $registry) {
     }
   }
 
-  variable_set('alpha_theme_registry_' . $theme, $cache);
+  // Save the registry in the database.
+  variable_set('alpha_theme_registry_' . $key, $cache);
 }
 
 /**
- * @todo
+ * A wrapper function for theme_get_settings().
+ * 
+ * @param $name
+ * 	 The name of the setting that you want to retrieve.
+ * 
+ * @param $theme (optional)
+ * 	 The name (key) of the theme that you want to fetch the
+ *   setting for. Defaults to the global variable $theme_key.
+ *   
+ * @param $default (optional)
+ * 	 The name (key) of the theme that you want to fetch the
+ *   setting for. Defaults to NULL.
+ *   
+ * @see 
+ * 	 theme_get_setting().
  */
 function alpha_theme_get_setting($name, $theme = NULL, $default = NULL) {
   // Need to change this for Delta implementation.
@@ -81,20 +146,44 @@ function alpha_theme_get_setting($name, $theme = NULL, $default = NULL) {
   return isset($setting) ? $setting : $default; 
 }
 
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $start
+ * 	 The number to start with.
+ * 
+ * @param $end
+ * 	 The number to end with.
+ *   
+ * @param $step
+ * 	 The size of a step.
+ *   
+ * @return 
+ * 	 An array of scale options.
  */
 function alpha_scale_options($start, $end, $step) {
   $options = array();  
   foreach (range($start, $end, $step) as $number) {
+    // Format the value to display with one decimal.
     $options[(string) $number] = number_format($number, 1);
   }
   
   return $options;
 }
 
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 to build the registry for.
+ * 
+ * @param $responsive
+ * 	 A boolean indicating wether the array should cover responsive
+ * 	 or non-responsive stylesheets.
+ *   
+ * @return 
+ * 	 An array of optional or responsive stylesheet options.
  */
 function alpha_css_options($key, $responsive = FALSE) {
   $items = alpha_css($key, $responsive);
@@ -107,11 +196,22 @@ function alpha_css_options($key, $responsive = FALSE) {
   return $output;
 }
 
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 to build the registry for.
+ * 
+ * @see
+ *   hook_css_alter().
+ *   
+ * @return 
+ * 	 An array of stylesheets that can be disabled / excluded with
+ *   hook_css_alter().
  */
-function alpha_style_options($key) {
-  $items = alpha_styles($key);
+function alpha_exclude_options($key) {
+  $items = alpha_excludes($key);
   
   $output = array(); 
   foreach ($items as $key => $info) {
@@ -126,9 +226,15 @@ function alpha_style_options($key) {
   return $output;
 }
 
-
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 to build the registry for.
+ *   
+ * @return 
+ * 	 An array of available grids.
  */
 function alpha_grid_options($key) {
   $items = alpha_grids($key);
@@ -141,8 +247,15 @@ function alpha_grid_options($key) {
   return $output;
 }
 
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 to build the registry for.
+ *   
+ * @return 
+ * 	 An array of available zones.
  */
 function alpha_zone_options($key) {
   $items = alpha_zones($key);
@@ -155,22 +268,39 @@ function alpha_zone_options($key) {
   return $output;
 }
 
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available containers for.
+ *
+ * @param $grid
+ * 	 The grid that you want to fetch the available containers for.
+ *   
+ * @return 
+ * 	 An array of available containers.
  */
 function alpha_container_options($key, $grid) {
-  $grids = alpha_grids($key);
+  $grids = alpha_grids($key, $grid);
   
   $output = array();  
-  foreach ($grids[$grid]['columns'] as $count => $path) {
+  foreach ($grids['columns'] as $count => $path) {
     $output[$count] = t('@count columns', array('@count' => $count));
   }
   
   return $output;
 }
 
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available containers for.
+ *   
+ * @return 
+ * 	 An array of available regions.
  */
 function alpha_region_options($key) {
   $regions = alpha_regions($key);
@@ -183,8 +313,14 @@ function alpha_region_options($key) {
   return $output;
 }
 
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $max
+ * 	 The maximum number of columns that you want to cover.
+ *   
+ * @return 
+ * 	 An array of available columns counts.
  */
 function alpha_column_options($max) {
   $output = array();
@@ -195,8 +331,19 @@ function alpha_column_options($max) {
   return $output;
 }
 
-/*
- * @todo
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available containers for.
+ *
+ * @param $responsive (optional)
+ * 	 Wether you seek to retrieve the responsive or non-responsive
+ *   optional stylesheets. Defaults to FALSE.
+ *
+ * @return 
+ * 	 An array of available stylesheets.
  */
 function alpha_css($key, $responsive = FALSE) {
   $output = &drupal_static(__FUNCTION__);
@@ -223,8 +370,14 @@ function alpha_css($key, $responsive = FALSE) {
   return $output[$key][$responsive];
 }
 
-/*
- * @todo
+/**
+ * Adds a column layout for a grid to your site.
+ * 
+ * @param $name
+ * 	 A valid grid name.
+ *
+ * @param $columns
+ * 	 The number of columns.
  */
 function alpha_include_grid($name, $columns) {
   global $theme_key, $language, $user;
@@ -232,58 +385,124 @@ function alpha_include_grid($name, $columns) {
   $included = &drupal_static(__FUNCTION__);
   
   if (!isset($included[$name][$columns]) || !$included[$name][$columns]) {
+    // Set this name/columns combination to TRUE in the static so
+    // we don't try to include it over and over.
     $included[$name][$columns] = TRUE;
     
     $grid = alpha_grids($theme_key, $name);
     $settings = alpha_settings($theme_key);
     $css = alpha_css($theme_key, TRUE);
     
-    if (!empty($grid) && isset($columns) && isset($grid['columns'][$columns])) {
+    // Only go further if the grid and the desired column count actually exist.
+    if (!empty($grid) && isset($grid['columns'][$columns])) {
       $path = $grid['columns'][$columns];
   
+      // If the grid is a fluid grid we just include the corresponding column count layout.
       if ($grid['type'] == 'fluid') {
         drupal_add_css($path . '/fluid-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'));
         drupal_add_css($path . '/columns/fluid-' . $columns . '.css');
       }
+      // If the grid is a fixed grid we need to determine wether we are in a responsive grid environment
+      // or not and add the grid stylesheets accordingly.
       else {
-        $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
-  
-        foreach ($widths as $type => $weight) {
-          if ($grid[$type] && ((!$settings['responsive']['enabled'] && $type == 'normal') || ($settings['responsive']['enabled'] && $settings['responsive'][$type]['enabled']))) {
-            $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
-            $options = array('media' => $media, 'weight' => $weight);
-            
-            drupal_add_css($path . '/' . $type . '/' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
-            drupal_add_css($path . '/' . $type . '/' . $type . '-' . $columns . '.css', $options);
-            
-            foreach ($settings['responsive'][$type]['css'] as $item => $enabled) {              
-              if (isset($css[$item]) && $enabled) {
-                drupal_add_css($css[$item]['path'], $options);
+        // Un-responsive grid environments don't only require the "normal" grid layout.
+        if (!$settings['responsive']['enabled']) {
+          drupal_add_css($path . '/normal/normal-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), array('weight' => -1));
+          drupal_add_css($path . '/normal/normal-' . $columns . '.css', array('weight' => -1));
+        }
+        else {
+          $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
+          
+          // Loop through all possible grid layouts (narrow, normal, wide) and add          
+          // all the enabled layouts and the attached optional stylesheets via drupal_add_css().
+          foreach ($widths as $type => $weight) {
+            if ($grid[$type] && $settings['responsive'][$type]['enabled']) {
+              $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
+              $options = array('media' => $media, 'weight' => $weight);
+              
+              drupal_add_css($path . '/' . $type . '/' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
+              drupal_add_css($path . '/' . $type . '/' . $type . '-' . $columns . '.css', $options);
+              
+              // Add all enabled optional stylesheets for this responsive layout via drupal_add_css().
+              foreach ($settings['responsive'][$type]['css'] as $item => $enabled) {              
+                if (isset($css[$item]) && $enabled) {
+                  drupal_add_css($css[$item]['path'], $options);
+                }
               }
-            }
-          }        
+            }        
+          }
         }
       }
     }
   }
 }
 
-/*
- * @todo
+/**
+ * A helper function for retrieving zone settings.
+ * 
+ * @param $name
+ * 	 The name of the setting that you want to retrieve.
+ * 
+ * @param $zone
+ * 	 The zone that you want to fetch the setting for.
+ * 
+ * @param $theme (optional)
+ * 	 The name (key) of the theme that you want to fetch the
+ *   setting for. Defaults to the global variable $theme_key.
+ *   
+ * @param $default (optional)
+ * 	 The name (key) of the theme that you want to fetch the
+ *   setting for. Defaults to NULL.
+ *   
+ * @see 
+ * 	 alpha_theme_get_setting().
+ * 
+ * @see
+ * 	 theme_get_setting().
  */
 function alpha_zone_get_setting($name, $zone, $theme = NULL, $default = NULL) {
   return alpha_theme_get_setting('alpha_zone_' . $zone . '_' . $name, $theme, $default);
 }
 
-/*
- * @todo
+/**
+ * A helper function for retrieving region settings.
+ * 
+ * @param $name
+ * 	 The name of the setting that you want to retrieve.
+ * 
+ * @param $region
+ * 	 The region that you want to fetch the setting for.
+ * 
+ * @param $theme (optional)
+ * 	 The name (key) of the theme that you want to fetch the
+ *   setting for. Defaults to the global variable $theme_key.
+ *   
+ * @param $default (optional)
+ * 	 The name (key) of the theme that you want to fetch the
+ *   setting for. Defaults to NULL.
+ *   
+ * @see 
+ * 	 alpha_theme_get_setting().
+ * 
+ * @see
+ * 	 theme_get_setting().
  */
 function alpha_region_get_setting($name, $region, $theme = NULL, $default = NULL) {
   return alpha_theme_get_setting('alpha_region_' . $region . '_' . $name, $theme, $default);
 }
 
-/*
- * @todo
+/**
+ * Retrieves all available grids for a theme.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available grids for.
+ * 
+ * @param $grid (optional)
+ * 	 The name of the grid that you want to fetch. Defaults to NULL.
+ * 
+ * @return
+ * 	 An array of grids or the grid defined by $grid.
  */
 function alpha_grids($key, $grid = NULL) {
   $output = &drupal_static(__FUNCTION__);
@@ -323,8 +542,15 @@ function alpha_grids($key, $grid = NULL) {
   }
 }
 
-/*
- * @todo
+/**
+ * Retrieves all available zones for a theme.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available grids for.
+ *
+ * @return
+ *   An array of zones and their settings.
  */
 function alpha_zones($key) {
   $output = &drupal_static(__FUNCTION__);
@@ -355,8 +581,15 @@ function alpha_zones($key) {
   return $output[$key];
 }
 
-/*
- * @todo
+/**
+ * Retrieves all available regions for a theme.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available grids for.
+ *
+ * @return
+ *   An array of regions and their settings.
  */
 function alpha_regions($key) {
   $output = &drupal_static(__FUNCTION__);
@@ -395,8 +628,11 @@ function alpha_regions($key) {
   return $output[$key];
 }
 
-/*
- * @todo
+/**
+ * A helper function that holds the available sections.
+ * 
+ * @return
+ *   The array of available sections.
  */
 function alpha_sections() {
   return array(
@@ -406,8 +642,19 @@ function alpha_sections() {
   );
 }
 
-/*
- * @todo
+/**
+ * A helper function for retrieving the content of theme .info files
+ * in the theme trail of $key.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the theme trail .info content for.
+ * 
+ * @param $item
+ *   The name of the variable that you want to fetch.
+ *   
+ * @return
+ *   The $item content of all themes .info files in the theme trail.
  */
 function alpha_info($key, $item) {
   $output = &drupal_static(__FUNCTION__);
@@ -426,8 +673,16 @@ function alpha_info($key, $item) {
   return $output[$key][$item];
 }
 
-/*
- * @todo
+/**
+ * A helper function to gather all non-region and non-zone settings for the
+ * theme defined by $key.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the settings for.
+ *
+ * @return
+ *   A nested array of theme settings.
  */
 function alpha_settings($key) {
   $settings = &drupal_static(__FUNCTION__);
@@ -469,6 +724,8 @@ function alpha_settings($key) {
       ),
     );
 
+    // @todo This hacky fake block stuff needs to die...
+    // We will move it to Omega UI.
     foreach (array('branding', 'messages', 'action_links', 'breadcrumb', 'tabs') as $block) {
       $settings[$key]['blocks'][$block] = array(
         'enabled' => alpha_theme_get_setting('alpha_blocks_' . $block, $key, TRUE),
@@ -492,8 +749,19 @@ function alpha_settings($key) {
   return $settings[$key];
 }
 
-/*
- * @todo
+/**
+ * A helper function to check wether the user defined by $user
+ * matches one of the roles defined by $roles.
+ * 
+ * @param $user
+ *   A Drupal user as returned by user_load().
+ * 
+ * @param $roles
+ *   An array of roles that you want to check against $user.
+ * 
+ * @return
+ *   A boolean, indicating wether or not $user matches one of
+ *   the $roles.
  */
 function alpha_debug_access($user, $roles) {
   foreach ($roles as $role => $assigned) {
@@ -505,22 +773,34 @@ function alpha_debug_access($user, $roles) {
   return FALSE;
 }
 
-/*
- * @todo
+/**
+ * A helper function that returns an array of un-wanted Drupal core regions.
+ * 
+ * @return
+ *   An array of un-wanted regions.
  */
 function alpha_regions_exclude() {
   return array('page_top', 'page_bottom');
 }
 
-/*
- * @todo
+/**
+ * Builds and returns a debugging block.
+ * 
+ * @param $region
+ *   The region that the block will be placed in.
+ * 
+ * @param $info
+ *   The region information.
+ * 
+ * @return
+ *   A debugging block in a renderable array.
  */
-function alpha_debug_block($region, $info) {
+function alpha_debug_block($region, $subject) {
   $block = new stdClass();
   $block->delta = 'debug';
   $block->region = $region;
   $block->module = 'alpha';
-  $block->subject = $info['name'];
+  $block->subject = $subject;
   $block->weight = -100;
 
   return array(
@@ -531,8 +811,109 @@ function alpha_debug_block($region, $info) {
   );
 }
 
+/**
+ * Adds a debug grid to the site.
+ * 
+ * @param $settings
+ *   The settings array as returned by alpha_settings().
+ * 
+ * @param $columns
+ *   The column layout (number) that you want to add a debugging grid
+ *   for.
+ */
+function alpha_debug_grid($settings, $columns) {
+  global $theme_key;
+  
+  $debug = &drupal_static(__FUNCTION__);
+  $grid = alpha_grids($theme_key, $settings['grid']);
+  
+  if ($grid['type'] != 'fluid' && !isset($debug[$columns])) {
+    $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
+                
+    foreach ($widths as $type => $weight) {
+      if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
+        $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
+        $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
+        $css = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . url($path) . '); }';
+        
+        drupal_add_css($css, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
+      }        
+    }
+  }
+  
+  $debug[$columns] = TRUE;
+}
+
+/**
+ * Builds and returns a debugging block.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the exclusion candidates for.
+ * 
+ * @return
+ *   An array of files that can be excluded with hook_css_alter().
+ * 
+ * @see
+ *   alpha_css_alter().
+ * 
+ * @see 
+ *   hook_css_alter().
+ */
+function alpha_excludes($key) {
+  $themes = list_themes();
+  
+  $styles = array();
+  foreach (system_rebuild_module_data() as $module => $data) {
+    if ($data->status && !empty($data->info['stylesheets'])) {
+      foreach ($data->info['stylesheets'] as $media => $content) {        
+        foreach ($content as $file) {          
+          $styles[$file] = array(
+            'type' => 'module',
+            'source' => $module,
+            'name' => $data->info['name'],
+            'file' => $file,
+            'media' => $media,
+          	'description' => NULL,
+          );
+        }
+      }
+    }
+  }
+  
+  foreach (alpha_info($key, 'stylesheets') as $theme => $data) {
+    foreach ($data as $media => $content) {
+      foreach ($content as $file) {
+        $styles[$file] = array(
+          'type' => 'theme',
+          'source' => $theme,
+          'name' => $themes[$theme]->info['name'],
+          'file' => $file,
+          'media' => $media,
+          'description' => NULL,
+        );
+      }
+    }
+  }
+  
+  foreach (alpha_info($key, 'exclude') as $theme => $data) {
+    foreach ($data as $file => $description) {
+      $styles[$file] = array(
+        'type' => 'exclude',
+        'source' => $theme,
+        'name' => $themes[$theme]->info['name'],
+        'file' => $file,
+        'media' => NULL,
+        'description' => $description,
+      );
+    }
+  }
+  
+  return $styles;
+}
+
 /*
- * @todo
+ * @todo REMOVE THIS FUNCTIONALITY IN FAVOR OF OMEGA_UI
  */
 function alpha_blockify($name, $subject, $settings, &$vars) {
   $variables = array();
@@ -587,33 +968,7 @@ function alpha_blockify($name, $subject, $settings, &$vars) {
 }
 
 /*
- * @todo
- */
-function alpha_debug_grid($settings, $columns) {
-  global $theme_key;
-  
-  $debug = &drupal_static(__FUNCTION__);
-  $grid = alpha_grids($theme_key, $settings['grid']);
-  
-  if ($grid['type'] != 'fluid' && !isset($debug[$columns])) {
-    $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
-                
-    foreach ($widths as $type => $weight) {
-      if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
-        $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
-        $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
-        $css = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . url($path) . '); }';
-        
-        drupal_add_css($css, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
-      }        
-    }
-  }
-  
-  $debug[$columns] = TRUE;
-}
-
-/*
- * @todo
+ * @todo REMOVE THIS FUNCTIONALITY IN FAVOR OF OMEGA_UI
  */
 function alpha_special_blocks() {
   return array(
@@ -623,59 +978,4 @@ function alpha_special_blocks() {
     'tabs' => t('Tabs'),
     'breadcrumb' => t('Breadrcumb'), 
   );
-}
-
-/*
- * @todo
- */
-function alpha_styles($key) {
-  $themes = list_themes();
-  
-  $styles = array();
-  foreach (system_rebuild_module_data() as $module => $data) {
-    if (!empty($data->info['stylesheets'])) {
-      foreach ($data->info['stylesheets'] as $media => $content) {        
-        foreach ($content as $file) {          
-          $styles[$file] = array(
-            'type' => 'module',
-            'source' => $module,
-            'name' => $data->info['name'],
-            'file' => $file,
-            'media' => $media,
-          	'description' => NULL,
-          );
-        }
-      }
-    }
-  }
-  
-  foreach (alpha_info($key, 'stylesheets') as $theme => $data) {
-    foreach ($data as $media => $content) {
-      foreach ($content as $file) {
-        $styles[$file] = array(
-          'type' => 'theme',
-          'source' => $theme,
-          'name' => $themes[$theme]->info['name'],
-          'file' => $file,
-          'media' => $media,
-          'description' => NULL,
-        );
-      }
-    }
-  }
-  
-  foreach (alpha_info($key, 'exclude') as $theme => $data) {
-    foreach ($data as $file => $description) {
-      $styles[$file] = array(
-        'type' => 'exclude',
-        'source' => $theme,
-        'name' => $themes[$theme]->info['name'],
-        'file' => $file,
-        'media' => NULL,
-        'description' => $description,
-      );
-    }
-  }
-  
-  return $styles;
 }

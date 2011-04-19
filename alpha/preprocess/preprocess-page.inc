@@ -35,7 +35,7 @@ function alpha_alpha_preprocess_page(&$vars) {
         $zone_regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
         
         if ($vars['#alpha']['debug']['block']) {
-          $zone_regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item);
+          $zone_regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item['name']);
           $zone_regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
         }
         
