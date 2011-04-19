@@ -26,39 +26,8 @@ function alpha_alpha_preprocess_block(&$vars) {
     $vars['classes_array'][] = 'last';
   }
   
-  if ($vars['block']->module == 'alpha') {
-    if ($vars['block']->delta == 'debug') {
-      $vars['block_html_id'] = drupal_html_id('block-' . $vars['block']->module . '-' . $vars['block']->delta . '-' . $vars['block']->region);
-    }
-    else if ($vars['block']->delta == 'branding') {
-      $vars['site_name'] = $vars['block']->vars['site_name'];
-      $vars['site_name_linked'] = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
-      $vars['site_name_hidden'] = $vars['block']->settings['name_hidden'];
-      $vars['site_name_attributes_array']['class'][] = 'site-title';
-      
-      if ($vars['block']->settings['name_hidden']) {
-        $vars['site_name_attributes_array']['class'][] = 'element-invisible';
-      }
-      
-      $vars['site_slogan'] = $vars['block']->vars['site_slogan'];        
-      $vars['site_slogan_hidden'] = $vars['block']->settings['slogan_hidden'];        
-      $vars['site_slogan_attributes_array']['class'][] = 'site-slogan';
-          
-      if ($vars['block']->settings['slogan_hidden']) {
-        $vars['site_slogan_attributes_array']['class'][] = 'element-invisible';
-      }
-      
-      if(isset($vars['block']->vars['logo'])) {
-        $vars['logo'] = $vars['block']->vars['logo'];
-        $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $vars['site_name'] . '" id="logo" />';
-        $vars['logo_img_linked'] = l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)); 
-      }        
-    }
-    else {
-      foreach ($vars['block']->vars as $key => $variable) {
-        $vars[$key] = $variable;        
-      }
-    }
+  if ($vars['block']->module == 'alpha' && $vars['block']->delta == 'debug') {
+    $vars['block_html_id'] = drupal_html_id('block-' . $vars['block']->module . '-' . $vars['block']->delta . '-' . $vars['block']->region);
   }
   
   $vars['attributes_array']['class'] = $vars['classes_array'];

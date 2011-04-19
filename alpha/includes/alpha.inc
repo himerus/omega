@@ -70,7 +70,7 @@ function alpha_theme_trail($key) {
     // Add our current subtheme ($key) to that array.
     $static[$key][$themes[$key]->name] = $themes[$key]->info['name'];
   }
-
+  
   return $static[$key];
 }
 
@@ -78,7 +78,7 @@ function alpha_theme_trail($key) {
  * Builds the hook registry tree for a theme and its ancestors
  * and saves it as a variable.
  * 
- * @param $key
+ * @param $name
  * 	 The key (machin-readable name) of the theme that you want
  *	 to build the registry for.
  * 
@@ -88,7 +88,7 @@ function alpha_theme_trail($key) {
  * @see 
  * 	 hook_theme_registry_alter().
  */
-function alpha_build_registry($key, $registry) {
+function alpha_build_registry($name, $registry) {
   $cache = array();
   
   // Loop through all items in the registry items and check for
@@ -99,10 +99,10 @@ function alpha_build_registry($key, $registry) {
      
       // Only process this array if it has hooks of this $type.
       if (!empty($info[$key])) {
-        foreach (alpha_theme_trail($key) as $name => $friendly) {
+        foreach (alpha_theme_trail($name) as $name => $friendly) {
           $file = $type . '-' . str_replace('_', '-', $item) . '.inc';    
           $path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $name) . '/' . $type . '/' . $file;
-          
+
           // If the corresponding file exists add it to the registry.
           if (is_file($path)) {
             $cache[$type][$item][] = array(
@@ -117,9 +117,9 @@ function alpha_build_registry($key, $registry) {
       }
     }
   }
-
+  
   // Save the registry in the database.
-  variable_set('alpha_theme_registry_' . $key, $cache);
+  variable_set('alpha_theme_registry_' . $name, $cache);
 }
 
 /**
@@ -724,26 +724,12 @@ function alpha_settings($key) {
       ),
     );
 
-    // @todo This hacky fake block stuff needs to die...
-    // We will move it to Omega UI.
-    foreach (array('branding', 'messages', 'action_links', 'breadcrumb', 'tabs') as $block) {
-      $settings[$key]['blocks'][$block] = array(
-        'enabled' => alpha_theme_get_setting('alpha_blocks_' . $block, $key, TRUE),
-        'region' => alpha_theme_get_setting('alpha_blocks_' . $block . '_region', $key),
-        'weight' => alpha_theme_get_setting('alpha_blocks_' . $block . '_weight', $key),
-      );
-    }
-    
-    $settings[$key]['blocks']['branding']['name_hidden'] = alpha_theme_get_setting('alpha_blocks_branding_name_hidden', $key, TRUE);
-    $settings[$key]['blocks']['branding']['slogan_hidden'] = alpha_theme_get_setting('alpha_blocks_branding_slogan_hidden', $key, TRUE);
-
     foreach (array('narrow', 'normal', 'wide') as $type) {
       $settings[$key]['responsive'][$type]['css'] = is_array($settings[$key]['responsive'][$type]['css']) ? $settings[$key]['responsive'][$type]['css'] : array();
     }
     
     $settings[$key]['debug']['roles'] = is_array($settings[$key]['debug']['roles']) ? $settings[$key]['debug']['roles'] : array();
     $settings[$key]['css'] = is_array($settings[$key]['css']) ? $settings[$key]['css'] : array();
-    $settings[$key]['blocks'] = is_array($settings[$key]['blocks']) ? $settings[$key]['blocks'] : array();
   }
   
   return $settings[$key];
@@ -910,72 +896,4 @@ function alpha_excludes($key) {
   }
   
   return $styles;
-}
-
-/*
- * @todo REMOVE THIS FUNCTIONALITY IN FAVOR OF OMEGA_UI
- */
-function alpha_blockify($name, $subject, $settings, &$vars) {
-  $variables = array();
-  
-  switch ($name) {
-    case 'messages':
-      $vars['messages'] = $variables['messages'] = $vars['show_messages'] ? theme('status_messages') : '';
-      break;
-      
-    case 'branding':
-	  $variables = array(
-	  	'site_name' => $vars['site_name'],
-  		'site_slogan' => $vars['site_slogan'],
-  		'logo' => $vars['logo'],
-	  );
-	  break;
-	  
-    case 'tabs':
-      $vars['tabs'] = $variables['tabs'] = render($vars['tabs']);
-      break;
-      
-    case 'action_links':
-      $vars['action_links'] = $variables['action_links'] = render($vars['action_links']);
-      break;
-      
-    case 'breadcrumb':
-      $vars['breadcrumb'] = $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));      
-      break;
-      
-    default:
-      return FALSE;
-  }
-  
-  if ($name != 'branding' && empty($variables[$name])) {
-    return FALSE;
-  }
-  
-  $block = new stdClass();
-  $block->delta = $name;
-  $block->region = $settings['region'];
-  $block->module = 'alpha';
-  $block->weight = (int) $settings['weight'];
-  $block->subject = $subject;
-  $block->vars = $variables;
-  $block->settings = $settings;
-  
-  return array(
-  	'#printed' => FALSE,
-    '#theme_wrappers' => array('block'),
-    '#block' => $block,
-  );
-}
-
-/*
- * @todo REMOVE THIS FUNCTIONALITY IN FAVOR OF OMEGA_UI
- */
-function alpha_special_blocks() {
-  return array(
-  	'branding' => t('Branding'), 
-  	'messages' => t('Messages'), 
-  	'action_links' => t('Action links'),
-    'tabs' => t('Tabs'),
-    'breadcrumb' => t('Breadrcumb'), 
-  );
 }

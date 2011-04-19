@@ -11,18 +11,6 @@ function alpha_alpha_preprocess_page(&$vars) {
   $settings = $vars['#alpha'] = alpha_settings($theme_key);
   $regions = alpha_regions($theme_key);
 
-  if (!module_exists('blockify')) {
-    foreach (alpha_special_blocks() as $block => $subject) {
-      $region = $settings['blocks'][$block]['region'];    
-      
-      if ($settings['blocks'][$block]['enabled'] && isset($regions[$region])) {
-        if ($blockify = alpha_blockify($block, $subject, $settings['blocks'][$block], $vars)) {
-          $vars['page'][$region][$block] = $blockify;
-        }
-      }
-    }
-  }
-  
   $zone_regions = array();
   foreach ($regions as $region => $item) {
     if (isset($zones[$item['zone']]) && $zones[$item['zone']]['enabled']) {
