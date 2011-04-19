@@ -3,10 +3,13 @@
 /*
  * @todo
  */
-function alpha_alpha_process_region(&$vars) {
+function omega_alpha_process_region(&$vars) {
   if ($vars['elements']['#region'] == 'content') {
     $vars['title_prefix'] = $vars['elements']['#page']['title_prefix'];
     $vars['title'] = $vars['elements']['#page']['title'];
     $vars['title_suffix'] = $vars['elements']['#page']['title_suffix'];
+    
+    $vars['tabs'] = $vars['elements']['#page']['tabs'];
+    $vars['action_links'] = $vars['elements']['#page']['action_links'];
   }
 }

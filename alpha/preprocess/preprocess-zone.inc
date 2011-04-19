@@ -5,22 +5,20 @@
  */
 function alpha_alpha_preprocess_zone(&$vars) {
   $settings = $vars['elements']['#page']['#alpha'];
-  $zone = $vars['elements']['#zone'];
+  $zone = $vars['elements']['#data'];
   
   alpha_include_grid($settings['grid'], $zone['columns']);
   
   if($settings['debug']['grid'] && alpha_debug_access($vars['user'], $settings['debug']['roles'])) {
     alpha_debug_grid($settings, $zone['columns']);
   } 
-  
-  $vars['zone'] = $zone['zone'];  
-  
-  $vars['theme_hook_suggestions'][] = 'zone__' . $vars['zone'];
+  drupal_set_message('test');
+  $vars['theme_hook_suggestions'][] = 'zone__' . $vars['elements']['#zone'];
   
   $vars['columns'] = $zone['columns'];
   $vars['wrapper'] = $zone['wrapper'];
   $vars['content'] = $vars['elements']['#children'];
-  $vars['zone_html_id'] = drupal_html_id('zone-' . $vars['zone']);
+  $vars['zone_html_id'] = drupal_html_id('zone-' . $vars['elements']['#zone']);
   $vars['type'] = $zone['type'];
   $vars['classes_array'] = array('zone', 'zone-' . $zone['type'], $vars['zone_html_id'], 'container-' . $vars['columns'], 'clearfix');
   

@@ -65,7 +65,7 @@ function alpha_process(&$vars, $hook) {
  */
 function alpha_theme_registry_alter(&$registry) {
   global $theme_key;
-  
+
   alpha_build_registry($theme_key, $registry);
 }
 

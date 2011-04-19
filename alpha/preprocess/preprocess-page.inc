@@ -69,7 +69,8 @@ function alpha_alpha_preprocess_page(&$vars) {
       
       $vars['page'][$item['section'] . '_section'][$zone] = $zone_regions[$zone];
       $vars['page'][$item['section'] . '_section'][$zone]['#theme_wrappers'][] = 'zone';
-      $vars['page'][$item['section'] . '_section'][$zone]['#zone'] = $item;
+      $vars['page'][$item['section'] . '_section'][$zone]['#data'] = $item;
+      $vars['page'][$item['section'] . '_section'][$zone]['#zone'] = $zone;
       $vars['page'][$item['section'] . '_section'][$zone]['#weight'] = (int) $item['weight'];
       $vars['page'][$item['section'] . '_section'][$zone]['#sorted'] = FALSE;
       $vars['page'][$item['section'] . '_section'][$zone]['#page'] = &$vars;
