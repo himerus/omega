@@ -571,15 +571,19 @@ function alpha_zones($key) {
   
   if (!isset($output[$key])) {
     $themes = list_themes();
-  
+    $sections = alpha_sections();
+    
     $output[$key] = array();
     if (isset($themes[$key]->info['zones'])) { 
       foreach ($themes[$key]->info['zones'] as $zone => $name) {
+        $section = alpha_zone_get_setting('section', $zone, $key);
+        
         $output[$key][$zone] = array(
           'zone' => $zone,
           'name' => $name,
+          'enabled' => isset($sections[$section]),
           'columns' => alpha_zone_get_setting('columns', $zone, $key, 0),
-          'section' => alpha_zone_get_setting('section', $zone, $key),
+          'section' => $section,
           'weight' => alpha_zone_get_setting('weight', $zone, $key, 0),
           'wrapper' => alpha_zone_get_setting('wrapper', $zone, $key, FALSE),
           'primary' => alpha_zone_get_setting('primary', $zone, $key),
@@ -616,22 +620,25 @@ function alpha_regions($key) {
     foreach ($regions as $region => $name) {
       if (!in_array($region, $exclude)) {
         $zone = alpha_region_get_setting('zone', $region, $key);
+        $prefix = alpha_region_get_setting('prefix', $region, $key, 0);
+        $columns = alpha_region_get_setting('columns', $region, $key, 0);
+        $suffix = alpha_region_get_setting('suffix', $region, $key, 0);
         
         $output[$key][$region] = array(
           'region' => $region,
           'name' => $name,
           'zone' => $zone,
-          'prefix' => alpha_region_get_setting('prefix', $region, $key, 0),
-          'columns' => alpha_region_get_setting('columns', $region, $key, 0),
-          'suffix' => alpha_region_get_setting('suffix', $region, $key, 0),
+          'enabled' => isset($zones[$zone]) && $zones[$zone]['enabled'],
+          'prefix' => $prefix,
+          'columns' => $columns,
+          'suffix' => $suffix,
+          'width' => $prefix + $columns + $suffix,
           'push' => 0,
           'pull' => 0,
           'css' => alpha_region_get_setting('css', $region, $key),
           'weight' => alpha_region_get_setting('weight', $region, $key, 0),
           'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
         );
-        
-        $output[$key][$region]['width'] = $output[$key][$region]['columns'] + $output[$key][$region]['prefix'] + $output[$key][$region]['suffix'];
       }
     }
     
