@@ -3,7 +3,6 @@ description = Default starterkit for Omega. You should not directly edit this st
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
-version = 3.x
 base theme = omega
 
 ; REGIONS
