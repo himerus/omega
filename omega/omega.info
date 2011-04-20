@@ -60,6 +60,16 @@ css[text][media] = all
 css[text][file] = text.css
 css[text][description] = Default text styles for Omega.
 
+css[branding][name] = Branding Styles
+css[branding][media] = all
+css[branding][file] = branding.css
+css[branding][description] = Provides positioning for the logo, title and slogan.
+
+css[menu][name] = Menu Styles
+css[menu][media] = all
+css[menu][file] = menu.css
+css[menu][description] = Provides positoning and basic CSS for primary and secondary menus.
+
 ; OPTIONAL STYLESHEETS
 
 exclude[test/test.css] = Test
@@ -83,6 +93,8 @@ settings[alpha_css][reset] = 'reset'
 settings[alpha_css][alpha] = 'alpha'
 settings[alpha_css][mobile] = 'mobile'
 settings[alpha_css][text] = 'text'
+settings[alpha_css][branding] = 'branding'
+settings[alpha_css][menu] = 'menu'
 settings[alpha_exclude][modules/aggregator/aggregator.css] = 'modules/aggregator/aggregator.css'
 settings[alpha_exclude][modules/block/block.css] = 'modules/block/block.css'
 settings[alpha_exclude][modules/dblog/dblog.css] = 'modules/dblog/dblog.css'
