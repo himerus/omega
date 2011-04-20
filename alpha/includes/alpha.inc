@@ -628,7 +628,7 @@ function alpha_regions($key) {
           'region' => $region,
           'name' => $name,
           'zone' => $zone,
-          'enabled' => isset($zones[$zone]) && $zones[$zone]['enabled'],
+          'enabled' => isset($zones[$zone]),
           'prefix' => $prefix,
           'columns' => $columns,
           'suffix' => $suffix,

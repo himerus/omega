@@ -46,22 +46,22 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
     );
   }
   
-  foreach ($zones as $key => $zone) {
-    $section = isset($sections[$zone['section']]) ? 'section_' . $zone['section'] : 'unassigned';
+  foreach ($zones as $zone => $item) {
+    $section = $item['enabled'] ? 'section_' . $item['section'] : 'unassigned';
 
     unset($form['alpha_settings']['regions'][$section]['#description']);
     
-    $form['alpha_settings']['regions'][$section]['zone_' . $key] = array(
+    $form['alpha_settings']['regions'][$section]['zone_' . $zone] = array(
       '#type' => 'fieldset',
-      '#title' => $zone['name'] . ' ' . t('Zone'),
+      '#title' => $item['name'] . ' ' . t('Zone'),
       '#description' => t('This zone is empty.'),
-      '#weight' => $zone['weight'],
+      '#weight' => $item['weight'],
     );
   }
   
   foreach($regions as $region => $item) {
-    $zone = isset($zones[$item['zone']]) ? 'zone_' . $item['zone'] : 'unassigned';
-    $section = isset($zones[$item['zone']]) && isset($sections[$zones[$item['zone']]['section']]) ? 'section_' . $zones[$item['zone']]['section'] : 'unassigned';
+    $zone = $item['enabled'] ? 'zone_' . $item['zone'] : 'unassigned';
+    $section = $item['enabled'] && $zones[$item['zone']]['enabled'] ? 'section_' . $zones[$item['zone']]['section'] : 'unassigned';
     
     unset($form['alpha_settings']['regions'][$section][$zone]['#description']);
 

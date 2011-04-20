@@ -10,7 +10,7 @@ function alpha_theme_settings_zones(&$form, &$form_state) {
   $regions = $form_state['#regions'];
   
   foreach ($regions as $region => $info) {
-    if (isset($zones[$info['zone']])) {
+    if ($info['enabled']) {
       $zones[$info['zone']]['regions'][$region] = $info['name'];
     }
   }
@@ -40,7 +40,7 @@ function alpha_theme_settings_zones(&$form, &$form_state) {
   }
     
   foreach ($zones as $zone => $item) {
-    $section = isset($sections[$item['section']]) ? 'section_' . $item['section'] : 'unassigned';
+    $section = $item['enabled'] ? 'section_' . $item['section'] : 'unassigned';
     $item['regions'] = !empty($item['regions']) ? $item['regions'] : array();
     
     unset($form['alpha_settings']['zones'][$section]['#description']);
