@@ -70,10 +70,6 @@ css[menu][media] = all
 css[menu][file] = menu.css
 css[menu][description] = Provides positoning and basic CSS for primary and secondary menus.
 
-; OPTIONAL STYLESHEETS
-
-exclude[test/test.css] = Test
-
 ; THEME SETTINGS (DEFAULTS)
 
 settings[alpha_grid] = 'default'
