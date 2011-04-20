@@ -1,4 +1,4 @@
-/* 
+/**
  * Give default margins to the items with grid classes. This will display them
  * as block rather than inline for mobile browsers (essentially anything smaller 
  * than the narrow grid size, and media query declares. 

@@ -1,4 +1,4 @@
-<div id="page" class="clearfix">
+<div<?php print $attributes; ?>>
   <?php if (isset($page['header_section'])) : ?>
     <?php print render($page['header_section']); ?>
   <?php endif; ?>

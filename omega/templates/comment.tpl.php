@@ -1,4 +1,4 @@
-<article class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article<?php print $attributes; ?>>
 
   <?php print $unpublished; ?>
 

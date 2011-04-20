@@ -1,4 +1,4 @@
-/* clearfix fix to prevent padding at bottom of page. FML */
+/* Clearfix fix to prevent padding at bottom of page. FML */
 .clearfix:after {
   content: "";
   display: block;

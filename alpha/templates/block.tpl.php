@@ -1,5 +1,4 @@
-<?php $tag = $block->subject ? 'section' : 'div'; ?>
-<<?php print $tag; ?><?php print $attributes; ?>>
+<div<?php print $attributes; ?>>
   <div class="block-inner clearfix">
     <?php print render($title_prefix); ?>
     <?php if ($block->subject): ?>
@@ -11,4 +10,4 @@
       <?php print $content ?>
     </div>
   </div>
-</<?php print $tag; ?>>
+</div>

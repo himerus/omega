@@ -2,20 +2,25 @@
   float: left;
   margin-right: 20px;
 }
+
 .site-name-slogan {
   float: left;
 }
+
 .site-title {
   margin-top: 20px;
 }
+
 .site-title a {
   text-decoration: none;
 }
+
 .site-title,
 .site-slogan {
   margin-bottom: 0;
   line-height: 1em;
 }
+
 .site-slogan {
   font-weight: normal;
 }

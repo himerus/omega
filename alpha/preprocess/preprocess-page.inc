@@ -30,7 +30,7 @@ function alpha_alpha_preprocess_page(&$vars) {
         $children = element_children($zone_regions[$item['zone']][$region]);
         if (!empty($children)) {
           $zone_regions[$item['zone']][$region][array_pop($children)]['#block']->last = TRUE;
-        }   
+        }
       }
       
       unset($vars['page'][$region]);
@@ -84,4 +84,7 @@ function alpha_alpha_preprocess_page(&$vars) {
       $vars['page'][$section . '_section']['#page'] = &$vars;
     }
   }
+  
+  $vars['attributes_array']['id'] = 'page';
+  $vars['attributes_array']['class'] = array('clearfix');
 }
