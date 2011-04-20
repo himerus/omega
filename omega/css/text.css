@@ -41,7 +41,7 @@ h2 {
 }
 
 /* make it a bit smaller for block headers */
-.block h2 {
+h2.block-title {
   font-size: 18px;
   margin: 0;	
 }
@@ -78,6 +78,10 @@ ol ol {
 .node ol,
 .node ul {
 	padding-left: 1.2em;
+}
+.node ul.inline,
+.node ol.inline {
+  padding-left: 0;
 }
 p,
 dl,
