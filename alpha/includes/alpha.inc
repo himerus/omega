@@ -140,7 +140,6 @@ function alpha_build_registry($name, $registry) {
  * 	 theme_get_setting().
  */
 function alpha_theme_get_setting($name, $theme = NULL, $default = NULL) {
-  // Need to change this for Delta implementation.
   $setting = theme_get_setting($name, $theme);
   
   return isset($setting) ? $setting : $default; 
