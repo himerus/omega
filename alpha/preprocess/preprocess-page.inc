@@ -13,32 +13,30 @@ function alpha_alpha_preprocess_page(&$vars) {
   
   $zone_regions = array();
   foreach ($regions as $region => $item) {
-    if (isset($zones[$item['zone']]) && isset($sections[$zones[$item['zone']]['section']])) {
-      if (!empty($vars['page'][$region]) || $settings['debug']['block']) {
-        $zone_regions[$item['zone']][$region] = $vars['page'][$region];
-        $zone_regions[$item['zone']][$region]['#region'] = $region;      
-        $zone_regions[$item['zone']][$region]['#data'] = $item;
-        $zone_regions[$item['zone']][$region]['#page'] = &$vars;
-        $zone_regions[$item['zone']][$region]['#sorted'] = FALSE;
-        $zone_regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
-        
-        if ($settings['debug']['block']) {
-          $zone_regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item['name']);
-          $zone_regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
-        }
-        
-        $children = element_children($zone_regions[$item['zone']][$region]);
-        if (!empty($children)) {
-          $zone_regions[$item['zone']][$region][array_pop($children)]['#block']->last = TRUE;
-        }   
+    if ($item['enabled'] && $zones[$item['zone']]['enabled'] && (!empty($vars['page'][$region]) || $settings['debug']['block'])) {
+      $zone_regions[$item['zone']][$region] = $vars['page'][$region];
+      $zone_regions[$item['zone']][$region]['#region'] = $region;      
+      $zone_regions[$item['zone']][$region]['#data'] = $item;
+      $zone_regions[$item['zone']][$region]['#page'] = &$vars;
+      $zone_regions[$item['zone']][$region]['#sorted'] = FALSE;
+      $zone_regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
+      
+      if ($settings['debug']['block']) {
+        $zone_regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item['name']);
+        $zone_regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
       }
       
-      unset($vars['page'][$region]);
-    }   
+      $children = element_children($zone_regions[$item['zone']][$region]);
+      if (!empty($children)) {
+        $zone_regions[$item['zone']][$region][array_pop($children)]['#block']->last = TRUE;
+      }
+    }
+    
+    unset($vars['page'][$region]); 
   }
 
   foreach ($zones as $zone => $item) {
-    if (isset($item['section']) && isset($sections[$item['section']]) && isset($zone_regions[$zone])) {
+    if ($item['enabled'] && isset($zone_regions[$zone])) {
       if (!empty($item['primary']) && isset($zone_regions[$zone][$item['primary']])) {
         $primary = &$zone_regions[$zone][$item['primary']];
         
@@ -78,10 +76,13 @@ function alpha_alpha_preprocess_page(&$vars) {
   }
 
   foreach ($sections as $section => $item) {
-    if (!empty($vars['page'][$section . '_section'])) {   
+    if (isset($vars['page'][$section . '_section'])) {   
       $vars['page'][$section . '_section']['#theme_wrappers'][] = 'section';
       $vars['page'][$section . '_section']['#section'] = $section;
       $vars['page'][$section . '_section']['#page'] = &$vars;
     }
   }
+  
+  $vars['attributes_array']['id'] = 'page';
+  $vars['attributes_array']['class'] = array('clearfix');
 }

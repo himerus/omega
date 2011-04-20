@@ -1,9 +1,3 @@
-/*
- * ==========================================================
- * Debug
- * ==========================================================
- */
-
 body.alpha-grid-debug .grid-1:hover, body.alpha-grid-debug .grid-2:hover, body.alpha-grid-debug .grid-3:hover, body.alpha-grid-debug .grid-4:hover,
 body.alpha-grid-debug .grid-5:hover, body.alpha-grid-debug .grid-6:hover, body.alpha-grid-debug .grid-7:hover, body.alpha-grid-debug .grid-8:hover,
 body.alpha-grid-debug .grid-9:hover, body.alpha-grid-debug .grid-10:hover, body.alpha-grid-debug .grid-11:hover, body.alpha-grid-debug .grid-12:hover,
@@ -26,7 +20,7 @@ body.alpha-grid-debug .block-grid {
 body.alpha-region-debug .block-debug {
   font-size: 14px;
   line-height: 18px;
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   padding: 10px;
   color: #555;
   border: 1px dotted #888888;

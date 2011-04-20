@@ -86,3 +86,61 @@ function alpha_css_alter(&$css) {
     }
   }
 }
+
+/*
+ * @todo
+ */
+function template_preprocess_section(&$vars) {
+  $vars['theme_hook_suggestions'][] = 'section__' . $vars['elements']['#section'];
+  
+  $vars['section'] = $vars['elements']['#section'];  
+  $vars['content'] = $vars['elements']['#children'];
+
+  $vars['attributes_array']['id'] = drupal_html_id('section-' . $vars['section']);
+  $vars['attributes_array']['class'] = array('section', $vars['attributes_array']['id']);
+}
+
+/*
+ * @todo
+ */
+function template_preprocess_zone(&$vars) {
+  $settings = $vars['elements']['#page']['#alpha'];
+  $data = $vars['elements']['#data'];
+  
+  $vars['theme_hook_suggestions'][] = 'zone__' . $vars['elements']['#zone'];
+  
+  alpha_include_grid($settings['grid'], $data['columns']);
+  
+  if($settings['debug']['grid'] && alpha_debug_access($vars['user'], $settings['debug']['roles'])) {
+    alpha_debug_grid($settings, $data['columns']);
+  } 
+  
+  $vars['zone'] = $vars['elements']['#zone'];
+  $vars['content'] = $vars['elements']['#children'];  
+  $vars['columns'] = $data['columns'];
+  $vars['wrapper'] = $data['wrapper'];
+  $vars['type'] = $data['type'];
+  
+  $vars['attributes_array']['id'] = drupal_html_id('zone-' . $vars['zone']);
+  $vars['attributes_array']['class'] = array('zone', $vars['attributes_array']['id'], 'zone-' . $data['type'], 'container-' . $vars['columns'], 'clearfix');
+  
+  if (!empty($data['css'])) {
+    $extra = array_map('drupal_html_class', explode(' ', $data['css']));
+      
+    foreach ($extra as $class) {
+      $vars['attributes_array']['class'][] = $class;
+    }
+  }
+  
+  if ($vars['wrapper']) {
+    $vars['wrapper_attributes_array']['id'] = $vars['attributes_array']['id'] . '-wrapper';
+    $vars['wrapper_attributes_array']['class'] = array('clearfix');
+  }
+}
+
+/*
+ * @todo
+ */
+function template_process_zone(&$vars) {
+  $vars['wrapper_attributes'] = isset($vars['wrapper_attributes_array']) ? drupal_attributes($vars['wrapper_attributes_array']) : '';
+}

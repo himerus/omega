@@ -6,6 +6,8 @@
 function alpha_alpha_preprocess_html(&$vars) {
   global $theme_key;
   
+  $vars['attributes_array']['class'] = $vars['classes_array'];
+  
   $settings = alpha_settings($theme_key);
   $access = alpha_debug_access($vars['user'], $settings['debug']['roles']);
   $css = alpha_css($theme_key);
@@ -20,20 +22,6 @@ function alpha_alpha_preprocess_html(&$vars) {
     
     $vars['page']['page_bottom']['alpha_grid'] = alpha_grid_block($grid['name']);
   }
-  
-  $vars['rdf'] = new stdClass;
-  if (module_exists('rdf')) {
-    $vars['doctype'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">' . "\n";
-    $vars['rdf']->version = ' version="HTML+RDFa 1.1"';
-    $vars['rdf']->namespaces = $vars['rdf_namespaces'];
-    $vars['rdf']->profile = ' profile="' . $vars['grddl_profile'] . '"';
-  } 
-  else {
-    $vars['doctype'] = '<!DOCTYPE html>' . "\n";
-    $vars['rdf']->version = '';
-    $vars['rdf']->namespaces = '';
-    $vars['rdf']->profile = '';
-  }
 
   foreach ($settings['css'] as $item => $enabled) {
     if (isset($css[$item]) && $enabled) {
@@ -47,11 +35,11 @@ function alpha_alpha_preprocess_html(&$vars) {
     drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/debug.css', array('weight' => -5));
 
     if ($settings['debug']['grid']) {
-      $vars['classes_array'][] = 'alpha-grid-debug';
+      $vars['attributes_array']['class'][] = 'alpha-grid-debug';
     }
     
     if ($settings['debug']['block']) {
-      $vars['classes_array'][] = 'alpha-region-debug';
+      $vars['attributes_array']['class'][] = 'alpha-region-debug';
     }
   }
 
@@ -66,6 +54,4 @@ function alpha_alpha_preprocess_html(&$vars) {
 
     drupal_add_html_head($meta, 'alpha-viewport');
   } 
-  
-  $vars['attributes_array']['class'] = $vars['classes_array'];
 }
