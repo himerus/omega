@@ -10,6 +10,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $optional = alpha_css_options($theme);
   $responsive = alpha_css_options($theme, TRUE);
   $exclude = alpha_exclude_options($theme);
+  $toggle = alpha_toggle();
   
   $form['alpha_settings'] = array(
     '#type' => 'vertical_tabs',
@@ -213,9 +214,22 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#default_value' => $settings['debug']['roles'],
     '#options' => array_map('check_plain', user_roles()),
   );
-  
+
   foreach (array('theme_settings', 'logo', 'favicon') as $element) {
     $form['alpha_settings'][$element] = $form[$element];
     unset($form[$element], $form['alpha_settings'][$element]['#description'], $form['alpha_settings'][$element]['#attributes']);
-  }  
+  }
+  
+  $form['alpha_settings']['theme_settings']['alpha_toggle'] = array(
+    '#type' => 'item',
+    '#title' => t('Additional toggleable elements provided by Alpha'),
+  );
+  
+  foreach ($toggle as $item => $title) {
+    $form['alpha_settings']['theme_settings']['alpha_toggle']['alpha_toggle_' . $item] = array(
+      '#type' => 'checkbox',
+      '#title' => $title,
+      '#default_value' => $settings['toggle'][$item],
+    );
+  }    
 }

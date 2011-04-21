@@ -11,6 +11,11 @@ function alpha_alpha_preprocess_page(&$vars) {
   $settings = $vars['#alpha'] = alpha_settings($theme_key);
   $regions = alpha_regions($theme_key);
   
+  $vars['feed_icons'] = $settings['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
+  $vars['tabs'] = $settings['toggle']['tabs'] ? $vars['tabs'] : NULL;
+  $vars['action_links'] = $settings['toggle']['action_links'] ? $vars['action_links'] : NULL;
+  $vars['show_messages'] = $settings['toggle']['messages'] ? $vars['show_messages'] : FALSE;
+  
   $zone_regions = array();
   foreach ($regions as $region => $item) {
     if ($item['enabled'] && $zones[$item['zone']]['enabled'] && ($item['force'] || !empty($vars['page'][$region]) || $settings['debug']['block'])) {

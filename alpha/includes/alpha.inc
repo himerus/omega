@@ -612,7 +612,7 @@ function alpha_zones($key) {
 function alpha_regions($key) {
   $output = &drupal_static(__FUNCTION__);
   
-  if (!isset($output[$key])) {  
+  if (!isset($output[$key])) {
     $regions = system_region_list($key);
     $zones = alpha_zones($key);
     $exclude = alpha_regions_exclude();
@@ -746,6 +746,10 @@ function alpha_settings($key) {
       ),
     );
 
+    foreach (alpha_toggle() as $item => $title) {
+      $settings[$key]['toggle'][$item] = alpha_theme_get_setting('alpha_toggle_' . $item, $key, TRUE);
+    }
+    
     foreach (array('narrow', 'normal', 'wide') as $type) {
       $settings[$key]['responsive'][$type]['css'] = is_array($settings[$key]['responsive'][$type]['css']) ? $settings[$key]['responsive'][$type]['css'] : array();
     }
@@ -952,4 +956,15 @@ function alpha_excludes($key) {
   }
   
   return $styles;
+}
+
+function alpha_toggle() {
+  return array(
+  	'messages' => t('Messages'), 
+  	'action_links' => t('Action links'), 
+  	'tabs' => t('Tabs'), 
+  	'breadcrumb' => t('Breadcrumb'), 
+  	'page_title' => t('Page title'), 
+  	'feed_icons' => t('Feed icons'),
+  );
 }
