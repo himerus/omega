@@ -30,7 +30,7 @@ function alpha_alpha_preprocess_page(&$vars) {
         $zone_regions[$item['zone']][$region]['#theme_wrappers'][] = 'region';
       }
       
-      if ($settings['debug']['block']) {
+      if ($settings['debug']['block'] && ((empty($vars['page'][$region]) && !$item['force']) || !$settings['debug']['unintrusive'])) {
         $zone_regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item['name']);
       }
       

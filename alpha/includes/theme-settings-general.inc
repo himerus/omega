@@ -202,6 +202,12 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#default_value' => $settings['debug']['block'],
   );
   
+  $form['alpha_settings']['overlay']['alpha_debug_block_unintrusive'] = array(
+    '#type' => 'checkbox',
+    '#title' => t("Only place a debugging block in regions that wouldn't get rendered otherwise (e.g. empty regions that are not set to enforce rendering)."),
+    '#default_value' => $settings['debug']['unintrusive'],
+  );
+  
   $form['alpha_settings']['overlay']['alpha_debug_grid_toggle'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable grid overlay for selected roles.'),

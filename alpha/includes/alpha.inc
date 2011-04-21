@@ -741,6 +741,7 @@ function alpha_settings($key) {
       ),
       'debug' => array(
         'block' => alpha_theme_get_setting('alpha_debug_block_toggle', $key, FALSE),
+        'unintrusive' => alpha_theme_get_setting('alpha_debug_block_unintrusive', $key, FALSE),
         'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', $key, FALSE),
         'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key),
       ),
