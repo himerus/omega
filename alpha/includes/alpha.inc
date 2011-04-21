@@ -585,6 +585,7 @@ function alpha_zones($key) {
           'section' => $section,
           'weight' => alpha_zone_get_setting('weight', $zone, $key, 0),
           'wrapper' => alpha_zone_get_setting('wrapper', $zone, $key, FALSE),
+          'wrapper_css' => alpha_zone_get_setting('wrapper_css', $zone, $key),
           'primary' => alpha_zone_get_setting('primary', $zone, $key),
           'css' => alpha_zone_get_setting('css', $zone, $key),
         );
@@ -868,10 +869,14 @@ function alpha_debug_grid($settings, $columns) {
         $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
         $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
         $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . url($path) . '); }' . "\n";
-        $indicator = 'body.alpha-grid-debug .block-grid { background-position: ' . $weight * 150 . 'px 0; }';
         
         drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
-        drupal_add_css($indicator, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
+        
+        if ($settings['responsive']['enabled']) {          
+          $indicator = 'body.alpha-grid-debug .block-grid { background-position: ' . $weight * 150 . 'px 0; }';
+          
+          drupal_add_css($indicator, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
+        }        
       }        
     }
   }

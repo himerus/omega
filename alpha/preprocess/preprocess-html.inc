@@ -13,7 +13,7 @@ function alpha_alpha_preprocess_html(&$vars) {
   $css = alpha_css($theme_key);
   $grid = alpha_grids($theme_key, $settings['grid']);
   
-  if ($settings['debug']['grid'] && $grid['type'] == 'fixed') {
+  if ($settings['responsive']['enabled'] && $settings['debug']['grid'] && $grid['type'] == 'fixed') {
     if (empty($vars['page']['page_bottom'])) {
       $vars['page']['page_bottom']['#region'] = 'page_bottom';
       $vars['page']['page_bottom']['#theme_wrappers'] = array('region');

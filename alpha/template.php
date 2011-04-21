@@ -134,7 +134,16 @@ function template_preprocess_zone(&$vars) {
   
   if ($vars['wrapper']) {
     $vars['wrapper_attributes_array']['id'] = $vars['attributes_array']['id'] . '-wrapper';
-    $vars['wrapper_attributes_array']['class'] = array('clearfix');
+    
+    if (!empty($data['wrapper_css'])) {
+      $extra = array_map('drupal_html_class', explode(' ', $data['wrapper_css']));
+        
+      foreach ($extra as $class) {
+        $vars['wrapper_attributes_array']['class'][] = $class;
+      }
+    }
+    
+    $vars['wrapper_attributes_array']['class'][] = 'clearfix';
   }
 }
 

@@ -101,5 +101,18 @@ function alpha_theme_settings_zones(&$form, &$form_state) {
       '#size' => 60,
       '#default_value' => $item['css'],
     );
+
+    // Allow for zone wrapper classes
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_wrapper_css'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Additional wrapper classes'),
+      '#size' => 60,
+      '#default_value' => $item['wrapper_css'],
+      '#states' => array(
+        'visible' => array(
+          ':input[name="alpha_zone_' . $zone . '_wrapper"]' => array('checked' => TRUE),
+        ),
+      ),
+    );
   }
 }
