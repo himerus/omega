@@ -62,6 +62,13 @@ function alpha_theme_settings_zones(&$form, &$form_state) {
       '#default_value' => $item['wrapper'],
     );
     
+    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_force'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Force this zone to be rendered'),
+      '#description' => t('Enabling this will always render this zone, even if it is empty.'),
+      '#default_value' => $item['force'],
+    );
+     
     $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_section'] = array(
       '#type' => 'select',
       '#title' => t('Section'),

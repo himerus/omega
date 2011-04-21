@@ -13,7 +13,7 @@ function alpha_alpha_preprocess_page(&$vars) {
   
   $zone_regions = array();
   foreach ($regions as $region => $item) {
-    if ($item['enabled'] && $zones[$item['zone']]['enabled'] && (!empty($vars['page'][$region]) || $settings['debug']['block'])) {
+    if ($item['enabled'] && $zones[$item['zone']]['enabled'] && ($item['force'] || !empty($vars['page'][$region]) || $settings['debug']['block'])) {
       $zone_regions[$item['zone']][$region] = $vars['page'][$region];
       $zone_regions[$item['zone']][$region]['#region'] = $region;      
       $zone_regions[$item['zone']][$region]['#data'] = $item;
@@ -21,9 +21,12 @@ function alpha_alpha_preprocess_page(&$vars) {
       $zone_regions[$item['zone']][$region]['#sorted'] = FALSE;
       $zone_regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
       
+      if (!isset($zone_regions[$item['zone']][$region]['#theme_wrappers']) || !in_array('region', $zone_regions[$item['zone']][$region]['#theme_wrappers'])) {
+        $zone_regions[$item['zone']][$region]['#theme_wrappers'][] = 'region';
+      }
+      
       if ($settings['debug']['block']) {
         $zone_regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item['name']);
-        $zone_regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
       }
       
       $children = element_children($zone_regions[$item['zone']][$region]);
@@ -36,7 +39,7 @@ function alpha_alpha_preprocess_page(&$vars) {
   }
 
   foreach ($zones as $zone => $item) {
-    if ($item['enabled'] && isset($zone_regions[$zone])) {
+    if ($item['enabled'] && ($item['force'] || isset($zone_regions[$zone]))) {
       if (!empty($item['primary']) && isset($zone_regions[$zone][$item['primary']])) {
         $primary = &$zone_regions[$zone][$item['primary']];
         
@@ -65,7 +68,10 @@ function alpha_alpha_preprocess_page(&$vars) {
       
       $item['type'] = $item['primary'] && isset($zone_regions[$zone][$item['primary']]) ? 'dynamic' : 'static';
       
-      $vars['page'][$item['section'] . '_section'][$zone] = $zone_regions[$zone];
+      if (isset($zone_regions[$zone])) {
+        $vars['page'][$item['section'] . '_section'][$zone] = $zone_regions[$zone];
+      }
+      
       $vars['page'][$item['section'] . '_section'][$zone]['#theme_wrappers'][] = 'zone';
       $vars['page'][$item['section'] . '_section'][$zone]['#data'] = $item;
       $vars['page'][$item['section'] . '_section'][$zone]['#zone'] = $zone;

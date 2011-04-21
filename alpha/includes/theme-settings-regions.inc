@@ -73,7 +73,14 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
         'class' => array('alpha-inline'),
       ),
     );
-           
+    
+    $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_force'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Force this region to be rendered'),
+      '#description' => t('Enabling this will always render this region, even if it is empty.'),
+      '#default_value' => $item['force'],
+    );
+      
     $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_zone'] = array(
       '#type' => 'select',
       '#title' => t('Zone'),
