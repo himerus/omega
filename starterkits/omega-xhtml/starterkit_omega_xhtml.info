@@ -1,5 +1,5 @@
-name = Omega HTML5 Starterkit
-description = Default starterkit for Omega. You should not directly edit this starterkit, but make your own copy. Informtion on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
+name = Omega XHTML Starter Kit
+description = Default XHTML starterkit for Omega. You should not directly edit this starterkit, but make your own copy. Informtion on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
