@@ -392,22 +392,24 @@ function alpha_include_grid($name, $columns) {
     $settings = alpha_settings($theme_key);
     $css = alpha_css($theme_key, TRUE);
     
+    $name = str_replace('_', '-', $name);
+    
     // Only go further if the grid and the desired column count actually exist.
     if (!empty($grid) && isset($grid['columns'][$columns])) {
       $path = $grid['columns'][$columns];
-  
+      
       // If the grid is a fluid grid we just include the corresponding column count layout.
       if ($grid['type'] == 'fluid') {
-        drupal_add_css($path . '/fluid-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'));
-        drupal_add_css($path . '/columns/fluid-' . $columns . '.css');
+        drupal_add_css($path . '/' . $name . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'));
+        drupal_add_css($path . '/columns/' . $name . '-' . $columns . '.css');
       }
       // If the grid is a fixed grid we need to determine wether we are in a responsive grid environment
       // or not and add the grid stylesheets accordingly.
       else {
         // Un-responsive grid environments don't only require the "normal" grid layout.
         if (!$settings['responsive']['enabled']) {
-          drupal_add_css($path . '/normal/normal-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), array('weight' => -1));
-          drupal_add_css($path . '/normal/normal-' . $columns . '.css', array('weight' => -1));
+          drupal_add_css($path . '/normal/' . $name . '-normal-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), array('weight' => -1));
+          drupal_add_css($path . '/normal/' . $name . '-normal-' . $columns . '.css', array('weight' => -1));
         }
         else {
           $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
@@ -419,8 +421,8 @@ function alpha_include_grid($name, $columns) {
               $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
               $options = array('media' => $media, 'weight' => $weight);
               
-              drupal_add_css($path . '/' . $type . '/' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
-              drupal_add_css($path . '/' . $type . '/' . $type . '-' . $columns . '.css', $options);
+              drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
+              drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-' . $columns . '.css', $options);
               
               // Add all enabled optional stylesheets for this responsive layout via drupal_add_css().
               foreach ($settings['responsive'][$type]['css'] as $item => $enabled) {              
@@ -532,16 +534,17 @@ function alpha_register_grids($key) {
   foreach (alpha_info($key, 'grids') as $theme => $data) {
     foreach ($data as $name => $info) {
       $path = drupal_get_path('theme', $theme) . '/css/grid/' . $name;
-      $fluid = $name == 'fluid';
+      $type = isset($info['type']) && $info['type'] == 'fluid' ? 'fluid' : 'fixed';
+      $fixed = $type == 'fixed';
       
       if (!isset($cache[$key][$name])) {
         $cache[$key][$name] = array(
           'name' => $info['name'],
-          'type' => $fluid ? 'fluid' : 'fixed',
+          'type' => $type,
           'path' => $path,
-          'normal' => !$fluid ? is_dir($path . '/normal') : FALSE,
-          'narrow' => !$fluid ? is_dir($path . '/narrow') : FALSE,
-          'wide' => !$fluid ? is_dir($path . '/wide') : FALSE,
+          'normal' => $fixed ? is_dir($path . '/normal') : FALSE,
+          'narrow' => $fixed ? is_dir($path . '/narrow') : FALSE,
+          'wide' => $fixed ? is_dir($path . '/wide') : FALSE,
           'columns' => array(),
         );
       }  
@@ -749,6 +752,10 @@ function alpha_settings($key) {
 
     foreach (alpha_toggle() as $item => $title) {
       $settings[$key]['toggle'][$item] = alpha_theme_get_setting('alpha_toggle_' . $item, $key, TRUE);
+    }
+    
+    foreach (alpha_visibility() as $item => $title) {
+      $settings[$key]['hidden'][$item] = alpha_theme_get_setting('alpha_hidden_' . $item, $key, FALSE);
     }
     
     foreach (array('narrow', 'normal', 'wide') as $type) {
@@ -967,5 +974,13 @@ function alpha_toggle() {
   	'breadcrumb' => t('Breadcrumb'), 
   	'page_title' => t('Page title'), 
   	'feed_icons' => t('Feed icons'),
+  );
+}
+
+function alpha_visibility() {
+  return array(
+  	'title' => t('Page title'), 
+  	'site_name' => t('Site name'), 
+  	'site_slogan' => t('Site slogan'), 
   );
 }

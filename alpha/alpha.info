@@ -64,11 +64,13 @@ exclude[modules/update/update.css] = This requires a description.
 ; CSS GRID SYSTEMS
 
 grids[default][name] = Default (960px)
+grids[default][type] = fixed
 grids[default][columns][] = 12
 grids[default][columns][] = 16
 grids[default][columns][] = 24
 
 grids[fluid][name] = Fluid
+grids[fluid][type] = fluid
 grids[fluid][columns][] = 12
 grids[fluid][columns][] = 16
 grids[fluid][columns][] = 24

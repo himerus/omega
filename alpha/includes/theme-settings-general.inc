@@ -237,5 +237,19 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#title' => $title,
       '#default_value' => $settings['toggle'][$item],
     );
-  }    
+  }
+
+  $form['alpha_settings']['theme_settings']['alpha_hidden'] = array(
+    '#type' => 'item',
+    '#title' => t('Choose from the elements below to hide them via CSS'),
+    '#description' => t('This will make the element invisible to normal users while not removing it from the HTML (e.g. for screenreaders).'),
+  );
+  
+  foreach (alpha_visibility() as $item => $title) {
+    $form['alpha_settings']['theme_settings']['alpha_hidden']['alpha_hidden_' . $item] = array(
+      '#type' => 'checkbox',
+      '#title' => $title,
+      '#default_value' => $settings['hidden'][$item],
+    );
+  }
 }

@@ -11,6 +11,8 @@ function omega_alpha_process_region(&$vars) {
       $vars['title_suffix'] = $vars['elements']['#page']['title_suffix'];
       $vars['tabs'] = $vars['elements']['#page']['tabs'];
       $vars['action_links'] = $vars['elements']['#page']['action_links'];
+      
+      $vars['title_hidden'] = $vars['elements']['#page']['title_hidden'];
       break;
     
     case 'menu':
@@ -23,11 +25,12 @@ function omega_alpha_process_region(&$vars) {
       $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
       $vars['site_slogan'] = $vars['elements']['#page']['site_slogan'];
       
-      if(isset($vars['elements']['#page']['logo'])) {
-        $vars['logo'] = $vars['elements']['#page']['logo'];
-        $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $vars['site_name'] . '" id="logo" />';
-        $vars['linked_logo_img'] = l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)); 
-      }      
+      $vars['site_name_hidden'] = $vars['elements']['#page']['site_name'];
+      $vars['site_slogan_hidden'] = $vars['elements']['#page']['site_name'];
+
+      $vars['logo'] = $vars['elements']['#page']['logo'];
+      $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $vars['site_name'] . '" id="logo" />';
+      $vars['linked_logo_img'] = l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE));    
       break;
   }
 }

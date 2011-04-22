@@ -16,6 +16,10 @@ function alpha_alpha_preprocess_page(&$vars) {
   $vars['action_links'] = $settings['toggle']['action_links'] ? $vars['action_links'] : NULL;
   $vars['show_messages'] = $settings['toggle']['messages'] ? $vars['show_messages'] : FALSE;
   
+  $vars['site_name_hidden'] = $settings['hidden']['site_name'];
+  $vars['site_slogan_hidden'] = $settings['hidden']['site_slogan'];
+  $vars['title_hidden'] = $settings['hidden']['title'];
+  
   $zone_regions = array();
   foreach ($regions as $region => $item) {
     if ($item['enabled'] && $zones[$item['zone']]['enabled'] && ($item['force'] || !empty($vars['page'][$region]) || $settings['debug']['block'])) {
