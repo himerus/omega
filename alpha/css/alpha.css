@@ -8,3 +8,7 @@ ul.inline li,
 ul.pager li {
   display: inline;
 }
+
+img {
+  display: block;
+}
