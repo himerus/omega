@@ -1,9 +1,11 @@
-name = Alpha
-description = @todo
+name = Alpha XHTML Starterkit
+description = Default starterkit for Alpha. You should not directly edit this starterkit, but make your own copy. Informtion on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
-version = 3.x
+base theme = alpha
+
+; REGIONS
 
 ; REGIONS
 regions[page_top] = Page Top
@@ -24,63 +26,20 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
-css[reset][name] = Reset
-css[reset][media] = all
-css[reset][file] = reset.css
-css[reset][weight] = -2
-css[reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
+css[narrow][name] = Narrow Grid Styles
+css[narrow][media] = responsive
+css[narrow][file] = narrow.css
+css[narrow][description] = Default stylesheet for custom CSS that compliments the narrow (720) grid.
 
-css[alpha][name] = Alpha
-css[alpha][media] = all
-css[alpha][file] = alpha.css
-css[alpha][description] = Default styles & resets for Alpha/Omega base theme.
+css[normal][name] = Normal Grid Styles
+css[normal][media] = responsive
+css[normal][file] = normal.css
+css[normal][description] = Default stylesheet for custom CSS that compliments the normal (960) grid.
 
-css[mobile][name] = Mobile
-css[mobile][media] = all
-css[mobile][file] = mobile.css
-css[mobile][weight] = -1
-css[mobile][description] = Default stylesheet for mobile styles.
-
-; STYLESHEETS FOR EXCLUSION
-
-exclude[misc/vertical-tabs.css] = This requires a description.
-exclude[modules/aggregator/aggregator.css] = This requires a description.
-exclude[modules/block/block.css] = This requires a description.
-exclude[modules/dblog/dblog.css] = This requires a description.
-exclude[modules/file/file.css] = This requires a description.
-exclude[modules/filter/filter.css] = This requires a description.
-exclude[modules/help/help.css] = This requires a description.
-exclude[modules/menu/menu.css] = This requires a description.
-exclude[modules/openid/openid.css] = This requires a description.
-exclude[modules/profile/profile.css] = This requires a description.
-exclude[modules/statistics/statistics.css] = This requires a description.
-exclude[modules/syslog/syslog.css] = This requires a description.
-exclude[modules/system/admin.css] = This requires a description.
-exclude[modules/system/maintenance.css] = This requires a description.
-exclude[modules/system/system.css] = This requires a description.
-exclude[modules/system/system.admin.css] = This requires a description.
-exclude[modules/system/system.base.css] = This requires a description.
-exclude[modules/system/system.maintenance.css] = This requires a description.
-exclude[modules/system/system.menus.css] = This requires a description.
-exclude[modules/system/system.messages.css] = This requires a description.
-exclude[modules/system/system.theme.css] = This requires a description.
-exclude[modules/taxonomy/taxonomy.css] = This requires a description.
-exclude[modules/tracker/tracker.css] = This requires a description.
-exclude[modules/update/update.css] = This requires a description.
-
-; CSS GRID SYSTEMS
-
-grids[default][name] = Default (960px)
-grids[default][type] = fixed
-grids[default][columns][] = 12
-grids[default][columns][] = 16
-grids[default][columns][] = 24
-
-grids[fluid][name] = Fluid
-grids[fluid][type] = fluid
-grids[fluid][columns][] = 12
-grids[fluid][columns][] = 16
-grids[fluid][columns][] = 24
+css[wide][name] = Wide Grid Styles
+css[wide][media] = responsive
+css[wide][file] = wide.css
+css[wide][description] = Default stylesheet for custom CSS that compliments the wide (1200) grid.
 
 ; DEFAULT THEME SETTINGS
 
@@ -88,10 +47,19 @@ settings[alpha_grid] = 'default'
 settings[alpha_responsive] = '1'
 settings[alpha_responsive_narrow] = '1'
 settings[alpha_responsive_narrow_media] = 'all and (min-width: 740px) and (min-device-width: 740px), (max-device-width: 800px) and (min-width: 740px) and (orientation:landscape)'
+settings[alpha_responsive_narrow_css][narrow] = 'narrow'
+settings[alpha_responsive_narrow_css][normal] = '0'
+settings[alpha_responsive_narrow_css][wide] = '0'
 settings[alpha_responsive_normal] = '1'
 settings[alpha_responsive_normal_media] = 'all and (min-width: 980px) and (min-device-width: 980px), (max-device-width: 1024px) and (min-width: 1024px) and (orientation:landscape)'
+settings[alpha_responsive_normal_css][normal] = 'normal'
+settings[alpha_responsive_normal_css][narrow] = '0'
+settings[alpha_responsive_normal_css][wide] = '0'
 settings[alpha_responsive_wide] = '1'
 settings[alpha_responsive_wide_media] = 'all and (min-width: 1220px)'
+settings[alpha_responsive_wide_css][wide] = 'wide'
+settings[alpha_responsive_wide_css][narrow] = '0'
+settings[alpha_responsive_wide_css][normal] = '0'
 settings[alpha_viewport] = '1'
 settings[alpha_viewport_initial_scale] = '1'
 settings[alpha_viewport_min_scale] = '1'
@@ -147,7 +115,7 @@ settings[alpha_hidden_site_slogan] = ''
 settings[alpha_zone_header_wrapper] = ''
 settings[alpha_zone_header_force] = ''
 settings[alpha_zone_header_section] = 'header'
-settings[alpha_zone_header_weight] = ''
+settings[alpha_zone_header_weight] = '-10'
 settings[alpha_zone_header_columns] = '12'
 settings[alpha_zone_header_primary] = ''
 settings[alpha_zone_header_css] = ''
@@ -155,7 +123,7 @@ settings[alpha_zone_header_wrapper_css] = ''
 settings[alpha_zone_content_wrapper] = ''
 settings[alpha_zone_content_force] = ''
 settings[alpha_zone_content_section] = 'content'
-settings[alpha_zone_content_weight] = ''
+settings[alpha_zone_content_weight] = '-10'
 settings[alpha_zone_content_columns] = '12'
 settings[alpha_zone_content_primary] = ''
 settings[alpha_zone_content_css] = ''
@@ -163,7 +131,7 @@ settings[alpha_zone_content_wrapper_css] = ''
 settings[alpha_zone_footer_wrapper] = ''
 settings[alpha_zone_footer_force] = ''
 settings[alpha_zone_footer_section] = 'footer'
-settings[alpha_zone_footer_weight] = ''
+settings[alpha_zone_footer_weight] = '-10'
 settings[alpha_zone_footer_columns] = '12'
 settings[alpha_zone_footer_primary] = ''
 settings[alpha_zone_footer_css] = ''
@@ -173,28 +141,28 @@ settings[alpha_region_dashboard_inactive_zone] = ''
 settings[alpha_region_dashboard_inactive_prefix] = ''
 settings[alpha_region_dashboard_inactive_columns] = '1'
 settings[alpha_region_dashboard_inactive_suffix] = ''
-settings[alpha_region_dashboard_inactive_weight] = ''
+settings[alpha_region_dashboard_inactive_weight] = '-50'
 settings[alpha_region_dashboard_inactive_css] = ''
 settings[alpha_region_dashboard_sidebar_force] = ''
 settings[alpha_region_dashboard_sidebar_zone] = ''
 settings[alpha_region_dashboard_sidebar_prefix] = ''
 settings[alpha_region_dashboard_sidebar_columns] = '1'
 settings[alpha_region_dashboard_sidebar_suffix] = ''
-settings[alpha_region_dashboard_sidebar_weight] = ''
+settings[alpha_region_dashboard_sidebar_weight] = '-50'
 settings[alpha_region_dashboard_sidebar_css] = ''
 settings[alpha_region_dashboard_main_force] = ''
 settings[alpha_region_dashboard_main_zone] = ''
 settings[alpha_region_dashboard_main_prefix] = ''
 settings[alpha_region_dashboard_main_columns] = '1'
 settings[alpha_region_dashboard_main_suffix] = ''
-settings[alpha_region_dashboard_main_weight] = ''
+settings[alpha_region_dashboard_main_weight] = '-50'
 settings[alpha_region_dashboard_main_css] = ''
 settings[alpha_region_header_force] = ''
 settings[alpha_region_header_zone] = 'header'
 settings[alpha_region_header_prefix] = ''
 settings[alpha_region_header_columns] = '12'
 settings[alpha_region_header_suffix] = ''
-settings[alpha_region_header_weight] = ''
+settings[alpha_region_header_weight] = '-50'
 settings[alpha_region_header_css] = ''
 settings[alpha_region_content_force] = ''
 settings[alpha_region_content_zone] = 'content'
@@ -222,5 +190,5 @@ settings[alpha_region_footer_zone] = 'footer'
 settings[alpha_region_footer_prefix] = ''
 settings[alpha_region_footer_columns] = '12'
 settings[alpha_region_footer_suffix] = ''
-settings[alpha_region_footer_weight] = ''
+settings[alpha_region_footer_weight] = '-50'
 settings[alpha_region_footer_css] = ''

@@ -5,10 +5,14 @@
 
 /* Give pagers and inline LI items simple styling without all the junk from core */
 ul.inline li,
-ul.pager li,
 ul.tabs li {
   display: inline;
   margin-right: 1em;
+}
+
+ul.pager li {
+  display: inline;
+  margin-right: 0.25em;
 }
 
 img {
