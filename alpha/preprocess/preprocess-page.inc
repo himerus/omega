@@ -22,7 +22,7 @@ function alpha_alpha_preprocess_page(&$vars) {
   
   $zone_regions = array();
   foreach ($regions as $region => $item) {
-    if ($item['enabled'] && $zones[$item['zone']]['enabled'] && ($item['force'] || !empty($vars['page'][$region]) || $settings['debug']['block'])) {
+    if ($item['enabled'] && $zones[$item['zone']]['enabled'] && ($item['force'] || !empty($vars['page'][$region]) || ($settings['debug']['block'] && $settings['debug']['access']))) {
       $zone_regions[$item['zone']][$region] = $vars['page'][$region];
       $zone_regions[$item['zone']][$region]['#region'] = $region;      
       $zone_regions[$item['zone']][$region]['#data'] = $item;
@@ -34,7 +34,7 @@ function alpha_alpha_preprocess_page(&$vars) {
         $zone_regions[$item['zone']][$region]['#theme_wrappers'][] = 'region';
       }
       
-      if ($settings['debug']['block'] && ((empty($vars['page'][$region]) && !$item['force']) || !$settings['debug']['unintrusive'])) {
+      if ($settings['debug']['block'] && $settings['debug']['access'] && ((empty($vars['page'][$region]) && !$item['force']) || !$settings['debug']['unintrusive'])) {
         $zone_regions[$item['zone']][$region]['alpha_debug_'. $region] = alpha_debug_block($region, $item['name']);
       }
       

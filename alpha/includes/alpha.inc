@@ -749,6 +749,8 @@ function alpha_settings($key) {
         'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key),
       ),
     );
+    
+    $settings[$key]['debug']['access'] = alpha_debug_access($GLOBALS['user'], $settings[$key]['debug']['roles']);
 
     foreach (alpha_toggle() as $item => $title) {
       $settings[$key]['toggle'][$item] = alpha_theme_get_setting('alpha_toggle_' . $item, $key, TRUE);

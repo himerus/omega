@@ -31,7 +31,7 @@ canvas, details, embed, figcaption, menu, nav, output, ruby, summary, time, mark
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block;
 }
 
 body {

@@ -1,3 +1,8 @@
-.navigation ul {
-  margin-bottom: 0;
+.menu {
+  margin: 0;
+  paddign: 0;
+}
+
+.menu li {
+  list-style: none;  
 }
