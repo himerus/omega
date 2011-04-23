@@ -1,6 +1,6 @@
 <article<?php print $attributes; ?>>
 
-  <?php print $unpublished; ?>
+  
 
   <header>
     <?php print render($title_prefix); ?>
@@ -11,6 +11,11 @@
     <?php if ($new): ?>
       <em class="new"><?php print $new ?></em>
     <?php endif; ?>
+    <?php if (isset($unpublished)): ?>
+      <em class="unpublished"><?php print $unpublished; ?></em>
+    <?php endif; ?>
+    
+    
   </header>
 
   <?php print $picture; ?>

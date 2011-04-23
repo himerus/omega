@@ -38,7 +38,11 @@ h1 {
 h2 {
   font-size: 28px;
 }
-
+/* Make site titles the same size if it's an H1 (home) or H2 (internal) */
+h1.site-title,
+h2.site-title {
+  font-size: 36px;
+}
 /* make it a bit smaller for block headers */
 h2.block-title {
   font-size: 18px;
