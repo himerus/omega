@@ -64,19 +64,15 @@ function alpha_process(&$vars, $hook) {
  * Implements hook_theme_registry_alter()
  */
 function alpha_theme_registry_alter(&$registry) {
-  global $theme_key;
-
-  alpha_build_registry($theme_key, $registry);
-  alpha_register_grids($theme_key);
+  alpha_build_registry($GLOBALS['theme_key'], $registry);
+  alpha_register_grids($GLOBALS['theme_key']);
 }
 
 /**
  * Implements hook_css_alter().
  */
 function alpha_css_alter(&$css) {
-  global $theme_key;
-  
-  $settings = alpha_settings($theme_key);
+  $settings = alpha_settings($GLOBALS['theme_key']);
   
   if (!empty($settings['exclude'])) {
     foreach ($settings['exclude'] as $file => $exclude) {

@@ -21,12 +21,10 @@
  *   Handed by reference.
  */
 function alpha_invoke($type, $hook, &$vars) {
-  global $theme_key;
-  
   // Fetch the hook registry from cache or static (if already populated).
   $registry = &drupal_static(__FUNCTION__);
   if (!isset($registry)) {
-    $registry = variable_get('alpha_theme_registry_' . $theme_key, array());
+    $registry = variable_get('alpha_theme_registry_' . $GLOBALS['theme_key'], array());
   }
 
   // If one of the themes in the theme trail implements this hook
@@ -355,12 +353,20 @@ function alpha_css($key, $responsive = FALSE) {
         if (($responsive && $info['media'] == 'responsive') || (!$responsive && $info['media'] != 'responsive')) {
           $output[$key][$responsive][$name] = array(
             'name' => $info['name'],
-            'file' => $info['file'],
-            'weight' => isset($info['weight']) ? $info['weight'] : 0,
+            'file' => $info['file'],            
             'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
             'description' => isset($info['description']) ? $info['description'] : '',
             'media' => isset($info['media']) ? $info['media'] : 'all',
+            'condition' => isset($info['condition']) ? $info['condition'] : '',
           );
+          
+          if ($responsive) {
+            $output[$key][$responsive][$name]['weight'] = NULL;
+          }
+          else {
+            $weight = isset($info['weight']) ? $info['weight'] : 0;
+            $output[$key][$responsive][$name]['weight'] = $weight >= 0 ? $weight : $weight - 3;
+          }
         }
       }
     }
@@ -379,8 +385,6 @@ function alpha_css($key, $responsive = FALSE) {
  * 	 The number of columns.
  */
 function alpha_include_grid($name, $columns) {
-  global $theme_key, $language, $user;
-
   $included = &drupal_static(__FUNCTION__);
   
   if (!isset($included[$name][$columns]) || !$included[$name][$columns]) {
@@ -388,19 +392,20 @@ function alpha_include_grid($name, $columns) {
     // we don't try to include it over and over.
     $included[$name][$columns] = TRUE;
     
-    $grid = alpha_grids($theme_key, $name);
-    $settings = alpha_settings($theme_key);
-    $css = alpha_css($theme_key, TRUE);
+    $grid = alpha_grids($GLOBALS['theme_key'], $name);
+    $settings = alpha_settings($GLOBALS['theme_key']);
+    $css = alpha_css($GLOBALS['theme_key'], TRUE);
     
     $name = str_replace('_', '-', $name);
     
     // Only go further if the grid and the desired column count actually exist.
     if (!empty($grid) && isset($grid['columns'][$columns])) {
       $path = $grid['columns'][$columns];
+      $direction = $GLOBALS['language']->direction == LANGUAGE_RTL ? '-rtl' : '';
       
       // If the grid is a fluid grid we just include the corresponding column count layout.
       if ($grid['type'] == 'fluid') {
-        drupal_add_css($path . '/' . $name . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'));
+        drupal_add_css($path . '/' . $name . '-grid' . $direction . '.css');
         drupal_add_css($path . '/columns/' . $name . '-' . $columns . '.css');
       }
       // If the grid is a fixed grid we need to determine wether we are in a responsive grid environment
@@ -408,7 +413,7 @@ function alpha_include_grid($name, $columns) {
       else {
         // Un-responsive grid environments don't only require the "normal" grid layout.
         if (!$settings['responsive']['enabled']) {
-          drupal_add_css($path . '/normal/' . $name . '-normal-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), array('weight' => -1));
+          drupal_add_css($path . '/normal/' . $name . '-normal-grid' . $direction . '.css', array('weight' => -1));
           drupal_add_css($path . '/normal/' . $name . '-normal-' . $columns . '.css', array('weight' => -1));
         }
         else {
@@ -421,12 +426,17 @@ function alpha_include_grid($name, $columns) {
               $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
               $options = array('media' => $media, 'weight' => $weight);
               
-              drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-grid' . ($language->direction == LANGUAGE_RTL ? '-rtl.css' : '.css'), $options);
+              drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-grid' . $direction . '.css', $options);
               drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-' . $columns . '.css', $options);
               
               // Add all enabled optional stylesheets for this responsive layout via drupal_add_css().
-              foreach ($settings['responsive'][$type]['css'] as $item => $enabled) {              
-                if (isset($css[$item]) && $enabled) {
+              foreach (array_keys(array_filter($settings['responsive'][$type]['css'])) as $item) {              
+                if (isset($css[$item])) {
+                  $options['browsers'] = empty($css[$item]['condition']) ? array() : array(
+                    'IE' => $css[$item]['condition'],
+                    '!IE' => FALSE,
+                  );
+
                   drupal_add_css($css[$item]['path'], $options);
                 }
               }
@@ -872,10 +882,8 @@ function alpha_grid_block($grid) {
  *   for.
  */
 function alpha_debug_grid($settings, $columns) {
-  global $theme_key;
-  
   $debug = &drupal_static(__FUNCTION__);
-  $grid = alpha_grids($theme_key, $settings['grid']);
+  $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
   
   if ($grid['type'] != 'fluid' && !isset($debug[$columns])) {
     $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);

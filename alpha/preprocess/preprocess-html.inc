@@ -4,13 +4,11 @@
  * @todo
  */
 function alpha_alpha_preprocess_html(&$vars) {
-  global $theme_key;
-
   $vars['attributes_array']['class'] = $vars['classes_array'];
   
-  $settings = alpha_settings($theme_key);
-  $css = alpha_css($theme_key);
-  $grid = alpha_grids($theme_key, $settings['grid']);
+  $settings = alpha_settings($GLOBALS['theme_key']);
+  $css = alpha_css($GLOBALS['theme_key']);
+  $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
   
   if ($settings['responsive']['enabled'] && $settings['debug']['grid'] && $grid['type'] == 'fixed' && $settings['debug']['access']) {
     if (empty($vars['page']['page_bottom'])) {
@@ -22,11 +20,17 @@ function alpha_alpha_preprocess_html(&$vars) {
     $vars['page']['page_bottom']['alpha_grid'] = alpha_grid_block($grid['name']);
   }
 
-  foreach ($settings['css'] as $item => $enabled) {
-    if (isset($css[$item]) && $enabled) {
-      $weight = $css[$item]['weight'] >= 0 ? $css[$item]['weight'] : $css[$item]['weight'] - 3;
+  foreach (array_keys(array_filter($settings['css'])) as $item) {
+    if (isset($css[$item])) {
+      $options['media'] = $css[$item]['media'];
+      $options['weight'] = $css[$item]['weight'];
       
-      drupal_add_css($css[$item]['path'], array('media' => $css[$item]['media'], 'weight' => $weight));
+      $options['browsers'] = empty($css[$item]['condition']) ? array() : array(
+        'IE' => $css[$item]['condition'],
+        '!IE' => FALSE,
+      );
+      
+      drupal_add_css($css[$item]['path'], $options);
     }
   }
   
