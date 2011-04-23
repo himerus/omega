@@ -29,8 +29,8 @@ function omega_alpha_process_region(&$vars) {
       $vars['site_slogan_hidden'] = $vars['elements']['#page']['site_name'];
 
       $vars['logo'] = $vars['elements']['#page']['logo'];
-      $vars['logo_img'] = '<img src="' . $vars['logo'] . '" alt="' . $vars['site_name'] . '" id="logo" />';
-      $vars['linked_logo_img'] = l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE));    
+      $vars['logo_img'] = $vars['logo'] ? '<img src="' . $vars['logo'] . '" alt="' . $vars['site_name'] . '" id="logo" />' : '';
+      $vars['linked_logo_img'] = $vars['logo'] ? l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)) : '';    
       break;
   }
 }
