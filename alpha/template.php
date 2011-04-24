@@ -96,7 +96,7 @@ function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
     $regions = alpha_regions($GLOBALS['theme_key']);
     $region = substr($block, 6);
 
-    if (in_array($block, array('delta-blocks-logo', 'delta-blocks-branding')) && !empty($GLOBALS['delta']) && module_exists('delta_ui')) {
+    if (!empty($GLOBALS['delta']) && module_exists('delta_ui')) {
       $links['edit-delta'] = array(
         'title' => t('Edit Delta template'),
         'href' => 'admin/appearance/delta/layouts/edit/' . $GLOBALS['delta'],
@@ -108,6 +108,8 @@ function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
         'href' => 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta'],
         'localized_options' => array(),
       );
+      
+      $path = 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta'];
     }
     else {
       $links['theme-settings'] = array(
@@ -115,10 +117,10 @@ function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
         'href' => 'admin/appearance/settings/' . $GLOBALS['theme_key'],
       	'localized_options' => array(),
       );
+      
+      $path = 'admin/appearance/settings/' . $GLOBALS['theme_key'];
     }
-    
-    $path = !empty($GLOBALS['delta']) ? 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta'] : 'admin/appearance/settings/' . $GLOBALS['theme_key'];
-
+   
     $links['zone-configuration'] = array(
       'title' => t('Zone configuration'),
       'href' => $path,
