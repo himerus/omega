@@ -408,7 +408,7 @@ function alpha_include_grid($name, $columns) {
         drupal_add_css($path . '/' . $name . '-grid' . $direction . '.css');
         drupal_add_css($path . '/columns/' . $name . '-' . $columns . '.css');
       }
-      // If the grid is a fixed grid we need to determine wether we are in a responsive grid environment
+      // If the grid is a fixed grid we need to determine wether we are in a responsive grid  environment
       // or not and add the grid stylesheets accordingly.
       else {
         // Un-responsive grid environments don't only require the "normal" grid layout.
@@ -754,7 +754,6 @@ function alpha_settings($key) {
       ),
       'debug' => array(
         'block' => alpha_theme_get_setting('alpha_debug_block_toggle', $key, FALSE),
-        'unintrusive' => alpha_theme_get_setting('alpha_debug_block_unintrusive', $key, FALSE),
         'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', $key, FALSE),
         'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key),
       ),
@@ -827,47 +826,20 @@ function alpha_regions_exclude() {
  * @return
  *   A debugging block in a renderable array.
  */
-function alpha_debug_block($region, $subject) {
-  $block = new stdClass();
-  $block->delta = 'debug';
-  $block->region = $region;
-  $block->module = 'alpha';
-  $block->subject = $subject;
-  $block->weight = -100;
-
-  return array(
-	'#printed' => FALSE,
-    '#theme_wrappers' => array('block'),
-    '#block' => $block,
-    '#markup' => '<div class="alpha-debug-region">' . t('This is a debugging block.') . '</div>',
-  );
-}
-
-/**
- * Builds and returns a debugging block.
- * 
- * @param $region
- *   The region that the block will be placed in.
- * 
- * @param $info
- *   The region information.
- * 
- * @return
- *   A debugging block in a renderable array.
- */
 function alpha_grid_block($grid) {
   $block = new stdClass();
-  $block->delta = 'grid';
+  $block->delta = 'grid-indicator';
   $block->region = 'page_bottom';
   $block->module = 'alpha';
-  $block->subject = t('Grid debugging block for @name', array('@name' => $grid));
-  $block->weight = -100;
+  $block->subject = t('Responsive grid indicator block for @name', array('@name' => $grid));
+  $block->weight = -999;
 
   return array(
 	'#printed' => FALSE,
     '#theme_wrappers' => array('block'),
     '#block' => $block,
-    '#markup' => '<div class="alpha-debug-grid element-invisible">' . t('This is a debugging block.') . '</div>',
+    '#markup' => '<div class="alpha-responsive-indicator element-invisible">' . t('This is a responsive grid indicator block.') . '</div>',
+    '#contextual_links' => array('test' => array('admin/structure', array($block->delta))),
   );
 }
 
@@ -897,7 +869,7 @@ function alpha_debug_grid($settings, $columns) {
         drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
         
         if ($settings['responsive']['enabled']) {          
-          $indicator = 'body.alpha-grid-debug .block-grid { background-position: ' . $weight * 150 . 'px 0; }';
+          $indicator = 'body.alpha-grid-debug .block-grid-indicator { background-position: ' . $weight * 150 . 'px 0; }';
           
           drupal_add_css($indicator, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
         }        

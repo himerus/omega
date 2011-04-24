@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/includes/alpha.inc';
 
 /**
- * Implements hook_theme()
+ * Implements hook_theme().
  */
 function alpha_theme($existing, $type, $theme, $path) {
   return array(
@@ -47,21 +47,108 @@ function alpha_theme($existing, $type, $theme, $path) {
 }
 
 /**
-  * Implements hook_preprocess()
-  */
+ * Implements hook_block_list_alter().
+ */
+function alpha_block_list_alter(&$list) {
+  $settings = alpha_settings($GLOBALS['theme_key']);
+  $regions = alpha_regions($GLOBALS['theme_key']);
+  $zones = alpha_zones($GLOBALS['theme_key']);
+  
+  if ($settings['debug']['block'] && $settings['debug']['access']) {
+    foreach ($regions as $region => $item) {
+      if ($item['enabled'] && $zones[$item['zone']]['enabled']) {
+        $block = new stdClass();
+        $block->delta = 'debug-' . $region;
+        $block->region = $region;
+        $block->module = 'alpha';
+        $block->title = $item['name'];
+        $block->cache = DRUPAL_NO_CACHE;
+        $block->debug = $item;
+        
+        $list['alpha-debug-' . $region] = $block;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function alpha_block_view_alter(&$data, $block) {
+  if ($block->module == 'alpha' && isset($block->debug)) {
+    $data['content'] = array(
+      '#weight' => -999,
+      '#markup' => t('This is a debugging block.'),
+    );
+  }
+}
+
+/**
+ * Implements hook_menu_contextual_links_alter().
+ */
+function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
+  $block = array_pop($router_item['map']);
+  $module = array_pop($router_item['map']);
+
+  if ($module == 'alpha') {
+    $links = array();
+
+    $regions = alpha_regions($GLOBALS['theme_key']);
+    $region = substr($block, 6);
+
+    if (in_array($block, array('delta-blocks-logo', 'delta-blocks-branding')) && !empty($GLOBALS['delta']) && module_exists('delta_ui')) {
+      $links['edit-delta'] = array(
+        'title' => t('Edit Delta template'),
+        'href' => 'admin/appearance/delta/layouts/edit/' . $GLOBALS['delta'],
+        'localized_options' => array(),
+      );
+      
+      $links['configure-delta'] = array(
+        'title' => t('Configure Delta template'),
+        'href' => 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta'],
+        'localized_options' => array(),
+      );
+    }
+    else {
+      $links['theme-settings'] = array(
+        'title' => t('Edit theme settings'),
+        'href' => 'admin/appearance/settings/' . $GLOBALS['theme_key'],
+      	'localized_options' => array(),
+      );
+    }
+    
+    $path = !empty($GLOBALS['delta']) ? 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta'] : 'admin/appearance/settings/' . $GLOBALS['theme_key'];
+
+    $links['zone-configuration'] = array(
+      'title' => t('Zone configuration'),
+      'href' => $path,
+      'localized_options' => array('fragment' => drupal_html_class('edit-zone-' . $regions[$region]['zone'] . '-configuration')),
+    );
+
+    $links['region-configuration'] = array(
+      'title' => t('Region configuration'),
+      'href' => $path,
+      'localized_options' => array('fragment' => drupal_html_class('edit-region-' . $region . '-configuration')),
+    );
+  }
+}
+
+/**
+ * Implements hook_preprocess().
+ */
 function alpha_preprocess(&$vars, $hook) {
   alpha_invoke('preprocess', $hook, $vars);
 }
 
 /**
- * Implements hook_process()
+ * Implements hook_process().
  */
 function alpha_process(&$vars, $hook) {
   alpha_invoke('process', $hook, $vars);
 }
 
-/*
- * Implements hook_theme_registry_alter()
+/**
+ * Implements hook_theme_registry_alter().
  */
 function alpha_theme_registry_alter(&$registry) {
   alpha_build_registry($GLOBALS['theme_key'], $registry);
@@ -83,8 +170,8 @@ function alpha_css_alter(&$css) {
   }
 }
 
-/*
- * @todo
+/**
+ * Implements hook_preprocess_section().
  */
 function template_preprocess_section(&$vars) {
   $vars['theme_hook_suggestions'][] = 'section__' . $vars['elements']['#section'];
@@ -96,8 +183,8 @@ function template_preprocess_section(&$vars) {
   $vars['attributes_array']['class'] = array('section', $vars['attributes_array']['id']);
 }
 
-/*
- * @todo
+/**
+ * Implements hook_preprocess_zone().
  */
 function template_preprocess_zone(&$vars) {
   $settings = $vars['elements']['#page']['#alpha'];
@@ -144,8 +231,8 @@ function template_preprocess_zone(&$vars) {
   }
 }
 
-/*
- * @todo
+/**
+ * Implements hook_process_zone().
  */
 function template_process_zone(&$vars) {
   $vars['wrapper_attributes'] = isset($vars['wrapper_attributes_array']) ? drupal_attributes($vars['wrapper_attributes_array']) : '';

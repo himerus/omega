@@ -51,6 +51,7 @@ function alpha_theme_settings_zones(&$form, &$form_state) {
       '#weight' => $item['weight'],
       '#attributes' => array(
         'class' => array('alpha-inline'),
+        'id' => drupal_html_id('edit-zone-' . $zone . '-configuration'),
       ),
     );
     

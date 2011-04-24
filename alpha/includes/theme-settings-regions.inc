@@ -65,23 +65,24 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
     
     unset($form['alpha_settings']['regions'][$section][$zone]['#description']);
 
-    $form['alpha_settings']['regions'][$section][$zone][$region] = array(
+    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region] = array(
       '#type' => 'fieldset',
       '#title' => $item['name'],
       '#weight' => $item['weight'],
       '#attributes' => array(
         'class' => array('alpha-inline'),
+        'id' => drupal_html_id('edit-region-' . $region . '-configuration'),
       ),
     );
     
-    $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_force'] = array(
+    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region]['alpha_region_' . $region . '_force'] = array(
       '#type' => 'checkbox',
       '#title' => t('Force this region to be rendered'),
       '#description' => t('Enabling this will always render this region, even if it is empty.'),
       '#default_value' => $item['force'],
     );
       
-    $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_zone'] = array(
+    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region]['alpha_region_' . $region . '_zone'] = array(
       '#type' => 'select',
       '#title' => t('Zone'),
       '#default_value' => !empty($item['zone']) ? $item['zone'] : array('_none'),
@@ -89,35 +90,35 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
       '#options' => array('_none' => '- None -') + $options,
     );
     
-    $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_prefix'] = array(
+    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region]['alpha_region_' . $region . '_prefix'] = array(
       '#type' => 'select',
       '#title' => t('Prefix'),
       '#default_value' => $item['prefix'],
       '#options' => $spacing,
     );
     
-    $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_columns'] = array(
+    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region]['alpha_region_' . $region . '_columns'] = array(
       '#type' => 'select',
       '#title' => t('Width'),
       '#default_value' => $item['columns'],
       '#options' => $columns,
     );
     
-    $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_suffix'] = array(
+    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region]['alpha_region_' . $region . '_suffix'] = array(
       '#type' => 'select',
       '#title' => t('Suffix'),
       '#default_value' => $item['suffix'],
       '#options' => $spacing,
     );
     
-    $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_weight'] = array(
+    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region]['alpha_region_' . $region . '_weight'] = array(
       '#type' => 'weight',
       '#delta' => 50,
       '#title' => t('Weight'),
       '#default_value' => $item['weight'],
     );
     
-    $form['alpha_settings']['regions'][$section][$zone][$region]['alpha_region_' . $region . '_css'] = array(
+    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region]['alpha_region_' . $region . '_css'] = array(
       '#type' => 'textfield',
       '#title' => t('Additional region classes'),
       '#size' => 50,
