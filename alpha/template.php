@@ -122,13 +122,13 @@ function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
     $links['zone-configuration'] = array(
       'title' => t('Zone configuration'),
       'href' => $path,
-      'localized_options' => array('fragment' => drupal_html_class('edit-zone-' . $regions[$region]['zone'] . '-configuration')),
+      'localized_options' => array('fragment' => drupal_html_id('edit-zone-' . $regions[$region]['zone'] . '-configuration')),
     );
 
     $links['region-configuration'] = array(
       'title' => t('Region configuration'),
       'href' => $path,
-      'localized_options' => array('fragment' => drupal_html_class('edit-region-' . $region . '-configuration')),
+      'localized_options' => array('fragment' => drupal_html_id('edit-region-' . $region . '-configuration')),
     );
   }
 }

@@ -5,13 +5,13 @@
   color: #884400;
 }
  
-div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset fieldset {
+div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset {
   border: 1px solid #ccc;
   margin: 1em 0;
   padding: 2.5em 0 0;
 }
 
-div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset fieldset legend {
+div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset legend {
   display: inline-block;
 }
 
