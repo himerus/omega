@@ -865,7 +865,7 @@ function alpha_debug_grid($settings, $columns) {
       if ($type == 'normal' || ($settings['responsive']['enabled'] && $settings['responsive'][$type]['enabled'])) {
         $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
         $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
-        $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . url($path) . '); }' . "\n";
+        $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . file_create_url($path) . '); }' . "\n";
         
         drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'weight' => $weight));
         
