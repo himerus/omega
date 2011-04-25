@@ -53,6 +53,18 @@ function alpha_block_list_alter(&$list) {
   $settings = alpha_settings($GLOBALS['theme_key']);
   $regions = alpha_regions($GLOBALS['theme_key']);
   $zones = alpha_zones($GLOBALS['theme_key']);
+  $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
+  
+  if ($settings['responsive']['enabled'] && $settings['debug']['grid'] && $grid['type'] == 'fixed' && $settings['debug']['access']) {
+    $block = new stdClass();
+    $block->delta = 'grid-indicator';
+    $block->region = 'page_bottom';
+    $block->module = 'alpha-indicator';
+    $block->title = t('Responsive grid indicator block for @name', array('@name' => $grid['name']));
+    $block->cache = DRUPAL_NO_CACHE;
+
+    $list['alpha-grid-indicator'] = $block;
+  }
   
   if ($settings['debug']['block'] && $settings['debug']['access']) {
     foreach ($regions as $region => $item) {
@@ -60,10 +72,9 @@ function alpha_block_list_alter(&$list) {
         $block = new stdClass();
         $block->delta = 'debug-' . $region;
         $block->region = $region;
-        $block->module = 'alpha';
+        $block->module = 'alpha-debug';
         $block->title = $item['name'];
         $block->cache = DRUPAL_NO_CACHE;
-        $block->debug = $item;
         
         $list['alpha-debug-' . $region] = $block;
       }
@@ -75,7 +86,7 @@ function alpha_block_list_alter(&$list) {
  * Implements hook_block_view_alter().
  */
 function alpha_block_view_alter(&$data, $block) {
-  if ($block->module == 'alpha' && isset($block->debug)) {
+  if (in_array($block->module, array('alpha-debug', 'alpha-indicator'))) {
     $data['content'] = array(
       '#weight' => -999,
       '#markup' => t('This is a debugging block.'),
@@ -90,7 +101,7 @@ function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
   $block = array_pop($router_item['map']);
   $module = array_pop($router_item['map']);
 
-  if ($module == 'alpha') {
+  if ($module == 'alpha-debug') {
     $links = array();
 
     $regions = alpha_regions($GLOBALS['theme_key']);
@@ -164,10 +175,8 @@ function alpha_css_alter(&$css) {
   $settings = alpha_settings($GLOBALS['theme_key']);
   
   if (!empty($settings['exclude'])) {
-    foreach ($settings['exclude'] as $file => $exclude) {
-      if ($exclude) {
-        unset($css[$file]);
-      }
+    foreach(array_keys(array_filter($settings['exclude'])) as $item) {
+      unset($css[$item]);
     }
   }
 }

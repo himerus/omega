@@ -5,7 +5,9 @@
 
 /* Give pagers and inline LI items simple styling without all the junk from core */
 ul.inline li,
-ul.tabs li {
+ul.tabs li,
+ul.breadcrumbs li {
+  list-style: none;
   display: inline;
   margin-right: 1em;
 }
@@ -17,9 +19,4 @@ ul.pager li {
 
 img {
   display: block;
-}
-
-ul.menu,
-ul.tabs {
-  list-style: none;
 }

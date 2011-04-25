@@ -34,7 +34,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   
   $form['alpha_settings']['layout']['alpha_responsive'] = array(
     '#type' => 'checkbox',
-    '#description' => t('<p>The responsive layout allows the grid to resize based on the size of the users device. This incorporates mobile first design, so the default behavior is to show the simplest (stacked) version of the layout, and for devices that meet certain display criteria (width), new CSS and grid sizing will be applied.</p><p class="marker">The fluid grid doesn\'t support this feature.</p>'),
+    '#description' => t("<p>The responsive layout allows the grid to resize based on the size of the users device. This incorporates mobile first design, so the default behavior is to show the simplest (stacked) version of the layout, and for devices that meet certain display criteria (width), new CSS and grid sizing will be applied.</p><p class=\"marker\">Fluid grids don't support and don't need this feature.</p>"),
     '#title' => t('Responsive grid layout'),
     '#default_value' => $settings['responsive']['enabled'],
   );

@@ -281,9 +281,11 @@ function alpha_zone_options($key) {
 function alpha_container_options($key, $grid) {
   $grids = alpha_grids($key, $grid);
   
-  $output = array();  
-  foreach ($grids['columns'] as $count => $path) {
-    $output[$count] = t('@count columns', array('@count' => $count));
+  $output = array();
+  if (!empty($grids['columns'])) {
+    foreach ($grids['columns'] as $count => $path) {
+      $output[$count] = t('@count columns', array('@count' => $count));
+    }
   }
   
   return $output;
@@ -302,9 +304,11 @@ function alpha_container_options($key, $grid) {
 function alpha_region_options($key) {
   $regions = alpha_regions($key);
   
-  $output = array();  
-  foreach ($regions as $region => $item) {
-    $output[$region] = $item['name'];
+  $output = array();
+  if (!empty($regions)) {
+    foreach ($regions as $region => $item) {
+      $output[$region] = $item['name'];
+    }
   }
   
   return $output;
@@ -422,7 +426,7 @@ function alpha_include_grid($name, $columns) {
           // Loop through all possible grid layouts (narrow, normal, wide) and add          
           // all the enabled layouts and the attached optional stylesheets via drupal_add_css().
           foreach ($widths as $type => $weight) {
-            if ($grid[$type] && $settings['responsive'][$type]['enabled']) {
+            if ($settings['responsive'][$type]['enabled']) {
               $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
               $options = array('media' => $media, 'weight' => $weight);
               
@@ -552,9 +556,6 @@ function alpha_register_grids($key) {
           'name' => $info['name'],
           'type' => $type,
           'path' => $path,
-          'normal' => $fixed ? is_dir($path . '/normal') : FALSE,
-          'narrow' => $fixed ? is_dir($path . '/narrow') : FALSE,
-          'wide' => $fixed ? is_dir($path . '/wide') : FALSE,
           'columns' => array(),
         );
       }  
@@ -861,7 +862,7 @@ function alpha_debug_grid($settings, $columns) {
     $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
                 
     foreach ($widths as $type => $weight) {
-      if ($type == 'normal' || ($settings['responsive']['enabled'] && $grid[$type] && $settings['responsive'][$type]['enabled'])) {
+      if ($type == 'normal' || ($settings['responsive']['enabled'] && $settings['responsive'][$type]['enabled'])) {
         $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
         $path = $grid['columns'][$columns] . '/' . $type . '/debug-' . $columns . '.png';
         $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . url($path) . '); }' . "\n";

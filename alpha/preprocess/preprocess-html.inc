@@ -8,17 +8,6 @@ function alpha_alpha_preprocess_html(&$vars) {
   
   $settings = alpha_settings($GLOBALS['theme_key']);
   $css = alpha_css($GLOBALS['theme_key']);
-  $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
-  
-  if ($settings['responsive']['enabled'] && $settings['debug']['grid'] && $grid['type'] == 'fixed' && $settings['debug']['access']) {
-    if (empty($vars['page']['page_bottom'])) {
-      $vars['page']['page_bottom']['#region'] = 'page_bottom';
-      $vars['page']['page_bottom']['#theme_wrappers'] = array('region');
-      $vars['page']['page_bottom']['#sorted'] = FALSE;
-    }
-    
-    $vars['page']['page_bottom']['alpha_grid'] = alpha_grid_block($grid['name']);
-  }
 
   foreach (array_keys(array_filter($settings['css'])) as $item) {
     if (isset($css[$item])) {
