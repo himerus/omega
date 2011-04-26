@@ -361,24 +361,19 @@ function alpha_css($key, $responsive = FALSE) {
     foreach (alpha_info($key, 'css') as $theme => $data) {
       foreach ($data as $name => $info) {
         $media = isset($info['media']) ? $info['media'] : 'all';
-        $type = $media == 'responsive';
-        
-        $output[$key][$type][$name] = array(
+        $switch = $media == 'responsive';  
+        $weight = !$switch && isset($info['weight']) ? $info['weight'] : 0;
+        $weight = $weight >= 0 ? $weight : $weight - 3;
+           
+        $output[$key][$switch][$name] = array(
           'name' => $info['name'],
           'file' => $info['file'],            
           'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
           'description' => isset($info['description']) ? $info['description'] : '',
-          'media' => isset($info['media']) ? $info['media'] : 'all',
+          'weight' => $weight,
+          'media' => $media,
           'condition' => isset($info['condition']) ? $info['condition'] : '',
         );
-        
-        if ($media == 'responsive') {
-          $output[$key][1][$name]['weight'] = NULL;
-        }
-        else {
-          $weight = isset($info['weight']) ? $info['weight'] : 0;
-          $output[$key][0][$name]['weight'] = $weight >= 0 ? $weight : $weight - 3;
-        }
       }
     }
   }
