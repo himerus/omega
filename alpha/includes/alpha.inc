@@ -62,11 +62,14 @@ function alpha_theme_trail($key) {
   if (!isset($static)) {
     $themes = list_themes();
     
-    // Fetch all base themes as an array (automatically sorted properly).
-    $static[$key] = !empty($themes[$key]->info['base theme']) ? system_find_base_themes($themes, $key) : array();
+    foreach (system_find_base_themes($themes, $key) as $base => $name) {
+      if ($name && isset($themes[$base])) {
+        $static[$key][$base] = $themes[$base];
+      }
+    }
     
     // Add our current subtheme ($key) to that array.
-    $static[$key][$themes[$key]->name] = $themes[$key]->info['name'];
+    $static[$key][$themes[$key]->name] = $themes[$key];
   }
   
   return $static[$key];
@@ -97,18 +100,18 @@ function alpha_build_registry($name, $registry) {
      
       // Only process this array if it has hooks of this $type.
       if (!empty($info[$key])) {
-        foreach (alpha_theme_trail($name) as $name => $friendly) {
+        foreach (alpha_theme_trail($name) as $theme => $data) {
           $file = $type . '-' . str_replace('_', '-', $item) . '.inc';    
-          $path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $name) . '/' . $type . '/' . $file;
+          $path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme) . '/' . $type . '/' . $file;
 
           // If the corresponding file exists add it to the registry.
           if (is_file($path)) {
             $cache[$type][$item][] = array(
               'type' => $type,
               'hook' => $item,
-              'theme' => $name,
+              'theme' => $theme,
               'path' => $path,
-              'function' => $name . '_alpha_' . $type . '_' . $item,
+              'function' => $theme . '_alpha_' . $type . '_' . $item,
             );
           }
         }
@@ -776,9 +779,66 @@ function alpha_settings($key) {
     
     $settings[$key]['debug']['roles'] = is_array($settings[$key]['debug']['roles']) ? $settings[$key]['debug']['roles'] : array();
     $settings[$key]['css'] = is_array($settings[$key]['css']) ? $settings[$key]['css'] : array();
+  
+    alpha_alter('alpha_settings', $settings[$key], $key);
   }
   
   return $settings[$key];
+}
+
+/**
+ * This function "fixes" drupal_alter so it also works in the theme-settings and anywhere else 
+ * where you want to be 100% certain that drupal_alter uses the proper global $theme.
+ * 
+ * The problem with drupal_alter is, that it always relies on the global $theme while
+ * the theme-settings page relies (and "overrides") the global $theme_key variable while
+ * building its form.
+ * 
+ * @param $type
+ * 
+ * @param $data
+ * 
+ * @param $context1
+ * 
+ * @param $context2
+ * 
+ * @see 
+ *   See drupal_alter() for more information about how this works.
+ */
+function alpha_alter($type, &$data, &$context1 = NULL, &$context2 = NULL) {
+  global $theme, $base_theme_info;
+
+  if ($theme != $context1) {
+    $themes = list_themes();
+    
+    if (!empty($themes[$context1])) {
+      $theme_original = $theme;
+      $base_theme_info_original = $base_theme_info;
+
+      $base_theme_info = array_values(alpha_theme_trail($context1));
+      
+      array_pop($base_theme_info);
+      
+      if (!empty($base_theme_info)) {
+        foreach ($base_theme_info as $theme) {
+          include_once drupal_get_path('theme', $theme->name) . '/template.php';
+        }
+      }
+     
+      $theme = $context1;
+            
+      drupal_alter($type, $data, $context1, $context2);      
+      
+      $functions = &drupal_static('drupal_alter');
+      unset($functions['alpha_settings']);
+      
+      $theme = $theme_original;
+      $base_theme_info = $base_theme_info_original;
+    }
+  }
+  else {
+    drupal_alter($type, $data, $context1, $context2);
+  }
 }
 
 /**

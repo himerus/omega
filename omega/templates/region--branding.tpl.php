@@ -21,5 +21,9 @@
     </hgroup>
     <?php endif; ?>
   </div>
-  <?php print $content; ?>
+  <?php if ($content): ?>
+  <div<?php print $content_attributes; ?>>
+    <?php print $content; ?>
+  </div>
+  <?php endif; ?>
 </div>

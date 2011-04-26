@@ -70,6 +70,11 @@ css[menu][media] = all
 css[menu][file] = menu.css
 css[menu][description] = Provides positoning and basic CSS for primary and secondary menus.
 
+css[forms][name] = Form Styles
+css[forms][media] = all
+css[forms][file] = forms.css
+css[forms][description] = Provides basic form styles.
+
 ; THEME SETTINGS (DEFAULTS)
 
 settings[alpha_grid] = 'default'
