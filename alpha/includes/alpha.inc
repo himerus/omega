@@ -62,16 +62,18 @@ function alpha_theme_trail($key) {
   if (!isset($static)) {
     $themes = list_themes();
     
-    foreach (system_find_base_themes($themes, $key) as $base => $name) {
-      if ($name && isset($themes[$base])) {
-        $static[$key][$base] = $themes[$base];
+    if (isset($themes[$key]->info['base theme'])) {
+      foreach (system_find_base_themes($themes, $key) as $base => $name) {
+        if ($name && isset($themes[$base])) {
+          $static[$key][$base] = $themes[$base];
+        }
       }
     }
-    
+
     // Add our current subtheme ($key) to that array.
-    $static[$key][$themes[$key]->name] = $themes[$key];
+    $static[$key][$key] = $themes[$key];
   }
-  
+
   return $static[$key];
 }
 
@@ -352,28 +354,30 @@ function alpha_column_options($max) {
 function alpha_css($key, $responsive = FALSE) {
   $output = &drupal_static(__FUNCTION__);
   
-  if (!isset($output[$key][$responsive])) {
-    $output[$key][$responsive] = array();  
-
+  if (!isset($output[$key])) {
+    $output[$key][0] = array();  
+    $output[$key][1] = array();
+    
     foreach (alpha_info($key, 'css') as $theme => $data) {
       foreach ($data as $name => $info) {
-        if (($responsive && $info['media'] == 'responsive') || (!$responsive && $info['media'] != 'responsive')) {
-          $output[$key][$responsive][$name] = array(
-            'name' => $info['name'],
-            'file' => $info['file'],            
-            'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
-            'description' => isset($info['description']) ? $info['description'] : '',
-            'media' => isset($info['media']) ? $info['media'] : 'all',
-            'condition' => isset($info['condition']) ? $info['condition'] : '',
-          );
-          
-          if ($responsive) {
-            $output[$key][$responsive][$name]['weight'] = NULL;
-          }
-          else {
-            $weight = isset($info['weight']) ? $info['weight'] : 0;
-            $output[$key][$responsive][$name]['weight'] = $weight >= 0 ? $weight : $weight - 3;
-          }
+        $media = isset($info['media']) ? $info['media'] : 'all';
+        $type = $media == 'responsive';
+        
+        $output[$key][$type][$name] = array(
+          'name' => $info['name'],
+          'file' => $info['file'],            
+          'path' => drupal_get_path('theme', $theme) . '/css/' . $info['file'],
+          'description' => isset($info['description']) ? $info['description'] : '',
+          'media' => isset($info['media']) ? $info['media'] : 'all',
+          'condition' => isset($info['condition']) ? $info['condition'] : '',
+        );
+        
+        if ($media == 'responsive') {
+          $output[$key][1][$name]['weight'] = NULL;
+        }
+        else {
+          $weight = isset($info['weight']) ? $info['weight'] : 0;
+          $output[$key][0][$name]['weight'] = $weight >= 0 ? $weight : $weight - 3;
         }
       }
     }
@@ -526,13 +530,17 @@ function alpha_grids($key, $grid = NULL) {
   $grids = &drupal_static(__FUNCTION__);
   
   if (!isset($grids[$key])) {
-    $grids[$key] = variable_get('alpha_grids_' . $key, array());
+    $grids[$key] = variable_get('alpha_grids_' . $key);
   }
 
-  if (isset($grid)) {
-    return isset($grids[$key][$grid]) ? $grids[$key][$grid] : FALSE;
+  if (!isset($grids[$key])) {
+    $grids[$key] = alpha_register_grids($key);
+  }
+  
+  if (isset($grid) && isset($grids[$key][$grid])) {
+    return $grids[$key][$grid];
   } 
-  else {
+  else if (!isset($grid)) {
     return $grids[$key];
   }
 }
@@ -547,29 +555,32 @@ function alpha_grids($key, $grid = NULL) {
  */
 function alpha_register_grids($key) {
   $cache = array();
-  
-  foreach (alpha_info($key, 'grids') as $theme => $data) {
+  $grids = alpha_info($key, 'grids');
+
+  foreach ($grids as $theme => $data) {
     foreach ($data as $name => $info) {
       $path = drupal_get_path('theme', $theme) . '/css/grid/' . $name;
-      $type = isset($info['type']) && $info['type'] == 'fluid' ? 'fluid' : 'fixed';
-      $fixed = $type == 'fixed';
-      
+
       if (!isset($cache[$key][$name])) {
         $cache[$key][$name] = array(
           'name' => $info['name'],
-          'type' => $type,
+          'type' => isset($info['type']) && $info['type'] == 'fluid' ? 'fluid' : 'fixed',
           'path' => $path,
           'columns' => array(),
         );
       }  
-        
+      
       foreach ($info['columns'] as $column) {
         $cache[$key][$name]['columns'][$column] = $path;
       }   
     }
   }
 
-  variable_set('alpha_grids_' . $key, $cache[$key]);
+  if (isset($cache[$key])) {
+    variable_set('alpha_grids_' . $key, $cache[$key]);
+    
+    return $cache[$key];
+  }
 }
 
 /**
@@ -699,12 +710,10 @@ function alpha_info($key, $item) {
   $output = &drupal_static(__FUNCTION__);
   
   if (!isset($output[$key][$item])) {
-    $themes = list_themes(); 
-    
     $output[$key][$item] = array();
     foreach (alpha_theme_trail($key) as $theme => $info) {
-      if (!empty($themes[$theme]->info[$item])) {
-        $output[$key][$item][$theme] = $themes[$theme]->info[$item];
+      if (!empty($info->info[$item])) {
+        $output[$key][$item][$theme] = $info->info[$item];
       }
     }    
   }
@@ -815,9 +824,7 @@ function alpha_alter($type, &$data, &$context1 = NULL, &$context2 = NULL) {
       $theme_original = $theme;
       $base_theme_info_original = $base_theme_info;
 
-      $base_theme_info = array_values(alpha_theme_trail($context1));
-      
-      array_pop($base_theme_info);
+      $base_theme_info = alpha_theme_trail($context1);
       
       if (!empty($base_theme_info)) {
         foreach ($base_theme_info as $theme) {
@@ -825,6 +832,8 @@ function alpha_alter($type, &$data, &$context1 = NULL, &$context2 = NULL) {
         }
       }
      
+      array_pop($base_theme_info);
+      
       $theme = $context1;
             
       drupal_alter($type, $data, $context1, $context2);      
