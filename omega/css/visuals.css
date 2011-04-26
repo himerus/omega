@@ -57,38 +57,75 @@
 /* Pagers Color #################################################### */
 .item-list .pager {
   background:#DDD;
-  border:1px solid #CCC;
+  border: 1px solid;
+  border-color: #ddd #bbb #999;
 }
 
 .pager li.pager-ellipsis,
 .pager li.pager-current,
 .pager li a {
-  color:#454545;
+  color:#1a1a1a;
 }
 
   .pager li {
-    border-right:1px solid #ccc;
+    border-right: 1px solid;
+    border-color: #ddd #bbb #999;
+    color: #333;
+    font: bold 12px/1.2 Arial, sans-serif;
+    outline: 0;
   }
 
   .pager li.pager-current {
-    background:#0062A0;
-    color: #EEE;
+    background: #ddd url(../images/button.png) repeat-x;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #1a1a1a), color-stop(1, #5a5a5a));
+    background: -moz-linear-gradient(top center, #1a1a1a 0%, #5a5a5a 100%);
+    color: #FFF;
+    outline: 0;
   }
 
   .pager li.pager-first a,
   .pager li.pager-previous a,
   .pager li.pager-next a,
   .pager li.pager-last a {
-    background:#EEE;
+    
   }
 
   .pager li.pager-next {
-    border-left:1px solid #ccc;
+    border-left: 1px solid;
+    border-color: #ddd #bbb #999;
   }
   .pager li a {
-    background: #EEE;
+    background: #ddd url(../images/button.png) repeat-x;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
+    background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+    cursor: pointer;
+    
   }
   .pager li a:hover {
     background:#FFF;
     color:#454545;
+  }
+  
+  /* Add default border radius to list items & links */
+  .pager {
+    background:#DDD;
+    border:1px solid #CCC;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  }
+  .pager li.first,
+  .pager li.first a,
+  .pager li.first a:hover {
+    border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+  }
+  
+  .pager li.last,
+  .pager li.last a,
+  .pager li.last a:hover {
+    border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
   }
