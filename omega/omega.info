@@ -75,6 +75,11 @@ css[forms][media] = all
 css[forms][file] = forms.css
 css[forms][description] = Provides basic form styles.
 
+css[visuals][name] = Omega Styles
+css[visuals][media] = all
+css[visuals][file] = visuals.css
+css[visuals][description] = Custom visual styles for Omega. (pagers, menus, etc.)
+
 ; THEME SETTINGS (DEFAULTS)
 
 settings[alpha_grid] = 'default'
