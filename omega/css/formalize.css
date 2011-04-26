@@ -1,16 +1,10 @@
-/* `Widths
-----------------------------------------------------------------------------------------------------*/
-
-/*
-  Added via JS to <textarea> and class="input-full".
-  Applies only to IE7. Other browsers don't need it.
-*/
+/* Added via JS to <textarea> and class="input-full". Applies only to IE7. Other browsers don't need it. */
 .input-full-wrap {
   display: block;
   padding-right: 8px;
 }
 
-/* `UI Consistency
+/* UI Consistency
 ----------------------------------------------------------------------------------------------------*/
 
 ::-moz-focus-inner {
@@ -107,10 +101,7 @@ input[type="week"] {
   *height: auto;
 }
 
-/*
-  Separate rule for Firefox.
-  Cannot stack with WebKit's.
-*/
+/* Separate rule for Firefox. Cannot stack with WebKit's. */
 input.placeholder-text,
 textarea.placeholder-text,
 input:-moz-placeholder,
@@ -216,30 +207,8 @@ optgroup {
   font-weight: normal;
 }
 
-/* `IE6
+/* IE6 Compatibility
 ----------------------------------------------------------------------------------------------------*/
-
-/*
-  Everything below this line is for IE6.
-  Delete it if you don't support it! :)
-
-  Classes are added dynamically via JS,
-  because IE6 doesn't support attribute
-  selectors: .ie6-button, .ie6-input, etc.
-
-  Note: These style rules are somewhat
-  duplicated because IE6 bombs out when
-  it sees attribute selectors. Example:
-
-  .ie6-button {
-    This works in IE6.
-  }
-
-  .ie6-button,
-  input[type=submit] {
-    This doesn't work.
-  }
-*/
 
 .ie6-button,
 * html button {

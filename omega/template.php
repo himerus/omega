@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/includes/omega.inc';
+require_once dirname(__FILE__) . '/includes/omega.theme.inc';
 
 /**
  * Implements hook_alpha_settings_alter().
