@@ -2,9 +2,9 @@
 
 function alpha_theme_settings_regions(&$form, &$form_state) {
   $theme = $form_state['build_info']['args'][0];
-  $zones = $form_state['#zones'];
-  $regions = $form_state['#regions'];
-  $containers = $form_state['#containers'];
+  $zones = $form_state['alpha_zones'];
+  $regions = $form_state['alpha_regions'];
+  $containers = $form_state['alpha_containers'];
   $options = alpha_zone_options($theme);
   $columns = $spacing = !empty($containers) ? alpha_column_options(max(array_keys($containers))) : array();  
   $sections = alpha_sections();

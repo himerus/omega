@@ -5,8 +5,8 @@
  */
 function alpha_theme_settings_general(&$form, &$form_state) {
   $theme = $form_state['build_info']['args'][0];
+  $settings = $form_state['alpha_settings'];
   $scales = alpha_scale_options(1, 10, 0.5);  
-  $settings = alpha_settings($theme);
   $optional = alpha_css_options($theme);
   $responsive = alpha_css_options($theme, TRUE);
   $exclude = alpha_exclude_options($theme);
@@ -159,33 +159,31 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#default_value' => $settings['viewport']['user'],
   );
   
-  if (!empty($optional) || !empty($exclude)) {  
-    $form['alpha_settings']['styles'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Toggle styles'),
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
+  $form['alpha_settings']['styles'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Toggle styles'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+    
+  if (!empty($optional)) {    
+    $form['alpha_settings']['styles']['alpha_css'] = array(
+      '#title' => t('Enable optional stylesheets'),
+      '#description' => t('You can choose from this list to enable optional stylesheets.'),
+      '#type' => 'checkboxes',
+      '#options' => $optional,
+      '#default_value' => $settings['css'],
     );
-    
-    if (!empty($optional)) {
-      $form['alpha_settings']['styles']['alpha_css'] = array(
-        '#title' => t('Enable optional stylesheets'),
-        '#description' => t('You can choose from this list to enable optional stylesheets.'),
-        '#type' => 'checkboxes',
-        '#options' => $optional,
-        '#default_value' => $settings['css'],
-      );
-    }
-    
-    if (!empty($exclude)) {
-      $form['alpha_settings']['styles']['alpha_exclude'] = array(
-        '#title' => t('Disable module and theme stylesheets'),
-        '#description' => t('Alpha will remove the selected stylesheets from your pages.'),
-        '#type' => 'checkboxes',
-        '#options' => $exclude,
-        '#default_value' => $settings['exclude'],
-      );
-    }
+  }
+  
+  if (!empty($exclude)) {
+    $form['alpha_settings']['styles']['alpha_exclude'] = array(
+      '#title' => t('Disable module and theme stylesheets'),
+      '#description' => t('Alpha will remove the selected stylesheets from your pages.'),
+      '#type' => 'checkboxes',
+      '#options' => $exclude,
+      '#default_value' => $settings['exclude'],
+    );
   }
 
   $form['alpha_settings']['overlay'] = array(

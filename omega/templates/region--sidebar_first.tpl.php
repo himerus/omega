@@ -1,5 +1,5 @@
-<?php if ($content): ?>
-  <aside<?php print $attributes; ?>>
+<aside<?php print $attributes; ?>>
+  <div<?php print $content_attributes; ?>>
     <?php print $content; ?>
-  </aside>
-<?php endif; ?>
+  </div>
+</aside>

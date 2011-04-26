@@ -6,7 +6,7 @@
 /* Give pagers and inline LI items simple styling without all the junk from core */
 ul.inline li,
 ul.tabs li,
-ul.breadcrumbs li {
+ul.breadcrumb li {
   list-style: none;
   display: inline;
   margin-right: 1em;

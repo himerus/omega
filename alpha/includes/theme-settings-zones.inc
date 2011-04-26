@@ -5,9 +5,9 @@
  */
 function alpha_theme_settings_zones(&$form, &$form_state) {  
   $sections = alpha_sections();
-  $zones = $form_state['#zones'];
-  $containers = $form_state['#containers'];
-  $regions = $form_state['#regions'];
+  $zones = $form_state['alpha_zones'];
+  $containers = $form_state['alpha_containers'];
+  $regions = $form_state['alpha_regions'];
   
   foreach ($regions as $region => $info) {
     if ($info['enabled']) {
