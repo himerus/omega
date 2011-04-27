@@ -1,5 +1,5 @@
 name = Omega
-description = @todo
+description = <a href="http://drupal.org/project/omega">Omega</a> extends the Omega theme framework with some additional features and makes them availabe to its subthemes. This theme should not be used directly, instead choose one of the Omega or Alpha starterkits.
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
@@ -15,8 +15,6 @@ regions[page_bottom] = Page Bottom
 regions[content] = Content
 
 ; END REQUIRED CORE REGIONS
-
-; OPTIONAL CONTENT REGIONS
 
 regions[user_first] = User Bar First
 regions[user_second] = User Bar Second
@@ -55,34 +53,34 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
-css[text][name] = Text Styles
-css[text][media] = all
-css[text][file] = text.css
-css[text][description] = Default text styles for Omega.
+css[omega_text][name] = Text Styles
+css[omega_text][media] = all
+css[omega_text][file] = text.css
+css[omega_text][description] = Default text styles for Omega.
 
-css[branding][name] = Branding Styles
-css[branding][media] = all
-css[branding][file] = branding.css
-css[branding][description] = Provides positioning for the logo, title and slogan.
+css[omega_branding][name] = Branding Styles
+css[omega_branding][media] = all
+css[omega_branding][file] = branding.css
+css[omega_branding][description] = Provides positioning for the logo, title and slogan.
 
-css[menu][name] = Menu Styles
-css[menu][media] = all
-css[menu][file] = menu.css
-css[menu][description] = Provides positoning and basic CSS for primary and secondary menus.
+css[omega_menu][name] = Menu Styles
+css[omega_menu][media] = all
+css[omega_menu][file] = menu.css
+css[omega_menu][description] = Provides positoning and basic CSS for primary and secondary menus.
 
-css[forms][name] = Form Styles
-css[forms][media] = all
-css[forms][file] = forms.css
-css[forms][description] = Provides basic form styles.
+css[omega_forms][name] = Form Styles
+css[omega_forms][media] = all
+css[omega_forms][file] = forms.css
+css[omega_forms][description] = Provides basic form styles.
 
-css[visuals][name] = Omega Styles
-css[visuals][media] = all
-css[visuals][file] = visuals.css
-css[visuals][description] = Custom visual styles for Omega. (pagers, menus, etc.)
+css[omega_visuals][name] = Omega Styles
+css[omega_visuals][media] = all
+css[omega_visuals][file] = visuals.css
+css[omega_visuals][description] = Custom visual styles for Omega. (pagers, menus, etc.)
 
 ; THEME SETTINGS (DEFAULTS)
 
-settings[alpha_grid] = 'default'
+settings[alpha_grid] = 'alpha_default'
 settings[alpha_responsive] = '1'
 settings[alpha_responsive_narrow] = '1'
 settings[alpha_responsive_narrow_media] = 'all and (min-width: 740px) and (min-device-width: 740px), (max-device-width: 800px) and (min-width: 740px) and (orientation:landscape)'
@@ -95,12 +93,12 @@ settings[alpha_viewport_initial_scale] = '1'
 settings[alpha_viewport_min_scale] = '1'
 settings[alpha_viewport_max_scale] = '1'
 settings[alpha_viewport_user_scaleable] = ''
-settings[alpha_css][reset] = 'reset'
-settings[alpha_css][alpha] = 'alpha'
-settings[alpha_css][mobile] = 'mobile'
-settings[alpha_css][text] = 'text'
-settings[alpha_css][branding] = 'branding'
-settings[alpha_css][menu] = 'menu'
+settings[alpha_css][reset] = 'alpha_reset'
+settings[alpha_css][alpha] = 'alpha_alpha'
+settings[alpha_css][mobile] = 'alpha_mobile'
+settings[alpha_css][text] = 'omega_text'
+settings[alpha_css][branding] = 'omega_branding'
+settings[alpha_css][menu] = 'omega_menu'
 settings[alpha_exclude][modules/comment/comment.css] = 'modules/comment/comment.css'
 settings[alpha_exclude][modules/field/theme/field.css] = 'modules/field/theme/field.css'
 settings[alpha_exclude][modules/node/node.css] = 'modules/node/node.css'

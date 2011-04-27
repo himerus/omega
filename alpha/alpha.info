@@ -1,18 +1,23 @@
 name = Alpha
-description = @todo
+description = Alpha is the core basetheme for <a href="http://drupal.org/project/omega">Omega</a> and all its subthemes. It includes the most basic features of the Omega theme framework. This theme should not be used directly, instead choose one of the Omega or Alpha starterkits.
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
 version = 3.x
 
 ; REGIONS
+
+; REQUIRED CORE REGIONS
+
 regions[page_top] = Page Top
 regions[page_bottom] = Page Bottom
+regions[content] = Content
+
+; END REQUIRED CORE REGIONS
 
 regions[header] = Header
 regions[footer] = Footer
 
-regions[content] = Content
 regions[sidebar_first] = Sidebar First
 regions[sidebar_second] = Sidebar Second
 
@@ -24,23 +29,23 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
-css[reset][name] = Reset
-css[reset][media] = all
-css[reset][file] = reset.css
-css[reset][weight] = -100
-css[reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
+css[alpha_reset][name] = Reset
+css[alpha_reset][media] = all
+css[alpha_reset][file] = reset.css
+css[alpha_reset][weight] = -100
+css[alpha_reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
 
-css[mobile][name] = Mobile
-css[mobile][media] = all
-css[mobile][file] = mobile.css
-css[mobile][weight] = -99
-css[mobile][description] = Default stylesheet for mobile styles.
+css[alpha_mobile][name] = Mobile
+css[alpha_mobile][media] = all
+css[alpha_mobile][file] = mobile.css
+css[alpha_mobile][weight] = -90
+css[alpha_mobile][description] = Default stylesheet for mobile styles.
 
-css[alpha][name] = Alpha
-css[alpha][media] = all
-css[alpha][file] = alpha.css
-css[mobile][weight] = -98
-css[alpha][description] = Default styles & resets for Alpha/Omega base theme.
+css[alpha_alpha][name] = Alpha
+css[alpha_alpha][media] = all
+css[alpha_alpha][file] = alpha.css
+css[alpha_alpha][weight] = -80
+css[alpha_alpha][description] = Default styles & resets for Alpha/Omega base theme.
 
 ; STYLESHEETS FOR EXCLUSION
 
@@ -71,21 +76,21 @@ exclude[modules/update/update.css] = This requires a description.
 
 ; CSS GRID SYSTEMS
 
-grids[default][name] = Default (960px)
-grids[default][type] = fixed
-grids[default][columns][] = 12
-grids[default][columns][] = 16
-grids[default][columns][] = 24
+grids[alpha_default][name] = Default (960px)
+grids[alpha_default][type] = fixed
+grids[alpha_default][columns][] = 12
+grids[alpha_default][columns][] = 16
+grids[alpha_default][columns][] = 24
 
-grids[fluid][name] = Fluid
-grids[fluid][type] = fluid
-grids[fluid][columns][] = 12
-grids[fluid][columns][] = 16
-grids[fluid][columns][] = 24
+grids[alpha_fluid][name] = Fluid
+grids[alpha_fluid][type] = fluid
+grids[alpha_fluid][columns][] = 12
+grids[alpha_fluid][columns][] = 16
+grids[alpha_fluid][columns][] = 24
 
 ; DEFAULT THEME SETTINGS
 
-settings[alpha_grid] = 'default'
+settings[alpha_grid] = 'alpha_default'
 settings[alpha_responsive] = '1'
 settings[alpha_responsive_narrow] = '1'
 settings[alpha_responsive_narrow_media] = 'all and (min-width: 740px) and (min-device-width: 740px), (max-device-width: 800px) and (min-width: 740px) and (orientation:landscape)'
@@ -98,9 +103,9 @@ settings[alpha_viewport_initial_scale] = '1'
 settings[alpha_viewport_min_scale] = '1'
 settings[alpha_viewport_max_scale] = '1'
 settings[alpha_viewport_user_scaleable] = ''
-settings[alpha_css][reset] = 'reset'
-settings[alpha_css][alpha] = 'alpha'
-settings[alpha_css][mobile] = 'mobile'
+settings[alpha_css][reset] = 'alpha_reset'
+settings[alpha_css][alpha] = 'alpha_alpha'
+settings[alpha_css][mobile] = 'alpha_mobile'
 settings[alpha_exclude][modules/comment/comment.css] = 'modules/comment/comment.css'
 settings[alpha_exclude][modules/field/theme/field.css] = 'modules/field/theme/field.css'
 settings[alpha_exclude][modules/node/node.css] = 'modules/node/node.css'

@@ -3,13 +3,11 @@
 /*
  * @todo
  */
-function alpha_alpha_preprocess_page(&$vars) {
-  global $theme_key;
-  
+function alpha_alpha_preprocess_page(&$vars) { 
   $sections = alpha_sections();
-  $zones = alpha_zones($theme_key);
-  $settings = $vars['#alpha'] = alpha_settings($theme_key);
-  $regions = alpha_regions($theme_key);
+  $zones = alpha_zones($GLOBALS['theme_key']);
+  $settings = $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);
+  $regions = alpha_regions($GLOBALS['theme_key']);
   
   $vars['feed_icons'] = $settings['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
   $vars['tabs'] = $settings['toggle']['tabs'] ? $vars['tabs'] : NULL;

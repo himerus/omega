@@ -1,5 +1,5 @@
 name = Omega XHTML Starter Kit
-description = Default XHTML starterkit for Omega. You should not directly edit this starterkit, but make your own copy. Informtion on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
+description = Default XHTML starterkit for <a href="http://drupal.org/project/omega">Omega</a>. You should not directly edit this starterkit, but make your own copy. Information on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>.
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
@@ -14,8 +14,6 @@ regions[page_bottom] = Page Bottom
 regions[content] = Content
 
 ; END REQUIRED CORE REGIONS
-
-; OPTIONAL CONTENT REGIONS
 
 regions[user_first] = User Bar First
 regions[user_second] = User Bar Second
@@ -54,20 +52,26 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
+css[mobile][name] = Mobile Styles
+css[mobile][media] = all
+css[mobile][file] = mobile.css
+css[mobile][weight] = -89
+css[mobile][description] = Your custom CSS for the mobile version of your website (mobile first).
+
 css[narrow][name] = Narrow Grid Styles
 css[narrow][media] = responsive
 css[narrow][file] = narrow.css
-css[narrow][description] = Default stylesheet for custom CSS that compliments the narrow (720) grid.
+css[narrow][description] = Your custom CSS that compliments the narrow (720) grid.
 
 css[normal][name] = Normal Grid Styles
 css[normal][media] = responsive
 css[normal][file] = normal.css
-css[normal][description] = Default stylesheet for custom CSS that compliments the normal (960) grid.
+css[normal][description] = Your custom CSS that compliments the normal (960) grid.
 
 css[wide][name] = Wide Grid Styles
 css[wide][media] = responsive
 css[wide][file] = wide.css
-css[wide][description] = Default stylesheet for custom CSS that compliments the wide (1200) grid.
+css[wide][description] = Your custom CSS that compliments the wide (1200) grid.
 
 ; THEME SETTINGS (DEFAULTS)
 
