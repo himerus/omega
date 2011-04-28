@@ -86,13 +86,6 @@
   outline: 0;
 }
 
-.pager li.pager-first a,
-.pager li.pager-previous a,
-.pager li.pager-next a,
-.pager li.pager-last a {
-  
-}
-
 .pager li.pager-next {
   border-left: 1px solid;
   border-color: #ddd #bbb #999;
@@ -127,9 +120,9 @@
   -webkit-border-radius: 5px 0 0 5px;
 }
 
-.pager li.last,
-.pager li.last a,
-.pager li.last a:hover {
+.pager li.pager-last,
+.pager li.pager-last a,
+.pager li.pager-last a:hover {
   border-radius: 0 5px 5px 0;
   -moz-border-radius: 0 5px 5px 0;
   -webkit-border-radius: 0 5px 5px 0;
