@@ -74,7 +74,7 @@ function alpha_block_list_alter(&$list) {
  * Implements hook_block_view_alter().
  */
 function alpha_block_view_alter(&$data, $block) {
-  if ($block->module == array('alpha-debug')) {
+  if ($block->module == 'alpha-debug') {
     $data['content'] = array(
       '#weight' => -999,
       '#markup' => t('This is a debugging block.'),
@@ -238,8 +238,8 @@ function template_process_zone(&$vars) {
 }
 
 /**
- * Implements hook_delta_settings_exclude_alter()
+ * Implements hook_delta_exclude()
  */
-function alpha_delta_settings_exclude(&$settings) {
+function alpha_delta_exclude(&$settings) {
   return array('alpha_debug_block_toggle', 'alpha_debug_grid_toggle', 'alpha_debug_grid_roles');
 }

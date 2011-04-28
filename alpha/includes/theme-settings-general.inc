@@ -185,8 +185,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#default_value' => $settings['exclude'],
     );
   }
-
-  if (!module_exists('delta') || !delta_is_delta()) {  
+ 
     $form['alpha_settings']['debug'] = array(
       '#type' => 'fieldset',
       '#weight' => -6,
@@ -195,6 +194,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#collapsed' => FALSE,
     );
     
+  if (!module_exists('delta') || !delta_is_delta()) { 
     $form['alpha_settings']['debug']['alpha_debug_block_toggle'] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable the debugging (placeholder) blocks for the selected roles.'),
@@ -213,6 +213,9 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#default_value' => $settings['debug']['roles'],
       '#options' => array_map('check_plain', user_roles()),
     );
+  }
+  else {
+    $form['alpha_settings']['debug']['#description'] = '<div class="messages warning">The debugging features are only available in the actual theme settings.</div>';
   }
 
   foreach (array('theme_settings', 'logo', 'favicon') as $element) {
