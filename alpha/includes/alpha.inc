@@ -728,7 +728,7 @@ function alpha_debug_settings($key) {
   
   $settings['roles'] = is_array($settings['roles']) ? $settings['roles'] : array();
   $settings['access'] = alpha_debug_access($GLOBALS['user'], $settings['roles']);
-  
+
   return $settings;
 }
 
