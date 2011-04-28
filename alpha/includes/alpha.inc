@@ -570,7 +570,7 @@ function alpha_register_grids($key) {
       }   
     }
   }
-
+  
   if (isset($cache[$key])) {
     variable_set('alpha_grids_' . $key, $cache[$key]);
     
