@@ -50,23 +50,11 @@ function alpha_theme($existing, $type, $theme, $path) {
  * Implements hook_block_list_alter().
  */
 function alpha_block_list_alter(&$list) {
-  $settings = alpha_settings($GLOBALS['theme_key']);
+  $debug = alpha_debug_settings($GLOBALS['theme_key']);  
   $regions = alpha_regions($GLOBALS['theme_key']);
   $zones = alpha_zones($GLOBALS['theme_key']);
-  $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
   
-  if ($settings['responsive']['enabled'] && $settings['debug']['grid'] && $grid['type'] == 'fixed' && $settings['debug']['access']) {
-    $block = new stdClass();
-    $block->delta = 'grid-indicator';
-    $block->region = 'page_bottom';
-    $block->module = 'alpha-indicator';
-    $block->title = t('Responsive grid indicator block for @name', array('@name' => $grid['name']));
-    $block->cache = DRUPAL_NO_CACHE;
-
-    $list['alpha-grid-indicator'] = $block;
-  }
-  
-  if ($settings['debug']['block'] && $settings['debug']['access']) {
+  if ($debug['block'] && $debug['access']) {
     foreach ($regions as $region => $item) {
       if ($item['enabled'] && $zones[$item['zone']]['enabled']) {
         $block = new stdClass();
@@ -86,7 +74,7 @@ function alpha_block_list_alter(&$list) {
  * Implements hook_block_view_alter().
  */
 function alpha_block_view_alter(&$data, $block) {
-  if (in_array($block->module, array('alpha-debug', 'alpha-indicator'))) {
+  if ($block->module == array('alpha-debug')) {
     $data['content'] = array(
       '#weight' => -999,
       '#markup' => t('This is a debugging block.'),
@@ -173,7 +161,7 @@ function alpha_theme_registry_alter(&$registry) {
  */
 function alpha_css_alter(&$css) {
   $settings = alpha_settings($GLOBALS['theme_key']);
-  
+
   if (!empty($settings['exclude'])) {
     foreach(array_keys(array_filter($settings['exclude'])) as $item) {
       unset($css[$item]);
@@ -247,4 +235,11 @@ function template_preprocess_zone(&$vars) {
  */
 function template_process_zone(&$vars) {
   $vars['wrapper_attributes'] = isset($vars['wrapper_attributes_array']) ? drupal_attributes($vars['wrapper_attributes_array']) : '';
+}
+
+/**
+ * Implements hook_delta_settings_exclude_alter()
+ */
+function alpha_delta_settings_exclude(&$settings) {
+  return array('alpha_debug_block_toggle', 'alpha_debug_grid_toggle', 'alpha_debug_grid_roles');
 }

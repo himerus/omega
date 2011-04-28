@@ -717,6 +717,22 @@ function alpha_info($key, $item) {
 }
 
 /**
+ * @todo
+ */
+function alpha_debug_settings($key) {
+  $settings = array(
+    'block' => alpha_theme_get_setting('alpha_debug_block_toggle', $key, FALSE),
+    'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', $key, FALSE),
+    'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key),
+  );
+  
+  $settings['roles'] = is_array($settings['roles']) ? $settings['roles'] : array();
+  $settings['access'] = alpha_debug_access($GLOBALS['user'], $settings['roles']);
+  
+  return $settings;
+}
+
+/**
  * A helper function to gather all non-region and non-zone settings for the
  * theme defined by $key.
  * 
@@ -766,8 +782,6 @@ function alpha_settings($key) {
         'roles' => alpha_theme_get_setting('alpha_debug_grid_roles', $key),
       ),
     );
-    
-    $settings[$key]['debug']['access'] = alpha_debug_access($GLOBALS['user'], $settings[$key]['debug']['roles']);
 
     foreach (alpha_toggle() as $item => $title) {
       $settings[$key]['toggle'][$item] = alpha_theme_get_setting('alpha_toggle_' . $item, $key, TRUE);
@@ -784,6 +798,8 @@ function alpha_settings($key) {
     $settings[$key]['debug']['roles'] = is_array($settings[$key]['debug']['roles']) ? $settings[$key]['debug']['roles'] : array();
     $settings[$key]['css'] = is_array($settings[$key]['css']) ? $settings[$key]['css'] : array();
   
+    $settings[$key]['debug']['access'] = alpha_debug_access($GLOBALS['user'], $settings[$key]['debug']['roles']);
+    
     alpha_alter('alpha_settings', $settings[$key], $key);
   }
   

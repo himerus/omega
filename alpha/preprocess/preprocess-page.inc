@@ -3,7 +3,7 @@
 /*
  * @todo
  */
-function alpha_alpha_preprocess_page(&$vars) { 
+function alpha_alpha_preprocess_page(&$vars) {
   $sections = alpha_sections();
   $zones = alpha_zones($GLOBALS['theme_key']);
   $settings = $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);
