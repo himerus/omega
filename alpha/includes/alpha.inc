@@ -194,11 +194,11 @@ function alpha_css_options($key, $responsive = FALSE) {
   if (!empty($items)) { 
     foreach ($items as $key => $info) {
       if ($responsive) {
-        $output[$key] = t('<strong>@name</strong> - @file: !description', array('@name' => $info['name'], '@file' => $info['file'], '!description' => $info['description']));
+        $output[$key] = '<strong>' . check_plain($info['name']) . '</strong> - ' . $info['file'] . '<div class="description">' . $info['description'] . '</div>';
       }
       else {
         $media = isset($info['options']['media']) ? $info['options']['media'] : 'all';
-        $output[$key] = t('<strong>@name</strong> (@media) - @file: !description', array('@name' => $info['name'], '@file' => $info['file'], '@media' => $media, '!description' => $info['description']));
+        $output[$key] = '<strong>' . check_plain($info['name']) . '</strong> (' . $media . ') - ' . $info['file'] . '<div class="description">' . $info['description'] . '</div>';
       }
     }
   }
@@ -268,7 +268,7 @@ function alpha_library_options($key) {
   $output = array();
   if (!empty($items)) {
     foreach ($items as $key => $info) {
-      $output[$key] = check_plain($info['name']);
+      $output[$key] = check_plain($info['name']) . '<div class="description">' . $info['description'] . '</div>';
     }
   }
   
