@@ -194,7 +194,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#collapsed' => FALSE,
     );
     
-  if (!module_exists('delta') || !delta_is_delta()) { 
+  if (!module_exists('delta') || !empty($GLOBALS['delta'])) { 
     $form['alpha_settings']['debug']['alpha_debug_block_toggle'] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable the debugging (placeholder) blocks for the selected roles.'),
