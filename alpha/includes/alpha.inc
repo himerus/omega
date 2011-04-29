@@ -226,10 +226,10 @@ function alpha_exclude_options($key) {
   $output = array(); 
   foreach ($items as $key => $info) {
     if ($info['type'] == 'exclude') {
-      $output[$key] = t('<strong>@file</strong> - Defined by @name: !description', array('@name' => $info['name'], '@file' => basename($key), '!description' => $info['description']));
+      $output[$key] = '<strong>' . basename($key) . '</strong> - ' . t('Defined by') . ' ' . $info['name'] . '<div class="description">' . $info['description'] . '</div>';
     }
     else {
-      $output[$key] = t('<strong>@file</strong> (@media) - Belongs to @name', array('@name' => $info['name'], '@file' => basename($key), '@media' => t($info['media'])));
+      $output[$key] = '<strong>' . basename($key) . '</strong> (' . $info['media'] . ') - ' . t('Belongs to') . ' ' . $info['name'] . '<div class="description">' . $info['description'] . '</div>';
     }
   }
   
