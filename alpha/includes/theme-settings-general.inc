@@ -9,6 +9,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $scales = alpha_scale_options(1, 10, 0.5);  
   $optional = alpha_css_options($theme);
   $responsive = alpha_css_options($theme, TRUE);
+  $libraries = alpha_library_options($theme);
   $exclude = alpha_exclude_options($theme);
   $toggle = alpha_toggle();
   
@@ -158,6 +159,23 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#description' => t('<p>Determine if a user can resize the screen. This is usually accomplished via multi-touch gestures on iOS and Android devices. If your mobile theme is very customized and presented with good typography and graphics for a reduced mobile size, it is recommended to leave this setting unchecked. If it is left unchecked, the min-scale and max-scale properties will be ignored.</p><p class="marker">HTC Android devices do NOT (currently) respect the viewport meta tag for <em>user-scalable</em>. It will render at the appropriate <em>initial-scale</em> set above, but a user can still zoom in/out.</p>'),
     '#default_value' => $settings['viewport']['user'],
   );
+
+  $form['alpha_settings']['libraries'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Toggle libraries'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  
+  if (!empty($libraries)) {    
+    $form['alpha_settings']['libraries']['alpha_libraries'] = array(
+      '#title' => t('Enable optional libraries'),
+      '#description' => t('You can choose from this list to enable optional libraries.'),
+      '#type' => 'checkboxes',
+      '#options' => $libraries,
+      '#default_value' => $settings['libraries'],
+    );
+  }  
   
   $form['alpha_settings']['styles'] = array(
     '#type' => 'fieldset',
@@ -165,7 +183,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
-    
+  
   if (!empty($optional)) {    
     $form['alpha_settings']['styles']['alpha_css'] = array(
       '#title' => t('Enable optional stylesheets'),
@@ -186,15 +204,18 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     );
   }
  
-    $form['alpha_settings']['debug'] = array(
-      '#type' => 'fieldset',
-      '#weight' => -6,
-      '#title' => t('Debugging'),
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
-    );
-    
-  if (!module_exists('delta') || !empty($GLOBALS['delta'])) { 
+  $form['alpha_settings']['debug'] = array(
+    '#type' => 'fieldset',
+    '#weight' => -6,
+    '#title' => t('Debugging'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  if (module_exists('delta') && !empty($GLOBALS['delta'])) {
+    $form['alpha_settings']['debug']['#description'] = t('<div class="messages warning">The debugging features are only available in the <a href="@link">actual theme settings</a> and are global.</div>', array('@link' => url('admin/appearance/settings/' . $theme)));
+  }
+  else {
     $form['alpha_settings']['debug']['alpha_debug_block_toggle'] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable the debugging (placeholder) blocks for the selected roles.'),
@@ -213,9 +234,6 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#default_value' => $settings['debug']['roles'],
       '#options' => array_map('check_plain', user_roles()),
     );
-  }
-  else {
-    $form['alpha_settings']['debug']['#description'] = '<div class="messages warning">The debugging features are only available in the actual theme settings.</div>';
   }
 
   foreach (array('theme_settings', 'logo', 'favicon') as $element) {

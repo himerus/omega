@@ -20,11 +20,4 @@ function omega_alpha_preprocess_html(&$vars) {
     $vars['rdf']->namespaces = '';
     $vars['rdf']->profile = '';
   }
-  
-  if ($settings['omega']['formalize']) {
-    $path = drupal_get_path('theme', 'omega');
-
-    drupal_add_css($path . '/css/formalize.css', array('weight' => -50));
-    drupal_add_js($path . '/includes/jquery.formalize.js');
-  }
 }

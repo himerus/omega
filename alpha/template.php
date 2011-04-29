@@ -98,17 +98,17 @@ function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
     if (!empty($GLOBALS['delta']) && module_exists('delta_ui')) {
       $links['edit-delta'] = array(
         'title' => t('Edit Delta template'),
-        'href' => 'admin/appearance/delta/layouts/edit/' . $GLOBALS['delta'],
+        'href' => 'admin/appearance/delta/layouts/edit/' . $GLOBALS['delta']->machine_name,
         'localized_options' => array(),
       );
       
       $links['configure-delta'] = array(
         'title' => t('Configure Delta template'),
-        'href' => 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta'],
+        'href' => 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta']->machine_name,
         'localized_options' => array(),
       );
       
-      $path = 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta'];
+      $path = 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta']->machine_name;
     }
     else {
       $links['theme-settings'] = array(
@@ -154,6 +154,8 @@ function alpha_process(&$vars, $hook) {
 function alpha_theme_registry_alter(&$registry) {
   alpha_build_registry($GLOBALS['theme_key'], $registry);
   alpha_register_grids($GLOBALS['theme_key']);
+  alpha_register_css($GLOBALS['theme_key']);
+  alpha_register_libraries($GLOBALS['theme_key']);
 }
 
 /**

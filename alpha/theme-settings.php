@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/includes/alpha.inc';
  * Implements hook_form_system_theme_settings_alter()
  */
 function alpha_form_system_theme_settings_alter(&$form, &$form_state) {  
-  drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/theme-settings.css', array('group' => CSS_THEME, 'weight' => 100));
+  drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-theme-settings.css', array('group' => CSS_THEME, 'weight' => 100));
   
   $theme = $form_state['build_info']['args'][0];
   

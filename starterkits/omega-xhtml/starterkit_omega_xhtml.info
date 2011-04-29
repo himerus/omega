@@ -53,25 +53,24 @@ zones[footer] = Footer
 ; OPTIONAL STYLESHEETS
 
 css[mobile][name] = Mobile Styles
-css[mobile][media] = all
-css[mobile][file] = mobile.css
-css[mobile][weight] = -89
 css[mobile][description] = Your custom CSS for the mobile version of your website (mobile first).
+css[mobile][options][weight] = -89
 
 css[narrow][name] = Narrow Grid Styles
-css[narrow][media] = responsive
-css[narrow][file] = narrow.css
 css[narrow][description] = Your custom CSS that compliments the narrow (720) grid.
+css[narrow][options][media] = responsive
 
 css[normal][name] = Normal Grid Styles
-css[normal][media] = responsive
-css[normal][file] = normal.css
 css[normal][description] = Your custom CSS that compliments the normal (960) grid.
+css[normal][options][media] = responsive
 
 css[wide][name] = Wide Grid Styles
-css[wide][media] = responsive
-css[wide][file] = wide.css
 css[wide][description] = Your custom CSS that compliments the wide (1200) grid.
+css[wide][options][media] = responsive
+
+css[styles][name] = Main Styles
+css[styles][description] = Your main custom CSS file.
+css[styles][options][weight] = 10
 
 ; THEME SETTINGS (DEFAULTS)
 
