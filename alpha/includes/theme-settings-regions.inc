@@ -6,7 +6,7 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
   $regions = $form_state['alpha_regions'];
   $containers = $form_state['alpha_containers'];
   $options = alpha_zone_options($theme);
-  $columns = $spacing = !empty($containers) ? alpha_column_options(max(array_keys($containers))) : array();  
+  $columns = $spacing = alpha_column_options(max(array_keys($containers)));  
   $sections = alpha_sections();
   
   unset($columns[0]);

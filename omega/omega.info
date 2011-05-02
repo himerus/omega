@@ -54,29 +54,34 @@ zones[footer] = Footer
 ; OPTIONAL STYLESHEETS
 
 css[omega_text][name] = Text Styles
-css[omega_text][media] = all
-css[omega_text][file] = text.css
 css[omega_text][description] = Default text styles for Omega.
+css[omega_text][options][weight] = -10
 
 css[omega_branding][name] = Branding Styles
-css[omega_branding][media] = all
-css[omega_branding][file] = branding.css
 css[omega_branding][description] = Provides positioning for the logo, title and slogan.
+css[omega_branding][options][weight] = -10
 
 css[omega_menu][name] = Menu Styles
-css[omega_menu][media] = all
-css[omega_menu][file] = menu.css
 css[omega_menu][description] = Provides positoning and basic CSS for primary and secondary menus.
+css[omega_menu][options][weight] = -10
 
 css[omega_forms][name] = Form Styles
-css[omega_forms][media] = all
-css[omega_forms][file] = forms.css
 css[omega_forms][description] = Provides basic form styles.
+css[omega_forms][options][weight] = -10
 
 css[omega_visuals][name] = Omega Styles
-css[omega_visuals][media] = all
-css[omega_visuals][file] = visuals.css
 css[omega_visuals][description] = Custom visual styles for Omega. (pagers, menus, etc.)
+css[omega_visuals][options][weight] = -10
+
+; OPTIONAL LIBRARIES
+
+libraries[omega_formalize][name] = Formalize
+libraries[omega_formalize][description] = Formalize is a framework by <a href="http://formalize.me/" title="Formalize">Nathan Smith</a> for neat looking cross-browser forms with extended functionality.
+
+libraries[omega_formalize][js][0][file] = jquery.formalize.js
+libraries[omega_formalize][js][0][options][weight] = -20
+libraries[omega_formalize][css][0][file] = formalize.css
+libraries[omega_formalize][css][0][options][weight] = -20
 
 ; THEME SETTINGS (DEFAULTS)
 

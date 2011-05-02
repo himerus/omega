@@ -30,22 +30,26 @@ zones[footer] = Footer
 ; OPTIONAL STYLESHEETS
 
 css[alpha_reset][name] = Reset
-css[alpha_reset][media] = all
-css[alpha_reset][file] = reset.css
-css[alpha_reset][weight] = -100
 css[alpha_reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
+css[alpha_reset][options][weight] = -100
 
 css[alpha_mobile][name] = Mobile
-css[alpha_mobile][media] = all
-css[alpha_mobile][file] = mobile.css
-css[alpha_mobile][weight] = -90
 css[alpha_mobile][description] = Default stylesheet for mobile styles.
+css[alpha_mobile][options][weight] = -90
 
 css[alpha_alpha][name] = Alpha
-css[alpha_alpha][media] = all
-css[alpha_alpha][file] = alpha.css
-css[alpha_alpha][weight] = -80
 css[alpha_alpha][description] = Default styles & resets for Alpha/Omega base theme.
+css[alpha_alpha][options][weight] = -80
+
+; OPTIONAL LIBRARIES
+
+libraries[alpha_microsoft][name] = Internet Explorer support
+libraries[alpha_microsoft][description] = Adds support for @media queries for older versions Internet Explorer.
+
+libraries[alpha_microsoft][js][0][file] = responsive-ie.js
+libraries[alpha_microsoft][js][0][options][weight] = -50
+libraries[alpha_microsoft][css][0][file] = responsive-ie.css
+libraries[alpha_microsoft][css][0][options][weight] = -50
 
 ; STYLESHEETS FOR EXCLUSION
 

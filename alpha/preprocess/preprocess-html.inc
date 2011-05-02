@@ -9,7 +9,8 @@ function alpha_alpha_preprocess_html(&$vars) {
   $settings = alpha_settings($GLOBALS['theme_key']);
   $css = alpha_css($GLOBALS['theme_key']);
   $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
-
+  $libraries = alpha_libraries($GLOBALS['theme_key']);
+  
   if ($settings['responsive']['enabled'] && $settings['debug']['grid'] && $grid['type'] == 'fixed' && $settings['debug']['access']) {
     $block = new stdClass();
     $block->delta = 'grid-indicator';
@@ -27,23 +28,31 @@ function alpha_alpha_preprocess_html(&$vars) {
     
     $vars['page']['page_bottom']['alpha-grid-indicator'] = $block;
   }
+  
+  foreach (array_keys(array_filter($settings['libraries'])) as $item) {
+    if (isset($libraries[$item])) {
+      if (!empty($libraries[$item]['js'])) {
+        foreach ($libraries[$item]['js'] as $include) {
+          drupal_add_js($include['path'], $include['options']);
+        }
+      }
 
+      if (!empty($libraries[$item]['css'])) {
+        foreach ($libraries[$item]['css'] as $include) {
+          drupal_add_css($include['path'], $include['options']);
+        }
+      }
+    }
+  }
+  
   foreach (array_keys(array_filter($settings['css'])) as $item) {
     if (isset($css[$item])) {
-      $options['media'] = $css[$item]['media'];
-      $options['weight'] = $css[$item]['weight'];
-      
-      $options['browsers'] = empty($css[$item]['condition']) ? array() : array(
-        'IE' => $css[$item]['condition'],
-        '!IE' => FALSE,
-      );
-      
-      drupal_add_css($css[$item]['path'], $options);
+      drupal_add_css($css[$item]['path'], $css[$item]['options']);
     }
   }
   
   if(($settings['debug']['grid'] || $settings['debug']['block']) && $settings['debug']['access']) {
-    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/debug.css', array('weight' => -5));
+    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('weight' => -5));
 
     if ($settings['debug']['grid']) {
       $vars['attributes_array']['class'][] = 'alpha-grid-debug';
