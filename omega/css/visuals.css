@@ -106,7 +106,8 @@
 /* Add default border radius to list items & links */
 .pager {
   background:#DDD;
-  border:1px solid #CCC;
+  border:1px solid;
+  border-color: #ddd #bbb #999;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
