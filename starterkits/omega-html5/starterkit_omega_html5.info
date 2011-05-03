@@ -52,25 +52,25 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
-css[mobile][name] = Mobile Styles
-css[mobile][description] = Your custom CSS for the mobile version of your website (mobile first).
-css[mobile][options][weight] = -89
+css[mobile.css][name] = Mobile Styles
+css[mobile.css][description] = Your custom CSS for the mobile version of your website (mobile first).
+css[mobile.css][options][weight] = -89
 
-css[narrow][name] = Narrow Grid Styles
-css[narrow][description] = Your custom CSS that compliments the narrow (720) grid.
-css[narrow][options][media] = responsive
+css[narrow.css][name] = Narrow Grid Styles
+css[narrow.css][description] = Your custom CSS that compliments the narrow (720) grid.
+css[narrow.css][options][media] = responsive
 
-css[normal][name] = Normal Grid Styles
-css[normal][description] = Your custom CSS that compliments the normal (960) grid.
-css[normal][options][media] = responsive
+css[normal.css][name] = Normal Grid Styles
+css[normal.css][description] = Your custom CSS that compliments the normal (960) grid.
+css[normal.css][options][media] = responsive
 
-css[wide][name] = Wide Grid Styles
-css[wide][description] = Your custom CSS that compliments the wide (1200) grid.
-css[wide][options][media] = responsive
+css[wide.css][name] = Wide Grid Styles
+css[wide.css][description] = Your custom CSS that compliments the wide (1200) grid.
+css[wide.css][options][media] = responsive
 
-css[styles][name] = Main Styles
-css[styles][description] = Your main custom CSS file.
-css[styles][options][weight] = 10
+css[styles.css][name] = Main Styles
+css[styles.css][description] = Your main custom CSS file.
+css[styles.css][options][weight] = 10
 
 ; THEME SETTINGS (DEFAULTS)
 
@@ -88,25 +88,25 @@ settings[alpha_responsive_normal_css][narrow] = '0'
 settings[alpha_responsive_normal_css][wide] = '0'
 settings[alpha_responsive_wide] = '1'
 settings[alpha_responsive_wide_media] = 'all and (min-width: 1220px)'
-settings[alpha_responsive_wide_css][wide] = 'wide'
-settings[alpha_responsive_wide_css][narrow] = '0'
-settings[alpha_responsive_wide_css][normal] = '0'
+settings[alpha_responsive_wide_css][wide.css] = 'wide.css'
+settings[alpha_responsive_narrow_css][narrow.css] = 'narrow.css'
+settings[alpha_responsive_normal_css][normal.css] = 'normal.css'
 settings[alpha_viewport] = '1'
 settings[alpha_viewport_initial_scale] = '1'
 settings[alpha_viewport_min_scale] = '1'
 settings[alpha_viewport_max_scale] = '1'
 settings[alpha_viewport_user_scaleable] = ''
 settings[alpha_libraries][omega_formalize] = 'omega_formalize'
-settings[alpha_css][alpha_reset] = 'alpha_reset'
-settings[alpha_css][alpha_mobile] = 'alpha_mobile'
-settings[alpha_css][alpha_alpha] = 'alpha_alpha'
-settings[alpha_css][omega_text] = 'omega_text'
-settings[alpha_css][omega_branding] = 'omega_branding'
-settings[alpha_css][omega_menu] = 'omega_menu'
-settings[alpha_css][omega_forms] = 'omega_forms'
-settings[alpha_css][omega_visuals] = 'omega_visuals'
-settings[alpha_css][mobile] = 'mobile'
-settings[alpha_css][styles] = 'styles'
+settings[alpha_css][alpha-reset.css] = 'alpha-reset.css'
+settings[alpha_css][alpha-mobile.css] = 'alpha-mobile.css'
+settings[alpha_css][alpha-alpha.css] = 'alpha-alpha.css'
+settings[alpha_css][omega-text.css] = 'omega-text.css'
+settings[alpha_css][omega-branding.css] = 'omega-branding.css'
+settings[alpha_css][omega-menu.css] = 'omega-menu.css'
+settings[alpha_css][omega-forms.css] = 'omega-forms.css'
+settings[alpha_css][omega-visuals.css] = 'omega-visuals.css'
+settings[alpha_css][mobile.css] = 'mobile.css'
+settings[alpha_css][styles.css] = 'styles.css'
 settings[alpha_exclude][modules/comment/comment.css] = 'modules/comment/comment.css'
 settings[alpha_exclude][modules/field/theme/field.css] = 'modules/field/theme/field.css'
 settings[alpha_exclude][modules/node/node.css] = 'modules/node/node.css'

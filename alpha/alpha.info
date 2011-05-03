@@ -29,17 +29,17 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
-css[alpha_reset][name] = Reset
-css[alpha_reset][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
-css[alpha_reset][options][weight] = -100
+css[alpha-reset.css][name] = Reset
+css[alpha-reset.css][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
+css[alpha-reset.css][options][weight] = -100
 
-css[alpha_mobile][name] = Mobile
-css[alpha_mobile][description] = Default stylesheet for mobile styles.
-css[alpha_mobile][options][weight] = -90
+css[alpha-mobile.css][name] = Mobile
+css[alpha-mobile.css][description] = Default stylesheet for mobile styles.
+css[alpha-mobile.css][options][weight] = -90
 
-css[alpha_alpha][name] = Alpha
-css[alpha_alpha][description] = Default styles & resets for Alpha/Omega base theme.
-css[alpha_alpha][options][weight] = -80
+css[alpha-alpha.css][name] = Alpha
+css[alpha-alpha.css][description] = Default styles & resets for Alpha/Omega base theme.
+css[alpha-alpha.css][options][weight] = -80
 
 ; OPTIONAL LIBRARIES
 
@@ -99,9 +99,9 @@ settings[alpha_viewport_initial_scale] = '1'
 settings[alpha_viewport_min_scale] = '1'
 settings[alpha_viewport_max_scale] = '1'
 settings[alpha_viewport_user_scaleable] = ''
-settings[alpha_css][reset] = 'alpha_reset'
-settings[alpha_css][alpha] = 'alpha_alpha'
-settings[alpha_css][mobile] = 'alpha_mobile'
+settings[alpha_css][alpha-reset.css] = 'alpha-reset.css'
+settings[alpha_css][alpha-alpha.css] = 'alpha-alpha.css'
+settings[alpha_css][alpha-mobile.css] = 'alpha-mobile.css'
 settings[alpha_exclude][modules/comment/comment.css] = 'modules/comment/comment.css'
 settings[alpha_exclude][modules/field/theme/field.css] = 'modules/field/theme/field.css'
 settings[alpha_exclude][modules/node/node.css] = 'modules/node/node.css'

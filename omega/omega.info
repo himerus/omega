@@ -53,25 +53,25 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
-css[omega_text][name] = Text Styles
-css[omega_text][description] = Default text styles for Omega.
-css[omega_text][options][weight] = -10
+css[omega-text.css][name] = Text Styles
+css[omega-text.css][description] = Default text styles for Omega.
+css[omega-text.css][options][weight] = -10
 
-css[omega_branding][name] = Branding Styles
-css[omega_branding][description] = Provides positioning for the logo, title and slogan.
-css[omega_branding][options][weight] = -10
+css[omega-branding.css][name] = Branding Styles
+css[omega-branding.css][description] = Provides positioning for the logo, title and slogan.
+css[omega-branding.css][options][weight] = -10
 
-css[omega_menu][name] = Menu Styles
-css[omega_menu][description] = Provides positoning and basic CSS for primary and secondary menus.
-css[omega_menu][options][weight] = -10
+css[omega-menu.css][name] = Menu Styles
+css[omega-menu.css][description] = Provides positoning and basic CSS for primary and secondary menus.
+css[omega-menu.css][options][weight] = -10
 
-css[omega_forms][name] = Form Styles
-css[omega_forms][description] = Provides basic form styles.
-css[omega_forms][options][weight] = -10
+css[omega-forms.css][name] = Form Styles
+css[omega-forms.css][description] = Provides basic form styles.
+css[omega-forms.css][options][weight] = -10
 
-css[omega_visuals][name] = Omega Styles
-css[omega_visuals][description] = Custom visual styles for Omega. (pagers, menus, etc.)
-css[omega_visuals][options][weight] = -10
+css[omega-visuals.css][name] = Omega Styles
+css[omega-visuals.css][description] = Custom visual styles for Omega. (pagers, menus, etc.)
+css[omega-visuals.css][options][weight] = -10
 
 ; OPTIONAL LIBRARIES
 
@@ -93,20 +93,23 @@ settings[alpha_responsive_normal] = '1'
 settings[alpha_responsive_normal_media] = 'all and (min-width: 980px) and (min-device-width: 980px), (max-device-width: 1024px) and (min-width: 1024px) and (orientation:landscape)'
 settings[alpha_responsive_wide] = '1'
 settings[alpha_responsive_wide_media] = 'all and (min-width: 1220px)'
+settings[alpha_responsive_wide_css][wide.css] = 'wide.css'
+settings[alpha_responsive_narrow_css][narrow.css] = 'narrow.css'
+settings[alpha_responsive_normal_css][normal.css] = 'normal.css'
 settings[alpha_viewport] = '1'
 settings[alpha_viewport_initial_scale] = '1'
 settings[alpha_viewport_min_scale] = '1'
 settings[alpha_viewport_max_scale] = '1'
 settings[alpha_viewport_user_scaleable] = ''
 settings[alpha_libraries][omega_formalize] = 'omega_formalize'
-settings[alpha_css][alpha_reset] = 'alpha_reset'
-settings[alpha_css][alpha_mobile] = 'alpha_mobile'
-settings[alpha_css][alpha_alpha] = 'alpha_alpha'
-settings[alpha_css][omega_text] = 'omega_text'
-settings[alpha_css][omega_branding] = 'omega_branding'
-settings[alpha_css][omega_menu] = 'omega_menu'
-settings[alpha_css][omega_forms] = 'omega_forms'
-settings[alpha_css][omega_visuals] = 'omega_visuals'
+settings[alpha_css][alpha-reset.css] = 'alpha-reset.css'
+settings[alpha_css][alpha-mobile.css] = 'alpha-mobile.css'
+settings[alpha_css][alpha-alpha.css] = 'alpha-alpha.css'
+settings[alpha_css][omega-text.css] = 'omega-text.css'
+settings[alpha_css][omega-branding.css] = 'omega-branding.css'
+settings[alpha_css][omega-menu.css] = 'omega-menu.css'
+settings[alpha_css][omega-forms.css] = 'omega-forms.css'
+settings[alpha_css][omega-visuals.css] = 'omega-visuals.css'
 settings[alpha_exclude][modules/comment/comment.css] = 'modules/comment/comment.css'
 settings[alpha_exclude][modules/field/theme/field.css] = 'modules/field/theme/field.css'
 settings[alpha_exclude][modules/node/node.css] = 'modules/node/node.css'

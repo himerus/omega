@@ -157,6 +157,7 @@ function alpha_css_alter(&$css) {
       unset($css[$item]);
     }
   }
+
   // This is the media query fix for Internet Explorer
   // Only need special processing if the responsive grid is enabled.
   if ($settings['responsive']['enabled']) {

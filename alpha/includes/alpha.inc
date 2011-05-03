@@ -397,10 +397,9 @@ function alpha_register_css($key) {
   $cache = array();  
 
   foreach (alpha_info($key, 'css') as $theme => $data) {
-    foreach ($data as $name => $info) {
+    foreach ($data as $file => $info) {
       $responsive = isset($info['options']['media']) && $info['options']['media'] == 'responsive';
-      $file = str_replace('_', '-', $name) . '.css';
-      
+
       if ($responsive) {
         unset($info['options']['media']);
         unset($info['options']['weight']);
@@ -410,11 +409,11 @@ function alpha_register_css($key) {
         $info['options']['weight'] = $weight >= 0 ? $weight : $weight - 3;
       }
       
-      $cache[$key][$responsive][$name] = array(
+      $cache[$key][$responsive][$file] = array(
         'name' => $info['name'],
         'description' => isset($info['description']) ? $info['description'] : '',
-        'file' => $file,            
-        'path' => drupal_get_path('theme', $theme) . '/css/' . $file,
+        'file' => $file,
+        'path' => drupal_get_path('theme', $theme) . '/' . (isset($info['path']) ? $info['path'] : 'css') . '/' . $file,
         'options' => isset($info['options']) ? $info['options'] : array(),
       );
     }
@@ -464,11 +463,9 @@ function alpha_register_libraries($key) {
       
       foreach (array('css', 'js') as $type) {
         if (!empty($info[$type])) {
-          foreach ($info[$type] as $item) {
-            $file = str_replace('_', '-', $item['file']);
-            
+          foreach ($info[$type] as $item) {            
             $cache[$key][$name][$type][] = array(
-              'path' => drupal_get_path('theme', $theme) . '/' . $type . '/' . $file,
+              'path' => drupal_get_path('theme', $theme) . '/' . (isset($item['path']) ? $item['path'] : $type) . '/' . $item['file'],
           	  'options' => isset($item['options']) ? $item['options'] : array(),
             );
           }
