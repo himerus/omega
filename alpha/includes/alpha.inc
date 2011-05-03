@@ -514,7 +514,7 @@ function alpha_include_grid($name, $columns) {
       
       // If the grid is a fluid grid we just include the corresponding column count layout.
       if ($grid['type'] == 'fluid') {
-        drupal_add_css($path . '/' . $name . '-grid' . $direction . '.css');
+        drupal_add_css($path . '/' . $name . '-grid.css');
         drupal_add_css($path . '/columns/' . $name . '-' . $columns . '.css');
       }
       // If the grid is a fixed grid we need to determine wether we are in a responsive grid  environment
@@ -522,7 +522,7 @@ function alpha_include_grid($name, $columns) {
       else {
         // Un-responsive grid environments don't only require the "normal" grid layout.
         if (!$settings['responsive']['enabled']) {
-          drupal_add_css($path . '/normal/' . $name . '-normal-grid' . $direction . '.css', array('weight' => -1));
+          drupal_add_css($path . '/normal/' . $name . '-normal-grid.css', array('weight' => -1));
           drupal_add_css($path . '/normal/' . $name . '-normal-' . $columns . '.css', array('weight' => -1));
         }
         else {
@@ -535,7 +535,7 @@ function alpha_include_grid($name, $columns) {
               $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
               $options = array('media' => $media, 'weight' => $weight);
               
-              drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-grid' . $direction . '.css', $options);
+              drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-grid.css', $options);
               drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-' . $columns . '.css', $options);
               
               // Add all enabled optional stylesheets for this responsive layout via drupal_add_css().
@@ -1156,32 +1156,34 @@ function alpha_visibility() {
  * IEMobile should be skipped.
  */
 function alpha_ie_grid_shiv() {
-  global $base_url, $base_path;
   $settings = alpha_settings($GLOBALS['theme_key']);
   $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
   $columns = $grid['columns'];
-  $direction = $GLOBALS['language']->direction == LANGUAGE_RTL ? '-rtl' : '';
   $name = str_replace('_', '-', $settings['grid']);
-  $path = $base_url . '/' . $grid['path'];
-  
-  $content = '<style media="all" type="text/css">'. "\n";
-  if ($grid['type'] == 'fluid') {
-    $content .= '@import url("' . $path . '/' . $name . '-grid' . $direction . '.css");'. "\n";
-    $content .= '@import url("' . $path . '/columns/' . $name . '-' . $col . '.css");'. "\n";
-  }
-  else {
-  
-    $content .= '@import url("' . $path . '/normal/' . $name . '-normal-grid' . $direction . '.css");'. "\n";
+  $path = $grid['path'];
+  //krumo($settings);
+  // only need special processing if the responsive grid is enabled.
+  if ($settings['responsive']['enabled']) {
+    drupal_add_css($path . '/normal/' . $name . '-normal-grid.css', array(
+      'browsers' => array(
+        'IE' => '(lt IE 9)&(!IEMobile)',
+        '!IE' => FALSE,
+      ),
+      'basename' => $name . '-normal-grid.ie.css',
+      'weight' => 50,
+    ));
     foreach($columns as $col => $path) {
       // Attempt to push back in normal for IE < 9 (which all don't support media queries)
       // this is a must have or all IE browsers < 9 will be given the mobile version
       // instead, we'll just revert to giving them the default 960gs
-      $content .= '@import url("' . $base_url . '/' . $path . '/normal/' . $name . '-normal-' . $col . '.css");'. "\n";
+      drupal_add_css($path . '/normal/' . $name . '-normal-' . $col . '.css', array(
+        'browsers' => array(
+          'IE' => '(lt IE 9)&(!IEMobile)',
+          '!IE' => FALSE,
+        ),
+        'basename' => $name . '-normal-' . $col . '.ie.css',
+        'weight' => 50,
+      ));
     }
-    
   }
-  
-  
-  $content .= '</style>';
-  return $content;
 }
