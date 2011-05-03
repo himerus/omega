@@ -510,8 +510,7 @@ function alpha_include_grid($name, $columns) {
     // Only go further if the grid and the desired column count actually exist.
     if (!empty($grid) && isset($grid['columns'][$columns])) {
       $path = $grid['columns'][$columns];
-      $direction = $GLOBALS['language']->direction == LANGUAGE_RTL ? '-rtl' : '';
-      
+
       // If the grid is a fluid grid we just include the corresponding column count layout.
       if ($grid['type'] == 'fluid') {
         drupal_add_css($path . '/' . $name . '-grid.css');
