@@ -6,6 +6,9 @@
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
   <?php print $scripts; ?>
+  <!--[if (lt IE 9)&(!IEMobile)]> 
+  <!-- Load the default grid size for all versions of IE less than 9, but don't load anything if it's IE Mobile. -->
+  <![endif]-->
 </head>
 <body<?php print $attributes;?>>
   <div id="skip-link">

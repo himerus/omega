@@ -1149,3 +1149,39 @@ function alpha_visibility() {
   	'site_slogan' => t('Site slogan'), 
   );
 }
+
+/**
+ * This function will, when needed, insert the default grid (normal) for 
+ * Internet Explorer browsers LT 9 (which don't support media queries) 
+ * IEMobile should be skipped.
+ */
+function alpha_ie_grid_shiv() {
+  global $base_url, $base_path;
+  $settings = alpha_settings($GLOBALS['theme_key']);
+  $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
+  $columns = $grid['columns'];
+  $direction = $GLOBALS['language']->direction == LANGUAGE_RTL ? '-rtl' : '';
+  $name = str_replace('_', '-', $settings['grid']);
+  $path = $base_url . '/' . $grid['path'];
+  
+  $content = '<style media="all" type="text/css">'. "\n";
+  if ($grid['type'] == 'fluid') {
+    $content .= '@import url("' . $path . '/' . $name . '-grid' . $direction . '.css");'. "\n";
+    $content .= '@import url("' . $path . '/columns/' . $name . '-' . $col . '.css");'. "\n";
+  }
+  else {
+  
+    $content .= '@import url("' . $path . '/normal/' . $name . '-normal-grid' . $direction . '.css");'. "\n";
+    foreach($columns as $col => $path) {
+      // Attempt to push back in normal for IE < 9 (which all don't support media queries)
+      // this is a must have or all IE browsers < 9 will be given the mobile version
+      // instead, we'll just revert to giving them the default 960gs
+      $content .= '@import url("' . $base_url . '/' . $path . '/normal/' . $name . '-normal-' . $col . '.css");'. "\n";
+    }
+    
+  }
+  
+  
+  $content .= '</style>';
+  return $content;
+}

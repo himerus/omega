@@ -73,5 +73,7 @@ function alpha_alpha_preprocess_html(&$vars) {
     );
 
     drupal_add_html_head($meta, 'alpha-viewport');
-  } 
+  }
+  // IE fix
+  $vars['alpha_ie_grid_shiv'] = alpha_ie_grid_shiv();
 }
