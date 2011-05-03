@@ -169,50 +169,31 @@ function alpha_css_alter(&$css) {
       unset($css[$item]);
     }
   }
-  // IE fix
-  // only need special processing if the responsive grid is enabled.
+  // This is the media query fix for Internet Explorer
+  // Only need special processing if the responsive grid is enabled.
   if ($settings['responsive']['enabled']) {
     $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
-    $columns = $grid['columns'];
     $name = str_replace('_', '-', $settings['grid']);
-    $path = $grid['path'];
-    $css['ie-normal-grid-defaults'] = array(
-      'browsers' => array(
-        'IE' => '(lt IE 9)&(!IEMobile)',
-        '!IE' => FALSE,
-      ),
-      'weight' => 50,
-      'basename' => 'ie-normal-grid-defaults',
-      'group' => 0,
-      'type' => 'file',
-      'every_page' => TRUE,
-      'media' => 'all',
-      'preprocess' => FALSE,
-      'data' => $path . '/normal/' . $name . '-normal-grid.css',
-    );
-    
-    foreach($columns as $col => $path) {
+   
+    $css['ie-normal-grid-defaults'] = $css[$grid['path'] . '/normal/' . $name . '-normal-grid.css'];
+    $css['ie-normal-grid-defaults']['media'] = 'all';
+    $css['ie-normal-grid-defaults']['basename'] = 'ie-normal-grid-defaults';
+    $css['ie-normal-grid-defaults']['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+   
+    foreach($grid['columns'] as $columns => $path) {
+      $path = $path . '/normal/' . $name . '-normal-' . $columns . '.css';
       // Attempt to push back in normal for IE < 9 (which all don't support media queries)
       // this is a must have or all IE browsers < 9 will be given the mobile version
       // instead, we'll just revert to giving them the default 960gs
-      $css['ie-normal-grid-defaults-' . $col] = array(
-        'browsers' => array(
-          'IE' => '(lt IE 9)&(!IEMobile)',
-          '!IE' => FALSE,
-        ),
-        'weight' => 50,
-        'basename' => 'ie-normal-grid-defaults-' . $col,
-        'group' => 0,
-        'type' => 'file',
-        'every_page' => TRUE,
-        'media' => 'all',
-        'preprocess' => FALSE,
-        'data' => $path . '/normal/' . $name . '-normal-' . $col . '.css',
-      );
+      if (isset($css[$path])) {
+        $css['ie-normal-grid-defaults-' . $columns] = $css[$path];
+        $css['ie-normal-grid-defaults-' . $columns]['media'] = 'all';
+        $css['ie-normal-grid-defaults-' . $columns]['basename'] = 'ie-normal-grid-defaults-' . $columns;
+        $css['ie-normal-grid-defaults-' . $columns]['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+      }
     }
-  }
+  }  
 }
-
 /**
  * Implements hook_preprocess_section().
  */
