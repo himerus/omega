@@ -210,6 +210,13 @@ td ul.links {
 	*padding-top: 2px;
 	*padding-bottom: 0px;
 }
-.node-links ul li a:hover {
+.node-links ul li a:hover,
+.comment-links ul li a:hover {
   background: #FFF;
+}
+
+.tips,
+.description {
+  font-size: 10px;
+  color: #6a6a6a;
 }

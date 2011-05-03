@@ -1,3 +1,9 @@
 .form-actions input {
   margin-right: 0.5em;
 }
+.form-actions input:hover {
+  background: #FFFFFF;
+}
+label {
+  font-weight: bold;
+}
