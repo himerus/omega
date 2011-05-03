@@ -160,14 +160,15 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#default_value' => $settings['viewport']['user'],
   );
 
-  $form['alpha_settings']['libraries'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Toggle libraries'),
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-  );
+  
   
   if (!empty($libraries)) {    
+    $form['alpha_settings']['libraries'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Toggle libraries'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
     $form['alpha_settings']['libraries']['alpha_libraries'] = array(
       '#title' => t('Enable optional libraries'),
       '#description' => t('You can choose from this list to enable optional libraries.'),

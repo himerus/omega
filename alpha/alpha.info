@@ -43,14 +43,6 @@ css[alpha_alpha][options][weight] = -80
 
 ; OPTIONAL LIBRARIES
 
-libraries[alpha_microsoft][name] = Internet Explorer support
-libraries[alpha_microsoft][description] = Adds support for @media queries for older versions Internet Explorer.
-
-libraries[alpha_microsoft][js][0][file] = responsive-ie.js
-libraries[alpha_microsoft][js][0][options][weight] = -50
-libraries[alpha_microsoft][css][0][file] = responsive-ie.css
-libraries[alpha_microsoft][css][0][options][weight] = -50
-
 ; STYLESHEETS FOR EXCLUSION
 
 exclude[misc/vertical-tabs.css] = This requires a description.
