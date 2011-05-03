@@ -10,6 +10,10 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   
   $theme = $form_state['build_info']['args'][0];
   
+  alpha_register_grids($theme);
+  alpha_register_css($theme);
+  alpha_register_libraries($theme);
+  
   $form_state['alpha_settings'] = alpha_settings($theme);
   $form_state['alpha_zones'] = alpha_zones($theme);
   $form_state['alpha_regions'] = alpha_regions($theme);
