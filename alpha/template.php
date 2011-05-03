@@ -157,18 +157,16 @@ function alpha_css_alter(&$css) {
       unset($css[$item]);
     }
   }
-
   // This is the media query fix for Internet Explorer
   // Only need special processing if the responsive grid is enabled.
   if ($settings['responsive']['enabled']) {
     $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
     $name = str_replace('_', '-', $settings['grid']);
-   
     $css['ie-normal-grid-defaults'] = $css[$grid['path'] . '/normal/' . $name . '-normal-grid.css'];
     $css['ie-normal-grid-defaults']['media'] = 'all';
     $css['ie-normal-grid-defaults']['basename'] = 'ie-normal-grid-defaults';
     $css['ie-normal-grid-defaults']['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
-
+    
     foreach($grid['columns'] as $columns => $path) {
       $path = $path . '/normal/' . $name . '-normal-' . $columns . '.css';
       // Attempt to push back in normal for IE < 9 (which all don't support media queries)

@@ -11,7 +11,9 @@ ul.breadcrumb li {
   display: inline;
   margin-right: 1em;
 }
-
+.item-list li {
+  list-style: none;
+}
 ul.pager li {
   display: inline;
   margin-right: 0.25em;
