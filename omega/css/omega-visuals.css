@@ -58,11 +58,6 @@
 }
 
 /* Pagers Color */
-.item-list .pager {
-  background:#DDD;
-  border: 1px solid;
-  border-color: #ddd #bbb #999;
-}
 
 .pager li.pager-ellipsis,
 .pager li.pager-current,
@@ -105,7 +100,7 @@
 
 /* Add default border radius to list items & links */
 .pager {
-  background:#DDD;
+  background:#ebebeb;
   border:1px solid;
   border-color: #ddd #bbb #999;
   border-radius: 5px;
@@ -127,4 +122,94 @@
   border-radius: 0 5px 5px 0;
   -moz-border-radius: 0 5px 5px 0;
   -webkit-border-radius: 0 5px 5px 0;
+}
+
+table {
+  border: 1px solid #CCC;
+  width: 100%;
+}
+thead th, th {
+  background: #f7f7f7;
+  border-bottom: 1px solid #ccc;
+  color: #333;
+}
+td, th {
+  padding: 4px 8px;
+  vertical-align: middle;
+}
+th a, th a:link, th a:visited {
+  text-decoration: none;
+}
+th a {
+  display: block;
+}
+th a img {
+  margin: 0 0 0 5px;
+}
+th.active {
+  background: #DDD;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+}
+/* Odd & Even Styles */
+tr.even td {
+  background: #F1F5FA;
+}
+tr.odd td {
+  background: #fff;
+}
+td.active {
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+}
+tr.even td.active {
+  background: #e5e9ed;
+}
+tr.odd td.active {
+  background: #f2f2f2;
+}
+
+tr:hover td,
+tr.even:hover td.active,
+tr.odd:hover td.active {
+  background: #FFFEEE;
+}
+td ul.links {
+  margin-bottom: 0;
+}
+.node-links ul li a,
+.comment-links ul li a {
+  text-transform: lowercase;
+  display: block;
+  float: left;
+  text-decoration: none;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+	margin: 0 0.5em 0.5em 0;
+	vertical-align: middle;
+  -webkit-appearance: none;
+	-moz-border-radius: 11px;
+	-webkit-border-radius: 11px;
+	border-radius: 11px;
+	background: #ddd url(../i/button.png) repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
+	background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+	border: 1px solid;
+	border-color: #ddd #bbb #999;
+	cursor: pointer;
+	color: #333;
+	font: bold 12px/1.2 Arial, sans-serif;
+	outline: 0;
+	overflow: visible;
+	padding: 4px 10px 3px;
+	text-shadow: #fff 0 1px 1px;
+	width: auto;
+
+	/* IE7 */
+	*padding-top: 2px;
+	*padding-bottom: 0px;
+}
+.node-links ul li a:hover {
+  background: #FFF;
 }

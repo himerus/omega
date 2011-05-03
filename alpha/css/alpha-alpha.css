@@ -9,7 +9,7 @@ ul.tabs li,
 ul.breadcrumb li {
   list-style: none;
   display: inline;
-  margin-right: 1em;
+  margin-right: 0.5em;
 }
 .item-list li {
   list-style: none;

@@ -39,7 +39,7 @@
   <?php endif; ?>
 
   <?php if (!empty($content['links'])): ?>
-    <nav class="links clearfix"><?php print render($content['links']); ?></nav>
+    <nav class="links comment-links clearfix"><?php print render($content['links']); ?></nav>
   <?php endif; ?>
 
 </article>

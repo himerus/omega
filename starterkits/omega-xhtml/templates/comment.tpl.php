@@ -34,7 +34,7 @@
   <?php endif; ?>
 
   <?php if (!empty($content['links'])): ?>
-    <div class="links clearfix"><?php print render($content['links']); ?></div>
+    <div class="links comment-links clearfix"><?php print render($content['links']); ?></div>
   <?php endif; ?>
 
 </div>
