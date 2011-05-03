@@ -212,7 +212,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#collapsed' => FALSE,
   );
 
-  if (module_exists('delta') && !empty($GLOBALS['delta'])) {
+  if (module_exists('delta_ui') && arg(2) == 'delta') {
     $form['alpha_settings']['debug']['#description'] = t('<div class="messages warning">The debugging features are only available in the <a href="@link">actual theme settings</a> and are global.</div>', array('@link' => url('admin/appearance/settings/' . $theme)));
   }
   else {

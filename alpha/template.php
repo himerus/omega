@@ -119,18 +119,6 @@ function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
       
       $path = 'admin/appearance/settings/' . $GLOBALS['theme_key'];
     }
-   
-    $links['zone-configuration'] = array(
-      'title' => t('Zone configuration'),
-      'href' => $path,
-      'localized_options' => array('fragment' => drupal_html_class('edit-zone-' . $regions[$region]['zone'] . '-configuration')),
-    );
-
-    $links['region-configuration'] = array(
-      'title' => t('Region configuration'),
-      'href' => $path,
-      'localized_options' => array('fragment' => drupal_html_class('edit-region-' . $region . '-configuration')),
-    );
   }
 }
 
@@ -169,6 +157,7 @@ function alpha_css_alter(&$css) {
       unset($css[$item]);
     }
   }
+
   // This is the media query fix for Internet Explorer
   // Only need special processing if the responsive grid is enabled.
   if ($settings['responsive']['enabled']) {
@@ -179,7 +168,7 @@ function alpha_css_alter(&$css) {
     $css['ie-normal-grid-defaults']['media'] = 'all';
     $css['ie-normal-grid-defaults']['basename'] = 'ie-normal-grid-defaults';
     $css['ie-normal-grid-defaults']['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
-   
+
     foreach($grid['columns'] as $columns => $path) {
       $path = $path . '/normal/' . $name . '-normal-' . $columns . '.css';
       // Attempt to push back in normal for IE < 9 (which all don't support media queries)
