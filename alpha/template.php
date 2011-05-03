@@ -163,35 +163,38 @@ function alpha_css_alter(&$css) {
   if ($settings['responsive']['enabled']) {
     $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
     $name = str_replace('_', '-', $settings['grid']);
-
+    $key = $grid['path'] . '/normal/' . $name . '-normal-grid.css';
+    
     $responsive = alpha_css($GLOBALS['theme_key'], TRUE);
     
-    $css['ie-normal-grid-defaults'] = $css[$grid['path'] . '/normal/' . $name . '-normal-grid.css'];
-    $css['ie-normal-grid-defaults']['media'] = 'all';
-    $css['ie-normal-grid-defaults']['basename'] = 'ie-normal-grid-defaults';
-    $css['ie-normal-grid-defaults']['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
-    
-    foreach($grid['columns'] as $columns => $path) {
-      $path = $path . '/normal/' . $name . '-normal-' . $columns . '.css';
+    if (isset($css[$key])) {
+      $css['ie-normal-grid-defaults'] = $css[$key];
+      $css['ie-normal-grid-defaults']['media'] = 'all';
+      $css['ie-normal-grid-defaults']['basename'] = 'ie-normal-grid-defaults';
+      $css['ie-normal-grid-defaults']['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
       
-      // Attempt to push back in normal for IE < 9 (which all don't support media queries)
-      // this is a must have or all IE browsers < 9 will be given the mobile version
-      // instead, we'll just revert to giving them the default 960gs
-      if (isset($css[$path])) {
-        $css['ie-normal-grid-defaults-' . $columns] = $css[$path];
-        $css['ie-normal-grid-defaults-' . $columns]['media'] = 'all';
-        $css['ie-normal-grid-defaults-' . $columns]['basename'] = 'ie-normal-grid-defaults-' . $columns;
-        $css['ie-normal-grid-defaults-' . $columns]['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+      foreach($grid['columns'] as $columns => $path) {
+        $path = $path . '/normal/' . $name . '-normal-' . $columns . '.css';
+        
+        // Attempt to push back in normal for IE < 9 (which all don't support media queries)
+        // this is a must have or all IE browsers < 9 will be given the mobile version
+        // instead, we'll just revert to giving them the default 960gs
+        if (isset($css[$path])) {
+          $css['ie-normal-grid-defaults-' . $columns] = $css[$path];
+          $css['ie-normal-grid-defaults-' . $columns]['media'] = 'all';
+          $css['ie-normal-grid-defaults-' . $columns]['basename'] = 'ie-normal-grid-defaults-' . $columns;
+          $css['ie-normal-grid-defaults-' . $columns]['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+        }
       }
-    }
-    
-    // Add all enabled optional stylesheets for this responsive layout via drupal_add_css().
-    foreach (array_keys(array_filter($settings['responsive']['normal']['css'])) as $item) {            
-      if (isset($responsive[$item], $css[$responsive[$item]['path']])) {
-        $css['ie-normal-responsive-' . $css[$responsive[$item]['path']]] = $css[$responsive[$item]['path']];
-        $css['ie-normal-responsive-' . $css[$responsive[$item]['path']]]['media'] = 'all';
-        $css['ie-normal-responsive-' . $css[$responsive[$item]['path']]]['basename'] = 'ie-normal-responsive-' . $css[$responsive[$item]['path']];
-        $css['ie-normal-responsive-' . $css[$responsive[$item]['path']]]['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+      
+      // Add all enabled optional stylesheets for this responsive layout via drupal_add_css().
+      foreach (array_keys(array_filter($settings['responsive']['normal']['css'])) as $item) {            
+        if (isset($responsive[$item], $css[$responsive[$item]['path']])) {
+          $css['ie-normal-responsive-' . $css[$responsive[$item]['path']]] = $css[$responsive[$item]['path']];
+          $css['ie-normal-responsive-' . $css[$responsive[$item]['path']]]['media'] = 'all';
+          $css['ie-normal-responsive-' . $css[$responsive[$item]['path']]]['basename'] = 'ie-normal-responsive-' . $css[$responsive[$item]['path']];
+          $css['ie-normal-responsive-' . $css[$responsive[$item]['path']]]['browsers'] = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+        }
       }
     }
   }
