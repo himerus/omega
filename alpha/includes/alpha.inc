@@ -409,7 +409,7 @@ function alpha_register_css($key) {
         $info['options']['weight'] = $weight >= 0 ? $weight : $weight - 3;
       }
       
-      $cache[$key][$responsive][$file] = array(
+      $cache[$responsive][$file] = array(
         'name' => $info['name'],
         'description' => isset($info['description']) ? $info['description'] : '',
         'file' => $file,
@@ -418,12 +418,11 @@ function alpha_register_css($key) {
       );
     }
   }
-
-  if (!empty($cache[$key])) {
-    variable_set('theme_' . $key . '_alpha_css', $cache[$key]);
+  
+  alpha_alter('alpha_css', $cache, $key);
+  variable_set('theme_' . $key . '_alpha_css', $cache);
     
-    return $cache[$key];
-  }
+  return $cache;
 }
 
 /**
@@ -456,7 +455,7 @@ function alpha_register_libraries($key) {
 
   foreach (alpha_info($key, 'libraries') as $theme => $data) {
     foreach ($data as $name => $info) {
-      $cache[$key][$name] = array(
+      $cache[$name] = array(
         'name' => $info['name'],
         'description' => isset($info['description']) ? $info['description'] : '',
       );
@@ -464,7 +463,7 @@ function alpha_register_libraries($key) {
       foreach (array('css', 'js') as $type) {
         if (!empty($info[$type])) {
           foreach ($info[$type] as $item) {            
-            $cache[$key][$name][$type][] = array(
+            $cache[$name][$type][] = array(
               'path' => drupal_get_path('theme', $theme) . '/' . (isset($item['path']) ? $item['path'] : $type) . '/' . $item['file'],
           	  'options' => isset($item['options']) ? $item['options'] : array(),
             );
@@ -474,11 +473,10 @@ function alpha_register_libraries($key) {
     }
   }
   
-  if (!empty($cache[$key])) {
-    variable_set('theme_' . $key . '_alpha_libraries', $cache[$key]);
+  alpha_alter('alpha_libraries', $cache, $key);
+  variable_set('theme_' . $key . '_alpha_libraries', $cache);
     
-    return $cache[$key];
-  }
+  return $cache;
 }
 
 /**
@@ -649,8 +647,8 @@ function alpha_register_grids($key) {
     foreach ($data as $name => $info) {
       $path = drupal_get_path('theme', $theme) . '/css/grid/' . $name;
 
-      if (!isset($cache[$key][$name])) {
-        $cache[$key][$name] = array(
+      if (!isset($cache[$name])) {
+        $cache[$name] = array(
           'name' => $info['name'],
           'type' => isset($info['type']) && $info['type'] == 'fluid' ? 'fluid' : 'fixed',
           'path' => $path,
@@ -659,16 +657,15 @@ function alpha_register_grids($key) {
       }  
       
       foreach ($info['columns'] as $column) {
-        $cache[$key][$name]['columns'][$column] = $path;
+        $cache[$name]['columns'][$column] = $path;
       }   
     }
   }
   
-  if (isset($cache[$key])) {
-    variable_set('theme_' . $key . '_alpha_grids', $cache[$key]);
+  alpha_alter('alpha_grids', $cache, $key);  
+  variable_set('theme_' . $key . '_alpha_grids', $cache);
     
-    return $cache[$key];
-  }
+  return $cache;
 }
 
 /**
