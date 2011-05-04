@@ -79,7 +79,7 @@ function alpha_alpha_preprocess_page(&$vars) {
         }
       }
       
-      $item['type'] = $item['primary'] && $item['width'] <= $item['columns'] && isset($zone_regions[$zone][$item['primary']]) ? 'dynamic' : 'static';
+      $item['type'] = $item['primary'] && isset($zone_regions[$zone][$item['primary']]) && $item['width'] <= $item['columns'] ? 'dynamic' : 'static';
       
       if (isset($zone_regions[$zone])) {
         $vars['page'][$item['section'] . '_section'][$zone] = $zone_regions[$zone];
