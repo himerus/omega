@@ -724,7 +724,7 @@ function alpha_zones($key) {
  */
 function alpha_regions($key) {
   $output = &drupal_static(__FUNCTION__);
-  
+
   if (!isset($output[$key])) {
     $regions = system_region_list($key);
     $zones = alpha_zones($key);
@@ -835,7 +835,7 @@ function alpha_debug_settings($key) {
  */
 function alpha_settings($key) {
   $settings = &drupal_static(__FUNCTION__);
-  
+
   if (!isset($settings[$key])) {
     $settings[$key] = array(
       'grid' => alpha_theme_get_setting('alpha_grid', $key, 'default'),
