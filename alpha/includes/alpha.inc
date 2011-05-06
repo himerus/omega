@@ -516,8 +516,8 @@ function alpha_include_grid($name, $columns) {
       else {
         // Un-responsive grid environments don't only require the "normal" grid layout.
         if (!$settings['responsive']['enabled']) {
-          drupal_add_css($path . '/normal/' . $name . '-normal-grid.css', array('weight' => -1));
-          drupal_add_css($path . '/normal/' . $name . '-normal-' . $columns . '.css', array('weight' => -1));
+          drupal_add_css($path . '/normal/' . $name . '-normal-grid.css', array('weight' => -2));
+          drupal_add_css($path . '/normal/' . $name . '-normal-' . $columns . '.css', array('weight' => -2));
         }
         else {
           // Set the normal grid layout and all its attached responsive CSS files for IE < 9
