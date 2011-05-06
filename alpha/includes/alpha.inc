@@ -491,10 +491,10 @@ function alpha_register_libraries($key) {
 function alpha_include_grid($name, $columns) {
   $included = &drupal_static(__FUNCTION__);
   
-  if (!isset($included[$name][$columns]) || !$included[$name][$columns]) {
+  if (!isset($included[$name]['columns'][$columns]) || !$included[$name]['columns'][$columns]) {
     // Set this name/columns combination to TRUE in the static so
     // we don't try to include it over and over.
-    $included[$name][$columns] = TRUE;
+    $included[$name]['columns'][$columns] = TRUE;
     
     $grid = alpha_grids($GLOBALS['theme_key'], $name);
     $settings = alpha_settings($GLOBALS['theme_key']);
@@ -508,37 +508,70 @@ function alpha_include_grid($name, $columns) {
 
       // If the grid is a fluid grid we just include the corresponding column count layout.
       if ($grid['type'] == 'fluid') {
-        drupal_add_css($path . '/' . $name . '-grid.css');
-        drupal_add_css($path . '/columns/' . $name . '-' . $columns . '.css');
+        drupal_add_css($path . '/' . $name . '-grid.css', array('weight' => -1));
+        drupal_add_css($path . '/columns/' . $name . '-' . $columns . '.css', array('weight' => -1));
       }
       // If the grid is a fixed grid we need to determine wether we are in a responsive grid  environment
       // or not and add the grid stylesheets accordingly.
       else {
         // Un-responsive grid environments don't only require the "normal" grid layout.
         if (!$settings['responsive']['enabled']) {
-          drupal_add_css($path . '/normal/' . $name . '-normal-grid.css', array('weight' => -1));
-          drupal_add_css($path . '/normal/' . $name . '-normal-' . $columns . '.css', array('weight' => -1));
+          drupal_add_css($path . '/normal/' . $name . '-normal-grid.css', array('weight' => -2));
+          drupal_add_css($path . '/normal/' . $name . '-normal-' . $columns . '.css', array('weight' => -2));
         }
         else {
-          $widths = array('narrow' => -3, 'normal' => -2, 'wide' => -1);
+          // Set the normal grid layout and all its attached responsive CSS files for IE < 9
+          drupal_add_css('ie::' . $path . '/normal/' . $name . '-normal-' . $columns . '.css', array(
+            'weight' => -2,
+            'data' => $path . '/normal/' . $name . '-normal-' . $columns . '.css',
+            'basename' => 'ie::' . $path . '/normal/' . $name . '-normal-' . $columns . '.css',
+            'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
+          ));
+          
+          drupal_add_css('ie::' . $path . '/normal/' . $name . '-normal-grid.css', array(
+            'weight' => -2,
+            'data' => $path . '/normal/' . $name . '-normal-grid.css',
+            'basename' => 'ie::' . $path . '/normal/' . $name . '-normal-grid.css',
+            'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
+          ));
+          
+          foreach (array_keys(array_filter($settings['responsive']['normal']['css'])) as $item) {              
+            if (isset($css[$item])) {
+              drupal_add_css('ie::' . $css[$item]['path'], array(
+                'weight' => -2,
+                'data' => $css[$item]['path'], 
+                'basename' => 'ie::' . $css[$item]['path'],
+                'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
+                'media' => 'all',
+              ) + $css[$item]['options']);
+            }
+          }
           
           // Loop through all possible grid layouts (narrow, normal, wide) and add          
           // all the enabled layouts and the attached optional stylesheets via drupal_add_css().
-          foreach ($widths as $type => $weight) {
+          foreach (array('narrow' => -3, 'normal' => -2, 'wide' => -1) as $type => $weight) {
             if ($settings['responsive'][$type]['enabled']) {
               $media = $settings['responsive']['enabled'] ? $settings['responsive'][$type]['media'] : 'all';
               $options = array('media' => $media, 'weight' => $weight);
               
-              drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-grid.css', $options);
               drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-' . $columns . '.css', $options);
               
-              // Add all enabled optional stylesheets for this responsive layout via drupal_add_css().
-              foreach (array_keys(array_filter($settings['responsive'][$type]['css'])) as $item) {              
-                if (isset($css[$item])) {
-                  drupal_add_css($css[$item]['path'], array_merge($css[$item]['options'], $options));
+              if (!isset($included[$name]['types'][$type]) || !$included[$name]['types'][$type]) {
+                $included[$name]['types'][$type] = TRUE;
+                
+                drupal_add_css($path . '/' . $type . '/' . $name . '-' . $type . '-grid.css', $options);             
+              
+                // Add all enabled optional stylesheets for this responsive layout via drupal_add_css().
+                foreach (array_keys(array_filter($settings['responsive'][$type]['css'])) as $item) {              
+                  if (isset($css[$item])) {
+                    drupal_add_css($type . '-' . $css[$item]['path'], array(
+                      'data' => $css[$item]['path'], 
+                      'basename' => $type . '-' . $css[$item]['path'],
+                    ) + array_merge($css[$item]['options'], $options));
+                  }
                 }
               }
-            }        
+            }       
           }
         }
       }
