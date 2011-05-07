@@ -961,7 +961,9 @@ function alpha_alter($type, &$data, &$context1 = NULL, &$context2 = NULL) {
       
       if (!empty($base_theme_info)) {
         foreach ($base_theme_info as $theme) {
-          include_once drupal_get_path('theme', $theme->name) . '/template.php';
+          if (is_file(drupal_get_path('theme', $theme->name) . '/template.php')) {
+            include_once drupal_get_path('theme', $theme->name) . '/template.php';
+          }
         }
       }
      
@@ -1001,7 +1003,7 @@ function alpha_debug_access($user, $roles) {
   foreach ($roles as $role => $assigned) {
     if ($assigned && isset($user->roles[$role])) {
       return TRUE;
-    }
+    } 
   }
   
   return FALSE;

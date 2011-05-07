@@ -54,9 +54,9 @@ function alpha_alpha_preprocess_page(&$vars) {
       if (!empty($item['primary']) && isset($zone_regions[$zone][$item['primary']])) {
         if ($item['width'] < $item['columns']) {
           $primary = &$zone_regions[$zone][$item['primary']];
-          
+
           $primary['#weight'] = -100;
-          $primary['#data']['columns'] = $item['columns'] - $primary['#region']['prefix'] - $primary['#data']['suffix'];
+          $primary['#data']['columns'] = $item['columns'] - $primary['#data']['prefix'] - $primary['#data']['suffix'];
           $primary['#data']['width'] = $item['columns'];
         
           $pull = array();
