@@ -260,7 +260,14 @@ function alpha_grid_options($key) {
 }
 
 /**
- * @todo
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 to build the registry for.
+ *   
+ * @return 
+ * 	 An array of available libraries.
  */
 function alpha_library_options($key) {
   $items = alpha_libraries($key);
@@ -369,7 +376,18 @@ function alpha_column_options($max = NULL) {
 }
 
 /**
- * @todo
+ * Retrieves all registered CSS files for a theme.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available grids for.
+ * 
+ * @param $responsive (optional)
+ * 	 Wether you want to fetch the array of responsive or non-responsive 
+ *   CSS files. Defaults to FALSE.
+ * 
+ * @return
+ * 	 An array that holds the information about the available CSS files.
  */
 function alpha_css($key, $responsive = FALSE) {
   $css = &drupal_static(__FUNCTION__);
@@ -391,7 +409,12 @@ function alpha_css($key, $responsive = FALSE) {
 }
 
 /**
- * @todo
+ * Retrieves all available CSS files for a theme and caches them in a 
+ * variable.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available CSS files for.
  */
 function alpha_register_css($key) {
   $cache = array();  
@@ -426,7 +449,17 @@ function alpha_register_css($key) {
 }
 
 /**
- * @todo
+ * Retrieves all available libraries for a theme.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available libraries for.
+ * 
+ * @param $grid (optional)
+ * 	 The name of the library that you want to fetch. Defaults to NULL.
+ * 
+ * @return
+ * 	 An array of libraries or the library defined by $library.
  */
 function alpha_libraries($key, $library = NULL) {
   $libraries = &drupal_static(__FUNCTION__);
@@ -448,7 +481,12 @@ function alpha_libraries($key, $library = NULL) {
 }
 
 /**
- * @todo
+ * Retrieves all available libraries for a theme and caches them in a 
+ * variable.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the available libraries for.
  */
 function alpha_register_libraries($key) {
   $cache = array();  
@@ -840,7 +878,16 @@ function alpha_info($key, $item) {
 }
 
 /**
- * @todo
+ * This function is a non-cached short version of the full settings array
+ * as in alpha_settings(). It is required because in hook_block_list_alter()
+ * we need the information provided by this function without unintentionally
+ * populating the alpha_settings() cache as this would interfere with the
+ * Delta modules settings injection procedure, because the Delta module is
+ * being invoked AFTER hook_block_list_alter().
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme that you want
+ *	 fetch the debug settings for.
  */
 function alpha_debug_settings($key) {
   $settings = array(
@@ -1154,7 +1201,8 @@ function alpha_excludes($key) {
 }
 
 /**
- * @todo
+ * Helper function that returns an array of Drupal core elements that Alpha
+ * can toggle on and off.
  */
 function alpha_toggle() {
   return array(
@@ -1168,7 +1216,8 @@ function alpha_toggle() {
 }
 
 /**
- * @todo
+ * Helper function that returns an array of Drupal core elements that Alpha
+ * can hide via CSS.
  */
 function alpha_visibility() {
   return array(

@@ -1,7 +1,15 @@
 <?php
 
 /**
- * @todo
+ * @file
+ * Container for hook_preprocess_html().
+ */
+
+/**
+ * Implements hook_preprocess_html().
+ * 
+ * @see
+ *   alpha_preprocess().
  */
 function omega_alpha_preprocess_html(&$vars) {
   $settings = alpha_settings($GLOBALS['theme_key']);

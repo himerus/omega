@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @file
+ * Theme settings for regions.
+ */
+
+/**
+ * @todo
+ */
 function alpha_theme_settings_regions(&$form, &$form_state) {
   $theme = $form_state['build_info']['args'][0];
   $zones = $form_state['alpha_zones'];

@@ -1,7 +1,15 @@
 <?php
 
-/*
- * @todo
+/**
+ * @file
+ * Container for hook_preprocess_page().
+ */
+
+/**
+ * Implements hook_preprocess_page().
+ * 
+ * @see
+ *   alpha_preprocess().
  */
 function alpha_alpha_preprocess_page(&$vars) {
   $sections = alpha_sections();

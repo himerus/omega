@@ -28,6 +28,9 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   alpha_theme_settings_regions($form, $form_state);
 }
 
+/**
+ * Form element validation handler for replacing the value "_none" with NULL. 
+ */
 function alpha_theme_settings_validate_not_empty($element, &$form_state) {
   if ($element['#value'] == '_none') {
     form_set_value($element, NULL, $form_state);

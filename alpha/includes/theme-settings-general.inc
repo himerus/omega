@@ -1,6 +1,11 @@
 <?php
 
-/*
+/**
+ * @file
+ * General theme settings elements.
+ */
+
+/**
  * @todo
  */
 function alpha_theme_settings_general(&$form, &$form_state) {

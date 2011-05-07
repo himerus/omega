@@ -4,9 +4,7 @@
   padding-right: 8px;
 }
 
-/* UI Consistency
-----------------------------------------------------------------------------------------------------*/
-
+/* UI Consistency */
 ::-moz-focus-inner {
   border: 0;
   padding: 0;
@@ -125,7 +123,7 @@ textarea:active {
   -webkit-box-shadow: #06f 0 0 7px;
   box-shadow: #06f 0 0 7px;
 
-  /* for Opera */
+  /* Opera */
   z-index: 1;
 }
 
@@ -207,9 +205,7 @@ optgroup {
   font-weight: normal;
 }
 
-/* IE6 Compatibility
-----------------------------------------------------------------------------------------------------*/
-
+/* IE6 Compatibility */
 .ie6-button,
 * html button {
   background: #ddd url(../images/button.png) repeat-x;

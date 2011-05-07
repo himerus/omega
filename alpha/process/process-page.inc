@@ -1,7 +1,15 @@
 <?php
 
-/*
- * @todo
+/**
+ * @file
+ * Container for hook_process_page().
+ */
+
+/**
+ * Implements hook_process_page().
+ * 
+ * @see
+ *   alpha_process().
  */
 function alpha_alpha_process_page(&$vars) {
   $vars['title'] = $vars['#alpha']['toggle']['feed_icons'] ? $vars['title'] : NULL;

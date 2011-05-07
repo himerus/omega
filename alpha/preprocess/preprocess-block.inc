@@ -1,7 +1,15 @@
 <?php
 
-/*
- * @todo
+/**
+ * @file
+ * Container for hook_preprocess_block().
+ */
+
+/**
+ * Implements hook_preprocess_block().
+ * 
+ * @see
+ *   alpha_preprocess().
  */
 function alpha_alpha_preprocess_block(&$vars) {
   $vars['content_attributes_array']['class'] = array('content', 'clearfix');

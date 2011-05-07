@@ -1,6 +1,11 @@
 <?php
 
-/*
+/**
+ * @file
+ * Theme settings for zones.
+ */
+
+/**
  * @todo
  */
 function alpha_theme_settings_zones(&$form, &$form_state) {  

@@ -1,7 +1,15 @@
 <?php
 
-/*
- * @todo
+/**
+ * @file
+ * Container for hook_process_region().
+ */
+
+/**
+ * Implements hook_process_region().
+ * 
+ * @see
+ *   alpha_process().
  */
 function omega_alpha_process_region(&$vars) {
   switch ($vars['elements']['#region']) {

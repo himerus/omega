@@ -1,7 +1,15 @@
 <?php
 
-/*
- * @todo
+/**
+ * @file
+ * Container for hook_preprocess_html().
+ */
+
+/**
+ * Implements hook_preprocess_html().
+ * 
+ * @see
+ *   alpha_preprocess().
  */
 function alpha_alpha_preprocess_html(&$vars) {
   $vars['attributes_array']['class'] = $vars['classes_array'];

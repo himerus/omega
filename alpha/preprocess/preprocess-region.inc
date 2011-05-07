@@ -1,7 +1,15 @@
 <?php
 
 /**
- * @todo
+ * @file
+ * Container for hook_preprocess_region().
+ */
+
+/**
+ * Implements hook_preprocess_region().
+ * 
+ * @see
+ *   alpha_preprocess().
  */
 function alpha_alpha_preprocess_region(&$vars) {
   $vars['attributes_array']['id'] = drupal_html_id('region-' . $vars['region']);
