@@ -73,16 +73,18 @@ exclude[modules/update/update.css] = This requires a description.
 ; CSS GRID SYSTEMS
 
 grids[alpha_default][name] = Default (960px)
-grids[alpha_default][type] = fixed
-grids[alpha_default][columns][] = 12
-grids[alpha_default][columns][] = 16
-grids[alpha_default][columns][] = 24
+grids[alpha_default][layouts][narrow] = Narrow
+grids[alpha_default][layouts][normal] = Normal
+grids[alpha_default][layouts][wide] = Wide
+grids[alpha_default][columns][12] = 12 Columns
+grids[alpha_default][columns][16] = 16 Columns
+grids[alpha_default][columns][24] = 24 Columns
 
 grids[alpha_fluid][name] = Fluid
-grids[alpha_fluid][type] = fluid
-grids[alpha_fluid][columns][] = 12
-grids[alpha_fluid][columns][] = 16
-grids[alpha_fluid][columns][] = 24
+grids[alpha_fluid][layouts][normal] = Normal
+grids[alpha_fluid][columns][12] = 12 Columns
+grids[alpha_fluid][columns][16] = 16 Columns
+grids[alpha_fluid][columns][24] = 24 Columns
 
 ; DEFAULT THEME SETTINGS
 
@@ -91,7 +93,7 @@ settings[alpha_responsive] = '1'
 settings[alpha_responsive_narrow] = '1'
 settings[alpha_responsive_narrow_media] = 'all and (min-width: 740px) and (min-device-width: 740px), (max-device-width: 800px) and (min-width: 740px) and (orientation:landscape)'
 settings[alpha_responsive_normal] = '1'
-settings[alpha_responsive_normal_media] = 'all and (min-width: 980px) and (min-device-width: 980px), (max-device-width: 1024px) and (min-width: 1024px) and (orientation:landscape)'
+settings[alpha_responsive_normal_media] = 'all and (min-width: 980px) and (min-device-width: 980px), all and (max-device-width: 1024px) and (min-width: 1024px) and (orientation:landscape)'
 settings[alpha_responsive_wide] = '1'
 settings[alpha_responsive_wide_media] = 'all and (min-width: 1220px)'
 settings[alpha_viewport] = '1'

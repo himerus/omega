@@ -10,8 +10,8 @@ body.alpha-grid-debug .grid-21:hover, body.alpha-grid-debug .grid-22:hover, body
 
 body.alpha-grid-debug .block-alpha-indicator {
   background: url(../images/resize-handle.png) no-repeat 0 0;
-  width: 150px;
-  height: 150px;
+  width: 80px;
+  height: 80px;
   position: fixed;
   z-index: 999;
   right: 0;
