@@ -56,18 +56,6 @@ css[mobile.css][name] = Mobile Styles
 css[mobile.css][description] = Your custom CSS for the mobile version of your website (mobile first).
 css[mobile.css][options][weight] = -89
 
-css[narrow.css][name] = Narrow Grid Styles
-css[narrow.css][description] = Your custom CSS that compliments the narrow (720) grid.
-css[narrow.css][options][media] = responsive
-
-css[normal.css][name] = Normal Grid Styles
-css[normal.css][description] = Your custom CSS that compliments the normal (960) grid.
-css[normal.css][options][media] = responsive
-
-css[wide.css][name] = Wide Grid Styles
-css[wide.css][description] = Your custom CSS that compliments the wide (1200) grid.
-css[wide.css][options][media] = responsive
-
 css[styles.css][name] = Main Styles
 css[styles.css][description] = Your main custom CSS file.
 css[styles.css][options][weight] = 10
@@ -75,17 +63,16 @@ css[styles.css][options][weight] = 10
 ; THEME SETTINGS (DEFAULTS)
 
 settings[alpha_grid] = 'alpha_default'
+settings[alpha_primary] = 'normal',
 settings[alpha_responsive] = '1'
-settings[alpha_responsive_narrow] = '1'
-settings[alpha_responsive_narrow_media] = 'all and (min-width: 740px) and (min-device-width: 740px), (max-device-width: 800px) and (min-width: 740px) and (orientation:landscape)'
-settings[alpha_responsive_narrow_css][narrow] = 'narrow'
-settings[alpha_responsive_narrow_css][normal] = '0'
-settings[alpha_responsive_narrow_css][wide] = '0'
-settings[alpha_responsive_normal] = '1'
-settings[alpha_responsive_normal_media] = 'all and (min-width: 980px) and (min-device-width: 980px), (max-device-width: 1024px) and (min-width: 1024px) and (orientation:landscape)'
-settings[alpha_responsive_normal_css][normal] = 'normal'
-settings[alpha_responsive_normal_css][narrow] = '0'
-settings[alpha_responsive_normal_css][wide] = '0'
+settings[alpha_layouts_alpha_fluid_normal_responsive] = '0'
+settings[alpha_layouts_alpha_fluid_normal_media] = 'all'
+settings[alpha_layouts_alpha_default_normal_responsive] = '1'
+settings[alpha_layouts_alpha_default_normal_media] = 'all and (min-width: 980px) and (min-device-width: 980px), all and (max-device-width: 1024px) and (min-width: 1024px) and (orientation:landscape)'
+settings[alpha_layouts_alpha_default_wide_responsive] = '1'
+settings[alpha_layouts_alpha_default_wide_media] = 'all and (min-width: 1220px)'
+settings[alpha_layouts_alpha_default_narrow_responsive] = '1'
+settings[alpha_layouts_alpha_default_narrow_media] = 'all and (min-width: 740px) and (min-device-width: 740px), (max-device-width: 800px) and (min-width: 740px) and (orientation:landscape)'
 settings[alpha_responsive_wide] = '1'
 settings[alpha_responsive_wide_media] = 'all and (min-width: 1220px)'
 settings[alpha_responsive_wide_css][wide.css] = 'wide.css'
