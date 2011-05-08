@@ -1044,7 +1044,7 @@ function alpha_debug_grid($settings, $columns) {
           $media = $settings['responsive'] ? $info['media'] : 'all';          
           $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . file_create_url($path) . '); }' . "\n";
           
-          drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'group' => -999));
+          drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'weight' => -1));
         }
       }        
     }
