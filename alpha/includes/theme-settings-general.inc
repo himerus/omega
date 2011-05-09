@@ -122,7 +122,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#description' => t('The primary layout will be used in case you disable the "responsive grid" option aswell as for older versions of Internet Explorer.'),
     );
   
-    foreach (alpha_grid_layouts($theme, $grid) as $layout => $item) {
+    foreach ($info['layouts'] as $layout => $item) {
       $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout] = array(
         '#type' => 'fieldset',
         '#title' => t('@layout layout', array('@layout' => $item['name'])),

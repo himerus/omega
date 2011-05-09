@@ -516,8 +516,6 @@ function alpha_include_grid($name, $columns) {
         drupal_add_css($path . '-' . $columns . '.css', array('weight' => -1));
       }
       else {
-        $layouts = alpha_grid_layouts($GLOBALS['theme_key'], $name);
-        
         // Add the fallback (primary) grid layout for IE < 9
         drupal_add_css('ie::' . $path . '-' . $columns . '.css', array(
           'data' => $path . '-' . $columns . '.css',
@@ -527,7 +525,7 @@ function alpha_include_grid($name, $columns) {
         ));
         
         // Loop through all possible grid layouts and add those that are enabled
-        foreach ($layouts as $layout => $info) {
+        foreach ($grid['layouts'] as $layout => $info) {
           if ($info['enabled']) {
             $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $name) . '-' . str_replace('_', '-', $layout);
             
@@ -594,30 +592,6 @@ function alpha_region_get_setting($name, $region, $theme = NULL, $default = NULL
 }
 
 /**
- * @todo
- */
-function alpha_grid_layouts($key, $grid, $layout = NULL) {
-  $layouts = &drupal_static(__FUNCTION__);
-  
-  if (!isset($layouts[$key][$grid]) && $info = alpha_grids($key, $grid)) {
-    foreach ($info['layouts'] as $item => $name) {
-      $layouts[$key][$grid][$item] = array(
-        'name' => $name,
-        'enabled' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $item . '_responsive', $key, FALSE),
-        'media' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $item . '_media', $key, 'all'),
-      );
-    }        
-  }
-
-  if (isset($layout) && isset($layouts[$key][$grid][$layout])) {
-    return $layouts[$key][$grid][$layout];
-  } 
-  else if (!isset($layout) && isset($layouts[$key][$grid])) {
-    return $layouts[$key][$grid];
-  }
-}
-
-/**
  * Retrieves all available grids for a theme.
  * 
  * @param $key
@@ -642,6 +616,14 @@ function alpha_grids($key, $grid = NULL) {
 
     foreach ($grids[$key] as $name => $info) {
       $grids[$key][$name]['primary'] = alpha_theme_get_setting('alpha_primary_layout_' . $name, $key);
+      
+      foreach ($grids[$key][$name]['layouts'] as $layout => $title) {
+        $grids[$key][$name]['layouts'][$layout] = array(
+          'name' => $title,
+          'enabled' => alpha_theme_get_setting('alpha_layouts_' . $name . '_' . $layout . '_responsive', $key, FALSE),
+          'media' => alpha_theme_get_setting('alpha_layouts_' . $name . '_' . $layout . '_media', $key, 'all'),
+        );
+      }
     }
   }
 
@@ -1036,7 +1018,7 @@ function alpha_debug_grid($settings, $columns) {
   if (!isset($debug[$columns])) {
     $debug[$columns] = TRUE;
                
-    foreach (alpha_grid_layouts($GLOBALS['theme_key'], $settings['grid']) as $layout => $info) {
+    foreach ($grid['layouts'] as $layout => $info) {
       if ((!$settings['responsive'] && $layout == $grid['primary']) || ($settings['responsive'] && $info['enabled'])) {
         $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $settings['grid']) . '-' . str_replace('_', '-', $layout) . '-' . $columns . '.png';
 
@@ -1046,7 +1028,7 @@ function alpha_debug_grid($settings, $columns) {
           
           drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'weight' => -1));
         }
-      }        
+      }
     }
   }
 }
