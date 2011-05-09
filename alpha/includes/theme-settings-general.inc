@@ -114,11 +114,11 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       ),
     );
     
-    $form['alpha_settings']['layout']['grid_layouts'][$grid]['alpha_primary_layout_' . $grid] = array(
+    $form['alpha_settings']['layout']['grid_layouts'][$grid]['alpha_primary_' . $grid] = array(
       '#type' => 'select',
       '#title' => t('Primary layout'),
       '#default_value' => $info['primary'],
-      '#options' => $info['layouts'],
+      '#options' => alpha_grid_layouts_options($theme, $grid),
       '#description' => t('The primary layout will be used in case you disable the "responsive grid" option aswell as for older versions of Internet Explorer.'),
     );
   

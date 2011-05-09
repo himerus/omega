@@ -257,6 +257,28 @@ function alpha_grid_options($key) {
  * 	 The key (machin-readable name) of the theme.
  *   
  * @return 
+ * 	 An array of available layouts.
+ */
+function alpha_grid_layouts_options($key, $grid) {
+  $grid = alpha_grids($key, $grid);
+  
+  $output = array();
+  if (!empty($grid['layouts'])) {
+    foreach ($grid['layouts'] as $key => $info) {
+      $output[$key] = check_plain($info['name']);
+    }
+  }
+    
+  return $output;
+}
+
+/**
+ * A helper function to return a proper options array for a form.
+ * 
+ * @param $key
+ * 	 The key (machin-readable name) of the theme.
+ *   
+ * @return 
  * 	 An array of available libraries.
  */
 function alpha_library_options($key) {
@@ -504,7 +526,7 @@ function alpha_include_grid($name, $columns) {
   
   if (empty($included[$name]['columns'][$columns])) {
     // Set this name/columns combination to TRUE in the static so we don't try to include it over and over.
-    $included[$name]['columns'][$columns] = TRUE;    
+    $included[$name]['columns'][$columns] = TRUE;
     $grid = alpha_grids($GLOBALS['theme_key'], $name);
 
     // Only proceed if the grid and the desired column count actually exist.
@@ -513,7 +535,7 @@ function alpha_include_grid($name, $columns) {
       $path = $grid['path'] . '/' . $grid['primary'] . '/' . str_replace('_', '-', $name) . '-' . str_replace('_', '-', $grid['primary']);
             
       if (!$settings['responsive']) {        
-        drupal_add_css($path . '-' . $columns . '.css', array('group' => 999));
+        drupal_add_css($path . '-' . $columns . '.css', array('group' => 500));
       }
       else {
         // Add the fallback (primary) grid layout for IE < 9
@@ -521,15 +543,36 @@ function alpha_include_grid($name, $columns) {
           'data' => $path . '-' . $columns . '.css',
           'basename' => 'ie::' . $path . '-' . $columns . '.css',
           'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
-          'group' => 999,
+          'group' => 500,
         ));
-        
+
+        if (empty($included[$name]['ie'])) {
+          $included[$name]['ie'] = TRUE;
+          
+          foreach ($grid['layouts'][$grid['primary']]['attached'] as $attached) {
+            drupal_add_css('ie::' . $attached, array(
+              'data' => $attached,
+              'basename' => 'ie::' . $attached,
+              'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
+              'group' => 500,
+            ));
+          }
+        }
+              
         // Loop through all possible grid layouts and add those that are enabled
         foreach ($grid['layouts'] as $layout => $info) {
           if ($info['enabled']) {
             $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $name) . '-' . str_replace('_', '-', $layout);
             
-            drupal_add_css($path . '-' . $columns . '.css', array('media' => $info['media'], 'group' => 999));
+            drupal_add_css($path . '-' . $columns . '.css', array('media' => $info['media'], 'group' => 500));
+            
+            if (empty($included[$name]['layouts'][$layout])) {
+              $included[$name]['layouts'][$layout] = TRUE;
+              
+              foreach ($info['attached'] as $attached) {
+                drupal_add_css($attached, array('media' => $info['media'], 'group' => 500));
+              }
+            }
           }
         }
       }
@@ -615,11 +658,10 @@ function alpha_grids($key, $grid = NULL) {
     }
 
     foreach ($grids[$key] as $name => $info) {
-      $grids[$key][$name]['primary'] = alpha_theme_get_setting('alpha_primary_layout_' . $name, $key);
+      $grids[$key][$name]['primary'] = alpha_theme_get_setting('alpha_primary_' . $name, $key);
       
-      foreach ($grids[$key][$name]['layouts'] as $layout => $title) {
-        $grids[$key][$name]['layouts'][$layout] = array(
-          'name' => $title,
+      foreach ($grids[$key][$name]['layouts'] as $layout => $data) {
+        $grids[$key][$name]['layouts'][$layout] = $data + array(
           'enabled' => alpha_theme_get_setting('alpha_layouts_' . $name . '_' . $layout . '_responsive', $key, FALSE),
           'media' => alpha_theme_get_setting('alpha_layouts_' . $name . '_' . $layout . '_media', $key, 'all'),
         );
@@ -646,14 +688,32 @@ function alpha_grids($key, $grid = NULL) {
 function alpha_register_grids($key) {
   $cache = array();
 
+  $trail = alpha_theme_trail($key);
+  
   foreach (alpha_info($key, 'grids') as $theme => $data) {
     foreach ($data as $name => $info) {
       $cache[$name] = array(
         'name' => $info['name'],
         'path' => drupal_get_path('theme', $theme) . '/css/grid/' . $name,
-        'layouts' => $info['layouts'],
+        'layouts' => array(),
         'columns' => $info['columns'],
       );
+      
+      foreach ($info['layouts'] as $layout => $title) {
+        $cache[$name]['layouts'][$layout] = array(
+          'name' => $title,
+          'attached' => array(),
+        );
+        
+        foreach ($trail as $item) {
+          $path = implode('-', array(str_replace('_', '-', $item->name), str_replace('_', '-', $name), str_replace('_', '-', $layout)));
+          $path = drupal_get_path('theme', $item->name) . '/css/' . $path . '.css';
+
+          if (is_file($path)) {
+            $cache[$name]['layouts'][$layout]['attached'][] = $path;
+          }
+        }
+      }
     }
   }
   
@@ -1026,7 +1086,7 @@ function alpha_debug_grid($settings, $columns) {
           $media = $settings['responsive'] ? $info['media'] : 'all';          
           $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . file_create_url($path) . '); }' . "\n";
           
-          drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'weight' => -1));
+          drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'group' => 500));
         }
       }
     }
