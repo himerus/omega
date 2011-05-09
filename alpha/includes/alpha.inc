@@ -664,8 +664,11 @@ function alpha_grids($key, $grid = NULL) {
         $grids[$key][$name]['layouts'][$layout] = $data + array(
           'enabled' => alpha_theme_get_setting('alpha_layouts_' . $name . '_' . $layout . '_responsive', $key, FALSE),
           'media' => alpha_theme_get_setting('alpha_layouts_' . $name . '_' . $layout . '_media', $key, 'all'),
+          'weight' => alpha_theme_get_setting('alpha_layouts_' . $name . '_' . $layout . '_weight', $key, 0),
         );
       }
+      
+      uasort($grids[$key][$name]['layouts'], 'alpha_sort_layouts');
     }
   }
 
@@ -1159,6 +1162,24 @@ function alpha_excludes($key) {
   }
   
   return $styles;
+}
+
+/**
+ * @todo
+ */
+function alpha_sort_layouts($a, $b) {
+  if ($a['enabled'] && !$b['enabled']) {
+    return -1;
+  }
+  else if ($b['enabled'] && !$a['enabled']) {
+    return 1;
+  }
+  else if ($b['weight'] > $a['weight']) {
+    return -1;
+  }
+  else if ($a['weight'] > $b['weight']) {
+    return 1;
+  }
 }
 
 /**

@@ -7,7 +7,7 @@
 .grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, 
 .grid-11, .grid-12 {
   display: inline;
-  float: left;
+  float: right;
   position: relative;
   margin-left: 1%;
   margin-right: 1%;
@@ -31,18 +31,6 @@
 
 .omega {
   margin-right: 0 !important;
-}
-
-/*
- * ==========================================================
- * Container
- * ==========================================================
- */
-
-.container-12 {
-  width: 92%;
-  margin-left: 4%;
-  margin-right: 4%;
 }
 
 /*
