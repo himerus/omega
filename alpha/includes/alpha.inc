@@ -513,7 +513,7 @@ function alpha_include_grid($name, $columns) {
       $path = $grid['path'] . '/' . $grid['primary'] . '/' . str_replace('_', '-', $name) . '-' . str_replace('_', '-', $grid['primary']);
             
       if (!$settings['responsive']) {        
-        drupal_add_css($path . '-' . $columns . '.css', array('weight' => -1));
+        drupal_add_css($path . '-' . $columns . '.css', array('group' => 999));
       }
       else {
         // Add the fallback (primary) grid layout for IE < 9
@@ -521,7 +521,7 @@ function alpha_include_grid($name, $columns) {
           'data' => $path . '-' . $columns . '.css',
           'basename' => 'ie::' . $path . '-' . $columns . '.css',
           'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
-          'weight' => -1,
+          'group' => 999,
         ));
         
         // Loop through all possible grid layouts and add those that are enabled
@@ -529,7 +529,7 @@ function alpha_include_grid($name, $columns) {
           if ($info['enabled']) {
             $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $name) . '-' . str_replace('_', '-', $layout);
             
-            drupal_add_css($path . '-' . $columns . '.css', array('media' => $info['media'], 'weight' => -1));
+            drupal_add_css($path . '-' . $columns . '.css', array('media' => $info['media'], 'group' => 999));
           }
         }
       }
