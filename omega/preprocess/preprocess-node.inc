@@ -1,7 +1,15 @@
 <?php
 
-/*
- * @todo
+/**
+ * @file
+ * Container for hook_preprocess_node().
+ */
+
+/**
+ * Implements hook_preprocess_node().
+ * 
+ * @see
+ *   alpha_preprocess().
  */
 function omega_alpha_preprocess_node(&$vars) {
   // Prepare the arrays to handle the classes and ids for the node container.

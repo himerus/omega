@@ -1,6 +1,11 @@
 <?php
 
-/*
+/**
+ * @file
+ * General theme settings elements.
+ */
+
+/**
  * @todo
  */
 function alpha_theme_settings_general(&$form, &$form_state) {
@@ -8,11 +13,10 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $settings = $form_state['alpha_settings'];
   $scales = alpha_scale_options(1, 10, 0.5);  
   $optional = alpha_css_options($theme);
-  $responsive = alpha_css_options($theme, TRUE);
   $libraries = alpha_library_options($theme);
   $exclude = alpha_exclude_options($theme);
   $toggle = alpha_toggle();
-  
+
   $form['alpha_settings'] = array(
     '#type' => 'vertical_tabs',
     '#weight' => -10,
@@ -33,89 +37,28 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#options' => alpha_grid_options($theme),
   );
   
-  $form['alpha_settings']['layout']['alpha_responsive'] = array(
-    '#type' => 'checkbox',
-    '#description' => t("<p>The responsive layout allows the grid to resize based on the size of the users device. This incorporates mobile first design, so the default behavior is to show the simplest (stacked) version of the layout, and for devices that meet certain display criteria (width), new CSS and grid sizing will be applied.</p><p class=\"marker\">Fluid grids don't support and don't need this feature.</p>"),
-    '#title' => t('Responsive grid layout'),
-    '#default_value' => $settings['responsive']['enabled'],
-  );
-  
   $form['alpha_settings']['layout']['responsive_settings'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Responsive grid settings'),
-    '#states' => array(
-      'visible' => array(
-        ':input[name="alpha_responsive"]' => array('checked' => TRUE),
-      ),
-    ),
-  ); 
-  
-  $options = array(
-    'narrow' => array(
-      'description' => t('The narrow grid is designed to work well for tablets in a portrait viewing mode.'),
-      'media' => 'all',
-    ),  
-    'normal' => array(
-      'description' => t('The normal grid is designed to work well for tablets in a landscape viewing mode and most web browsers.'),
-      'media' => 'all',
-    ),
-    'wide' => array(
-      'description' => t('The wide grid is designed to work well for users with a lot of screen real estate. However, this may not look well in a single sidebar layout. Design considerations must be made when using this layout.'),
-      'media' => 'all',
-    ),
+    '#title' => t('Responsive settings'),
   );
   
-  foreach ($options as $type => $item) {  
-    $form['alpha_settings']['layout']['responsive_settings']['alpha_responsive_' . $type] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Enable @type grid', array('@type' => $type)),
-      '#description' => $item['description'],
-      '#default_value' => $settings['responsive'][$type]['enabled'],
-    );
-    
-    $form['alpha_settings']['layout']['responsive_settings']['alpha_responsive_' . $type . '_media'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Media'),
-      '#description' => t('The @media tag that you want to use for the @type grid.', array('@type' => $type)),
-      '#default_value' => $settings['responsive'][$type]['media'],
-      '#maxlength' => 255,
-      '#attributes' => array(
-        'class' => array('alpha-media-query'),
-      ),
-      '#states' => array(
-        'visible' => array(
-          ':input[name="alpha_responsive_' . $type . '"]' => array('checked' => TRUE),
-        ),
-      ),   
-    );
-
-    if (!empty($responsive)) {
-      $form['alpha_settings']['layout']['responsive_settings']['styles_' . $type] = array(
-        '#type' => 'fieldset',
-        '#title' => t('Optional styles'),
-        '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
-        '#states' => array(
-          'visible' => array(
-            ':input[name="alpha_responsive_' . $type . '"]' => array('checked' => TRUE),
-          ),
-        ), 
-      );
-      
-      $form['alpha_settings']['layout']['responsive_settings']['styles_' . $type]['alpha_responsive_' . $type . '_css'] = array(
-        '#type' => 'checkboxes',
-        '#options' => $responsive,
-        '#responsive' => TRUE,
-        '#default_value' => $settings['responsive'][$type]['css'],
-      );
-    }
-  }
+  $form['alpha_settings']['layout']['responsive_settings']['alpha_responsive'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable the responsive grid'),
+    '#description' => t('Enabling this will unleash the responsive layout features that come with Alpha & Omega. It also helps you to clean your appartment and wash your dishes.'),
+    '#default_value' => $settings['responsive'],
+  );
   
   $form['alpha_settings']['layout']['responsive_settings']['alpha_viewport'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow customizing viewport meta properties on iOS and Android devices'),
     '#description' => t('By default, most mobile browsers choose their own way to handle page rendering by using the viewport meta tag. iOS and Android are "capable" of displaying full size websites by simply scaling down the view. However, when using a truly mobile version of your theme, you will / may want to customize these settings. You can find more information about this in the <a href="http://alpha.developmentgeeks.com">Omega documentation</a>.'),
     '#default_value' => $settings['viewport']['enabled'],
+    '#states' => array(
+      'visible' => array(
+        ':input[name="alpha_responsive"]' => array('checked' => TRUE),
+      ),
+    ),
   );
   
   $form['alpha_settings']['layout']['responsive_settings']['viewport_settings'] = array(
@@ -159,8 +102,70 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#description' => t('<p>Determine if a user can resize the screen. This is usually accomplished via multi-touch gestures on iOS and Android devices. If your mobile theme is very customized and presented with good typography and graphics for a reduced mobile size, it is recommended to leave this setting unchecked. If it is left unchecked, the min-scale and max-scale properties will be ignored.</p><p class="marker">HTC Android devices do NOT (currently) respect the viewport meta tag for <em>user-scalable</em>. It will render at the appropriate <em>initial-scale</em> set above, but a user can still zoom in/out.</p>'),
     '#default_value' => $settings['viewport']['user'],
   );
+    
+  foreach (alpha_grids($theme) as $grid => $info) {
+    $form['alpha_settings']['layout']['grid_layouts'][$grid] = array(
+      '#type' => 'fieldset',
+      '#title' => t('@grid layout settings', array('@grid' => $info['name'])),
+      '#states' => array(
+        'visible' => array(
+          ':input[name="alpha_grid"]' => array('value' => $grid),
+        ),
+      ),
+    );
+    
+    $form['alpha_settings']['layout']['grid_layouts'][$grid]['alpha_primary_' . $grid] = array(
+      '#type' => 'select',
+      '#title' => t('Primary layout'),
+      '#default_value' => $info['primary'],
+      '#options' => alpha_grid_layouts_options($theme, $grid),
+      '#description' => t('The primary layout will be used in case you disable the "responsive grid" option aswell as for older versions of Internet Explorer.'),
+    );
+    
+    foreach ($info['layouts'] as $layout => $item) {
+      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout] = array(
+        '#type' => 'fieldset',
+        '#title' => t('@layout layout', array('@layout' => $item['name'])),
+        '#states' => array(
+          'visible' => array(
+            ':input[name="alpha_responsive"]' => array('checked' => TRUE),
+          ),
+        ),
+      );
 
-  
+      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_responsive'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Use this layout with the responsive grid'),
+        '#default_value' => $item['enabled'],
+      );
+      
+      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_weight'] = array(
+        '#type' => 'weight',
+        '#title' => t('Weight'),
+        '#description' => t('The weight of this layout.'),
+        '#default_value' => $item['weight'],
+        '#states' => array(
+          'visible' => array(
+            ':input[name="alpha_layouts_' . $grid . '_' . $layout . '_responsive"]' => array('checked' => TRUE),
+          ),
+        ), 
+      );
+      
+      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_media'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Media query'),
+        '#description' => t('The @media query that the @layout layout should respond to.', array('@layout' => $item['name'])),
+        '#default_value' => $item['media'],
+        '#maxlength' => 255,
+        '#size' => 140,
+        '#states' => array(
+          'visible' => array(
+            ':input[name="alpha_layouts_' . $grid . '_' . $layout . '_responsive"]' => array('checked' => TRUE),
+          ),
+        ),   
+      );
+    }
+  }  
   
   if (!empty($libraries)) {    
     $form['alpha_settings']['libraries'] = array(
@@ -169,6 +174,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
     );
+ 
     $form['alpha_settings']['libraries']['alpha_libraries'] = array(
       '#title' => t('Enable optional libraries'),
       '#description' => t('You can choose from this list to enable optional libraries.'),

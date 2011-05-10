@@ -8,7 +8,7 @@
 .grid-11, .grid-12, .grid-13, .grid-14, .grid-15, .grid-16, .grid-17, .grid-18, .grid-19, 
 .grid-20, .grid-21, .grid-22, .grid-23, .grid-24 {
   display: inline;
-  float: left;
+  float: right;
   position: relative;
   margin-left: 10px;
   margin-right: 10px;

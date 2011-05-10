@@ -1,3 +1,9 @@
+<?php 
+/**
+ * @file
+ * Alpha's theme implementation to display a block.
+ */
+?>
 <div<?php print $attributes; ?>>
   <div class="block-inner clearfix">
     <?php print render($title_prefix); ?>

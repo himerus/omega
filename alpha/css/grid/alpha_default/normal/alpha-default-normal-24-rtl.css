@@ -8,7 +8,7 @@
 .grid-11, .grid-12, .grid-13, .grid-14, .grid-15, .grid-16, .grid-17, .grid-18, .grid-19, 
 .grid-20, .grid-21, .grid-22, .grid-23, .grid-24 {
   display: inline;
-  float: left;
+  float: right;
   position: relative;
   margin-left: 10px;
   margin-right: 10px;
@@ -44,505 +44,505 @@
  */
 
 body {
-  min-width: 1200px;
+  min-width: 960px;
 }
 
 .container-24 {
   margin-left: auto;
   margin-right: auto;
-  width: 1200px;
+  width: 960px;
 }
 
 /*
  * ==========================================================
- * Container
+ * Columns
  * ==========================================================
  */
 
 .container-24 .grid-1 {
-  width: 30px;
+  width: 20px;
 }
 
 .container-24 .grid-2 {
-  width: 80px;
+  width: 60px;
 }
 
 .container-24 .grid-3 {
-  width: 130px;
+  width: 100px;
 }
 
 .container-24 .grid-4 {
-  width: 180px;
+  width: 140px;
 }
 
 .container-24 .grid-5 {
-  width: 230px;
+  width: 180px;
 }
 
 .container-24 .grid-6 {
-  width: 280px;
+  width: 220px;
 }
 
 .container-24 .grid-7 {
-  width: 330px;
+  width: 260px;
 }
 
 .container-24 .grid-8 {
-  width: 380px;
+  width: 300px;
 }
 
 .container-24 .grid-9 {
-  width: 430px;
+  width: 340px;
 }
 
 .container-24 .grid-10 {
-  width: 480px;
+  width: 380px;
 }
 
 .container-24 .grid-11 {
-  width: 530px;
+  width: 420px;
 }
 
 .container-24 .grid-12 {
-  width: 580px;
+  width: 460px;
 }
 
 .container-24 .grid-13 {
-  width: 630px;
+  width: 500px;
 }
 
 .container-24 .grid-14 {
-  width: 680px;
+  width: 540px;
 }
 
 .container-24 .grid-15 {
-  width: 730px;
+  width: 580px;
 }
 
 .container-24 .grid-16 {
-  width: 780px;
+  width: 620px;
 }
 
 .container-24 .grid-17 {
-  width: 830px;
+  width: 660px;
 }
 
 .container-24 .grid-18 {
-  width: 880px;
+  width: 700px;
 }
 
 .container-24 .grid-19 {
-  width: 930px;
+  width: 740px;
 }
 
 .container-24 .grid-20 {
-  width: 980px;
+  width: 780px;
 }
 
 .container-24 .grid-21 {
-  width: 1030px;
+  width: 820px;
 }
 
 .container-24 .grid-22 {
-  width: 1080px;
+  width: 860px;
 }
 
 .container-24 .grid-23 {
-  width: 1130px;
+  width: 900px;
 }
 
 .container-24 .grid-24 {
-  width: 1180px;
+  width: 940px;
 }
 
 /*
  * ==========================================================
- * Container
+ * Prefix
  * ==========================================================
  */
 
 .container-24 .prefix-1 {
-  padding-left: 50px;
+  padding-left: 40px;
 }
 
 .container-24 .prefix-2 {
-  padding-left: 100px;
+  padding-left: 80px;
 }
 
 .container-24 .prefix-3 {
-  padding-left: 150px;
+  padding-left: 120px;
 }
 
 .container-24 .prefix-4 {
-  padding-left: 200px;
+  padding-left: 160px;
 }
 
 .container-24 .prefix-5 {
-  padding-left: 250px;
+  padding-left: 200px;
 }
 
 .container-24 .prefix-6 {
-  padding-left: 300px;
+  padding-left: 240px;
 }
 
 .container-24 .prefix-7 {
-  padding-left: 350px;
+  padding-left: 280px;
 }
 
 .container-24 .prefix-8 {
-  padding-left: 400px;
+  padding-left: 320px;
 }
 
 .container-24 .prefix-9 {
-  padding-left: 450px;
+  padding-left: 360px;
 }
 
 .container-24 .prefix-10 {
-  padding-left: 500px;
+  padding-left: 400px;
 }
 
 .container-24 .prefix-11 {
-  padding-left: 550px;
+  padding-left: 440px;
 }
 
 .container-24 .prefix-12 {
-  padding-left: 600px;
+  padding-left: 480px;
 }
 
 .container-24 .prefix-13 {
-  padding-left: 650px;
+  padding-left: 520px;
 }
 
 .container-24 .prefix-14 {
-  padding-left: 700px;
+  padding-left: 560px;
 }
 
 .container-24 .prefix-15 {
-  padding-left: 750px;
+  padding-left: 600px;
 }
 
 .container-24 .prefix-16 {
-  padding-left: 800px;
+  padding-left: 640px;
 }
 
 .container-24 .prefix-17 {
-  padding-left: 850px;
+  padding-left: 680px;
 }
 
 .container-24 .prefix-18 {
-  padding-left: 900px;
+  padding-left: 720px;
 }
 
 .container-24 .prefix-19 {
-  padding-left: 950px;
+  padding-left: 760px;
 }
 
 .container-24 .prefix-20 {
-  padding-left: 1000px;
+  padding-left: 800px;
 }
 
 .container-24 .prefix-21 {
-  padding-left: 1050px;
+  padding-left: 840px;
 }
 
 .container-24 .prefix-22 {
-  padding-left: 1100px;
+  padding-left: 880px;
 }
 
 .container-24 .prefix-23 {
-  padding-left: 1150px;
+  padding-left: 920px;
 }
 
 /*
  * ==========================================================
- * Container
+ * Suffix
  * ==========================================================
  */
 
 .container-24 .suffix-1 {
-  padding-right: 50px;
+  padding-right: 40px;
 }
 
 .container-24 .suffix-2 {
-  padding-right: 100px;
+  padding-right: 80px;
 }
 
 .container-24 .suffix-3 {
-  padding-right: 150px;
+  padding-right: 120px;
 }
 
 .container-24 .suffix-4 {
-  padding-right: 200px;
+  padding-right: 160px;
 }
 
 .container-24 .suffix-5 {
-  padding-right: 250px;
+  padding-right: 200px;
 }
 
 .container-24 .suffix-6 {
-  padding-right: 300px;
+  padding-right: 240px;
 }
 
 .container-24 .suffix-7 {
-  padding-right: 350px;
+  padding-right: 280px;
 }
 
 .container-24 .suffix-8 {
-  padding-right: 400px;
+  padding-right: 320px;
 }
 
 .container-24 .suffix-9 {
-  padding-right: 450px;
+  padding-right: 360px;
 }
 
 .container-24 .suffix-10 {
-  padding-right: 500px;
+  padding-right: 400px;
 }
 
 .container-24 .suffix-11 {
-  padding-right: 550px;
+  padding-right: 440px;
 }
 
 .container-24 .suffix-12 {
-  padding-right: 600px;
+  padding-right: 480px;
 }
 
 .container-24 .suffix-13 {
-  padding-right: 650px;
+  padding-right: 520px;
 }
 
 .container-24 .suffix-14 {
-  padding-right: 700px;
+  padding-right: 560px;
 }
 
 .container-24 .suffix-15 {
-  padding-right: 750px;
+  padding-right: 600px;
 }
 
 .container-24 .suffix-16 {
-  padding-right: 800px;
+  padding-right: 640px;
 }
 
 .container-24 .suffix-17 {
-  padding-right: 850px;
+  padding-right: 680px;
 }
 
 .container-24 .suffix-18 {
-  padding-right: 900px;
+  padding-right: 720px;
 }
 
 .container-24 .suffix-19 {
-  padding-right: 950px;
+  padding-right: 760px;
 }
 
 .container-24 .suffix-20 {
-  padding-right: 1000px;
+  padding-right: 800px;
 }
 
 .container-24 .suffix-21 {
-  padding-right: 1050px;
+  padding-right: 840px;
 }
 
 .container-24 .suffix-22 {
-  padding-right: 1100px;
+  padding-right: 880px;
 }
 
 .container-24 .suffix-23 {
-  padding-right: 1150px;
+  padding-right: 920px;
 }
 
 /*
  * ==========================================================
- * Container
+ * Push
  * ==========================================================
  */
 
 .container-24 .push-1 {
-  left: 50px;
+  left: 40px;
 }
 
 .container-24 .push-2 {
-  left: 100px;
+  left: 80px;
 }
 
 .container-24 .push-3 {
-  left: 150px;
+  left: 120px;
 }
 
 .container-24 .push-4 {
-  left: 200px;
+  left: 160px;
 }
 
 .container-24 .push-5 {
-  left: 250px;
+  left: 200px;
 }
 
 .container-24 .push-6 {
-  left: 300px;
+  left: 240px;
 }
 
 .container-24 .push-7 {
-  left: 350px;
+  left: 280px;
 }
 
 .container-24 .push-8 {
-  left: 400px;
+  left: 320px;
 }
 
 .container-24 .push-9 {
-  left: 450px;
+  left: 360px;
 }
 
 .container-24 .push-10 {
-  left: 500px;
+  left: 400px;
 }
 
 .container-24 .push-11 {
-  left: 550px;
+  left: 440px;
 }
 
 .container-24 .push-12 {
-  left: 600px;
+  left: 480px;
 }
 
 .container-24 .push-13 {
-  left: 650px;
+  left: 520px;
 }
 
 .container-24 .push-14 {
-  left: 700px;
+  left: 560px;
 }
 
 .container-24 .push-15 {
-  left: 750px;
+  left: 600px;
 }
 
 .container-24 .push-16 {
-  left: 800px;
+  left: 640px;
 }
 
 .container-24 .push-17 {
-  left: 850px;
+  left: 680px;
 }
 
 .container-24 .push-18 {
-  left: 900px;
+  left: 720px;
 }
 
 .container-24 .push-19 {
-  left: 950px;
+  left: 760px;
 }
 
 .container-24 .push-20 {
-  left: 1000px;
+  left: 800px;
 }
 
 .container-24 .push-21 {
-  left: 1050px;
+  left: 840px;
 }
 
 .container-24 .push-22 {
-  left: 1100px;
+  left: 880px;
 }
 
 .container-24 .push-23 {
-  left: 1150px;
+  left: 920px;
 }
 
 /*
  * ==========================================================
- * Container
+ * Pull
  * ==========================================================
  */
 
 .container-24 .pull-1 {
-  left: -50px;
+  left: -40px;
 }
 
 .container-24 .pull-2 {
-  left: -100px;
+  left: -80px;
 }
 
 .container-24 .pull-3 {
-  left: -150px;
+  left: -120px;
 }
 
 .container-24 .pull-4 {
-  left: -200px;
+  left: -160px;
 }
 
 .container-24 .pull-5 {
-  left: -250px;
+  left: -200px;
 }
 
 .container-24 .pull-6 {
-  left: -300px;
+  left: -240px;
 }
 
 .container-24 .pull-7 {
-  left: -350px;
+  left: -280px;
 }
 
 .container-24 .pull-8 {
-  left: -400px;
+  left: -320px;
 }
 
 .container-24 .pull-9 {
-  left: -450px;
+  left: -360px;
 }
 
 .container-24 .pull-10 {
-  left: -500px;
+  left: -400px;
 }
 
 .container-24 .pull-11 {
-  left: -550px;
+  left: -440px;
 }
 
 .container-24 .pull-12 {
-  left: -600px;
+  left: -480px;
 }
 
 .container-24 .pull-13 {
-  left: -650px;
+  left: -520px;
 }
 
 .container-24 .pull-14 {
-  left: -700px;
+  left: -560px;
 }
 
 .container-24 .pull-15 {
-  left: -750px;
+  left: -600px;
 }
 
 .container-24 .pull-16 {
-  left: -800px;
+  left: -640px;
 }
 
 .container-24 .pull-17 {
-  left: -850px;
+  left: -680px;
 }
 
 .container-24 .pull-18 {
-  left: -900px;
+  left: -720px;
 }
 
 .container-24 .pull-19 {
-  left: -950px;
+  left: -760px;
 }
 
 .container-24 .pull-20 {
-  left: -1000px;
+  left: -800px;
 }
 
 .container-24 .pull-21 {
-  left: -1050px;
+  left: -840px;
 }
 
 .container-24 .pull-22 {
-  left: -1100px;
+  left: -880px;
 }
 
 .container-24 .pull-23 {
-  left: -1150px;
+  left: -920px;
 }

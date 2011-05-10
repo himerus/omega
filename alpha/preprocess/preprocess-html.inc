@@ -1,7 +1,15 @@
 <?php
 
-/*
- * @todo
+/**
+ * @file
+ * Container for hook_preprocess_html().
+ */
+
+/**
+ * Implements hook_preprocess_html().
+ * 
+ * @see
+ *   alpha_preprocess().
  */
 function alpha_alpha_preprocess_html(&$vars) {
   $vars['attributes_array']['class'] = $vars['classes_array'];
@@ -11,7 +19,7 @@ function alpha_alpha_preprocess_html(&$vars) {
   $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
   $libraries = alpha_libraries($GLOBALS['theme_key']);
   
-  if ($settings['responsive']['enabled'] && $settings['debug']['grid'] && $grid['type'] == 'fixed' && $settings['debug']['access']) {
+  if ($settings['responsive'] && $settings['debug']['grid'] && $settings['debug']['access']) {
     $block = new stdClass();
     $block->delta = 'grid-indicator';
     $block->region = 'page_bottom';
@@ -29,7 +37,7 @@ function alpha_alpha_preprocess_html(&$vars) {
     $vars['page']['page_bottom']['alpha-grid-indicator'] = $block;
   }
   
-  foreach (array_keys(array_filter($settings['libraries'])) as $item) {
+  foreach (array_filter($settings['libraries']) as $item) {
     if (isset($libraries[$item])) {
       if (!empty($libraries[$item]['js'])) {
         foreach ($libraries[$item]['js'] as $include) {
@@ -44,14 +52,14 @@ function alpha_alpha_preprocess_html(&$vars) {
       }
     }
   }
-  
-  foreach (array_keys(array_filter($settings['css'])) as $item) {
+
+  foreach (array_filter($settings['css']) as $item) {
     if (isset($css[$item])) {
       drupal_add_css($css[$item]['path'], $css[$item]['options']);
     }
-  }
+  }  
   
-  if(($settings['debug']['grid'] || $settings['debug']['block']) && $settings['debug']['access']) {
+  if (($settings['debug']['grid'] || $settings['debug']['block']) && $settings['debug']['access']) {
     drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('weight' => -5));
 
     if ($settings['debug']['grid']) {

@@ -1,7 +1,15 @@
 <?php
 
 /**
- * @todo
+ * @file
+ * Container for hook_preprocess_block().
+ */
+
+/**
+ * Implements hook_preprocess_block().
+ * 
+ * @see
+ *   alpha_preprocess().
  */
 function omega_alpha_preprocess_block(&$vars) {  
   // Adding a class to the title attributes

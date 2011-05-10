@@ -158,11 +158,9 @@ function alpha_theme_registry_alter(&$registry) {
  */
 function alpha_css_alter(&$css) {
   $settings = alpha_settings($GLOBALS['theme_key']);
-
-  if (!empty($settings['exclude'])) {
-    foreach(array_keys(array_filter($settings['exclude'])) as $item) {
-      unset($css[$item]);
-    }
+  
+  foreach(array_filter($settings['exclude']) as $item) {
+    unset($css[$item]);
   }
 }
 

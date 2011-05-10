@@ -1,3 +1,9 @@
+<?php 
+/**
+ * @file
+ * Alpha's theme implementation to display a single Drupal page.
+ */
+?>
 <div<?php print $attributes; ?>>
   <?php if (isset($page['header_section'])) : ?>
     <?php print render($page['header_section']); ?>
