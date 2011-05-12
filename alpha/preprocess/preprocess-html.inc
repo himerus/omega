@@ -76,7 +76,7 @@ function alpha_alpha_preprocess_html(&$vars) {
   	  '#tag' => 'meta',
       '#attributes' => array(
         'name' => 'viewport',
-        'content' => 'width=device-width, initial-scale=' . $settings['viewport']['initial'] . ', maximum-scale=' . $settings['viewport']['max'] . ', minimum-scale=' . $settings['viewport']['min'] . ', user-scalable=' . $settings['viewport']['user'],
+        'content' => 'width=device-width, initial-scale=' . $settings['viewport']['initial'] . ', maximum-scale=' . $settings['viewport']['max'] . ', minimum-scale=' . $settings['viewport']['min'] . ', user-scalable=' . ($settings['viewport']['user'] ? 'yes' : 'no'),
       ),
     );
 
