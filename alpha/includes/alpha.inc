@@ -536,6 +536,14 @@ function alpha_include_grid($name, $columns) {
             
       if (!$settings['responsive']) {        
         drupal_add_css($path . '-' . $columns . '.css', array('group' => 500));
+        
+        if (empty($included[$name]['primary'])) {
+          $included[$name]['primary'] = TRUE;
+          
+          foreach ($grid['layouts'][$grid['primary']]['attached'] as $attached) {
+            drupal_add_css($attached, array('group' => 500));
+          }
+        }
       }
       else {
         // Add the fallback (primary) grid layout for IE < 9
@@ -546,8 +554,8 @@ function alpha_include_grid($name, $columns) {
           'group' => 500,
         ));
 
-        if (empty($included[$name]['ie'])) {
-          $included[$name]['ie'] = TRUE;
+        if (empty($included[$name]['primary'])) {
+          $included[$name]['primary'] = TRUE;
           
           foreach ($grid['layouts'][$grid['primary']]['attached'] as $attached) {
             drupal_add_css('ie::' . $attached, array(
@@ -570,7 +578,12 @@ function alpha_include_grid($name, $columns) {
               $included[$name]['layouts'][$layout] = TRUE;
               
               foreach ($info['attached'] as $attached) {
-                drupal_add_css($attached, array('media' => $info['media'], 'group' => 500));
+                drupal_add_css($layout . '::' . $attached, array(
+                  'data' => $attached,
+                  'basename' => $layout . '::' . $attached,
+                  'media' => $info['media'], 
+                  'group' => 500,
+                ));
               }
             }
           }
@@ -709,11 +722,13 @@ function alpha_register_grids($key) {
         );
         
         foreach ($trail as $item) {
-          $path = implode('-', array(str_replace('_', '-', $item->name), str_replace('_', '-', $name), str_replace('_', '-', $layout)));
-          $path = drupal_get_path('theme', $item->name) . '/css/' . $path . '.css';
-
-          if (is_file($path)) {
-            $cache[$name]['layouts'][$layout]['attached'][] = $path;
+          $path = drupal_get_path('theme', $item->name) . '/css/' . implode('-', array(str_replace('_', '-', $item->name), str_replace('_', '-', $name)));
+          $files = array($path . '.css', $path . '-' . str_replace('_', '-', $layout) . '.css');
+          
+          foreach ($files as $file) {
+            if (is_file($file)) {
+              $cache[$name]['layouts'][$layout]['attached'][] = $file;
+            }
           }
         }
       }
