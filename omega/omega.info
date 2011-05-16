@@ -5,6 +5,7 @@ engine = phptemplate
 screenshot = screenshot.png
 version = 3.x
 base theme = alpha
+hidden = TRUE
 
 ; REGIONS
 

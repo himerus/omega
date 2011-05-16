@@ -4,6 +4,7 @@ core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
 version = 3.x
+hidden = TRUE
 
 ; REGIONS
 

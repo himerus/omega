@@ -71,7 +71,7 @@ function alpha_alpha_preprocess_html(&$vars) {
     }
   }
 
-  if($settings['responsive']['enabled'] && $settings['viewport']['enabled']) {
+  if($settings['responsive'] && $settings['viewport']['enabled']) {
     $meta = array(
   	  '#tag' => 'meta',
       '#attributes' => array(

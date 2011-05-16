@@ -4,6 +4,8 @@ core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
 base theme = alpha
+hidden = TRUE
+starterkit = TRUE
 
 ; REGIONS
 
