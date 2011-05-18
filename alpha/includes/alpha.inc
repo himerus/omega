@@ -552,6 +552,7 @@ function alpha_include_grid($name, $columns) {
           'basename' => 'ie::' . $path . '-' . $columns . '.css',
           'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
           'group' => 500,
+          'weight' => -250,
         ));
 
         if (empty($included[$name]['primary'])) {
@@ -563,6 +564,7 @@ function alpha_include_grid($name, $columns) {
               'basename' => 'ie::' . $attached,
               'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
               'group' => 500,
+              'weight' => -250,
             ));
           }
         }
@@ -572,8 +574,8 @@ function alpha_include_grid($name, $columns) {
           if ($info['enabled']) {
             $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $name) . '-' . str_replace('_', '-', $layout);
             
-            drupal_add_css($path . '-' . $columns . '.css', array('media' => $info['media'], 'group' => 500));
-            
+            drupal_add_css($path . '-' . $columns . '.css', array('media' => $info['media'], 'weight' => $info['weight'], 'group' => 500));
+
             if (empty($included[$name]['layouts'][$layout])) {
               $included[$name]['layouts'][$layout] = TRUE;
               
@@ -583,6 +585,7 @@ function alpha_include_grid($name, $columns) {
                   'basename' => $layout . '::' . $attached,
                   'media' => $info['media'], 
                   'group' => 500,
+                  'weight' => $info['weight'], 
                 ));
               }
             }
@@ -724,7 +727,7 @@ function alpha_register_grids($key) {
         foreach ($trail as $item) {
           $path = drupal_get_path('theme', $item->name) . '/css/' . implode('-', array(str_replace('_', '-', $item->name), str_replace('_', '-', $name)));
           $files = array($path . '.css', $path . '-' . str_replace('_', '-', $layout) . '.css');
-          
+
           foreach ($files as $file) {
             if (is_file($file)) {
               $cache[$name]['layouts'][$layout]['attached'][] = $file;
@@ -1104,7 +1107,7 @@ function alpha_debug_grid($settings, $columns) {
           $media = $settings['responsive'] ? $info['media'] : 'all';          
           $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . file_create_url($path) . '); }' . "\n";
           
-          drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'group' => 500));
+          drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'group' => 500, 'weight' => -500));
         }
       }
     }
