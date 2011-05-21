@@ -1054,35 +1054,6 @@ function alpha_regions_exclude() {
 }
 
 /**
- * Builds and returns a debugging block.
- * 
- * @param $region
- *   The region that the block will be placed in.
- * 
- * @param $info
- *   The region information.
- * 
- * @return
- *   A debugging block in a renderable array.
- */
-function alpha_grid_block($grid) {
-  $block = new stdClass();
-  $block->delta = 'grid-indicator';
-  $block->region = 'page_bottom';
-  $block->module = 'alpha';
-  $block->subject = t('Responsive grid indicator block for @name', array('@name' => $grid));
-  $block->weight = -999;
-
-  return array(
-	'#printed' => FALSE,
-    '#theme_wrappers' => array('block'),
-    '#block' => $block,
-    '#markup' => '<div class="alpha-responsive-indicator element-invisible">' . t('This is a responsive grid indicator block.') . '</div>',
-    '#contextual_links' => array('test' => array('admin/structure', array($block->delta))),
-  );
-}
-
-/**
  * Adds a debug grid to the site.
  * 
  * @param $settings
