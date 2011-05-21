@@ -61,7 +61,7 @@ function alpha_alpha_preprocess_page(&$vars) {
       unset($vars['page'][$name]);
     }
   }
-
+  
   foreach ($zones as $zone => $item) {
     if ($item['enabled'] && ($item['force'] || isset($vars['page'][$item['section']][$zone]))) {
       if (!empty($item['primary']) && isset($vars['page'][$item['section']][$zone][$item['primary']])) {
@@ -81,9 +81,9 @@ function alpha_alpha_preprocess_page(&$vars) {
           }         
         }
         
-        foreach ($vars['page'][$item['section']][$zone] as $region => &$info) {
+        foreach ($vars['page'][$item['section']][$zone] as $region => $info) {
           if ($region != $item['primary'] && $primary['#data']['weight'] > $info['#data']['weight']) {
-            $info['#data']['pull'] = $primary['#data']['width'];
+            $vars['page'][$item['section']][$zone][$region]['#data']['pull'] = $primary['#data']['width'];
           }
         }
       }
