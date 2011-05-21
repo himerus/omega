@@ -13,17 +13,17 @@
  */
 function alpha_alpha_preprocess_page(&$vars) {
   $sections = alpha_sections();
-  $zones = alpha_zones($GLOBALS['theme_key']);
-  $settings = $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);
+  $zones = alpha_zones($GLOBALS['theme_key']);  
   $regions = alpha_regions($GLOBALS['theme_key']);
   
-  $vars['feed_icons'] = $settings['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
-  $vars['tabs'] = $settings['toggle']['tabs'] ? $vars['tabs'] : NULL;
-  $vars['action_links'] = $settings['toggle']['action_links'] ? $vars['action_links'] : NULL;
-  $vars['show_messages'] = $settings['toggle']['messages'] ? $vars['show_messages'] : FALSE;  
-  $vars['site_name_hidden'] = $settings['hidden']['site_name'];
-  $vars['site_slogan_hidden'] = $settings['hidden']['site_slogan'];
-  $vars['title_hidden'] = $settings['hidden']['title'];
+  $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);  
+  $vars['feed_icons'] = $vars['#alpha']['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
+  $vars['tabs'] = $vars['#alpha']['toggle']['tabs'] ? $vars['tabs'] : NULL;
+  $vars['action_links'] = $vars['#alpha']['toggle']['action_links'] ? $vars['action_links'] : NULL;
+  $vars['show_messages'] = $vars['#alpha']['toggle']['messages'] ? $vars['show_messages'] : FALSE;  
+  $vars['site_name_hidden'] = $vars['#alpha']['hidden']['site_name'];
+  $vars['site_slogan_hidden'] = $vars['#alpha']['hidden']['site_slogan'];
+  $vars['title_hidden'] = $vars['#alpha']['hidden']['title'];
   
   foreach (element_children($vars['page']) as $name) {   
     $item = $vars['page'][$name];
@@ -33,29 +33,29 @@ function alpha_alpha_preprocess_page(&$vars) {
       $region = $regions[$name];
       $zone = $region['zone'];
       $section = $zones[$zone]['section'];
-      
-      $vars['page'][$section][$zone][$name] = $item;       
-      $vars['page'][$section][$zone][$name]['#region'] = $name;      
-      $vars['page'][$section][$zone][$name]['#data'] = $region;
-      $vars['page'][$section][$zone][$name]['#page'] = &$vars;
-      $vars['page'][$section][$zone][$name]['#sorted'] = FALSE;
-      $vars['page'][$section][$zone][$name]['#weight'] = (int) $region['weight'];
+             
+      $item['#region'] = $name;      
+      $item['#data'] = $region;
+      $item['#page'] = &$vars;
+      $item['#sorted'] = FALSE;
+      $item['#weight'] = (int) $region['weight'];
       
       if (empty($vars['page'][$section][$zone][$name])) {
-        $vars['page'][$section][$zone][$name]['#theme_wrappers'] = array('region');
+        $item['#theme_wrappers'] = array('region');
       }
-          
-      $children = element_children($item, TRUE);
+      
+      $children = element_children($item);
       if (!empty($children)) {
-        $first = reset($children);
-        $last = end($children);
+        $last = count($children) - 1;
         
         foreach ($children as $element) {
-          $vars['page'][$section][$zone][$name][$element]['#first'] = $element == $first;
-          $vars['page'][$section][$zone][$name][$element]['#last'] = $element == $last;
-          $vars['page'][$section][$zone][$name][$element]['#page'] = &$vars;
+          $item[$element]['#first'] = $element == $children[0];
+          $item[$element]['#last'] = $element == $children[$last];
+          $item[$element]['#page'] = &$vars;
         }        
       }
+      
+      $vars['page'][$section][$zone][$name] = $item;
     }
     else {
       unset($vars['page'][$name]);
