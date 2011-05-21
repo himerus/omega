@@ -11,15 +11,15 @@
  * @see
  *   alpha_preprocess().
  */
-function omega_alpha_preprocess_block(&$vars) {  
+function omega_alpha_preprocess_block(&$vars) {
   // Adding a class to the title attributes
   $vars['title_attributes_array']['class'][] = 'block-title';
-    
-  if($vars['block_id'] == 1) {
+  
+  if (!empty($vars['elements']['#first'])) {
     $vars['attributes_array']['class'][] = 'first';
   }
 
-  if (isset($vars['block']->last)) {
+  if (!empty($vars['elements']['#last'])) {
     $vars['attributes_array']['class'][] = 'last';
   }  
 

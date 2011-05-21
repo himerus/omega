@@ -31,8 +31,38 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
 /**
  * Form element validation handler for replacing the value "_none" with NULL. 
  */
-function alpha_theme_settings_validate_not_empty($element, &$form_state) {
+function alpha_theme_settings_validate_not_empty(&$element, &$form_state) {
   if ($element['#value'] == '_none') {
     form_set_value($element, NULL, $form_state);
   }  
+}
+
+/**
+ * Form element validation handler for validating the primary region setting for zones.
+ */
+function alpha_theme_settings_validate_primary(&$element, &$form_state) {
+  if ($element['#value'] != '_none') {
+    $values = $form_state['values'];
+    
+    if ($values['alpha_region_' . $element['#value'] . '_zone'] != $element['#zone']) {
+      form_set_value($element, NULL, $form_state);
+    }
+    else {
+      $regions = alpha_regions($form_state['build_info']['args'][0]);
+      $zones = alpha_zones($form_state['build_info']['args'][0]);
+      $element['#sum'] = 0;
+      
+      foreach ($regions as $region => $item) {
+        if ($values['alpha_region_' . $region . '_zone'] == $element['#zone']) {
+          $element['#sum'] += $values['alpha_region_' . $region . '_columns'];
+          $element['#sum'] += $values['alpha_region_' . $region . '_prefix'];
+          $element['#sum'] += $values['alpha_region_' . $region . '_suffix'];
+        }
+      }
+      
+      if ($element['#sum'] > $values['alpha_zone_' . $element['#zone'] . '_columns']) {
+        form_error($element, t('You have specified the %region region as the primary region for the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%region' => $regions[$element['#value']]['name'], '%zone' => $zones[$element['#zone']]['name'])));
+      }
+    }
+  }
 }

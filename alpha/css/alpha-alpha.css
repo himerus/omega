@@ -4,21 +4,23 @@
 }
 
 /* Give pagers and inline LI items simple styling without all the junk from core */
-ul.inline li,
-ul.tabs li,
-ul.breadcrumb li {
+.inline li,
+.tabs li,
+.breadcrumb li {
   list-style: none;
   display: inline;
   margin-right: 0.5em;
 }
+
 .item-list li {
   list-style: none;
 }
-ul.pager li {
+
+.pager li {
   display: inline;
   margin-right: 0.25em;
 }
 
 img {
-  display: block;
+  vertical-align: bottom;
 }

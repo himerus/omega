@@ -24,7 +24,7 @@ function alpha_theme_settings_regions(&$form, &$form_state) {
     '#type' => 'fieldset',
     '#title' => t('Region configuration'),
     '#weight' => -8,
-  ); 
+  );
   
   $form['alpha_settings']['regions']['unassigned'] = array(
     '#type' => 'fieldset',

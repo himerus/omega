@@ -16,18 +16,15 @@ function alpha_alpha_preprocess_region(&$vars) {
   $vars['attributes_array']['class'] = $vars['classes_array'];
   $vars['content_attributes_array']['class'][] = 'region-inner';
   $vars['content_attributes_array']['class'][] = $vars['attributes_array']['id'] . '-inner';
-  
+      
   if (isset($vars['elements']['#page']['#alpha'])) {
-    $data = $vars['elements']['#data'];
-  
+    $data = $vars['elements']['#data'];  
     $vars['attributes_array']['class'][] = 'grid-' . $data['columns'];
-
     $vars['columns'] = $data['columns'];
     
     foreach (array('prefix', 'suffix', 'push', 'pull') as $quality) {
       if (!empty($data[$quality])) {
-        $vars[$quality] = $data[$quality];
-        
+        $vars[$quality] = $data[$quality];        
         $vars['attributes_array']['class'][] = $quality . '-' . $data[$quality];
       }
     }

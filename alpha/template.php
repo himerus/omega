@@ -165,6 +165,17 @@ function alpha_css_alter(&$css) {
 }
 
 /**
+ * Implements hook_css_alter().
+ */
+function alpha_library_alter(&$css) {
+  $settings = alpha_settings($GLOBALS['theme_key']);
+  
+  foreach(array_filter($settings['exclude']) as $item) {
+    unset($css[$item]);
+  }
+}
+
+/**
  * Implements hook_preprocess_section().
  */
 function template_preprocess_section(&$vars) {

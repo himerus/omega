@@ -20,96 +20,92 @@ function alpha_alpha_preprocess_page(&$vars) {
   $vars['feed_icons'] = $settings['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
   $vars['tabs'] = $settings['toggle']['tabs'] ? $vars['tabs'] : NULL;
   $vars['action_links'] = $settings['toggle']['action_links'] ? $vars['action_links'] : NULL;
-  $vars['show_messages'] = $settings['toggle']['messages'] ? $vars['show_messages'] : FALSE;
-  
+  $vars['show_messages'] = $settings['toggle']['messages'] ? $vars['show_messages'] : FALSE;  
   $vars['site_name_hidden'] = $settings['hidden']['site_name'];
   $vars['site_slogan_hidden'] = $settings['hidden']['site_slogan'];
   $vars['title_hidden'] = $settings['hidden']['title'];
   
-  $zone_regions = array();
-  foreach ($regions as $region => $item) {
-    if ($item['enabled'] && $zones[$item['zone']]['enabled'] && ($item['force'] || !empty($vars['page'][$region]))) {
-      $zone_regions[$item['zone']][$region] = $vars['page'][$region];
-      $zone_regions[$item['zone']][$region]['#region'] = $region;      
-      $zone_regions[$item['zone']][$region]['#data'] = $item;
-      $zone_regions[$item['zone']][$region]['#page'] = &$vars;
-      $zone_regions[$item['zone']][$region]['#sorted'] = FALSE;
-      $zone_regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
+  foreach (element_children($vars['page']) as $name) {   
+    $item = $vars['page'][$name];
+    unset($vars['page'][$name]);
+    
+    if (isset($regions[$name]) && (!empty($item) || $regions[$name]['force']) && $regions[$name]['enabled'] && $zones[$regions[$name]['zone']]['enabled']) {        
+      $region = $regions[$name];
+      $zone = $region['zone'];
+      $section = $zones[$zone]['section'];
       
-      if (!isset($zones[$item['zone']]['width'])) {
-        $zones[$item['zone']]['width'] = 0;
+      $vars['page'][$section][$zone][$name] = $item;       
+      $vars['page'][$section][$zone][$name]['#region'] = $name;      
+      $vars['page'][$section][$zone][$name]['#data'] = $region;
+      $vars['page'][$section][$zone][$name]['#page'] = &$vars;
+      $vars['page'][$section][$zone][$name]['#sorted'] = FALSE;
+      $vars['page'][$section][$zone][$name]['#weight'] = (int) $region['weight'];
+      
+      if (empty($vars['page'][$section][$zone][$name])) {
+        $vars['page'][$section][$zone][$name]['#theme_wrappers'] = array('region');
       }
-      
-      if (!$item['primary']) {
-        $zones[$item['zone']]['width'] += $item['width'];
-      }
-      
-      if (!isset($zone_regions[$item['zone']][$region]['#theme_wrappers']) || !in_array('region', $zone_regions[$item['zone']][$region]['#theme_wrappers'])) {
-        $zone_regions[$item['zone']][$region]['#theme_wrappers'][] = 'region';
-      }
-      
-      $children = element_children($zone_regions[$item['zone']][$region]);
+          
+      $children = element_children($item, TRUE);
       if (!empty($children)) {
-        $zone_regions[$item['zone']][$region][array_pop($children)]['#block']->last = TRUE;
+        $first = reset($children);
+        $last = end($children);
+        
+        foreach ($children as $element) {
+          $vars['page'][$section][$zone][$name][$element]['#first'] = $element == $first;
+          $vars['page'][$section][$zone][$name][$element]['#last'] = $element == $last;
+          $vars['page'][$section][$zone][$name][$element]['#page'] = &$vars;
+        }        
       }
     }
-    
-    unset($vars['page'][$region]); 
+    else {
+      unset($vars['page'][$name]);
+    }
   }
 
   foreach ($zones as $zone => $item) {
-    if ($item['enabled'] && ($item['force'] || isset($zone_regions[$zone]))) {
-      if (!empty($item['primary']) && isset($zone_regions[$zone][$item['primary']])) {
-        if ($item['width'] < $item['columns']) {
-          $primary = &$zone_regions[$zone][$item['primary']];
+    if ($item['enabled'] && ($item['force'] || isset($vars['page'][$item['section']][$zone]))) {
+      if (!empty($item['primary']) && isset($vars['page'][$item['section']][$zone][$item['primary']])) {
+        $primary = &$vars['page'][$item['section']][$zone][$item['primary']];
+        $primary['#weight'] = -999;
+        $primary['#data']['columns'] = $item['columns'] - $primary['#data']['prefix'] - $primary['#data']['suffix'];
+        $primary['#data']['width'] = $item['columns'];
+           
+        foreach ($vars['page'][$item['section']][$zone] as $region => $info) {
+          if (!$info['#data']['primary']) {
+            $primary['#data']['columns'] -= $info['#data']['width'];
+            $primary['#data']['width'] -= $info['#data']['width'];
 
-          $primary['#weight'] = -100;
-          $primary['#data']['columns'] = $item['columns'] - $primary['#data']['prefix'] - $primary['#data']['suffix'];
-          $primary['#data']['width'] = $item['columns'];
+            if ($primary['#data']['weight'] > $info['#data']['weight']) {
+              $primary['#data']['push'] += $info['#data']['width'];              
+            }
+          }         
+        }
         
-          $pull = array();
-          
-          foreach ($zone_regions[$zone] as $region => $info) {
-            if ($region != $item['primary']) {
-              $primary['#data']['columns'] -= $info['#data']['width'];
-              $primary['#data']['width'] -= $info['#data']['width'];
-  
-              if ($primary['#data']['weight'] > $info['#data']['weight']) {
-                $primary['#data']['push'] += $info['#data']['width'];              
-                $pull[$region] = &$primary['#data']['width'];
-              }
-            }         
-          }
-          
-          foreach ($pull as $region => $value) {
-            $zone_regions[$zone][$region]['#data']['pull'] = $value;
+        foreach ($vars['page'][$item['section']][$zone] as $region => &$info) {
+          if ($region != $item['primary'] && $primary['#data']['weight'] > $info['#data']['weight']) {
+            $info['#data']['pull'] = $primary['#data']['width'];
           }
         }
       }
       
-      $item['type'] = $item['primary'] && isset($zone_regions[$zone][$item['primary']]) && $item['width'] <= $item['columns'] ? 'dynamic' : 'static';
-      
-      if (isset($zone_regions[$zone])) {
-        $vars['page'][$item['section'] . '_section'][$zone] = $zone_regions[$zone];
-      }
-      
-      $vars['page'][$item['section'] . '_section'][$zone]['#theme_wrappers'][] = 'zone';
-      $vars['page'][$item['section'] . '_section'][$zone]['#data'] = $item;
-      $vars['page'][$item['section'] . '_section'][$zone]['#zone'] = $zone;
-      $vars['page'][$item['section'] . '_section'][$zone]['#weight'] = (int) $item['weight'];
-      $vars['page'][$item['section'] . '_section'][$zone]['#sorted'] = FALSE;
-      $vars['page'][$item['section'] . '_section'][$zone]['#page'] = &$vars;
+      $item['type'] = $item['primary'] && isset($vars['page'][$item['section']][$zone][$item['primary']]) ? 'dynamic' : 'static';
+      $vars['page'][$item['section']][$zone]['#theme_wrappers'][] = 'zone';
+      $vars['page'][$item['section']][$zone]['#data'] = $item;
+      $vars['page'][$item['section']][$zone]['#zone'] = $zone;
+      $vars['page'][$item['section']][$zone]['#weight'] = (int) $item['weight'];
+      $vars['page'][$item['section']][$zone]['#sorted'] = FALSE;
+      $vars['page'][$item['section']][$zone]['#page'] = &$vars;
     }
   }
 
   foreach ($sections as $section => $item) {
-    if (isset($vars['page'][$section . '_section'])) {   
-      $vars['page'][$section . '_section']['#theme_wrappers'][] = 'section';
-      $vars['page'][$section . '_section']['#section'] = $section;
-      $vars['page'][$section . '_section']['#page'] = &$vars;
+    if (isset($vars['page'][$section])) {   
+      $vars['page'][$section]['#theme_wrappers'][] = 'section';
+      $vars['page'][$section]['#section'] = $section;
+      $vars['page'][$section]['#page'] = &$vars;
     }
   }
-  
+
   $vars['attributes_array']['id'] = 'page';
   $vars['attributes_array']['class'] = array('clearfix');
 }

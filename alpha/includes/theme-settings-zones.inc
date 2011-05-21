@@ -104,7 +104,8 @@ function alpha_theme_settings_zones(&$form, &$form_state) {
       '#title' => t('Primary Region'),
       '#default_value' => $item['primary'],
       '#options' => array('_none' => t('- None -')) + $item['regions'],
-      '#element_validate' => array('alpha_theme_settings_validate_not_empty'),
+      '#element_validate' => array('alpha_theme_settings_validate_not_empty', 'alpha_theme_settings_validate_primary'),
+      '#zone' => $zone,
     );
     
     // Allow for zone classes
