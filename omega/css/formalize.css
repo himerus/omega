@@ -1,9 +1,3 @@
-/* Added via JS to <textarea> and class="input-full". Applies only to IE7. Other browsers don't need it. */
-.input-full-wrap {
-  display: block;
-  padding-right: 8px;
-}
-
 /* UI Consistency */
 ::-moz-focus-inner {
   border: 0;
@@ -46,16 +40,13 @@ input[type="button"] {
   padding: 3px 10px 4px;
   text-shadow: #fff 0 1px 1px;
   width: auto;
-
-  /* IE7 */
-  *padding-top: 2px;
-  *padding-bottom: 0px;
+  *padding-top: 2px; /* IE7 */
+  *padding-bottom: 0px; /* IE7 */
 }
 
 button {
-  /* IE7 */
-  *padding-top: 1px;
-  *padding-bottom: 1px;
+  *padding-top: 1px; /* IE7 */
+  *padding-bottom: 1px; /* IE7 */
 }
 
 textarea,
@@ -92,16 +83,14 @@ input[type="week"] {
   font-size: 13px;
   font-family: Arial, sans-serif;
   height: 1.8em;
-
-  /* IE7 */
-  *padding-top: 2px;
-  *padding-bottom: 1px;
-  *height: auto;
+  *padding-top: 2px; /* IE7 */
+  *padding-bottom: 1px; /* IE7 */
+  *height: auto; /* IE7 */
 }
 
 /* Separate rule for Firefox. Cannot stack with WebKit's. */
-input.placeholder-text,
-textarea.placeholder-text,
+input.placeholder_text,
+textarea.placeholder_text,
 input:-moz-placeholder,
 textarea:-moz-placeholder {
   color: #888;
@@ -122,9 +111,7 @@ textarea:active {
   -moz-box-shadow: #06f 0 0 7px;
   -webkit-box-shadow: #06f 0 0 7px;
   box-shadow: #06f 0 0 7px;
-
-  /* Opera */
-  z-index: 1;
+  z-index: 1; /* For Opera */
 }
 
 input[type="file"]:focus,
@@ -172,24 +159,26 @@ textarea[disabled] {
   cursor: default;
 }
 
-.is-webkit select {
-  /* Tweaks for Safari + Chrome. */
-  background-image: url(../images/select-arrow.gif);
-  background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 20px;
-}
-
 textarea,
 select[size],
 select[multiple] {
   height: auto;
 }
 
-.is-webkit select[size],
-.is-webkit select[multiple] {
-  background-image: none;
-  padding: 0;
+/* Tweaks for Safari + Chrome. */
+@media (-webkit-min-device-pixel-ratio: 0) {
+  select {
+    background-image: url(../images/select-arrow.gif);
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 20px;
+  }
+
+  select[size],
+  select[multiple] {
+    background-image: none;
+    padding: 0;
+  }
 }
 
 textarea {
@@ -205,7 +194,7 @@ optgroup {
   font-weight: normal;
 }
 
-/* IE6 Compatibility */
+/* IE6 */
 .ie6-button,
 * html button {
   background: #ddd url(../images/button.png) repeat-x;
@@ -241,7 +230,7 @@ optgroup {
   margin-top: 1px;
 }
 
-.placeholder-text,
+.placeholder_text,
 .ie6-input-disabled,
 .ie6-button-disabled {
   color: #888;

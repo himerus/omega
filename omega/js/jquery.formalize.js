@@ -1,14 +1,15 @@
-//
-// Note: This file depends on the jQuery library.
-//
+/*
+  Formalize - version 1.1
+
+  Note: This file depends on the jQuery library.
+*/
 
 // Module pattern:
-// http://yuiblog.com/blog/2007/06/12/module-pattern/
+// http://yuiblog.com/blog/2007/06/12/module-pattern
 var FORMALIZE = (function($, window, document, undefined) {
   // Private constants.
   var PLACEHOLDER_SUPPORTED = 'placeholder' in document.createElement('input');
   var AUTOFOCUS_SUPPORTED = 'autofocus' in document.createElement('input');
-  var WEBKIT = 'webkitAppearance' in document.createElement('select').style;
   var IE6 = !!($.browser.msie && parseInt($.browser.version, 10) === 6);
   var IE7 = !!($.browser.msie && parseInt($.browser.version, 10) === 7);
 
@@ -22,25 +23,6 @@ var FORMALIZE = (function($, window, document, undefined) {
     },
     // FORMALIZE.init
     init: {
-      // FORMALIZE.init.detect_webkit
-      detect_webkit: function() {
-        if (!WEBKIT) {
-          return;
-        }
-
-        // Tweaks for Safari + Chrome.
-        $('html').addClass('is-webkit');
-      },
-      // FORMALIZE.init.full_input_size
-      full_input_size: function() {
-        if (!IE7 || !$('textarea').length) {
-          return;
-        }
-
-        // This fixes width: 100% on <textarea> and class="input_full".
-        // It ensures that form elements don't go wider than container.
-        $('textarea').wrap('<span class="input-full-wrap"></span>');
-      },
       // FORMALIZE.init.ie6_skin_inputs
       ie6_skin_inputs: function() {
         // Test for Internet Explorer 6.
