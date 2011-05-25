@@ -1139,6 +1139,24 @@ function alpha_excludes($key) {
 /**
  * @todo
  */
+function alpha_region_dimensions($region) {
+  $regions = alpha_regions($GLOBALS['theme_key']);
+  
+  if (isset($regions[$region])) {
+    return array(
+      'columns' => $regions[$region]['columns'],
+      'prefix' => $regions[$region]['prefix'],
+      'suffix' => $regions[$region]['suffix'],
+      'width' => $regions[$region]['width'],
+      'pull' => $regions[$region]['pull'],
+      'push' => $regions[$region]['push'],
+    );
+  }
+}
+
+/**
+ * @todo
+ */
 function alpha_sort_layouts($a, $b) {
   if ($a['enabled'] && !$b['enabled']) {
     return -1;
