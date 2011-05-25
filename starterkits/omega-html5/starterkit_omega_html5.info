@@ -4,10 +4,11 @@ core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
 base theme = omega
+
+; IMPORTANT: DELETE THESE TWO LINES IN YOUR SUBTHEME
+
 hidden = TRUE
 starterkit = TRUE
-
-; REGIONS
 
 ; REQUIRED CORE REGIONS
 
@@ -15,7 +16,7 @@ regions[page_top] = Page Top
 regions[page_bottom] = Page Bottom
 regions[content] = Content
 
-; END REQUIRED CORE REGIONS
+; ADDITIONAL REGIONS
 
 regions[user_first] = User Bar First
 regions[user_second] = User Bar Second
