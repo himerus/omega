@@ -547,25 +547,15 @@ function alpha_include_grid($name, $columns) {
       }
       else {
         // Add the fallback (primary) grid layout for IE < 9
-        drupal_add_css('ie::' . $path . '-' . $columns . '.css', array(
-          'data' => $path . '-' . $columns . '.css',
-          'basename' => 'ie::' . $path . '-' . $columns . '.css',
-          'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
-          'group' => 500,
-          'weight' => -250,
-        ));
+        $options = array('browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 'group' => 500, 'weight' => -250);
+        
+        drupal_add_css('ie::' . $path . '-' . $columns . '.css', array('data' => $path . '-' . $columns . '.css', 'basename' => 'ie::' . $path . '-' . $columns . '.css') + $options);
 
         if (empty($included[$name]['primary'])) {
           $included[$name]['primary'] = TRUE;
-          
+
           foreach ($grid['layouts'][$grid['primary']]['attached'] as $attached) {
-            drupal_add_css('ie::' . $attached, array(
-              'data' => $attached,
-              'basename' => 'ie::' . $attached,
-              'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
-              'group' => 500,
-              'weight' => -250,
-            ));
+            drupal_add_css('ie::' . $attached, array('data' => $attached, 'basename' => 'ie::' . $attached) + $options);
           }
         }
               
@@ -573,20 +563,15 @@ function alpha_include_grid($name, $columns) {
         foreach ($grid['layouts'] as $layout => $info) {
           if ($info['enabled']) {
             $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $name) . '-' . str_replace('_', '-', $layout);
+            $options = array('media' => $info['media'], 'weight' => $info['weight'], 'group' => 500);
             
-            drupal_add_css($path . '-' . $columns . '.css', array('media' => $info['media'], 'weight' => $info['weight'], 'group' => 500));
+            drupal_add_css($path . '-' . $columns . '.css', $options);
 
             if (empty($included[$name]['layouts'][$layout])) {
               $included[$name]['layouts'][$layout] = TRUE;
               
               foreach ($info['attached'] as $attached) {
-                drupal_add_css($layout . '::' . $attached, array(
-                  'data' => $attached,
-                  'basename' => $layout . '::' . $attached,
-                  'media' => $info['media'], 
-                  'group' => 500,
-                  'weight' => $info['weight'], 
-                ));
+                drupal_add_css($layout . '::' . $attached, array('data' => $attached, 'basename' => $layout . '::' . $attached) + $options);
               }
             }
           }
@@ -807,30 +792,28 @@ function alpha_regions($key) {
     $exclude = alpha_regions_exclude();
     
     $output[$key] = array();
-    foreach ($regions as $region => $name) {
-      if (!in_array($region, $exclude)) {
-        $zone = alpha_region_get_setting('zone', $region, $key);
-        $prefix = alpha_region_get_setting('prefix', $region, $key, 0);
-        $columns = alpha_region_get_setting('columns', $region, $key, 0);
-        $suffix = alpha_region_get_setting('suffix', $region, $key, 0);
-        
-        $output[$key][$region] = array(
-          'region' => $region,
-          'name' => $name,
-          'zone' => $zone,
-          'enabled' => isset($zones[$zone]),
-          'force' => alpha_region_get_setting('force', $region, $key, FALSE),
-          'prefix' => $prefix,
-          'columns' => $columns,
-          'suffix' => $suffix,
-          'width' => $prefix + $columns + $suffix,
-          'push' => 0,
-          'pull' => 0,
-          'css' => alpha_region_get_setting('css', $region, $key),
-          'weight' => alpha_region_get_setting('weight', $region, $key, 0),
-          'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
-        );
-      }
+    foreach (array_diff_key($regions, $exclude) as $region => $name) {
+      $zone = alpha_region_get_setting('zone', $region, $key);
+      $prefix = alpha_region_get_setting('prefix', $region, $key, 0);
+      $columns = alpha_region_get_setting('columns', $region, $key, 0);
+      $suffix = alpha_region_get_setting('suffix', $region, $key, 0);
+      
+      $output[$key][$region] = array(
+        'region' => $region,
+        'name' => $name,
+        'zone' => $zone,
+        'enabled' => isset($zones[$zone]),
+        'force' => alpha_region_get_setting('force', $region, $key, FALSE),
+        'prefix' => $prefix,
+        'columns' => $columns,
+        'suffix' => $suffix,
+        'width' => $prefix + $columns + $suffix,
+        'push' => 0,
+        'pull' => 0,
+        'css' => alpha_region_get_setting('css', $region, $key),
+        'weight' => alpha_region_get_setting('weight', $region, $key, 0),
+        'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
+      );
     }
     
     uasort($output[$key], 'drupal_sort_weight');
@@ -1151,6 +1134,24 @@ function alpha_excludes($key) {
   }
   
   return $styles;
+}
+
+/**
+ * @todo
+ */
+function alpha_region_dimensions($region) {
+  $regions = alpha_regions($GLOBALS['theme_key']);
+  
+  if (isset($regions[$region])) {
+    return array(
+      'columns' => $regions[$region]['columns'],
+      'prefix' => $regions[$region]['prefix'],
+      'suffix' => $regions[$region]['suffix'],
+      'width' => $regions[$region]['width'],
+      'pull' => $regions[$region]['pull'],
+      'push' => $regions[$region]['push'],
+    );
+  }
 }
 
 /**

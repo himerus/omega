@@ -14,7 +14,9 @@
 function alpha_alpha_preprocess_page(&$vars) {
   $sections = alpha_sections();
   $zones = alpha_zones($GLOBALS['theme_key']);  
-  $regions = alpha_regions($GLOBALS['theme_key']);
+  $regions = alpha_regions($GLOBALS['theme_key']);  
+  $reference = &drupal_static('alpha_regions');
+  $reference = &$reference[$GLOBALS['theme_key']];
   
   $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);  
   $vars['feed_icons'] = $vars['#alpha']['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
@@ -81,9 +83,13 @@ function alpha_alpha_preprocess_page(&$vars) {
           }         
         }
         
+        $reference[$item['primary']]['columns'] = $primary['#data']['columns'];
+        $reference[$item['primary']]['width'] = $primary['#data']['width'];
+        $reference[$item['primary']]['push'] = $primary['#data']['push'];
+        
         foreach ($vars['page'][$item['section']][$zone] as $region => $info) {
-          if ($region != $item['primary'] && $primary['#data']['weight'] > $info['#data']['weight']) {
-            $vars['page'][$item['section']][$zone][$region]['#data']['pull'] = $primary['#data']['width'];
+          if (!$info['#data']['primary'] && $primary['#data']['weight'] > $info['#data']['weight']) {
+            $vars['page'][$item['section']][$zone][$region]['#data']['pull'] = $reference[$item['primary']]['pull'] = $primary['#data']['width'];
           }
         }
       }
@@ -105,7 +111,7 @@ function alpha_alpha_preprocess_page(&$vars) {
       $vars['page'][$section]['#page'] = &$vars;
     }
   }
-
+  
   $vars['attributes_array']['id'] = 'page';
   $vars['attributes_array']['class'] = array('clearfix');
 }
