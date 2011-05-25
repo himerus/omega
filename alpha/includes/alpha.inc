@@ -528,7 +528,7 @@ function alpha_include_grid($name, $columns) {
     // Set this name/columns combination to TRUE in the static so we don't try to include it over and over.
     $included[$name]['columns'][$columns] = TRUE;
     $grid = alpha_grids($GLOBALS['theme_key'], $name);
-
+    
     // Only proceed if the grid and the desired column count actually exist.
     if (!empty($grid) && isset($grid['columns'][$columns])) {
       $settings = alpha_settings($GLOBALS['theme_key']);
@@ -659,7 +659,7 @@ function alpha_grids($key, $grid = NULL) {
     }
 
     foreach ($grids[$key] as $name => $info) {
-      $grids[$key][$name]['primary'] = alpha_theme_get_setting('alpha_primary_' . $name, $key);
+      $grids[$key][$name]['primary'] = alpha_theme_get_setting('alpha_primary_' . $name, $key, key($info['layouts']));
       
       foreach ($grids[$key][$name]['layouts'] as $layout => $data) {
         $grids[$key][$name]['layouts'][$layout] = $data + array(

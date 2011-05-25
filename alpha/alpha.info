@@ -90,6 +90,7 @@ grids[alpha_fluid][columns][24] = 24 Columns
 ; DEFAULT THEME SETTINGS
 
 settings[alpha_grid] = 'alpha_default'
+settings[alpha_primary_alpha_default] = 'normal'
 settings[alpha_responsive] = '1'
 settings[alpha_layouts_alpha_fluid_primary] = 'normal'
 settings[alpha_layouts_alpha_fluid_normal_responsive] = '0'
