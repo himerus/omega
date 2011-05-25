@@ -5,7 +5,6 @@ engine = phptemplate
 screenshot = screenshot.png
 version = 3.x
 base theme = alpha
-hidden = TRUE
 
 ; REGIONS
 
@@ -87,7 +86,7 @@ libraries[omega_formalize][css][0][options][weight] = -20
 ; THEME SETTINGS (DEFAULTS)
 
 settings[alpha_grid] = 'alpha_default'
-settings[alpha_primary_alpha_default] = 'normal',
+settings[alpha_primary_alpha_default] = 'normal'
 settings[alpha_responsive] = '1'
 settings[alpha_layouts_alpha_fluid_primary] = 'normal'
 settings[alpha_layouts_alpha_fluid_normal_responsive] = '0'
