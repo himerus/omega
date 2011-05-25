@@ -16,6 +16,7 @@ function alpha_alpha_preprocess_page(&$vars) {
   $zones = alpha_zones($GLOBALS['theme_key']);  
   $regions = alpha_regions($GLOBALS['theme_key']);  
   $reference = &drupal_static('alpha_regions');
+  $reference = &$reference[$GLOBALS['theme_key']];
   
   $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);  
   $vars['feed_icons'] = $vars['#alpha']['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
@@ -110,7 +111,7 @@ function alpha_alpha_preprocess_page(&$vars) {
       $vars['page'][$section]['#page'] = &$vars;
     }
   }
-
+  
   $vars['attributes_array']['id'] = 'page';
   $vars['attributes_array']['class'] = array('clearfix');
 }
