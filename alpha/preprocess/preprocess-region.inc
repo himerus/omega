@@ -13,7 +13,7 @@
  */
 function alpha_alpha_preprocess_region(&$vars) {
   $vars['attributes_array']['id'] = drupal_html_id('region-' . $vars['region']);
-  $vars['attributes_array']['class'] = $vars['classes_array'];
+  $vars['attributes_array']['class'] = &$vars['classes_array'];
   $vars['content_attributes_array']['class'][] = 'region-inner';
   $vars['content_attributes_array']['class'][] = $vars['attributes_array']['id'] . '-inner';
       

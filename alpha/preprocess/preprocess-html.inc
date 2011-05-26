@@ -12,7 +12,8 @@
  *   alpha_preprocess().
  */
 function alpha_alpha_preprocess_html(&$vars) {
-  $vars['attributes_array']['class'] = $vars['classes_array'];
+  $vars['attributes_array']['class'] = &$vars['classes_array'];
+  
   $settings = alpha_settings($GLOBALS['theme_key']);
   $css = alpha_css($GLOBALS['theme_key']);
   $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);

@@ -12,6 +12,8 @@
  *   alpha_preprocess().
  */
 function omega_alpha_preprocess_block(&$vars) {
+  $vars['attributes_array']['class'] = &$vars['classes_array'];  
+  
   // Adding a class to the title attributes
   $vars['title_attributes_array']['class'][] = 'block-title';
   
