@@ -20,21 +20,10 @@ function alpha_alpha_preprocess_html(&$vars) {
   $libraries = alpha_libraries($GLOBALS['theme_key']);
   
   if ($settings['responsive'] && $settings['debug']['grid'] && $settings['debug']['access']) {
-    $block = new stdClass();
-    $block->delta = 'grid-indicator';
-    $block->region = 'page_bottom';
-    $block->module = 'alpha-indicator';
-    $block->subject = t('Responsive grid indicator block for @name', array('@name' => $grid['name']));
-    $block->weight = -999;
-    
-    $block = array(
-      '#theme_wrappers' => array('block'),
-      '#block' => $block,
-      '#markup' => t('This is a debugging block.'),
-      '#printed' => FALSE,
+    $vars['page']['page_bottom']['alpha-resize-indicator'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="alpha-resize-indicator"></div>',
     );
-    
-    $vars['page']['page_bottom']['alpha-grid-indicator'] = $block;
   }
   
   foreach (array_filter($settings['libraries']) as $item) {

@@ -52,29 +52,31 @@ function alpha_theme($existing, $type, $theme, $path) {
 function alpha_block_list_alter(&$list) {
   $debug = alpha_debug_settings($GLOBALS['theme_key']);  
   
-  if ($debug['block'] && $debug['access']) {
-    $regions = alpha_regions($GLOBALS['theme_key']);
-    $zones = alpha_zones($GLOBALS['theme_key']);
-
-    foreach ($regions as $region => $item) {
-      if ($item['enabled'] && $zones[$item['zone']]['enabled']) {
-        $block = new stdClass();
-        $block->delta = 'debug-' . $region;
-        $block->region = $region;
-        $block->module = 'alpha-debug';
-        $block->title = $item['name'];
-        $block->cache = DRUPAL_NO_CACHE;
-        
-        $list['alpha-debug-' . $region] = $block;
+  if ($debug['access']) {    
+    if ($debug['block']) {
+      $regions = alpha_regions($GLOBALS['theme_key']);
+      $zones = alpha_zones($GLOBALS['theme_key']);
+      
+      foreach ($regions as $region => $item) {
+        if ($item['enabled'] && $zones[$item['zone']]['enabled']) {
+          $block = new stdClass();
+          $block->delta = 'debug-' . $region;
+          $block->region = $region;
+          $block->module = 'alpha-debug';
+          $block->title = $item['name'];
+          $block->cache = DRUPAL_NO_CACHE;
+          
+          $list['alpha-debug-' . $region] = $block;
+        }
       }
+      
+      $zones = &drupal_static('alpha_zones');
+      $zones[$GLOBALS['theme_key']] = NULL;
+      
+      $regions = &drupal_static('alpha_regions');
+      $regions[$GLOBALS['theme_key']] = NULL;
     }
-    
-    $zones = &drupal_static('alpha_zones');
-    $zones[$GLOBALS['theme_key']] = NULL;
-    
-    $regions = &drupal_static('alpha_regions');
-    $regions[$GLOBALS['theme_key']] = NULL;
-  }
+  }  
 }
 
 /**

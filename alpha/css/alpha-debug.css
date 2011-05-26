@@ -8,7 +8,7 @@ body.alpha-grid-debug .grid-21:hover, body.alpha-grid-debug .grid-22:hover, body
   outline: 1px dashed #0073ba;
 }
 
-body.alpha-grid-debug .block-alpha-indicator {
+body.alpha-grid-debug .alpha-resize-indicator {
   background: url(../images/resize-handle.png) no-repeat 0 0;
   width: 80px;
   height: 80px;
