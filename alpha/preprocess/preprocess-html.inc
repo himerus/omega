@@ -12,12 +12,22 @@
  *   alpha_preprocess().
  */
 function alpha_alpha_preprocess_html(&$vars) {
-  $vars['attributes_array']['class'] = &$vars['classes_array'];
-  
   $settings = alpha_settings($GLOBALS['theme_key']);
   $css = alpha_css($GLOBALS['theme_key']);
   $grid = alpha_grids($GLOBALS['theme_key'], $settings['grid']);
   $libraries = alpha_libraries($GLOBALS['theme_key']);
+  
+  $vars['attributes_array']['class'] = &$vars['classes_array'];
+  
+  // Add a CSS class based on the current page context.
+  if (!drupal_is_front_page()) {
+    $context = explode('/', drupal_get_path_alias());
+    $context = reset($context);
+    
+    if (!empty($context)) {
+      $vars['attributes_array']['class'][] = drupal_html_class('context-' . $context);
+    }
+  }
   
   if ($settings['responsive'] && $settings['debug']['grid'] && $settings['debug']['access']) {
     $vars['page']['page_bottom']['alpha-resize-indicator'] = array(

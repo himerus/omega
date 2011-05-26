@@ -29,7 +29,7 @@ function omega_alpha_process_region(&$vars) {
     
     case 'branding':    
       $vars['site_name'] = $vars['elements']['#page']['site_name'];
-      $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home')));
+      $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('html' => TRUE, 'rel' => 'home', 'title' => t('Home')));
       $vars['site_slogan'] = $vars['elements']['#page']['site_slogan'];      
       $vars['site_name_hidden'] = $vars['elements']['#page']['site_name_hidden'];
       $vars['site_slogan_hidden'] = $vars['elements']['#page']['site_slogan_hidden'];
