@@ -47,91 +47,6 @@ function alpha_theme($existing, $type, $theme, $path) {
 }
 
 /**
- * Implements hook_block_list_alter().
- */
-function alpha_block_list_alter(&$list) {
-  $debug = alpha_debug_settings($GLOBALS['theme_key']);  
-  
-  if ($debug['access']) {    
-    if ($debug['block']) {
-      $regions = alpha_regions($GLOBALS['theme_key']);
-      $zones = alpha_zones($GLOBALS['theme_key']);
-      
-      foreach ($regions as $region => $item) {
-        if ($item['enabled'] && $zones[$item['zone']]['enabled']) {
-          $block = new stdClass();
-          $block->delta = 'debug-' . $region;
-          $block->region = $region;
-          $block->module = 'alpha-debug';
-          $block->title = $item['name'];
-          $block->cache = DRUPAL_NO_CACHE;
-          
-          $list['alpha-debug-' . $region] = $block;
-        }
-      }
-      
-      $zones = &drupal_static('alpha_zones');
-      $zones[$GLOBALS['theme_key']] = NULL;
-      
-      $regions = &drupal_static('alpha_regions');
-      $regions[$GLOBALS['theme_key']] = NULL;
-    }
-  }  
-}
-
-/**
- * Implements hook_block_view_alter().
- */
-function alpha_block_view_alter(&$data, $block) {
-  if ($block->module == 'alpha-debug') {
-    $data['content'] = array(
-      '#weight' => -999,
-      '#markup' => t('This is a debugging block.'),
-    );
-  }
-}
-
-/**
- * Implements hook_menu_contextual_links_alter().
- */
-function alpha_menu_contextual_links_alter(&$links, $router_item, $root_path) {
-  $block = array_pop($router_item['map']);
-  $module = array_pop($router_item['map']);
-
-  if ($module == 'alpha-debug') {
-    $links = array();
-
-    $regions = alpha_regions($GLOBALS['theme_key']);
-    $region = substr($block, 6);
-
-    if (!empty($GLOBALS['delta']) && module_exists('delta_ui')) {
-      $links['edit-delta'] = array(
-        'title' => t('Edit Delta template'),
-        'href' => 'admin/appearance/delta/layouts/edit/' . $GLOBALS['delta']->machine_name,
-        'localized_options' => array(),
-      );
-      
-      $links['configure-delta'] = array(
-        'title' => t('Configure Delta template'),
-        'href' => 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta']->machine_name,
-        'localized_options' => array(),
-      );
-      
-      $path = 'admin/appearance/delta/layouts/configure/' . $GLOBALS['delta']->machine_name;
-    }
-    else {
-      $links['theme-settings'] = array(
-        'title' => t('Edit theme settings'),
-        'href' => 'admin/appearance/settings/' . $GLOBALS['theme_key'],
-      	'localized_options' => array(),
-      );
-      
-      $path = 'admin/appearance/settings/' . $GLOBALS['theme_key'];
-    }
-  }
-}
-
-/**
  * Implements hook_preprocess().
  */
 function alpha_preprocess(&$vars, $hook) {
@@ -239,15 +154,57 @@ function template_preprocess_zone(&$vars) {
 }
 
 /**
+ * Implements hook_page_alter().
+ */
+function alpha_page_alter(&$vars) {
+  $settings = alpha_settings($GLOBALS['theme_key']);
+  
+  if ($settings['debug']['access']) {    
+    if ($settings['responsive'] && $settings['debug']['grid']) {
+      if (empty($vars['page_bottom'])) {
+        $vars['page_bottom']['#region'] = 'page_bottom';
+        $vars['page_bottom']['#theme_wrappers'] = array('region');
+      }
+        
+      $vars['page_bottom']['alpha-resize-indicator'] = array(
+        '#type' => 'markup',
+        '#markup' => '<div class="alpha-resize-indicator"></div>',
+      );
+    }
+
+    if ($settings['debug']['block']) {
+      $regions = alpha_regions($GLOBALS['theme_key']);
+      $zones = alpha_zones($GLOBALS['theme_key']);
+      
+      foreach ($regions as $region => $item) {
+        if ($item['enabled'] && $zones[$item['zone']]['enabled']) {
+          $block = new stdClass();
+          $block->delta = 'debug-' . $region;
+          $block->region = $region;
+          $block->module = 'alpha-debug';
+          $block->subject = $item['name'];
+          
+          $vars[$region]['alpha-debug-' . $region] = array(       
+            '#block' => $block,
+            '#weight' => -999,
+            '#markup' => t('This is a debugging block'),
+            '#theme_wrappers' => array('block'),
+          );
+        }
+      }
+      
+      $zones = &drupal_static('alpha_zones');
+      $zones[$GLOBALS['theme_key']] = NULL;
+      
+      $regions = &drupal_static('alpha_regions');
+      $regions[$GLOBALS['theme_key']] = NULL;
+    }
+  }
+}
+
+/**
  * Implements hook_process_zone().
  */
 function template_process_zone(&$vars) {
   $vars['wrapper_attributes'] = isset($vars['wrapper_attributes_array']) ? drupal_attributes($vars['wrapper_attributes_array']) : '';
-}
-
-/**
- * Implements hook_delta_exclude()
- */
-function alpha_delta_exclude(&$settings) {
-  return array('alpha_debug_block_toggle', 'alpha_debug_grid_toggle', 'alpha_debug_grid_roles');
 }

@@ -18,7 +18,7 @@ function alpha_alpha_preprocess_page(&$vars) {
   $reference = &drupal_static('alpha_regions');
   $reference = &$reference[$GLOBALS['theme_key']];
   
-  $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);  
+  $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);
   $vars['feed_icons'] = $vars['#alpha']['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
   $vars['tabs'] = $vars['#alpha']['toggle']['tabs'] ? $vars['tabs'] : NULL;
   $vars['action_links'] = $vars['#alpha']['toggle']['action_links'] ? $vars['action_links'] : NULL;
@@ -49,7 +49,7 @@ function alpha_alpha_preprocess_page(&$vars) {
       $children = element_children($item);
       if (!empty($children)) {
         $last = count($children) - 1;
-        
+
         foreach ($children as $element) {
           $item[$element]['#first'] = $element == $children[0];
           $item[$element]['#last'] = $element == $children[$last];

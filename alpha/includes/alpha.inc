@@ -866,30 +866,6 @@ function alpha_info($key, $item) {
 }
 
 /**
- * This function is a non-cached short version of the full settings array
- * as in alpha_settings(). It is required because in hook_block_list_alter()
- * we need the information provided by this function without unintentionally
- * populating the alpha_settings() cache as this would interfere with the
- * Delta modules settings injection procedure, because the Delta module is
- * being invoked AFTER hook_block_list_alter().
- * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the debug settings for.
- */
-function alpha_debug_settings($key) {
-  $settings = array(
-    'block' => alpha_theme_get_setting('alpha_debug_block_toggle', $key, FALSE),
-    'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', $key, FALSE),
-    'roles' => array_keys(array_filter(alpha_theme_get_setting('alpha_debug_grid_roles', $key, array()))),
-  );
-  
-  $settings['access'] = alpha_debug_access($GLOBALS['user'], $settings['roles']);
-
-  return $settings;
-}
-
-/**
  * A helper function to gather all non-region and non-zone settings for the
  * theme defined by $key.
  * 

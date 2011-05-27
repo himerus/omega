@@ -29,13 +29,6 @@ function alpha_alpha_preprocess_html(&$vars) {
     }
   }
   
-  if ($settings['responsive'] && $settings['debug']['grid'] && $settings['debug']['access']) {
-    $vars['page']['page_bottom']['alpha-resize-indicator'] = array(
-      '#type' => 'markup',
-      '#markup' => '<div class="alpha-resize-indicator"></div>',
-    );
-  }
-  
   foreach (array_filter($settings['libraries']) as $item) {
     if (isset($libraries[$item])) {
       if (!empty($libraries[$item]['js'])) {
