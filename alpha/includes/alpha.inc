@@ -1032,13 +1032,10 @@ function alpha_debug_grid($settings, $columns) {
     foreach ($grid['layouts'] as $layout => $info) {
       if ((!$settings['responsive'] && $layout == $grid['primary']) || ($settings['responsive'] && $info['enabled'])) {
         $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $settings['grid']) . '-' . str_replace('_', '-', $layout) . '-' . $columns . '.png';
-
-        if (is_file($path)) {      
-          $media = $settings['responsive'] ? $info['media'] : 'all';          
-          $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: url(' . file_create_url($path) . '); }' . "\n";
-          
-          drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'group' => 500, 'weight' => -500));
-        }
+        $media = $settings['responsive'] ? $info['media'] : 'all';          
+        $overlay = 'body.alpha-grid-debug .container-' . $columns . ' { background-image: ' . (is_file($path) ? 'url(' . file_create_url($path) . ')' : 'none') . '; }';
+        
+        drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'group' => 500, 'weight' => -500));
       }
     }
   }
