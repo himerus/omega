@@ -39,12 +39,7 @@ function alpha_alpha_preprocess_page(&$vars) {
       $item['#region'] = $name;      
       $item['#data'] = $region;
       $item['#page'] = &$vars;
-      $item['#sorted'] = FALSE;
       $item['#weight'] = (int) $region['weight'];
-      
-      if (empty($vars['page'][$section][$zone][$name])) {
-        $item['#theme_wrappers'] = array('region');
-      }
       
       $children = element_children($item);
       if (!empty($children)) {

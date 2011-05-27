@@ -176,14 +176,20 @@ function alpha_page_alter(&$vars) {
       $regions = alpha_regions($GLOBALS['theme_key']);
       $zones = alpha_zones($GLOBALS['theme_key']);
       
-      foreach ($regions as $region => $item) {
+      foreach ($regions as $region => $item) {        
         if ($item['enabled'] && $zones[$item['zone']]['enabled']) {
+          if (empty($vars[$region])) {
+            $vars[$region]['#region'] = $region;
+            $vars[$region]['#theme_wrappers'] = array('region');
+          }                
+                
           $block = new stdClass();
           $block->delta = 'debug-' . $region;
           $block->region = $region;
           $block->module = 'alpha-debug';
           $block->subject = $item['name'];
           
+          $vars[$region]['#sorted'] = FALSE;
           $vars[$region]['alpha-debug-' . $region] = array(       
             '#block' => $block,
             '#weight' => -999,
