@@ -54,9 +54,6 @@ function alpha_alpha_preprocess_page(&$vars) {
       
       $vars['page'][$section][$zone][$name] = $item;
     }
-    else {
-      unset($vars['page'][$name]);
-    }
   }
   
   foreach ($zones as $zone => $item) {

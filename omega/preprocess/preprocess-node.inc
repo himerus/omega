@@ -15,7 +15,7 @@ function omega_alpha_preprocess_node(&$vars) {
   // Prepare the arrays to handle the classes and ids for the node container.
   $vars['attributes_array']['id'] = drupal_html_id('node-' . $vars['type'] . '-' . $vars['nid']);  
   $vars['attributes_array']['class'] = &$vars['classes_array'];
-  
+
   // Add a class to allow styling based on publish status.
   if ($vars['status']) {
     $vars['attributes_array']['class'][] = 'node-published';
