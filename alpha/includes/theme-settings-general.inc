@@ -37,6 +37,19 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#options' => alpha_grid_options($theme),
   );
   
+  $form['alpha_settings']['layout']['performance_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Performance settings'),
+  );
+  
+  $form['alpha_settings']['layout']['performance_settings']['alpha_aggregate'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Aggregate all grid related CSS files'),
+    '#description' => t('<span class="marker">Comming soon:</span> Enabling this will aggregate all of your grid layouts aswell as all the acompanied CSS files.'),
+    '#default_value' => $settings['aggregate'],
+    '#disabled' => TRUE,
+  );
+  
   $form['alpha_settings']['layout']['responsive_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Responsive settings'),

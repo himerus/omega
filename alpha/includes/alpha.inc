@@ -886,6 +886,7 @@ function alpha_settings($key) {
       'grid' => alpha_theme_get_setting('alpha_grid', $key, 'default'),
       'primary' => alpha_theme_get_setting('alpha_primary', $key),
       'css' => alpha_theme_get_setting('alpha_css', $key, array()),
+      'aggregate' => alpha_theme_get_setting('alpha_aggregate', $key, FALSE),
       'libraries' => alpha_theme_get_setting('alpha_libraries', $key, array()),
       'exclude' => alpha_theme_get_setting('alpha_exclude', $key, array()),      
       'responsive' => alpha_theme_get_setting('alpha_responsive', $key, FALSE),

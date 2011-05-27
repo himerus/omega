@@ -84,7 +84,7 @@ function alpha_alpha_preprocess_page(&$vars) {
         
         foreach ($vars['page'][$item['section']][$zone] as $region => $info) {
           if (!$info['#data']['primary'] && $primary['#data']['weight'] > $info['#data']['weight']) {
-            $vars['page'][$item['section']][$zone][$region]['#data']['pull'] = $reference[$item['primary']]['pull'] = $primary['#data']['width'];
+            $vars['page'][$item['section']][$zone][$region]['#data']['pull'] = $reference[$region]['pull'] = $primary['#data']['width'];
           }
         }
       }
