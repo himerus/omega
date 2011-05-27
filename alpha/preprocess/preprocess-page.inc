@@ -13,12 +13,12 @@
  */
 function alpha_alpha_preprocess_page(&$vars) {
   $sections = alpha_sections();
-  $zones = alpha_zones($GLOBALS['theme_key']);  
-  $regions = alpha_regions($GLOBALS['theme_key']);  
+  $theme = $GLOBALS['theme_key'];
+  $zones = alpha_zones($theme);  
+  $regions = alpha_regions($theme);  
   $reference = &drupal_static('alpha_regions');
-  $reference = &$reference[$GLOBALS['theme_key']];
   
-  $vars['#alpha'] = alpha_settings($GLOBALS['theme_key']);
+  $vars['#alpha'] = alpha_settings($theme);
   $vars['feed_icons'] = $vars['#alpha']['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
   $vars['tabs'] = $vars['#alpha']['toggle']['tabs'] ? $vars['tabs'] : NULL;
   $vars['action_links'] = $vars['#alpha']['toggle']['action_links'] ? $vars['action_links'] : NULL;
@@ -78,13 +78,14 @@ function alpha_alpha_preprocess_page(&$vars) {
           }         
         }
         
-        $reference[$item['primary']]['columns'] = $primary['#data']['columns'];
-        $reference[$item['primary']]['width'] = $primary['#data']['width'];
-        $reference[$item['primary']]['push'] = $primary['#data']['push'];
+        $reference[$theme][$item['primary']]['columns'] = $primary['#data']['columns'];
+        $reference[$theme][$item['primary']]['width'] = $primary['#data']['width'];
+        $reference[$theme][$item['primary']]['push'] = $primary['#data']['push'];
         
         foreach ($vars['page'][$item['section']][$zone] as $region => $info) {
           if (!$info['#data']['primary'] && $primary['#data']['weight'] > $info['#data']['weight']) {
-            $vars['page'][$item['section']][$zone][$region]['#data']['pull'] = $reference[$region]['pull'] = $primary['#data']['width'];
+            $vars['page'][$item['section']][$zone][$region]['#data']['pull'] = $primary['#data']['width'];
+            $reference[$theme][$region]['pull'] = $primary['#data']['width'];
           }
         }
       }
