@@ -166,7 +166,7 @@ function alpha_page_alter(&$vars) {
         $vars['page_bottom']['#theme_wrappers'] = array('region');
       }
         
-      $vars['page_bottom']['alpha-resize-indicator'] = array(
+      $vars['page_bottom']['alpha_resize_indicator'] = array(
         '#type' => 'markup',
         '#markup' => '<div class="alpha-resize-indicator"></div>',
       );
@@ -190,7 +190,7 @@ function alpha_page_alter(&$vars) {
           $block->subject = $item['name'];
           
           $vars[$region]['#sorted'] = FALSE;
-          $vars[$region]['alpha-debug-' . $region] = array(       
+          $vars[$region]['alpha_debug_' . $region] = array(       
             '#block' => $block,
             '#weight' => -999,
             '#markup' => t('This is a debugging block'),
