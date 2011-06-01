@@ -166,9 +166,10 @@ function alpha_page_alter(&$vars) {
     }
   }
   
-  foreach (alpha_regions() as $region => $item) {    
+  foreach (alpha_regions() as $region => $item) {  
     if ($item['enabled'] && ($item['force'] || isset($vars[$region]))) {
-      $zone = $item['zone'];      
+      $zone = $item['zone'];
+      
       $regions[$zone][$region] = isset($vars[$region]) ? $vars[$region] : array();
       $regions[$zone][$region]['#region'] = $region;
       $regions[$zone][$region]['#theme_wrappers'] = array('region');

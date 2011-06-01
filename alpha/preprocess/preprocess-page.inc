@@ -12,9 +12,7 @@
  *   alpha_preprocess().
  */
 function alpha_alpha_preprocess_page(&$vars) {
-  global $page;
-
-  $page = &$vars;
+  $GLOBALS['page'] = &$vars;
   $settings = alpha_settings();
   
   $vars['feed_icons'] = $settings['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;

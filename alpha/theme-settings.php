@@ -17,7 +17,7 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   $form_state['alpha_settings'] = alpha_settings($theme);
   $form_state['alpha_zones'] = alpha_zones($theme);
   $form_state['alpha_regions'] = alpha_regions($theme);
-  $form_state['alpha_containers'] = alpha_container_options($theme, $form_state['alpha_settings']['grid']);
+  $form_state['alpha_containers'] = alpha_container_options($form_state['alpha_settings']['grid'], $theme);
   
   require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-general.inc';
   require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-zones.inc';
