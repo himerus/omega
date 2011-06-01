@@ -11,6 +11,16 @@
 global $page;
 
 /**
+ * @todo
+ */
+define('CSS_ALPHA_GRID', 2000);
+
+/**
+ * @todo
+ */
+define('CSS_ALPHA_GRID_IE', 1000);
+
+/**
  * Invokes a preprocess or process hook in all base themes aswell 
  * as the subtheme (in that order) by including the corresponding 
  * .inc file and calling the associated function.
@@ -572,13 +582,16 @@ function alpha_grid_css($name, $columns) {
                 'data' => $path . '-' . $count . '.css', 
                 'basename' => $basename,
                 'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
-                'weight' => 1000,
+                'group' => CSS_ALPHA_GRID_IE,
               );
             }
             
             $output[$path . '-' . $count . '.css'] = array(
-              'weight' => 2000 + $item['weight'],
+              'group' => CSS_ALPHA_GRID,
+              'weight' => $item['weight'],
               'media' => $settings['responsive'] ? $item['media'] : 'all',
+              'browsers' => array('IE' => 'IE gte 9', '!IE' => TRUE),
+              'responsive' => TRUE,
             );
             
             foreach ($item['attached'] as $attached) {
@@ -588,7 +601,7 @@ function alpha_grid_css($name, $columns) {
                   'data' => $attached, 
                   'basename' => $basename,
                   'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
-                  'weight' => 1000,
+                  'group' => CSS_ALPHA_GRID_IE,
                 );
               }
               
@@ -596,8 +609,11 @@ function alpha_grid_css($name, $columns) {
               $output[$basename] = array(
                 'data' => $attached, 
                 'basename' => $basename,
-                'weight' => 2000 + $item['weight'],
+                'group' => CSS_ALPHA_GRID,
+                'weight' => $item['weight'],
                 'media' => $settings['responsive'] ? $item['media'] : 'all',
+                'browsers' => array('IE' => 'IE gte 9', '!IE' => TRUE),
+                'responsive' => TRUE,
               );
             }
           }
