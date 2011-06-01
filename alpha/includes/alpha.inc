@@ -414,6 +414,7 @@ function alpha_column_options($max = NULL) {
  */
 function alpha_css($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
+  
   $css = &drupal_static(__FUNCTION__);
   
   if (!isset($css[$theme])) {
