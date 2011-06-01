@@ -550,9 +550,34 @@ function alpha_register_libraries($theme = NULL) {
  */
 function alpha_include_grid($grid, $columns) {
   $css = alpha_grid_css($grid, $columns);
+  $settings = alpha_settings();
   
   foreach ($css as $key => $options) {
     drupal_add_css($key, $options);
+  }
+  
+  if ($settings['debug']['grid'] && $settings['debug']['access']) {
+    $grid = alpha_grids($grid);
+    
+    foreach ($grid['layouts'] as $layout => $item) {
+      if (!$settings['responsive'] || $item['enabled']) {
+        $path = $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $settings['grid']) . '-' . str_replace('_', '-', $layout);
+        
+        foreach ($columns as $count => $title) {
+          if (isset($grid['columns'][$count])) {
+            $file = $path . '-' . $count . '.png';      
+            $overlay = 'body.alpha-grid-debug .container-' . $count . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
+            
+            drupal_add_css($overlay, array(
+              'type' => 'inline', 
+              'media' => $settings['responsive'] ? $item['media'] : 'all', 
+              'weight' => 3000 + $item['weight'],
+              'browsers' => array('IE' => 'IE gte 9', '!IE' => TRUE),
+            ));
+          }
+        }
+      }
+    }
   }
 }
 
@@ -579,16 +604,15 @@ function alpha_grid_css($name, $columns) {
             if ($settings['responsive'] && $layout == $grid['primary']) {
               $basename = 'ie::' . $layout . '::' . $path . '-' . $count . '.css';
               $output[$basename] = array(
-                'data' => $path . '-' . $count . '.css', 
+              	'weight' => 1000 + $item['weight'],
+                'data' => $path . '-' . $count . '.css',
                 'basename' => $basename,
                 'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
-                'group' => CSS_ALPHA_GRID_IE,
               );
             }
             
             $output[$path . '-' . $count . '.css'] = array(
-              'group' => CSS_ALPHA_GRID,
-              'weight' => $item['weight'],
+              'weight' => 2000 + $item['weight'],
               'media' => $settings['responsive'] ? $item['media'] : 'all',
               'browsers' => array('IE' => 'IE gte 9', '!IE' => TRUE),
               'responsive' => TRUE,
@@ -598,19 +622,18 @@ function alpha_grid_css($name, $columns) {
               if ($settings['responsive'] && $layout == $grid['primary']) {
                 $basename = 'ie::' . $layout . '::' . $attached;
                 $output[$basename] = array(
+                  'weight' => 1000 + $item['weight'],
                   'data' => $attached, 
                   'basename' => $basename,
-                  'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
-                  'group' => CSS_ALPHA_GRID_IE,
+                  'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),                  
                 );
               }
               
               $basename = $layout . '::' . $attached;
               $output[$basename] = array(
+                'weight' => 2000 + $item['weight'],                
                 'data' => $attached, 
-                'basename' => $basename,
-                'group' => CSS_ALPHA_GRID,
-                'weight' => $item['weight'],
+                'basename' => $basename,                
                 'media' => $settings['responsive'] ? $item['media'] : 'all',
                 'browsers' => array('IE' => 'IE gte 9', '!IE' => TRUE),
                 'responsive' => TRUE,
@@ -623,6 +646,75 @@ function alpha_grid_css($name, $columns) {
   }
   
   return $output;
+}
+
+/**
+ * @todo
+ */
+function alpha_build_css_cache($css) {
+  $data = '';
+  $uri = '';
+  $map = variable_get('drupal_css_cache_files', array());
+  $key = hash('sha256', serialize($css));
+  if (isset($map[$key])) {
+    $uri = $map[$key];
+  }
+
+  if (empty($uri) || !file_exists($uri)) {
+    // Build aggregate CSS file.
+    foreach ($css as $stylesheet) {
+      // Only 'file' stylesheets can be aggregated.
+      if ($stylesheet['type'] == 'file') {
+        $contents = drupal_load_stylesheet($stylesheet['data'], TRUE);
+
+        // Build the base URL of this CSS file: start with the full URL.
+        $css_base_url = file_create_url($stylesheet['data']);
+        // Move to the parent.
+        $css_base_url = substr($css_base_url, 0, strrpos($css_base_url, '/'));
+        // Simplify to a relative URL if the stylesheet URL starts with the
+        // base URL of the website.
+        if (substr($css_base_url, 0, strlen($GLOBALS['base_root'])) == $GLOBALS['base_root']) {
+          $css_base_url = substr($css_base_url, strlen($GLOBALS['base_root']));
+        }
+
+        _drupal_build_css_path(NULL, $css_base_url . '/');
+        // Anchor all paths in the CSS with its base URL, ignoring external and absolute paths.
+        $data .= preg_replace_callback('/url\(\s*[\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\s*\)/i', '_drupal_build_css_path', $contents);
+      }
+    }
+
+    // Per the W3C specification at http://www.w3.org/TR/REC-CSS2/cascade.html#at-import,
+    // @import rules must proceed any other style, so we move those to the top.
+    $regexp = '/@import[^;]+;/i';
+    preg_match_all($regexp, $data, $matches);
+    $data = preg_replace($regexp, '', $data);
+    $data = implode('', $matches[0]) . $data;
+
+    // Prefix filename to prevent blocking by firewalls which reject files
+    // starting with "ad*".
+    $filename = 'css_' . drupal_hash_base64($data) . '.css';
+    // Create the css/ within the files folder.
+    $csspath = 'public://css';
+    $uri = $csspath . '/' . $filename;
+    // Create the CSS file.
+    file_prepare_directory($csspath, FILE_CREATE_DIRECTORY);
+    if (!file_exists($uri) && !file_unmanaged_save_data($data, $uri, FILE_EXISTS_REPLACE)) {
+      return FALSE;
+    }
+    // If CSS gzip compression is enabled, clean URLs are enabled (which means
+    // that rewrite rules are working) and the zlib extension is available then
+    // create a gzipped version of this file. This file is served conditionally
+    // to browsers that accept gzip using .htaccess rules.
+    if (variable_get('css_gzip_compression', TRUE) && variable_get('clean_url', 0) && extension_loaded('zlib')) {
+      if (!file_exists($uri . '.gz') && !file_unmanaged_save_data(gzencode($data, 9, FORCE_GZIP), $uri . '.gz', FILE_EXISTS_REPLACE)) {
+        return FALSE;
+      }
+    }
+    // Save the updated map.
+    $map[$key] = $uri;
+    variable_set('drupal_css_cache_files', $map);
+  }
+  return $uri;
 }
 
 /**
@@ -1061,35 +1153,6 @@ function alpha_debug_access($user, $roles) {
  */
 function alpha_regions_exclude() {
   return array('page_top', 'page_bottom');
-}
-
-/**
- * Adds a debug grid to the site.
- * 
- * @param $settings
- *   The settings array as returned by alpha_settings().
- * 
- * @param $columns
- *   The column layout (number) that you want to add a debugging grid
- *   for.
- */
-function alpha_debug_grid($name, $columns) {
-  $settings = alpha_settings();
-  $grid = alpha_grids($name);
-  
-  foreach ($grid['layouts'] as $layout => $info) {
-    if ((!$settings['responsive'] && $layout == $grid['primary']) || ($settings['responsive'] && $info['enabled'])) {
-      $path = $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $settings['grid']) . '-' . str_replace('_', '-', $layout);
-      
-      foreach ($columns as $count => $title) {
-        $file = $path . '-' . $count . '.png';
-        $media = $settings['responsive'] ? $info['media'] : 'all';          
-        $overlay = 'body.alpha-grid-debug .container-' . $count . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
-        
-        drupal_add_css($overlay, array('type' => 'inline', 'media' => $media, 'weight' => 3000));
-      }
-    }
-  }
 }
 
 /**
