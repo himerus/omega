@@ -22,8 +22,8 @@
  * @see 
  * 	 theme_get_setting().
  */
-function omega_theme_get_setting($name, $theme = NULL, $default = NULL) {
-  return alpha_theme_get_setting($name, $theme, $default);
+function omega_theme_get_setting($name, $default = NULL, $theme = NULL) {
+  return alpha_theme_get_setting($name, $default, $theme);
 }
 
 /**
@@ -49,8 +49,8 @@ function omega_theme_get_setting($name, $theme = NULL, $default = NULL) {
  * @see
  * 	 theme_get_setting().
  */
-function omega_zone_get_setting($name, $zone, $theme = NULL, $default = NULL) {
-  return alpha_zone_get_setting($name, $zone, $theme, $default);
+function omega_zone_get_setting($name, $zone, $default = NULL, $theme = NULL) {
+  return alpha_zone_get_setting($name, $zone, $default, $theme);
 }
 
 /**
@@ -76,8 +76,8 @@ function omega_zone_get_setting($name, $zone, $theme = NULL, $default = NULL) {
  * @see
  * 	 theme_get_setting().
  */
-function omega_region_get_setting($name, $region, $theme = NULL, $default = NULL) {
-  return alpha_region_get_setting($name, $region, $theme, $default);
+function omega_region_get_setting($name, $region, $default = NULL, $theme = NULL) {
+  return alpha_region_get_setting($name, $region, $default, $theme);
 }
 
 /**
@@ -91,6 +91,6 @@ function omega_region_get_setting($name, $region, $theme = NULL, $default = NULL
  * @return
  *   A nested array of theme settings.
  */
-function omega_settings($key) {
-  return alpha_settings($key);
+function omega_settings($theme = NULL) {
+  return alpha_settings($theme);
 }

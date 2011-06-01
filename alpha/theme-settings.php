@@ -17,8 +17,8 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   $form_state['alpha_settings'] = alpha_settings($theme);
   $form_state['alpha_zones'] = alpha_zones($theme);
   $form_state['alpha_regions'] = alpha_regions($theme);
-  $form_state['alpha_containers'] = alpha_container_options($theme, alpha_theme_get_setting('alpha_grid', $theme, 'default'));
-     
+  $form_state['alpha_containers'] = alpha_container_options($theme, $form_state['alpha_settings']['grid']);
+  
   require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-general.inc';
   require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-zones.inc';
   require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-regions.inc';
@@ -48,8 +48,9 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
       form_set_value($element, NULL, $form_state);
     }
     else {
-      $regions = alpha_regions($form_state['build_info']['args'][0]);
-      $zones = alpha_zones($form_state['build_info']['args'][0]);
+      $theme = $form_state['build_info']['args'][0];
+      $regions = alpha_regions($theme);
+      $zones = alpha_zones($theme);
       $element['#sum'] = 0;
       
       foreach ($regions as $region => $item) {

@@ -12,10 +12,8 @@
  *   alpha_process().
  */
 function omega_alpha_process_zone(&$vars) {
-  switch($vars['elements']['#zone']) {
-    case 'content':
-      $vars['messages'] = $vars['elements']['#page']['messages'];
-      $vars['breadcrumb'] = $vars['elements']['#page']['breadcrumb'];
-      break;
+  if ($vars['elements']['#zone'] == 'content') {
+    $vars['messages'] = $GLOBALS['page']['messages'];
+    $vars['breadcrumb'] = $GLOBALS['page']['breadcrumb'];
   }
 }
