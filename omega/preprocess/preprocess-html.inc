@@ -12,8 +12,6 @@
  *   alpha_preprocess().
  */
 function omega_alpha_preprocess_html(&$vars) {
-  $settings = alpha_settings($GLOBALS['theme_key']);
-  
   $vars['rdf'] = new stdClass;  
   
   if (module_exists('rdf')) {
