@@ -790,7 +790,7 @@ function alpha_zones($theme = NULL) {
           'section' => $section,
           'weight' => alpha_zone_get_setting('weight', $zone, 0, $theme),
           'wrapper' => alpha_zone_get_setting('wrapper', $zone, FALSE, $theme),
-          'wrapper_css' => alpha_zone_get_setting('wrapper_css', $theme, $zone),
+          'wrapper_css' => alpha_zone_get_setting('wrapper_css', $zone, NULL, $theme),
           'primary' => alpha_zone_get_setting('primary', $zone, NULL, $theme),
           'css' => alpha_zone_get_setting('css', $zone, NULL, $theme),
         );
