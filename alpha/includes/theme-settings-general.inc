@@ -103,7 +103,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#default_value' => $settings['viewport']['user'],
   );
     
-  foreach (alpha_grids($theme) as $grid => $info) {
+  foreach (alpha_grids(NULL, $theme) as $grid => $info) {
     $form['alpha_settings']['layout']['grid_layouts'][$grid] = array(
       '#type' => 'fieldset',
       '#title' => t('@grid layout settings', array('@grid' => $info['name'])),
