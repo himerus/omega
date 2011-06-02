@@ -51,9 +51,9 @@ function alpha_invoke($type, $hook, &$vars) {
  * Builds the full theme trail (deepest base theme first, subtheme last)
  * for a theme.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 to retrieve the theme trail for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  * 
  * @param $hook
  * 	 The name of the hook.
@@ -87,13 +87,13 @@ function alpha_theme_trail($theme = NULL) {
  * Builds the hook registry tree for a theme and its ancestors
  * and saves it as a variable.
  * 
- * @param $name
- * 	 The key (machin-readable name) of the theme that you want
- *	 to build the registry for.
- * 
  * @param $registry
  * 	 The theme registry as an array.
  * 
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
+ *   
  * @see 
  * 	 hook_theme_registry_alter().
  */
@@ -138,13 +138,13 @@ function alpha_build_registry($registry, $theme = NULL) {
  * @param $name
  * 	 The name of the setting that you want to retrieve.
  * 
- * @param $theme (optional)
- * 	 The name (key) of the theme that you want to fetch the
- *   setting for. Defaults to the global variable $theme_key.
- *   
  * @param $default (optional)
  * 	 The name (key) of the theme that you want to fetch the
  *   setting for. Defaults to NULL.
+ *   
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @see 
  * 	 theme_get_setting().
@@ -153,6 +153,60 @@ function alpha_theme_get_setting($name, $default = NULL, $theme = NULL) {
   $setting = theme_get_setting($name, $theme);
   
   return isset($setting) ? $setting : $default; 
+}
+
+/**
+ * A helper function for retrieving zone settings.
+ * 
+ * @param $name
+ * 	 The name of the setting that you want to retrieve.
+ * 
+ * @param $zone
+ * 	 The zone that you want to fetch the setting for.
+ * 
+ * @param $default (optional)
+ * 	 The name (key) of the theme that you want to fetch the
+ *   setting for. Defaults to NULL.
+ *   
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
+ *   
+ * @see 
+ * 	 alpha_theme_get_setting().
+ * 
+ * @see
+ * 	 theme_get_setting().
+ */
+function alpha_zone_get_setting($name, $zone, $default = NULL, $theme = NULL) {
+  return alpha_theme_get_setting('alpha_zone_' . $zone . '_' . $name, $default, $theme);
+}
+
+/**
+ * A helper function for retrieving region settings.
+ * 
+ * @param $name
+ * 	 The name of the setting that you want to retrieve.
+ * 
+ * @param $region
+ * 	 The region that you want to fetch the setting for.
+ * 
+ * @param $default (optional)
+ * 	 The name (key) of the theme that you want to fetch the
+ *   setting for. Defaults to NULL.
+ *   
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
+ *   
+ * @see 
+ * 	 alpha_theme_get_setting().
+ * 
+ * @see
+ * 	 theme_get_setting().
+ */
+function alpha_region_get_setting($name, $region, $default = NULL, $theme = NULL) {
+  return alpha_theme_get_setting('alpha_region_' . $region . '_' . $name, $default, $theme);
 }
 
 /**
@@ -183,12 +237,9 @@ function alpha_scale_options($start, $end, $step) {
 /**
  * A helper function to return a proper options array for a form.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme.
- * 
- * @param $responsive
- * 	 A boolean indicating wether the array should cover responsive
- * 	 or non-responsive stylesheets.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @return 
  * 	 An array of optional or responsive stylesheet options.
@@ -210,8 +261,9 @@ function alpha_css_options($theme = NULL) {
 /**
  * A helper function to return a proper options array for a form.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  * 
  * @see
  *   hook_css_alter().
@@ -240,8 +292,9 @@ function alpha_exclude_options($theme = NULL) {
 /**
  * A helper function to return a proper options array for a form.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @return 
  * 	 An array of available grids.
@@ -263,8 +316,12 @@ function alpha_grid_options($theme = NULL) {
 /**
  * A helper function to return a proper options array for a form.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme.
+ * @param $grid
+ *   The name of a grid.
+ * 
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @return 
  * 	 An array of available layouts.
@@ -286,8 +343,9 @@ function alpha_grid_layouts_options($grid, $theme = NULL) {
 /**
  * A helper function to return a proper options array for a form.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @return 
  * 	 An array of available libraries.
@@ -308,8 +366,9 @@ function alpha_library_options($theme = NULL) {
 /**
  * A helper function to return a proper options array for a form.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @return 
  * 	 An array of available zones.
@@ -330,12 +389,12 @@ function alpha_zone_options($theme = NULL) {
 /**
  * A helper function to return a proper options array for a form.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available containers for.
- *
  * @param $grid
  * 	 The grid that you want to fetch the available containers for.
+ * 
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @return 
  * 	 An array of available containers.
@@ -357,9 +416,9 @@ function alpha_container_options($grid, $theme = NULL) {
 /**
  * A helper function to return a proper options array for a form.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available containers for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @return 
  * 	 An array of available regions.
@@ -401,13 +460,9 @@ function alpha_column_options($max = NULL) {
 /**
  * Retrieves all registered CSS files for a theme.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available grids for.
- * 
- * @param $responsive (optional)
- * 	 Wether you want to fetch the array of responsive or non-responsive 
- *   CSS files. Defaults to FALSE.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  * 
  * @return
  * 	 An array that holds the information about the available CSS files.
@@ -432,9 +487,9 @@ function alpha_css($theme = NULL) {
  * Retrieves all available CSS files for a theme and caches them in a 
  * variable.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available CSS files for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  */
 function alpha_register_css($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
@@ -464,12 +519,12 @@ function alpha_register_css($theme = NULL) {
 /**
  * Retrieves all available libraries for a theme.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available libraries for.
- * 
- * @param $grid (optional)
+ * @param $library (optional)
  * 	 The name of the library that you want to fetch. Defaults to NULL.
+ * 
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  * 
  * @return
  * 	 An array of libraries or the library defined by $library.
@@ -498,9 +553,9 @@ function alpha_libraries($library = NULL, $theme = NULL) {
  * Retrieves all available libraries for a theme and caches them in a 
  * variable.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available libraries for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  */
 function alpha_register_libraries($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
@@ -538,11 +593,11 @@ function alpha_register_libraries($theme = NULL) {
 /**
  * Adds a column layout for a grid to your site.
  * 
- * @param $name
+ * @param $grid
  * 	 A valid grid name.
  *
  * @param $columns
- * 	 The number of columns.
+ * 	 An array of column sizes.
  */
 function alpha_include_grid($grid, $columns) {
   $settings = alpha_settings();
@@ -575,44 +630,6 @@ function alpha_include_grid($grid, $columns) {
       }
     }
   }
-}
-
-/**
- * @todo
- */
-function alpha_grid_css_group($items) {
-  $output = array();
-  $group = $media = NULL;
-  $i = $j = -1;
-
-  foreach ($items as $item) {
-    ksort($item['browsers']);
-          
-    if (array($item['group'], $item['every_page'], $item['browsers']) !== $group) {        
-      $group = array($item['group'], $item['every_page'], $item['browsers']);
-      
-      $output[++$i] = array(
-        'subgroups' => array(),
-        'browsers' => $item['browsers'],
-      	'group' => $item['group'],
-       	'every_page' => $item['every_page'],
-      );
-    }
-    
-    if ($item['media'] !== $media) {
-      $media = $item['media'];
-      $subkey = hash('sha256', serialize($media));
-      
-      $output[$i]['subgroups'][++$j] = array(
-        'media' => $media,
-        'items' => array(),
-      );
-    }
-    
-    $output[$i]['subgroups'][$j]['items'][] = $item;
-  }
-  
-  return $output;
 }
 
 /**
@@ -681,6 +698,44 @@ function alpha_grid_css($name, $columns) {
         }
       }
     }
+  }
+  
+  return $output;
+}
+
+/**
+ * @todo
+ */
+function alpha_grid_css_group($items) {
+  $output = array();
+  $group = $media = NULL;
+  $i = $j = -1;
+
+  foreach ($items as $item) {
+    ksort($item['browsers']);
+          
+    if (array($item['group'], $item['every_page'], $item['browsers']) !== $group) {        
+      $group = array($item['group'], $item['every_page'], $item['browsers']);
+      
+      $output[++$i] = array(
+        'subgroups' => array(),
+        'browsers' => $item['browsers'],
+      	'group' => $item['group'],
+       	'every_page' => $item['every_page'],
+      );
+    }
+    
+    if ($item['media'] !== $media) {
+      $media = $item['media'];
+      $subkey = hash('sha256', serialize($media));
+      
+      $output[$i]['subgroups'][++$j] = array(
+        'media' => $media,
+        'items' => array(),
+      );
+    }
+    
+    $output[$i]['subgroups'][$j]['items'][] = $item;
   }
   
   return $output;
@@ -802,69 +857,15 @@ function alpha_grid_css_merge($group) {
 }
 
 /**
- * A helper function for retrieving zone settings.
- * 
- * @param $name
- * 	 The name of the setting that you want to retrieve.
- * 
- * @param $zone
- * 	 The zone that you want to fetch the setting for.
- * 
- * @param $theme (optional)
- * 	 The name (key) of the theme that you want to fetch the
- *   setting for. Defaults to the global variable $theme_key.
- *   
- * @param $default (optional)
- * 	 The name (key) of the theme that you want to fetch the
- *   setting for. Defaults to NULL.
- *   
- * @see 
- * 	 alpha_theme_get_setting().
- * 
- * @see
- * 	 theme_get_setting().
- */
-function alpha_zone_get_setting($name, $zone, $default = NULL, $theme = NULL) {
-  return alpha_theme_get_setting('alpha_zone_' . $zone . '_' . $name, $default, $theme);
-}
-
-/**
- * A helper function for retrieving region settings.
- * 
- * @param $name
- * 	 The name of the setting that you want to retrieve.
- * 
- * @param $region
- * 	 The region that you want to fetch the setting for.
- * 
- * @param $theme (optional)
- * 	 The name (key) of the theme that you want to fetch the
- *   setting for. Defaults to the global variable $theme_key.
- *   
- * @param $default (optional)
- * 	 The name (key) of the theme that you want to fetch the
- *   setting for. Defaults to NULL.
- *   
- * @see 
- * 	 alpha_theme_get_setting().
- * 
- * @see
- * 	 theme_get_setting().
- */
-function alpha_region_get_setting($name, $region, $default = NULL, $theme = NULL) {
-  return alpha_theme_get_setting('alpha_region_' . $region . '_' . $name, $default, $theme);
-}
-
-/**
  * Retrieves all available grids for a theme.
- * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available grids for.
  * 
  * @param $grid (optional)
  * 	 The name of the grid that you want to fetch. Defaults to NULL.
  * 
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
+ *   
  * @return
  * 	 An array of grids or the grid defined by $grid.
  */
@@ -906,9 +907,9 @@ function alpha_grids($grid = NULL, $theme = NULL) {
  * Retrieves all available grids for a theme and caches them in a 
  * variable.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available grids for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  */
 function alpha_register_grids($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
@@ -954,9 +955,9 @@ function alpha_register_grids($theme = NULL) {
 /**
  * Retrieves all available zones for a theme.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available grids for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *
  * @return
  *   An array of zones and their settings.
@@ -999,9 +1000,9 @@ function alpha_zones($theme = NULL) {
 /**
  * Retrieves all available regions for a theme.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the available grids for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *
  * @return
  *   An array of regions and their settings.
@@ -1066,12 +1067,12 @@ function alpha_sections() {
  * A helper function for retrieving the content of theme .info files
  * in the theme trail of $key.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the theme trail .info content for.
- * 
  * @param $item
  *   The name of the variable that you want to fetch.
+ *   
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *   
  * @return
  *   The $item content of all themes .info files in the theme trail.
@@ -1096,9 +1097,9 @@ function alpha_info($item, $theme = NULL) {
  * A helper function to gather all non-region and non-zone settings for the
  * theme defined by $key.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the settings for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  *
  * @return
  *   A nested array of theme settings.
@@ -1242,9 +1243,9 @@ function alpha_regions_exclude() {
 /**
  * Builds and returns a debugging block.
  * 
- * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the exclusion candidates for.
+ * @param $theme (optional)
+ * 	 The key (machin-readable name) of a theme. Defaults to the key of the
+ *   current theme if not defined.
  * 
  * @return
  *   An array of files that can be excluded with hook_css_alter().

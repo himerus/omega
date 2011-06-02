@@ -71,7 +71,7 @@ function alpha_theme_registry_alter(&$registry) {
 }
 
 /**
- * @todo
+ * Implements hook_element_info_alter().
  */
 function alpha_element_info_alter(&$elements) {
   if (variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
