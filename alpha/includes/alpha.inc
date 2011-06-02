@@ -11,16 +11,6 @@
 global $page;
 
 /**
- * @todo
- */
-define('CSS_ALPHA_GRID', 2000);
-
-/**
- * @todo
- */
-define('CSS_ALPHA_GRID_IE', 1000);
-
-/**
  * Invokes a preprocess or process hook in all base themes aswell 
  * as the subtheme (in that order) by including the corresponding 
  * .inc file and calling the associated function.
@@ -452,12 +442,15 @@ function alpha_register_css($theme = NULL) {
 
   foreach (alpha_info('css', $theme) as $name => $data) {
     foreach ($data as $file => $info) {
+      $options = isset($info['options']) ? $info['options'] : array();
+      $options = $options + array('group' => CSS_THEME);
+      
       $cache[$file] = array(
         'name' => $info['name'],
         'description' => isset($info['description']) ? $info['description'] : '',
         'file' => $file,
         'path' => drupal_get_path('theme', $name) . '/' . (isset($info['path']) ? $info['path'] : 'css') . '/' . $file,
-        'options' => isset($info['options']) ? $info['options'] : array(),
+        'options' => $options,
       );
     }
   }
@@ -522,10 +515,13 @@ function alpha_register_libraries($theme = NULL) {
       
       foreach (array('css', 'js') as $type) {
         if (!empty($info[$type])) {
-          foreach ($info[$type] as $item) {            
-            $cache[$name][$type][] = array(
+          foreach ($info[$type] as $index => $item) {
+            $options = isset($item['options']) ? $item['options'] : array();
+            $options = $options + array('group' => ($type == 'css' ? CSS_THEME : JS_THEME));
+            
+            $cache[$name][$type][$index] = array(
               'path' => drupal_get_path('theme', $key) . '/' . (isset($item['path']) ? $item['path'] : $type) . '/' . $item['file'],
-          	  'options' => isset($item['options']) ? $item['options'] : array(),
+          	  'options' => $options,
             );
           }
         }
@@ -572,13 +568,42 @@ function alpha_include_grid($grid, $columns) {
               'type' => 'inline', 
               'media' => $settings['responsive'] ? $item['media'] : 'all', 
               'weight' => 3000 + $item['weight'],
-              'browsers' => array('IE' => 'IE gte 9', '!IE' => TRUE),
+              'browsers' => array('IE' => 'gte IE 9', '!IE' => TRUE),
+              'group' => CSS_THEME,
             ));
           }
         }
       }
     }
   }
+}
+
+function alpha_group_grid_css($items) {
+  $groups = array();
+  $current = NULL;
+  $i = -1;
+  
+  foreach ($items as $basename => $item) {
+    if (!empty($item['responsive']) && $item['type'] == 'file' && $item['preprocess']) {
+      ksort($item['browsers']);
+            
+      $key = array($item['group'], $item['every_page'], $item['browsers']);
+            
+      if ($key !== $current) {        
+        $current = $key ? $key : NULL;
+        
+        $groups[++$i]['items'] = array();
+        $groups[$i]['anchor'] = $basename;
+        $groups[$i]['browsers'] = $item['browsers'];
+        $groups[$i]['group'] = $item['group'];
+        $groups[$i]['every_page'] = $item['every_page'];
+      }
+    
+      $groups[$i]['items'][$basename] = $item;
+    }
+  }
+  
+  return $groups;
 }
 
 /**
@@ -607,15 +632,17 @@ function alpha_grid_css($name, $columns) {
               	'weight' => 1000 + $item['weight'],
                 'data' => $path . '-' . $count . '.css',
                 'basename' => $basename,
-                'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
+                'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
+                'group' => CSS_THEME,
               );
             }
             
             $output[$path . '-' . $count . '.css'] = array(
               'weight' => 2000 + $item['weight'],
               'media' => $settings['responsive'] ? $item['media'] : 'all',
-              'browsers' => array('IE' => 'IE gte 9', '!IE' => TRUE),
+              'browsers' => array('IE' => 'gte IE 9', '!IE' => TRUE),
               'responsive' => TRUE,
+              'group' => CSS_THEME,
             );
             
             foreach ($item['attached'] as $attached) {
@@ -625,7 +652,8 @@ function alpha_grid_css($name, $columns) {
                   'weight' => 1000 + $item['weight'],
                   'data' => $attached, 
                   'basename' => $basename,
-                  'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),                  
+                  'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
+                  'group' => CSS_THEME,              
                 );
               }
               
@@ -635,8 +663,9 @@ function alpha_grid_css($name, $columns) {
                 'data' => $attached, 
                 'basename' => $basename,                
                 'media' => $settings['responsive'] ? $item['media'] : 'all',
-                'browsers' => array('IE' => 'IE gte 9', '!IE' => TRUE),
+                'browsers' => array('IE' => 'gte IE 9', '!IE' => TRUE),
                 'responsive' => TRUE,
+                'group' => CSS_THEME,
               );
             }
           }
@@ -651,56 +680,46 @@ function alpha_grid_css($name, $columns) {
 /**
  * @todo
  */
-function alpha_build_css_cache($css) {
-  $data = '';
-  $uri = '';
+function alpha_build_css_cache(&$groups) {
   $map = variable_get('drupal_css_cache_files', array());
-  $key = hash('sha256', serialize($css));
-  if (isset($map[$key])) {
-    $uri = $map[$key];
-  }
+  $key = hash('sha256', serialize($groups));
+  $uri = isset($map[$key]) ? $map[$key] : NULL;
 
   if (empty($uri) || !file_exists($uri)) {
-    // Build aggregate CSS file.
-    foreach ($css as $stylesheet) {
-      // Only 'file' stylesheets can be aggregated.
-      if ($stylesheet['type'] == 'file') {
-        $contents = drupal_load_stylesheet($stylesheet['data'], TRUE);
-
+    $data = '';
+    
+    foreach ($groups as $group) {
+      $contents = '';
+      
+      // Build aggregate CSS file.
+      foreach ($group['items'] as $stylesheet) {
         // Build the base URL of this CSS file: start with the full URL.
-        $css_base_url = file_create_url($stylesheet['data']);
-        // Move to the parent.
-        $css_base_url = substr($css_base_url, 0, strrpos($css_base_url, '/'));
-        // Simplify to a relative URL if the stylesheet URL starts with the
-        // base URL of the website.
-        if (substr($css_base_url, 0, strlen($GLOBALS['base_root'])) == $GLOBALS['base_root']) {
-          $css_base_url = substr($css_base_url, strlen($GLOBALS['base_root']));
+        $base = file_create_url($stylesheet['data']);
+        $base = substr($base, 0, strrpos($base, '/'));
+  
+        if (substr($base, 0, strlen($GLOBALS['base_root'])) == $GLOBALS['base_root']) {
+          $base = substr($base, strlen($GLOBALS['base_root']));
         }
-
-        _drupal_build_css_path(NULL, $css_base_url . '/');
+  
+        _drupal_build_css_path(NULL, $base . '/');
+        
         // Anchor all paths in the CSS with its base URL, ignoring external and absolute paths.
-        $data .= preg_replace_callback('/url\(\s*[\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\s*\)/i', '_drupal_build_css_path', $contents);
+        $contents .= preg_replace_callback('/url\(\s*[\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\s*\)/i', '_drupal_build_css_path', drupal_load_stylesheet($stylesheet['data'], TRUE));
       }
+      
+      $data .= '@media ' . $group['media'] . '{' . $contents . '}'; 
     }
 
-    // Per the W3C specification at http://www.w3.org/TR/REC-CSS2/cascade.html#at-import,
-    // @import rules must proceed any other style, so we move those to the top.
-    $regexp = '/@import[^;]+;/i';
-    preg_match_all($regexp, $data, $matches);
-    $data = preg_replace($regexp, '', $data);
-    $data = implode('', $matches[0]) . $data;
-
-    // Prefix filename to prevent blocking by firewalls which reject files
-    // starting with "ad*".
-    $filename = 'css_' . drupal_hash_base64($data) . '.css';
     // Create the css/ within the files folder.
-    $csspath = 'public://css';
-    $uri = $csspath . '/' . $filename;
+    $directory = 'public://css';
+    $uri = $directory . '/css_' . drupal_hash_base64($data) . '.css';
+    
     // Create the CSS file.
-    file_prepare_directory($csspath, FILE_CREATE_DIRECTORY);
+    file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
     if (!file_exists($uri) && !file_unmanaged_save_data($data, $uri, FILE_EXISTS_REPLACE)) {
       return FALSE;
     }
+    
     // If CSS gzip compression is enabled, clean URLs are enabled (which means
     // that rewrite rules are working) and the zlib extension is available then
     // create a gzipped version of this file. This file is served conditionally
@@ -710,10 +729,13 @@ function alpha_build_css_cache($css) {
         return FALSE;
       }
     }
+    
     // Save the updated map.
     $map[$key] = $uri;
+    
     variable_set('drupal_css_cache_files', $map);
   }
+  
   return $uri;
 }
 

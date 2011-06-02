@@ -29,7 +29,7 @@ function alpha_alpha_preprocess_html(&$vars) {
   }
   
   if (($settings['debug']['grid'] || $settings['debug']['block']) && $settings['debug']['access']) {
-    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('weight' => -5));
+    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('group' => CSS_THEME, 'weight' => -5));
 
     if ($settings['debug']['grid']) {
       $vars['attributes_array']['class'][] = 'alpha-grid-debug';

@@ -74,35 +74,38 @@ function alpha_theme_registry_alter(&$registry) {
  * @todo
  */
 function alpha_element_info_alter(&$elements) {
-  array_unshift($elements['styles']['#pre_render'], 'alpha_pre_render_styles');
+  if (variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
+    array_unshift($elements['styles']['#pre_render'], 'alpha_pre_render_styles');
+  }
 }
 
 /**
  * @todo
  */
-function alpha_pre_render_styles($elements) {
-  $groups = array();
-  
-  foreach ($elements['#items'] as $basename => $item) {
-    if (!empty($item['responsive']) && $item['type'] == 'file' && $item['preprocess']) {
-      ksort($item['browsers']);
-      
-      $key = hash('sha256', serialize(array($item['group'], $item['every_page'], $item['browsers'])));
-      
-      if (!isset($groups[$key])) {
-        $groups[$key]['browsers'] = $item['browsers'];
-        $groups[$key]['group'] = $item['group'];
-        $groups[$key]['items'] = array();
+function alpha_pre_render_styles($elements) {  
+  foreach (alpha_group_grid_css($elements['#items']) as $key => $info) {
+    $groups = array();
+    $current = NULL;
+    $i = -1;
+    
+    foreach ($info['items'] as $basename => $item) {
+      if ($item['media'] !== $current) {        
+        $current = $item['media'] ? $item['media'] : NULL;
+        
+        $groups[++$i]['items'] = array();
+        $groups[$i]['media'] = $current;
       }
       
-      $groups[$key]['items'][$basename] = $item;
-      
-      //unset($elements['#items'][$basename]);
+      $groups[$i]['items'][$basename] = $item;
     }
-  }
-  
-  foreach ($groups as $key => $stylesheets) {
-    //krumo($stylesheets);
+    
+    $info['data'] = alpha_build_css_cache($groups);
+    $info['media'] = 'all';
+    $info['preprocess'] = TRUE;
+    $info['type'] = 'file';
+        
+    $offset = array_search($info['anchor'], array_keys($elements['#items']));
+    $extracted = array_splice($elements['#items'], $offset, count($info['items']), array($info));
   }
   
   return $elements;
