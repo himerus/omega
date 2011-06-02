@@ -689,33 +689,46 @@ function alpha_grid_css($name, $columns) {
 /**
  * @todo
  */
-function alpha_grid_css_aggregate($elements) {
-  $items = array();
-  
-  foreach ($elements['#items'] as $key => $item) {
-    if (!empty($item['aggregate']) && $item['type'] == 'file' && $item['preprocess']) {
-      $items[$key] = $item;
+function alpha_grid_css_aggregate($elements) {  
+  if ($chunks = alpha_grid_css_chunks($elements['#items'])) {
+    foreach ($chunks as $items) {
+      reset($items);
+      
+      $offset = array_search(key($items), array_keys($elements['#items']));
+      $aggregated = array();
+      
+      foreach (alpha_grid_css_group($items) as $key => $info) {
+        $info['data'] = alpha_grid_css_cache($info);
+        $info['media'] = 'all';
+        $info['preprocess'] = TRUE;
+        $info['type'] = 'file';
+        $aggregated[$key] = $info;
+      }
+      
+      array_splice($elements['#items'], $offset, count($items), $aggregated);
     }
-  }
-  
-  if (!empty($items)) {
-    reset($items);
-    
-    $offset = array_search(key($items), array_keys($elements['#items']));
-    $aggregated = array();
-    
-    foreach (alpha_grid_css_group($items) as $key => $info) {
-      $info['data'] = alpha_grid_css_cache($info);
-      $info['media'] = 'all';
-      $info['preprocess'] = TRUE;
-      $info['type'] = 'file';
-      $aggregated[$key] = $info;
-    }
-    
-    array_splice($elements['#items'], $offset, count($items), $aggregated);
   }
   
   return $elements;
+}
+
+/**
+ * @todo
+ */
+function alpha_grid_css_chunks($items) {
+  $output = array();
+  $i = 0;
+  
+  foreach ($items as $key => $item) {
+    if (!empty($item['aggregate']) && $item['type'] == 'file' && $item['preprocess']) {
+      $output[$i][$key] = $item;
+    }
+    else if (!empty($output[$i])) {
+      $i++;
+    }
+  }
+  
+  return $output;
 }
 
 /**
