@@ -545,10 +545,9 @@ function alpha_register_libraries($theme = NULL) {
  * 	 The number of columns.
  */
 function alpha_include_grid($grid, $columns) {
-  $css = alpha_grid_css($grid, $columns);
   $settings = alpha_settings();
   
-  foreach ($css as $key => $options) {
+  foreach (alpha_grid_css($grid, $columns) as $key => $options) {
     drupal_add_css($key, $options);
   }
   
@@ -578,32 +577,42 @@ function alpha_include_grid($grid, $columns) {
   }
 }
 
-function alpha_group_grid_css($items) {
-  $groups = array();
-  $current = NULL;
-  $i = -1;
-  
-  foreach ($items as $basename => $item) {
-    if (!empty($item['responsive']) && $item['type'] == 'file' && $item['preprocess']) {
-      ksort($item['browsers']);
-            
-      $key = array($item['group'], $item['every_page'], $item['browsers']);
-            
-      if ($key !== $current) {        
-        $current = $key ? $key : NULL;
-        
-        $groups[++$i]['items'] = array();
-        $groups[$i]['anchor'] = $basename;
-        $groups[$i]['browsers'] = $item['browsers'];
-        $groups[$i]['group'] = $item['group'];
-        $groups[$i]['every_page'] = $item['every_page'];
-      }
-    
-      $groups[$i]['items'][$basename] = $item;
+/**
+ * @todo
+ */
+function alpha_grid_css_group($items) {
+  $output = array();
+  $group = $media = NULL;
+  $i = $j = -1;
+
+  foreach ($items as $item) {
+    ksort($item['browsers']);
+          
+    if (array($item['group'], $item['every_page'], $item['browsers']) !== $group) {        
+      $group = array($item['group'], $item['every_page'], $item['browsers']);
+      
+      $output[++$i] = array(
+        'subgroups' => array(),
+        'browsers' => $item['browsers'],
+      	'group' => $item['group'],
+       	'every_page' => $item['every_page'],
+      );
     }
+    
+    if ($item['media'] !== $media) {
+      $media = $item['media'];
+      $subkey = hash('sha256', serialize($media));
+      
+      $output[$i]['subgroups'][++$j] = array(
+        'media' => $media,
+        'items' => array(),
+      );
+    }
+    
+    $output[$i]['subgroups'][$j]['items'][] = $item;
   }
   
-  return $groups;
+  return $output;
 }
 
 /**
@@ -629,43 +638,43 @@ function alpha_grid_css($name, $columns) {
             if ($settings['responsive'] && $layout == $grid['primary']) {
               $basename = 'ie::' . $layout . '::' . $path . '-' . $count . '.css';
               $output[$basename] = array(
+                'group' => CSS_THEME,
               	'weight' => 1000 + $item['weight'],
                 'data' => $path . '-' . $count . '.css',
                 'basename' => $basename,
-                'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
-                'group' => CSS_THEME,
+                'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),                
               );
             }
             
             $output[$path . '-' . $count . '.css'] = array(
+              'group' => CSS_THEME,
               'weight' => 2000 + $item['weight'],
               'media' => $settings['responsive'] ? $item['media'] : 'all',
-              'browsers' => array('IE' => 'gte IE 9', '!IE' => TRUE),
-              'responsive' => TRUE,
-              'group' => CSS_THEME,
+              'browsers' => array('IE' => 'gte IE 9', '!IE' => TRUE),             
+              'aggregate' => TRUE,
             );
             
             foreach ($item['attached'] as $attached) {
               if ($settings['responsive'] && $layout == $grid['primary']) {
                 $basename = 'ie::' . $layout . '::' . $attached;
                 $output[$basename] = array(
+                  'group' => CSS_THEME,
                   'weight' => 1000 + $item['weight'],
                   'data' => $attached, 
                   'basename' => $basename,
                   'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
-                  'group' => CSS_THEME,              
                 );
               }
               
               $basename = $layout . '::' . $attached;
               $output[$basename] = array(
+                'group' => CSS_THEME,
                 'weight' => 2000 + $item['weight'],                
                 'data' => $attached, 
                 'basename' => $basename,                
                 'media' => $settings['responsive'] ? $item['media'] : 'all',
                 'browsers' => array('IE' => 'gte IE 9', '!IE' => TRUE),
-                'responsive' => TRUE,
-                'group' => CSS_THEME,
+                'aggregate' => TRUE,                
               );
             }
           }
@@ -680,36 +689,46 @@ function alpha_grid_css($name, $columns) {
 /**
  * @todo
  */
-function alpha_build_css_cache(&$groups) {
-  $map = variable_get('drupal_css_cache_files', array());
-  $key = hash('sha256', serialize($groups));
-  $uri = isset($map[$key]) ? $map[$key] : NULL;
-
-  if (empty($uri) || !file_exists($uri)) {
-    $data = '';
-    
-    foreach ($groups as $group) {
-      $contents = '';
-      
-      // Build aggregate CSS file.
-      foreach ($group['items'] as $stylesheet) {
-        // Build the base URL of this CSS file: start with the full URL.
-        $base = file_create_url($stylesheet['data']);
-        $base = substr($base, 0, strrpos($base, '/'));
+function alpha_grid_css_aggregate($elements) {
+  $items = array();
   
-        if (substr($base, 0, strlen($GLOBALS['base_root'])) == $GLOBALS['base_root']) {
-          $base = substr($base, strlen($GLOBALS['base_root']));
-        }
-  
-        _drupal_build_css_path(NULL, $base . '/');
-        
-        // Anchor all paths in the CSS with its base URL, ignoring external and absolute paths.
-        $contents .= preg_replace_callback('/url\(\s*[\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\s*\)/i', '_drupal_build_css_path', drupal_load_stylesheet($stylesheet['data'], TRUE));
-      }
-      
-      $data .= '@media ' . $group['media'] . '{' . $contents . '}'; 
+  foreach ($elements['#items'] as $key => $item) {
+    if (!empty($item['aggregate']) && $item['type'] == 'file' && $item['preprocess']) {
+      $items[$key] = $item;
     }
+  }
+  
+  if (!empty($items)) {
+    reset($items);
+    
+    $offset = array_search(key($items), array_keys($elements['#items']));
+    $aggregated = array();
+    
+    foreach (alpha_grid_css_group($items) as $key => $info) {
+      $info['data'] = alpha_grid_css_cache($info);
+      $info['media'] = 'all';
+      $info['preprocess'] = TRUE;
+      $info['type'] = 'file';
+      $aggregated[$key] = $info;
+    }
+    
+    array_splice($elements['#items'], $offset, count($items), $aggregated);
+  }
+  
+  return $elements;
+}
 
+/**
+ * @todo
+ */
+function alpha_grid_css_cache($group) {
+  $map = variable_get('drupal_css_cache_files', array());
+  $key = hash('sha256', serialize($group));
+  $uri = isset($map[$key]) ? $map[$key] : NULL;
+  
+  if (empty($uri) || !file_exists($uri)) {
+    $data = alpha_grid_css_merge($group['subgroups']);
+    
     // Create the css/ within the files folder.
     $directory = 'public://css';
     $uri = $directory . '/css_' . drupal_hash_base64($data) . '.css';
@@ -737,6 +756,36 @@ function alpha_build_css_cache(&$groups) {
   }
   
   return $uri;
+}
+
+/**
+ * @todo
+ */
+function alpha_grid_css_merge($group) {
+  $data = '';
+  
+  foreach ($group as $info) {
+    $contents = '';
+    
+    foreach ($info['items'] as $stylesheet) {
+      // Build the base URL of this CSS file: start with the full URL.
+      $base = file_create_url($stylesheet['data']);
+      $base = substr($base, 0, strrpos($base, '/'));
+
+      if (substr($base, 0, strlen($GLOBALS['base_root'])) == $GLOBALS['base_root']) {
+        $base = substr($base, strlen($GLOBALS['base_root']));
+      }
+
+      _drupal_build_css_path(NULL, $base . '/');
+      
+      // Anchor all paths in the CSS with its base URL, ignoring external and absolute paths.
+      $contents .= preg_replace_callback('/url\(\s*[\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\s*\)/i', '_drupal_build_css_path', drupal_load_stylesheet($stylesheet['data'], TRUE));
+    }
+    
+    $data .= '@media ' . $info['media'] . '{' . $contents . '}'; 
+  }
+  
+  return $data;
 }
 
 /**

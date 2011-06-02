@@ -75,40 +75,8 @@ function alpha_theme_registry_alter(&$registry) {
  */
 function alpha_element_info_alter(&$elements) {
   if (variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
-    array_unshift($elements['styles']['#pre_render'], 'alpha_pre_render_styles');
+    array_unshift($elements['styles']['#pre_render'], 'alpha_grid_css_aggregate');
   }
-}
-
-/**
- * @todo
- */
-function alpha_pre_render_styles($elements) {  
-  foreach (alpha_group_grid_css($elements['#items']) as $key => $info) {
-    $groups = array();
-    $current = NULL;
-    $i = -1;
-    
-    foreach ($info['items'] as $basename => $item) {
-      if ($item['media'] !== $current) {        
-        $current = $item['media'] ? $item['media'] : NULL;
-        
-        $groups[++$i]['items'] = array();
-        $groups[$i]['media'] = $current;
-      }
-      
-      $groups[$i]['items'][$basename] = $item;
-    }
-    
-    $info['data'] = alpha_build_css_cache($groups);
-    $info['media'] = 'all';
-    $info['preprocess'] = TRUE;
-    $info['type'] = 'file';
-        
-    $offset = array_search($info['anchor'], array_keys($elements['#items']));
-    $extracted = array_splice($elements['#items'], $offset, count($info['items']), array($info));
-  }
-  
-  return $elements;
 }
 
 /**
