@@ -133,7 +133,7 @@ function alpha_page_alter(&$vars) {
   }
   
   foreach (alpha_regions() as $region => $item) {  
-    if ($item['enabled'] && ($item['force'] || isset($vars[$region]))) {
+    if ($item['enabled'] && ($item['force'] || !empty($vars[$region]))) {
       $zone = $item['zone'];
       
       $regions[$zone][$region] = isset($vars[$region]) ? $vars[$region] : array();
@@ -156,11 +156,11 @@ function alpha_page_alter(&$vars) {
   }
   
   foreach (alpha_zones() as $zone => $item) {
-    if ($item['enabled'] && ($item['force'] || isset($regions[$zone]))) {
+    if ($item['enabled'] && ($item['force'] || !empty($regions[$zone]))) {
       $section = $item['section'];
       $columns[$item['columns']] = $item['columns']; 
       
-      if (!empty($item['primary']) && isset($regions[$zone][$item['primary']])) {
+      if (!empty($item['primary']) && !empty($regions[$zone][$item['primary']])) {
         $children = element_children($regions[$zone]);
         $theme = $GLOBALS['theme_key'];
         $primary = &$regions[$zone][$item['primary']];
@@ -191,13 +191,13 @@ function alpha_page_alter(&$vars) {
         }
       }
       
-      $vars[$section][$zone] = isset($regions[$zone]) ? $regions[$zone] : array();
+      $vars[$section][$zone] = !empty($regions[$zone]) ? $regions[$zone] : array();
       $vars[$section][$zone]['#theme_wrappers'] = array('zone');      
       $vars[$section][$zone]['#zone'] = $zone;
       $vars[$section][$zone]['#weight'] = (int) $item['weight'];
       $vars[$section][$zone]['#sorted'] = FALSE;
       $vars[$section][$zone]['#data'] = $item;
-      $vars[$section][$zone]['#data']['type'] = !empty($item['primary']) && isset($vars[$section][$zone][$item['primary']]) ? 'dynamic' : 'static';
+      $vars[$section][$zone]['#data']['type'] = !empty($item['primary']) && !empty($vars[$section][$zone][$item['primary']]) ? 'dynamic' : 'static';
     }
   }
 
