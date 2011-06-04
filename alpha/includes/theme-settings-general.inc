@@ -16,20 +16,14 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $libraries = alpha_library_options($theme);
   $exclude = alpha_exclude_options($theme);
   $toggle = alpha_toggle();
-
-  $form['alpha_settings'] = array(
-    '#type' => 'vertical_tabs',
-    '#weight' => -10,
-    '#prefix' => t('<h3>Layout configuration</h3>'),
-  );  
   
-  $form['alpha_settings']['layout'] = array(
+  $form['alpha_settings']['alpha_layout'] = array(
     '#type' => 'fieldset',
     '#weight' => -10,
     '#title' => t('Grid settings'),
   );
 
-  $form['alpha_settings']['layout']['alpha_grid'] = array(
+  $form['alpha_settings']['alpha_layout']['alpha_grid'] = array(
     '#type' => 'select',
     '#description' => t('Select the grid system that you want to use for this layout.'),
     '#title' => t('Grid system'),
@@ -37,19 +31,19 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#options' => alpha_grid_options($theme),
   );
   
-  $form['alpha_settings']['layout']['responsive_settings'] = array(
+  $form['alpha_settings']['alpha_layout']['responsive_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Responsive settings'),
   );
   
-  $form['alpha_settings']['layout']['responsive_settings']['alpha_responsive'] = array(
+  $form['alpha_settings']['alpha_layout']['responsive_settings']['alpha_responsive'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable the responsive grid'),
     '#description' => t('Enabling this will unleash the responsive layout features that come with Alpha & Omega. It also helps you to clean your appartment and wash your dishes.'),
     '#default_value' => $settings['responsive'],
   );
   
-  $form['alpha_settings']['layout']['responsive_settings']['alpha_viewport'] = array(
+  $form['alpha_settings']['alpha_layout']['responsive_settings']['alpha_viewport'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow customizing viewport meta properties on iOS and Android devices'),
     '#description' => t('By default, most mobile browsers choose their own way to handle page rendering by using the viewport meta tag. iOS and Android are "capable" of displaying full size websites by simply scaling down the view. However, when using a truly mobile version of your theme, you will / may want to customize these settings. You can find more information about this in the <a href="http://alpha.developmentgeeks.com">Omega documentation</a>.'),
@@ -61,7 +55,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     ),
   );
   
-  $form['alpha_settings']['layout']['responsive_settings']['viewport_settings'] = array(
+  $form['alpha_settings']['alpha_layout']['responsive_settings']['viewport_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Viewport settings'),
     '#states' => array(
@@ -72,7 +66,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     ),
   );
   
-  $form['alpha_settings']['layout']['responsive_settings']['viewport_settings']['alpha_viewport_initial_scale'] = array(
+  $form['alpha_settings']['alpha_layout']['responsive_settings']['viewport_settings']['alpha_viewport_initial_scale'] = array(
     '#type' => 'select',
     '#title' => t('Initial scale'),
     '#default_value' => $settings['viewport']['initial'],
@@ -80,7 +74,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#description' => t('The initial scaling of the page. This should almost always be set to 1.0.'),
   );
 
-  $form['alpha_settings']['layout']['responsive_settings']['viewport_settings']['alpha_viewport_min_scale'] = array(
+  $form['alpha_settings']['alpha_layout']['responsive_settings']['viewport_settings']['alpha_viewport_min_scale'] = array(
     '#type' => 'select',
     '#title' => t('Minimum scale'),
     '#default_value' => $settings['viewport']['min'],
@@ -88,7 +82,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#description' => t('The minimum scaling of the site. This should usually be the same as your <em>Initial scale</em> setting.'),
   );
 
-  $form['alpha_settings']['layout']['responsive_settings']['viewport_settings']['alpha_viewport_max_scale'] = array(
+  $form['alpha_settings']['alpha_layout']['responsive_settings']['viewport_settings']['alpha_viewport_max_scale'] = array(
     '#type' => 'select',
     '#title' => t('Maximum scale'),
     '#default_value' => $settings['viewport']['max'],
@@ -96,7 +90,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#description' => t('The maximum scaling of the site. This can be any value between 1 and 10, but should not be too big if you want to preserve your mobile look and feel.'),
   );
 
-  $form['alpha_settings']['layout']['responsive_settings']['viewport_settings']['alpha_viewport_user_scaleable'] = array(
+  $form['alpha_settings']['alpha_layout']['responsive_settings']['viewport_settings']['alpha_viewport_user_scaleable'] = array(
     '#type' => 'checkbox',
     '#title' => t('Scalable by user'),
     '#description' => t('<p>Determine if a user can resize the screen. This is usually accomplished via multi-touch gestures on iOS and Android devices. If your mobile theme is very customized and presented with good typography and graphics for a reduced mobile size, it is recommended to leave this setting unchecked. If it is left unchecked, the min-scale and max-scale properties will be ignored.</p><p class="marker">HTC Android devices do NOT (currently) respect the viewport meta tag for <em>user-scalable</em>. It will render at the appropriate <em>initial-scale</em> set above, but a user can still zoom in/out.</p>'),
@@ -104,7 +98,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   );
     
   foreach (alpha_grids(NULL, $theme) as $grid => $info) {
-    $form['alpha_settings']['layout']['grid_layouts'][$grid] = array(
+    $form['alpha_settings']['alpha_layout']['grid_layouts'][$grid] = array(
       '#type' => 'fieldset',
       '#title' => t('@grid layout settings', array('@grid' => $info['name'])),
       '#states' => array(
@@ -114,7 +108,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       ),
     );
     
-    $form['alpha_settings']['layout']['grid_layouts'][$grid]['alpha_primary_' . $grid] = array(
+    $form['alpha_settings']['alpha_layout']['grid_layouts'][$grid]['alpha_primary_' . $grid] = array(
       '#type' => 'select',
       '#title' => t('Primary layout'),
       '#default_value' => $info['primary'],
@@ -123,7 +117,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     );
     
     foreach ($info['layouts'] as $layout => $item) {
-      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout] = array(
+      $form['alpha_settings']['alpha_layout']['grid_layouts'][$grid][$layout] = array(
         '#type' => 'fieldset',
         '#title' => t('@layout layout', array('@layout' => $item['name'])),
         '#states' => array(
@@ -133,13 +127,13 @@ function alpha_theme_settings_general(&$form, &$form_state) {
         ),
       );
 
-      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_responsive'] = array(
+      $form['alpha_settings']['alpha_layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_responsive'] = array(
         '#type' => 'checkbox',
         '#title' => t('Use this layout with the responsive grid'),
         '#default_value' => $item['enabled'],
       );
       
-      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_weight'] = array(
+      $form['alpha_settings']['alpha_layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_weight'] = array(
         '#type' => 'weight',
         '#title' => t('Weight'),
         '#description' => t('The weight of this layout.'),
@@ -151,7 +145,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
         ), 
       );
       
-      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_media'] = array(
+      $form['alpha_settings']['alpha_layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_media'] = array(
         '#type' => 'textfield',
         '#title' => t('Media query'),
         '#description' => t('The @media query that the @layout layout should respond to.', array('@layout' => $item['name'])),
@@ -168,14 +162,14 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   }  
   
   if (!empty($libraries)) {    
-    $form['alpha_settings']['libraries'] = array(
+    $form['alpha_settings']['alpha_libraries'] = array(
       '#type' => 'fieldset',
       '#title' => t('Toggle libraries'),
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
     );
  
-    $form['alpha_settings']['libraries']['alpha_libraries'] = array(
+    $form['alpha_settings']['alpha_libraries']['alpha_libraries'] = array(
       '#title' => t('Enable optional libraries'),
       '#description' => t('You can choose from this list to enable optional libraries.'),
       '#type' => 'checkboxes',
@@ -184,7 +178,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     );
   }  
   
-  $form['alpha_settings']['styles'] = array(
+  $form['alpha_settings']['alpha_styles'] = array(
     '#type' => 'fieldset',
     '#title' => t('Toggle styles'),
     '#collapsible' => TRUE,
@@ -192,7 +186,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   );
   
   if (!empty($optional)) {    
-    $form['alpha_settings']['styles']['alpha_css'] = array(
+    $form['alpha_settings']['alpha_styles']['alpha_css'] = array(
       '#title' => t('Enable optional stylesheets'),
       '#description' => t('You can choose from this list to enable optional stylesheets.'),
       '#type' => 'checkboxes',
@@ -202,7 +196,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   }
   
   if (!empty($exclude)) {
-    $form['alpha_settings']['styles']['alpha_exclude'] = array(
+    $form['alpha_settings']['alpha_styles']['alpha_exclude'] = array(
       '#title' => t('Disable module and theme stylesheets'),
       '#description' => t('Alpha will remove the selected stylesheets from your pages.'),
       '#type' => 'checkboxes',
@@ -211,7 +205,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     );
   }
  
-  $form['alpha_settings']['debug'] = array(
+  $form['alpha_settings']['alpha_debug'] = array(
     '#type' => 'fieldset',
     '#weight' => -6,
     '#title' => t('Debugging'),
@@ -220,57 +214,50 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   );
 
   if (module_exists('delta_ui') && arg(2) == 'delta') {
-    $form['alpha_settings']['debug']['#description'] = t('<div class="messages warning">The debugging features are only available in the <a href="@link">actual theme settings</a> and are global.</div>', array('@link' => url('admin/appearance/settings/' . $theme)));
+    $form['alpha_settings']['alpha_debug']['#description'] = t('<div class="messages warning">The debugging features are only available in the <a href="@link">actual theme settings</a> and are global.</div>', array('@link' => url('admin/appearance/settings/' . $theme)));
   }
   else {
-    $form['alpha_settings']['debug']['alpha_debug_block_toggle'] = array(
+    $form['alpha_settings']['alpha_debug']['alpha_debug_block_toggle'] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable the debugging (placeholder) blocks for the selected roles.'),
       '#default_value' => $settings['debug']['block'],
     );
     
-    $form['alpha_settings']['debug']['alpha_debug_grid_toggle'] = array(
+    $form['alpha_settings']['alpha_debug']['alpha_debug_grid_toggle'] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable grid overlay for the selected roles.'),
       '#default_value' => $settings['debug']['grid'],
     );
   
-    $form['alpha_settings']['debug']['alpha_debug_grid_roles'] = array(
+    $form['alpha_settings']['alpha_debug']['alpha_debug_grid_roles'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Roles that may use the grid overlay and debugging blocks.'),
       '#default_value' => $settings['debug']['roles'],
       '#options' => array_map('check_plain', user_roles()),
     );
   }
-
-  foreach (array('theme_settings', 'logo', 'favicon') as $element) {
-    if (isset($form[$element])) {
-      $form['alpha_settings'][$element] = $form[$element];
-      unset($form[$element], $form['alpha_settings'][$element]['#description'], $form['alpha_settings'][$element]['#attributes']);
-    }
-  }
   
-  $form['alpha_settings']['theme_settings']['alpha_toggle'] = array(
-    '#type' => 'item',
-    '#title' => t('Additional toggleable elements provided by Alpha'),
+  $form['alpha_settings']['alpha_toggle'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Toggle advanced elements'),
   );
   
   foreach ($toggle as $item => $title) {
-    $form['alpha_settings']['theme_settings']['alpha_toggle']['alpha_toggle_' . $item] = array(
+    $form['alpha_settings']['alpha_toggle']['alpha_toggle_' . $item] = array(
       '#type' => 'checkbox',
       '#title' => $title,
       '#default_value' => $settings['toggle'][$item],
     );
   }
 
-  $form['alpha_settings']['theme_settings']['alpha_hidden'] = array(
+  $form['alpha_settings']['alpha_toggle']['alpha_hidden'] = array(
     '#type' => 'item',
     '#title' => t('Choose from the elements below to hide them via CSS'),
     '#description' => t('This will make the element invisible to normal users while not removing it from the HTML (e.g. for screenreaders).'),
   );
   
   foreach (alpha_visibility() as $item => $title) {
-    $form['alpha_settings']['theme_settings']['alpha_hidden']['alpha_hidden_' . $item] = array(
+    $form['alpha_settings']['alpha_toggle']['alpha_hidden']['alpha_hidden_' . $item] = array(
       '#type' => 'checkbox',
       '#title' => $title,
       '#default_value' => $settings['hidden'][$item],

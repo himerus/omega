@@ -6,6 +6,10 @@ require_once dirname(__FILE__) . '/includes/alpha.inc';
  * Implements hook_form_system_theme_settings_alter()
  */
 function alpha_form_system_theme_settings_alter(&$form, &$form_state) {  
+  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-general.inc';
+  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-zones.inc';
+  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-regions.inc';
+  
   drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-theme-settings.css', array('group' => CSS_THEME, 'weight' => 100));
   
   $theme = $form_state['build_info']['args'][0];
@@ -18,11 +22,13 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   $form_state['alpha_zones'] = alpha_zones($theme);
   $form_state['alpha_regions'] = alpha_regions($theme);
   $form_state['alpha_containers'] = alpha_container_options($form_state['alpha_settings']['grid'], $theme);
-  
-  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-general.inc';
-  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-zones.inc';
-  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-regions.inc';
 
+  $form['alpha_settings'] = array(
+    '#type' => 'vertical_tabs',
+    '#weight' => -10,
+    '#prefix' => t('<h3>Layout configuration</h3>'),
+  );
+  
   alpha_theme_settings_general($form, $form_state);
   alpha_theme_settings_zones($form, $form_state);
   alpha_theme_settings_regions($form, $form_state);
