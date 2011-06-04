@@ -609,6 +609,10 @@ function alpha_include_grid($grid, $columns) {
   if ($settings['debug']['grid'] && $settings['debug']['access']) {
     $grid = alpha_grids($grid);
     
+    if (!$settings['responsive']) {
+      $grid['layouts'] = array($grid['primary'] => $grid['layouts'][$grid['primary']]);
+    }
+    
     foreach ($grid['layouts'] as $layout => $item) {
       if (!$settings['responsive'] || $item['enabled']) {
         $path = $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $settings['grid']) . '-' . str_replace('_', '-', $layout);
@@ -744,23 +748,27 @@ function alpha_grid_css_group($items) {
 /**
  * @todo
  */
-function alpha_grid_css_aggregate($elements) {  
-  if ($chunks = alpha_grid_css_chunks($elements['#items'])) {
-    foreach ($chunks as $items) {
-      reset($items);
-      
-      $offset = array_search(key($items), array_keys($elements['#items']));
-      $aggregated = array();
-      
-      foreach (alpha_grid_css_group($items) as $key => $info) {
-        $info['data'] = alpha_grid_css_cache($info);
-        $info['media'] = 'all';
-        $info['preprocess'] = TRUE;
-        $info['type'] = 'file';
-        $aggregated[$key] = $info;
+function alpha_grid_css_aggregate($elements) {
+  $settings = alpha_settings();
+
+  if ($settings['responsive']) {
+    if ($chunks = alpha_grid_css_chunks($elements['#items'])) {
+      foreach ($chunks as $items) {
+        reset($items);
+
+        $offset = array_search(key($items), array_keys($elements['#items']));
+        $aggregated = array();
+
+        foreach (alpha_grid_css_group($items) as $key => $info) {
+          $info['data'] = alpha_grid_css_cache($info);
+          $info['media'] = 'all';
+          $info['preprocess'] = TRUE;
+          $info['type'] = 'file';
+          $aggregated[$key] = $info;
+        }
+
+        array_splice($elements['#items'], $offset, count($items), $aggregated);
       }
-      
-      array_splice($elements['#items'], $offset, count($items), $aggregated);
     }
   }
   
@@ -1351,12 +1359,12 @@ function alpha_sort_layouts($a, $b) {
  */
 function alpha_toggle() {
   return array(
-  	'messages' => t('Messages'), 
-  	'action_links' => t('Action links'), 
-  	'tabs' => t('Tabs'), 
-  	'breadcrumb' => t('Breadcrumb'), 
-  	'page_title' => t('Page title'), 
-  	'feed_icons' => t('Feed icons'),
+    'messages' => t('Messages'), 
+    'action_links' => t('Action links'), 
+    'tabs' => t('Tabs'), 
+    'breadcrumb' => t('Breadcrumb'), 
+    'page_title' => t('Page title'), 
+    'feed_icons' => t('Feed icons'),
   );
 }
 
@@ -1366,8 +1374,8 @@ function alpha_toggle() {
  */
 function alpha_visibility() {
   return array(
-  	'title' => t('Page title'), 
-  	'site_name' => t('Site name'), 
-  	'site_slogan' => t('Site slogan'), 
+    'title' => t('Page title'), 
+    'site_name' => t('Site name'), 
+    'site_slogan' => t('Site slogan'), 
   );
 }

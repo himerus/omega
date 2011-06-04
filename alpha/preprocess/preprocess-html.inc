@@ -64,7 +64,7 @@ function alpha_alpha_preprocess_html(&$vars) {
 
   if($settings['responsive'] && $settings['viewport']['enabled']) {
     $meta = array(
-  	  '#tag' => 'meta',
+      '#tag' => 'meta',
       '#attributes' => array(
         'name' => 'viewport',
         'content' => 'width=device-width, initial-scale=' . $settings['viewport']['initial'] . ', maximum-scale=' . $settings['viewport']['max'] . ', minimum-scale=' . $settings['viewport']['min'] . ', user-scalable=' . ($settings['viewport']['user'] ? 'yes' : 'no'),

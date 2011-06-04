@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/includes/alpha.inc';
  */
 function alpha_theme($existing, $type, $theme, $path) {
   return array(
-  	'section' => array(
+    'section' => array(
       'template' => 'section',
       'path' => $path . '/templates',
       'render element' => 'elements',
@@ -24,8 +24,8 @@ function alpha_theme($existing, $type, $theme, $path) {
         'alpha_process',
         'alpha_process_section'
       ),
-    ),  
-  	'zone' => array(
+    ),
+    'zone' => array(
       'template' => 'zone',
       'path' => $path . '/templates',
       'render element' => 'elements',
