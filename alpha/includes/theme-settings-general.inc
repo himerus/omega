@@ -240,6 +240,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   $form['alpha_settings']['alpha_toggle'] = array(
     '#type' => 'fieldset',
     '#title' => t('Toggle advanced elements'),
+    '#description' => t('Enable or disable the display of certain page elements.'),
   );
   
   foreach ($toggle as $item => $title) {
