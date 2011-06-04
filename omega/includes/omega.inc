@@ -9,18 +9,18 @@
  * A wrapper function for theme_get_settings().
  * 
  * @param $name
- * 	 The name of the setting that you want to retrieve.
+ *   The name of the setting that you want to retrieve.
  * 
  * @param $theme (optional)
- * 	 The name (key) of the theme that you want to fetch the
+ *   The name (key) of the theme that you want to fetch the
  *   setting for. Defaults to the global variable $theme_key.
  *   
  * @param $default (optional)
- * 	 The name (key) of the theme that you want to fetch the
+ *   The name (key) of the theme that you want to fetch the
  *   setting for. Defaults to NULL.
  *   
  * @see 
- * 	 theme_get_setting().
+ *   theme_get_setting().
  */
 function omega_theme_get_setting($name, $default = NULL, $theme = NULL) {
   return alpha_theme_get_setting($name, $default, $theme);
@@ -30,24 +30,24 @@ function omega_theme_get_setting($name, $default = NULL, $theme = NULL) {
  * A helper function for retrieving zone settings.
  * 
  * @param $name
- * 	 The name of the setting that you want to retrieve.
+ *   The name of the setting that you want to retrieve.
  * 
  * @param $zone
- * 	 The zone that you want to fetch the setting for.
+ *   The zone that you want to fetch the setting for.
  * 
  * @param $theme (optional)
- * 	 The name (key) of the theme that you want to fetch the
+ *   The name (key) of the theme that you want to fetch the
  *   setting for. Defaults to the global variable $theme_key.
  *   
  * @param $default (optional)
- * 	 The name (key) of the theme that you want to fetch the
+ *   The name (key) of the theme that you want to fetch the
  *   setting for. Defaults to NULL.
  *   
  * @see 
- * 	 alpha_theme_get_setting().
+ *   alpha_theme_get_setting().
  * 
  * @see
- * 	 theme_get_setting().
+ *   theme_get_setting().
  */
 function omega_zone_get_setting($name, $zone, $default = NULL, $theme = NULL) {
   return alpha_zone_get_setting($name, $zone, $default, $theme);
@@ -57,24 +57,24 @@ function omega_zone_get_setting($name, $zone, $default = NULL, $theme = NULL) {
  * A helper function for retrieving region settings.
  * 
  * @param $name
- * 	 The name of the setting that you want to retrieve.
+ *   The name of the setting that you want to retrieve.
  * 
  * @param $region
- * 	 The region that you want to fetch the setting for.
+ *   The region that you want to fetch the setting for.
  * 
  * @param $theme (optional)
- * 	 The name (key) of the theme that you want to fetch the
+ *   The name (key) of the theme that you want to fetch the
  *   setting for. Defaults to the global variable $theme_key.
  *   
  * @param $default (optional)
- * 	 The name (key) of the theme that you want to fetch the
+ *   The name (key) of the theme that you want to fetch the
  *   setting for. Defaults to NULL.
  *   
  * @see 
- * 	 alpha_theme_get_setting().
+ *   alpha_theme_get_setting().
  * 
  * @see
- * 	 theme_get_setting().
+ *   theme_get_setting().
  */
 function omega_region_get_setting($name, $region, $default = NULL, $theme = NULL) {
   return alpha_region_get_setting($name, $region, $default, $theme);
@@ -85,8 +85,8 @@ function omega_region_get_setting($name, $region, $default = NULL, $theme = NULL
  * theme defined by $key.
  * 
  * @param $key
- * 	 The key (machin-readable name) of the theme that you want
- *	 fetch the settings for.
+ *   The key (machin-readable name) of the theme that you want
+ *  fetch the settings for.
  *
  * @return
  *   A nested array of theme settings.
