@@ -244,7 +244,10 @@ function alpha_theme_settings_general(&$form, &$form_state) {
   }
 
   foreach (array('theme_settings', 'logo', 'favicon') as $element) {
-    $form['alpha_settings'][$element] = $form[$element];
+    if (isset($form[$element])) {
+      $form['alpha_settings'][$element] = $form[$element];
+    }
+    
     unset($form[$element], $form['alpha_settings'][$element]['#description'], $form['alpha_settings'][$element]['#attributes']);
   }
   
