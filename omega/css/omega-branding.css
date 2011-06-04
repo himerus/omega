@@ -7,15 +7,15 @@
   float: left;
 }
 
-.site-title {
+.site-name {
   margin-top: 20px;
 }
 
-.site-title a {
+.site-name a {
   text-decoration: none;
 }
 
-.site-title,
+.site-name,
 .site-slogan {
   margin-bottom: 0;
   line-height: 1em;
