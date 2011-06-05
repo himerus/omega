@@ -32,4 +32,10 @@ function omega_alpha_preprocess_block(&$vars) {
     // Add a class to provide CSS for blocks without titles.
     $vars['attributes_array']['class'][] = 'block-without-title';
   }
+  
+  if ($vars['block']->module != 'alpha-debug') {
+    if (isset($vars['block']->region) && alpha_region_get_setting('equal_height', $vars['block']->region, FALSE)) {
+      $vars['attributes_array']['class'][] = 'equal-height-element';
+    }
+  }
 }
