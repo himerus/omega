@@ -127,25 +127,25 @@ function alpha_theme_settings_general(&$form, &$form_state) {
         ),
       );
 
-      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['layouts_' . $grid . '_' . $layout . '_responsive'] = array(
+      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_responsive'] = array(
         '#type' => 'checkbox',
         '#title' => t('Use this layout with the responsive grid'),
         '#default_value' => $item['enabled'],
       );
       
-      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['layouts_' . $grid . '_' . $layout . '_weight'] = array(
+      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_weight'] = array(
         '#type' => 'weight',
         '#title' => t('Weight'),
         '#description' => t('The weight of this layout.'),
         '#default_value' => $item['weight'],
         '#states' => array(
           'visible' => array(
-            ':input[name="layouts_' . $grid . '_' . $layout . '_responsive"]' => array('checked' => TRUE),
+            ':input[name="alpha_layouts_' . $grid . '_' . $layout . '_responsive"]' => array('checked' => TRUE),
           ),
         ), 
       );
       
-      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['layouts_' . $grid . '_' . $layout . '_media'] = array(
+      $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_media'] = array(
         '#type' => 'textfield',
         '#title' => t('Media query'),
         '#description' => t('The @media query that the @layout layout should respond to.', array('@layout' => $item['name'])),
@@ -154,7 +154,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
         '#size' => 140,
         '#states' => array(
           'visible' => array(
-            ':input[name="layouts_' . $grid . '_' . $layout . '_responsive"]' => array('checked' => TRUE),
+            ':input[name="alpha_layouts_' . $grid . '_' . $layout . '_responsive"]' => array('checked' => TRUE),
           ),
         ),   
       );

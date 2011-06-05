@@ -947,12 +947,17 @@ function alpha_register_grids($theme = NULL) {
         
         foreach ($trail as $item) {
           $path = drupal_get_path('theme', $item->name) . '/css/' . implode('-', array(str_replace('_', '-', $item->name), str_replace('_', '-', $name)));
-          $files = array($path . '.css', $path . '-' . str_replace('_', '-', $layout) . '.css');
-
-          foreach ($files as $file) {
-            if (is_file($file)) {
-              $cache[$name]['layouts'][$layout]['attached'][] = $file;
-            }
+          if (is_file($path . '.less')) {
+            $cache[$name]['layouts'][$layout]['attached'][] = $path . '.less';
+          } else if (is_file($path . '.css')) {
+            $cache[$name]['layouts'][$layout]['attached'][] = $path . '.css';
+          }
+          
+          $path = $path . '-' . str_replace('_', '-', $layout);
+          if (is_file($path . '.less')) {
+            $cache[$name]['layouts'][$layout]['attached'][] = $path . '.less';
+          } else if (is_file($path . '.css')) {
+            $cache[$name]['layouts'][$layout]['attached'][] = $path . '.css';
           }
         }
       }

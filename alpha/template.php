@@ -119,15 +119,22 @@ function alpha_page_alter(&$vars) {
       }
     }    
        
-    if ($settings['responsive'] && $settings['debug']['grid']) {
+    if ($settings['debug']['grid']) {
       if (empty($vars['page_bottom'])) {
         $vars['page_bottom']['#region'] = 'page_bottom';
         $vars['page_bottom']['#theme_wrappers'] = array('region');
       }
-        
-      $vars['page_bottom']['alpha_resize_indicator'] = array(
+      
+      if ($settings['responsive']) {
+        $vars['page_bottom']['alpha_resize_indicator'] = array(
+          '#type' => 'markup',
+          '#markup' => '<div class="alpha-resize-indicator"></div>',
+        );
+      }
+      
+      $vars['page_bottom']['alpha_grid_toggle'] = array(
         '#type' => 'markup',
-        '#markup' => '<div class="alpha-resize-indicator"></div>',
+        '#markup' => '<a class="alpha-grid-toggle"></a>',
       );
     }
   }

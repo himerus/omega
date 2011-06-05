@@ -45,7 +45,10 @@
   width: 80px;
   height: 80px;
   position: fixed;
-  z-index: 999;
+  z-index: 998;
   right: 0;
   bottom: 0;
+}
+
+.alpha-grid-toggle {
 }
