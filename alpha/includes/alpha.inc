@@ -128,6 +128,8 @@ function alpha_build_registry($registry, $theme = NULL) {
     }
   }
   
+  alpha_alter('alpha_registry', $cache, $theme);
+  
   // Save the registry in the database.
   variable_set('theme_' . $theme . '_alpha_registry', $cache);
 }
@@ -377,7 +379,7 @@ function alpha_zone_options($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
   
   $output = array();
-  if ($items = alpha_zones($theme)) {
+  if ($items = alpha_zones(NULL, $theme)) {
     foreach ($items as $key => $info) {
       $output[$key] = check_plain($info['name']);
     }
@@ -427,7 +429,7 @@ function alpha_region_options($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
 
   $output = array();
-  if ($regions = alpha_regions($theme)) {
+  if ($regions = alpha_regions(NULL, $theme)) {
     foreach ($regions as $region => $item) {
       $output[$region] = $item['name'];
     }
@@ -510,7 +512,7 @@ function alpha_register_css($theme = NULL) {
     }
   }
   
-  alpha_alter('alpha_css', $cache, $theme);
+  alpha_alter('alpha_css_registry', $cache, $theme);
   variable_set('theme_' . $theme . '_alpha_css', $cache);
     
   return $cache;
@@ -584,7 +586,7 @@ function alpha_register_libraries($theme = NULL) {
     }
   }
   
-  alpha_alter('alpha_libraries', $cache, $theme);
+  alpha_alter('alpha_libraries_registry', $cache, $theme);
   variable_set('theme_' . $theme . '_alpha_libraries', $cache);
     
   return $cache;
@@ -964,7 +966,7 @@ function alpha_register_grids($theme = NULL) {
     }
   }
   
-  alpha_alter('alpha_grids', $cache, $theme);  
+  alpha_alter('alpha_grids_registry', $cache, $theme);  
   variable_set('theme_' . $theme . '_alpha_grids', $cache);
     
   return $cache;
@@ -980,7 +982,7 @@ function alpha_register_grids($theme = NULL) {
  * @return
  *   An array of zones and their settings.
  */
-function alpha_zones($theme = NULL) {
+function alpha_zones($name = NULL, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
   $output = &drupal_static(__FUNCTION__);
   
@@ -990,12 +992,12 @@ function alpha_zones($theme = NULL) {
     
     $output[$theme] = array();
     if (isset($themes[$theme]->info['zones'])) { 
-      foreach ($themes[$theme]->info['zones'] as $zone => $name) {
+      foreach ($themes[$theme]->info['zones'] as $zone => $title) {
         $section = alpha_zone_get_setting('section', $zone, NULL, $theme);
         
         $output[$theme][$zone] = array(
           'zone' => $zone,
-          'name' => $name,
+          'name' => $title,
           'enabled' => isset($sections[$section]),
           'force' => alpha_zone_get_setting('force', $zone, FALSE, $theme),
           'columns' => alpha_zone_get_setting('columns', $zone, 0, $theme),
@@ -1010,9 +1012,16 @@ function alpha_zones($theme = NULL) {
     }
     
     uasort($output[$theme], 'drupal_sort_weight');
+    
+    alpha_alter('alpha_zones', $output[$theme], $theme);
   }
   
-  return $output[$theme];
+  if (isset($name) && isset($output[$theme][$name])) {
+    return $output[$theme][$name];
+  }
+  else if (!isset($name)) {
+    return $output[$theme];
+  }  
 }
 
 /**
@@ -1025,17 +1034,17 @@ function alpha_zones($theme = NULL) {
  * @return
  *   An array of regions and their settings.
  */
-function alpha_regions($theme = NULL) {
+function alpha_regions($name = NULL, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
   $output = &drupal_static(__FUNCTION__);
 
   if (!isset($output[$theme])) {
     $regions = system_region_list($theme);
-    $zones = alpha_zones($theme);
+    $zones = alpha_zones(NULL, $theme);
     $exclude = alpha_regions_exclude();
     
     $output[$theme] = array();
-    foreach ($regions as $region => $name) {
+    foreach ($regions as $region => $title) {
       if (!in_array($region, $exclude)) {
         $zone = alpha_region_get_setting('zone', $region, NULL, $theme);
         $prefix = alpha_region_get_setting('prefix', $region, 0, $theme);
@@ -1044,7 +1053,7 @@ function alpha_regions($theme = NULL) {
 
         $output[$theme][$region] = array(
           'region' => $region,
-          'name' => $name,
+          'name' => $title,
           'zone' => $zone,
           'enabled' => !empty($zone) && isset($zones[$zone]),
           'force' => alpha_region_get_setting('force', $region, FALSE, $theme),
@@ -1062,9 +1071,16 @@ function alpha_regions($theme = NULL) {
     }
     
     uasort($output[$theme], 'drupal_sort_weight');
+    
+    alpha_alter('alpha_regions', $output[$theme], $theme);
   }
   
-  return $output[$theme];
+  if (isset($name) && isset($output[$theme][$name])) {
+    return $output[$theme][$name];
+  }
+  else if (!isset($name)) {
+    return $output[$theme];
+  }  
 }
 
 /**
@@ -1331,7 +1347,7 @@ function alpha_excludes($theme = NULL) {
  * @todo
  */
 function alpha_region_dimensions($region) {
-  $regions = alpha_regions($GLOBALS['theme_key']);
+  $regions = alpha_regions(NULL, $GLOBALS['theme_key']);
   
   if (isset($regions[$region])) {
     return array(

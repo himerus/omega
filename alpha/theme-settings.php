@@ -19,8 +19,8 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   alpha_register_libraries($theme);
   
   $form_state['alpha_settings'] = alpha_settings($theme);
-  $form_state['alpha_zones'] = alpha_zones($theme);
-  $form_state['alpha_regions'] = alpha_regions($theme);
+  $form_state['alpha_zones'] = alpha_zones(NULL, $theme);
+  $form_state['alpha_regions'] = alpha_regions(NULL, $theme);
   $form_state['alpha_containers'] = alpha_container_options($form_state['alpha_settings']['grid'], $theme);
 
   $form['alpha_settings'] = array(
@@ -55,8 +55,8 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
     }
     else {
       $theme = $form_state['build_info']['args'][0];
-      $regions = alpha_regions($theme);
-      $zones = alpha_zones($theme);
+      $regions = alpha_regions(NULL, $theme);
+      $zones = alpha_zones(NULL, $theme);
       $element['#sum'] = 0;
       
       foreach ($regions as $region => $item) {

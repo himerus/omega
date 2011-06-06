@@ -14,9 +14,9 @@
 function omega_alpha_preprocess_zone(&$vars) {
   $data = $vars['elements']['#data'];
   
-  if  (alpha_zone_get_setting('equal_height', $vars['elements']['#zone'], FALSE)) {
-    drupal_add_js(drupal_get_path('theme', 'omega') . '/js/jquery.equalheight.js', array('group' => JS_THEME, 'weight' => -10));
+  if ($data['equal_height']) {
+    drupal_add_js(drupal_get_path('theme', 'omega') . '/js/jquery.equalheight.js', array('group' => JS_THEME, 'weight' => 100));
     
-    $vars['attributes_array']['class'][] = 'equal-height-container';
+    $vars['content_attributes_array']['class'][] = 'equal-height-container';
   }
 }

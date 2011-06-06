@@ -240,8 +240,8 @@ function template_preprocess_zone(&$vars) {
   $vars['columns'] = $data['columns'];
   $vars['wrapper'] = $data['wrapper'];
   $vars['type'] = $data['type'];  
-  $vars['attributes_array']['id'] = drupal_html_id('zone-' . $vars['zone']);
-  $vars['attributes_array']['class'] = array('zone', $vars['attributes_array']['id'], 'zone-' . $vars['type'], 'container-' . $vars['columns'], 'clearfix');
+  $vars['content_attributes_array']['id'] = drupal_html_id('zone-' . $vars['zone']);
+  $vars['content_attributes_array']['class'] = array('zone', $vars['content_attributes_array']['id'], 'zone-' . $vars['type'], 'container-' . $vars['columns'], 'clearfix');
   
   if (!empty($data['css'])) {
     $extra = array_map('drupal_html_class', explode(' ', $data['css']));
@@ -252,24 +252,17 @@ function template_preprocess_zone(&$vars) {
   }
   
   if ($vars['wrapper']) {
-    $vars['wrapper_attributes_array']['id'] = $vars['attributes_array']['id'] . '-wrapper';
-    $vars['wrapper_attributes_array']['class'] = array('zone-wrapper', 'zone-' . $vars['type'] . '-wrapper', $vars['wrapper_attributes_array']['id']);
+    $vars['attributes_array']['id'] = $vars['content_attributes_array']['id'] . '-wrapper';
+    $vars['attributes_array']['class'] = array('zone-wrapper', 'zone-' . $vars['type'] . '-wrapper', $vars['attributes_array']['id']);
     
     if (!empty($data['wrapper_css'])) {
       $extra = array_map('drupal_html_class', explode(' ', $data['wrapper_css']));
         
       foreach ($extra as $class) {
-        $vars['wrapper_attributes_array']['class'][] = $class;
+        $vars['attributes_array']['class'][] = $class;
       }
     }
     
-    $vars['wrapper_attributes_array']['class'][] = 'clearfix';
+    $vars['attributes_array']['class'][] = 'clearfix';
   }
-}
-
-/**
- * Implements hook_process_zone().
- */
-function template_process_zone(&$vars) {
-  $vars['wrapper_attributes'] = isset($vars['wrapper_attributes_array']) ? drupal_attributes($vars['wrapper_attributes_array']) : '';
 }

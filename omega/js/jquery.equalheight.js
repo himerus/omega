@@ -37,8 +37,9 @@
     });
   }
   
-  $(function() { 
-    $('.region-inner.equal-height-container > .equal-height-element').equalHeights();
-    $('.zone.equal-height-container > .equal-height-element').equalHeights();
+  $(window).load(function() {
+    $($('.equal-height-container').get().reverse()).each(function() {
+      $(this).children('.equal-height-element').equalHeights();
+    });
   });
 })(jQuery);

@@ -16,7 +16,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       '#type' => 'checkbox',
       '#title' => t('Force equal height for all child elements'),
       '#description' => t('This sets all child elements to the same height.'),
-      '#default_value' => omega_region_get_setting('equal_height', $region, FALSE),
+      '#default_value' => $item['equal_height'],
       '#weight' => -10,
     );
   }
@@ -29,7 +29,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       '#type' => 'checkbox',
       '#title' => t('Force equal height for all child elements'),
       '#description' => t('This sets all child elements to the same height.'),
-      '#default_value' => omega_zone_get_setting('equal_height', $zone, FALSE),
+      '#default_value' => $item['equal_height'],
       '#weight' => -10,
     );
   }

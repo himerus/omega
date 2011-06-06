@@ -33,8 +33,8 @@ function omega_alpha_preprocess_block(&$vars) {
     $vars['attributes_array']['class'][] = 'block-without-title';
   }
   
-  if ($vars['block']->module != 'alpha-debug') {
-    if (isset($vars['block']->region) && alpha_region_get_setting('equal_height', $vars['block']->region, FALSE)) {
+  if ($vars['block']->module != 'alpha-debug' && isset($vars['block']->region) && $region = alpha_regions($vars['block']->region)) {
+    if ($region['equal_height']) {
       $vars['attributes_array']['class'][] = 'equal-height-element';
     }
   }

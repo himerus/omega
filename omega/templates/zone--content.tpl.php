@@ -1,5 +1,5 @@
-<?php if ($wrapper): ?><div<?php print $wrapper_attributes; ?>><?php endif; ?>  
-  <div<?php print $attributes; ?>>    
+<?php if ($wrapper): ?><div<?php print $attributes; ?>><?php endif; ?>  
+  <div<?php print $content_attributes; ?>>    
     <?php if ($breadcrumb): ?>
       <div id="breadcrumb" class="grid-<?php print $columns; ?>"><?php print $breadcrumb; ?></div>
     <?php endif; ?>    
