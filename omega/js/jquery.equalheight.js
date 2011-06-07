@@ -6,15 +6,16 @@
  * Version 1.0
  * Updated 12/10/2008
  *
- * Copyright (c) 2008 Rob Glazebrook (cssnewbie.com) 
+ * Copyright (c) 2008 Rob Glazebrook (cssnewbie.com)
+ * 
+ * Modified for Omega by Sebastian Siemssen (fubhy)
  *
  * Usage: $(object).equalHeights([minHeight], [maxHeight]);
  * 
- * Example 1: $(".cols").equalHeights(); Sets all columns to the same height.
- * Example 2: $(".cols").equalHeights(400); Sets all cols to at least 400px tall.
- * Example 3: $(".cols").equalHeights(100,300); Cols are at least 100 but no more
+ * Example 1: $('.cols').equalHeights(); Sets all columns to the same height.
+ * Example 2: $('.cols').equalHeights(400); Sets all cols to at least 400px tall.
+ * Example 3: $('.cols').equalHeights(100,300); Cols are at least 100 but no more
  * than 300 pixels tall. Elements with too much content will gain a scrollbar.
- * 
  */
 
 (function($) {
@@ -31,7 +32,7 @@
 
     return this.each(function() {
       if (tallest < $(this).height())
-        $(this).css("overflow", "scroll");
+        $(this).css('overflow', 'scroll');
       
       $(this).height(tallest);
     });

@@ -106,7 +106,7 @@ function alpha_build_registry($registry, $theme = NULL) {
   foreach ($registry as $item => $info) {
     foreach (array('preprocess', 'process') as $type) {
       $key = $type . ' functions';
-     
+      
       // Only process this array if it has hooks of this $type.
       if (!empty($info[$key])) {
         foreach (alpha_theme_trail($theme) as $name => $data) {
@@ -621,8 +621,8 @@ function alpha_include_grid($grid, $columns) {
         $options = array(
           'type' => 'inline',          
           'browsers' => $settings['responsive'] ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE),
-          'group' => CSS_THEME,
-          'weight' => 3000 + $item['weight'],
+          'group' => -999,
+          'weight' => $item['weight'],
           'media' => $settings['responsive'] ? $item['media'] : 'all', 
         );
         
@@ -757,24 +757,25 @@ function alpha_grid_css_group($items) {
  */
 function alpha_grid_css_aggregate($elements) {
   $settings = alpha_settings();
-
+  
   if ($settings['responsive']) {
     if ($chunks = alpha_grid_css_chunks($elements['#items'])) {
       foreach ($chunks as $items) {
-        reset($items);
+        $offset = alpha_array_key_search(key($items), $elements['#items']);
+        
+        if ($offset !== FALSE) {
+          $aggregated = array();
+          
+          foreach (alpha_grid_css_group($items) as $key => $info) {
+            $info['data'] = alpha_grid_css_cache($info);
+            $info['media'] = 'all';
+            $info['preprocess'] = TRUE;
+            $info['type'] = 'file';
+            $aggregated[$key] = $info;
+          }
 
-        $offset = array_search(key($items), array_keys($elements['#items']));
-        $aggregated = array();
-
-        foreach (alpha_grid_css_group($items) as $key => $info) {
-          $info['data'] = alpha_grid_css_cache($info);
-          $info['media'] = 'all';
-          $info['preprocess'] = TRUE;
-          $info['type'] = 'file';
-          $aggregated[$key] = $info;
+          array_splice($elements['#items'], $offset, count($items), $aggregated);
         }
-
-        array_splice($elements['#items'], $offset, count($items), $aggregated);
       }
     }
   }
@@ -1404,4 +1405,21 @@ function alpha_visibility() {
     'site_name' => t('Site name'), 
     'site_slogan' => t('Site slogan'), 
   );
+}
+
+/**
+ * @todo
+ */
+function alpha_array_key_search($needle, $haystack) {
+  $offset = 0;
+  
+  foreach ($haystack as $key => $item) {
+    if ($needle === $key) {
+      return $offset;
+    }
+    
+    $offset++;
+  }
+  
+  return FALSE;
 }

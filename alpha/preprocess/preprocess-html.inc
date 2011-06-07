@@ -18,6 +18,12 @@ function alpha_alpha_preprocess_html(&$vars) {
   
   $vars['attributes_array']['class'] = &$vars['classes_array'];
   
+  foreach (array('two-sidebars', 'one-sidebar sidebar-first', 'one-sidebar sidebar-second', 'no-sidebars') as $exclude) {
+    if ($index = array_search($exclude, $vars['attributes_array']['class'])) {      
+      unset($vars['attributes_array']['class'][$index]);
+    }
+  }
+  
   // Add a CSS class based on the current page context.
   if (!drupal_is_front_page()) {
     $context = explode('/', drupal_get_path_alias());
