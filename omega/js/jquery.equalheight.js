@@ -38,9 +38,23 @@
     });
   }
   
+  $.fn.bindHeights = function(minHeight, maxHeight) {
+    var elements = $(this);
+    
+    $(elements).equalHeights(minHeight, maxHeight).each(function() {
+      $(this).resize(function() {
+        var height = $(this).height();
+        
+        $(elements).unbind('resize').height('auto');
+        $(this).height(height);
+        $(elements).bindHeights(minHeight, maxHeight);
+      });
+    });
+  }
+  
   $(window).load(function() {
     $($('.equal-height-container').get().reverse()).each(function() {
-      $(this).children('.equal-height-element').equalHeights();
+      $(this).children('.equal-height-element').bindHeights();
     });
   });
 })(jQuery);
