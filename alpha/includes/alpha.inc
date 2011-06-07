@@ -356,7 +356,7 @@ function alpha_library_options($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
 
   $output = array();
-  if ($items = alpha_libraries($theme)) {
+  if ($items = alpha_libraries(NULL, $theme)) {
     foreach ($items as $key => $info) {
       $output[$key] = check_plain($info['name']) . '<div class="description">' . $info['description'] . '</div>';
     }
@@ -578,7 +578,7 @@ function alpha_register_libraries($theme = NULL) {
             
             $cache[$name][$type][$index] = array(
               'path' => drupal_get_path('theme', $key) . '/' . (isset($item['path']) ? $item['path'] : $type) . '/' . $item['file'],
-             'options' => $options,
+              'options' => $options,
             );
           }
         }
@@ -1307,7 +1307,7 @@ function alpha_excludes($theme = NULL) {
             'name' => $data->info['name'],
             'file' => $file,
             'media' => $media,
-          	'description' => NULL,
+            'description' => NULL,
           );
         }
       }
