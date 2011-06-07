@@ -38,25 +38,9 @@
     });
   }
 
-  $.fn.bindHeights = function(minHeight, maxHeight) {
-    var elements = this;
-
-    $(elements).equalHeights(minHeight, maxHeight).each(function() {
-      $(this).bind('resize.equalHeights', function() {
-        var height = $(this).height();
-
-        $(elements).unbind('resize.equalHeights').height('auto');
-        $(this).height(height);
-        $(elements).bindHeights(minHeight, maxHeight);
-      });
+  $(window).load(function() {
+    $($('.equal-height-container').get().reverse()).each(function() {
+      $(this).children('.equal-height-element').equalHeights();
     });
-  }
-
-  $(window).bind('load.equalHeights', function() {
-    $('body').bind('resize.equalHeights', function() {
-      $($('.equal-height-container').get().reverse()).each(function() {
-        $(this).children('.equal-height-element').bindHeights();
-      });
-    }).trigger('resize.equalHeights');
   });
 })(jQuery);
