@@ -2,16 +2,16 @@
  * Equal Heights Plugin
  * Equalize the heights of elements. Great for columns or any elements
  * that need to be the same size (floats, etc).
- * 
+ *
  * Version 1.0
  * Updated 12/10/2008
  *
  * Copyright (c) 2008 Rob Glazebrook (cssnewbie.com)
- * 
+ *
  * Modified for Omega by Sebastian Siemssen (fubhy)
  *
  * Usage: $(object).equalHeights([minHeight], [maxHeight]);
- * 
+ *
  * Example 1: $('.cols').equalHeights(); Sets all columns to the same height.
  * Example 2: $('.cols').equalHeights(400); Sets all cols to at least 400px tall.
  * Example 3: $('.cols').equalHeights(100,300); Cols are at least 100 but no more
@@ -26,25 +26,37 @@
       if ($(this).height() > tallest)
         tallest = $(this).height();
     });
-    
-    if ((maxHeight) && tallest > maxHeight) 
+
+    if ((maxHeight) && tallest > maxHeight)
       tallest = maxHeight;
 
     return this.each(function() {
       if (tallest < $(this).height())
         $(this).css('overflow', 'scroll');
-      
+
       $(this).height(tallest);
     });
   }
 
-  $(window).bind('resize.equalHeights', function() {
-    $($('.equal-height-container').get().reverse()).each(function() {
-      $(this).children('.equal-height-element').equalHeights();
+  $.fn.bindHeights = function(minHeight, maxHeight) {
+    var elements = this;
+
+    $(elements).equalHeights(minHeight, maxHeight).each(function() {
+      $(this).bind('resize.equalHeights', function() {
+        var height = $(this).height();
+
+        $(elements).unbind('resize.equalHeights').height('auto');
+        $(this).height(height);
+        $(elements).bindHeights(minHeight, maxHeight);
+      });
     });
+  }
+
+  $(window).bind('load.equalHeights', function() {
+    $('body').bind('resize.equalHeights', function() {
+      $($('.equal-height-container').get().reverse()).each(function() {
+        $(this).children('.equal-height-element').bindHeights();
+      });
+    }).trigger('resize.equalHeights');
   });
-  
-  $(window).load(function() {
-    $(this).trigger('resize');
-  })
 })(jQuery);

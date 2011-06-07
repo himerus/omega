@@ -16,7 +16,8 @@ function omega_alpha_preprocess_region(&$vars) {
     $data = $vars['elements']['#data'];
     
     if ($data['equal_height']) {
-      drupal_add_js(drupal_get_path('theme', 'omega') . '/js/jquery.equalheight.js', array('group' => JS_THEME, 'weight' => 100));
+      drupal_add_js(drupal_get_path('theme', 'omega') . '/js/jquery.equalheights.js', array('group' => JS_THEME));
+      drupal_add_js(drupal_get_path('theme', 'omega') . '/js/jquery.resize.js', array('group' => JS_THEME));
       
       $vars['content_attributes_array']['class'][] = 'equal-height-container';
     }
