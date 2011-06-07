@@ -39,7 +39,7 @@
   }
   
   $.fn.bindHeights = function(minHeight, maxHeight) {
-    var elements = $(this);
+    var elements = this;
     
     $(elements).equalHeights(minHeight, maxHeight).each(function() {
       $(this).resize(function() {
@@ -54,7 +54,7 @@
   
   $(window).load(function() {
     $($('.equal-height-container').get().reverse()).each(function() {
-      $(this).children('.equal-height-element').bindHeights();
+      $(this).children('.equal-height-element').bindHeights();     
     });
   });
 })(jQuery);
