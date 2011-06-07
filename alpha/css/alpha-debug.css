@@ -69,3 +69,9 @@
 .alpha-grid-toggle-inactive {
   background-position: 0 -22px;
 }
+
+.alpha-grid-toggle:hover,
+.alpha-grid-toggle:focus,
+.alpha-grid-toggle:active {
+  width: 55px;
+}
