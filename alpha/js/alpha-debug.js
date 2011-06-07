@@ -13,6 +13,8 @@
         $(button).removeClass('alpha-grid-toggle-active').addClass('alpha-grid-toggle-inactive');
         $('body').removeClass('alpha-grid-debug');
       }
+      
+      return false;
     });
   });
 })(jQuery);

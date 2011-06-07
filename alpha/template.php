@@ -136,7 +136,7 @@ function alpha_page_alter(&$vars) {
       
       $vars['page_bottom']['alpha_grid_toggle'] = array(
         '#type' => 'markup',
-        '#markup' => '<a class="' . $class . '" href="javascript:void"></a>',
+        '#markup' => '<a class="' . $class . '" href="#"></a>',
       );
     }
   }
