@@ -53,4 +53,19 @@
 }
 
 .alpha-grid-toggle {
+  background: url(../images/grid-toggle.png) no-repeat 0 0;
+  width: 22px;
+  height: 22px;
+  position: fixed;
+  z-index: 999;
+  right: 0;
+  bottom: 100px;
+}
+
+.alpha-grid-toggle-active {
+  background-position: 0 0;
+}
+
+.alpha-grid-toggle-inactive {
+  background-position: 0 -22px;
 }

@@ -19,16 +19,17 @@ function alpha_alpha_preprocess_region(&$vars) {
   
   if (isset($vars['elements']['#data'])) {
     $data = $vars['elements']['#data'];  
-    $vars['attributes_array']['class'][] = 'grid-' . $data['columns'];
     $vars['columns'] = $data['columns'];
     
     foreach (array('prefix', 'suffix', 'push', 'pull') as $quality) {
       if (!empty($data[$quality])) {
         $vars[$quality] = $data[$quality];        
-        $vars['attributes_array']['class'][] = $quality . '-' . $data[$quality];
+        array_unshift($vars['attributes_array']['class'], $quality . '-' . $data[$quality]);
       }
     }
-  
+    
+    array_unshift($vars['attributes_array']['class'], 'grid-' . $data['columns']);
+
     if (!empty($data['css'])) {
       $extra = array_map('drupal_html_class', explode(' ', $data['css']));
       

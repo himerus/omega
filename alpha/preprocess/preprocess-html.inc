@@ -35,10 +35,15 @@ function alpha_alpha_preprocess_html(&$vars) {
   }
   
   if (($settings['debug']['grid'] || $settings['debug']['block']) && $settings['debug']['access']) {
-    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('group' => CSS_THEME, 'weight' => -5));
-
+    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('group' => CSS_THEME, 'weight' => -5));    
+    
     if ($settings['debug']['grid']) {
-      $vars['attributes_array']['class'][] = 'alpha-grid-debug';
+      drupal_add_js(drupal_get_path('theme', 'alpha') . '/js/alpha-debug.js', array('group' => JS_THEME, 'weight' => -5));
+      drupal_add_js(array('alpha' => array('overlayActive' => $settings['debug']['active'])), 'setting');
+      
+      if ($settings['debug']['active']) {
+        $vars['attributes_array']['class'][] = 'alpha-grid-debug';
+      }
     }
     
     if ($settings['debug']['block']) {

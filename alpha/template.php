@@ -120,6 +120,8 @@ function alpha_page_alter(&$vars) {
     }    
        
     if ($settings['debug']['grid']) {
+      $class = 'alpha-grid-toggle alpha-grid-toggle-' . ($settings['debug']['active'] ? 'active' : 'inactive');
+      
       if (empty($vars['page_bottom'])) {
         $vars['page_bottom']['#region'] = 'page_bottom';
         $vars['page_bottom']['#theme_wrappers'] = array('region');
@@ -134,7 +136,7 @@ function alpha_page_alter(&$vars) {
       
       $vars['page_bottom']['alpha_grid_toggle'] = array(
         '#type' => 'markup',
-        '#markup' => '<a class="alpha-grid-toggle"></a>',
+        '#markup' => '<a class="' . $class . '" href="javascript:void"></a>',
       );
     }
   }
@@ -241,7 +243,7 @@ function template_preprocess_zone(&$vars) {
   $vars['wrapper'] = $data['wrapper'];
   $vars['type'] = $data['type'];  
   $vars['content_attributes_array']['id'] = drupal_html_id('zone-' . $vars['zone']);
-  $vars['content_attributes_array']['class'] = array('zone', $vars['content_attributes_array']['id'], 'zone-' . $vars['type'], 'container-' . $vars['columns'], 'clearfix');
+  $vars['content_attributes_array']['class'] = array('container-' . $vars['columns'], 'zone', $vars['content_attributes_array']['id'], 'zone-' . $vars['type'], 'clearfix');
   
   if (!empty($data['css'])) {
     $extra = array_map('drupal_html_class', explode(' ', $data['css']));

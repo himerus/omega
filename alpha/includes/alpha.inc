@@ -623,7 +623,7 @@ function alpha_include_grid($grid, $columns) {
           'browsers' => $settings['responsive'] ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE),
           'group' => -999,
           'weight' => $item['weight'],
-          'media' => $settings['responsive'] ? $item['media'] : 'all', 
+          'media' => $settings['responsive'] ? $item['media'] : 'all',
         );
         
         foreach ($columns as $count => $title) {
@@ -666,8 +666,8 @@ function alpha_grid_css($name, $columns) {
             if ($settings['responsive'] && $layout == $grid['primary']) {
               $basename = 'ie::' . $layout . '::' . $path . '-' . $count . '.css';
               $output[$basename] = array(
-                'group' => CSS_THEME,
-              	'weight' => 1000 + $item['weight'],
+                'group' => 1000,
+              	'weight' => $item['weight'],
                 'data' => $file,
                 'basename' => $basename,
                 'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),                
@@ -675,8 +675,8 @@ function alpha_grid_css($name, $columns) {
             }
             
             $output[$file] = array(
-              'group' => CSS_THEME,
-              'weight' => 2000 + $item['weight'],
+              'group' => 2000,
+              'weight' => $item['weight'],
               'media' => $media,
               'browsers' => $browsers,          
               'aggregate' => TRUE,
@@ -687,8 +687,8 @@ function alpha_grid_css($name, $columns) {
               
               if ($settings['responsive'] && $layout == $grid['primary']) {
                 $output['ie::' . $basename] = array(
-                  'group' => CSS_THEME,
-                  'weight' => 1000 + $item['weight'],
+                  'group' => 1000,
+                  'weight' => $item['weight'],
                   'data' => $attached, 
                   'basename' => 'ie::' . $basename,
                   'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
@@ -696,8 +696,8 @@ function alpha_grid_css($name, $columns) {
               }
               
               $output[$basename] = array(
-                'group' => CSS_THEME,
-                'weight' => 2000 + $item['weight'],                
+                'group' => 2000,
+                'weight' => $item['weight'],                
                 'data' => $attached, 
                 'basename' => $basename,                
                 'media' => $media,
@@ -1165,6 +1165,7 @@ function alpha_settings($theme = NULL) {
       'debug' => array(
         'block' => alpha_theme_get_setting('alpha_debug_block_toggle', FALSE, $theme),
         'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', FALSE, $theme),
+        'active' => alpha_theme_get_setting('alpha_debug_grid_active', FALSE, $theme),
         'roles' => array_keys(array_filter(alpha_theme_get_setting('alpha_debug_grid_roles', array(), $theme))),
       ),
     );

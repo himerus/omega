@@ -228,6 +228,17 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#title' => t('Enable grid overlay for the selected roles.'),
       '#default_value' => $settings['debug']['grid'],
     );
+    
+    $form['alpha_settings']['alpha_debug']['alpha_debug_grid_active'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Activate the grid overlay on page load.'),
+      '#default_value' => $settings['debug']['active'],
+      '#states' => array(
+        'visible' => array(
+          ':input[name="alpha_debug_grid_toggle"]' => array('checked' => TRUE),
+        ),
+      ),
+    );
   
     $form['alpha_settings']['alpha_debug']['alpha_debug_grid_roles'] = array(
       '#type' => 'checkboxes',
