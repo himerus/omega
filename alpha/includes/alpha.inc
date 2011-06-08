@@ -593,6 +593,20 @@ function alpha_register_libraries($theme = NULL) {
 }
 
 /**
+ * @todo
+ */
+function alpha_library_active($library, $theme = NULL) {
+  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
+  $settings = alpha_settings($theme);
+  
+  if (isset($settings['libraries'][$library]) && $settings['libraries'][$library] == $library) {
+    return TRUE;
+  }
+  
+  return FALSE;
+}
+
+/**
  * Adds a column layout for a grid to your site.
  * 
  * @param $grid

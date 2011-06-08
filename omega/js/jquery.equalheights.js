@@ -37,10 +37,4 @@
       $(this).height(tallest);
     });
   }
-
-  $(window).load(function() {
-    $($('.equal-height-container').get().reverse()).each(function() {
-      $(this).children('.equal-height-element').equalHeights();
-    });
-  });
 })(jQuery);

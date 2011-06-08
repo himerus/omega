@@ -13,15 +13,15 @@
  */
 function omega_alpha_preprocess_region(&$vars) {
   if (isset($vars['elements']['#data'])) {
-    $data = $vars['elements']['#data'];
+    $data = $vars['elements']['#data'];    
     
-    if ($data['equal_height']) {
-      drupal_add_js(drupal_get_path('theme', 'omega') . '/js/jquery.equalheights.js', array('group' => JS_THEME));
+    if (alpha_library_active('omega_formalize')) {
+      $zone = alpha_zones($data['zone']);
       
-      $vars['content_attributes_array']['class'][] = 'equal-height-container';
-    }
-      
-    if ($zone = alpha_zones($data['zone'])) {
+      if ($data['equal_height']) {      
+        $vars['content_attributes_array']['class'][] = 'equal-height-container';
+      }
+
       if ($zone['equal_height']) {
         $vars['attributes_array']['class'][] = 'equal-height-element';
       }

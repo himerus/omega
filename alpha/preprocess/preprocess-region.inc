@@ -23,7 +23,8 @@ function alpha_alpha_preprocess_region(&$vars) {
     
     foreach (array('prefix', 'suffix', 'push', 'pull') as $quality) {
       if (!empty($data[$quality])) {
-        $vars[$quality] = $data[$quality];        
+        $vars[$quality] = $data[$quality];
+        
         array_unshift($vars['attributes_array']['class'], $quality . '-' . $data[$quality]);
       }
     }

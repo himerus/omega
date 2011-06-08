@@ -156,7 +156,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
           'visible' => array(
             ':input[name="alpha_layouts_' . $grid . '_' . $layout . '_responsive"]' => array('checked' => TRUE),
           ),
-        ),   
+        ),
       );
     }
   }  
