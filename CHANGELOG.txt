@@ -53,3 +53,6 @@ functionality but come with less problems.
 We now anticipate that behavior in special cases where the user disabled the main page
 content block in the blocks configuration and set it before drupal_render_page can break
 it.
+
+#1184144  - The default settings of the starterkits now activate the CSS files that each
+starterkit ships with by default.
