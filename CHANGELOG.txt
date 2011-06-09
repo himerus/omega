@@ -48,3 +48,8 @@ to a weight of -20.
 
 #1184006  - Replaced the debugging blocks with simple markup elements. They have the same
 functionality but come with less problems.
+
+#1184122  - The main page content block did not get placed properly by drupal_render_page.
+We now anticipate that behavior in special cases where the user disabled the main page
+content block in the blocks configuration and set it before drupal_render_page can break
+it.
