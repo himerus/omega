@@ -7,38 +7,41 @@
   background-color: rgba(0, 115, 186, .2);
 }
 
-.block-alpha-debug {
+.alpha-debug-block {
   margin: 0 0 10px 0;
   padding: 9px 12px;
-  color: #000;
   border: 1px solid #ccc;  
   background-color: rgba(255, 255, 255, .25);
-  font-family: Verdana, Helvetica, Arial, sans-serif !important;
-  font-size: 12px !important;
 }
 
-.block-alpha-debug h2 {  
-  color: #888;
+.alpha-debug-block h2,
+.alpha-debug-block p {
   margin: 0;
-  font-family: Verdana, Helvetica, Arial, sans-serif !important;
-  font-size: 12px !important;
-  font-weight: normal !important;
+  padding: 0;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
 }
 
-.block-alpha-debug .content {
+.alpha-debug-block h2 {  
+  color: #888;
+}
+
+.alpha-debug-block p {
+  color: #000;
   display: none;
 }
 
-.region:hover .block-alpha-debug {
+.region:hover .alpha-debug-block {
   border: 1px solid #888;
   background-color: rgba(255, 255, 255, .75);
 }
 
-.region:hover .block-alpha-debug .content {
-  display: block;
+.region:hover .alpha-debug-block p {
+  display: block !important;
 }
 
-.region:hover .block-alpha-debug h2 {
+.region:hover .alpha-debug-block h2 {
   display: none;
 }
 

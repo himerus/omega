@@ -101,19 +101,12 @@ function alpha_page_alter(&$vars) {
   if ($settings['debug']['access']) {
     if ($settings['debug']['block']) {      
       foreach (alpha_regions() as $region => $item) {
-        if ($item['enabled']) {
-          $block = new stdClass();
-          $block->delta = 'debug-' . $region;
-          $block->region = $region;
-          $block->module = 'alpha-debug';
-          $block->subject = $item['name'];
-          
+        if ($item['enabled']) {          
           $vars[$region]['#sorted'] = FALSE;
           $vars[$region]['alpha_debug_' . $region] = array(       
-            '#block' => $block,
+            '#type' => 'markup',
+            '#markup' => '<div class="alpha-debug-block"><h2>' . $item['name'] . '</h2><p>' . t('This is a debugging block') . '</p></div>',
             '#weight' => -999,
-            '#markup' => t('This is a debugging block'),
-            '#theme_wrappers' => array('block'),
           );
         }
       }

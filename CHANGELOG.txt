@@ -45,3 +45,6 @@ CHANGELOG.txt to track changes to the Omega theme.
 #1183482  - Increase the weight of the starterkits default stylesheets so they are able
 to override the built-in Omega and Alpha stylesheets. Also setting the Alpha stylesheets
 to a weight of -20.
+
+#1184006  - Replaced the debugging blocks with simple markup elements. They have the same
+functionality but come with less problems.
