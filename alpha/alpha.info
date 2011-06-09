@@ -31,15 +31,15 @@ zones[footer] = Footer
 
 css[alpha-reset.css][name] = Reset
 css[alpha-reset.css][description] = Created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>.
-css[alpha-reset.css][options][weight] = -100
+css[alpha-reset.css][options][weight] = -20
 
 css[alpha-mobile.css][name] = Mobile
 css[alpha-mobile.css][description] = Default stylesheet for mobile styles.
-css[alpha-mobile.css][options][weight] = -90
+css[alpha-mobile.css][options][weight] = -20
 
 css[alpha-alpha.css][name] = Alpha
 css[alpha-alpha.css][description] = Default styles & resets for Alpha/Omega base theme.
-css[alpha-alpha.css][options][weight] = -80
+css[alpha-alpha.css][options][weight] = -20
 
 ; OPTIONAL LIBRARIES
 
