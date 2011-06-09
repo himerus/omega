@@ -98,6 +98,13 @@ function alpha_page_alter(&$vars) {
   $regions = $columns = array();
   $reference = &drupal_static('alpha_regions');
 
+  // If no module has taken care of the main content, add it to the page now.
+  // This allows the site to still be usable even if no modules that
+  // control page regions (for example, the Block module) are enabled.
+  if (!drupal_static('system_main_content_added', FALSE)) {
+    $vars['content']['system_main'] = drupal_set_page_content();
+  }
+  
   if ($settings['debug']['access']) {
     if ($settings['debug']['block']) {      
       foreach (alpha_regions() as $region => $item) {
