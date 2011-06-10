@@ -1043,7 +1043,16 @@ function alpha_zones($name = NULL, $theme = NULL) {
  * @todo
  */
 function alpha_zone_regions($zone, $theme = NULL) {
-  return array();
+  $output = array();
+  $regions = alpha_regions($theme);
+  
+  foreach ($regions as $region => $item) {
+    if ($item['zone'] == $zone) {
+      $output[$region] = $item['name'];
+    }
+  }
+  
+  return $output;
 }
 
 /**
