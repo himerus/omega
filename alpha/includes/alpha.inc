@@ -1040,6 +1040,13 @@ function alpha_zones($name = NULL, $theme = NULL) {
 }
 
 /**
+ * @todo
+ */
+function alpha_zone_regions($zone, $theme = NULL) {
+  return array();
+}
+
+/**
  * Retrieves all available regions for a theme.
  * 
  * @param $theme (optional)

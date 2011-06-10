@@ -7,8 +7,7 @@ require_once dirname(__FILE__) . '/includes/alpha.inc';
  */
 function alpha_form_system_theme_settings_alter(&$form, &$form_state) {  
   require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-general.inc';
-  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-zones.inc';
-  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-regions.inc';
+  require_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'alpha') . '/includes/theme-settings-structure.inc';
   
   drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-theme-settings.css', array('group' => CSS_THEME, 'weight' => 100));
   
@@ -30,8 +29,7 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   );
   
   alpha_theme_settings_general($form, $form_state);
-  alpha_theme_settings_zones($form, $form_state);
-  alpha_theme_settings_regions($form, $form_state);
+  alpha_theme_settings_structure($form, $form_state);
 }
 
 /**

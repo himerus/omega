@@ -10,13 +10,13 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $sections = alpha_sections();
   
   foreach($regions as $region => $item) {
-    $zone = $item['enabled'] ? 'zone_' . $item['zone'] : 'unassigned';
-    $section = $item['enabled'] && $zones[$item['zone']]['enabled'] ? 'section_' . $zones[$item['zone']]['section'] : 'unassigned';
+    $zone = $item['enabled'] ? $item['zone'] : '__unassigned__';
+    $section = $item['enabled'] && $zones[$item['zone']]['enabled'] ? $zones[$item['zone']]['section'] : '__unassigned__';
     
-    $form['alpha_settings']['regions'][$section][$zone]['region_' . $region]['alpha_region_' . $region . '_equal_height'] = array(
+    $form['alpha_settings']['structure'][$section][$zone]['regions'][$region]['alpha_region_' . $region . '_equal_height'] = array(
       '#type' => 'checkbox',
       '#title' => t('Force equal height for all child elements'),
-      '#description' => t("Force equal height for all child elements."),
+      '#description' => t('Force equal height for all child elements.'),
       '#default_value' => $item['equal_height'],
       '#weight' => -10,
       '#states' => array(
@@ -28,13 +28,12 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   }
    
   foreach ($zones as $zone => $item) {
-    $section = $item['enabled'] ? 'section_' . $item['section'] : 'unassigned';
-    $item['regions'] = !empty($item['regions']) ? $item['regions'] : array();
+    $section = $item['enabled'] ? $item['section'] : 'unassigned';
     
-    $form['alpha_settings']['zones'][$section]['zone_' . $zone]['alpha_zone_' . $zone . '_equal_height'] = array(
+    $form['alpha_settings']['structure'][$section][$zone]['zone']['alpha_zone_' . $zone . '_equal_height'] = array(
       '#type' => 'checkbox',
       '#title' => t('Force equal height for all child elements.'),
-      '#description' => t("Force equal height for all child elements."),
+      '#description' => t('Force equal height for all child elements.'),
       '#default_value' => $item['equal_height'],
       '#weight' => -10,
       '#states' => array(

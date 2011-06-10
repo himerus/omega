@@ -56,3 +56,6 @@ it.
 
 #1184144  - The default settings of the starterkits now activate the CSS files that each
 starterkit ships with by default.
+
+#1184546  - Merged the zone and region configuration tabs into one single tab and made
+the zones and regions collapsible fieldsets.
