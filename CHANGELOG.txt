@@ -67,3 +67,6 @@ the zones and regions collapsible fieldsets.
 #1186924  - Added button to toggle debugging blocks on and off via JavaScript.
 
 #1188422  - Delta templates can now use the debugging settings too.
+
+#1188480  - The user-defined CSS classes for zones did not find their way into the HTML
+output due to a typo in the zone preproccesor. This is now fixed.

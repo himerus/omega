@@ -256,7 +256,7 @@ function template_preprocess_zone(&$vars) {
     $extra = array_map('drupal_html_class', explode(' ', $data['css']));
       
     foreach ($extra as $class) {
-      $vars['attributes_array']['class'][] = $class;
+      $vars['content_attributes_array']['class'][] = $class;
     }
   }
   
