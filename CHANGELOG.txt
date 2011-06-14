@@ -49,6 +49,8 @@ to a weight of -20.
 #1184006  - Replaced the debugging blocks with simple markup elements. They have the same
 functionality but come with less problems.
 
+6/12/12
+=========
 #1184122  - The main page content block did not get placed properly by drupal_render_page.
 We now anticipate that behavior in special cases where the user disabled the main page
 content block in the blocks configuration and set it before drupal_render_page can break
@@ -60,4 +62,8 @@ starterkit ships with by default.
 #1184546  - Merged the zone and region configuration tabs into one single tab and made
 the zones and regions collapsible fieldsets.
 
+6/14/12
+=========
 #1186924  - Added button to toggle debugging blocks on and off via JavaScript.
+
+#1188422  - Delta templates can now use the debugging settings too.
