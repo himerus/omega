@@ -119,9 +119,7 @@ function alpha_page_alter(&$vars) {
       }
     }    
        
-    if ($settings['debug']['grid']) {
-      $class = 'alpha-grid-toggle alpha-grid-toggle-' . ($settings['debug']['active'] ? 'active' : 'inactive');
-      
+    if ($settings['debug']['grid'] || $settings['debug']['block']) {
       if (empty($vars['page_bottom'])) {
         $vars['page_bottom']['#region'] = 'page_bottom';
         $vars['page_bottom']['#theme_wrappers'] = array('region');
@@ -134,10 +132,19 @@ function alpha_page_alter(&$vars) {
         );
       }
       
-      $vars['page_bottom']['alpha_grid_toggle'] = array(
-        '#type' => 'markup',
-        '#markup' => '<a class="' . $class . '" href="#"></a>',
-      );
+      if ($settings['debug']['grid']) {
+        $vars['page_bottom']['alpha_grid_toggle'] = array(
+          '#type' => 'markup',
+          '#markup' => '<a class="' . 'alpha-grid-toggle alpha-grid-toggle-' . ($settings['debug']['grid_active'] ? 'active' : 'inactive') . '" href="#"></a>',
+        );
+      }
+      
+      if ($settings['debug']['block']) {
+        $vars['page_bottom']['alpha_block_toggle'] = array(
+          '#type' => 'markup',
+          '#markup' => '<a class="' . 'alpha-block-toggle alpha-block-toggle-' . ($settings['debug']['block_active'] ? 'active' : 'inactive') . '" href="#"></a>',
+        );
+      }
     }
   }
   

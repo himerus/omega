@@ -223,16 +223,29 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       '#default_value' => $settings['debug']['block'],
     );
     
+    $form['alpha_settings']['alpha_debug']['alpha_debug_block_active'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Show the debugging blocks by default.'),
+      '#description' => t('This will show the debugging blocks on page load.'),
+      '#default_value' => $settings['debug']['block_active'],
+      '#states' => array(
+        'visible' => array(
+          ':input[name="alpha_debug_block_toggle"]' => array('checked' => TRUE),
+        ),
+      ),
+    );
+    
     $form['alpha_settings']['alpha_debug']['alpha_debug_grid_toggle'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Enable grid overlay for the selected roles.'),
+      '#title' => t('Enable the grid overlay for the selected roles.'),
       '#default_value' => $settings['debug']['grid'],
     );
     
     $form['alpha_settings']['alpha_debug']['alpha_debug_grid_active'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Activate the grid overlay on page load.'),
-      '#default_value' => $settings['debug']['active'],
+      '#title' => t('Show the grid overlay by default.'),
+      '#description' => t('This will show the grid overlay on page load.'),
+      '#default_value' => $settings['debug']['grid_active'],
       '#states' => array(
         'visible' => array(
           ':input[name="alpha_debug_grid_toggle"]' => array('checked' => TRUE),

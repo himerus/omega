@@ -1194,8 +1194,9 @@ function alpha_settings($theme = NULL) {
       ),
       'debug' => array(
         'block' => alpha_theme_get_setting('alpha_debug_block_toggle', FALSE, $theme),
+        'block_active' => alpha_theme_get_setting('alpha_debug_block_active', FALSE, $theme),
         'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', FALSE, $theme),
-        'active' => alpha_theme_get_setting('alpha_debug_grid_active', FALSE, $theme),
+        'grid_active' => alpha_theme_get_setting('alpha_debug_grid_active', FALSE, $theme),
         'roles' => array_keys(array_filter(alpha_theme_get_setting('alpha_debug_grid_roles', array(), $theme))),
       ),
     );

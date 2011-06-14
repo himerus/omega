@@ -28,7 +28,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   }
    
   foreach ($zones as $zone => $item) {
-    $section = $item['enabled'] ? $item['section'] : 'unassigned';
+    $section = $item['enabled'] ? $item['section'] : '__unassigned__';
     
     $form['alpha_settings']['structure'][$section][$zone]['zone']['alpha_zone_' . $zone . '_equal_height'] = array(
       '#type' => 'checkbox',

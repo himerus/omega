@@ -146,6 +146,7 @@ settings[alpha_exclude][modules/tracker/tracker.css] = 'modules/tracker/tracker.
 settings[alpha_exclude][modules/update/update.css] = 'modules/update/update.css'
 settings[alpha_exclude][modules/system/system.base.css] = '0'
 settings[alpha_debug_block_toggle] = '1'
+settings[alpha_debug_block_active] = '1'
 settings[alpha_debug_grid_toggle] = '1'
 settings[alpha_debug_grid_active] = '1'
 settings[alpha_debug_grid_roles][1] = '1'

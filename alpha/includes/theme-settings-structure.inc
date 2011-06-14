@@ -71,6 +71,8 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
       '#type' => 'fieldset',
       '#title' => t('Configuration'),
       '#weight' => -999,
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
       '#attributes' => array(
         'class' => array('alpha-inline'),
       ),
@@ -165,6 +167,8 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
       '#type' => 'fieldset',
       '#title' => $item['name'],
       '#weight' => $item['weight'],
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
       '#attributes' => array(
         'class' => array('alpha-inline'),
       ),

@@ -1,21 +1,32 @@
-.grid-1:hover, .grid-2:hover, .grid-3:hover, .grid-4:hover,
-.grid-5:hover, .grid-6:hover, .grid-7:hover, .grid-8:hover,
-.grid-9:hover, .grid-10:hover, .grid-11:hover, .grid-12:hover,
-.grid-13:hover, .grid-14:hover, .grid-15:hover, .grid-16:hover,
-.grid-17:hover, .grid-18:hover, .grid-19:hover, .grid-20:hover,
-.grid-21:hover, .grid-22:hover, .grid-23:hover, .grid-24:hover {
+body.alpha-grid-debug .grid-1:hover, body.alpha-grid-debug .grid-2:hover, 
+body.alpha-grid-debug .grid-3:hover, body.alpha-grid-debug .grid-4:hover,
+body.alpha-grid-debug .grid-5:hover, body.alpha-grid-debug .grid-6:hover, 
+body.alpha-grid-debug .grid-7:hover, body.alpha-grid-debug .grid-8:hover,
+body.alpha-grid-debug .grid-9:hover, body.alpha-grid-debug .grid-10:hover, 
+body.alpha-grid-debug .grid-11:hover, body.alpha-grid-debug .grid-12:hover,
+body.alpha-grid-debug .grid-13:hover, body.alpha-grid-debug .grid-14:hover, 
+body.alpha-grid-debug .grid-15:hover, body.alpha-grid-debug .grid-16:hover,
+body.alpha-grid-debug .grid-17:hover, body.alpha-grid-debug .grid-18:hover, 
+body.alpha-grid-debug .grid-19:hover, body.alpha-grid-debug .grid-21:hover,
+body.alpha-grid-debug .grid-21:hover, body.alpha-grid-debug .grid-22:hover, 
+body.alpha-grid-debug .grid-23:hover, body.alpha-grid-debug .grid-24:hover {
   background-color: rgba(0, 115, 186, .2);
 }
 
 .alpha-debug-block {
+  display: none;
+}
+
+.alpha-region-debug .alpha-debug-block {
+  display: block;
   margin: 0 0 10px 0;
   padding: 9px 12px;
   border: 1px solid #ccc;  
   background-color: rgba(255, 255, 255, .25);
 }
 
-.alpha-debug-block h2,
-.alpha-debug-block p {
+.alpha-region-debug .alpha-debug-block h2,
+.alpha-region-debug .alpha-debug-block p {
   margin: 0;
   padding: 0;
   font-family: Verdana, Helvetica, Arial, sans-serif;
@@ -23,25 +34,25 @@
   font-weight: normal;
 }
 
-.alpha-debug-block h2 {  
+.alpha-region-debug .alpha-debug-block h2 {  
   color: #888;
 }
 
-.alpha-debug-block p {
+.alpha-region-debug .alpha-debug-block p {
   color: #000;
   display: none;
 }
 
-.region:hover .alpha-debug-block {
+.alpha-region-debug .region:hover .alpha-debug-block {
   border: 1px solid #888;
   background-color: rgba(255, 255, 255, .75);
 }
 
-.region:hover .alpha-debug-block p {
+.alpha-region-debug .region:hover .alpha-debug-block p {
   display: block !important;
 }
 
-.region:hover .alpha-debug-block h2 {
+.alpha-region-debug .region:hover .alpha-debug-block h2 {
   display: none;
 }
 
@@ -55,21 +66,32 @@
   bottom: 0;
 }
 
-.alpha-grid-toggle {
-  background: url(../images/grid-toggle.png) no-repeat 0 0;
+.alpha-grid-toggle,
+.alpha-block-toggle {
   width: 24px;
   height: 22px;
   position: fixed;
   z-index: 999;
   right: 0;
+}
+
+.alpha-grid-toggle {
+  background: url(../images/grid-toggle.png) no-repeat 0 0;
   top: 80px;
 }
 
-.alpha-grid-toggle-active {
+.alpha-block-toggle {
+  background: url(../images/block-toggle.png) no-repeat 0 0;
+  top: 110px;
+}
+
+.alpha-grid-toggle-active,
+.alpha-block-toggle-active {
   background-position: 0 0;
 }
 
-.alpha-grid-toggle-inactive {
+.alpha-grid-toggle-inactive,
+.alpha-block-toggle-inactive {
   background-position: 0 -22px;
 }
 
@@ -77,4 +99,10 @@
 .alpha-grid-toggle:focus,
 .alpha-grid-toggle:active {
   width: 55px;
+}
+
+.alpha-block-toggle:hover,
+.alpha-block-toggle:focus,
+.alpha-block-toggle:active {
+  width: 72px;
 }

@@ -59,3 +59,5 @@ starterkit ships with by default.
 
 #1184546  - Merged the zone and region configuration tabs into one single tab and made
 the zones and regions collapsible fieldsets.
+
+#1186924  - Added button to toggle debugging blocks on and off via JavaScript.
