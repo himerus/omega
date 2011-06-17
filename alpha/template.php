@@ -181,35 +181,36 @@ function alpha_page_alter(&$vars) {
   foreach (alpha_zones() as $zone => $item) {
     if ($item['enabled'] && ($item['force'] || !empty($regions[$zone]))) {
       $section = $item['section'];
-      $columns[$item['columns']] = $item['columns']; 
+      $columns[$item['columns']] = $item['columns'];
       
       if (!empty($item['primary']) && !empty($regions[$zone][$item['primary']])) {
         $children = element_children($regions[$zone]);
         $theme = $GLOBALS['theme_key'];
-        $primary = &$regions[$zone][$item['primary']];
-        $primary['#weight'] = -999;
-        $primary['#data']['columns'] = $item['columns'] - $primary['#data']['prefix'] - $primary['#data']['suffix'];
-        $primary['#data']['width'] = $item['columns'];
-           
+        $regions[$zone][$item['primary']]['#data']['columns'] = $item['columns'] - $regions[$zone][$item['primary']]['#data']['prefix'] - $regions[$zone][$item['primary']]['#data']['suffix'];
+        $regions[$zone][$item['primary']]['#data']['width'] = $item['columns'];
+        
         foreach ($children as $region) {
           if (!$regions[$zone][$region]['#data']['primary']) {
-            $primary['#data']['columns'] -= $regions[$zone][$region]['#data']['width'];
-            $primary['#data']['width'] -= $regions[$zone][$region]['#data']['width'];
-    
-            if ($primary['#data']['weight'] > $regions[$zone][$region]['#data']['weight']) {
-              $primary['#data']['push'] += $regions[$zone][$region]['#data']['width'];              
-            }
+            $regions[$zone][$item['primary']]['#data']['columns'] -= $regions[$zone][$region]['#data']['width'];
+            $regions[$zone][$item['primary']]['#data']['width'] -= $regions[$zone][$region]['#data']['width'];
           }
         }
         
-        $reference[$theme][$item['primary']]['columns'] = $primary['#data']['columns'];
-        $reference[$theme][$item['primary']]['width'] = $primary['#data']['width'];
-        $reference[$theme][$item['primary']]['push'] = $primary['#data']['push'];
-        
+        $reference[$theme][$item['primary']]['columns'] = $regions[$zone][$item['primary']]['#data']['columns'];
+        $reference[$theme][$item['primary']]['width'] = $regions[$zone][$item['primary']]['#data']['width'];
+      }
+      
+      if ($item['order']) {
         foreach ($children as $region) {
-          if (!$regions[$zone][$region]['#data']['primary'] && $primary['#data']['weight'] > $regions[$zone][$region]['#data']['weight']) {
-            $regions[$zone][$region]['#data']['pull'] = $primary['#data']['width'];            
-            $reference[$theme][$region]['pull'] = $primary['#data']['width'];
+          foreach ($children as $inner) {
+            if ($region != $inner) {
+              if ($regions[$zone][$region]['#weight'] > $regions[$zone][$inner]['#weight'] && $regions[$zone][$region]['#data']['position'] < $regions[$zone][$inner]['#data']['position']) {
+                $regions[$zone][$region]['#data']['pull'] += $regions[$zone][$inner]['#data']['width'];
+              }
+              else if ($regions[$zone][$region]['#weight'] <= $regions[$zone][$inner]['#weight'] && $regions[$zone][$region]['#data']['position'] > $regions[$zone][$inner]['#data']['position']) {
+                $regions[$zone][$region]['#data']['push'] += $regions[$zone][$inner]['#data']['width'];
+              }
+            }
           }
         }
       }

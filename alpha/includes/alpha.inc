@@ -1021,6 +1021,7 @@ function alpha_zones($name = NULL, $theme = NULL) {
           'wrapper' => alpha_zone_get_setting('wrapper', $zone, FALSE, $theme),
           'wrapper_css' => alpha_zone_get_setting('wrapper_css', $zone, NULL, $theme),
           'primary' => alpha_zone_get_setting('primary', $zone, NULL, $theme),
+          'order' => alpha_zone_get_setting('order', $zone, FALSE, $theme),
           'css' => alpha_zone_get_setting('css', $zone, NULL, $theme),
         );
       }
@@ -1096,6 +1097,7 @@ function alpha_regions($name = NULL, $theme = NULL) {
           'pull' => 0,
           'css' => alpha_region_get_setting('css', $region, NULL, $theme),
           'weight' => alpha_region_get_setting('weight', $region, 0, $theme),
+          'position' => alpha_region_get_setting('position', $region, 0, $theme),
           'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
         );
       }
