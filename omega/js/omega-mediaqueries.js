@@ -20,7 +20,7 @@ Drupal.omega = Drupal.omega || {};
    */
   Drupal.omega.isActiveLayout = function (layout) {
     if (Drupal.omega.crappyBrowser()) {
-      return layout == Drupal.settings.omega.primary;
+      return layout == Drupal.settings.omega.layouts.primary;
     }
     else if (Drupal.settings.omega.layouts.queries.hasOwnProperty(layout) && Drupal.settings.omega.layouts.queries[layout]) {
       return Drupal.omega.checkQuery(Drupal.settings.omega.layouts.queries[layout]);
