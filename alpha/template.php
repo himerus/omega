@@ -135,20 +135,31 @@ function alpha_page_alter(&$vars) {
       if ($settings['debug']['grid']) {
         $vars['page_bottom']['alpha_grid_toggle'] = array(
           '#type' => 'markup',
-          '#markup' => '<a class="' . 'alpha-grid-toggle alpha-grid-toggle-' . ($settings['debug']['grid_active'] ? 'active' : 'inactive') . '" href="#"></a>',
+          '#markup' => '<a class="alpha-grid-toggle" href="#"></a>',
         );
       }
       
       if ($settings['debug']['block']) {
         $vars['page_bottom']['alpha_block_toggle'] = array(
           '#type' => 'markup',
-          '#markup' => '<a class="' . 'alpha-block-toggle alpha-block-toggle-' . ($settings['debug']['block_active'] ? 'active' : 'inactive') . '" href="#"></a>',
+          '#markup' => '<a class="alpha-block-toggle" href="#"></a>',
         );
       }
     }
   }
   
-  foreach (alpha_regions() as $region => $item) {  
+  foreach (alpha_regions() as $region => $item) {
+    if (!empty($vars[$region])) {
+      if ($children = element_children($vars[$region])) {
+        $last = count($children) - 1;
+        
+        foreach ($children as $element) {
+          $vars[$region][$element]['#first'] = $element == $children[0];
+          $vars[$region][$element]['#last'] = $element == $children[$last];
+        }
+      }
+    }
+    
     if ($item['enabled'] && ($item['force'] || !empty($vars[$region]))) {
       $zone = $item['zone'];
       
@@ -157,15 +168,11 @@ function alpha_page_alter(&$vars) {
       $regions[$zone][$region]['#theme_wrappers'] = array('region');
       $regions[$zone][$region]['#data'] = $item;      
       $regions[$zone][$region]['#weight'] = (int) $item['weight'];
-      
-      if ($children = element_children($regions[$zone][$region])) {
-        $last = count($children) - 1;
-        
-        foreach ($children as $element) {
-          $regions[$zone][$region][$element]['#first'] = $element == $children[0];
-          $regions[$zone][$region][$element]['#last'] = $element == $children[$last];
-        }
-      }
+    }
+    else if (!empty($vars[$region])) {
+      $vars['#excluded'][$region] = $vars[$region];
+      $vars['#excluded'][$region]['#weight'] = (int) $item['weight'];
+      $vars['#excluded'][$region]['#data'] = $item;
     }
     
     unset($vars[$region]);

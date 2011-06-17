@@ -12,6 +12,7 @@
  *   alpha_preprocess().
  */
 function omega_alpha_preprocess_html(&$vars) {
+  $settings = alpha_settings();
   $vars['rdf'] = new stdClass;  
   
   if (module_exists('rdf')) {
@@ -25,5 +26,24 @@ function omega_alpha_preprocess_html(&$vars) {
     $vars['rdf']->version = '';
     $vars['rdf']->namespaces = '';
     $vars['rdf']->profile = '';
+  }
+  
+  if (alpha_library_active('omega_mediaqueries')) {
+    $grid = alpha_grids($settings['grid']);
+    $layouts = array();
+    
+    foreach ($grid['layouts'] as $name => $layout) {
+      if ($layout['enabled']) {
+        $layouts[$name] = $layout['media'];
+      }
+    }
+    
+    drupal_add_js(array('omega' => array(
+      'primary' => $grid['primary'],
+      'layouts' => array(
+        'order' => array_keys($layouts), 
+        'queries' => $layouts,
+      ),        
+    )), 'setting');
   }
 }

@@ -20,7 +20,7 @@ function alpha_alpha_preprocess_region(&$vars) {
   if (isset($vars['elements']['#data'])) {
     $data = $vars['elements']['#data'];  
     $vars['columns'] = $data['columns'];
-    
+
     foreach (array('prefix', 'suffix', 'push', 'pull') as $quality) {
       if (!empty($data[$quality])) {
         $vars[$quality] = $data[$quality];

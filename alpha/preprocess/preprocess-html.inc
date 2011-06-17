@@ -38,20 +38,12 @@ function alpha_alpha_preprocess_html(&$vars) {
     drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('group' => CSS_THEME, 'weight' => -5));   
     drupal_add_js(drupal_get_path('theme', 'alpha') . '/js/alpha-debug.js', array('group' => JS_THEME, 'weight' => -5));
     
-    if ($settings['debug']['grid']) {
-      drupal_add_js(array('alpha' => array('overlayActive' => $settings['debug']['grid_active'])), 'setting');
-      
-      if ($settings['debug']['grid_active']) {
-        $vars['attributes_array']['class'][] = 'alpha-grid-debug';
-      }
+    if ($settings['debug']['grid'] && $settings['debug']['grid_active']) {
+      $vars['attributes_array']['class'][] = 'alpha-grid-debug';
     }
     
-    if ($settings['debug']['block']) {
-      drupal_add_js(array('alpha' => array('blockActive' => $settings['debug']['block_active'])), 'setting');
-      
-      if ($settings['debug']['block_active']) {
-        $vars['attributes_array']['class'][] = 'alpha-region-debug';
-      }
+    if ($settings['debug']['block'] && $settings['debug']['block_active']) {
+      $vars['attributes_array']['class'][] = 'alpha-region-debug';
     }
   }
 

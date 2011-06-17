@@ -1,3 +1,7 @@
+/**
+ * @todo
+ */
+
 (function($) {
   $(window).load(function() {
     $(this).bind('resize.equalHeights', function() {

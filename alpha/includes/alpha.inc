@@ -1079,7 +1079,7 @@ function alpha_regions($name = NULL, $theme = NULL) {
       if (!in_array($region, $exclude)) {
         $zone = alpha_region_get_setting('zone', $region, NULL, $theme);
         $prefix = alpha_region_get_setting('prefix', $region, 0, $theme);
-        $columns = alpha_region_get_setting('columns', $region, 0, $theme);
+        $columns = alpha_region_get_setting('columns', $region, 1, $theme);
         $suffix = alpha_region_get_setting('suffix', $region, 0, $theme);
 
         $output[$theme][$region] = array(

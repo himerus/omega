@@ -70,3 +70,14 @@ the zones and regions collapsible fieldsets.
 
 #1188480  - The user-defined CSS classes for zones did not find their way into the HTML
 output due to a typo in the zone preproccesor. This is now fixed.
+
+6/17/12
+=========
+#1191764  - We are no longer use unset() on regions if they are not enabled. Instead move 
+them to #excluded so that subthemes can use them later (in hook_page_alter).
+
+#1191762  - Added a JavaScript "Library" to check if a media query / grid layout applies.
+This libray can be used in your custom subtheme JavaScript code to find out wether or
+not a layout is currently active. You can also check for media query strings directly.
+
+#1191754  - Optimizing alpha-debug.js and alpha-debug.css.

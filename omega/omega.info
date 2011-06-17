@@ -77,7 +77,6 @@ css[omega-visuals.css][options][weight] = -10
 
 libraries[omega_formalize][name] = Formalize
 libraries[omega_formalize][description] = Formalize is a framework by <a href="http://formalize.me/" title="Formalize">Nathan Smith</a> for neat looking cross-browser forms with extended functionality.
-
 libraries[omega_formalize][js][0][file] = jquery.formalize.js
 libraries[omega_formalize][js][0][options][weight] = -20
 libraries[omega_formalize][css][0][file] = formalize.css
@@ -85,11 +84,15 @@ libraries[omega_formalize][css][0][options][weight] = -20
 
 libraries[omega_equalheights][name] = Equal heights
 libraries[omega_equalheights][description] = Allows you to force all regions of a zone or all blocks of a region to be of equal size. <span class="marker">This library reveals a corresponding checkbox on every region and zone configuration panel if activated.</span>
-
 libraries[omega_equalheights][js][0][file] = jquery.equalheights.js
 libraries[omega_equalheights][js][0][options][weight] = -19
 libraries[omega_equalheights][js][1][file] = omega-equalheights.js
 libraries[omega_equalheights][js][1][options][weight] = -19
+
+libraries[omega_mediaqueries][name] = Media queries
+libraries[omega_mediaqueries][description] = Provides a tiny JavaScript library that can be used in your custom JavaScript.
+libraries[omega_mediaqueries][js][0][file] = omega-mediaqueries.js
+libraries[omega_mediaqueries][js][0][options][weight] = -18
 
 ; THEME SETTINGS (DEFAULTS)
 
@@ -119,6 +122,7 @@ settings[alpha_viewport_max_scale] = '1'
 settings[alpha_viewport_user_scaleable] = ''
 settings[alpha_libraries][omega_formalize] = 'omega_formalize'
 settings[alpha_libraries][omega_equalheights] = 'omega_equalheights'
+settings[alpha_libraries][omega_mediaqueries] = '0'
 settings[alpha_css][alpha-reset.css] = 'alpha-reset.css'
 settings[alpha_css][alpha-mobile.css] = 'alpha-mobile.css'
 settings[alpha_css][alpha-alpha.css] = 'alpha-alpha.css'
