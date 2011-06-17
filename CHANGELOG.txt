@@ -81,3 +81,6 @@ This libray can be used in your custom subtheme JavaScript code to find out weth
 not a layout is currently active. You can also check for media query strings directly.
 
 #1191754  - Optimizing alpha-debug.js and alpha-debug.css.
+
+#1186924  - Set min-height to 1px for .region in alpha-debug.css so that emtpy regions
+don't collapse weirdly when toggling off the debugging blocks with the JavaScript button.
