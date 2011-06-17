@@ -4,32 +4,26 @@
 
 Drupal.omega = Drupal.omega || {};
 
-(function($) {  
+(function($) {
   /**
    * @todo
    */
-  Drupal.omega.isActiveLayout = function (layout, strict) {
-    strict = strict || false;
-
-    if (Drupal.omega.isCrappyBrowser()) {
+  var current;
+  
+  /**
+   * @todo
+   */
+  var dummy = $('<div id="omega-media-query-dummy"></div>');
+  
+  /**
+   * @todo
+   */
+  Drupal.omega.isActiveLayout = function (layout) {
+    if (Drupal.omega.crappyBrowser()) {
       return layout == Drupal.settings.omega.primary;
     }
     else if (Drupal.settings.omega.layouts.queries.hasOwnProperty(layout) && Drupal.settings.omega.layouts.queries[layout]) {
-      if (Drupal.omega.mediaQueryApplies(Drupal.settings.omega.layouts.queries[layout])) {
-        if (!strict) { 
-          return true;
-        }
-        else {
-          for (var i = Drupal.settings.omega.layouts.order.length - 1; i >= 0; i--) {
-            if (Drupal.settings.omega.layouts.order[i] == layout) {
-              return true;
-            }
-            else if (Drupal.omega.mediaQueryApplies(Drupal.settings.omega.layouts.queries[Drupal.settings.omega.layouts.order[i]])) {
-              return false;
-            }
-          }
-        }
-      }
+      return Drupal.omega.checkQuery(Drupal.settings.omega.layouts.queries[layout]);
     }
 
     return false;
@@ -38,11 +32,18 @@ Drupal.omega = Drupal.omega || {};
   /**
    * @todo
    */
-  Drupal.omega.mediaQueryApplies = function (query) {
-    var injection = $('<div id="omega-media-query-dummy"><style media="' + query + '">#omega-media-query-dummy { content: "omega"; }</style></div>').hide().prependTo('body');
-    var output = injection.css('content') == 'omega';
+  Drupal.omega.getCurrentLayout = function () {
+    return current;
+  };
+  
+  /**
+   * @todo
+   */
+  Drupal.omega.checkQuery = function (query) {
+    var dummy = $('<div id="omega-check-query"><style media="' + query + '">#omega-check-query { content: "active"; }</style></div>').prependTo('body');
+    var output = dummy.css('content') == 'active';
 
-    injection.remove();
+    dummy.remove();
 
     return output;
   };
@@ -50,7 +51,31 @@ Drupal.omega = Drupal.omega || {};
   /**
    * @todo
    */
-  Drupal.omega.isCrappyBrowser = function () {
+  Drupal.omega.crappyBrowser = function () {
     return $.browser.msie && parseInt($.browser.version, 10) < 9;
   };
+  
+  /**
+   * @todo
+   */
+  $(function() {
+    dummy.prependTo('body');    
+    dummy.append('<style media="all">#omega-media-query-dummy { content: "mobile"; }</style>');
+    dummy.append('<!--[if (lt IE 9)&(!IEMobile)]><style media="all">#omega-media-query-dummy { content: "' + Drupal.settings.omega.layouts.primary + '"; }</style><![endif]-->');
+    
+    for (var i in Drupal.settings.omega.layouts.queries) {
+      dummy.append('<style media="' + Drupal.settings.omega.layouts.queries[i] + '">#omega-media-query-dummy { content: "' + i + '"; }</style>');
+    }
+
+    current = dummy.css('content');
+  });
+
+  /**
+   * @todo
+   */
+  $(window).resize(function() {
+    if (dummy.css('content') != current) {
+      $.event.trigger('layoutchanged', current = dummy.css('content'));
+    }
+  });
 })(jQuery);

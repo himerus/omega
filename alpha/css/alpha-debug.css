@@ -13,6 +13,10 @@
   background-color: rgba(0, 115, 186, .2);
 }
 
+.region {
+  min-height: 1px;
+}
+
 .alpha-debug-block {
   display: none;
 }

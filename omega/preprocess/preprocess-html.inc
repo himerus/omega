@@ -38,9 +38,9 @@ function omega_alpha_preprocess_html(&$vars) {
       }
     }
     
-    drupal_add_js(array('omega' => array(
-      'primary' => $grid['primary'],
+    drupal_add_js(array('omega' => array(      
       'layouts' => array(
+        'primary' => $grid['primary'],
         'order' => array_keys($layouts), 
         'queries' => $layouts,
       ),        
