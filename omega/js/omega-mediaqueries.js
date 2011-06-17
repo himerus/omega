@@ -66,7 +66,7 @@ Drupal.omega = Drupal.omega || {};
     for (var i in Drupal.settings.omega.layouts.queries) {
       dummy.append('<style media="' + Drupal.settings.omega.layouts.queries[i] + '">#omega-media-query-dummy { content: "' + i + '"; }</style>');
     }
-
+    
     current = dummy.css('content');
   });
 
@@ -75,7 +75,9 @@ Drupal.omega = Drupal.omega || {};
    */
   $(window).resize(function() {
     if (dummy.css('content') != current) {
-      $.event.trigger('layoutchanged', current = dummy.css('content'));
+      current = dummy.css('content');
+      
+      $.event.trigger('layoutchanged', {layout: current});
     }
   });
 })(jQuery);
