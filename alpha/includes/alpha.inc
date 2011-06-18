@@ -1170,7 +1170,6 @@ function alpha_regions($name = NULL, $theme = NULL) {
           'weight' => alpha_region_get_setting('weight', $region, 0, $theme),
           'position' => alpha_region_get_setting('position', $region, 0, $theme),
           'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
-          'move' => 0,
         );
       }
     }
