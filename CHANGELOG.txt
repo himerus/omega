@@ -84,3 +84,8 @@ not a layout is currently active. You can also check for media query strings dir
 
 #1186924  - Set min-height to 1px for .region in alpha-debug.css so that emtpy regions
 don't collapse weirdly when toggling off the debugging blocks with the JavaScript button.
+
+#1191772  - Separated the effects of primary region option into two separate features:
+The "Primary region" dropdown now only has an effect on the width of a region by covering
+the empty space in a zone. The "Position" dropdown controls the visual positioning of
+a region while the "Weight" dropdown controls the weight of the region in the DOM.

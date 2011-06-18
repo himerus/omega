@@ -98,6 +98,8 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
       '#title' => t('Customize the region positioning'),
       '#description' => t('This allows you to manipulate the placing of the regions in this zone.'),
       '#default_value' => $item['order'],
+      '#element_validate' => array('alpha_theme_settings_validate_order'),
+      '#zone' => $zone,
     );
     
     $form['alpha_settings']['structure'][$section][$zone]['zone']['alpha_zone_' . $zone . '_section'] = array(
@@ -229,6 +231,11 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
       '#delta' => 50,
       '#title' => t('Position'),
       '#default_value' => $item['position'],
+      '#states' => array(
+        'visible' => array(
+          ':input[name="alpha_zone_' . $zone . '_order"]' => array('checked' => TRUE),
+        ),
+      ),
     );
     
     $form['alpha_settings']['structure'][$section][$zone]['regions'][$region]['alpha_region_' . $region . '_css'] = array(

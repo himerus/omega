@@ -54,7 +54,7 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
     else {
       $theme = $form_state['build_info']['args'][0];
       $regions = alpha_regions(NULL, $theme);
-      $zones = alpha_zones(NULL, $theme);
+      $zone = alpha_zones($element['#zone'], $theme);
       $element['#sum'] = 0;
       
       foreach ($regions as $region => $item) {
@@ -66,8 +66,33 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
       }
       
       if ($element['#sum'] > $values['alpha_zone_' . $element['#zone'] . '_columns']) {
-        form_error($element, t('You have specified the %region region as the primary region for the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%region' => $regions[$element['#value']]['name'], '%zone' => $zones[$element['#zone']]['name'])));
+        form_error($element, t('You have specified the %region region as the primary region for the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%region' => $regions[$element['#value']]['name'], '%zone' => $zone['name'])));
       }
+    }
+  }
+}
+
+/**
+ * Form element validation handler for validating the region order manipulation setting for zones.
+ */
+function alpha_theme_settings_validate_order(&$element, &$form_state) {
+  if ($element['#value']) {
+    $values = $form_state['values'];
+    $theme = $form_state['build_info']['args'][0];
+    $regions = alpha_regions(NULL, $theme);
+    $zone = alpha_zones($element['#zone'], $theme);
+    $element['#sum'] = 0;
+
+    foreach ($regions as $region => $item) {
+      if ($values['alpha_region_' . $region . '_zone'] == $element['#zone']) {
+        $element['#sum'] += $values['alpha_region_' . $region . '_columns'];
+        $element['#sum'] += $values['alpha_region_' . $region . '_prefix'];
+        $element['#sum'] += $values['alpha_region_' . $region . '_suffix'];
+      }
+    }
+
+    if ($element['#sum'] > $values['alpha_zone_' . $element['#zone'] . '_columns']) {
+      form_error($element, t('You have chosen to manipulate the region positioning of the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%zone' => $zone['name'])));
     }
   }
 }

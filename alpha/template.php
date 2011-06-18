@@ -96,7 +96,6 @@ function alpha_css_alter(&$css) {
 function alpha_page_alter(&$vars) {
   $settings = alpha_settings();
   $regions = $columns = array();
-  $reference = &drupal_static('alpha_regions');
 
   // If no module has taken care of the main content, add it to the page now.
   // This allows the site to still be usable even if no modules that
@@ -149,21 +148,13 @@ function alpha_page_alter(&$vars) {
   }
   
   foreach (alpha_regions() as $region => $item) {
-    if (!empty($vars[$region])) {
-      if ($children = element_children($vars[$region])) {
-        $last = count($children) - 1;
-        
-        foreach ($children as $element) {
-          $vars[$region][$element]['#first'] = $element == $children[0];
-          $vars[$region][$element]['#last'] = $element == $children[$last];
-        }
-      }
-    }
+    alpha_children_first_last($vars[$region]);
     
     if ($item['enabled'] && ($item['force'] || !empty($vars[$region]))) {
       $zone = $item['zone'];
       
-      $regions[$zone][$region] = isset($vars[$region]) ? $vars[$region] : array();
+      $regions[$zone]['#sorted'] = FALSE;
+      $regions[$zone][$region] = $vars[$region];
       $regions[$zone][$region]['#region'] = $region;
       $regions[$zone][$region]['#theme_wrappers'] = array('region');
       $regions[$zone][$region]['#data'] = $item;      
@@ -180,48 +171,23 @@ function alpha_page_alter(&$vars) {
   
   foreach (alpha_zones() as $zone => $item) {
     if ($item['enabled'] && ($item['force'] || !empty($regions[$zone]))) {
-      $section = $item['section'];
       $columns[$item['columns']] = $item['columns'];
+      $section = $item['section'];
       
-      if (!empty($item['primary']) && !empty($regions[$zone][$item['primary']])) {
-        $children = element_children($regions[$zone]);
-        $theme = $GLOBALS['theme_key'];
-        $regions[$zone][$item['primary']]['#data']['columns'] = $item['columns'] - $regions[$zone][$item['primary']]['#data']['prefix'] - $regions[$zone][$item['primary']]['#data']['suffix'];
-        $regions[$zone][$item['primary']]['#data']['width'] = $item['columns'];
-        
-        foreach ($children as $region) {
-          if (!$regions[$zone][$region]['#data']['primary']) {
-            $regions[$zone][$item['primary']]['#data']['columns'] -= $regions[$zone][$region]['#data']['width'];
-            $regions[$zone][$item['primary']]['#data']['width'] -= $regions[$zone][$region]['#data']['width'];
-          }
-        }
-        
-        $reference[$theme][$item['primary']]['columns'] = $regions[$zone][$item['primary']]['#data']['columns'];
-        $reference[$theme][$item['primary']]['width'] = $regions[$zone][$item['primary']]['#data']['width'];
+      if (isset($item['primary']) && isset($regions[$zone][$item['primary']])) {
+        alpha_calculate_primary($regions[$zone], $item['primary'], $item['columns']);
       }
       
       if ($item['order']) {
-        foreach ($children as $region) {
-          foreach ($children as $inner) {
-            if ($region != $inner) {
-              if ($regions[$zone][$region]['#weight'] > $regions[$zone][$inner]['#weight'] && $regions[$zone][$region]['#data']['position'] < $regions[$zone][$inner]['#data']['position']) {
-                $regions[$zone][$region]['#data']['pull'] += $regions[$zone][$inner]['#data']['width'];
-              }
-              else if ($regions[$zone][$region]['#weight'] <= $regions[$zone][$inner]['#weight'] && $regions[$zone][$region]['#data']['position'] > $regions[$zone][$inner]['#data']['position']) {
-                $regions[$zone][$region]['#data']['push'] += $regions[$zone][$inner]['#data']['width'];
-              }
-            }
-          }
-        }
+        alpha_calculate_position($regions[$zone]);
       }
       
-      $vars[$section][$zone] = !empty($regions[$zone]) ? $regions[$zone] : array();
+      $vars[$section][$zone] = !empty($regions[$zone]) ? $regions[$zone] : array();      
       $vars[$section][$zone]['#theme_wrappers'] = array('zone');      
       $vars[$section][$zone]['#zone'] = $zone;
       $vars[$section][$zone]['#weight'] = (int) $item['weight'];
-      $vars[$section][$zone]['#sorted'] = FALSE;
       $vars[$section][$zone]['#data'] = $item;
-      $vars[$section][$zone]['#data']['type'] = !empty($item['primary']) && !empty($vars[$section][$zone][$item['primary']]) ? 'dynamic' : 'static';
+      $vars[$section][$zone]['#data']['type'] = isset($item['primary']) && isset($vars[$section][$zone][$item['primary']]) ? 'dynamic' : 'static';
     }
   }
 
@@ -229,6 +195,7 @@ function alpha_page_alter(&$vars) {
     if (isset($vars[$section])) {   
       $vars[$section]['#theme_wrappers'] = array('section');
       $vars[$section]['#section'] = $section;
+      $vars[$section]['#sorted'] = FALSE;
     }
   }
   

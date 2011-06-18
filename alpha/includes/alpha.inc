@@ -988,6 +988,77 @@ function alpha_register_grids($theme = NULL) {
 }
 
 /**
+ * @todo
+ */
+function alpha_children_first_last(&$elements) {
+  if ($children = element_children($elements)) {
+    $last = count($children) - 1;
+
+    foreach ($children as $element) {
+      $elements[$element]['#first'] = $element == $children[0];
+      $elements[$element]['#last'] = $element == $children[$last];
+    }
+  }
+}
+
+/**
+ * @todo
+ */
+function alpha_calculate_primary(&$regions, $primary, $container) {
+  $reference = &drupal_static('alpha_regions');
+  
+  $regions[$primary]['#data']['columns'] = $container - $regions[$primary]['#data']['prefix'] - $regions[$primary]['#data']['suffix'];
+  $regions[$primary]['#data']['width'] = $container;
+  
+  foreach (element_children($regions) as $region) {
+    if ($region != $primary) {
+      $regions[$primary]['#data']['columns'] -= $regions[$region]['#data']['width'];
+      $regions[$primary]['#data']['width'] -= $regions[$region]['#data']['width'];
+    }
+  }
+  
+  $reference[$GLOBALS['theme_key']][$primary]['width'] = $regions[$region]['#data']['width'];
+  $reference[$GLOBALS['theme_key']][$primary]['columns'] = $regions[$region]['#data']['columns'];
+}
+
+/**
+ * @todo
+ */
+function alpha_calculate_position(&$regions) {
+  $reference = &drupal_static('alpha_regions');
+  $children = element_children($regions, TRUE);
+  
+  foreach ($children as $a => $region) {
+    foreach ($children as $b => $inner) {
+      if ($region != $inner) {
+        if ($a >= $b && $regions[$region]['#data']['position'] < $regions[$inner]['#data']['position']) {
+          $regions[$region]['#data']['pull'] += $regions[$inner]['#data']['width'];
+        }
+        else if ($a <= $b && $regions[$region]['#data']['position'] > $regions[$inner]['#data']['position']) {
+          $regions[$region]['#data']['push'] += $regions[$inner]['#data']['width'];
+        }
+      }
+    }
+    
+    if ($regions[$region]['#data']['pull'] > $regions[$region]['#data']['push']) {
+      $regions[$region]['#data']['pull'] -= $regions[$region]['#data']['push'];
+      $regions[$region]['#data']['push'] = 0;
+    }
+    else if ($regions[$region]['#data']['pull'] > $regions[$region]['#data']['push']) {
+      $regions[$region]['#data']['push'] -= $regions[$region]['#data']['pull'];
+      $regions[$region]['#data']['pull'] = 0;
+    }
+    else if ($regions[$region]['#data']['pull'] == $regions[$region]['#data']['push']) {
+      $regions[$region]['#data']['pull'] = 0;
+      $regions[$region]['#data']['push'] = 0;
+    }
+    
+    $reference[$GLOBALS['theme_key']][$region]['pull'] = $regions[$region]['#data']['pull'];
+    $reference[$GLOBALS['theme_key']][$region]['push'] = $regions[$region]['#data']['push'];
+  }
+}
+
+/**
  * Retrieves all available zones for a theme.
  * 
  * @param $theme (optional)
@@ -1099,6 +1170,7 @@ function alpha_regions($name = NULL, $theme = NULL) {
           'weight' => alpha_region_get_setting('weight', $region, 0, $theme),
           'position' => alpha_region_get_setting('position', $region, 0, $theme),
           'primary' => isset($zone) && isset($zones[$zone]) ? $zones[$zone]['primary'] == $region : FALSE,
+          'move' => 0,
         );
       }
     }
@@ -1376,24 +1448,6 @@ function alpha_excludes($theme = NULL) {
   }
   
   return $styles;
-}
-
-/**
- * @todo
- */
-function alpha_region_dimensions($region) {
-  $regions = alpha_regions(NULL, $GLOBALS['theme_key']);
-  
-  if (isset($regions[$region])) {
-    return array(
-      'columns' => $regions[$region]['columns'],
-      'prefix' => $regions[$region]['prefix'],
-      'suffix' => $regions[$region]['suffix'],
-      'width' => $regions[$region]['width'],
-      'pull' => $regions[$region]['pull'],
-      'push' => $regions[$region]['push'],
-    );
-  }
 }
 
 /**
