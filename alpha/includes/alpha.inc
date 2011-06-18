@@ -599,7 +599,7 @@ function alpha_library_active($library, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
   $settings = alpha_settings($theme);
   
-  if (isset($settings['libraries'][$library]) && $settings['libraries'][$library] == $library) {
+  if (isset($settings['libraries'][$library]) && $settings['libraries'][$library] === $library) {
     return TRUE;
   }
   

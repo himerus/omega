@@ -9,6 +9,7 @@ Drupal.omega = Drupal.omega || {};
    * @todo
    */
   var current;
+  var last;
   
   /**
    * @todo
@@ -74,10 +75,11 @@ Drupal.omega = Drupal.omega || {};
    * @todo
    */
   $(window).resize(function() {
-    if (dummy.css('content') != current) {
-      current = dummy.css('content');
-      
-      $.event.trigger('layoutchanged', {layout: current});
+    last = current;    
+    current = dummy.css('content')
+    
+    if (last != current) {
+      $.event.trigger('layoutchanged', {from: last, to: current});
     }
   });
 })(jQuery);
