@@ -991,12 +991,14 @@ function alpha_register_grids($theme = NULL) {
  * @todo
  */
 function alpha_children_first_last(&$elements) {
-  if ($children = element_children($elements)) {
-    $last = count($children) - 1;
+  if (!empty($children)) {
+    if ($children = element_children($elements)) {
+      $last = count($children) - 1;
 
-    foreach ($children as $element) {
-      $elements[$element]['#first'] = $element == $children[0];
-      $elements[$element]['#last'] = $element == $children[$last];
+      foreach ($children as $element) {
+        $elements[$element]['#first'] = $element == $children[0];
+        $elements[$element]['#last'] = $element == $children[$last];
+      }
     }
   }
 }
@@ -1005,56 +1007,60 @@ function alpha_children_first_last(&$elements) {
  * @todo
  */
 function alpha_calculate_primary(&$regions, $primary, $container) {
-  $reference = &drupal_static('alpha_regions');
-  
-  $regions[$primary]['#data']['columns'] = $container - $regions[$primary]['#data']['prefix'] - $regions[$primary]['#data']['suffix'];
-  $regions[$primary]['#data']['width'] = $container;
-  
-  foreach (element_children($regions) as $region) {
-    if ($region != $primary) {
-      $regions[$primary]['#data']['columns'] -= $regions[$region]['#data']['width'];
-      $regions[$primary]['#data']['width'] -= $regions[$region]['#data']['width'];
+  if (!empty($regions)) {
+    $reference = &drupal_static('alpha_regions');
+
+    $regions[$primary]['#data']['columns'] = $container - $regions[$primary]['#data']['prefix'] - $regions[$primary]['#data']['suffix'];
+    $regions[$primary]['#data']['width'] = $container;
+
+    foreach (element_children($regions) as $region) {
+      if ($region != $primary) {
+        $regions[$primary]['#data']['columns'] -= $regions[$region]['#data']['width'];
+        $regions[$primary]['#data']['width'] -= $regions[$region]['#data']['width'];
+      }
     }
+
+    $reference[$GLOBALS['theme_key']][$primary]['width'] = $regions[$region]['#data']['width'];
+    $reference[$GLOBALS['theme_key']][$primary]['columns'] = $regions[$region]['#data']['columns'];
   }
-  
-  $reference[$GLOBALS['theme_key']][$primary]['width'] = $regions[$region]['#data']['width'];
-  $reference[$GLOBALS['theme_key']][$primary]['columns'] = $regions[$region]['#data']['columns'];
 }
 
 /**
  * @todo
  */
 function alpha_calculate_position(&$regions) {
-  $reference = &drupal_static('alpha_regions');
-  $children = element_children($regions, TRUE);
-  
-  foreach ($children as $a => $region) {
-    foreach ($children as $b => $inner) {
-      if ($region != $inner) {
-        if ($a >= $b && $regions[$region]['#data']['position'] < $regions[$inner]['#data']['position']) {
-          $regions[$region]['#data']['pull'] += $regions[$inner]['#data']['width'];
-        }
-        else if ($a <= $b && $regions[$region]['#data']['position'] > $regions[$inner]['#data']['position']) {
-          $regions[$region]['#data']['push'] += $regions[$inner]['#data']['width'];
+  if (!empty($regions)) {
+    $reference = &drupal_static('alpha_regions');
+    $children = element_children($regions, TRUE);
+
+    foreach ($children as $a => $region) {
+      foreach ($children as $b => $inner) {
+        if ($region != $inner) {
+          if ($a >= $b && $regions[$region]['#data']['position'] < $regions[$inner]['#data']['position']) {
+            $regions[$region]['#data']['pull'] += $regions[$inner]['#data']['width'];
+          }
+          else if ($a <= $b && $regions[$region]['#data']['position'] > $regions[$inner]['#data']['position']) {
+            $regions[$region]['#data']['push'] += $regions[$inner]['#data']['width'];
+          }
         }
       }
+
+      if ($regions[$region]['#data']['pull'] > $regions[$region]['#data']['push']) {
+        $regions[$region]['#data']['pull'] -= $regions[$region]['#data']['push'];
+        $regions[$region]['#data']['push'] = 0;
+      }
+      else if ($regions[$region]['#data']['pull'] > $regions[$region]['#data']['push']) {
+        $regions[$region]['#data']['push'] -= $regions[$region]['#data']['pull'];
+        $regions[$region]['#data']['pull'] = 0;
+      }
+      else if ($regions[$region]['#data']['pull'] == $regions[$region]['#data']['push']) {
+        $regions[$region]['#data']['pull'] = 0;
+        $regions[$region]['#data']['push'] = 0;
+      }
+
+      $reference[$GLOBALS['theme_key']][$region]['pull'] = $regions[$region]['#data']['pull'];
+      $reference[$GLOBALS['theme_key']][$region]['push'] = $regions[$region]['#data']['push'];
     }
-    
-    if ($regions[$region]['#data']['pull'] > $regions[$region]['#data']['push']) {
-      $regions[$region]['#data']['pull'] -= $regions[$region]['#data']['push'];
-      $regions[$region]['#data']['push'] = 0;
-    }
-    else if ($regions[$region]['#data']['pull'] > $regions[$region]['#data']['push']) {
-      $regions[$region]['#data']['push'] -= $regions[$region]['#data']['pull'];
-      $regions[$region]['#data']['pull'] = 0;
-    }
-    else if ($regions[$region]['#data']['pull'] == $regions[$region]['#data']['push']) {
-      $regions[$region]['#data']['pull'] = 0;
-      $regions[$region]['#data']['push'] = 0;
-    }
-    
-    $reference[$GLOBALS['theme_key']][$region]['pull'] = $regions[$region]['#data']['pull'];
-    $reference[$GLOBALS['theme_key']][$region]['push'] = $regions[$region]['#data']['push'];
   }
 }
 
