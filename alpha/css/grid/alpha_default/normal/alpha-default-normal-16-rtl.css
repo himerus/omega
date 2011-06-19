@@ -9,8 +9,8 @@
   display: inline;
   float: right;
   position: relative;
-  margin-left: 10px;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 .push-1, .pull-1, .push-2, .pull-2, .push-3, .pull-3, .push-4, .pull-4,
@@ -27,11 +27,11 @@
  */
 
 .alpha {
-  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .omega {
-  margin-right: 0 !important;
+  margin-left: 0 !important;
 }
 
 /*
@@ -45,8 +45,8 @@ body {
 }
 
 .container-16 {
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
   width: 960px;
 }
 
@@ -127,63 +127,63 @@ body {
  */
 
 .container-16 .prefix-1 {
-  padding-left: 60px;
+  padding-right: 60px;
 }
 
 .container-16 .prefix-2 {
-  padding-left: 120px;
+  padding-right: 120px;
 }
 
 .container-16 .prefix-3 {
-  padding-left: 180px;
+  padding-right: 180px;
 }
 
 .container-16 .prefix-4 {
-  padding-left: 240px;
+  padding-right: 240px;
 }
 
 .container-16 .prefix-5 {
-  padding-left: 300px;
+  padding-right: 300px;
 }
 
 .container-16 .prefix-6 {
-  padding-left: 360px;
+  padding-right: 360px;
 }
 
 .container-16 .prefix-7 {
-  padding-left: 420px;
+  padding-right: 420px;
 }
 
 .container-16 .prefix-8 {
-  padding-left: 480px;
+  padding-right: 480px;
 }
 
 .container-16 .prefix-9 {
-  padding-left: 540px;
+  padding-right: 540px;
 }
 
 .container-16 .prefix-10 {
-  padding-left: 600px;
+  padding-right: 600px;
 }
 
 .container-16 .prefix-11 {
-  padding-left: 660px;
+  padding-right: 660px;
 }
 
 .container-16 .prefix-12 {
-  padding-left: 720px;
+  padding-right: 720px;
 }
 
 .container-16 .prefix-13 {
-  padding-left: 780px;
+  padding-right: 780px;
 }
 
 .container-16 .prefix-14 {
-  padding-left: 840px;
+  padding-right: 840px;
 }
 
 .container-16 .prefix-15 {
-  padding-left: 900px;
+  padding-right: 900px;
 }
 
 /*
@@ -193,63 +193,63 @@ body {
  */
 
 .container-16 .suffix-1 {
-  padding-right: 60px;
+  padding-left: 60px;
 }
 
 .container-16 .suffix-2 {
-  padding-right: 120px;
+  padding-left: 120px;
 }
 
 .container-16 .suffix-3 {
-  padding-right: 180px;
+  padding-left: 180px;
 }
 
 .container-16 .suffix-4 {
-  padding-right: 240px;
+  padding-left: 240px;
 }
 
 .container-16 .suffix-5 {
-  padding-right: 300px;
+  padding-left: 300px;
 }
 
 .container-16 .suffix-6 {
-  padding-right: 360px;
+  padding-left: 360px;
 }
 
 .container-16 .suffix-7 {
-  padding-right: 420px;
+  padding-left: 420px;
 }
 
 .container-16 .suffix-8 {
-  padding-right: 480px;
+  padding-left: 480px;
 }
 
 .container-16 .suffix-9 {
-  padding-right: 540px;
+  padding-left: 540px;
 }
 
 .container-16 .suffix-10 {
-  padding-right: 600px;
+  padding-left: 600px;
 }
 
 .container-16 .suffix-11 {
-  padding-right: 660px;
+  padding-left: 660px;
 }
 
 .container-16 .suffix-12 {
-  padding-right: 720px;
+  padding-left: 720px;
 }
 
 .container-16 .suffix-13 {
-  padding-right: 780px;
+  padding-left: 780px;
 }
 
 .container-16 .suffix-14 {
-  padding-right: 840px;
+  padding-left: 840px;
 }
 
 .container-16 .suffix-15 {
-  padding-right: 900px;
+  padding-left: 900px;
 }
 
 /*
@@ -259,63 +259,63 @@ body {
  */
 
 .container-16 .push-1 {
-  left: 60px;
+  right: 60px;
 }
 
 .container-16 .push-2 {
-  left: 120px;
+  right: 120px;
 }
 
 .container-16 .push-3 {
-  left: 180px;
+  right: 180px;
 }
 
 .container-16 .push-4 {
-  left: 240px;
+  right: 240px;
 }
 
 .container-16 .push-5 {
-  left: 300px;
+  right: 300px;
 }
 
 .container-16 .push-6 {
-  left: 360px;
+  right: 360px;
 }
 
 .container-16 .push-7 {
-  left: 420px;
+  right: 420px;
 }
 
 .container-16 .push-8 {
-  left: 480px;
+  right: 480px;
 }
 
 .container-16 .push-9 {
-  left: 540px;
+  right: 540px;
 }
 
 .container-16 .push-10 {
-  left: 600px;
+  right: 600px;
 }
 
 .container-16 .push-11 {
-  left: 660px;
+  right: 660px;
 }
 
 .container-16 .push-12 {
-  left: 720px;
+  right: 720px;
 }
 
 .container-16 .push-13 {
-  left: 780px;
+  right: 780px;
 }
 
 .container-16 .push-14 {
-  left: 840px;
+  right: 840px;
 }
 
 .container-16 .push-15 {
-  left: 900px;
+  right: 900px;
 }
 
 /*
@@ -325,61 +325,61 @@ body {
  */
 
 .container-16 .pull-1 {
-  left: -60px;
+  right: -60px;
 }
 
 .container-16 .pull-2 {
-  left: -120px;
+  right: -120px;
 }
 
 .container-16 .pull-3 {
-  left: -180px;
+  right: -180px;
 }
 
 .container-16 .pull-4 {
-  left: -240px;
+  right: -240px;
 }
 
 .container-16 .pull-5 {
-  left: -300px;
+  right: -300px;
 }
 
 .container-16 .pull-6 {
-  left: -360px;
+  right: -360px;
 }
 
 .container-16 .pull-7 {
-  left: -420px;
+  right: -420px;
 }
 
 .container-16 .pull-8 {
-  left: -480px;
+  right: -480px;
 }
 
 .container-16 .pull-9 {
-  left: -540px;
+  right: -540px;
 }
 
 .container-16 .pull-10 {
-  left: -600px;
+  right: -600px;
 }
 
 .container-16 .pull-11 {
-  left: -660px;
+  right: -660px;
 }
 
 .container-16 .pull-12 {
-  left: -720px;
+  right: -720px;
 }
 
 .container-16 .pull-13 {
-  left: -780px;
+  right: -780px;
 }
 
 .container-16 .pull-14 {
-  left: -840px;
+  right: -840px;
 }
 
 .container-16 .pull-15 {
-  left: -900px;
+  right: -900px;
 }

@@ -89,3 +89,8 @@ don't collapse weirdly when toggling off the debugging blocks with the JavaScrip
 The "Primary region" dropdown now only has an effect on the width of a region by covering
 the empty space in a zone. The "Position" dropdown controls the visual positioning of
 a region while the "Weight" dropdown controls the weight of the region in the DOM.
+
+6/19/12
+=========
+#1192918  - The RTL grid CSS files were upside-down for the pull, push, prefix and suffix
+CSS classes. This is now fixed.
