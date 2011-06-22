@@ -8,13 +8,7 @@ Drupal.omega = Drupal.omega || {};
   /**
    * @todo
    */
-  var current;
-  var last;
-  
-  /**
-   * @todo
-   */
-  var dummy = $('<div id="omega-media-query-dummy"></div>');
+  var current, last, dummy = $('<div id="omega-media-query-dummy"></div>');
   
   /**
    * @todo
@@ -69,16 +63,19 @@ Drupal.omega = Drupal.omega || {};
     }
     
     current = dummy.css('content');
+    
+    $('body').addClass('responsive-layout-' + current);
   });
 
   /**
    * @todo
    */
-  $(window).resize(function() {
-    last = current;    
-    current = dummy.css('content')
+  $(window).bind('resize.layoutchanged', function() {
+    last = current;
+    current = dummy.css('content');
     
     if (last != current) {
+      $('body').removeClass('responsive-layout-' + last).addClass('responsive-layout-' + current);      
       $.event.trigger('layoutchanged', {from: last, to: current});
     }
   });

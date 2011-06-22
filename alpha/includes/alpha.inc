@@ -37,7 +37,9 @@ function alpha_invoke($type, $hook, &$vars) {
   if (!empty($registry[$type][$hook])) {    
     foreach ($registry[$type][$hook] as $item) {
       if (is_file($item['path'])) {
-        include_once $item['path'];      
+        if (!function_exists($item['function'])) {
+          include $item['path'];
+        }
        
         if (function_exists($item['function'])) {
           $item['function']($vars);
