@@ -8,7 +8,22 @@ Drupal.omega = Drupal.omega || {};
   /**
    * @todo
    */
-  var current, last, dummy = $('<div id="omega-media-query-dummy"></div>');
+  var current;
+  var last;
+  
+  /**
+   * @todo
+   */
+  var setCurrentLayout = function (index) {
+    index = parseInt(index);
+    last = current;
+    current = Drupal.settings.omega.layouts.order.hasOwnProperty(index) ? Drupal.settings.omega.layouts.order[index] : 'mobile';
+
+    if (last != current) {      
+      $('body').removeClass('responsive-layout-' + last).addClass('responsive-layout-' + current);      
+      $.event.trigger('responsivelayout', {from: last, to: current});
+    }
+  };
   
   /**
    * @todo
@@ -35,8 +50,8 @@ Drupal.omega = Drupal.omega || {};
    * @todo
    */
   Drupal.omega.checkQuery = function (query) {
-    var dummy = $('<div id="omega-check-query"><style media="' + query + '">#omega-check-query { content: "active"; }</style></div>').prependTo('body');
-    var output = dummy.css('content') == 'active';
+    var dummy = $('<div id="omega-check-query"><style media="' + query + '">#omega-check-query { position: relative; z-index: 100; }</style></div>').prependTo('body');
+    var output = parseInt(dummy.css('z-index')) == 100;
 
     dummy.remove();
 
@@ -53,30 +68,21 @@ Drupal.omega = Drupal.omega || {};
   /**
    * @todo
    */
-  $(function() {
-    dummy.prependTo('body');    
-    dummy.append('<style media="all">#omega-media-query-dummy { content: "mobile"; }</style>');
-    dummy.append('<!--[if (lt IE 9)&(!IEMobile)]><style media="all">#omega-media-query-dummy { content: "' + Drupal.settings.omega.layouts.primary + '"; }</style><![endif]-->');
-    
-    for (var i in Drupal.settings.omega.layouts.queries) {
-      dummy.append('<style media="' + Drupal.settings.omega.layouts.queries[i] + '">#omega-media-query-dummy { content: "' + i + '"; }</style>');
-    }
-    
-    current = dummy.css('content');
-    
-    $('body').addClass('responsive-layout-' + current);
-  });
+  $(function() {    
+    var primary = $.inArray(Drupal.settings.omega.layouts.primary, Drupal.settings.omega.layouts.order);
+    var dummy = $('<div id="omega-media-query-dummy"></div>').prependTo('body');
 
-  /**
-   * @todo
-   */
-  $(window).bind('resize.layoutchanged', function() {
-    last = current;
-    current = dummy.css('content');
-    
-    if (last != current) {
-      $('body').removeClass('responsive-layout-' + last).addClass('responsive-layout-' + current);      
-      $.event.trigger('layoutchanged', {from: last, to: current});
+    dummy.append('<style media="all">#omega-media-query-dummy { position: relative; z-index: -1; }</style>');
+    dummy.append('<!--[if (lt IE 9)&(!IEMobile)]><style media="all">#omega-media-query-dummy { z-index: ' + primary + '; }</style><![endif]-->');
+
+    for (var i in Drupal.settings.omega.layouts.order) {
+      dummy.append('<style media="' + Drupal.settings.omega.layouts.queries[Drupal.settings.omega.layouts.order[i]] + '">#omega-media-query-dummy { z-index: ' + i + '; }</style>');
     }
+    
+    setCurrentLayout(dummy.css('z-index'));
+    
+    $(window).bind('resize.omega', function() { 
+      setCurrentLayout(dummy.css('z-index')); 
+    });
   });
 })(jQuery);
