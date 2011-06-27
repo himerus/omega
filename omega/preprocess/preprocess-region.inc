@@ -15,15 +15,17 @@ function omega_alpha_preprocess_region(&$vars) {
   if (isset($vars['elements']['#data'])) {
     $data = $vars['elements']['#data'];    
     
-    if (alpha_library_active('omega_formalize')) {
-      $zone = alpha_zones($data['zone']);
-      
+    if (alpha_library_active('omega_equalheights')) {
       if ($data['equal_height']) {      
         $vars['content_attributes_array']['class'][] = 'equal-height-container';
       }
 
-      if ($zone['equal_height']) {
-        $vars['attributes_array']['class'][] = 'equal-height-element';
+      if ($data['zone']) {
+        $zone = alpha_zones($data['zone']);
+        
+        if ($zone['equal_height']) {
+          $vars['attributes_array']['class'][] = 'equal-height-element';
+        }
       }
     }
   }

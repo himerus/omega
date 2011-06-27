@@ -40,7 +40,7 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Changes in: 7.x-3.0-beta1
 ########################################################################################## 
 
-6/09/12
+6/09/11
 =========
 #1183482  - Increase the weight of the starterkits default stylesheets so they are able
 to override the built-in Omega and Alpha stylesheets. Also setting the Alpha stylesheets
@@ -49,7 +49,7 @@ to a weight of -20.
 #1184006  - Replaced the debugging blocks with simple markup elements. They have the same
 functionality but come with less problems.
 
-6/12/12
+6/12/11
 =========
 #1184122  - The main page content block did not get placed properly by drupal_render_page.
 We now anticipate that behavior in special cases where the user disabled the main page
@@ -62,7 +62,7 @@ starterkit ships with by default.
 #1184546  - Merged the zone and region configuration tabs into one single tab and made
 the zones and regions collapsible fieldsets.
 
-6/14/12
+6/14/11
 =========
 #1186924  - Added button to toggle debugging blocks on and off via JavaScript.
 
@@ -71,7 +71,7 @@ the zones and regions collapsible fieldsets.
 #1188480  - The user-defined CSS classes for zones did not find their way into the HTML
 output due to a typo in the zone preproccesor. This is now fixed.
 
-6/17/12
+6/17/11
 =========
 #1191764  - We are no longer use unset() on regions if they are not enabled. Instead move 
 them to #excluded so that subthemes can use them later (in hook_page_alter).
@@ -90,7 +90,16 @@ The "Primary region" dropdown now only has an effect on the width of a region by
 the empty space in a zone. The "Position" dropdown controls the visual positioning of
 a region while the "Weight" dropdown controls the weight of the region in the DOM.
 
-6/19/12
+6/19/11
 =========
 #1192918  - The RTL grid CSS files were upside-down for the pull, push, prefix and suffix
 CSS classes. This is now fixed.
+
+6/27/11
+=========
+#1200272  - Fixed a bug that was incorrectly assuming that all regions are part of a zone.
+
+#1191762  - Reworked the JavaScript libraries to use Drupal.behaviors.
+
+#1198476  - If the media query library is enabled the equal heights feature will be
+deactivated on the mobile version.
