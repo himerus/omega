@@ -14,7 +14,7 @@
 function omega_alpha_preprocess_zone(&$vars) {
   $data = $vars['elements']['#data'];
   
-  if (alpha_library_active('omega_formalize')) {
+  if (alpha_library_active('omega_equalheights')) {
     $zone = alpha_zones($data['zone']);
 
     if ($data['equal_height']) {
