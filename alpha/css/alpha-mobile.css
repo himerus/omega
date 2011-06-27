@@ -12,5 +12,5 @@
  * This gives your page a default padding of 10px.
  */
 .zone {
-  padding: 10px;
+  margin: 0 10px;
 }
