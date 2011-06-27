@@ -51,7 +51,28 @@ Creating your Omega Sub Theme (Automagically)
 
 Creating your Omega Sub Theme (Manually)
 ========================================
-@todo - rewrite this section
+* Copying the appropriate starterkit from omega/starterkits
+  * move copy to /sites/all/themes
+* Rename the folder
+  * Rename the copied folder to YOUR_THEME
+* Renaming the .info file
+  * Rename the .info file to YOUR_THEME.info
+* Renaming the appropriate responsive CSS files
+  * Rename starterkit-omega-html5-alpha-default.css to YOUR-THEME-alpha-default.css
+  * Rename starterkit-omega-html5-alpha-default-narrow.css to YOUR-THEME-alpha-default-narrow.css
+  * Rename starterkit-omega-html5-alpha-default-normal.css to YOUR-THEME-alpha-default-normal.css
+  * Rename starterkit-omega-html5-alpha-default-wide.css to YOUR-THEME-alpha-default-wide.css
+* Editing the .info
+  * Remove the following lines
+    * hidden = TRUE
+    * starterkit = TRUE
+  * Change the following lines to suit your needs
+    * name = My Custom Theme
+    * description = My own custom Omega subtheme
+* Turn on your subtheme
+  * visit /admin/appearance
+  * Click “Enable and set default” on the appropriate subtheme you’ve created.
+
 
 Contributors
 ============
