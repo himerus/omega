@@ -24,3 +24,9 @@
 img {
   vertical-align: bottom;
 }
+
+.field-label-inline .field-label,
+.field-label-inline .field-items,
+.field-label-inline .field-item {
+  display: inline;
+}
