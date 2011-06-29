@@ -645,7 +645,7 @@ function alpha_include_grid($grid, $columns) {
         foreach ($columns as $count => $title) {
           if (isset($grid['columns'][$count])) {
             $file = $path . '-' . $count . '.png';            
-            $overlay = 'body.alpha-grid-debug .container-' . $count . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
+            $overlay = '.alpha-grid-debug .container-' . $count . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
             
             drupal_add_css($overlay, $options);
           }
@@ -965,18 +965,16 @@ function alpha_register_grids($theme = NULL) {
         );
         
         foreach ($trail as $item) {
-          $path = drupal_get_path('theme', $item->name) . '/css/' . implode('-', array(str_replace('_', '-', $item->name), str_replace('_', '-', $name)));
-          if (is_file($path . '.less')) {
-            $cache[$name]['layouts'][$layout]['attached'][] = $path . '.less';
-          } else if (is_file($path . '.css')) {
-            $cache[$name]['layouts'][$layout]['attached'][] = $path . '.css';
+          $path = drupal_get_path('theme', $item->name) . '/css';
+          $file = implode('-', array(str_replace('_', '-', $item->name), str_replace('_', '-', $name)));
+          
+          if ($attached = alpha_find_stylesheet($path, $file)) {
+            $cache[$name]['layouts'][$layout]['attached'][] = $attached;
           }
           
-          $path = $path . '-' . str_replace('_', '-', $layout);
-          if (is_file($path . '.less')) {
-            $cache[$name]['layouts'][$layout]['attached'][] = $path . '.less';
-          } else if (is_file($path . '.css')) {
-            $cache[$name]['layouts'][$layout]['attached'][] = $path . '.css';
+          $file = $file . '-' . str_replace('_', '-', $layout);
+          if ($attached = alpha_find_stylesheet($path, $file)) {
+            $cache[$name]['layouts'][$layout]['attached'][] = $attached;
           }
         }
       }
@@ -987,6 +985,21 @@ function alpha_register_grids($theme = NULL) {
   variable_set('theme_' . $theme . '_alpha_grids', $cache);
     
   return $cache;
+}
+
+/**
+ * @todo
+ */
+function alpha_find_stylesheet($path, $name) {
+  foreach (array('css', 'less', 'sass', 'scss') as $extension) {
+    $file = $path . '/' . $name . '.' . $extension;
+    
+    if (is_file($file)) {
+      return $file;
+    }
+  }
+  
+  return FALSE;
 }
 
 /**

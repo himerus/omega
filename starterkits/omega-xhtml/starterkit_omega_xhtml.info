@@ -55,13 +55,9 @@ zones[footer] = Footer
 
 ; OPTIONAL STYLESHEETS
 
-css[styles.css][name] = Main Styles
-css[styles.css][description] = Your main custom CSS file.
-css[styles.css][options][weight] = 10
-
-css[mobile.css][name] = Mobile Styles
-css[mobile.css][description] = Your custom CSS for the mobile version of your website (mobile first).
-css[mobile.css][options][weight] = 10
+css[global.css][name] = Your custom global styles
+css[global.css][description] = This file holds all the globally active custom CSS of your theme.
+css[global.css][options][weight] = 10
 
 ; THEME SETTINGS (DEFAULTS)
 

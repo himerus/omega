@@ -40,8 +40,8 @@ h2 {
 }
 
 /* Make site titles the same size if it's an H1 (home) or H2 (internal) */
-h1.site-title,
-h2.site-title {
+h1.site-name,
+h2.site-name {
   font-size: 36px;
 }
 
