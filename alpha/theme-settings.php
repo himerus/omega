@@ -30,6 +30,8 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   
   alpha_theme_settings_general($form, $form_state);
   alpha_theme_settings_structure($form, $form_state);
+  
+  $form['#validate'][] = 'alpha_theme_settings_form_validate';
 }
 
 /**
@@ -95,4 +97,11 @@ function alpha_theme_settings_validate_order(&$element, &$form_state) {
       form_error($element, t('You have chosen to manipulate the region positioning of the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%zone' => $zone['name'])));
     }
   }
+}
+
+/**
+ * @todo
+ */
+function alpha_theme_settings_form_validate($form, &$form_state) {
+  unset($form_state['values']['alpha_settings__active_tab']);
 }
