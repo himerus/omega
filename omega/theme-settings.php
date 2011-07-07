@@ -16,7 +16,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     $form['alpha_settings']['structure'][$section][$zone]['regions'][$region]['alpha_region_' . $region . '_equal_height'] = array(
       '#type' => 'checkbox',
       '#title' => t('Force equal height for all child elements'),
-      '#description' => t('Force equal height for all child elements.'),
+      '#description' => t('Force equal height for all blocks in this region.'),
       '#default_value' => $item['equal_height'],
       '#weight' => -10,
       '#states' => array(
@@ -33,7 +33,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     $form['alpha_settings']['structure'][$section][$zone]['zone']['alpha_zone_' . $zone . '_equal_height'] = array(
       '#type' => 'checkbox',
       '#title' => t('Force equal height for all child elements.'),
-      '#description' => t('Force equal height for all child elements.'),
+      '#description' => t('Force equal height for all regions in this zone.'),
       '#default_value' => $item['equal_height'],
       '#weight' => -10,
       '#states' => array(
