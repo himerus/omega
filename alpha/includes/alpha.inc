@@ -134,7 +134,7 @@ function alpha_build_registry($registry, $theme = NULL) {
   alpha_alter('alpha_registry', $cache, $theme);
   
   // Save the registry in the database.
-  cache_set('alpha_registry:' . $theme, $cache);
+  alpha_cache_set('alpha_registry', $cache, $theme);
 }
 
 /**
