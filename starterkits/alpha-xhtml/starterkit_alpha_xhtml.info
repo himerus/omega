@@ -65,8 +65,7 @@ settings[alpha_viewport_user_scaleable] = ''
 settings[alpha_css][alpha-reset.css] = 'alpha-reset.css'
 settings[alpha_css][alpha-alpha.css] = 'alpha-alpha.css'
 settings[alpha_css][alpha-mobile.css] = 'alpha-mobile.css'
-settings[alpha_css][styles.css] = 'styles.css'
-settings[alpha_css][mobile.css] = 'mobile.css'
+settings[alpha_css][global.css] = 'global.css'
 settings[alpha_debug_block_toggle] = '1'
 settings[alpha_debug_block_active] = '1'
 settings[alpha_debug_grid_toggle] = '1'
@@ -174,9 +173,4 @@ settings[alpha_region_footer_suffix] = ''
 settings[alpha_region_footer_weight] = '1'
 settings[alpha_region_footer_weight] = '1'
 settings[alpha_region_footer_css] = ''
-; Information added by drupal.org packaging script on 2011-07-05
-version = "7.x-3.x-dev"
-core = "7.x"
-project = "omega"
-datestamp = "1309868040"
 

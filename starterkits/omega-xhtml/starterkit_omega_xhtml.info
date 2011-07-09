@@ -96,8 +96,7 @@ settings[alpha_css][omega-branding.css] = 'omega-branding.css'
 settings[alpha_css][omega-menu.css] = 'omega-menu.css'
 settings[alpha_css][omega-forms.css] = 'omega-forms.css'
 settings[alpha_css][omega-visuals.css] = 'omega-visuals.css'
-settings[alpha_css][styles.css] = 'styles.css'
-settings[alpha_css][mobile.css] = 'mobile.css'
+settings[alpha_css][global.css] = 'global.css'
 settings[alpha_debug_block_toggle] = '1'
 settings[alpha_debug_block_active] = '1'
 settings[alpha_debug_grid_toggle] = '1'
@@ -383,9 +382,3 @@ settings[alpha_region_footer_second_suffix] = ''
 settings[alpha_region_footer_second_weight] = '2'
 settings[alpha_region_footer_second_position] = '2'
 settings[alpha_region_footer_second_css] = ''
-; Information added by drupal.org packaging script on 2011-07-05
-version = "7.x-3.x-dev"
-core = "7.x"
-project = "omega"
-datestamp = "1309868040"
-

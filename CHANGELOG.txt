@@ -32,8 +32,20 @@ Maintainer(s):
 CHANGELOG.txt to track changes to the Omega theme.
 
 ##########################################################################################
-##### Current Release: 7.x-3.0-beta2
+##### Current Release: 7.x-3.0-beta3
 ##### Pending changes for Next Release
+########################################################################################## 
+
+7/09/11
+=========
+#1214048  - Omega no longer abuses the variables table for the caching. Instead we are
+now using cache_set and cache_get.
+
+#1213176  - Fixed the theme settings in the starterkits. The global.css file is now active
+by default.
+
+##########################################################################################
+##### Changes in: 7.x-3.0-beta2
 ########################################################################################## 
 
 6/29/11

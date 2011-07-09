@@ -199,7 +199,7 @@ function alpha_page_alter(&$vars) {
     }
   }
   
-  alpha_include_grid($settings['grid'], $columns);
+  alpha_grid_include($settings['grid'], $columns);
 }
 
 /**

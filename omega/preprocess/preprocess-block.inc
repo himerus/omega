@@ -16,14 +16,6 @@ function omega_alpha_preprocess_block(&$vars) {
   
   // Adding a class to the title attributes
   $vars['title_attributes_array']['class'][] = 'block-title';
-  
-  if (!empty($vars['elements']['#first'])) {
-    $vars['attributes_array']['class'][] = 'first';
-  }
-
-  if (!empty($vars['elements']['#last'])) {
-    $vars['attributes_array']['class'][] = 'last';
-  }  
 
   // Add odd/even zebra classes into the array of classes
   $vars['attributes_array']['class'][] = $vars['block_zebra'];
