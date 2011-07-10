@@ -338,7 +338,7 @@ function alpha_grid_options($theme = NULL) {
   $output = array();
   if (!empty($items)) {
     foreach ($items as $key => $info) {
-      $output[$key] = check_plain($info['title']);
+      $output[$key] = check_plain($info['name']);
     }
   }
     
@@ -365,7 +365,7 @@ function alpha_grid_layouts_options($grid, $theme = NULL) {
   $output = array();
   if (!empty($grid['layouts'])) {
     foreach ($grid['layouts'] as $key => $info) {
-      $output[$key] = check_plain($info['title']);
+      $output[$key] = check_plain($info['name']);
     }
   }
     
