@@ -1032,7 +1032,7 @@ function alpha_register_grids($theme = NULL) {
  * @todo
  */
 function alpha_find_stylesheet($path, $name) {
-  foreach (array('css', 'less', 'sass', 'scss') as $extension) {
+  foreach (array('css', 'css.less', 'sass', 'scss') as $extension) {
     $file = $path . '/' . $name . '.' . $extension;
     
     if (is_file($file)) {
