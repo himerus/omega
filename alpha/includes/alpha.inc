@@ -160,7 +160,7 @@ function alpha_cache_get($cid, $theme = NULL) {
     
     cache_get_multiple($items);
   }
-  echo $cid;
+  
   if ($cache = cache_get('alpha_registry:' . $theme . ':' . $cid)) {
     return $cache->data;
   } 
