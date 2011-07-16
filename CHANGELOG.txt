@@ -36,6 +36,12 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+7/17/11
+=========
+#1220198  - The equal height feature is now solely based on CSS. This might still not
+be the perfect solution but the jQuery approach that we were using before proved to be
+a dead end.
+
 7/09/11
 =========
 #1214048  - Omega no longer abuses the variables table for the caching. Instead we are
