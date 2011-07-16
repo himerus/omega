@@ -64,10 +64,10 @@ function alpha_process(&$vars, $hook) {
  * Implements hook_theme_registry_alter().
  */
 function alpha_theme_registry_alter(&$registry) {
-  alpha_build_registry($registry);
-  alpha_register_grids();
-  alpha_register_css();
-  alpha_register_libraries();
+  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
+  
+  alpha_clear_cache($theme);
+  alpha_build_registry($registry, $theme);
 }
 
 /**

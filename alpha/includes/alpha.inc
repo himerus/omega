@@ -30,7 +30,7 @@ function alpha_invoke($type, $hook, &$vars) {
   $registry = &drupal_static(__FUNCTION__);
   
   if (!isset($registry)) {
-    $registry = alpha_cache_get('alpha_registry', $GLOBALS['theme_key']);
+    $registry = alpha_cache_get('hooks', $GLOBALS['theme_key']);
   }
   
   // If one of the themes in the theme trail implements this hook
@@ -133,8 +133,17 @@ function alpha_build_registry($registry, $theme = NULL) {
   
   alpha_alter('alpha_registry', $cache, $theme);
   
-  // Save the registry in the database.
-  alpha_cache_set('alpha_registry', $cache, $theme);
+  // Save the hooks in the database.
+  alpha_cache_set('hooks', $cache, $theme);
+}
+
+/**
+ * @todo
+ */
+function alpha_clear_cache($theme = NULL) {
+  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
+  
+  cache_clear_all('alpha_registry:' . $theme, 'cache', TRUE);
 }
 
 /**
@@ -147,12 +156,14 @@ function alpha_cache_get($cid, $theme = NULL) {
 
   if (empty($executed[$theme])) {
     $executed[$theme] = TRUE;
-    $items = array('alpha_registry:' . $theme, 'alpha_grids:' . $theme, 'alpha_css:' . $theme, 'alpha_libraries:' . $theme);
+    $items = array('alpha_registry:' . $theme . ':hooks', 'alpha_registry:' . $theme . ':grids', 'alpha_registry:' . $theme . ':css', 'alpha_registry:' . $theme . ':libraries');
     
     cache_get_multiple($items);
   }
-  
-  return cache_get($cid . ':' . $theme)->data;
+  echo $cid;
+  if ($cache = cache_get('alpha_registry:' . $theme . ':' . $cid)) {
+    return $cache->data;
+  } 
 }
 
 /**
@@ -161,7 +172,7 @@ function alpha_cache_get($cid, $theme = NULL) {
 function alpha_cache_set($cid, $data, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
   
-  return cache_set($cid . ':' . $theme, $data);
+  return cache_set('alpha_registry:' . $theme . ':' . $cid, $data);
 }
 
 /**
@@ -505,7 +516,7 @@ function alpha_css($theme = NULL) {
   $css = &drupal_static(__FUNCTION__);
   
   if (!isset($css[$theme])) {
-    $css[$theme] = alpha_cache_get('alpha_css', $theme);
+    $css[$theme] = alpha_cache_get('css', $theme);
   }
 
   if (!isset($css[$theme])) {
@@ -566,7 +577,7 @@ function alpha_libraries($library = NULL, $theme = NULL) {
   $libraries = &drupal_static(__FUNCTION__);
   
   if (!isset($libraries[$theme])) {
-    $libraries[$theme] = alpha_cache_get('alpha_libraries', $theme);
+    $libraries[$theme] = alpha_cache_get('libraries', $theme);
   }
 
   if (!isset($libraries[$theme])) {
@@ -629,7 +640,7 @@ function alpha_library_active($library, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
   $settings = alpha_settings($theme);
   
-  if (isset($settings['libraries'][$library]) && $settings['libraries'][$library] === $library) {
+  if (alpha_libraries($library, $theme) && isset($settings['libraries'][$library]) && $settings['libraries'][$library] === $library) {
     return TRUE;
   }
   
@@ -945,7 +956,7 @@ function alpha_grids($grid = NULL, $theme = NULL) {
   $grids = &drupal_static(__FUNCTION__);
   
   if (!isset($grids[$theme])) {
-    $grids[$theme] = alpha_cache_get('alpha_grids', $theme);
+    $grids[$theme] = alpha_cache_get('grids', $theme);
     
     if (!isset($grids[$theme])) {
       $grids[$theme] = alpha_register_grids($theme);
