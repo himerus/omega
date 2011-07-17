@@ -20,7 +20,8 @@
    * @todo
    */
   var omegaEqualHeights = function (elements) {
-    $(elements).css('min-height', 0);
+    $(elements).css('min-height', 'inherit');
+    $(elements).css('height', 'auto');
     
     if (!Drupal.behaviors.hasOwnProperty('omegaMediaQueries') || Drupal.omega.getCurrentLayout() != 'mobile') {
       var tallest = 0;
@@ -33,7 +34,8 @@
 
       elements.each(function() {
         if ($(this).height() < tallest) {
-          $(this).css('min-height', tallest + 'px');
+          $(this).css('min-height', tallest);
+          $(this).css('height', tallest);
         }
       });
     }

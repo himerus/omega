@@ -89,6 +89,8 @@ libraries[omega_mediaqueries][js][0][options][weight] = -19
 
 libraries[omega_equalheights][name] = Equal heights
 libraries[omega_equalheights][description] = Allows you to force all regions of a zone or all blocks of a region to be of equal size. <span class="marker">This library reveals a corresponding checkbox on every region and zone configuration panel if activated.</span>
+libraries[omega_equalheights][css][0][file] = omega-equalheights.css
+libraries[omega_equalheights][css][0][options][weight] = -18
 libraries[omega_equalheights][js][0][file] = jquery.resize.js
 libraries[omega_equalheights][js][0][options][weight] = -18
 libraries[omega_equalheights][js][1][file] = omega-equalheights.js

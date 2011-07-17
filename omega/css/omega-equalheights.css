@@ -1,15 +1,3 @@
-.equal-height-container {
-  overflow-y: hidden;
-  *position: relative; /* IE7 */
-}
-
-.equal-height-region,
-.equal-height-block {
-  margin-bottom: -9999em;
-  padding-bottom: 9999em;
-}
-
-.equal-height-region .region-inner,
-.equal-height-block .block-inner {
-  height: 100%;
+.equal-height-element {
+  height: auto !important;
 }
