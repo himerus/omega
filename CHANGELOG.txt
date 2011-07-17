@@ -41,7 +41,11 @@ CHANGELOG.txt to track changes to the Omega theme.
 #1220198  - Reverting the equal height feature changes from yesterday. This feature is
 now based on jQuery again but the code was rewritten. It is now based on a jQuery
 library from Ben Alman. This should even work with expandable textareas / fieldsets
+<<<<<<< HEAD
 and basically everything else that might have an impact on the height of a single
+=======
+now and basically everything else that might have an impact on the height of a single
+>>>>>>> themegeeks/7.x-3.x
 element in a group.
 
 7/17/11

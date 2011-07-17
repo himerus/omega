@@ -28,7 +28,7 @@ function omega_alpha_preprocess_block(&$vars) {
   if ($vars['block']->module != 'alpha-debug' && isset($vars['block']->region)) {
     if (alpha_library_active('omega_equalheights') && $region = alpha_regions($vars['block']->region)) {
       if ($region['equal_height']) {
-        $vars['attributes_array']['class'][] = 'equal-height-block';
+        $vars['attributes_array']['class'][] = 'equal-height-element';
       }
     }
   }
