@@ -24,7 +24,7 @@ function omega_alpha_preprocess_region(&$vars) {
         $zone = alpha_zones($data['zone']);
         
         if ($zone['equal_height']) {
-          $vars['attributes_array']['class'][] = 'equal-height-region';
+          $vars['attributes_array']['class'][] = 'equal-height-element';
         }
       }
     }
