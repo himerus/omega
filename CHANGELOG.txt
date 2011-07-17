@@ -42,6 +42,8 @@ CHANGELOG.txt to track changes to the Omega theme.
 be the perfect solution but the jQuery approach that we were using before proved to be
 a dead end.
 
+#1220950  - Fixed and minified RTL grid CSS files.
+
 7/09/11
 =========
 #1214048  - Omega no longer abuses the variables table for the caching. Instead we are
