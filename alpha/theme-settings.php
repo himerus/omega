@@ -17,7 +17,7 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   alpha_register_css($theme);
   alpha_register_libraries($theme);
   
-  $form_state['alpha_settings'] = alpha_settings($theme);
+  $form_state['alpha_settings'] = alpha_settings(NULL, $theme);
   $form_state['alpha_zones'] = alpha_zones(NULL, $theme);
   $form_state['alpha_regions'] = alpha_regions(NULL, $theme);
   $form_state['alpha_containers'] = alpha_container_options($form_state['alpha_settings']['grid'], $theme);

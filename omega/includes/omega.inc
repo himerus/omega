@@ -91,6 +91,6 @@ function omega_region_get_setting($name, $region, $default = NULL, $theme = NULL
  * @return
  *   A nested array of theme settings.
  */
-function omega_settings($theme = NULL) {
-  return alpha_settings($theme);
+function omega_settings($name = NULL, $theme = NULL) {
+  return alpha_settings($name, $theme);
 }

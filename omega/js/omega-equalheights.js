@@ -3,12 +3,6 @@
  */
 
 (function($) {
-  var omegaEqualHeightsReset = function (elements) {
-    
-    
-    
-  }
-  
   /**
    * @todo
    */

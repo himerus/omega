@@ -638,9 +638,9 @@ function alpha_register_libraries($theme = NULL) {
  */
 function alpha_library_active($library, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-  $settings = alpha_settings($theme);
+  $settings = alpha_settings('libraries', $theme);
   
-  if (alpha_libraries($library, $theme) && isset($settings['libraries'][$library]) && $settings['libraries'][$library] === $library) {
+  if (alpha_libraries($library, $theme) && isset($settings[$library]) && $settings[$library] === $library) {
     return TRUE;
   }
   
@@ -656,16 +656,16 @@ function alpha_library_active($library, $theme = NULL) {
  * @param $columns
  *   An array of column sizes.
  */
-function alpha_grid_include($grid, $columns) {
+function alpha_grid_include($grid, $columns, $responsive = TRUE) {
   if ($grid = alpha_grids($grid)) {
-    $settings = alpha_settings();
+    $debug = alpha_settings('debug');
 
-    foreach (alpha_grid_css($grid, $columns) as $key => $options) {
+    foreach (alpha_grid_css($grid, $columns, $responsive) as $key => $options) {
       drupal_add_css($key, $options);
     }
 
-    if ($settings['debug']['grid'] && $settings['debug']['access']) {
-      alpha_grid_debug($grid, $columns);
+    if ($debug['grid'] && $debug['access']) {
+      alpha_grid_debug($grid, $columns, $responsive);
     }
   }
 }
@@ -673,35 +673,31 @@ function alpha_grid_include($grid, $columns) {
 /**
  * @todo
  */
-function alpha_grid_debug($grid, $columns) {
-  $settings = alpha_settings();
-  
-  if (!$settings['responsive']) {
+function alpha_grid_debug($grid, $columns, $responsive) {
+  if (!$responsive) {
     $grid['layouts'] = array($grid['primary'] => $grid['layouts'][$grid['primary']]);
   }
 
   foreach ($grid['layouts'] as $layout => $item) {
-    if (!$settings['responsive'] || $item['enabled']) {
-      $path = $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $settings['grid']) . '-' . str_replace('_', '-', $layout);
+    if (!$responsive || $item['enabled']) {
+      $path = $path = $grid['path'] . '/' . $layout . '/' . str_replace('_', '-', $grid['grid']) . '-' . str_replace('_', '-', $layout);
       $options = array(
         'type' => 'inline',          
-        'browsers' => $settings['responsive'] ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE),
+        'browsers' => $responsive ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE),
         'group' => -1000,
         'weight' => $item['weight'],
-        'media' => $settings['responsive'] ? $item['media'] : 'all',
+        'media' => $responsive ? $item['media'] : 'all',
       );
 
-      foreach ($columns as $count => $title) {
-        if (isset($grid['columns'][$count])) {
-          $file = $path . '-' . $count . '.png';            
-          $overlay = '.alpha-grid-debug .container-' . $count . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
+      if (isset($grid['columns'][$columns])) {
+        $file = $path . '-' . $columns . '.png';            
+        $overlay = '.alpha-grid-debug .container-' . $columns . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
 
-          if ($settings['responsive'] && $layout == $grid['primary']) {
-            drupal_add_css($overlay, array('media' => 'all', 'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 'group' => -2000) + $options);
-          }
-
-          drupal_add_css($overlay, $options);
+        if ($responsive && $layout == $grid['primary']) {
+          drupal_add_css($overlay, array('media' => 'all', 'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 'group' => -2000) + $options);
         }
+
+        drupal_add_css($overlay, $options);
       }
     }
   }
@@ -710,68 +706,64 @@ function alpha_grid_debug($grid, $columns) {
 /**
  * @todo
  */
-function alpha_grid_css($grid, $columns) {
-  $output = array();
-  
-  $settings = alpha_settings();
+function alpha_grid_css($grid, $columns, $responsive = TRUE) {
+  $output = array();  
   $name = str_replace('_', '-', $grid['grid']);    
-  $browsers = $settings['responsive'] ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE);
+  $browsers = $responsive ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE);
 
-  if (!$settings['responsive']) {
+  if (!$responsive) {
     $grid['layouts'] = array($grid['primary'] => $grid['layouts'][$grid['primary']]);
   }
 
   foreach ($grid['layouts'] as $layout => $item) {
-    if (!$settings['responsive'] || $item['enabled']) {
+    if (!$responsive || $item['enabled']) {
       $path = $grid['path'] . '/' . $layout . '/' . $name . '-' . str_replace('_', '-', $layout);
-      $media = $settings['responsive'] ? $item['media'] : 'all';
+      $media = $responsive ? $item['media'] : 'all';
 
-      foreach ($columns as $count => $data) {          
-        if (isset($grid['columns'][$count])) {
-          $file = $path . '-' . $count . '.css';
+      if (isset($grid['columns'][$columns])) {
+        $file = $path . '-' . $columns . '.css';
 
-          if ($settings['responsive'] && $layout == $grid['primary']) {
-            $basename = 'ie::' . $layout . '::' . $path . '-' . $count . '.css';
-            $output[$basename] = array(
+        if ($responsive && $layout == $grid['primary']) {
+          $basename = 'ie::' . $layout . '::' . $path . '-' . $columns . '.css';
+          $output[$basename] = array(
+            'group' => 1000,
+            'weight' => $item['weight'],
+            'data' => $file,
+            'basename' => $basename,
+            'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),                
+          );
+        }
+
+        $output[$file] = array(
+          'group' => 2000,
+          'weight' => $item['weight'],
+          'media' => $media,
+          'browsers' => $browsers,          
+          'aggregate' => TRUE,
+        );
+
+        foreach ($item['attached'] as $attached) {
+          $basename = $layout . '::' . $attached;
+
+          if ($responsive && $layout == $grid['primary']) {
+            $output['ie::' . $basename] = array(
               'group' => 1000,
               'weight' => $item['weight'],
-              'data' => $file,
-              'basename' => $basename,
-              'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),                
-            );
-          }
-
-          $output[$file] = array(
-            'group' => 2000,
-            'weight' => $item['weight'],
-            'media' => $media,
-            'browsers' => $browsers,          
-            'aggregate' => TRUE,
-          );
-
-          foreach ($item['attached'] as $attached) {
-            $basename = $layout . '::' . $attached;
-
-            if ($settings['responsive'] && $layout == $grid['primary']) {
-              $output['ie::' . $basename] = array(
-                'group' => 1000,
-                'weight' => $item['weight'],
-                'data' => $attached, 
-                'basename' => 'ie::' . $basename,
-                'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
-              );
-            }
-
-            $output[$basename] = array(
-              'group' => 2000,
-              'weight' => $item['weight'],                
               'data' => $attached, 
-              'basename' => $basename,                
-              'media' => $media,
-              'browsers' => $browsers,
-              'aggregate' => TRUE,                
+              'basename' => 'ie::' . $basename,
+              'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
             );
           }
+
+          $output[$basename] = array(
+            'group' => 2000,
+            'weight' => $item['weight'],                
+            'data' => $attached, 
+            'basename' => $basename,                
+            'media' => $media,
+            'browsers' => $browsers,
+            'aggregate' => TRUE,                
+          );
         }
       }
     }
@@ -822,9 +814,7 @@ function alpha_grid_css_group($items) {
  * @todo
  */
 function alpha_grid_css_aggregate($elements) {
-  $settings = alpha_settings();
-  
-  if ($settings['responsive']) {
+  if (alpha_settings('responsive')) {
     if ($chunks = alpha_grid_css_chunks($elements['#items'])) {
       foreach ($chunks as $items) {
         $offset = alpha_array_key_search(key($items), $elements['#items']);
@@ -1057,38 +1047,15 @@ function alpha_find_stylesheet($path, $name) {
 /**
  * @todo
  */
-function alpha_children_first_last(&$elements) {
-  if (!empty($children)) {
-    if ($children = element_children($elements)) {
-      $last = count($children) - 1;
-
-      foreach ($children as $element) {
-        $elements[$element]['#first'] = $element == $children[0];
-        $elements[$element]['#last'] = $element == $children[$last];
-      }
-    }
-  }
-}
-
-/**
- * @todo
- */
 function alpha_calculate_primary(&$regions, $primary, $container) {
   if (!empty($regions)) {
-    $reference = &drupal_static('alpha_regions');
-
-    $regions[$primary]['#data']['columns'] = $container - $regions[$primary]['#data']['prefix'] - $regions[$primary]['#data']['suffix'];
-    $regions[$primary]['#data']['width'] = $container;
+    $regions[$primary]['#grid']['columns'] = $container - $regions[$primary]['#grid']['prefix'] - $regions[$primary]['#grid']['suffix'];
 
     foreach (element_children($regions) as $region) {
       if ($region != $primary) {
-        $regions[$primary]['#data']['columns'] -= $regions[$region]['#data']['width'];
-        $regions[$primary]['#data']['width'] -= $regions[$region]['#data']['width'];
+        $regions[$primary]['#grid']['columns'] -= $regions[$region]['#grid']['columns'] + $regions[$region]['#grid']['prefix'] + $regions[$region]['#grid']['suffix'];
       }
     }
-
-    $reference[$GLOBALS['theme_key']][$primary]['width'] = $regions[$region]['#data']['width'];
-    $reference[$GLOBALS['theme_key']][$primary]['columns'] = $regions[$region]['#data']['columns'];
   }
 }
 
@@ -1097,36 +1064,32 @@ function alpha_calculate_primary(&$regions, $primary, $container) {
  */
 function alpha_calculate_position(&$regions) {
   if (!empty($regions)) {
-    $reference = &drupal_static('alpha_regions');
     $children = element_children($regions, TRUE);
 
     foreach ($children as $a => $region) {
       foreach ($children as $b => $inner) {
         if ($region != $inner) {
-          if ($a >= $b && $regions[$region]['#data']['position'] < $regions[$inner]['#data']['position']) {
-            $regions[$region]['#data']['pull'] += $regions[$inner]['#data']['width'];
+          if ($a >= $b && $regions[$region]['#position'] < $regions[$inner]['#position']) {
+            $regions[$region]['#grid']['pull'] += $regions[$inner]['#grid']['columns'] + $regions[$inner]['#grid']['prefix'] + $regions[$inner]['#grid']['suffix'];
           }
-          else if ($a <= $b && $regions[$region]['#data']['position'] > $regions[$inner]['#data']['position']) {
-            $regions[$region]['#data']['push'] += $regions[$inner]['#data']['width'];
+          else if ($a <= $b && $regions[$region]['#position'] > $regions[$inner]['#position']) {
+            $regions[$region]['#grid']['push'] += $regions[$inner]['#grid']['columns'] + $regions[$inner]['#grid']['prefix'] + $regions[$inner]['#grid']['suffix'];
           }
         }
       }
 
-      if ($regions[$region]['#data']['pull'] > $regions[$region]['#data']['push']) {
-        $regions[$region]['#data']['pull'] -= $regions[$region]['#data']['push'];
-        $regions[$region]['#data']['push'] = 0;
+      if ($regions[$region]['#grid']['pull'] > $regions[$region]['#grid']['push']) {
+        $regions[$region]['#grid']['pull'] -= $regions[$region]['#grid']['push'];
+        $regions[$region]['#grid']['push'] = 0;
       }
-      else if ($regions[$region]['#data']['pull'] > $regions[$region]['#data']['push']) {
-        $regions[$region]['#data']['push'] -= $regions[$region]['#data']['pull'];
-        $regions[$region]['#data']['pull'] = 0;
+      else if ($regions[$region]['#grid']['pull'] > $regions[$region]['#grid']['push']) {
+        $regions[$region]['#grid']['push'] -= $regions[$region]['#grid']['pull'];
+        $regions[$region]['#grid']['pull'] = 0;
       }
-      else if ($regions[$region]['#data']['pull'] == $regions[$region]['#data']['push']) {
-        $regions[$region]['#data']['pull'] = 0;
-        $regions[$region]['#data']['push'] = 0;
+      else if ($regions[$region]['#grid']['pull'] == $regions[$region]['#grid']['push']) {
+        $regions[$region]['#grid']['pull'] = 0;
+        $regions[$region]['#grid']['push'] = 0;
       }
-
-      $reference[$GLOBALS['theme_key']][$region]['pull'] = $regions[$region]['#data']['pull'];
-      $reference[$GLOBALS['theme_key']][$region]['push'] = $regions[$region]['#data']['push'];
     }
   }
 }
@@ -1315,7 +1278,7 @@ function alpha_info($item, $theme = NULL) {
  * @return
  *   A nested array of theme settings.
  */
-function alpha_settings($theme = NULL) {
+function alpha_settings($name = NULL, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
   $settings = &drupal_static(__FUNCTION__);
 
@@ -1360,7 +1323,12 @@ function alpha_settings($theme = NULL) {
     alpha_alter('alpha_settings', $settings[$theme], $theme);
   }
   
-  return $settings[$theme];
+  if (isset($name) && isset($settings[$theme][$name])) {
+    return $settings[$theme][$name];
+  }
+  else if (!isset($name)) {
+    return $settings[$theme];
+  }  
 }
 
 /**
