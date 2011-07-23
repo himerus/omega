@@ -8,7 +8,8 @@ require_once dirname(__FILE__) . '/includes/omega.theme.inc';
  */
 function omega_alpha_regions_alter(&$regions, $theme) {
   foreach ($regions as $region => &$item) {
-    $item['equal_height'] = alpha_region_get_setting('equal_height', $region, FALSE, $theme);
+    $item['equal_height_container'] = alpha_region_get_setting('equal_height_container', $region, FALSE, $theme);
+    $item['equal_height_element'] = alpha_region_get_setting('equal_height_element', $region, FALSE, $theme);
   }
 }
 
@@ -17,34 +18,55 @@ function omega_alpha_regions_alter(&$regions, $theme) {
  */
 function omega_alpha_zones_alter(&$zones, $theme) {
   foreach ($zones as $zone => &$item) {
-    $item['equal_height'] = alpha_zone_get_setting('equal_height', $zone, FALSE, $theme);
+    $item['equal_height_container'] = alpha_zone_get_setting('equal_height_container', $zone, FALSE, $theme);
   }
 }
 
 /**
- * Implements hook_preprocess_block().
+ * Implements hook_preprocess_html().
  */
-function omega_preprocess_block(&$vars) {
-  $vars['attributes_array']['class'] = &$vars['classes_array'];  
+function omega_preprocess_html(&$vars) {
+  $theme = alpha_get_theme();
+  $vars['rdf'] = new stdClass;  
   
-  // Adding a class to the title attributes
-  $vars['title_attributes_array']['class'][] = 'block-title';
-
-  // Add odd/even zebra classes into the array of classes
-  $vars['attributes_array']['class'][] = $vars['block_zebra'];
-  
-  if(empty($vars['block']->subject) && (string) $vars['block']->subject != '0') {
-    // Add a class to provide CSS for blocks without titles.
-    $vars['attributes_array']['class'][] = 'block-without-title';
+  if (module_exists('rdf')) {
+    $vars['doctype'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">' . "\n";
+    $vars['rdf']->version = ' version="HTML+RDFa 1.1"';
+    $vars['rdf']->namespaces = $vars['rdf_namespaces'];
+    $vars['rdf']->profile = ' profile="' . $vars['grddl_profile'] . '"';
+  } 
+  else {
+    $vars['doctype'] = '<!DOCTYPE html>' . "\n";
+    $vars['rdf']->version = '';
+    $vars['rdf']->namespaces = '';
+    $vars['rdf']->profile = '';
   }
   
-  if ($vars['block']->module != 'alpha-debug' && isset($vars['block']->region)) {
-    if (alpha_library_active('omega_equalheights') && $region = alpha_regions($vars['block']->region)) {
-      if ($region['equal_height']) {
-        $vars['attributes_array']['class'][] = 'equal-height-element';
+  if ($theme->settings['responsive'] && alpha_library_active('omega_mediaqueries')) {
+    $layouts = array();
+    
+    foreach ($theme->grid['layouts'] as $layout) {
+      if ($layout['responsive']) {
+        $layouts[$layout['layout']] = $layout['media'];
       }
     }
+    
+    drupal_add_js(array('omega' => array(      
+      'layouts' => array(
+        'primary' => $theme->grid['primary'],
+        'order' => array_keys($layouts), 
+        'queries' => $layouts,
+      ),        
+    )), 'setting');
   }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function omega_preprocess_page(&$vars) {
+  $theme = alpha_get_theme();
+  $theme->page = &$vars; 
 }
 
 /**
@@ -64,41 +86,28 @@ function omega_preprocess_comment(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_preprocess_zone().
  */
-function omega_preprocess_html(&$vars) {
-  $vars['rdf'] = new stdClass;  
-  
-  if (module_exists('rdf')) {
-    $vars['doctype'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">' . "\n";
-    $vars['rdf']->version = ' version="HTML+RDFa 1.1"';
-    $vars['rdf']->namespaces = $vars['rdf_namespaces'];
-    $vars['rdf']->profile = ' profile="' . $vars['grddl_profile'] . '"';
-  } 
-  else {
-    $vars['doctype'] = '<!DOCTYPE html>' . "\n";
-    $vars['rdf']->version = '';
-    $vars['rdf']->namespaces = '';
-    $vars['rdf']->profile = '';
+function omega_preprocess_zone(&$vars) {
+  if (alpha_library_active('omega_equalheights')) {
+    if (!empty($vars['elements']['#data']['equal_height_container'])) {
+      $vars['content_attributes_array']['class'][] = 'equal-height-container';
+    }
   }
-  
-  if (alpha_library_active('omega_mediaqueries')) {
-    $grid = alpha_grids(alpha_settings('grid'));
-    $layouts = array();
-    
-    foreach ($grid['layouts'] as $name => $layout) {
-      if ($layout['enabled']) {
-        $layouts[$name] = $layout['media'];
-      }
+}
+
+/**
+ * Implements hook_preprocess_region().
+ */
+function omega_preprocess_region(&$vars) {
+  if (alpha_library_active('omega_equalheights')) {
+    if (!empty($vars['elements']['#data']['equal_height_container'])) {
+      $vars['content_attributes_array']['class'][] = 'equal-height-container';
     }
     
-    drupal_add_js(array('omega' => array(      
-      'layouts' => array(
-        'primary' => $grid['primary'],
-        'order' => array_keys($layouts), 
-        'queries' => $layouts,
-      ),        
-    )), 'setting');
+    if (!empty($vars['elements']['#data']['equal_height_element'])) {
+      $vars['attributes_array']['class'][] = 'equal-height-element';
+    }
   }
 }
 
@@ -144,64 +153,34 @@ function omega_preprocess_node(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_region().
- */
-function omega_preprocess_region(&$vars) {
-  if (isset($vars['elements']['#data'])) {
-    $data = $vars['elements']['#data'];    
-    
-    if (alpha_library_active('omega_equalheights')) {
-      if ($data['equal_height']) {      
-        $vars['content_attributes_array']['class'][] = 'equal-height-container';
-      }
-
-      if ($data['zone'] && $zone = alpha_zones($data['zone'])) {      
-        if ($zone['equal_height']) {
-          $vars['attributes_array']['class'][] = 'equal-height-element';
-        }
-      }
-    }
-  }
-}
-
-/**
- * Implements hook_preprocess_zone().
- */
-function omega_preprocess_zone(&$vars) {
-  $data = $vars['elements']['#data'];
-  
-  if (alpha_library_active('omega_equalheights') && $data['equal_height']) {
-    $vars['content_attributes_array']['class'][] = 'equal-height-container';
-  }
-}
-
-/**
  * Implements hook_process_region().
  */
 function omega_process_region(&$vars) {
   if (in_array($vars['elements']['#region'], array('content', 'menu', 'branding'))) {
+    $theme = alpha_get_theme();
+    
     switch ($vars['elements']['#region']) {
       case 'content':
-        $vars['title_prefix'] = $GLOBALS['page']['title_prefix'];
-        $vars['title'] = $GLOBALS['page']['title'];
-        $vars['title_suffix'] = $GLOBALS['page']['title_suffix'];
-        $vars['tabs'] = $GLOBALS['page']['tabs'];
-        $vars['action_links'] = $GLOBALS['page']['action_links'];      
-        $vars['title_hidden'] = $GLOBALS['page']['title_hidden'];
+        $vars['title_prefix'] = $theme->page['title_prefix'];
+        $vars['title'] = $theme->page['title'];
+        $vars['title_suffix'] = $theme->page['title_suffix'];
+        $vars['tabs'] = $theme->page['tabs'];
+        $vars['action_links'] = $theme->page['action_links'];      
+        $vars['title_hidden'] = $theme->page['title_hidden'];
         break;
       
       case 'menu':
-        $vars['main_menu'] = $GLOBALS['page']['main_menu'];
-        $vars['secondary_menu'] = $GLOBALS['page']['secondary_menu'];
+        $vars['main_menu'] = $theme->page['main_menu'];
+        $vars['secondary_menu'] = $theme->page['secondary_menu'];
         break;
       
       case 'branding':    
-        $vars['site_name'] = $GLOBALS['page']['site_name'];
+        $vars['site_name'] = $theme->page['site_name'];
         $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('rel' => 'home', 'title' => t('Home'), 'html' => TRUE));
-        $vars['site_slogan'] = $GLOBALS['page']['site_slogan'];      
-        $vars['site_name_hidden'] = $GLOBALS['page']['site_name_hidden'];
-        $vars['site_slogan_hidden'] = $GLOBALS['page']['site_slogan_hidden'];
-        $vars['logo'] = $GLOBALS['page']['logo'];
+        $vars['site_slogan'] = $theme->page['site_slogan'];      
+        $vars['site_name_hidden'] = $theme->page['site_name_hidden'];
+        $vars['site_slogan_hidden'] = $theme->page['site_slogan_hidden'];
+        $vars['logo'] = $theme->page['logo'];
         $vars['logo_img'] = $vars['logo'] ? '<img src="' . $vars['logo'] . '" alt="' . $vars['site_name'] . '" id="logo" />' : '';
         $vars['linked_logo_img'] = $vars['logo'] ? l($vars['logo_img'], '<front>', array('rel' => 'home', 'title' => t($vars['site_name']), 'html' => TRUE)) : '';    
         break;      
@@ -213,8 +192,39 @@ function omega_process_region(&$vars) {
  * Implements hook_process_zone().
  */
 function omega_process_zone(&$vars) {
+  $theme = alpha_get_theme();
+  
   if ($vars['elements']['#zone'] == 'content') {
-    $vars['messages'] = $GLOBALS['page']['messages'];
-    $vars['breadcrumb'] = $GLOBALS['page']['breadcrumb'];
+    $vars['messages'] = $theme->page['messages'];
+    $vars['breadcrumb'] = $theme->page['breadcrumb'];
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function omega_preprocess_block(&$vars) {
+  $theme = alpha_get_theme();
+  
+  $vars['attributes_array']['class'] = &$vars['classes_array'];  
+  
+  // Adding a class to the title attributes
+  $vars['title_attributes_array']['class'][] = 'block-title';
+
+  // Add odd/even zebra classes into the array of classes
+  $vars['attributes_array']['class'][] = $vars['block_zebra'];
+  
+  if(empty($vars['block']->subject) && (string) $vars['block']->subject != '0') {
+    // Add a class to provide CSS for blocks without titles.
+    $vars['attributes_array']['class'][] = 'block-without-title';
+  }
+  
+  if ($vars['block']->module != 'alpha-debug' && isset($vars['block']->region)) {
+    if (alpha_library_active('omega_equalheights') && isset($theme->regions[$vars['block']->region])) {
+      if ($theme->regions[$vars['block']->region]['equal_height_container']) {
+        $vars['attributes_array']['class'][] = 'equal-height-element';
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/includes/alpha.inc';
+require_once dirname(__FILE__) . '/includes/base.inc';
 
 /**
  * Implements hook_theme().
@@ -62,14 +63,14 @@ function alpha_preprocess(&$vars, $hook) {
     array_unshift($vars['attributes_array']['class'], 'grid-' . $vars['elements']['#grid']['columns']);
   }
   
-  if (!empty($vars['elements']['#custom_css'])) {
-    foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#custom_css'])) as $class) {
+  if (!empty($vars['elements']['#data']['wrapper_css'])) {
+    foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#data']['wrapper_css'])) as $class) {
       $vars['attributes_array']['class'][] = $class;
     }
   }
 
-  if (!empty($vars['elements']['#custom_content_css'])) {
-    foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#custom_content_css'])) as $class) {
+  if (!empty($vars['elements']['#data']['css'])) {
+    foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#data']['css'])) as $class) {
       $vars['content_attributes_array']['class'][] = $class;
     }
   }
@@ -80,18 +81,8 @@ function alpha_preprocess(&$vars, $hook) {
 /**
  * Implements hook_process().
  */
-function alpha_process(&$vars, $hook) {
+function alpha_process(&$vars, $hook) {  
   alpha_invoke('process', $hook, $vars);
-} 
-
-/**
- * Implements hook_theme_registry_alter().
- */
-function alpha_theme_registry_alter(&$registry) {
-  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-  
-  alpha_clear_cache($theme);
-  alpha_build_registry($registry, $theme);
 }
 
 /**
@@ -107,8 +98,10 @@ function alpha_element_info_alter(&$elements) {
  * Implements hook_css_alter().
  */
 function alpha_css_alter(&$css) {
-  if ($excluded = alpha_settings('excluded')) {  
-    foreach(array_filter($excluded) as $item) {
+  $theme = alpha_get_theme(); 
+  
+  if ($theme->settings['exclude']) {  
+    foreach(array_filter($theme->settings['exclude']) as $item) {
       unset($css[$item]);
     }
   }
@@ -118,9 +111,7 @@ function alpha_css_alter(&$css) {
  * Implements hook_page_alter().
  */
 function alpha_page_alter(&$vars) {
-  $regions = array();
-  $columns = array();
-  $debug = alpha_settings('debug');
+  $theme = alpha_get_theme();
 
   // If no module has taken care of the main content, add it to the page now.
   // This allows the site to still be usable even if no modules that
@@ -128,44 +119,42 @@ function alpha_page_alter(&$vars) {
   if (!drupal_static('system_main_content_added', FALSE)) {
     $vars['content']['system_main'] = drupal_set_page_content();
   }
-  
-  if ($debug['access']) {      
-    if ($debug['grid'] || $debug['block']) {
-      if (empty($vars['page_bottom'])) {
-        $vars['page_bottom']['#region'] = 'page_bottom';
-        $vars['page_bottom']['#theme_wrappers'] = array('region');
-      }
-      
-      if (alpha_settings('responsive')) {        
-        $vars['page_bottom']['alpha_resize_indicator'] = array(
-          '#type' => 'markup',
-          '#markup' => '<div class="alpha-resize-indicator"></div>',
-        );
-      }
-      
-      if ($debug['grid']) {
-        $vars['page_bottom']['alpha_grid_toggle'] = array(
-          '#type' => 'markup',
-          '#markup' => '<a class="alpha-grid-toggle" href="#"></a>',
-        );
-      }
-      
-      if ($debug['block']) {
-        $vars['page_bottom']['alpha_block_toggle'] = array(
-          '#type' => 'markup',
-          '#markup' => '<a class="alpha-block-toggle" href="#"></a>',
-        );
-      }
+
+  if ($theme->settings['debug']['access'] && ($theme->settings['debug']['grid'] || $theme->settings['debug']['block'])) {
+    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('group' => CSS_THEME, 'weight' => -5));   
+    drupal_add_js(drupal_get_path('theme', 'alpha') . '/js/alpha-debug.js', array('group' => JS_THEME, 'weight' => -5));
+
+    if (empty($vars['page_bottom'])) {
+      $vars['page_bottom']['#region'] = 'page_bottom';
+      $vars['page_bottom']['#theme_wrappers'] = array('region');
     }
-    
-    if ($debug['block']) {      
-      foreach (alpha_regions() as $region => $item) {
+
+    if ($theme->settings['responsive']) {        
+      $vars['page_bottom']['alpha_resize_indicator'] = array(
+        '#type' => 'markup',
+        '#markup' => '<div class="alpha-resize-indicator"></div>',
+      );
+    }
+
+    if ($theme->settings['debug']['grid']) {
+      $vars['page_bottom']['alpha_grid_toggle'] = array(
+        '#type' => 'markup',
+        '#markup' => '<a class="alpha-grid-toggle" href="#"></a>',
+      );
+    }
+    if ($theme->settings['debug']['block']) {
+      $vars['page_bottom']['alpha_block_toggle'] = array(
+        '#type' => 'markup',
+        '#markup' => '<a class="alpha-block-toggle" href="#"></a>',
+      );
+
+      foreach ($theme->regions as $region => $item) {
         if ($item['enabled']) {  
           if (empty($vars[$region])) {
             $vars[$region]['#region'] = $region;
             $vars[$region]['#theme_wrappers'] = array('region');
           }
-          
+
           $vars[$region]['#sorted'] = FALSE;
           $vars[$region]['alpha_debug_' . $region] = array(       
             '#type' => 'markup',
@@ -176,14 +165,25 @@ function alpha_page_alter(&$vars) {
       }
     }
   }
+
+  if (!module_implements('alpha_page_structure')) {
+    alpha_alter('alpha_page_structure', $vars, $theme->theme);
+  }
+}
+
+/**
+ * Implements hook_alpha_page_alter().
+ */
+function alpha_alpha_page_structure_alter(&$vars) {
+  $theme = alpha_get_theme();
+  $regions = array();
   
-  foreach (alpha_regions() as $region => $item) {
+  foreach ($theme->regions as $region => $item) { 
     if ($item['enabled'] && ($item['force'] || !empty($vars[$region]))) {
       $regions[$item['zone']][$region] = !empty($vars[$region]) ? $vars[$region] : array();
       $regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
       $regions[$item['zone']][$region]['#position'] = $item['position'];
       $regions[$item['zone']][$region]['#data'] = $item;
-      $regions[$item['zone']][$region]['#custom_css'] = $item['css'];
       $regions[$item['zone']][$region]['#grid'] = array(
         'prefix' => $item['prefix'],
         'suffix' => $item['suffix'],
@@ -191,7 +191,7 @@ function alpha_page_alter(&$vars) {
         'pull' => $item['pull'],
         'columns' => $item['columns'],
       );
-      
+
       if (empty($vars[$region])) {
         $regions[$item['zone']][$region]['#region'] = $region;
         $regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
@@ -201,7 +201,6 @@ function alpha_page_alter(&$vars) {
       $vars['#excluded'][$region] = !empty($vars[$region]) ? $vars[$region] : array();
       $vars['#excluded'][$region]['#weight'] = (int) $item['weight'];
       $vars['#excluded'][$region]['#data'] = $item;
-      $vars['#excluded'][$region]['#custom_css'] = $item['css'];
       $vars['#excluded'][$region]['#grid'] = array(
         'prefix' => $item['prefix'],
         'suffix' => $item['suffix'],
@@ -210,42 +209,34 @@ function alpha_page_alter(&$vars) {
         'columns' => $item['columns'],
       );
     }
-    
+
     unset($vars[$region]);
   }
-  
-  foreach (alpha_zones() as $zone => $item) {
+
+  foreach ($theme->zones as $zone => $item) { 
     if ($item['enabled'] && ($item['force'] || !empty($regions[$zone]))) {
-      $columns[$item['columns']] = $item['columns'];
-      
       if (isset($item['primary']) && isset($regions[$zone][$item['primary']])) {
         alpha_calculate_primary($regions[$zone], $item['primary'], $item['columns']);
       }
-      
+
       if ($item['order']) {
         alpha_calculate_position($regions[$zone]);
       }
-      
+
       $vars[$item['section']][$zone] = !empty($regions[$zone]) ? $regions[$zone] : array();
       $vars[$item['section']][$zone]['#theme_wrappers'] = array('zone');      
       $vars[$item['section']][$zone]['#zone'] = $zone;
       $vars[$item['section']][$zone]['#weight'] = (int) $item['weight'];
-      $vars[$item['section']][$zone]['#data'] = $item;  
+      $vars[$item['section']][$zone]['#data'] = $item;
       $vars[$item['section']][$zone]['#data']['dynamic'] = isset($item['primary']) && isset($vars[$item['section']][$zone][$item['primary']]);
-      $vars[$item['section']][$zone]['#custom_css'] = $item['wrapper_css'];
-      $vars[$item['section']][$zone]['#custom_content_css'] = $item['css'];
     }
   }
 
-  foreach (alpha_sections() as $section => $item) {
+  foreach ($theme->sections as $section => $item) {
     if (isset($vars[$section])) {   
       $vars[$section]['#theme_wrappers'] = array('section');
       $vars[$section]['#section'] = $section;
     }
-  }
-  
-  foreach ($columns as $count) {
-    alpha_grid_include(alpha_settings('grid'), $count, alpha_settings('responsive'));
   }
 }
 
@@ -278,6 +269,8 @@ function template_preprocess_zone(&$vars) {
     $vars['attributes_array']['id'] = drupal_html_id($vars['content_attributes_array']['id'] . '-wrapper');
     $vars['attributes_array']['class'] = array('zone-wrapper', 'zone-' . $vars['type'] . '-wrapper', $vars['attributes_array']['id'], 'clearfix');
   }
+  
+  alpha_grid_include($vars['columns']);
 }
 
 /**
@@ -293,10 +286,8 @@ function alpha_preprocess_block(&$vars) {
 /**
  * Implements hook_preprocess_html().
  */
-function alpha_preprocess_html(&$vars) { 
-  $settings = alpha_settings();
-  $css = alpha_css();
-  $libraries = alpha_libraries();
+function alpha_preprocess_html(&$vars) {
+  $theme = alpha_get_theme();
   
   $vars['attributes_array']['class'] = &$vars['classes_array'];
   
@@ -316,69 +307,45 @@ function alpha_preprocess_html(&$vars) {
     }
   }
   
-  if (($settings['debug']['grid'] || $settings['debug']['block']) && $settings['debug']['access']) {
-    drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('group' => CSS_THEME, 'weight' => -5));   
-    drupal_add_js(drupal_get_path('theme', 'alpha') . '/js/alpha-debug.js', array('group' => JS_THEME, 'weight' => -5));
-    
-    if ($settings['debug']['grid'] && $settings['debug']['grid_active']) {
+  if (($theme->settings['debug']['grid'] || $theme->settings['debug']['block']) && $theme->settings['debug']['access']) {
+    if ($theme->settings['debug']['grid'] && $theme->settings['debug']['grid_active']) {
       $vars['attributes_array']['class'][] = 'alpha-grid-debug';
     }
     
-    if ($settings['debug']['block'] && $settings['debug']['block_active']) {
+    if ($theme->settings['debug']['block'] && $theme->settings['debug']['block_active']) {
       $vars['attributes_array']['class'][] = 'alpha-region-debug';
     }
   }
-
-  foreach (array_filter($settings['libraries']) as $item) {
-    if (isset($libraries[$item])) {
-      if (!empty($libraries[$item]['js'])) {
-        foreach ($libraries[$item]['js'] as $include) {
-          drupal_add_js($include['path'], $include['options']);
-        }
-      }
-
-      if (!empty($libraries[$item]['css'])) {
-        foreach ($libraries[$item]['css'] as $include) {
-          drupal_add_css($include['path'], $include['options']);
-        }
-      }
-    }
-  }
-
-  foreach (array_filter($settings['css']) as $item) {
-    if (isset($css[$item])) {
-      drupal_add_css($css[$item]['path'], $css[$item]['options']);
-    }
-  }
-
-  if($settings['responsive'] && $settings['viewport']['enabled']) {
+  
+  if($theme->settings['responsive'] && $theme->settings['viewport']['enabled']) {
     $meta = array(
       '#tag' => 'meta',
       '#attributes' => array(
         'name' => 'viewport',
-        'content' => 'width=device-width, initial-scale=' . $settings['viewport']['initial'] . ', maximum-scale=' . $settings['viewport']['max'] . ', minimum-scale=' . $settings['viewport']['min'] . ', user-scalable=' . ($settings['viewport']['user'] ? 'yes' : 'no'),
+        'content' => 'width=device-width, initial-scale=' . $theme->settings['viewport']['initial'] . ', maximum-scale=' . $theme->settings['viewport']['max'] . ', minimum-scale=' . $theme->settings['viewport']['min'] . ', user-scalable=' . ($theme->settings['viewport']['user'] ? 'yes' : 'no'),
       ),
     );
 
     drupal_add_html_head($meta, 'alpha-viewport');
   }
+  
+  alpha_css_include();
+  alpha_libraries_include();
 }
 
 /**
  * Implements hook_preprocess_page().
  */
 function alpha_preprocess_page(&$vars) {
-  $GLOBALS['page'] = &$vars;
-  $toggle = alpha_settings('toggle');
-  $hidden = alpha_settings('hidden');
+  $theme = alpha_get_theme();
   
-  $vars['feed_icons'] = $toggle['feed_icons'] ? $vars['feed_icons'] : NULL;
-  $vars['tabs'] = $toggle['tabs'] ? $vars['tabs'] : NULL;
-  $vars['action_links'] = $toggle['action_links'] ? $vars['action_links'] : NULL;
-  $vars['show_messages'] = $toggle['messages'] ? $vars['show_messages'] : FALSE;  
-  $vars['site_name_hidden'] = $hidden['site_name'];
-  $vars['site_slogan_hidden'] = $hidden['site_slogan'];
-  $vars['title_hidden'] = $hidden['title'];   
+  $vars['feed_icons'] = $theme->settings['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
+  $vars['tabs'] = $theme->settings['toggle']['tabs'] ? $vars['tabs'] : NULL;
+  $vars['action_links'] = $theme->settings['toggle']['action_links'] ? $vars['action_links'] : NULL;
+  $vars['show_messages'] = $theme->settings['toggle']['messages'] ? $vars['show_messages'] : FALSE;  
+  $vars['site_name_hidden'] = $theme->settings['hidden']['site_name'];
+  $vars['site_slogan_hidden'] = $theme->settings['hidden']['site_slogan'];
+  $vars['title_hidden'] = $theme->settings['hidden']['title'];   
   $vars['attributes_array']['id'] = 'page';
   $vars['attributes_array']['class'] = array('clearfix');
 }
@@ -396,8 +363,8 @@ function alpha_preprocess_region(&$vars) {
  * Implements hook_process_page().
  */
 function alpha_process_page(&$vars) {
-  $toggle = alpha_settings('toggle');
-
-  $vars['title'] = $toggle['page_title'] ? $vars['title'] : NULL;
-  $vars['breadcrumb'] = $toggle['breadcrumb'] ? $vars['breadcrumb'] : NULL;
+  $theme = alpha_get_theme();
+  
+  $vars['title'] = $theme->settings['toggle']['page_title'] ? $vars['title'] : NULL;
+  $vars['breadcrumb'] = $theme->settings['toggle']['breadcrumb'] ? $vars['breadcrumb'] : NULL;
 }

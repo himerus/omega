@@ -9,13 +9,10 @@
  * @todo
  */
 function alpha_theme_settings_structure(&$form, &$form_state) {
-  $theme = $form_state['build_info']['args'][0];
-  $zones = $form_state['alpha_zones'];
-  $regions = $form_state['alpha_regions'];
-  $containers = $form_state['alpha_containers'];
-  $options = alpha_zone_options($theme);
+  $theme = alpha_get_theme();
+  $containers = alpha_container_options($theme->settings['grid'], $theme->theme);
+  $options = alpha_zone_options($theme->zones);
   $columns = $spacing = !empty($containers) ? alpha_column_options(max(array_keys($containers))) : array();  
-  $sections = alpha_sections();
   
   unset($columns[0]);
   array_pop($spacing);
@@ -46,7 +43,7 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
     ),
   );
   
-  foreach ($sections as $section => $name) {
+  foreach ($theme->sections as $section => $name) {
     $form['alpha_settings']['structure'][$section] = array(
       '#type' => 'fieldset',
       '#title' => $name . ' ' . t('Section'),
@@ -54,7 +51,7 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
     );
   }
   
-  foreach ($zones as $zone => $item) {
+  foreach ($theme->zones as $zone => $item) {
     $section = $item['enabled'] ? $item['section'] : '__unassigned__';
     
     unset($form['alpha_settings']['structure'][$section]['#description']);
@@ -107,7 +104,7 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
       '#title' => t('Section'),
       '#default_value' => $item['section'],
       '#element_validate' => array('alpha_theme_settings_validate_not_empty'),
-      '#options' => array('_none' => '- None -') + $sections,
+      '#options' => array('_none' => '- None -') + $theme->sections,
     );
     
     $form['alpha_settings']['structure'][$section][$zone]['zone']['alpha_zone_' . $zone . '_weight'] = array(
@@ -130,7 +127,7 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
       '#type' => 'select',
       '#title' => t('Primary Region'),
       '#default_value' => $item['primary'],
-      '#options' => array('_none' => t('- None -')) + alpha_zone_regions($zone),
+      '#options' => array('_none' => t('- None -')) + alpha_zone_regions($zone, $theme->regions),
       '#element_validate' => array('alpha_theme_settings_validate_not_empty', 'alpha_theme_settings_validate_primary'),
       '#zone' => $zone,
     );
@@ -166,9 +163,9 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
     );
   }
   
-  foreach($regions as $region => $item) {
+  foreach($theme->regions as $region => $item) {
     $zone = $item['enabled'] ? $item['zone'] : '__unassigned__';
-    $section = $item['enabled'] && $zones[$item['zone']]['enabled'] ? $zones[$item['zone']]['section'] : '__unassigned__';
+    $section = $item['enabled'] && $theme->zones[$item['zone']]['enabled'] ? $theme->zones[$item['zone']]['section'] : '__unassigned__';
     
     unset($form['alpha_settings']['structure'][$section][$zone]['regions']['#description']);
 
