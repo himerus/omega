@@ -62,14 +62,6 @@ function omega_preprocess_html(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_page().
- */
-function omega_preprocess_page(&$vars) {
-  $theme = alpha_get_theme();
-  $theme->page = &$vars; 
-}
-
-/**
  * Implements hook_preprocess_comment().
  */
 function omega_preprocess_comment(&$vars) {

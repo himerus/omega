@@ -338,6 +338,7 @@ function alpha_preprocess_html(&$vars) {
  */
 function alpha_preprocess_page(&$vars) {
   $theme = alpha_get_theme();
+  $theme->page = &$vars;
   
   $vars['feed_icons'] = $theme->settings['toggle']['feed_icons'] ? $vars['feed_icons'] : NULL;
   $vars['tabs'] = $theme->settings['toggle']['tabs'] ? $vars['tabs'] : NULL;
