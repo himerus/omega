@@ -230,11 +230,7 @@ function alpha_get_theme() {
   $delta = isset($GLOBALS['delta']) ? $GLOBALS['delta']->machine_name : NULL;
   $key = $theme . (isset($delta) ? ':' . $delta : '');
     
-  if (!isset($container[$key])) {
-    $theme = $GLOBALS['theme_key'];
-    $delta = isset($GLOBALS['delta']) ? $GLOBALS['delta']->machine_name : NULL;
-    $key = $theme . (isset($delta) ? ':' . $delta : '');
-  
+  if (!isset($container[$key])) {  
     foreach (array_keys(alpha_theme_trail($theme)) as $item) {
       if (class_exists($item . '_theme_container')) {
         $class = $item . '_theme_container';
@@ -259,8 +255,8 @@ function alpha_grid_include($columns) {
     $processed[$columns] = TRUE;
     $theme = alpha_get_theme();
     
-    if (!empty($theme->grid['css'])) {
-      foreach ($theme->grid['css'] as &$item) {
+    if (!empty($theme->grid)) {
+      foreach ($theme->grid as &$item) {
         if (empty($item['processed']) && (empty($item['columns']) || $item['columns'] == $columns)) {
           $item['processed'] = TRUE;
 
@@ -269,33 +265,49 @@ function alpha_grid_include($columns) {
       }
     }
     
-    if ($theme->settings['debug']['access'] && $theme->settings['debug']['grid'] && isset($theme->grid['layouts'][$theme->grid['primary']])) {
-      $layouts = $theme->settings['responsive'] ? $theme->grid['layouts'] : array($theme->grid['primary'] => $theme->grid['layouts'][$theme->grid['primary']]);
-      $nonie = $theme->settings['responsive'] ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE);
-      $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
-      
-      foreach ($layouts as $layout => $info) {
-        $file = $theme->grid['path'] . '/' . $info['sanitized'] . '/' . $theme->grid['sanitized'] . '-' . $info['sanitized'] . '-' . $columns . '.png';
-        $overlay = '.alpha-grid-debug .container-' . $columns . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
-        
-        if ($theme->settings['responsive'] && $layout == $theme->grid['primary']) {
-          drupal_add_css($overlay, array(
-            'type' => 'inline',
-            'media' => 'all', 
-            'browsers' => $ie, 
-            'group' => -2000,
-            'weight' => $info['weight'],
-          ));
-        }
+    if ($theme->settings['debug']['access'] && $theme->settings['debug']['grid']) {
+      //alpha_grid_debug($theme->theme, $theme->settings['grid'], $theme->settings['responsive'], $columns);
+    }
+  }
+}
 
+/**
+ * @todo
+ */
+function alpha_grid_debug($theme, $grid, $responsive, $columns) {
+  $grids = alpha_retrieve_grids($theme);
+  
+  if (isset($grids[$grid]) && isset($grids[$grid]['columns'][$columns])) {
+    $dashed = str_replace('_', '-', $grid);
+    $primary = alpha_theme_get_setting('alpha_primary_' . $grid, NULL, $theme);
+    $layouts = !$responsive ? (isset($grids[$grid]['layouts'][$primary]) ? array($primary) : array()) : array_keys($grids[$grid]['layouts']);
+    $nonie = $responsive ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE);
+    $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+
+    foreach ($layouts as $layout) {
+      $sanitized = str_replace('_', '-', $layout);
+      $media = $responsive ? alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $name . '_media', 'all', $theme) : 'all';
+      $weight = alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_weight', 0, $theme);
+      $file = $grids[$grid]['path'] . '/' . $sanitized . '/' . $dashed . '-' . $sanitized . '-' . $columns . '.png';
+      $overlay = '.alpha-grid-debug .container-' . $columns . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
+       
+      if ($responsive && $layout == $primary) {
         drupal_add_css($overlay, array(
-          'type' => 'inline',          
-          'browsers' => $nonie,
-          'group' => -1000,
-          'weight' => $info['weight'],
-          'media' => $info['media'],
+          'type' => 'inline',
+          'media' => 'all', 
+          'browsers' => $ie, 
+          'group' => -2000,
+          'weight' => $weight,
         ));
       }
+
+      drupal_add_css($overlay, array(
+        'type' => 'inline',          
+        'browsers' => $nonie,
+        'group' => -1000,
+        'weight' => $weight,
+        'media' => $media,
+      ));
     }
   }
 }
@@ -576,7 +588,7 @@ function alpha_cache_clear($theme, $delta = NULL) {
 function alpha_cache_set($theme) {
   $cache = new stdClass();
   
-  foreach ($theme->cacheable() as $item) {
+  foreach (array_keys($theme->cacheable()) as $item) {
     if (isset($theme->$item)) {
       $cache->$item = $theme->$item;
     }
@@ -804,25 +816,38 @@ function alpha_retrieve_excludes($theme) {
  * @todo
  */
 function alpha_retrieve_grids($theme) {
-  $cache = &drupal_static(__FUNCTION__);
   $output = array();
-  
-  if (!isset($cache[$theme])) {
-    foreach (alpha_info_trail('grids', $theme) as $key => $data) {
-      foreach ($data as $grid => $info) {
-        $cache[$theme][$grid] = array(
-          'theme' => $key,
-          'grid' => $grid,
-          'name' => $info['name'],
-          'layouts' => $info['layouts'],
-          'columns' => $info['columns'],        
-          'path' => drupal_get_path('theme', $key) . '/css/grid/' . $grid,
+
+  foreach (alpha_info_trail('grids', $theme) as $key => $data) {
+    foreach ($data as $grid => $info) {
+      $output[$grid] = array(
+        'theme' => $key,
+        'grid' => $grid,
+        'name' => $info['name'],
+        'layouts' => $info['layouts'],
+        'columns' => $info['columns'],        
+        'path' => drupal_get_path('theme', $key) . '/css/grid/' . $grid,
+      );
+
+      $output[$grid]['primary'] = alpha_theme_get_setting('alpha_primary_' . $grid, key($info['layouts']), $theme);
+
+      foreach ($output[$grid]['layouts'] as $layout => $title) {
+        $output[$grid]['layouts'][$layout] = array(
+          'layout' => $layout,
+          'name' => $title,
+          'enabled' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_responsive', FALSE, $theme),
+          'media' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_media', 'all', $theme),
+          'weight' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_weight', 0, $theme),
         );
       }
+
+      uasort($output[$grid]['layouts'], 'alpha_sort_layouts');
     }
   }
+    
+  alpha_alter('alpha_grids', $output, $theme);
   
-  return $cache[$theme];
+  return $output;
 }
 
 /**
@@ -843,6 +868,8 @@ function alpha_retrieve_css($theme) {
       );
     }
   }
+
+  alpha_alter('alpha_css', $output, $theme);
   
   return $output;
 }
@@ -852,7 +879,7 @@ function alpha_retrieve_css($theme) {
  */
 function alpha_retrieve_libraries($theme) {
   $output = array();
-  
+
   foreach (alpha_info_trail('libraries', $theme) as $key => $data) {
     foreach ($data as $name => $info) {
       $output[$name] = array(
@@ -867,6 +894,112 @@ function alpha_retrieve_libraries($theme) {
               'file' => $item['file'],
               'path' => drupal_get_path('theme', $key) . '/' . (isset($item['path']) ? $item['path'] : $type) . '/' . $item['file'],
               'options' => (isset($item['options']) ? $item['options'] : array()) + array('group' => ($type == 'css' ? CSS_THEME : JS_THEME)),
+            );
+          }
+        }
+      }
+    }
+  }
+    
+  alpha_alter('alpha_libraries', $output, $theme);
+  
+  return $output;
+}
+
+/**
+ * @todo
+ */
+function alpha_grid_css($theme, $grid, $responsive) {
+  $dashed = str_replace('_', '-', $grid['grid']);
+  $layouts = !$responsive ? (isset($grid['layouts'][$primary]) ? array($grid['primary']) : array()) : array_keys($grid['layouts']); 
+  $columns = array_keys($grid['columns']);
+  $output = array();
+  
+  if (!empty($layouts)) {
+    $trail = array_keys(alpha_theme_trail($theme));
+    $nonie = $responsive ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE);
+    $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+    
+    foreach ($layouts as $layout) {
+      $enabled = $grid['layouts'][$layout]['enabled'];
+      
+      if (!$responsive || $enabled) {        
+        $media = $responsive ? $grid['layouts'][$layout]['media'] : 'all';
+        $weight = $grid['layouts'][$layout]['weight'];
+        $sanitized = str_replace('_', '-', $layout);        
+        $attached = array();
+
+        foreach ($trail as $item) {
+          $path = drupal_get_path('theme', $item) . '/css';
+          $file = str_replace('_', '-', $item) . '-' . $dashed;
+
+          if ($item = alpha_find_stylesheet($path, $file)) {
+            $attached[] = $item;
+          }
+
+          if ($item = alpha_find_stylesheet($path, $file . '-' . $sanitized)) {
+            $attached[] = $item;
+          }
+        }
+
+        foreach ($attached as $item) {
+          $basename = $layout . '::' . $item;
+
+          $output[$basename]['processed'] = FALSE;
+          $output[$basename]['item'] = $basename;
+          $output[$basename]['options'] = array(
+            'group' => 2000,
+            'weight' => $weight,                
+            'data' => $item, 
+            'basename' => $basename,                
+            'media' => $media,
+            'browsers' => $nonie,
+            'aggregate' => TRUE,                
+          );
+
+          if ($responsive && $grid['primary'] == $layout) {
+            $basename = 'ie::' . $basename;
+
+            $output[$basename]['processed'] = FALSE;
+            $output[$basename]['item'] = $basename;
+            $output[$basename]['options'] = array(
+              'group' => 1000,
+              'weight' => $weight,
+              'data' => $item, 
+              'basename' => $basename,
+              'browsers' => $ie,
+            );
+          }
+        }
+
+        $path = $grid['path'] . '/' . $layout . '/' . $dashed . '-' . $sanitized;
+
+        foreach ($columns as $count) {
+          $file = $path . '-' . $count . '.css';
+
+          $output[$file]['processed'] = FALSE;
+          $output[$file]['columns'] = $count;
+          $output[$file]['item'] = $file;
+          $output[$file]['options'] = array(
+            'group' => 2000,
+            'weight' => $weight,
+            'media' => $media,
+            'browsers' => $nonie,          
+            'aggregate' => TRUE,
+          );
+
+          if ($responsive && $grid['primary'] == $layout) {                
+            $basename = 'ie::' . $layout . '::' . $path . '-' . $count . '.css';
+
+            $output[$basename]['processed'] = FALSE;
+            $output[$basename]['columns'] = $count;
+            $output[$basename]['item'] = $basename;
+            $output[$basename]['options'] = array(
+              'group' => 1000,
+              'weight' => $weight,
+              'data' => $file,
+              'basename' => $basename,
+              'browsers' => $ie,                
             );
           }
         }

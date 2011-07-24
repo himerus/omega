@@ -138,9 +138,9 @@ function alpha_scale_options($start, $end, $step) {
  * @return 
  *   An array of optional or responsive stylesheet options.
  */
-function alpha_css_options($theme) {
+function alpha_css_options($css) {
   $output = array();
-  foreach (alpha_retrieve_css($theme) as $key => $info) {
+  foreach ($css as $key => $info) {
     $output[$key] = '<strong>' . check_plain($info['name']) . '</strong> (' . (isset($info['options']['media']) ? $info['options']['media'] : 'all') . ') - ' . $info['file'] . '<div class="description">' . $info['description'] . '</div>';
   }
   
@@ -183,9 +183,9 @@ function alpha_exclude_options($theme) {
  * @return 
  *   An array of available grids.
  */
-function alpha_grid_options($theme) {  
+function alpha_grid_options($grids) {
   $output = array();
-  foreach (alpha_retrieve_grids($theme) as $key => $info) {
+  foreach ($grids as $key => $info) {
     $output[$key] = check_plain($info['name']);
   }
     
@@ -204,13 +204,11 @@ function alpha_grid_options($theme) {
  * @return 
  *   An array of available layouts.
  */
-function alpha_grid_layouts_options($theme, $grid) {
-  $grids = alpha_retrieve_grids($theme);
-  
+function alpha_grid_layouts_options($grid) {
   $output = array();
-  if (isset($grids[$grid]) && !empty($grids[$grid]['layouts'])) {
-    foreach ($grids[$grid]['layouts'] as $key => $title) {
-      $output[$key] = check_plain($title);
+  if (!empty($grid['layouts'])) {
+    foreach ($grid['layouts'] as $key => $info) {
+      $output[$key] = check_plain($info['name']);
     }
   }
     
@@ -226,9 +224,9 @@ function alpha_grid_layouts_options($theme, $grid) {
  * @return 
  *   An array of available libraries.
  */
-function alpha_library_options($theme) {
+function alpha_library_options($libraries) {      
   $output = array();
-  foreach (alpha_retrieve_libraries($theme) as $key => $info) {
+  foreach ($libraries as $key => $info) {
     $output[$key] = check_plain($info['name']) . '<div class="description">' . $info['description'] . '</div>';
   }
   
@@ -247,12 +245,10 @@ function alpha_library_options($theme) {
  * @return 
  *   An array of available containers.
  */
-function alpha_container_options($grid, $theme) {
-  $grids = alpha_retrieve_grids($theme);
-  
+function alpha_container_options($grid) {
   $output = array();
-  if (isset($grids[$grid]) && !empty($grids[$grid]['columns'])) {
-    foreach ($grids[$grid]['columns'] as $count => $title) {
+  if (!empty($grid['columns'])) {
+    foreach ($grid['columns'] as $count => $title) {
       $output[$count] = t('@count Columns', array('@count' => $count));
     }
   }
@@ -270,8 +266,7 @@ function alpha_container_options($grid, $theme) {
  *   An array of available columns counts.
  */
 function alpha_column_options($max = NULL) {
-  $output = array();
-  
+  $output = array();  
   if (isset($max)) {
     foreach (range(0, $max) as $width) {
       $output[$width] = t('@width Columns', array('@width' => $width));

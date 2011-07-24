@@ -45,19 +45,21 @@ function omega_preprocess_html(&$vars) {
   if ($theme->settings['responsive'] && alpha_library_active('omega_mediaqueries')) {
     $layouts = array();
     
-    foreach ($theme->grid['layouts'] as $layout) {
-      if ($layout['responsive']) {
-        $layouts[$layout['layout']] = $layout['media'];
+    if (isset($theme->grids[$theme->settings['grid']])) {
+      foreach ($theme->grids[$theme->settings['grid']]['layouts'] as $layout) {
+        if ($layout['enabled']) {
+          $layouts[$layout['layout']] = $layout['media'];
+        }
       }
+
+      drupal_add_js(array('omega' => array(      
+        'layouts' => array(
+          'primary' => $theme->grids[$theme->settings['grid']]['primary'],
+          'order' => array_keys($layouts), 
+          'queries' => $layouts,
+        ),        
+      )), 'setting');
     }
-    
-    drupal_add_js(array('omega' => array(      
-      'layouts' => array(
-        'primary' => $theme->grid['primary'],
-        'order' => array_keys($layouts), 
-        'queries' => $layouts,
-      ),        
-    )), 'setting');
   }
 }
 

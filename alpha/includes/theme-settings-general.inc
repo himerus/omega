@@ -11,8 +11,8 @@
 function alpha_theme_settings_general(&$form, &$form_state) {
   $theme = alpha_get_theme();
   $scales = alpha_scale_options(1, 10, 0.5);  
-  $optional = alpha_css_options($theme->theme);
-  $libraries = alpha_library_options($theme->theme);
+  $optional = alpha_css_options($theme->css);
+  $libraries = alpha_library_options($theme->libraries);
   $exclude = alpha_exclude_options($theme->theme);
   $toggle = alpha_toggle();
   
@@ -27,7 +27,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#description' => t('Select the grid system that you want to use for this layout.'),
     '#title' => t('Grid system'),
     '#default_value' => $theme->settings['grid'],
-    '#options' => alpha_grid_options($theme->theme),
+    '#options' => alpha_grid_options($theme->grids),
   );
   
   $form['alpha_settings']['layout']['responsive_settings'] = array(
@@ -96,7 +96,7 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     '#default_value' => $theme->settings['viewport']['user'],
   );
   
-  foreach (alpha_retrieve_grids($theme->theme) as $grid => $info) {
+  foreach ($theme->grids as $grid => $info) {
     $form['alpha_settings']['layout']['grid_layouts'][$grid] = array(
       '#type' => 'fieldset',
       '#title' => t('@grid layout settings', array('@grid' => $info['name'])),
@@ -110,15 +110,15 @@ function alpha_theme_settings_general(&$form, &$form_state) {
     $form['alpha_settings']['layout']['grid_layouts'][$grid]['alpha_primary_' . $grid] = array(
       '#type' => 'select',
       '#title' => t('Primary layout'),
-      '#default_value' => alpha_theme_get_setting('alpha_primary_' . $grid, NULL, $theme->theme),
-      '#options' => alpha_grid_layouts_options($theme->theme, $grid),
+      '#default_value' => $info['primary'],
+      '#options' => alpha_grid_layouts_options($theme->grids[$grid]),
       '#description' => t('The primary layout will be used in case you disable the "responsive grid" option aswell as for older versions of Internet Explorer.'),
     );
     
-    foreach ($info['layouts'] as $layout => $title) {
+    foreach ($info['layouts'] as $layout => $data) {
       $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout] = array(
         '#type' => 'fieldset',
-        '#title' => t('@layout layout', array('@layout' => $title)),
+        '#title' => t('@layout layout', array('@layout' => $data['name'])),
         '#states' => array(
           'visible' => array(
             ':input[name="alpha_responsive"]' => array('checked' => TRUE),
@@ -129,14 +129,14 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_responsive'] = array(
         '#type' => 'checkbox',
         '#title' => t('Use this layout with the responsive grid'),
-        '#default_value' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_responsive', FALSE, $theme->theme),
+        '#default_value' => $data['enabled'],
       );
       
       $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_weight'] = array(
         '#type' => 'weight',
         '#title' => t('Weight'),
         '#description' => t('The weight of this layout.'),
-        '#default_value' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_weight', FALSE, $theme->theme),
+        '#default_value' => $data['weight'],
         '#states' => array(
           'visible' => array(
             ':input[name="alpha_layouts_' . $grid . '_' . $layout . '_responsive"]' => array('checked' => TRUE),
@@ -147,8 +147,8 @@ function alpha_theme_settings_general(&$form, &$form_state) {
       $form['alpha_settings']['layout']['grid_layouts'][$grid][$layout]['alpha_layouts_' . $grid . '_' . $layout . '_media'] = array(
         '#type' => 'textfield',
         '#title' => t('Media query'),
-        '#description' => t('The @media query that the @layout layout should respond to.', array('@layout' => $title)),
-        '#default_value' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_media', FALSE, $theme->theme),
+        '#description' => t('The @media query that the @layout layout should respond to.', array('@layout' => $data['name'])),
+        '#default_value' => $data['media'],
         '#maxlength' => 255,
         '#size' => 140,
         '#states' => array(

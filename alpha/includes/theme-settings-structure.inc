@@ -10,7 +10,7 @@
  */
 function alpha_theme_settings_structure(&$form, &$form_state) {
   $theme = alpha_get_theme();
-  $containers = alpha_container_options($theme->settings['grid'], $theme->theme);
+  $containers = isset($theme->grids[$theme->settings['grid']]) ? alpha_container_options($theme->grids[$theme->settings['grid']]) : array();
   $options = alpha_zone_options($theme->zones);
   $columns = $spacing = !empty($containers) ? alpha_column_options(max(array_keys($containers))) : array();  
   

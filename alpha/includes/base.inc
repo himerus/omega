@@ -10,6 +10,7 @@ class alpha_theme_container {
   var $settings;
   var $css;
   var $grid;
+  var $grids;
   var $libraries;
   var $sections;
   var $zones;
@@ -27,11 +28,16 @@ class alpha_theme_container {
         $this->$key = $item;
       }
     }
-    else {
-      $this->init();
-      
-      alpha_alter('alpha', $this, $theme, $delta);
-      alpha_cache_set($this);
+    
+    foreach ($this->cacheable() as $item => $required) {
+      if ($required && !isset($this->$item)) {
+        $this->init();
+        
+        alpha_alter('alpha', $this, $theme, $delta);
+        alpha_cache_set($this);
+        
+        return;
+      }
     }
   }
   
@@ -43,6 +49,7 @@ class alpha_theme_container {
     $this->sections();
     $this->zones();    
     $this->regions();
+    $this->grids();
     $this->grid();
     $this->css();
     $this->libraries();
@@ -57,7 +64,6 @@ class alpha_theme_container {
 
       $this->settings = array(
         'grid' => alpha_theme_get_setting('alpha_grid', 'default', $this->theme),
-        'primary' => alpha_theme_get_setting('alpha_primary', NULL, $this->theme),
         'css' => alpha_theme_get_setting('alpha_css', array(), $this->theme),
         'libraries' => alpha_theme_get_setting('alpha_libraries', array(), $this->theme),
         'exclude' => alpha_theme_get_setting('alpha_exclude', array(), $this->theme),      
@@ -98,124 +104,28 @@ class alpha_theme_container {
   /**
    * @todo
    */
+  function grids() {
+    if (!isset($this->grids)) {
+      $this->settings();
+      $this->grids = alpha_retrieve_grids($this->theme);
+    }
+    
+    return $this->grids;
+  }
+  
+  /**
+   * @todo
+   */
   function grid() {
     if (!isset($this->grid)) {      
-      $this->settings();
-      $this->grid = array();     
-      $grids = alpha_retrieve_grids($this->theme);
+      $this->grids();  
       
-      if (isset($grids[$this->settings['grid']])) {
-        $grid = $grids[$this->settings['grid']];
-        $trail = array_keys(alpha_theme_trail($this->theme));
-        $nonie = $this->settings['responsive'] ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE);
-        $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
-        
-        $this->grid = array(
-          'grid' => $this->settings['grid'],
-          'sanitized' => str_replace('_', '-', $this->settings['grid']),
-          'path' => $grid['path'],
-          'primary' => alpha_theme_get_setting('alpha_primary_' . $this->settings['grid'], NULL, $this->theme),
-          'layouts' => array(),
-          'columns' => $grid['columns'],
-          'css' => array(),          
-        );
-        
-        if (!$this->settings['responsive']) {
-          $grid['layouts'] = isset($grid['layouts'][$this->grid['primary']]) ? array($this->grid['primary'] => $grid['layouts'][$this->grid['primary']]) : array();          
-        }
-        
-        foreach ($grid['layouts'] as $layout => $title) {
-          $responsive = alpha_theme_get_setting('alpha_layouts_' . $this->grid['grid'] . '_' . $layout . '_responsive', FALSE, $this->theme);
-          
-          if (!$this->settings['responsive'] || $responsive) {
-            $this->grid['layouts'][$layout] = array(
-              'layout' => $layout,
-              'sanitized' => str_replace('_', '-', $layout),
-              'attached' => array(),
-              'responsive' => $responsive,
-              'media' => $this->settings['responsive'] ? alpha_theme_get_setting('alpha_layouts_' . $this->grid['grid'] . '_' . $layout . '_media', 'all', $this->theme) : 'all',
-              'weight' => alpha_theme_get_setting('alpha_layouts_' . $this->grid['grid'] . '_' . $layout . '_weight', 0, $this->theme),
-            );
-
-            foreach ($trail as $item) {
-              $path = drupal_get_path('theme', $item) . '/css';
-              $file = str_replace('_', '-', $item) . '-' . $this->grid['sanitized'];
-
-              if ($attached = alpha_find_stylesheet($path, $file)) {
-                $this->grid['layouts'][$layout]['attached'][] = $attached;
-              }
-
-              if ($attached = alpha_find_stylesheet($path, $file . '-' . $this->grid['layouts'][$layout]['sanitized'])) {
-                $this->grid['layouts'][$layout]['attached'][] = $attached;
-              }
-            }
-            
-            foreach ($this->grid['layouts'][$layout]['attached'] as $attached) {
-              $basename = $layout . '::' . $attached;
-              
-              $this->grid['css'][$basename]['processed'] = FALSE;
-              $this->grid['css'][$basename]['item'] = $basename;
-              $this->grid['css'][$basename]['options'] = array(
-                'group' => 2000,
-                'weight' => $this->grid['layouts'][$layout]['weight'],                
-                'data' => $attached, 
-                'basename' => $basename,                
-                'media' => $this->grid['layouts'][$layout]['media'],
-                'browsers' => $nonie,
-                'aggregate' => TRUE,                
-              );
-
-              if ($this->settings['responsive'] && $this->grid['primary'] == $layout) {
-                $basename = 'ie::' . $basename;
-                
-                $this->grid['css'][$basename]['processed'] = FALSE;
-                $this->grid['css'][$basename]['item'] = $basename;
-                $this->grid['css'][$basename]['options'] = array(
-                  'group' => 1000,
-                  'weight' => $this->grid['layouts'][$layout]['weight'],
-                  'data' => $attached, 
-                  'basename' => $basename,
-                  'browsers' => $ie,
-                );
-              }
-            }
-
-            $path = $this->grid['path'] . '/' . $layout . '/' . $this->grid['sanitized'] . '-' . $this->grid['layouts'][$layout]['sanitized'];
-            
-            foreach ($this->grid['columns'] as $columns => $title) {
-              $file = $path . '-' . $columns . '.css';
-              
-              $this->grid['css'][$file]['processed'] = FALSE;
-              $this->grid['css'][$file]['columns'] = $columns;
-              $this->grid['css'][$file]['item'] = $file;
-              $this->grid['css'][$file]['options'] = array(
-                'group' => 2000,
-                'weight' => $this->grid['layouts'][$layout]['weight'],
-                'media' => $this->grid['layouts'][$layout]['media'],
-                'browsers' => $nonie,          
-                'aggregate' => TRUE,
-              );
-              
-              if ($this->settings['responsive'] && $this->grid['primary'] == $layout) {                
-                $basename = 'ie::' . $layout . '::' . $path . '-' . $columns . '.css';
-
-                $this->grid['css'][$basename]['processed'] = FALSE;
-                $this->grid['css'][$basename]['columns'] = $columns;
-                $this->grid['css'][$basename]['item'] = $basename;
-                $this->grid['css'][$basename]['options'] = array(
-                  'group' => 1000,
-                  'weight' => $this->grid['layouts'][$layout]['weight'],
-                  'data' => $file,
-                  'basename' => $basename,
-                  'browsers' => $ie,                
-                );
-              }
-            }
-          }
-        }
-      }      
-
-      alpha_alter('alpha_grid', $this->grid, $this->theme);
+      if (isset($this->grids[$this->settings['grid']])) {
+        $this->grid = alpha_grid_css($this->theme, $this->grids[$this->settings['grid']], $this->settings['responsive']);
+      }
+      else {
+        $this->grid = array();
+      }
     }
 
     return $this->grid;
@@ -227,8 +137,6 @@ class alpha_theme_container {
   function css() {
     if (!isset($this->css)) {
       $this->css = alpha_retrieve_css($this->theme);
-
-      alpha_alter('alpha_css', $this->css, $this->theme);
     }
     
     return $this->css;
@@ -240,8 +148,6 @@ class alpha_theme_container {
   function libraries() {
     if (!isset($this->libraries)) {
       $this->libraries = alpha_retrieve_libraries($this->theme);
-      
-      alpha_alter('alpha_libraries', $this->libraries, $this->theme);
     }
     
     return $this->libraries;
@@ -346,7 +252,7 @@ class alpha_theme_container {
    * @todo
    */
   function cacheable() {
-    $cacheable = array('settings', 'libraries', 'css', 'grid', 'regions', 'zones', 'sections');
+    $cacheable = array_fill_keys(array('settings', 'libraries', 'css', 'grids', 'grid', 'regions', 'zones', 'sections'), TRUE);
     
     alpha_alter('alpha_cacheable', $cacheable, $this->theme);
     
