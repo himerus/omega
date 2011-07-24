@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Container class for theme configuration.
+ */
+
 class alpha_theme_container {
   var $theme;
   var $settings;

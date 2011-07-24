@@ -192,7 +192,6 @@ function omega_process_zone(&$vars) {
   }
 }
 
-
 /**
  * Implements hook_preprocess_block().
  */
