@@ -36,6 +36,17 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+7/24/11
+=========
+#1228106  - Major code review and performance enhancements. This needs to be tested!
+
+7/24/11
+=========
+#1220198  - Sadly I had to also revert the latest changes on the equal height feature
+since due to a WebKit bug the height of an element does not inherit the min-height value
+properly and therefore the whole concept behind the last patch is wonky. (@see the issue
+on d.o for further explanation).
+
 7/18/11
 =========
 #1220198  - Reverting the equal height feature changes from yesterday. This feature is
