@@ -226,8 +226,11 @@ function alpha_theme_trail($theme) {
  */
 function alpha_get_theme() {
   $container = &drupal_static(__FUNCTION__);
-  
-  if (!isset($container)) {
+  $theme = $GLOBALS['theme_key'];
+  $delta = isset($GLOBALS['delta']) ? $GLOBALS['delta']->machine_name : NULL;
+  $key = $theme . (isset($delta) ? ':' . $delta : '');
+    
+  if (!isset($container[$key])) {
     $theme = $GLOBALS['theme_key'];
     $delta = isset($GLOBALS['delta']) ? $GLOBALS['delta']->machine_name : NULL;
     $key = $theme . (isset($delta) ? ':' . $delta : '');
@@ -239,11 +242,11 @@ function alpha_get_theme() {
     }
     
     if (isset($class)) {
-      $container = new $class($theme, $delta);
+      $container[$key] = new $class($theme, $delta);
     }
   }
   
-  return $container;
+  return $container[$key];
 }
 
 /**
