@@ -266,7 +266,9 @@ function alpha_grid_include($columns) {
     }
     
     if ($theme->settings['debug']['access'] && $theme->settings['debug']['grid']) {
-      //alpha_grid_debug($theme->theme, $theme->settings['grid'], $theme->settings['responsive'], $columns);
+      if (isset($theme->grids[$theme->settings['grid']])) {
+        alpha_grid_debug($theme->grids[$theme->settings['grid']], $theme->settings['responsive'], $columns);
+      }
     }
   }
 }
@@ -274,24 +276,27 @@ function alpha_grid_include($columns) {
 /**
  * @todo
  */
-function alpha_grid_debug($theme, $grid, $responsive, $columns) {
-  $grids = alpha_retrieve_grids($theme);
-  
-  if (isset($grids[$grid]) && isset($grids[$grid]['columns'][$columns])) {
-    $dashed = str_replace('_', '-', $grid);
-    $primary = alpha_theme_get_setting('alpha_primary_' . $grid, NULL, $theme);
-    $layouts = !$responsive ? (isset($grids[$grid]['layouts'][$primary]) ? array($primary) : array()) : array_keys($grids[$grid]['layouts']);
-    $nonie = $responsive ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE);
+function alpha_grid_debug($grid, $responsive, $columns) {
+  if (isset($grid['columns'][$columns])) {
     $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
+    
+    if ($responsive) {      
+      $nonie = array('IE' => 'gte IE 9', '!IE' => TRUE);
+      $layouts = array_keys($grid['layouts']);
+    }
+    else {
+      $nonie = array('IE' => TRUE, '!IE' => TRUE);
+      $layouts = isset($grid['layouts'][$grid['primary']]) ? array($grid['primary']) : array();
+    }
 
     foreach ($layouts as $layout) {
-      $sanitized = str_replace('_', '-', $layout);
-      $media = $responsive ? alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $name . '_media', 'all', $theme) : 'all';
-      $weight = alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_weight', 0, $theme);
-      $file = $grids[$grid]['path'] . '/' . $sanitized . '/' . $dashed . '-' . $sanitized . '-' . $columns . '.png';
+      $media = $responsive ? $grid['layouts'][$layout]['media'] : 'all';
+      $weight = $grid['layouts'][$layout]['weight'];
+      $sanitized = $grid['layouts'][$layout]['sanitized'];
+      $file = $grid['path'] . '/' . $sanitized . '/' . $grid['sanitized'] . '-' . $sanitized . '-' . $columns . '.png';
       $overlay = '.alpha-grid-debug .container-' . $columns . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
        
-      if ($responsive && $layout == $primary) {
+      if ($responsive && $layout == $grid['primary']) {
         drupal_add_css($overlay, array(
           'type' => 'inline',
           'media' => 'all', 
@@ -824,6 +829,7 @@ function alpha_retrieve_grids($theme) {
         'theme' => $key,
         'grid' => $grid,
         'name' => $info['name'],
+        'sanitized' => str_replace('_', '-', $grid),
         'layouts' => $info['layouts'],
         'columns' => $info['columns'],        
         'path' => drupal_get_path('theme', $key) . '/css/grid/' . $grid,
@@ -835,6 +841,7 @@ function alpha_retrieve_grids($theme) {
         $output[$grid]['layouts'][$layout] = array(
           'layout' => $layout,
           'name' => $title,
+          'sanitized' => str_replace('_', '-', $layout),
           'enabled' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_responsive', FALSE, $theme),
           'media' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_media', 'all', $theme),
           'weight' => alpha_theme_get_setting('alpha_layouts_' . $grid . '_' . $layout . '_weight', 0, $theme),
@@ -910,15 +917,22 @@ function alpha_retrieve_libraries($theme) {
  * @todo
  */
 function alpha_grid_css($theme, $grid, $responsive) {
-  $dashed = str_replace('_', '-', $grid['grid']);
-  $layouts = !$responsive ? (isset($grid['layouts'][$primary]) ? array($grid['primary']) : array()) : array_keys($grid['layouts']); 
+  $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
   $columns = array_keys($grid['columns']);
+  
+  if ($responsive) {      
+    $nonie = array('IE' => 'gte IE 9', '!IE' => TRUE);
+    $layouts = array_keys($grid['layouts']);
+  }
+  else {
+    $nonie = array('IE' => TRUE, '!IE' => TRUE);
+    $layouts = isset($grid['layouts'][$grid['primary']]) ? array($grid['primary']) : array();
+  }
+  
   $output = array();
   
   if (!empty($layouts)) {
     $trail = array_keys(alpha_theme_trail($theme));
-    $nonie = $responsive ? array('IE' => 'gte IE 9', '!IE' => TRUE) : array('IE' => TRUE, '!IE' => TRUE);
-    $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
     
     foreach ($layouts as $layout) {
       $enabled = $grid['layouts'][$layout]['enabled'];
@@ -926,7 +940,7 @@ function alpha_grid_css($theme, $grid, $responsive) {
       if (!$responsive || $enabled) {        
         $media = $responsive ? $grid['layouts'][$layout]['media'] : 'all';
         $weight = $grid['layouts'][$layout]['weight'];
-        $sanitized = str_replace('_', '-', $layout);        
+        $sanitized = $grid['layouts'][$layout]['sanitized'];        
         $attached = array();
 
         foreach ($trail as $item) {
@@ -972,7 +986,7 @@ function alpha_grid_css($theme, $grid, $responsive) {
           }
         }
 
-        $path = $grid['path'] . '/' . $layout . '/' . $dashed . '-' . $sanitized;
+        $path = $grid['path'] . '/' . $layout . '/' . $grid['sanitized'] . '-' . $sanitized;
 
         foreach ($columns as $count) {
           $file = $path . '-' . $count . '.css';
