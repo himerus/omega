@@ -179,6 +179,7 @@ class alpha_theme_container {
       if ($zones = alpha_info('zones', $this->theme)) {
         foreach ($zones as $zone => $title) {
           $section = alpha_zone_get_setting('section', $zone, NULL, $this->theme);
+          $section = isset($this->sections[$section]) ? $section : NULL;
           
           $this->zones[$zone] = array(
             'zone' => $zone,
@@ -210,6 +211,7 @@ class alpha_theme_container {
   function regions() {
     if (!isset($this->regions)) {
       $this->zones();
+      $this->sections();
       $this->regions = array();      
       $exclude = alpha_regions_exclude();
 
@@ -219,13 +221,16 @@ class alpha_theme_container {
           $prefix = alpha_region_get_setting('prefix', $region, 0, $this->theme);
           $columns = alpha_region_get_setting('columns', $region, 1, $this->theme);
           $suffix = alpha_region_get_setting('suffix', $region, 0, $this->theme);
-          $enabled = !empty($zone) && isset($this->zones[$zone]);
+          
+          $zone = isset($zone) && isset($this->zones[$zone]) ? $zone : NULL;
+          $section = isset($zone) && isset($this->zones[$zone]['section']) ? $this->zones[$zone]['section'] : NULL;
           
           $this->regions[$region] = array(
             'region' => $region,
             'name' => $title,
             'zone' => $zone,
-            'enabled' => $enabled,
+            'section' => $section,
+            'enabled' => isset($zone),
             'force' => alpha_region_get_setting('force', $region, FALSE, $this->theme),
             'prefix' => $prefix,
             'columns' => $columns,
@@ -236,7 +241,7 @@ class alpha_theme_container {
             'css' => alpha_region_get_setting('css', $region, NULL, $this->theme),
             'weight' => alpha_region_get_setting('weight', $region, 0, $this->theme),
             'position' => alpha_region_get_setting('position', $region, 0, $this->theme),
-            'primary' => $enabled && $this->zones[$zone]['primary'] == $region,
+            'primary' => isset($zone) && $this->zones[$zone]['primary'] == $region,
           );
         }
       }

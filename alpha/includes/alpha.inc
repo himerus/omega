@@ -945,7 +945,7 @@ function alpha_grid_css($theme, $grid, $responsive) {
 
         foreach ($trail as $item) {
           $path = drupal_get_path('theme', $item) . '/css';
-          $file = str_replace('_', '-', $item) . '-' . $dashed;
+          $file = str_replace('_', '-', $item) . '-' . $grid['sanitized'];
 
           if ($item = alpha_find_stylesheet($path, $file)) {
             $attached[] = $item;

@@ -165,7 +165,7 @@ function alpha_page_alter(&$vars) {
       }
     }
   }
-
+  
   if (!module_implements('alpha_page_structure')) {
     alpha_alter('alpha_page_structure', $vars, $theme->theme);
   }
@@ -176,15 +176,15 @@ function alpha_page_alter(&$vars) {
  */
 function alpha_alpha_page_structure_alter(&$vars) {
   $theme = alpha_get_theme();
-  $regions = array();
+  $temporary = array();
   
-  foreach ($theme->regions as $region => $item) { 
-    if ($item['enabled'] && ($item['force'] || !empty($vars[$region]))) {
-      $regions[$item['zone']][$region] = !empty($vars[$region]) ? $vars[$region] : array();
-      $regions[$item['zone']][$region]['#weight'] = (int) $item['weight'];
-      $regions[$item['zone']][$region]['#position'] = $item['position'];
-      $regions[$item['zone']][$region]['#data'] = $item;
-      $regions[$item['zone']][$region]['#grid'] = array(
+  foreach ($theme->regions as $region => $item) {
+    if ($item['enabled'] && $theme->zones[$item['zone']]['enabled'] && ($item['force'] || !empty($vars[$region]))) {
+      $temporary[$item['section']][$item['zone']][$region] = !empty($vars[$region]) ? $vars[$region] : array();
+      $temporary[$item['section']][$item['zone']][$region]['#weight'] = (int) $item['weight'];
+      $temporary[$item['section']][$item['zone']][$region]['#position'] = $item['position'];
+      $temporary[$item['section']][$item['zone']][$region]['#data'] = $item;
+      $temporary[$item['section']][$item['zone']][$region]['#grid'] = array(
         'prefix' => $item['prefix'],
         'suffix' => $item['suffix'],
         'push' => $item['push'],
@@ -193,8 +193,8 @@ function alpha_alpha_page_structure_alter(&$vars) {
       );
 
       if (empty($vars[$region])) {
-        $regions[$item['zone']][$region]['#region'] = $region;
-        $regions[$item['zone']][$region]['#theme_wrappers'] = array('region');
+        $temporary[$item['section']][$item['zone']][$region]['#region'] = $region;
+        $temporary[$item['section']][$item['zone']][$region]['#theme_wrappers'] = array('region');
       }
     }
     else if (!empty($vars[$region])) {
@@ -209,35 +209,36 @@ function alpha_alpha_page_structure_alter(&$vars) {
         'columns' => $item['columns'],
       );
     }
-
+    
     unset($vars[$region]);
   }
-
+  
   foreach ($theme->zones as $zone => $item) { 
-    if ($item['enabled'] && ($item['force'] || !empty($regions[$zone]))) {
-      if (isset($item['primary']) && isset($regions[$zone][$item['primary']])) {
-        alpha_calculate_primary($regions[$zone], $item['primary'], $item['columns']);
+    if ($item['enabled'] && ($item['force'] || !empty($temporary[$item['section']][$zone]))) {
+      if (isset($item['primary']) && isset($temporary[$item['section']][$zone][$item['primary']])) {
+        alpha_calculate_primary($temporary[$item['section']][$zone], $item['primary'], $item['columns']);
       }
 
       if ($item['order']) {
-        alpha_calculate_position($regions[$zone]);
+        alpha_calculate_position($vars[$item['section']][$zone]);
       }
-
-      $vars[$item['section']][$zone] = !empty($regions[$zone]) ? $regions[$zone] : array();
-      $vars[$item['section']][$zone]['#theme_wrappers'] = array('zone');      
-      $vars[$item['section']][$zone]['#zone'] = $zone;
-      $vars[$item['section']][$zone]['#weight'] = (int) $item['weight'];
-      $vars[$item['section']][$zone]['#data'] = $item;
-      $vars[$item['section']][$zone]['#data']['dynamic'] = isset($item['primary']) && isset($vars[$item['section']][$zone][$item['primary']]);
+      
+      $temporary[$item['section']][$zone]['#theme_wrappers'] = array('zone');      
+      $temporary[$item['section']][$zone]['#zone'] = $zone;
+      $temporary[$item['section']][$zone]['#weight'] = (int) $item['weight'];
+      $temporary[$item['section']][$zone]['#data'] = $item;
+      $temporary[$item['section']][$zone]['#data']['dynamic'] = isset($item['primary']) && isset($temporary[$item['section']][$zone][$item['primary']]);
     }
   }
 
   foreach ($theme->sections as $section => $item) {
-    if (isset($vars[$section])) {   
-      $vars[$section]['#theme_wrappers'] = array('section');
-      $vars[$section]['#section'] = $section;
+    if (isset($temporary[$section])) {   
+      $temporary[$section]['#theme_wrappers'] = array('section');
+      $temporary[$section]['#section'] = $section;
     }
   }
+  
+  $vars = array_merge($vars, $temporary);
 }
 
 /**

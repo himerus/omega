@@ -165,7 +165,7 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
   
   foreach($theme->regions as $region => $item) {
     $zone = $item['enabled'] ? $item['zone'] : '__unassigned__';
-    $section = $item['enabled'] && $theme->zones[$item['zone']]['enabled'] ? $theme->zones[$item['zone']]['section'] : '__unassigned__';
+    $section = $item['enabled'] && $theme->zones[$item['zone']]['enabled'] ? $item['section'] : '__unassigned__';
     
     unset($form['alpha_settings']['structure'][$section][$zone]['regions']['#description']);
 
