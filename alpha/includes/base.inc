@@ -110,7 +110,7 @@ class alpha_theme_container {
           'sanitized' => str_replace('_', '-', $this->settings['grid']),
           'path' => $grid['path'],
           'primary' => alpha_theme_get_setting('alpha_primary_' . $this->settings['grid'], NULL, $this->theme),
-          'layouts' => $grid['layouts'],
+          'layouts' => array(),
           'columns' => $grid['columns'],
           'css' => array(),          
         );
@@ -155,7 +155,7 @@ class alpha_theme_container {
                 'weight' => $this->grid['layouts'][$layout]['weight'],                
                 'data' => $attached, 
                 'basename' => $basename,                
-                'media' => $this->grid['layouts']['media'],
+                'media' => $this->grid['layouts'][$layout]['media'],
                 'browsers' => $nonie,
                 'aggregate' => TRUE,                
               );

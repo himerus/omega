@@ -70,7 +70,7 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
  */
 function alpha_theme_settings_validate_order(&$element, &$form_state) {
   if ($element['#value']) {
-    $theme = alpha_get_handler();
+    $theme = alpha_get_theme();
     $values = $form_state['values'];
     $sum = 0;
 

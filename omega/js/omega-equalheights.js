@@ -9,7 +9,7 @@
   var omegaEqualHeights = function (elements) {  
     elements.unbind('resize.omegaequalheights');
     
-    $(elements).css('min-height', '').css('height', '');
+    $(elements).css('height', '').css('min-height', '');
     
     if (!Drupal.behaviors.hasOwnProperty('omegaMediaQueries') || Drupal.omega.getCurrentLayout() != 'mobile') {
       var tallest = 0;
@@ -20,7 +20,7 @@
         }
       }).each(function() {
         if ($(this).height() < tallest) {
-          $(this).css('min-height', tallest).css('height', tallest);
+          $(this).css('height', tallest).css('min-height', tallest);
         }
       });
     }
