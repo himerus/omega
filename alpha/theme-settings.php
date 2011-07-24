@@ -13,6 +13,8 @@ function alpha_form_system_theme_settings_alter(&$form, &$form_state) {
   
   $theme = alpha_get_theme();
   $form_state['theme'] = $theme->theme;
+  $form_state['regions'] = $theme->regions;
+  $form_state['zones'] = $theme->zones;
   
   $form['alpha_settings'] = array(
     '#type' => 'vertical_tabs',
@@ -47,10 +49,8 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
       form_set_value($element, NULL, $form_state);
     }
     else {
-      $theme = alpha_get_theme();
-      
       $sum = 0;      
-      foreach ($theme->regions as $region => $item) {
+      foreach ($form_state['regions'] as $region => $item) {
         if ($values['alpha_region_' . $region . '_zone'] == $element['#zone']) {
           $sum += $values['alpha_region_' . $region . '_columns'];
           $sum += $values['alpha_region_' . $region . '_prefix'];
@@ -59,7 +59,7 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
       }
       
       if ($sum > $values['alpha_zone_' . $element['#zone'] . '_columns']) {
-        form_error($element, t('You have specified the %region region as the primary region for the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%region' => $theme->regions[$element['#value']]['name'], '%zone' => $theme->zones[$element['#zone']]['name'])));
+        form_error($element, t('You have specified the %region region as the primary region for the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%region' => $form_state['regions'][$element['#value']]['name'], '%zone' => $form_state['zones'][$element['#zone']]['name'])));
       }
     }
   }
@@ -70,11 +70,10 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
  */
 function alpha_theme_settings_validate_order(&$element, &$form_state) {
   if ($element['#value']) {
-    $theme = alpha_get_theme();
     $values = $form_state['values'];
     $sum = 0;
 
-    foreach ($theme->regions as $region => $item) {
+    foreach ($form_state['regions'] as $region => $item) {
       if ($values['alpha_region_' . $region . '_zone'] == $element['#zone']) {
         $sum += $values['alpha_region_' . $region . '_columns'];
         $sum += $values['alpha_region_' . $region . '_prefix'];
@@ -83,7 +82,7 @@ function alpha_theme_settings_validate_order(&$element, &$form_state) {
     }
 
     if ($sum > $values['alpha_zone_' . $element['#zone'] . '_columns']) {
-      form_error($element, t('You have chosen to manipulate the region positioning of the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%zone' => $theme->zones[$element['#zone']]['name'])));
+      form_error($element, t('You have chosen to manipulate the region positioning of the %zone zone but the summed region width is greater than the number of available columns for that zone.', array('%zone' => $form_state['zones'][$element['#zone']]['name'])));
     }
   }
 }
