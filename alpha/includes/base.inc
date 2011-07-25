@@ -240,7 +240,7 @@ class alpha_theme_container {
             'width' => $prefix + $columns + $suffix,
             'push' => 0,
             'pull' => 0,
-            'css' => alpha_region_get_setting('css', $region, NULL, $this->theme),
+            'wrapper_css' => alpha_region_get_setting('css', $region, NULL, $this->theme),
             'weight' => alpha_region_get_setting('weight', $region, 0, $this->theme),
             'position' => alpha_region_get_setting('position', $region, 0, $this->theme),
             'primary' => isset($zone) && $this->zones[$zone]['primary'] == $region,
