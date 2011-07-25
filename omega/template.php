@@ -68,7 +68,6 @@ function omega_preprocess_html(&$vars) {
  */
 function omega_preprocess_comment(&$vars) {
   // Prepare the arrays to handle the classes and ids for the node container.
-  $vars['attributes_array']['class'] = &$vars['classes_array'];
   $vars['attributes_array']['class'][] = 'clearfix';
   
   $vars['datetime'] = format_date($vars['comment']->created, 'custom', 'c');
@@ -199,8 +198,6 @@ function omega_process_zone(&$vars) {
  */
 function omega_preprocess_block(&$vars) {
   $theme = alpha_get_theme();
-  
-  $vars['attributes_array']['class'] = &$vars['classes_array'];  
   
   // Adding a class to the title attributes
   $vars['title_attributes_array']['class'][] = 'block-title';
