@@ -52,9 +52,7 @@ function alpha_theme($existing, $type, $theme, $path) {
  */
 function alpha_preprocess(&$vars, $hook) {
   $vars['attributes_array']['class'] = $vars['classes_array'];
-  if ($hook == 'preprocess_region') {
-    echo 'test';
-  }
+  
   alpha_invoke('preprocess', $hook, $vars);
 }
 
