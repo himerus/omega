@@ -125,16 +125,11 @@ function alpha_page_alter(&$vars) {
   if (!drupal_static('system_main_content_added', FALSE)) {
     $vars['content']['system_main'] = drupal_set_page_content();
   }
-
+  
   if ($theme->settings['debug']['access'] && ($theme->settings['debug']['grid'] || $theme->settings['debug']['block'])) {
     drupal_add_css(drupal_get_path('theme', 'alpha') . '/css/alpha-debug.css', array('group' => CSS_THEME, 'weight' => -5));   
     drupal_add_js(drupal_get_path('theme', 'alpha') . '/js/alpha-debug.js', array('group' => JS_THEME, 'weight' => -5));
-
-    if (empty($vars['page_bottom'])) {
-      $vars['page_bottom']['#region'] = 'page_bottom';
-      $vars['page_bottom']['#theme_wrappers'] = array('region');
-    }
-
+    
     if ($theme->settings['responsive']) {        
       $vars['page_bottom']['alpha_resize_indicator'] = array(
         '#type' => 'markup',
@@ -197,7 +192,7 @@ function alpha_alpha_page_structure_alter(&$vars) {
         'pull' => $item['pull'],
         'columns' => $item['columns'],
       );
-
+      
       if (empty($vars[$region])) {
         $temporary[$item['section']][$item['zone']][$region]['#region'] = $region;
         $temporary[$item['section']][$item['zone']][$region]['#theme_wrappers'] = array('region');
@@ -233,7 +228,6 @@ function alpha_alpha_page_structure_alter(&$vars) {
       $temporary[$item['section']][$zone]['#zone'] = $zone;
       $temporary[$item['section']][$zone]['#weight'] = (int) $item['weight'];
       $temporary[$item['section']][$zone]['#data'] = $item;
-      $temporary[$item['section']][$zone]['#data']['dynamic'] = isset($item['primary']) && isset($temporary[$item['section']][$zone][$item['primary']]);
     }
   }
 
@@ -265,16 +259,15 @@ function template_preprocess_zone(&$vars) {
   $vars['theme_hook_suggestions'] = array('zone__' . $vars['elements']['#zone']);
   $vars['zone'] = $vars['elements']['#zone'];
   $vars['content'] = $vars['elements']['#children'];
-  $vars['type'] = $vars['elements']['#data']['dynamic'] ? 'dynamic' : 'static';
   $vars['wrapper'] = $vars['elements']['#data']['wrapper'];
   $vars['columns'] = $vars['elements']['#data']['columns'];
   
   $vars['content_attributes_array']['id'] = drupal_html_id('zone-' . $vars['zone']);
-  $vars['content_attributes_array']['class'] = array('container-' . $vars['columns'], 'zone', $vars['content_attributes_array']['id'], 'zone-' . $vars['type'], 'clearfix');
+  $vars['content_attributes_array']['class'] = array('container-' . $vars['columns'], 'zone', $vars['content_attributes_array']['id'], 'clearfix');
   
   if ($vars['wrapper']) {
     $vars['attributes_array']['id'] = drupal_html_id($vars['content_attributes_array']['id'] . '-wrapper');
-    $vars['attributes_array']['class'] = array('zone-wrapper', 'zone-' . $vars['type'] . '-wrapper', $vars['attributes_array']['id'], 'clearfix');
+    $vars['attributes_array']['class'] = array('zone-wrapper', $vars['attributes_array']['id'], 'clearfix');
   }
   
   alpha_grid_include($vars['columns']);
@@ -354,7 +347,7 @@ function alpha_preprocess_page(&$vars) {
   $vars['site_slogan_hidden'] = $theme->settings['hidden']['site_slogan'];
   $vars['title_hidden'] = $theme->settings['hidden']['title'];   
   $vars['attributes_array']['id'] = 'page';
-  $vars['attributes_array']['class'] = array('clearfix');
+  $vars['attributes_array']['class'][] = 'clearfix';
 }
 
 /**
