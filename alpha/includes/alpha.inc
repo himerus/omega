@@ -567,7 +567,7 @@ function alpha_grid_css_group($items) {
  * @todo
  */
 function alpha_grid_css_aggregate($elements) {
-  $theme = alpha_get_handler();
+  $theme = alpha_get_theme();
   
   if ($theme->settings['responsive']) {
     if ($chunks = alpha_grid_css_chunks($elements['#items'])) {
