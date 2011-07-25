@@ -193,6 +193,8 @@ function alpha_alpha_page_structure_alter(&$vars) {
         'columns' => $item['columns'],
       );
       
+      $theme->regions[$region]['grid'] = &$temporary[$item['section']][$item['zone']][$region]['#grid'];
+      
       if (empty($vars[$region])) {
         $temporary[$item['section']][$item['zone']][$region]['#region'] = $region;
         $temporary[$item['section']][$item['zone']][$region]['#theme_wrappers'] = array('region');
@@ -249,7 +251,7 @@ function template_preprocess_section(&$vars) {
   $vars['section'] = $vars['elements']['#section'];  
   $vars['content'] = $vars['elements']['#children'];
   $vars['attributes_array']['id'] = drupal_html_id('section-' . $vars['section']);
-  $vars['attributes_array']['class'] = array('section', $vars['attributes_array']['id']);
+  $vars['classes_array'] = array('section', $vars['attributes_array']['id']);
 }
 
 /**
@@ -267,8 +269,8 @@ function template_preprocess_zone(&$vars) {
   
   if ($vars['wrapper']) {
     $vars['attributes_array']['id'] = drupal_html_id($vars['content_attributes_array']['id'] . '-wrapper');
-    $vars['attributes_array']['class'] = array('zone-wrapper', $vars['attributes_array']['id'], 'clearfix');
-  }
+    $vars['classes_array'] = array('zone-wrapper', $vars['attributes_array']['id'], 'clearfix');
+  } 
   
   alpha_grid_include($vars['columns']);
 }
