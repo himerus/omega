@@ -53,35 +53,41 @@ function alpha_theme($existing, $type, $theme, $path) {
 function alpha_preprocess(&$vars, $hook) {
   $vars['attributes_array']['class'] = $vars['classes_array'];
   
-  if (isset($vars['elements']['#grid'])) {
-    foreach (array('prefix', 'suffix', 'push', 'pull') as $quality) {
-      if (!empty($vars['elements']['#grid'][$quality])) {
-        array_unshift($vars['attributes_array']['class'], $quality . '-' . $vars['elements']['#grid'][$quality]);
-      }
-    }
-    
-    array_unshift($vars['attributes_array']['class'], 'grid-' . $vars['elements']['#grid']['columns']);
-  }
-  
-  if (!empty($vars['elements']['#data']['wrapper_css'])) {
-    foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#data']['wrapper_css'])) as $class) {
-      $vars['attributes_array']['class'][] = $class;
-    }
-  }
-
-  if (!empty($vars['elements']['#data']['css'])) {
-    foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#data']['css'])) as $class) {
-      $vars['content_attributes_array']['class'][] = $class;
-    }
-  }
-  
   alpha_invoke('preprocess', $hook, $vars);
 }
 
 /**
  * Implements hook_process().
  */
-function alpha_process(&$vars, $hook) {  
+function alpha_process(&$vars, $hook) {
+  if (isset($vars['elements']['#grid']) || !empty($vars['elements']['#data']['wrapper_css'])) {
+    if (isset($vars['elements']['#grid'])) {
+      foreach (array('prefix', 'suffix', 'push', 'pull') as $quality) {
+        if (!empty($vars['elements']['#grid'][$quality])) {
+          array_unshift($vars['attributes_array']['class'], $quality . '-' . $vars['elements']['#grid'][$quality]);
+        }
+      }
+
+      array_unshift($vars['attributes_array']['class'], 'grid-' . $vars['elements']['#grid']['columns']);
+    }
+  
+    if (!empty($vars['elements']['#data']['wrapper_css'])) {
+      foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#data']['wrapper_css'])) as $class) {
+        $vars['attributes_array']['class'][] = $class;
+      }
+    }
+    
+    $vars['attributes'] = $vars['attributes_array'] ? drupal_attributes($vars['attributes_array']) : '';
+  }
+
+  if (!empty($vars['elements']['#data']['css'])) {
+    foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#data']['css'])) as $class) {
+      $vars['content_attributes_array']['class'][] = $class;
+    }
+    
+    $vars['content_attributes'] = $vars['content_attributes_array'] ? drupal_attributes($vars['content_attributes_array']) : '';
+  }
+  
   alpha_invoke('process', $hook, $vars);
 }
 
@@ -278,7 +284,8 @@ function template_preprocess_zone(&$vars) {
  * Implements hook_preprocess_block().
  */
 function alpha_preprocess_block(&$vars) {
-  $vars['content_attributes_array']['class'] = array('content', 'clearfix');
+  $vars['content_attributes_array']['class'][] = 'content';
+  $vars['content_attributes_array']['class'][] = 'clearfix';
   $vars['attributes_array']['id'] = $vars['block_html_id'];
   $vars['attributes_array']['class'][] = drupal_html_class('block-' . $vars['block']->delta);  
   $vars['attributes_array']['class'][] = $vars['block_html_id'];
@@ -289,8 +296,6 @@ function alpha_preprocess_block(&$vars) {
  */
 function alpha_preprocess_html(&$vars) {
   $theme = alpha_get_theme();
-  
-  $vars['attributes_array']['class'] = &$vars['classes_array'];
   
   foreach (array('two-sidebars', 'one-sidebar sidebar-first', 'one-sidebar sidebar-second', 'no-sidebars') as $exclude) {
     if ($index = array_search($exclude, $vars['attributes_array']['class'])) {      
