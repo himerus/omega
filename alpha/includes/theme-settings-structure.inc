@@ -239,7 +239,7 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
       '#type' => 'textfield',
       '#title' => t('Additional region classes'),
       '#size' => 50,
-      '#default_value' => $item['css'],
+      '#default_value' => $item['wrapper_css'],
     );
   }
 }
