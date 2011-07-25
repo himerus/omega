@@ -33,12 +33,14 @@ class alpha_theme_container {
       if ($required && !isset($this->$item)) {
         $this->init();
         
-        alpha_alter('alpha', $this, $theme, $delta);
+        alpha_alter('alpha_pre_cache', $this, $theme, $delta);
         alpha_cache_set($this);
         
         return;
       }
     }
+    
+    alpha_alter('alpha', $this, $theme, $delta);
   }
   
   /**
