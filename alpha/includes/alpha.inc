@@ -640,7 +640,7 @@ function alpha_calculate_primary(&$items, $primary, $container) {
 function alpha_calculate_position(&$items) {
   if (!empty($items)) {
     $children = element_children($items, TRUE);
-
+    
     foreach ($children as $a => $item) {
       foreach ($children as $b => $inner) {
         if ($item != $inner) {

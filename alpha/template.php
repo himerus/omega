@@ -220,7 +220,7 @@ function alpha_alpha_page_structure_alter(&$vars) {
       }
 
       if ($item['order']) {
-        alpha_calculate_position($vars[$item['section']][$zone]);
+        alpha_calculate_position($temporary[$item['section']][$zone]);
       }
       
       $temporary[$item['section']][$zone]['#theme_wrappers'] = array('zone');      
