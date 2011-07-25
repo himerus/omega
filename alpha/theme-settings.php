@@ -49,7 +49,8 @@ function alpha_theme_settings_validate_primary(&$element, &$form_state) {
       form_set_value($element, NULL, $form_state);
     }
     else {
-      $sum = 0;      
+      $sum = 0;
+      
       foreach ($form_state['regions'] as $region => $item) {
         if ($values['alpha_region_' . $region . '_zone'] == $element['#zone']) {
           $sum += $values['alpha_region_' . $region . '_columns'];

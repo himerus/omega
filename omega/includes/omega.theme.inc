@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Returns HTML for a query pager.
@@ -373,24 +373,28 @@ function omega_links($vars) {
   return $output;
 }
 
-function omega_menu_local_tasks(&$variables) {
+/**
+ * Implements hook_menu_local_tasks().
+ */
+function omega_menu_local_tasks(&$vars) {
   $output = '';
 
-  if (!empty($variables['primary'])) {
-    $variables['primary']['#prefix'] = '<h2 class="element-invisible">' . t('Primary tabs') . '</h2>';
-    $variables['primary']['#prefix'] .= '<ul class="tabs primary clearfix">';
-    $variables['primary']['#suffix'] = '</ul>';
-    $output .= drupal_render($variables['primary']);
+  if (!empty($vars['primary'])) {
+    $vars['primary']['#prefix'] = '<h2 class="element-invisible">' . t('Primary tabs') . '</h2>';
+    $vars['primary']['#prefix'] .= '<ul class="tabs primary clearfix">';
+    $vars['primary']['#suffix'] = '</ul>';
+    $output .= drupal_render($vars['primary']);
   }
-  if (!empty($variables['secondary'])) {
-    $variables['secondary']['#prefix'] = '<h2 class="element-invisible">' . t('Secondary tabs') . '</h2>';
-    $variables['secondary']['#prefix'] .= '<ul class="tabs secondary clearfix">';
-    $variables['secondary']['#suffix'] = '</ul>';
-    $output .= drupal_render($variables['secondary']);
+  if (!empty($vars['secondary'])) {
+    $vars['secondary']['#prefix'] = '<h2 class="element-invisible">' . t('Secondary tabs') . '</h2>';
+    $vars['secondary']['#prefix'] .= '<ul class="tabs secondary clearfix">';
+    $vars['secondary']['#suffix'] = '</ul>';
+    $output .= drupal_render($vars['secondary']);
   }
 
   return $output;
 }
+
 /**
  * Implements hook_menu_local_task().
  */

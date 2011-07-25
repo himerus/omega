@@ -42,7 +42,7 @@ function omega_preprocess_html(&$vars) {
     $vars['rdf']->profile = '';
   }
   
-  if ($theme->settings['responsive'] && alpha_library_active('omega_mediaqueries')) {
+  if (alpha_library_active('omega_mediaqueries')) {
     $layouts = array();
     
     if (isset($theme->grids[$theme->settings['grid']])) {

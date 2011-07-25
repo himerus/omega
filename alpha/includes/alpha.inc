@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @file
@@ -362,7 +362,7 @@ function alpha_library_active($library) {
   if (isset($theme->libraries[$library], $theme->settings['libraries'][$library]) && $theme->settings['libraries'][$library] === $library) {
     return TRUE;
   }
-
+  
   return FALSE;
 }
 

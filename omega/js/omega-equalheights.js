@@ -11,9 +11,7 @@
       $('body', context).once('omega-equalheights', function () {
         $(window).bind('resize.omegaequalheights', function () {
           $($('.equal-height-container').get().reverse()).each(function () {
-            var elements = $(this).children('.equal-height-element');
-            
-            $(elements).css('height', '');
+            var elements = $(this).children('.equal-height-element').css('height', '');
             
             if (!Drupal.behaviors.hasOwnProperty('omegaMediaQueries') || Drupal.omega.getCurrentLayout() != 'mobile') {
               var tallest = 0;
