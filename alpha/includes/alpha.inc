@@ -102,11 +102,13 @@ function alpha_region_get_setting($name, $region, $default = NULL, $theme = NULL
  *   Handed by reference.
  */
 function alpha_invoke($type, $hook, &$vars) {
+  $theme = alpha_get_theme();
+  
   // If one of the themes in the theme trail implements this hook
   // include the corresponding .inc file and call the associated function.
-  foreach (array_keys(alpha_theme_trail($GLOBALS['theme'])) as $theme) {
-    $file = drupal_get_path('theme', $theme) . '/' . $type . '/' . str_replace('_', '-', $hook) . '.inc';
-    $function = $theme . '_alpha_' . $hook;
+  foreach (array_keys(alpha_theme_trail($theme->theme)) as $key) {
+    $file = drupal_get_path('theme', $key) . '/' . $type . '/' . str_replace('_', '-', $hook) . '.inc';
+    $function = $key . '_alpha_' . $hook;
     
     if (is_file($file)) {
       if (!function_exists($function)) {
@@ -226,6 +228,7 @@ function alpha_theme_trail($theme) {
  */
 function alpha_get_theme() {
   $container = &drupal_static(__FUNCTION__);
+  
   $theme = $GLOBALS['theme_key'];
   $delta = isset($GLOBALS['delta']) ? $GLOBALS['delta']->machine_name : NULL;
   $key = $theme . (isset($delta) ? ':' . $delta : '');
@@ -243,78 +246,6 @@ function alpha_get_theme() {
   }
   
   return $container[$key];
-}
-
-/**
- * @todo
- */
-function alpha_grid_include($columns) {
-  $processed = &drupal_static(__FUNCTION__);
-  
-  if (empty($processed[$columns])) {
-    $processed[$columns] = TRUE;
-    $theme = alpha_get_theme();
-    
-    if (!empty($theme->grid)) {
-      foreach ($theme->grid as &$item) {
-        if (empty($item['processed']) && (empty($item['columns']) || $item['columns'] == $columns)) {
-          $item['processed'] = TRUE;
-
-          drupal_add_css($item['item'], $item['options']);
-        }
-      }
-    }
-    
-    if ($theme->settings['debug']['access'] && $theme->settings['debug']['grid']) {
-      if (isset($theme->grids[$theme->settings['grid']])) {
-        alpha_grid_debug($theme->grids[$theme->settings['grid']], $theme->settings['responsive'], $columns);
-      }
-    }
-  }
-}
-
-/**
- * @todo
- */
-function alpha_grid_debug($grid, $responsive, $columns) {
-  if (isset($grid['columns'][$columns])) {
-    $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
-    
-    if ($responsive) {      
-      $nonie = array('IE' => 'gte IE 9', '!IE' => TRUE);
-      $layouts = array_keys($grid['layouts']);
-    }
-    else {
-      $nonie = array('IE' => TRUE, '!IE' => TRUE);
-      $layouts = isset($grid['layouts'][$grid['primary']]) ? array($grid['primary']) : array();
-    }
-
-    foreach ($layouts as $layout) {
-      $media = $responsive ? $grid['layouts'][$layout]['media'] : 'all';
-      $weight = $grid['layouts'][$layout]['weight'];
-      $sanitized = $grid['layouts'][$layout]['sanitized'];
-      $file = $grid['path'] . '/' . $sanitized . '/' . $grid['sanitized'] . '-' . $sanitized . '-' . $columns . '.png';
-      $overlay = '.alpha-grid-debug .container-' . $columns . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
-       
-      if ($responsive && $layout == $grid['primary']) {
-        drupal_add_css($overlay, array(
-          'type' => 'inline',
-          'media' => 'all', 
-          'browsers' => $ie, 
-          'group' => -2000,
-          'weight' => $weight,
-        ));
-      }
-
-      drupal_add_css($overlay, array(
-        'type' => 'inline',          
-        'browsers' => $nonie,
-        'group' => -1000,
-        'weight' => $weight,
-        'media' => $media,
-      ));
-    }
-  }
 }
 
 /**
@@ -381,6 +312,7 @@ function alpha_css_active($css) {
 
 /**
  * @todo
+ * @deprecated
  */
 function alpha_regions() {
   return alpha_get_theme()->regions();
@@ -388,6 +320,7 @@ function alpha_regions() {
 
 /**
  * @todo
+ * @deprecated
  */
 function alpha_zones() {
   return alpha_get_theme()->zones();
@@ -395,6 +328,7 @@ function alpha_zones() {
 
 /**
  * @todo
+ * @deprecated
  */
 function alpha_sections() {
   return alpha_get_theme()->sections();
@@ -403,9 +337,192 @@ function alpha_sections() {
 
 /**
  * @todo
+ * @deprecated
  */
 function alpha_settings() {
   return alpha_get_theme()->settings();
+}
+
+/**
+ * @todo
+ */
+function alpha_grid_include($columns) {
+  $processed = &drupal_static(__FUNCTION__);
+  
+  if (empty($processed[$columns])) {
+    $processed[$columns] = TRUE;
+    $theme = alpha_get_theme();
+    
+    if (!empty($theme->grid)) {
+      foreach ($theme->grid as &$item) {
+        if (empty($item['processed']) && (empty($item['columns']) || $item['columns'] == $columns)) {
+          $item['processed'] = TRUE;
+
+          drupal_add_css($item['item'], $item['options']);
+        }
+      }
+    }
+    
+    if ($theme->settings['debug']['access'] && $theme->settings['debug']['grid']) {
+      if (isset($theme->grids[$theme->settings['grid']])) {
+        alpha_grid_debug($theme->grids[$theme->settings['grid']], $theme->settings['responsive'], $columns);
+      }
+    }
+  }
+}
+
+/**
+ * @todo
+ */
+function alpha_grid_debug($grid, $responsive, $columns) {
+  if (isset($grid['columns'][$columns])) {
+    if ($responsive) {      
+      $browsers = array('IE' => 'gte IE 9', '!IE' => TRUE);
+      $layouts = array_keys($grid['layouts']);
+    }
+    else {
+      $browsers = array('IE' => TRUE, '!IE' => TRUE);
+      $layouts = isset($grid['layouts'][$grid['primary']]) ? array($grid['primary']) : array();
+    }
+
+    foreach ($layouts as $layout) {
+      if ($grid['layouts'][$layout]['enabled'] || !$responsive) {
+        $media = $responsive ? $grid['layouts'][$layout]['media'] : 'all';
+        $weight = $grid['layouts'][$layout]['weight'];
+        $sanitized = $grid['layouts'][$layout]['sanitized'];
+        $file = $grid['path'] . '/' . $sanitized . '/' . $grid['sanitized'] . '-' . $sanitized . '-' . $columns . '.png';
+        $overlay = '.alpha-grid-debug .container-' . $columns . ' { background-image: ' . (is_file($file) ? 'url(' . file_create_url($file) . ')' : 'none') . '; }';
+
+        if ($responsive && $layout == $grid['primary']) {
+          drupal_add_css($overlay, array(
+            'type' => 'inline',
+            'media' => 'all', 
+            'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE), 
+            'group' => -2000,
+            'weight' => $weight,
+          ));
+        }
+
+        drupal_add_css($overlay, array(
+          'type' => 'inline',          
+          'browsers' => $browsers,
+          'group' => -1000,
+          'weight' => $weight,
+          'media' => $media,
+        ));
+      }
+    }
+  }
+}
+
+/**
+ * @todo
+ */
+function alpha_grid_css($theme, $grid, $responsive) {
+  $columns = array_keys($grid['columns']);
+  
+  if ($responsive) {      
+    $browsers = array('IE' => 'gte IE 9', '!IE' => TRUE);
+    $layouts = array_keys($grid['layouts']);
+  }
+  else {
+    $browsers = array('IE' => TRUE, '!IE' => TRUE);
+    $layouts = isset($grid['layouts'][$grid['primary']]) ? array($grid['primary']) : array();
+  }
+  
+  $output = array();
+  
+  if (!empty($layouts)) {
+    $trail = array_keys(alpha_theme_trail($theme));
+    
+    foreach ($layouts as $layout) {
+      $enabled = $grid['layouts'][$layout]['enabled'];
+      
+      if (!$responsive || $enabled) {        
+        $media = $responsive ? $grid['layouts'][$layout]['media'] : 'all';
+        $weight = $grid['layouts'][$layout]['weight'];
+        $sanitized = $grid['layouts'][$layout]['sanitized'];        
+        $attached = array();
+
+        foreach ($trail as $item) {
+          $path = drupal_get_path('theme', $item) . '/css';
+          $file = str_replace('_', '-', $item) . '-' . $grid['sanitized'];
+
+          if ($item = alpha_find_stylesheet($path, $file)) {
+            $attached[] = $item;
+          }
+
+          if ($item = alpha_find_stylesheet($path, $file . '-' . $sanitized)) {
+            $attached[] = $item;
+          }
+        }
+
+        foreach ($attached as $item) {
+          $basename = $layout . '::' . $item;
+
+          $output[$basename]['processed'] = FALSE;
+          $output[$basename]['item'] = $basename;
+          $output[$basename]['options'] = array(
+            'group' => 2000,
+            'weight' => $weight,                
+            'data' => $item, 
+            'basename' => $basename,                
+            'media' => $media,
+            'browsers' => $browsers,
+            'aggregate' => TRUE,                
+          );
+
+          if ($responsive && $grid['primary'] == $layout) {
+            $basename = 'ie::' . $basename;
+
+            $output[$basename]['processed'] = FALSE;
+            $output[$basename]['item'] = $basename;
+            $output[$basename]['options'] = array(
+              'group' => 1000,
+              'weight' => $weight,
+              'data' => $item, 
+              'basename' => $basename,
+              'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),
+            );
+          }
+        }
+
+        $path = $grid['path'] . '/' . $layout . '/' . $grid['sanitized'] . '-' . $sanitized;
+
+        foreach ($columns as $count) {
+          $file = $path . '-' . $count . '.css';
+
+          $output[$file]['processed'] = FALSE;
+          $output[$file]['columns'] = $count;
+          $output[$file]['item'] = $file;
+          $output[$file]['options'] = array(
+            'group' => 2000,
+            'weight' => $weight,
+            'media' => $media,
+            'browsers' => $browsers,          
+            'aggregate' => TRUE,
+          );
+
+          if ($responsive && $grid['primary'] == $layout) {                
+            $basename = 'ie::' . $layout . '::' . $path . '-' . $count . '.css';
+
+            $output[$basename]['processed'] = FALSE;
+            $output[$basename]['columns'] = $count;
+            $output[$basename]['item'] = $basename;
+            $output[$basename]['options'] = array(
+              'group' => 1000,
+              'weight' => $weight,
+              'data' => $file,
+              'basename' => $basename,
+              'browsers' => array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE),                
+            );
+          }
+        }
+      }
+    }
+  }
+  
+  return $output;
 }
 
 /**
@@ -622,149 +739,6 @@ function alpha_cache_get($theme, $delta = NULL) {
 /**
  * @todo
  */
-function alpha_calculate_primary(&$items, $primary, $container) {
-  if (!empty($items)) {
-    $items[$primary]['#grid']['columns'] = $container - $items[$primary]['#grid']['prefix'] - $items[$primary]['#grid']['suffix'];
-
-    foreach (element_children($items) as $item) {
-      if ($item != $primary) {
-        $items[$primary]['#grid']['columns'] -= $items[$item]['#grid']['columns'] + $items[$item]['#grid']['prefix'] + $items[$item]['#grid']['suffix'];
-      }
-    }
-  }
-}
-
-/**
- * @todo
- */
-function alpha_calculate_position(&$items) {
-  if (!empty($items)) {
-    $children = element_children($items, TRUE);
-    
-    foreach ($children as $a => $item) {
-      foreach ($children as $b => $inner) {
-        if ($item != $inner) {
-          if ($a >= $b && $items[$item]['#position'] < $items[$inner]['#position']) {
-            $items[$item]['#grid']['pull'] += $items[$inner]['#grid']['columns'] + $items[$inner]['#grid']['prefix'] + $items[$inner]['#grid']['suffix'];
-          }
-          else if ($a <= $b && $items[$item]['#position'] > $items[$inner]['#position']) {
-            $items[$item]['#grid']['push'] += $items[$inner]['#grid']['columns'] + $items[$inner]['#grid']['prefix'] + $items[$inner]['#grid']['suffix'];
-          }
-        }
-      }
-
-      if ($items[$item]['#grid']['pull'] > $items[$item]['#grid']['push']) {
-        $items[$item]['#grid']['pull'] -= $items[$item]['#grid']['push'];
-        $items[$item]['#grid']['push'] = 0;
-      }
-      else if ($items[$item]['#grid']['pull'] > $items[$item]['#grid']['push']) {
-        $items[$item]['#grid']['push'] -= $items[$item]['#grid']['pull'];
-        $items[$item]['#grid']['pull'] = 0;
-      }
-      else if ($items[$item]['#grid']['pull'] == $items[$item]['#grid']['push']) {
-        $items[$item]['#grid']['pull'] = 0;
-        $items[$item]['#grid']['push'] = 0;
-      }
-    }
-  }
-}
-
-/**
- * A helper function for retrieving the content of theme .info files
- * in the theme trail of $key.
- * 
- * @param $item
- *   The name of the variable that you want to fetch.
- *   
- * @param $theme (optional)
- *   The key (machin-readable name) of a theme. Defaults to the key of the
- *   current theme if not defined.
- *   
- * @return
- *   The $item content of all themes .info files in the theme trail.
- */
-function alpha_info($item, $theme) {
-  $themes = list_themes();
-  
-  if (!empty($themes[$theme]->info[$item])) {
-    return $themes[$theme]->info[$item];
-  }
-}
-
-/**
- * @todo
- */
-function alpha_info_trail($item, $theme) {
-  $output = array();
-  
-  if ($trail = alpha_theme_trail($theme)) {
-    $themes = list_themes();
-
-    foreach ($trail as $key => $name) {
-      if (!empty($themes[$key]->info[$item])) {
-        $output[$key] = $themes[$key]->info[$item];
-      }
-    }
-  }
-  
-  return $output;
-}
-
-/**
- * @todo
- */
-function alpha_find_stylesheet($path, $name) {
-  foreach (array('css', 'css.less', 'sass', 'scss') as $extension) {
-    $file = $path . '/' . $name . '.' . $extension;
-    
-    if (is_file($file)) {
-      return $file;
-    }
-  }
-  
-  return FALSE;
-}
-
-/**
- * A helper function to check wether the user defined by $user
- * matches one of the roles defined by $roles.
- * 
- * @param $user
- *   A Drupal user as returned by user_load().
- * 
- * @param $roles
- *   An array of roles that you want to check against $user.
- * 
- * @return
- *   A boolean, indicating wether or not $user matches one of
- *   the $roles.
- */
-function alpha_debug_access($user, $roles) {
-  foreach ($roles as $role) {
-    if (isset($user->roles[$role])) {
-      return TRUE;
-    } 
-  }
-  
-  return FALSE;
-}
-
-/**
- * Builds and returns a debugging block.
- * 
- * @param $theme (optional)
- *   The key (machin-readable name) of a theme. Defaults to the key of the
- *   current theme if not defined.
- * 
- * @return
- *   An array of files that can be excluded with hook_css_alter().
- * 
- * @see
- *   alpha_css_alter().
- * 
- * @see 
- *   hook_css_alter().
- */
 function alpha_retrieve_excludes($theme) {
   $themes = list_themes();  
   $styles = array();
@@ -916,112 +890,130 @@ function alpha_retrieve_libraries($theme) {
 /**
  * @todo
  */
-function alpha_grid_css($theme, $grid, $responsive) {
-  $ie = array('IE' => '(lt IE 9)&(!IEMobile)', '!IE' => FALSE);
-  $columns = array_keys($grid['columns']);
-  
-  if ($responsive) {      
-    $nonie = array('IE' => 'gte IE 9', '!IE' => TRUE);
-    $layouts = array_keys($grid['layouts']);
+function alpha_calculate_primary(&$items, $primary, $container) {
+  if (!empty($items)) {
+    $items[$primary]['#grid']['columns'] = $container - $items[$primary]['#grid']['prefix'] - $items[$primary]['#grid']['suffix'];
+
+    foreach (element_children($items) as $item) {
+      if ($item != $primary) {
+        $items[$primary]['#grid']['columns'] -= $items[$item]['#grid']['columns'] + $items[$item]['#grid']['prefix'] + $items[$item]['#grid']['suffix'];
+      }
+    }
   }
-  else {
-    $nonie = array('IE' => TRUE, '!IE' => TRUE);
-    $layouts = isset($grid['layouts'][$grid['primary']]) ? array($grid['primary']) : array();
+}
+
+/**
+ * @todo
+ */
+function alpha_calculate_position(&$items) {
+  if (!empty($items)) {
+    $children = element_children($items, TRUE);
+    
+    foreach ($children as $a => $item) {
+      foreach ($children as $b => $inner) {
+        if ($item != $inner) {
+          if ($a >= $b && $items[$item]['#position'] < $items[$inner]['#position']) {
+            $items[$item]['#grid']['pull'] += $items[$inner]['#grid']['columns'] + $items[$inner]['#grid']['prefix'] + $items[$inner]['#grid']['suffix'];
+          }
+          else if ($a <= $b && $items[$item]['#position'] > $items[$inner]['#position']) {
+            $items[$item]['#grid']['push'] += $items[$inner]['#grid']['columns'] + $items[$inner]['#grid']['prefix'] + $items[$inner]['#grid']['suffix'];
+          }
+        }
+      }
+
+      if ($items[$item]['#grid']['pull'] > $items[$item]['#grid']['push']) {
+        $items[$item]['#grid']['pull'] -= $items[$item]['#grid']['push'];
+        $items[$item]['#grid']['push'] = 0;
+      }
+      else if ($items[$item]['#grid']['pull'] > $items[$item]['#grid']['push']) {
+        $items[$item]['#grid']['push'] -= $items[$item]['#grid']['pull'];
+        $items[$item]['#grid']['pull'] = 0;
+      }
+      else if ($items[$item]['#grid']['pull'] == $items[$item]['#grid']['push']) {
+        $items[$item]['#grid']['pull'] = 0;
+        $items[$item]['#grid']['push'] = 0;
+      }
+    }
   }
+}
+
+/**
+ * A helper function for retrieving the content of theme .info files
+ * in the theme trail of $key.
+ * 
+ * @param $item
+ *   The name of the variable that you want to fetch.
+ *   
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ *   
+ * @return
+ *   The $item content of all themes .info files in the theme trail.
+ */
+function alpha_info($item, $theme) {
+  $themes = list_themes();
   
+  if (!empty($themes[$theme]->info[$item])) {
+    return $themes[$theme]->info[$item];
+  }
+}
+
+/**
+ * @todo
+ */
+function alpha_info_trail($item, $theme) {
   $output = array();
   
-  if (!empty($layouts)) {
-    $trail = array_keys(alpha_theme_trail($theme));
-    
-    foreach ($layouts as $layout) {
-      $enabled = $grid['layouts'][$layout]['enabled'];
-      
-      if (!$responsive || $enabled) {        
-        $media = $responsive ? $grid['layouts'][$layout]['media'] : 'all';
-        $weight = $grid['layouts'][$layout]['weight'];
-        $sanitized = $grid['layouts'][$layout]['sanitized'];        
-        $attached = array();
+  if ($trail = alpha_theme_trail($theme)) {
+    $themes = list_themes();
 
-        foreach ($trail as $item) {
-          $path = drupal_get_path('theme', $item) . '/css';
-          $file = str_replace('_', '-', $item) . '-' . $grid['sanitized'];
-
-          if ($item = alpha_find_stylesheet($path, $file)) {
-            $attached[] = $item;
-          }
-
-          if ($item = alpha_find_stylesheet($path, $file . '-' . $sanitized)) {
-            $attached[] = $item;
-          }
-        }
-
-        foreach ($attached as $item) {
-          $basename = $layout . '::' . $item;
-
-          $output[$basename]['processed'] = FALSE;
-          $output[$basename]['item'] = $basename;
-          $output[$basename]['options'] = array(
-            'group' => 2000,
-            'weight' => $weight,                
-            'data' => $item, 
-            'basename' => $basename,                
-            'media' => $media,
-            'browsers' => $nonie,
-            'aggregate' => TRUE,                
-          );
-
-          if ($responsive && $grid['primary'] == $layout) {
-            $basename = 'ie::' . $basename;
-
-            $output[$basename]['processed'] = FALSE;
-            $output[$basename]['item'] = $basename;
-            $output[$basename]['options'] = array(
-              'group' => 1000,
-              'weight' => $weight,
-              'data' => $item, 
-              'basename' => $basename,
-              'browsers' => $ie,
-            );
-          }
-        }
-
-        $path = $grid['path'] . '/' . $layout . '/' . $grid['sanitized'] . '-' . $sanitized;
-
-        foreach ($columns as $count) {
-          $file = $path . '-' . $count . '.css';
-
-          $output[$file]['processed'] = FALSE;
-          $output[$file]['columns'] = $count;
-          $output[$file]['item'] = $file;
-          $output[$file]['options'] = array(
-            'group' => 2000,
-            'weight' => $weight,
-            'media' => $media,
-            'browsers' => $nonie,          
-            'aggregate' => TRUE,
-          );
-
-          if ($responsive && $grid['primary'] == $layout) {                
-            $basename = 'ie::' . $layout . '::' . $path . '-' . $count . '.css';
-
-            $output[$basename]['processed'] = FALSE;
-            $output[$basename]['columns'] = $count;
-            $output[$basename]['item'] = $basename;
-            $output[$basename]['options'] = array(
-              'group' => 1000,
-              'weight' => $weight,
-              'data' => $file,
-              'basename' => $basename,
-              'browsers' => $ie,                
-            );
-          }
-        }
+    foreach ($trail as $key => $name) {
+      if (!empty($themes[$key]->info[$item])) {
+        $output[$key] = $themes[$key]->info[$item];
       }
     }
   }
   
   return $output;
+}
+
+/**
+ * @todo
+ */
+function alpha_find_stylesheet($path, $name) {
+  foreach (array('css', 'css.less', 'sass', 'scss') as $extension) {
+    $file = $path . '/' . $name . '.' . $extension;
+    
+    if (is_file($file)) {
+      return $file;
+    }
+  }
+  
+  return FALSE;
+}
+
+/**
+ * A helper function to check wether the user defined by $user
+ * matches one of the roles defined by $roles.
+ * 
+ * @param $user
+ *   A Drupal user as returned by user_load().
+ * 
+ * @param $roles
+ *   An array of roles that you want to check against $user.
+ * 
+ * @return
+ *   A boolean, indicating wether or not $user matches one of
+ *   the $roles.
+ */
+function alpha_debug_access($user, $roles) {
+  foreach ($roles as $role) {
+    if (isset($user->roles[$role])) {
+      return TRUE;
+    } 
+  }
+  
+  return FALSE;
 }
 
 /**

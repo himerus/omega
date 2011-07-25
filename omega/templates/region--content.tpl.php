@@ -1,6 +1,6 @@
 <div<?php print $attributes; ?>>
   <div<?php print $content_attributes; ?>>
-  	<a id="main-content"></a>
+    <a id="main-content"></a>
     <?php if ($title): ?>
     <?php if ($title_hidden): ?><div class="element-invisible"><?php endif; ?>
     <?php print render($title_prefix); ?>

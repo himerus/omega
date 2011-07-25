@@ -55,5 +55,5 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
 function omega_theme_settings_validate_equal_height($element, &$form_state) {
   $value = isset($element['#zone']) ? $form_state['values']['alpha_zone_' . $element['#zone'] . '_equal_height_container'] : FALSE;
   
-  form_set_value($element, $value ,$form_state);  
+  form_set_value($element, $value, $form_state);  
 }

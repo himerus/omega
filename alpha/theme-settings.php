@@ -99,9 +99,7 @@ function alpha_theme_settings_form_validate($form, &$form_state) {
  * @todo
  */
 function alpha_theme_settings_form_submit($form, &$form_state) {
-  $delta = isset($form_state['delta']) ? $form_state['delta']->machine_name : NULL;
-  
-  alpha_cache_clear($form_state['theme'], $delta);
+  alpha_cache_clear($form_state['theme'], (isset($form_state['delta']) ? $form_state['delta'] : NULL));
 }
 
 /**
@@ -131,9 +129,6 @@ function alpha_scale_options($start, $end, $step) {
 
 /**
  * A helper function to return a proper options array for a form.
- * 
- * @param $theme
- *   The key (machin-readable name) of a theme.
  *   
  * @return 
  *   An array of optional or responsive stylesheet options.
@@ -176,9 +171,6 @@ function alpha_exclude_options($theme) {
 
 /**
  * A helper function to return a proper options array for a form.
- * 
- * @param $theme
- *   The key (machin-readable name) of a theme.
  *   
  * @return 
  *   An array of available grids.
@@ -197,9 +189,6 @@ function alpha_grid_options($grids) {
  * 
  * @param $grid
  *   The name of a grid.
- * 
- * @param $theme
- *   The key (machin-readable name) of a theme.
  *   
  * @return 
  *   An array of available layouts.
@@ -217,9 +206,6 @@ function alpha_grid_layouts_options($grid) {
 
 /**
  * A helper function to return a proper options array for a form.
- * 
- * @param $theme
- *   The key (machin-readable name) of a theme.
  *   
  * @return 
  *   An array of available libraries.
@@ -238,9 +224,6 @@ function alpha_library_options($libraries) {
  * 
  * @param $grid
  *   The grid that you want to fetch the available containers for.
- * 
- * @param $theme
- *   The key (machin-readable name) of a theme.
  *   
  * @return 
  *   An array of available containers.
