@@ -36,7 +36,11 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
-7/24/11
+7/26/11
+=========
+#1229798  - Fixing alpha_cache_clear().
+
+7/25/11
 =========
 #1228106  - Major code review and performance enhancements. This needs to be tested!
 
