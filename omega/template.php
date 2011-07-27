@@ -140,8 +140,8 @@ function omega_preprocess_node(&$vars) {
   // Add a class to make the node container self clearing.
   $vars['attributes_array']['class'][] = 'clearfix';  
   
-  $vars['content_attributes_array'][] = 'content';
-  $vars['content_attributes_array'][] = 'clearfix';
+  $vars['content_attributes_array']['class'][] = 'content';
+  $vars['content_attributes_array']['class'][] = 'clearfix';
   
   // Adding a class to the title attributes
   $vars['title_attributes_array']['class'][] = 'node-title';

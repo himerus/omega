@@ -32,13 +32,24 @@ Maintainer(s):
 CHANGELOG.txt to track changes to the Omega theme.
 
 ##########################################################################################
-##### Current Release: 7.x-3.0-beta3
+##### Current Release: 7.x-3.0-rc1
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+7/27/11
+=========
+#1230786  - Fixed the region & zone configuration tab to properly remove the "There are
+no unassigned regions" message when there are unassigned regions.
+
+#1231160  - Fixed template_preprocess_node to produce the proper content_attributes_array.
+
 7/26/11
 =========
-#1229798  - Fixing alpha_cache_clear().
+#1229798  - Fixed alpha_cache_clear().
+
+##########################################################################################
+##### Changes in: 7.x-3.0-beta2
+########################################################################################## 
 
 7/25/11
 =========
