@@ -99,7 +99,7 @@ function alpha_theme_settings_form_validate($form, &$form_state) {
  * @todo
  */
 function alpha_theme_settings_form_submit($form, &$form_state) {
-  alpha_cache_clear($form_state['theme'], (isset($form_state['delta']) ? $form_state['delta'] : NULL));
+  alpha_cache_clear($form_state['theme'], (isset($form_state['delta']) ? $form_state['delta']->machine_name : NULL));
 }
 
 /**
