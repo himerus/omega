@@ -167,8 +167,11 @@ function alpha_page_alter(&$vars) {
     }
   }
   
-  if (!module_implements('alpha_page_structure')) {
+  if (!module_implements('alpha_page_structure_alter')) {
     alpha_alter('alpha_page_structure', $vars, $theme->theme);
+  }
+  else {
+    drupal_alter('alpha_page_structure', $vars, $theme->theme);
   }
 }
 
