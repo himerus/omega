@@ -155,13 +155,12 @@ function alpha_page_alter(&$vars) {
             $vars[$region]['#region'] = $region;
             $vars[$region]['#theme_wrappers'] = array('region');
           }
-
-          $vars[$region]['#sorted'] = FALSE;
-          $vars[$region]['alpha_debug_' . $region] = array(       
+          
+          $vars[$region] = array('alpha_debug_' . $region => array(       
             '#type' => 'markup',
             '#markup' => '<div class="alpha-debug-block"><h2>' . $item['name'] . '</h2><p>' . t('This is a debugging block') . '</p></div>',
             '#weight' => -999,
-          );
+          )) + $vars[$region];
         }
       }
     }
