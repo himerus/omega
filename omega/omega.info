@@ -92,6 +92,9 @@ libraries[omega_equalheights][description] = Allows you to force all regions of 
 libraries[omega_equalheights][js][0][file] = omega-equalheights.js
 libraries[omega_equalheights][js][0][options][weight] = -18
 
+; PLUGINS
+plugins[panels][layouts] = panels/layouts
+
 ; THEME SETTINGS (DEFAULTS)
 
 settings[alpha_grid] = 'alpha_default'
