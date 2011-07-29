@@ -33,7 +33,7 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
     ),
   );
   
-  $form['alpha_settings']['structure']['__unassigned__']['__unassigned__'] = array(
+  $form['alpha_settings']['structure']['__unassigned__']['__unassigned__']['regions'] = array(
     '#type' => 'fieldset',
     '#title' => t('Unassigned regions'),
     '#description' => t('There are no unassigned regions.'),
@@ -167,7 +167,7 @@ function alpha_theme_settings_structure(&$form, &$form_state) {
     $zone = $item['enabled'] ? $item['zone'] : '__unassigned__';
     $section = $item['enabled'] && $theme->zones[$item['zone']]['enabled'] ? $item['section'] : '__unassigned__';
     
-    unset($form['alpha_settings']['structure'][$section][$zone]['#description']);
+    unset($form['alpha_settings']['structure'][$section][$zone]['regions']['#description']);
 
     $form['alpha_settings']['structure'][$section][$zone]['regions'][$region] = array(
       '#type' => 'fieldset',
