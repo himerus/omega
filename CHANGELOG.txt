@@ -38,6 +38,8 @@ CHANGELOG.txt to track changes to the Omega theme.
 
 7/29/11
 =========
+#983758   - Panels Integration #1. This might not yet cover mini panels. 
+
 #1233550  - Fixed a bug that caused zones to be incorrectly described as "empty" in the
 theme settings.
 
