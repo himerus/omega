@@ -25,7 +25,7 @@ function omega_alpha_zones_alter(&$zones, $theme) {
 /**
  * Implements hook_preprocess_html().
  */
-function omega_preprocess_html(&$vars) {
+function omega_alpha_preprocess_html(&$vars) {
   $theme = alpha_get_theme();
   $vars['rdf'] = new stdClass;  
   
@@ -66,7 +66,7 @@ function omega_preprocess_html(&$vars) {
 /**
  * Implements hook_preprocess_comment().
  */
-function omega_preprocess_comment(&$vars) {
+function omega_alpha_preprocess_comment(&$vars) {
   // Prepare the arrays to handle the classes and ids for the node container.
   $vars['attributes_array']['class'][] = 'clearfix';
   
@@ -81,7 +81,7 @@ function omega_preprocess_comment(&$vars) {
 /**
  * Implements hook_preprocess_zone().
  */
-function omega_preprocess_zone(&$vars) {
+function omega_alpha_preprocess_zone(&$vars) {
   if (alpha_library_active('omega_equalheights')) {
     if (!empty($vars['elements']['#data']['equal_height_container'])) {
       $vars['content_attributes_array']['class'][] = 'equal-height-container';
@@ -92,7 +92,7 @@ function omega_preprocess_zone(&$vars) {
 /**
  * Implements hook_preprocess_region().
  */
-function omega_preprocess_region(&$vars) {
+function omega_alpha_preprocess_region(&$vars) {
   if (alpha_library_active('omega_equalheights')) {
     if (!empty($vars['elements']['#data']['equal_height_container'])) {
       $vars['content_attributes_array']['class'][] = 'equal-height-container';
@@ -107,7 +107,7 @@ function omega_preprocess_region(&$vars) {
 /**
  * Implements hook_preprocess_node().
  */
-function omega_preprocess_node(&$vars) {
+function omega_alpha_preprocess_node(&$vars) {
   // Prepare the arrays to handle the classes and ids for the node container.
   $vars['attributes_array']['id'] = drupal_html_id('node-' . $vars['type'] . '-' . $vars['nid']);
   
@@ -150,7 +150,7 @@ function omega_preprocess_node(&$vars) {
 /**
  * Implements hook_process_region().
  */
-function omega_process_region(&$vars) {
+function omega_alpha_process_region(&$vars) {
   if (in_array($vars['elements']['#region'], array('content', 'menu', 'branding'))) {
     $theme = alpha_get_theme();
     
@@ -186,7 +186,7 @@ function omega_process_region(&$vars) {
 /**
  * Implements hook_process_zone().
  */
-function omega_process_zone(&$vars) {
+function omega_alpha_process_zone(&$vars) {
   $theme = alpha_get_theme();
   
   if ($vars['elements']['#zone'] == 'content') {
@@ -198,7 +198,7 @@ function omega_process_zone(&$vars) {
 /**
  * Implements hook_preprocess_block().
  */
-function omega_preprocess_block(&$vars) {
+function omega_alpha_preprocess_block(&$vars) {
   $theme = alpha_get_theme();
   
   // Adding a class to the title attributes

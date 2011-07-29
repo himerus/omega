@@ -106,18 +106,19 @@ function alpha_invoke($type, $hook, &$vars) {
   
   // If one of the themes in the theme trail implements this hook
   // include the corresponding .inc file and call the associated function.
-  foreach (array_keys(alpha_theme_trail($theme->theme)) as $key) {
-    $file = drupal_get_path('theme', $key) . '/' . $type . '/' . $type . '-' . str_replace('_', '-', $hook) . '.inc';
+  foreach (alpha_theme_trail($theme->theme) as $key => $name) {
     $function = $key . '_alpha_' . $type . '_' . $hook;
     
-    if (is_file($file)) {
-      if (!function_exists($function)) {
+    if (!function_exists($function)) {
+      $file = drupal_get_path('theme', $key) . '/' . $type . '/' . $type . '-' . str_replace('_', '-', $hook) . '.inc';
+      
+      if (is_file($file)) {
         include $file;
       }
-
-      if (function_exists($function)) {
-        $function($vars);
-      }
+    }
+    
+    if (function_exists($function)) {
+      $function($vars);
     }
   }
 }
@@ -229,10 +230,17 @@ function alpha_theme_trail($theme) {
 function alpha_get_theme() {
   $container = &drupal_static(__FUNCTION__);
   
-  $theme = $GLOBALS['theme_key'];
+  $key = $theme = $GLOBALS['theme_key'];
+  //$delta = NULL;
+  //
+  //if (module_exists('delta') && $delta = delta_get_delta($theme)) {
+  //  $delta = $delta->machine_name;
+  //  $key .= ':' . $delta;
+  //}
+  
   $delta = isset($GLOBALS['delta']) ? $GLOBALS['delta']->machine_name : NULL;
-  $key = $theme . (isset($delta) ? ':' . $delta : '');
-    
+  $key .= isset($delta) ? ':' . $delta : '';
+  
   if (!isset($container[$key])) {  
     foreach (array_keys(alpha_theme_trail($theme)) as $item) {
       if (class_exists($item . '_theme_container')) {

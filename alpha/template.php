@@ -155,12 +155,14 @@ function alpha_page_alter(&$vars) {
             $vars[$region]['#region'] = $region;
             $vars[$region]['#theme_wrappers'] = array('region');
           }
-          
-          $vars[$region] = array('alpha_debug_' . $region => array(       
-            '#type' => 'markup',
-            '#markup' => '<div class="alpha-debug-block"><h2>' . $item['name'] . '</h2><p>' . t('This is a debugging block') . '</p></div>',
-            '#weight' => -999,
-          )) + $vars[$region];
+
+          if (isset($vars[$region]['#theme_wrappers']) && array_search('region', $vars[$region]['#theme_wrappers']) !== FALSE) {
+            $vars[$region] = array('alpha_debug_' . $region => array(       
+              '#type' => 'markup',
+              '#markup' => '<div class="alpha-debug-block"><h2>' . $item['name'] . '</h2><p>' . t('This is a debugging block') . '</p></div>',
+              '#weight' => -999,
+            )) + $vars[$region];
+          }
         }
       }
     }
@@ -280,7 +282,7 @@ function template_preprocess_zone(&$vars) {
 /**
  * Implements hook_preprocess_block().
  */
-function alpha_preprocess_block(&$vars) {
+function alpha_alpha_preprocess_block(&$vars) {
   $vars['content_attributes_array']['class'][] = 'content';
   $vars['content_attributes_array']['class'][] = 'clearfix';
   $vars['attributes_array']['id'] = $vars['block_html_id'];
@@ -291,7 +293,7 @@ function alpha_preprocess_block(&$vars) {
 /**
  * Implements hook_preprocess_html().
  */
-function alpha_preprocess_html(&$vars) {
+function alpha_alpha_preprocess_html(&$vars) {
   $theme = alpha_get_theme();
   
   foreach (array('two-sidebars', 'one-sidebar sidebar-first', 'one-sidebar sidebar-second', 'no-sidebars') as $exclude) {
@@ -339,7 +341,7 @@ function alpha_preprocess_html(&$vars) {
 /**
  * Implements hook_preprocess_page().
  */
-function alpha_preprocess_page(&$vars) {
+function alpha_alpha_preprocess_page(&$vars) {
   $theme = alpha_get_theme();
   $theme->page = &$vars;
   
@@ -357,7 +359,7 @@ function alpha_preprocess_page(&$vars) {
 /**
  * Implements hook_preprocess_region().
  */
-function alpha_preprocess_region(&$vars) {
+function alpha_alpha_preprocess_region(&$vars) {
   $vars['attributes_array']['id'] = drupal_html_id('region-' . $vars['region']);
   $vars['content_attributes_array']['class'][] = 'region-inner';
   $vars['content_attributes_array']['class'][] = $vars['attributes_array']['id'] . '-inner';
@@ -366,7 +368,7 @@ function alpha_preprocess_region(&$vars) {
 /**
  * Implements hook_process_page().
  */
-function alpha_process_page(&$vars) {
+function alpha_alpha_process_page(&$vars) {
   $theme = alpha_get_theme();
   
   $vars['title'] = $theme->settings['toggle']['page_title'] ? $vars['title'] : NULL;
