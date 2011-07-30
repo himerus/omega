@@ -231,15 +231,11 @@ function alpha_get_theme() {
   $container = &drupal_static(__FUNCTION__);
   
   $key = $theme = $GLOBALS['theme_key'];
-  //$delta = NULL;
-  //
-  //if (module_exists('delta') && $delta = delta_get_delta($theme)) {
-  //  $delta = $delta->machine_name;
-  //  $key .= ':' . $delta;
-  //}
+  $delta = NULL;
   
-  $delta = isset($GLOBALS['delta']) ? $GLOBALS['delta']->machine_name : NULL;
-  $key .= isset($delta) ? ':' . $delta : '';
+  if (module_exists('delta') && $delta = delta_get_current($theme)) {
+    $key .= ':' . $delta;
+  }
   
   if (!isset($container[$key])) {  
     foreach (array_keys(alpha_theme_trail($theme)) as $item) {
