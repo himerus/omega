@@ -118,6 +118,8 @@ function alpha_css_alter(&$css) {
  */
 function alpha_page_alter(&$vars) {
   $theme = alpha_get_theme();
+  $theme->settings['debug']['access'] = alpha_debug_access($GLOBALS['user'], $theme->settings['debug']['roles']);
+
 
   // If no module has taken care of the main content, add it to the page now.
   // This allows the site to still be usable even if no modules that
@@ -198,7 +200,7 @@ function alpha_alpha_page_structure_alter(&$vars) {
       );
       
       $theme->regions[$region]['grid'] = &$temporary[$item['section']][$item['zone']][$region]['#grid'];
-      
+    
       if (empty($vars[$region])) {
         $temporary[$item['section']][$item['zone']][$region]['#region'] = $region;
         $temporary[$item['section']][$item['zone']][$region]['#theme_wrappers'] = array('region');

@@ -36,6 +36,10 @@ CHANGELOG.txt to track changes to the Omega theme.
 ##### Pending changes for Next Release
 ########################################################################################## 
 
+7/31/11
+=========
+#1233462  - Debug access was accidently being cached.
+
 7/29/11
 =========
 #983758   - Panels Integration #1. This might not yet cover mini panels. 

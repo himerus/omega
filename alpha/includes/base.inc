@@ -61,9 +61,7 @@ class alpha_theme_container {
    * @todo
    */
   function settings() {
-    if (!isset($this->settings)) {
-      $roles = array_keys(array_filter(alpha_theme_get_setting('alpha_debug_grid_roles', array(), $this->theme)));
-      
+    if (!isset($this->settings)) {      
       $this->settings = array(
         'grid' => alpha_theme_get_setting('alpha_grid', 'default', $this->theme),
         'css' => alpha_theme_get_setting('alpha_css', array(), $this->theme),
@@ -84,8 +82,7 @@ class alpha_theme_container {
           'block_active' => alpha_theme_get_setting('alpha_debug_block_active', FALSE, $this->theme),
           'grid' => alpha_theme_get_setting('alpha_debug_grid_toggle', FALSE, $this->theme),
           'grid_active' => alpha_theme_get_setting('alpha_debug_grid_active', FALSE, $this->theme),
-          'roles' => $roles,
-          'access' => alpha_debug_access($GLOBALS['user'], $roles),
+          'roles' => array_keys(array_filter(alpha_theme_get_setting('alpha_debug_grid_roles', array(), $this->theme))),
         ),
       );
 
