@@ -119,8 +119,7 @@ function alpha_css_alter(&$css) {
 function alpha_page_alter(&$vars) {
   $theme = alpha_get_theme();
   $theme->settings['debug']['access'] = alpha_debug_access($GLOBALS['user'], $theme->settings['debug']['roles']);
-
-
+  
   // If no module has taken care of the main content, add it to the page now.
   // This allows the site to still be usable even if no modules that
   // control page regions (for example, the Block module) are enabled.
