@@ -9,12 +9,10 @@
  * A wrapper function for theme_get_settings().
  * 
  * @param $name
- *   The name of the setting that you want to retrieve.
- * 
+ *   The name of the setting that you want to retrieve. 
  * @param $default (optional)
  *   The name (key) of the theme that you want to fetch the
- *   setting for. Defaults to NULL.
- *   
+ *   setting for. Defaults to NULL.   
  * @param $theme (optional)
  *   The key (machin-readable name) of a theme. Defaults to the key of the
  *   current theme if not defined.
@@ -32,15 +30,12 @@ function alpha_theme_get_setting($name, $default = NULL, $theme = NULL) {
  * A helper function for retrieving zone settings.
  * 
  * @param $name
- *   The name of the setting that you want to retrieve.
- * 
+ *   The name of the setting that you want to retrieve. 
  * @param $zone
- *   The zone that you want to fetch the setting for.
- * 
+ *   The zone that you want to fetch the setting for. 
  * @param $default (optional)
  *   The name (key) of the theme that you want to fetch the
- *   setting for. Defaults to NULL.
- *   
+ *   setting for. Defaults to NULL.   
  * @param $theme (optional)
  *   The key (machin-readable name) of a theme. Defaults to the key of the
  *   current theme if not defined.
@@ -61,15 +56,12 @@ function alpha_zone_get_setting($name, $zone, $default = NULL, $theme = NULL) {
  * A helper function for retrieving region settings.
  * 
  * @param $name
- *    The name of the setting that you want to retrieve.
- * 
+ *    The name of the setting that you want to retrieve. 
  * @param $region
- *    The region that you want to fetch the setting for.
- * 
+ *    The region that you want to fetch the setting for. 
  * @param $default (optional)
  *   The name (key) of the theme that you want to fetch the
- *   setting for. Defaults to NULL.
- *   
+ *   setting for. Defaults to NULL.   
  * @param $theme (optional)
  *   The key (machin-readable name) of a theme. Defaults to the key of the
  *   current theme if not defined.
@@ -92,11 +84,9 @@ function alpha_region_get_setting($name, $region, $default = NULL, $theme = NULL
  * .inc file and calling the associated function.
  * 
  * @param $type
- *   The type of the hook. Can be preprocess or process.
- * 
+ *   The type of the hook. Can be preprocess or process. 
  * @param $hook
- *   The name of the hook.
- * 
+ *   The name of the hook. 
  * @param &$vars
  *   An array of variables belonging to the (pre)process hook.
  *   Handed by reference.
@@ -132,14 +122,11 @@ function alpha_invoke($type, $hook, &$vars) {
  * building its form.
  * 
  * @param $type
- * 
  * @param $data
- * 
  * @param $context1
- * 
  * @param $context2
  * 
- * @see 
+ * @see
  *   See drupal_alter() for more information about how this works.
  */
 function alpha_alter($type, &$data, &$context1 = NULL, &$context2 = NULL) {
@@ -189,14 +176,10 @@ function alpha_alter($type, &$data, &$context1 = NULL, &$context2 = NULL) {
  * Builds the full theme trail (deepest base theme first, subtheme last)
  * for a theme.
  * 
- * @param $theme (optional)
- *   The key (machin-readable name) of a theme. Defaults to the key of the
- *   current theme if not defined.
- * 
- * @param $hook
- *   The name of the hook.
- * 
- * @return 
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ *
+ * @return
  *   An array of all themes in the trail, keyed by theme key.
  */
 function alpha_theme_trail($theme) {
@@ -225,7 +208,10 @@ function alpha_theme_trail($theme) {
 }
 
 /**
- * @todo
+ * Returns the theme container object for the current theme.
+ *
+ * @return
+ *   An object representing the current theme.
  */
 function alpha_get_theme() {
   $container = &drupal_static(__FUNCTION__);
@@ -253,7 +239,7 @@ function alpha_get_theme() {
 }
 
 /**
- * @todo
+ * Includes all activated libraries for the current theme.
  */
 function alpha_libraries_include() {
   $theme = alpha_get_theme();
@@ -276,7 +262,7 @@ function alpha_libraries_include() {
 }
 
 /**
- * @todo
+ * Includes all custom CSS files for the current theme.
  */
 function alpha_css_include() {
   $theme = alpha_get_theme();
@@ -289,7 +275,13 @@ function alpha_css_include() {
 }
 
 /**
- * @todo
+ * Checks wether a library is active in the current theme.
+ *
+ * @param $library
+ *   The name of a library.
+ *
+ * @return
+ *   Boolean TRUE or FALSE.
  */
 function alpha_library_active($library) {
   $theme = alpha_get_theme();
@@ -302,7 +294,13 @@ function alpha_library_active($library) {
 }
 
 /**
- * @todo
+ * Checks wether a custom CSS file is active in the current theme.
+ *
+ * @param $css
+ *   The filename of a CSS file.
+ *
+ * @return
+ *   Boolean TRUE or FALSE.
  */
 function alpha_css_active($css) {
   $theme = alpha_get_theme();
@@ -315,7 +313,6 @@ function alpha_css_active($css) {
 }
 
 /**
- * @todo
  * @deprecated
  */
 function alpha_regions() {
@@ -323,7 +320,6 @@ function alpha_regions() {
 }
 
 /**
- * @todo
  * @deprecated
  */
 function alpha_zones() {
@@ -331,7 +327,6 @@ function alpha_zones() {
 }
 
 /**
- * @todo
  * @deprecated
  */
 function alpha_sections() {
@@ -340,7 +335,6 @@ function alpha_sections() {
 
 
 /**
- * @todo
  * @deprecated
  */
 function alpha_settings() {
@@ -348,7 +342,13 @@ function alpha_settings() {
 }
 
 /**
- * @todo
+ * Includes all active layouts for a specific column count of the grid in
+ * charge for the current theme and also adds the corresponding grid debugging
+ * CSS if debugging is enabled.
+ *
+ * @param $columns
+ *   An integer value that declares the column layout that the grid CSS should
+ *   be generated for.
  */
 function alpha_grid_include($columns) {
   $processed = &drupal_static(__FUNCTION__);
@@ -376,7 +376,16 @@ function alpha_grid_include($columns) {
 }
 
 /**
- * @todo
+ * Generates and includes debugging information for a grid.
+ *
+ * @param $grid
+ *   A grid info array.
+ * @param $responsive
+ *   A boolean indicating wether the grid debug CSS should be included in
+ *   responsive or non-responsive mode.
+ * @param $columns
+ *   An integer value that declares the column layout that the grid debug
+ *   CSS should be included for.
  */
 function alpha_grid_debug($grid, $responsive, $columns) {
   if (isset($grid['columns'][$columns])) {
@@ -420,7 +429,18 @@ function alpha_grid_debug($grid, $responsive, $columns) {
 }
 
 /**
- * @todo
+ * Builds an array of grid CSS information.
+ * 
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ * @param $grid
+ *   A grid info array.
+ * @param $responsive
+ *   A boolean indicating wether the grid CSS should be generated in
+ *   responsive or non-responsive mode.
+ * 
+ * @return
+ *   An array of CSS files related to a grid.
  */
 function alpha_grid_css($theme, $grid, $responsive) {
   $columns = array_keys($grid['columns']);
@@ -442,7 +462,7 @@ function alpha_grid_css($theme, $grid, $responsive) {
     foreach ($layouts as $layout) {
       $enabled = $grid['layouts'][$layout]['enabled'];
       
-      if (!$responsive || $enabled) {        
+      if (!$responsive || $enabled) {
         $media = $responsive ? $grid['layouts'][$layout]['media'] : 'all';
         $weight = $grid['layouts'][$layout]['weight'];
         $sanitized = $grid['layouts'][$layout]['sanitized'];        
@@ -530,7 +550,13 @@ function alpha_grid_css($theme, $grid, $responsive) {
 }
 
 /**
- * @todo
+ * Groups grid CSS files before aggregation.
+ *
+ * @param $items
+ *   An array of grid CSS files.
+ * 
+ * @return
+ *   An array of grid CSS groups.
  */
 function alpha_grid_css_group($items) {
   $output = array();
@@ -568,7 +594,16 @@ function alpha_grid_css_group($items) {
 }
 
 /**
- * @todo
+ * Aggregates grid CSS files.
+ *
+ * @param $elements
+ *   An array of CSS files as in drupal_pre_render_styles().
+ *
+ * @return
+ *   An array of aggregated grid CSS files.
+ *
+ * @see
+ *   drupal_pre_render_styles().
  */
 function alpha_grid_css_aggregate($elements) {
   $theme = alpha_get_theme();
@@ -608,7 +643,17 @@ function alpha_grid_css_aggregate($elements) {
 }
 
 /**
- * @todo
+ * Builds chunks of CSS files for aggregation.
+ *
+ * @param $items
+ *   An array of CSS files as in $elemtents['#items'] in
+ *   drupal_pre_render_styles().
+ *
+ * @return
+ *   An array of grouped CSS files.
+ *
+ * @see
+ *   drupal_pre_render_styles().
  */
 function alpha_grid_css_chunks($items) {
   $output = array();
@@ -627,7 +672,16 @@ function alpha_grid_css_chunks($items) {
 }
 
 /**
- * @todo
+ * Caches a group of grid CSS files by merging them into one single file.
+ *
+ * @param $group
+ *   A group of CSS files as returned by alpha_grid_css_group().
+ * 
+ * @return
+ *   A string representing the path to the merged CSS file.
+ *
+ * @see
+ *   alpha_grid_css_group().
  */
 function alpha_grid_css_cache($group) {
   $map = variable_get('drupal_css_cache_files', array());
@@ -667,7 +721,14 @@ function alpha_grid_css_cache($group) {
 }
 
 /**
- * @todo
+ * Merges a group of CSS files.
+ *
+ * @param $group
+ *   A group of CSS files as shown in alpha_grid_css_cache().
+ *
+ * @return
+ *   A string representing a merged version of the contents of all CSS
+ *   files in the $group.
  */
 function alpha_grid_css_merge($group) {
   $data = '';
@@ -697,7 +758,12 @@ function alpha_grid_css_merge($group) {
 }
 
 /**
- * @todo
+ * Clears the cache for the real theme or a delta template.
+ *
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ * @param $delta (optional)
+ *   The machine-readable name of a delta template.
  */
 function alpha_cache_clear($theme, $delta = NULL) {
   if (!isset($delta)) {
@@ -709,7 +775,16 @@ function alpha_cache_clear($theme, $delta = NULL) {
 }
 
 /**
- * @todo
+ * Caches theme real theme or a delta template.
+ *
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ *
+ * @return
+ *   The return value of cache_set().
+ *
+ * @see
+ *   cache_set().
  */
 function alpha_cache_set($theme) {
   $cache = new stdClass();
@@ -729,7 +804,15 @@ function alpha_cache_set($theme) {
 }
 
 /**
- * @todo
+ * Retrieves the cached parts of a theme container.
+ *
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ * @param $delta (optional)
+ *   The machine-readable name of a delta template.
+ *
+ * @return
+ *   A cache object or nothing if no cache entry exists.
  */
 function alpha_cache_get($theme, $delta = NULL) {
   if (isset($delta)) {
@@ -741,7 +824,13 @@ function alpha_cache_get($theme, $delta = NULL) {
 }
 
 /**
- * @todo
+ * Retrieve a list of CSS files that a theme may exclude via alpha_css_alter.
+ *
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ * 
+ * @return
+ *   An array of module and theme defined CSS files.
  */
 function alpha_retrieve_excludes($theme) {
   $themes = list_themes();  
@@ -796,7 +885,13 @@ function alpha_retrieve_excludes($theme) {
 }
 
 /**
- * @todo
+ * Retrieves an array of available grids for a theme.
+ *
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ *
+ * @return
+ *   An array containing all grid related information.
  */
 function alpha_retrieve_grids($theme) {
   $output = array();
@@ -836,7 +931,13 @@ function alpha_retrieve_grids($theme) {
 }
 
 /**
- * @todo
+ * Retrieves an array of available custom CSS files for a theme.
+ *
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ *
+ * @return
+ *   An array of available CSS files.
  */
 function alpha_retrieve_css($theme) {
   $output = array();
@@ -860,7 +961,13 @@ function alpha_retrieve_css($theme) {
 }
 
 /**
- * @todo
+ * Retrieves an array of available libraries for a theme.
+ *
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ *
+ * @return
+ *   An array of available libraries.
  */
 function alpha_retrieve_libraries($theme) {
   $output = array();
@@ -892,7 +999,17 @@ function alpha_retrieve_libraries($theme) {
 }
 
 /**
- * @todo
+ * Recalculates the width of a primary element so that it fills the entire
+ * container. This is useful in cases where you want to have a primary element
+ * that consumes the empty space of one or more other elements that have been
+ * removed.
+ *
+ * @param &$item
+ *   A list of grid elements.
+ * @param $primary
+ *   The name of the primary element.
+ * @param $container
+ *   The column count (width) of the container.
  */
 function alpha_calculate_primary(&$items, $primary, $container) {
   if (!empty($items)) {
@@ -907,7 +1024,12 @@ function alpha_calculate_primary(&$items, $primary, $container) {
 }
 
 /**
- * @todo
+ * Calculates the position of a element in a grid container by using the #weight
+ * as the DOM position and then calculation the required pull and push CSS
+ * classes to move the affected elements to their proper #position value.
+ *
+ * @param &$items
+ *   An array of grid elements.
  */
 function alpha_calculate_position(&$items) {
   if (!empty($items)) {
@@ -947,10 +1069,8 @@ function alpha_calculate_position(&$items) {
  * 
  * @param $item
  *   The name of the variable that you want to fetch.
- *   
  * @param $theme
  *   The key (machin-readable name) of a theme.
- *   
  * @return
  *   The $item content of all themes .info files in the theme trail.
  */
@@ -963,7 +1083,16 @@ function alpha_info($item, $theme) {
 }
 
 /**
- * @todo
+ * Retrieves a .info element for the active theme trail.
+ *
+ * @param $item
+ *   The name of the variable that you want to fetch.
+ * @param $theme
+ *   The key (machin-readable name) of a theme.
+ * @return
+ *   An array whoose keys are the theme names of the themes that provide
+ *   information about $item. The array values represent the information about
+ *   $item for the corresponding theme.
  */
 function alpha_info_trail($item, $theme) {
   $output = array();
@@ -982,7 +1111,14 @@ function alpha_info_trail($item, $theme) {
 }
 
 /**
- * @todo
+ * Searches for a CSS file $name in $path by looking for common file types.
+ *
+ * @param $path
+ *   The path of the folder that the file resides in.
+ * @param $name
+ *   The name of the file that you are looking for.
+ * @return
+ *   The path to the file if a file was found. FALSE otherwise.
  */
 function alpha_find_stylesheet($path, $name) {
   foreach (array('css', 'css.less', 'sass', 'scss') as $extension) {
@@ -1002,10 +1138,8 @@ function alpha_find_stylesheet($path, $name) {
  * 
  * @param $user
  *   A Drupal user as returned by user_load().
- * 
  * @param $roles
  *   An array of roles that you want to check against $user.
- * 
  * @return
  *   A boolean, indicating wether or not $user matches one of
  *   the $roles.
@@ -1021,7 +1155,7 @@ function alpha_debug_access($user, $roles) {
 }
 
 /**
- * @todo
+ * Helpfer function that sorts grid layouts.
  */
 function alpha_sort_layouts($a, $b) {
   if ($a['enabled'] && !$b['enabled']) {
@@ -1066,10 +1200,7 @@ function alpha_visibility() {
 }
 
 /**
- * A helper function that returns an array of un-wanted Drupal core regions.
- * 
- * @return
- *   An array of un-wanted regions.
+ * A helper function that returns an array of un-supported Drupal core regions.
  */
 function alpha_regions_exclude() {
   return array('page_top', 'page_bottom');

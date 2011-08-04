@@ -89,14 +89,15 @@ function alpha_theme_settings_validate_order(&$element, &$form_state) {
 }
 
 /**
- * @todo
+ * Removes the vertical tab active tab from the values. It really doesn't
+ * belong there!
  */
 function alpha_theme_settings_form_validate($form, &$form_state) {
   unset($form_state['values']['alpha_settings__active_tab']);
 }
 
 /**
- * @todo
+ * Clears the cache for the theme settings upon form submission.
  */
 function alpha_theme_settings_form_submit($form, &$form_state) {
   alpha_cache_clear($form_state['theme'], (isset($form_state['delta']) ? $form_state['delta'] : NULL));
@@ -290,7 +291,10 @@ function alpha_region_options($regions) {
 }
 
 /**
- * @todo
+ * A helper function to return a proper options array for a form.
+ *
+ * @return
+ *   An array of available regions for a zone.
  */
 function alpha_zone_regions($zone, $regions) {
   $matches = array();
