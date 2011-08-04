@@ -299,7 +299,7 @@ function alpha_region_options($regions) {
 function alpha_zone_regions($zone, $regions) {
   $matches = array();
   foreach ($regions as $region => $info) {
-    if ($zone == $region) {
+    if ($zone == $info['zone']) {
       $matches[$region] = $info;
     }
   }

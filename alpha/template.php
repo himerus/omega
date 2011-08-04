@@ -96,7 +96,7 @@ function alpha_process(&$vars, $hook) {
  */
 function alpha_element_info_alter(&$elements) {
   if (variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
-    array_unshift($elements['styles']['#pre_render'], 'alpha_grid_css_aggregate');
+    array_unshift($elements['styles']['#pre_render'], 'alpha_css_preprocessor');
   }
 }
 

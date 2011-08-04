@@ -493,7 +493,7 @@ function alpha_grid_css($theme, $grid, $responsive) {
             'basename' => $basename,                
             'media' => $media,
             'browsers' => $browsers,
-            'aggregate' => TRUE,                
+            'preprocess_media' => TRUE,
           );
 
           if ($responsive && $grid['primary'] == $layout) {
@@ -524,7 +524,7 @@ function alpha_grid_css($theme, $grid, $responsive) {
             'weight' => $weight,
             'media' => $media,
             'browsers' => $browsers,          
-            'aggregate' => TRUE,
+            'preprocess_media' => TRUE,
           );
 
           if ($responsive && $grid['primary'] == $layout) {                
@@ -549,158 +549,74 @@ function alpha_grid_css($theme, $grid, $responsive) {
   return $output;
 }
 
-/**
- * Groups grid CSS files before aggregation.
- *
- * @param $items
- *   An array of grid CSS files.
- * 
- * @return
- *   An array of grid CSS groups.
- */
-function alpha_grid_css_group($items) {
-  $output = array();
-  $group = $media = NULL;
-  $i = $j = -1;
-
-  foreach ($items as $item) {
-    ksort($item['browsers']);
-          
-    if (array($item['group'], $item['every_page'], $item['browsers']) !== $group) {        
-      $group = array($item['group'], $item['every_page'], $item['browsers']);
-      
-      $output[++$i] = array(
-        'subgroups' => array(),
-        'browsers' => $item['browsers'],
-      	'group' => $item['group'],
-       	'every_page' => $item['every_page'],
-      );
-    }
-    
-    if ($item['media'] !== $media) {
-      $media = $item['media'];
-      $subkey = hash('sha256', serialize($media));
-      
-      $output[$i]['subgroups'][++$j] = array(
-        'media' => $media,
-        'items' => array(),
-      );
-    }
-    
-    $output[$i]['subgroups'][$j]['items'][] = $item;
-  }
-  
-  return $output;
-}
 
 /**
- * Aggregates grid CSS files.
+ * Preprocesses CSS files so that CSS files that have 'preprocess_media'
+ * set to TRUE are set to media="all" while having their former media query
+ * added to the file content.
  *
  * @param $elements
  *   An array of CSS files as in drupal_pre_render_styles().
  *
  * @return
- *   An array of aggregated grid CSS files.
+ *   An array of preprocessed CSS files.
  *
  * @see
  *   drupal_pre_render_styles().
  */
-function alpha_grid_css_aggregate($elements) {
+function alpha_css_preprocessor($elements) {
   $theme = alpha_get_theme();
-  
+
   if ($theme->settings['responsive']) {
-    if ($chunks = alpha_grid_css_chunks($elements['#items'])) {
-      foreach ($chunks as $items) {
-        $haystack = array_keys($elements['#items']);
-        $needle = key($items);
-        $offset = FALSE;
-        
-        for ($i = 0; $i < count($haystack); $i++) {
-          if ($needle === $haystack[$i]) {
-            $offset = $i;
-            break;
-          }
-        }
+    $standard = array('all', 'screen', 'print', 'handheld', 'projection',
+      'tty', 'tv', 'aural', 'braille', 'embossed');
 
-        if ($offset !== FALSE) {
-          $aggregated = array();
-          
-          foreach (alpha_grid_css_group($items) as $key => $info) {
-            $info['data'] = alpha_grid_css_cache($info);
-            $info['media'] = 'all';
-            $info['preprocess'] = TRUE;
-            $info['type'] = 'file';
-            $aggregated[$key] = $info;
-          }
-
-          array_splice($elements['#items'], $offset, count($items), $aggregated);
-        }
+    foreach ($elements['#items'] as &$item) {
+      if (!empty($item['preprocess_media']) && $item['type'] == 'file' && $item['preprocess'] && !in_array($item['media'], $standard)) {
+        $item['data'] = alpha_css_cache_media_query($item);
+        $item['media'] = 'all';
       }
     }
   }
-  
+
   return $elements;
 }
 
 /**
- * Builds chunks of CSS files for aggregation.
- *
- * @param $items
- *   An array of CSS files as in $elemtents['#items'] in
- *   drupal_pre_render_styles().
- *
- * @return
- *   An array of grouped CSS files.
- *
- * @see
- *   drupal_pre_render_styles().
+ * @todo
  */
-function alpha_grid_css_chunks($items) {
-  $output = array();
-  $i = 0;
-  
-  foreach ($items as $key => $item) {
-    if (!empty($item['aggregate']) && $item['type'] == 'file' && $item['preprocess']) {
-      $output[$i][$key] = $item;
-    }
-    else if (!empty($output[$i])) {
-      $i++;
-    }
-  }
-  
-  return $output;
-}
-
-/**
- * Caches a group of grid CSS files by merging them into one single file.
- *
- * @param $group
- *   A group of CSS files as returned by alpha_grid_css_group().
- * 
- * @return
- *   A string representing the path to the merged CSS file.
- *
- * @see
- *   alpha_grid_css_group().
- */
-function alpha_grid_css_cache($group) {
+function alpha_css_cache_media_query($item) {
   $map = variable_get('drupal_css_cache_files', array());
-  $key = hash('sha256', serialize($group));
+  $key = hash('sha256', serialize($item));
   $uri = isset($map[$key]) ? $map[$key] : NULL;
-  
+
   if (empty($uri) || !file_exists($uri)) {
-    $data = alpha_grid_css_merge($group['subgroups']);
-    
+    // Build the base URL of this CSS file: start with the full URL.
+    $base = file_create_url($item['data']);
+    $base = substr($base, 0, strrpos($base, '/'));
+
+    if (substr($base, 0, strlen($GLOBALS['base_root'])) == $GLOBALS['base_root']) {
+      $base = substr($base, strlen($GLOBALS['base_root']));
+    }
+
+    _drupal_build_css_path(NULL, $base . '/');
+
+    $data = drupal_load_stylesheet($item['data'], TRUE);
+
+    // Anchor all paths in the CSS with its base URL, ignoring external and absolute paths.
+    $data = preg_replace_callback('/url\(\s*[\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\s*\)/i', '_drupal_build_css_path', $data);
+    $data = '@media ' . $item['media'] . '{' . $data . '}';
+
     // Create the css/ within the files folder.
     $directory = 'public://css';
     $uri = $directory . '/css_' . drupal_hash_base64($data) . '.css';
-    
+
     // Create the CSS file.
     file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
     if (!file_exists($uri) && !file_unmanaged_save_data($data, $uri, FILE_EXISTS_REPLACE)) {
       return FALSE;
     }
-    
+
     // If CSS gzip compression is enabled, clean URLs are enabled (which means
     // that rewrite rules are working) and the zlib extension is available then
     // create a gzipped version of this file. This file is served conditionally
@@ -710,51 +626,14 @@ function alpha_grid_css_cache($group) {
         return FALSE;
       }
     }
-    
+
     // Save the updated map.
     $map[$key] = $uri;
-    
+
     variable_set('drupal_css_cache_files', $map);
   }
-  
+
   return $uri;
-}
-
-/**
- * Merges a group of CSS files.
- *
- * @param $group
- *   A group of CSS files as shown in alpha_grid_css_cache().
- *
- * @return
- *   A string representing a merged version of the contents of all CSS
- *   files in the $group.
- */
-function alpha_grid_css_merge($group) {
-  $data = '';
-  
-  foreach ($group as $info) {
-    $contents = '';
-    
-    foreach ($info['items'] as $stylesheet) {
-      // Build the base URL of this CSS file: start with the full URL.
-      $base = file_create_url($stylesheet['data']);
-      $base = substr($base, 0, strrpos($base, '/'));
-
-      if (substr($base, 0, strlen($GLOBALS['base_root'])) == $GLOBALS['base_root']) {
-        $base = substr($base, strlen($GLOBALS['base_root']));
-      }
-
-      _drupal_build_css_path(NULL, $base . '/');
-      
-      // Anchor all paths in the CSS with its base URL, ignoring external and absolute paths.
-      $contents .= preg_replace_callback('/url\(\s*[\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\s*\)/i', '_drupal_build_css_path', drupal_load_stylesheet($stylesheet['data'], TRUE));
-    }
-    
-    $data .= $info['media'] != 'all' ? '@media ' . $info['media'] . '{' . $contents . '}' : $contents; 
-  }
-  
-  return $data;
 }
 
 /**
