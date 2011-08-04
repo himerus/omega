@@ -60,8 +60,8 @@ function alpha_preprocess(&$vars, $hook) {
  * Implements hook_process().
  */
 function alpha_process(&$vars, $hook) {
-  if (isset($vars['elements']['#grid']) || !empty($vars['elements']['#data']['wrapper_css'])) {
-    if (isset($vars['elements']['#grid'])) {
+  if (!empty($vars['elements']['#grid']) || !empty($vars['elements']['#data']['wrapper_css'])) {
+    if (!empty($vars['elements']['#grid'])) {
       foreach (array('prefix', 'suffix', 'push', 'pull') as $quality) {
         if (!empty($vars['elements']['#grid'][$quality])) {
           array_unshift($vars['attributes_array']['class'], $quality . '-' . $vars['elements']['#grid'][$quality]);
@@ -80,11 +80,17 @@ function alpha_process(&$vars, $hook) {
     $vars['attributes'] = $vars['attributes_array'] ? drupal_attributes($vars['attributes_array']) : '';
   }
 
-  if (!empty($vars['elements']['#data']['css'])) {
-    foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#data']['css'])) as $class) {
-      $vars['content_attributes_array']['class'][] = $class;
+  if (!empty($vars['elements']['#grid_container']) || !empty($vars['elements']['#data']['css'])) {
+    if (!empty($vars['elements']['#data']['css'])) {
+      foreach (array_map('drupal_html_class', explode(' ', $vars['elements']['#data']['css'])) as $class) {
+        $vars['content_attributes_array']['class'][] = $class;
+      }
     }
-    
+
+    if (!empty($vars['elements']['#grid_container'])) {
+      $vars['content_attributes_array']['class'][] = 'container-' . $vars['elements']['#grid_container'];
+    }
+
     $vars['content_attributes'] = $vars['content_attributes_array'] ? drupal_attributes($vars['content_attributes_array']) : '';
   }
   
@@ -235,6 +241,7 @@ function alpha_alpha_page_structure_alter(&$vars) {
       $temporary[$item['section']][$zone]['#zone'] = $zone;
       $temporary[$item['section']][$zone]['#weight'] = (int) $item['weight'];
       $temporary[$item['section']][$zone]['#data'] = $item;
+      $temporary[$item['section']][$zone]['#grid_container'] = $item['columns'];
     }
   }
 
@@ -270,7 +277,7 @@ function template_preprocess_zone(&$vars) {
   $vars['columns'] = $vars['elements']['#data']['columns'];
   
   $vars['content_attributes_array']['id'] = drupal_html_id('zone-' . $vars['zone']);
-  $vars['content_attributes_array']['class'] = array('container-' . $vars['columns'], 'zone', $vars['content_attributes_array']['id'], 'clearfix');
+  $vars['content_attributes_array']['class'] = array('zone', $vars['content_attributes_array']['id'], 'clearfix');
   
   if ($vars['wrapper']) {
     $vars['attributes_array']['id'] = drupal_html_id($vars['content_attributes_array']['id'] . '-wrapper');
