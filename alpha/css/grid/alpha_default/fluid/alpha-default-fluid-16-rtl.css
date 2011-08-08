@@ -15,14 +15,14 @@
  * ==========================================================
  */
 
-.alpha {
-  margin-left: 1% !important;
-  margin-right: 0 !important;
-}
-
 .omega {
   margin-right: 1% !important;
   margin-left: 0 !important;
+}
+
+.alpha {
+  margin-left: 1% !important;
+  margin-right: 0 !important;
 }
 
 /*
