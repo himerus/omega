@@ -163,7 +163,6 @@ function omega_alpha_process_region(&$vars) {
         $vars['action_links'] = $theme->page['action_links'];      
         $vars['title_hidden'] = $theme->page['title_hidden'];
         $vars['feed_icons'] = $theme->page['feed_icons'];
-        krumo($theme->page);
         break;
       
       case 'menu':
