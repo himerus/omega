@@ -110,11 +110,25 @@ function alpha_element_info_alter(&$elements) {
  * Implements hook_css_alter().
  */
 function alpha_css_alter(&$css) {
+  global $language;
+  
   $theme = alpha_get_theme(); 
   
-  if ($theme->settings['exclude']) {  
-    foreach(array_filter($theme->settings['exclude']) as $item) {
-      unset($css[$item]);
+  if ($theme->settings['exclude']) {
+    if ($exclude = array_filter($theme->settings['exclude'])) {
+    
+      if ($language->direction == LANGUAGE_LTR) {
+        foreach ($exclude as $basename) {
+          $rtl = str_replace('.css', '-rtl.css', $basename);
+          $exclude[$rtl] = $rtl;
+        }
+      }
+      
+      foreach($css as $key => $item) {
+        if (isset($exclude[$key])) {
+          unset($css[$key]);
+        }
+      }
     }
   }
 }
