@@ -172,7 +172,7 @@ function omega_alpha_process_region(&$vars) {
 
       case 'branding':
         $vars['site_name'] = $theme->page['site_name'];
-        $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('attributes' => array('rel' => 'home', 'title' => t('Home')), 'html' => TRUE));
+        $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('attributes' => array('title' => t('Home')), 'html' => TRUE));
         $vars['site_slogan'] = $theme->page['site_slogan'];
         $vars['site_name_hidden'] = $theme->page['site_name_hidden'];
         $vars['site_slogan_hidden'] = $theme->page['site_slogan_hidden'];
