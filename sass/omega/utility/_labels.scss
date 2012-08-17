@@ -1,0 +1,16 @@
+@import "compass/css3/border-radius";
+
+$label-color: #505050 !default;
+$label-background-color: #E9E9E9 !default;
+$label-radius: 5px !default;
+
+@mixin label($background-color: $label-background-color, $color: $label-color, $radius: $label-radius) {
+  @if $radius {
+    @include border-radius($radius);
+  }
+
+  background-color: $background-color;
+  color: $color;
+  text-align: center;
+  white-space: nowrap;
+}

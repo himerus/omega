@@ -1,0 +1,29 @@
+// Offset for the fixed position toolbar.
+.page {
+  padding-top: $toolbar-height;
+}
+
+.topbar {
+  @include box-sizing(border-box);
+  height: $toolbar-height;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 150;
+  background-color: #2E2E2C;
+}
+
+@include at-media-query($media-narrow-up) {
+  .page {
+    padding-top: 0;
+  }
+
+  .topbar {
+    @include box-sizing(content-box);
+    height: auto;
+    margin-top: 0;
+    position: static;
+    border-bottom: none;
+    background-color: transparent;
+  }
+}

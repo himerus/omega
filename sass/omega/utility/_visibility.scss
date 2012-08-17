@@ -1,0 +1,28 @@
+/**
+ * Hide elements visually, but keep them available for screen-readers.
+ *
+ * Used for information required for screen-reader users to understand and use
+ * the site where visual display is undesirable. Information provided in this
+ * manner should be kept concise, to avoid unnecessary burden on the user.
+ * "!important" is used to prevent unintentional overrides.
+ *
+ * The .element-focusable class extends the .element-invisible class to allow
+ * the element to be focusable when navigated to via the keyboard.
+ */
+@mixin element-invisible($focusable: false) {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+
+  @if ($focusable) {
+    &:active, &:focus {
+      position: static !important;
+      clip: auto;
+    }
+  }
+}
+
+@mixin element-visible {
+  position: static !important;
+  clip: auto;
+}

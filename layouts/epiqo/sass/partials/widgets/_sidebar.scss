@@ -1,0 +1,80 @@
+// This is required for the sidebar's positioning but might affect other
+// layout elements as well and is therefore defined globally.
+.main {
+  position: relative;
+  overflow: hidden;
+}
+
+// Mobile sidebar.
+@include at-media-query($media-narrow-down) {
+  .sidebar-first-toggle {
+    background-color: darken($primary-color, 10);
+    width: $sidebar-toggle-width;
+    height: $sidebar-toggle-height;
+    display: block;
+    position: relative;
+    right: -($sidebar-toggle-width + $sidebar-collapsed-width);
+    float: right;
+
+    .show-sidebar & {
+      right: -($sidebar-toggle-width + $sidebar-collapsed-width + $grid-padding);
+    }
+  }
+
+  html.js {
+    .sidebar-first .main, .two-sidebars .main {
+      padding-left: $grid-padding + $sidebar-collapsed-width;
+    }
+
+    .sidebar-first-container {
+      @include single-transition(left, .4s, ease-in-out);
+      background-color: $primary-color;
+      float: left;
+      width: 100%;
+      cursor: pointer;
+      position: absolute;
+      left: -100%;
+      top: 0;
+      border-right: $sidebar-collapsed-width solid darken($primary-color, 10);
+      z-index: 100;
+      height: 100%;
+
+      .block {
+        @include single-transition(opacity, .4s, linear);
+        @include opacity(0);
+      }
+    }
+
+    .show-sidebar {
+      .main {
+        @include clear-container;
+        padding-right: $sidebar-visible-gutter;
+        cursor: pointer;
+
+        & > *:not(.sidebar-first-container) {
+          display: none;
+        }
+      }
+
+      .sidebar-first-container {
+        @include box-sizing(border-box);
+        padding-left: $grid-padding;
+        padding-right: $grid-padding;
+        cursor: default;
+        position: relative;
+        left: 0;
+        height: auto;
+
+        .block {
+          @include opacity(1);
+        }
+      }
+    }
+  }
+
+  // Fix for hiding the CSS3 transition that appears after loading the page due
+  // to the JavaScript delay.
+  .sidebar-first-container {
+    left: -100%;
+  }
+}

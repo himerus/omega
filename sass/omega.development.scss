@@ -1,0 +1,26 @@
+@import "rgbapng";
+@import "compass/css3/border-radius";
+
+.omega-browser-width {
+  @include border-radius(5px);
+  @include rgba-background(rgba(0, 0, 0, 0.75));
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  max-width: 100%;
+  margin: 5px;
+  line-height: 30px;
+  padding: 5px 10px;
+  float: left;
+}
+
+.omega-dummy-block {
+  background-color: #ff6;
+  clear: both;
+  margin: 1em 0;
+  padding: 1em;
+}

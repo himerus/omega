@@ -1,0 +1,26 @@
+name = Omega
+description = Omega
+screenshot = screenshot.png
+engine = phptemplate
+core = 7.x
+
+features[] = logo
+features[] = favicon
+features[] = name
+features[] = slogan
+
+extensions[] = development
+extensions[] = layouts
+extensions[] = compatibility
+extensions[] = scripts
+extensions[] = css
+
+regions[navigation] = Navigation
+regions[banner] = Banner
+regions[search] = Search
+regions[preface] = Preface
+regions[content] = Content
+regions[postscript] = Postscript
+regions[footer] = Footer
+regions[sidebar_first] = First Sidebar
+regions[sidebar_second] = Second Sidebar

@@ -1,0 +1,11 @@
+// The banner is invisible on mobile devices.
+.banner-container {
+  display: none;
+}
+
+// Show the banner on wider screens.
+@include at-media-query($media-narrow-up) {
+  .banner-container {
+    display: block;
+  }
+}

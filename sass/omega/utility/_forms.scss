@@ -1,0 +1,180 @@
+@import "compass/css3/box-sizing";
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "definition-lists";
+@import "responsive";
+@import "selectors";
+
+$form-breakpoint: "all and (min-width: 800px)" !default;
+$form-label-columns: round($total-columns * 1/4) !default;
+$form-input-radius: 3px !default;
+
+@mixin form-default-styling($radius: $form-input-radius) {
+  @include form-button-default-styling;
+  @include form-input-default-styling;
+}
+
+@mixin form-input-default-styling($radius: $form-input-radius) {
+  @include input-selectors {
+    @include box-sizing(border-box);
+    @include border-radius($radius);
+    outline: none;
+    padding: .5em;
+    border: 1px solid #999;
+    color: #666;
+    background-color: #fff;
+    max-width: 100%;
+
+    &:focus, &:active {
+      @include single-box-shadow(rgba(0, 0, 0, .1), 0, 0, 1px, 2px);
+    }
+
+    &.error {
+      border: 1px solid Red;
+    }
+  }
+
+  select {
+    padding: .44em;
+  }
+}
+
+@mixin form-button-default-styling {
+  @include button-selectors {
+    @include button;
+  }
+
+  input.form-submit {
+    @include button(#2E2E2C, #DBF211);
+  }
+}
+
+@mixin form-default-layout(
+  $prefix: $form-label-columns,
+  $breakpoint: $form-breakpoint
+) {
+  @include form-item-defaults($prefix, $breakpoint);
+
+  // Additional sub-element.
+  @include form-item-additions-defaults;
+
+  // Form actions wrapper defaults.
+  @include form-actions-defaults;
+
+  // Checkboxes and Radio buttons require some special CSS rules.
+  @include form-type-checkbox-radio-defaults;
+
+  // Special handling for Textareas and related elements.
+  @include form-type-textarea-defaults;
+}
+
+@mixin form-item-defaults(
+  $prefix: $form-label-columns,
+  $breakpoint: $form-breakpoint
+) {
+  // The default form layout is 'stacked'.
+  form, form table, form.form-stacked  {
+    .form-item {
+      @include form-item-stacked;
+    }
+  }
+
+  form table .form-item label {
+    @include element-invisible;
+  }
+
+  form .form-item .form-item {
+    margin-top: 0;
+    width: auto;
+    padding-left: 0;
+  }
+
+  @include at-media-query($breakpoint) {
+    // On larger screens, we shift to a inline form layout.
+    form .form-item {
+      @include form-item-inline($prefix);
+
+      .form-item {
+        margin-top: 1em;
+      }
+    }
+  }
+
+  // Make sure that .container-inline also works for forms.
+  form .container-inline .form-item, form .container-inline .form-item .form-item {
+    display: inline;
+  }
+}
+
+@mixin form-actions-defaults {
+  form .form-actions > * {
+    margin-right: 1em;
+  }
+}
+
+@mixin form-type-textarea-defaults {
+  // Textareas are always stacked.
+  form .form-item.form-type-textarea {
+    @include form-item-stacked;
+  }
+}
+
+@mixin form-type-checkbox-radio-defaults {
+  form .form-item {
+    &.form-type-checkbox, &.form-type-radio {
+      label {
+        float: none;
+        display: inline;
+        margin-left: .5em;
+        margin-bottom: 0;
+      }
+
+      .description {
+        margin-left: 2em;
+      }
+    }
+
+    &.form-type-checkboxes, &.form-type-radios {
+      .description {
+        margin-top: .5em;
+      }
+    }
+  }
+}
+
+@mixin form-item-additions-defaults {
+  // The field-suffix class is used for machine-names, etc.
+  .field-suffix {
+    // Prevent uncontrolled wrapping of field-suffixes.
+    white-space: nowrap;
+  }
+
+  .confirm-parent, .password-parent {
+    clear: none;
+    @include clearfix;
+  }
+
+  .password-strength {
+    margin-top: 0;
+  }
+}
+
+@mixin form-item-inline(
+  $prefix: $form-label-columns
+) {
+  @include definition-list-inline-item($prefix);
+  float: none;
+  display: block;
+
+  label {
+    @include definition-list-inline-label($prefix);
+  }
+}
+
+@mixin form-item-stacked {
+  @include definition-list-stacked-item;
+
+  label {
+    @include definition-list-stacked-label;
+  }
+}

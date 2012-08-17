@@ -1,0 +1,23 @@
+@import "definition-lists";
+
+$field-label-columns: round($total-columns * 1/4) !default;
+
+@mixin field-inline(
+$prefix: $field-label-columns
+) {
+  @include definition-list-inline-item($prefix);
+  float: none;
+  display: block;
+
+  .field-label, .term-level-field-label {
+    @include definition-list-inline-label($prefix);
+  }
+}
+
+@mixin field-stacked {
+  @include definition-list-stacked-item;
+
+  .field-label, .term-level-field-label {
+    @include definition-list-stacked-label;
+  }
+}

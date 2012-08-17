@@ -1,0 +1,34 @@
+/*
+  Mixins are slightly modified from Benjamin Doherty's first implementations: http://gist.github.com/377912
+  rgba-background mixin can now be passed an option $dir variable
+*/
+/* line 4, ../sass/omega.development.scss */
+.omega-browser-width {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background: url('../images/rgbapng/000000bf.png?1342532567');
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  max-width: 100%;
+  margin: 5px;
+  line-height: 30px;
+  padding: 5px 10px;
+  float: left;
+}
+
+/* line 21, ../sass/omega.development.scss */
+.omega-dummy-block {
+  background-color: #ff6;
+  clear: both;
+  margin: 1em 0;
+  padding: 1em;
+}

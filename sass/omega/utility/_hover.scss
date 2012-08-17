@@ -1,0 +1,7 @@
+@import "compass/css3/transition";
+
+$hover-transition-time: .1s !default;
+
+@mixin link-hover-transition($time: $hover-transition-time) {
+  @include transition(color $time linear, background-color $time linear, border-color $time linear);
+}

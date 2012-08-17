@@ -1,0 +1,19 @@
+@mixin clearfix {
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+
+  /* IE6 */
+  * html & {
+    height: 1%;
+  }
+
+  /* IE7 */
+  *:first-child + html & {
+    min-height: 1%;
+  }  
+}

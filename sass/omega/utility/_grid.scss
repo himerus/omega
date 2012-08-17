@@ -1,0 +1,43 @@
+@import "susy";
+
+@mixin grid-container {
+  @include container;
+  max-width: $grid-max-width;
+}
+
+@mixin clear-container {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  _width: auto;
+  max-width: none;
+}
+
+@mixin block-columns($columns) {
+  @include span-columns($total-columns / $columns);
+
+  // The last block in a row gets the omega postfix.
+  &:nth-child(#{$columns}n) {
+    @include omega;
+  }
+
+  // The first block after a row clears left.
+  &:first-child, &:nth-child(#{$columns}n+#{$columns+1}) {
+    clear: both;
+  }
+}
+
+@mixin reset-block-columns {
+  @include reset-columns;
+  
+  // Reset 'omega' definitions for all elements.
+  &:nth-child(1n) {
+    @include remove-omega;
+  }
+
+  // Reset clears.
+  &:nth-child(1n) {
+    clear: none;
+  }
+}

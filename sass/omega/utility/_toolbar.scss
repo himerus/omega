@@ -1,0 +1,19 @@
+@mixin hide-toolbar {
+  html body.toolbar {
+    padding-top: 0 !important;
+  }
+
+  #toolbar {
+    display: none;
+  }
+}
+
+@mixin hide-admin-menu {
+  html body.admin-menu {
+    margin-top: 0 !important;
+  }
+
+  #admin-menu {
+    display: none;
+  }
+}

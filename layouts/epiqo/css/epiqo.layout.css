@@ -1,0 +1,647 @@
+/*
+  Mixins are slightly modified from Benjamin Doherty's first implementations: http://gist.github.com/377912
+  rgba-background mixin can now be passed an option $dir variable
+*/
+/**
+ * Hide elements visually, but keep them available for screen-readers.
+ *
+ * Used for information required for screen-reader users to understand and use
+ * the site where visual display is undesirable. Information provided in this
+ * manner should be kept concise, to avoid unnecessary burden on the user.
+ * "!important" is used to prevent unintentional overrides.
+ *
+ * The .element-focusable class extends the .element-invisible class to allow
+ * the element to be focusable when navigated to via the keyboard.
+ */
+/* line 1, ../sass/partials/layout/_base.scss */
+body {
+  margin: 0;
+}
+
+/* line 6, ../sass/partials/layout/_base.scss */
+.page {
+  min-width: 320px;
+  overflow: hidden;
+}
+
+/* line 12, ../sass/partials/layout/_base.scss */
+.main-content {
+  min-height: 1px;
+}
+
+/* line 18, ../sass/partials/layout/_base.scss */
+.main, .topbar, .region-navigation, .footer-container .region, .region-search, .region-banner {
+  *zoom: 1;
+  max-width: 100%;
+  _width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 1200px;
+}
+/* line 38, ../../../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.main:after, .topbar:after, .region-navigation:after, .footer-container .region:after, .region-search:after, .region-banner:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 23, ../sass/partials/layout/_base.scss */
+.main-content {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+@media all and (min-width: 800px) {
+  /* line 29, ../sass/partials/layout/_base.scss */
+  .sidebar-first-container, .sidebar-second-container {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+/* line 35, ../sass/partials/layout/_base.scss */
+.region-postscript, .region-preface, .footer-container .region, .region-content {
+  overflow: hidden;
+  *zoom: 1;
+}
+
+/* line 1, ../sass/partials/layout/_blocks.scss */
+.block {
+  margin-bottom: 1em;
+}
+/* line 4, ../sass/partials/layout/_blocks.scss */
+.region-banner .block, .region-navigation .block, .region-search .block {
+  margin-bottom: 0;
+}
+
+@media all and (min-width: 480px) and (max-width: 799px) {
+  /* line 11, ../sass/partials/layout/_blocks.scss */
+  .region-postscript .block, .region-preface .block, .region-footer .block {
+    width: 49.25%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 21, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:nth-child(2n), .region-preface .block:nth-child(2n), .region-footer .block:nth-child(2n) {
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+  /* line 26, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:first-child, .region-postscript .block:nth-child(2n+3), .region-preface .block:first-child, .region-preface .block:nth-child(2n+3), .region-footer .block:first-child, .region-footer .block:nth-child(2n+3) {
+    clear: both;
+  }
+
+  /* line 18, ../sass/partials/layout/_blocks.scss */
+  .sidebar-first .region-postscript .block, .sidebar-first .region-preface .block, .sidebar-second .region-postscript .block, .sidebar-second .region-preface .block {
+    float: none;
+    width: auto;
+    margin-right: auto;
+    #margin-left: auto;
+    display: block;
+  }
+  /* line 35, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:nth-child(1n), .sidebar-first .region-preface .block:nth-child(1n), .sidebar-second .region-postscript .block:nth-child(1n), .sidebar-second .region-preface .block:nth-child(1n) {
+    float: left;
+    margin-right: 1.5%;
+    #margin-left: 0;
+  }
+  /* line 40, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:nth-child(1n), .sidebar-first .region-preface .block:nth-child(1n), .sidebar-second .region-postscript .block:nth-child(1n), .sidebar-second .region-preface .block:nth-child(1n) {
+    clear: none;
+  }
+}
+@media all and (min-width: 800px) and (max-width: 979px) {
+  /* line 27, ../sass/partials/layout/_blocks.scss */
+  .region-postscript .block, .region-preface .block, .region-footer .block {
+    float: none;
+    width: auto;
+    margin-right: auto;
+    #margin-left: auto;
+    display: block;
+    width: 32.33333%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 35, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:nth-child(1n), .region-preface .block:nth-child(1n), .region-footer .block:nth-child(1n) {
+    float: left;
+    margin-right: 1.5%;
+    #margin-left: 0;
+  }
+  /* line 40, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:nth-child(1n), .region-preface .block:nth-child(1n), .region-footer .block:nth-child(1n) {
+    clear: none;
+  }
+  /* line 21, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:nth-child(3n), .region-preface .block:nth-child(3n), .region-footer .block:nth-child(3n) {
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+  /* line 26, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:first-child, .region-postscript .block:nth-child(3n+4), .region-preface .block:first-child, .region-preface .block:nth-child(3n+4), .region-footer .block:first-child, .region-footer .block:nth-child(3n+4) {
+    clear: both;
+  }
+
+  /* line 35, ../sass/partials/layout/_blocks.scss */
+  .sidebar-first .region-postscript .block, .sidebar-first .region-preface .block, .sidebar-second .region-postscript .block, .sidebar-second .region-preface .block {
+    float: none;
+    width: auto;
+    margin-right: auto;
+    #margin-left: auto;
+    display: block;
+    width: 49.25%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 35, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:nth-child(1n), .sidebar-first .region-preface .block:nth-child(1n), .sidebar-second .region-postscript .block:nth-child(1n), .sidebar-second .region-preface .block:nth-child(1n) {
+    float: left;
+    margin-right: 1.5%;
+    #margin-left: 0;
+  }
+  /* line 40, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:nth-child(1n), .sidebar-first .region-preface .block:nth-child(1n), .sidebar-second .region-postscript .block:nth-child(1n), .sidebar-second .region-preface .block:nth-child(1n) {
+    clear: none;
+  }
+  /* line 21, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:nth-child(2n), .sidebar-first .region-preface .block:nth-child(2n), .sidebar-second .region-postscript .block:nth-child(2n), .sidebar-second .region-preface .block:nth-child(2n) {
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+  /* line 26, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:first-child, .sidebar-first .region-postscript .block:nth-child(2n+3), .sidebar-first .region-preface .block:first-child, .sidebar-first .region-preface .block:nth-child(2n+3), .sidebar-second .region-postscript .block:first-child, .sidebar-second .region-postscript .block:nth-child(2n+3), .sidebar-second .region-preface .block:first-child, .sidebar-second .region-preface .block:nth-child(2n+3) {
+    clear: both;
+  }
+
+  /* line 44, ../sass/partials/layout/_blocks.scss */
+  .two-sidebars .region-postscript .block, .two-sidebars .region-preface .block {
+    float: none;
+    width: auto;
+    margin-right: auto;
+    #margin-left: auto;
+    display: block;
+  }
+  /* line 35, ../../../sass/omega/utility/_grid.scss */
+  .two-sidebars .region-postscript .block:nth-child(1n), .two-sidebars .region-preface .block:nth-child(1n) {
+    float: left;
+    margin-right: 1.5%;
+    #margin-left: 0;
+  }
+  /* line 40, ../../../sass/omega/utility/_grid.scss */
+  .two-sidebars .region-postscript .block:nth-child(1n), .two-sidebars .region-preface .block:nth-child(1n) {
+    clear: none;
+  }
+}
+@media all and (min-width: 980px) {
+  /* line 53, ../sass/partials/layout/_blocks.scss */
+  .region-postscript .block, .region-preface .block, .region-footer .block {
+    float: none;
+    width: auto;
+    margin-right: auto;
+    #margin-left: auto;
+    display: block;
+    width: 23.875%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 35, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:nth-child(1n), .region-preface .block:nth-child(1n), .region-footer .block:nth-child(1n) {
+    float: left;
+    margin-right: 1.5%;
+    #margin-left: 0;
+  }
+  /* line 40, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:nth-child(1n), .region-preface .block:nth-child(1n), .region-footer .block:nth-child(1n) {
+    clear: none;
+  }
+  /* line 21, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:nth-child(4n), .region-preface .block:nth-child(4n), .region-footer .block:nth-child(4n) {
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+  /* line 26, ../../../sass/omega/utility/_grid.scss */
+  .region-postscript .block:first-child, .region-postscript .block:nth-child(4n+5), .region-preface .block:first-child, .region-preface .block:nth-child(4n+5), .region-footer .block:first-child, .region-footer .block:nth-child(4n+5) {
+    clear: both;
+  }
+
+  /* line 61, ../sass/partials/layout/_blocks.scss */
+  .sidebar-first .region-postscript .block, .sidebar-first .region-preface .block, .sidebar-second .region-postscript .block, .sidebar-second .region-preface .block {
+    float: none;
+    width: auto;
+    margin-right: auto;
+    #margin-left: auto;
+    display: block;
+    width: 32.33333%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 35, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:nth-child(1n), .sidebar-first .region-preface .block:nth-child(1n), .sidebar-second .region-postscript .block:nth-child(1n), .sidebar-second .region-preface .block:nth-child(1n) {
+    float: left;
+    margin-right: 1.5%;
+    #margin-left: 0;
+  }
+  /* line 40, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:nth-child(1n), .sidebar-first .region-preface .block:nth-child(1n), .sidebar-second .region-postscript .block:nth-child(1n), .sidebar-second .region-preface .block:nth-child(1n) {
+    clear: none;
+  }
+  /* line 21, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:nth-child(3n), .sidebar-first .region-preface .block:nth-child(3n), .sidebar-second .region-postscript .block:nth-child(3n), .sidebar-second .region-preface .block:nth-child(3n) {
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+  /* line 26, ../../../sass/omega/utility/_grid.scss */
+  .sidebar-first .region-postscript .block:first-child, .sidebar-first .region-postscript .block:nth-child(3n+4), .sidebar-first .region-preface .block:first-child, .sidebar-first .region-preface .block:nth-child(3n+4), .sidebar-second .region-postscript .block:first-child, .sidebar-second .region-postscript .block:nth-child(3n+4), .sidebar-second .region-preface .block:first-child, .sidebar-second .region-preface .block:nth-child(3n+4) {
+    clear: both;
+  }
+
+  /* line 70, ../sass/partials/layout/_blocks.scss */
+  .two-sidebars .region-postscript .block, .two-sidebars .region-preface .block {
+    float: none;
+    width: auto;
+    margin-right: auto;
+    #margin-left: auto;
+    display: block;
+    width: 49.25%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 35, ../../../sass/omega/utility/_grid.scss */
+  .two-sidebars .region-postscript .block:nth-child(1n), .two-sidebars .region-preface .block:nth-child(1n) {
+    float: left;
+    margin-right: 1.5%;
+    #margin-left: 0;
+  }
+  /* line 40, ../../../sass/omega/utility/_grid.scss */
+  .two-sidebars .region-postscript .block:nth-child(1n), .two-sidebars .region-preface .block:nth-child(1n) {
+    clear: none;
+  }
+  /* line 21, ../../../sass/omega/utility/_grid.scss */
+  .two-sidebars .region-postscript .block:nth-child(2n), .two-sidebars .region-preface .block:nth-child(2n) {
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+  /* line 26, ../../../sass/omega/utility/_grid.scss */
+  .two-sidebars .region-postscript .block:first-child, .two-sidebars .region-postscript .block:nth-child(2n+3), .two-sidebars .region-preface .block:first-child, .two-sidebars .region-preface .block:nth-child(2n+3) {
+    clear: both;
+  }
+}
+@media all and (min-width: 480px) {
+  /* line 79, ../sass/partials/layout/_blocks.scss */
+  .front .region-content .block {
+    width: 49.25%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 82, ../sass/partials/layout/_blocks.scss */
+  .front .region-content .block:first-child, .front .region-content .block:nth-child(4) {
+    width: 100%;
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+    clear: left;
+  }
+  /* line 89, ../sass/partials/layout/_blocks.scss */
+  .front .region-content .block:nth-child(3) {
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+}
+@media all and (min-width: 800px) {
+  /* line 96, ../sass/partials/layout/_blocks.scss */
+  .front .region-content .block {
+    width: 23.875%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 99, ../sass/partials/layout/_blocks.scss */
+  .front .region-content .block:first-child, .front .region-content .block:nth-child(4) {
+    width: 49.25%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+    clear: left;
+  }
+  /* line 106, ../sass/partials/layout/_blocks.scss */
+  .front .region-content .block:nth-child(3) {
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+}
+/* line 2, ../sass/partials/layout/_header.scss */
+.page {
+  padding-top: 50px;
+}
+
+/* line 6, ../sass/partials/layout/_header.scss */
+.topbar {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 50px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 150;
+  background-color: #2E2E2C;
+}
+
+@media all and (min-width: 800px) {
+  /* line 17, ../sass/partials/layout/_header.scss */
+  .page {
+    padding-top: 0;
+  }
+
+  /* line 21, ../sass/partials/layout/_header.scss */
+  .topbar {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: auto;
+    margin-top: 0;
+    position: static;
+    border-bottom: none;
+    background-color: transparent;
+  }
+}
+/* line 2, ../sass/partials/layout/_banner.scss */
+.banner-container {
+  display: none;
+}
+
+@media all and (min-width: 800px) {
+  /* line 8, ../sass/partials/layout/_banner.scss */
+  .banner-container {
+    display: block;
+  }
+}
+@media all and (min-width: 800px) {
+  /* line 4, ../sass/partials/layout/_sidebars.scss */
+  .sidebar-first .sidebar-first-container {
+    width: 23.875%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+  /* line 8, ../sass/partials/layout/_sidebars.scss */
+  .sidebar-first .main-content {
+    width: 74.625%;
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+
+  /* line 15, ../sass/partials/layout/_sidebars.scss */
+  .sidebar-second .sidebar-second-container {
+    width: 23.875%;
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+  /* line 19, ../sass/partials/layout/_sidebars.scss */
+  .sidebar-second .main-content {
+    width: 74.625%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+  }
+
+  /* line 26, ../sass/partials/layout/_sidebars.scss */
+  .two-sidebars .main-content {
+    width: 49.25%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+    padding-left: 25.375%;
+  }
+  /* line 31, ../sass/partials/layout/_sidebars.scss */
+  .two-sidebars .sidebar-second-container {
+    width: 23.875%;
+    float: right;
+    margin-right: 0;
+    #margin-left: -1.5%;
+    display: inline;
+  }
+  /* line 35, ../sass/partials/layout/_sidebars.scss */
+  .two-sidebars .sidebar-first-container {
+    width: 23.875%;
+    float: left;
+    margin-right: 1.5%;
+    display: inline;
+    margin-left: -76.125%;
+  }
+}
+/* line 3, ../sass/partials/widgets/_sidebar.scss */
+.main {
+  position: relative;
+  overflow: hidden;
+}
+
+@media all and (max-width: 800px) {
+  /* line 10, ../sass/partials/widgets/_sidebar.scss */
+  .sidebar-first-toggle {
+    background-color: #141413;
+    width: 30px;
+    height: 40px;
+    display: block;
+    position: relative;
+    right: -40px;
+    float: right;
+  }
+  /* line 19, ../sass/partials/widgets/_sidebar.scss */
+  .show-sidebar .sidebar-first-toggle {
+    right: -50px;
+  }
+
+  /* line 25, ../sass/partials/widgets/_sidebar.scss */
+  html.js .sidebar-first .main, html.js .two-sidebars .main {
+    padding-left: 20px;
+  }
+  /* line 29, ../sass/partials/widgets/_sidebar.scss */
+  html.js .sidebar-first-container {
+    -webkit-transition: left 0.4s ease-in-out;
+    -moz-transition: left 0.4s ease-in-out;
+    -o-transition: left 0.4s ease-in-out;
+    transition: left 0.4s ease-in-out;
+    background-color: #2e2e2c;
+    float: left;
+    width: 100%;
+    cursor: pointer;
+    position: absolute;
+    left: -100%;
+    top: 0;
+    border-right: 10px solid #141413;
+    z-index: 100;
+    height: 100%;
+  }
+  /* line 42, ../sass/partials/widgets/_sidebar.scss */
+  html.js .sidebar-first-container .block {
+    -webkit-transition: opacity 0.4s linear;
+    -moz-transition: opacity 0.4s linear;
+    -o-transition: opacity 0.4s linear;
+    transition: opacity 0.4s linear;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+  /* line 49, ../sass/partials/widgets/_sidebar.scss */
+  html.js .show-sidebar .main {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    _width: auto;
+    max-width: none;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  /* line 54, ../sass/partials/widgets/_sidebar.scss */
+  html.js .show-sidebar .main > *:not(.sidebar-first-container) {
+    display: none;
+  }
+  /* line 59, ../sass/partials/widgets/_sidebar.scss */
+  html.js .show-sidebar .sidebar-first-container {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: default;
+    position: relative;
+    left: 0;
+    height: auto;
+  }
+  /* line 68, ../sass/partials/widgets/_sidebar.scss */
+  html.js .show-sidebar .sidebar-first-container .block {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 77, ../sass/partials/widgets/_sidebar.scss */
+  .sidebar-first-container {
+    left: -100%;
+  }
+}
+/* line 1, ../sass/partials/widgets/_toolbar.scss */
+.navigation-container {
+  overflow: hidden;
+  background-color: #2e2e2c;
+}
+
+/* line 7, ../sass/partials/widgets/_toolbar.scss */
+.region-navigation .block {
+  display: none;
+  float: left;
+  width: 100%;
+  margin-bottom: .5em;
+}
+/* line 13, ../sass/partials/widgets/_toolbar.scss */
+.region-navigation .block.block-toggled {
+  display: block;
+}
+
+/* line 19, ../sass/partials/widgets/_toolbar.scss */
+.block-toggle, .scroll-button {
+  display: block;
+  float: right;
+  width: 40px;
+  height: 40px;
+  margin: 5px 0 5px 5px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 60%;
+}
+/* line 29, ../sass/partials/widgets/_toolbar.scss */
+.block-toggle:hover, .block-toggle:focus, .block-toggle:active, .scroll-button:hover, .scroll-button:focus, .scroll-button:active {
+  background-color: black;
+}
+
+/* line 34, ../sass/partials/widgets/_toolbar.scss */
+.block-toggle {
+  background-image: url("../images/menu-toggle.png");
+}
+
+/* line 38, ../sass/partials/widgets/_toolbar.scss */
+.scroll-button {
+  background-image: url("../images/scroll-up.png");
+  display: none;
+}
+
+/* line 45, ../sass/partials/widgets/_toolbar.scss */
+.region-navigation ul.menu li {
+  margin: .3em 0;
+}
+/* line 49, ../sass/partials/widgets/_toolbar.scss */
+.region-navigation ul.menu a {
+  background-color: #141413;
+  display: block;
+  color: white;
+  padding: 0.4em;
+  text-decoration: none;
+}
+/* line 56, ../sass/partials/widgets/_toolbar.scss */
+.region-navigation ul.menu a:hover, .region-navigation ul.menu a:focus, .region-navigation ul.menu a:active {
+  background-color: black;
+}
+/* line 61, ../sass/partials/widgets/_toolbar.scss */
+.region-navigation ul.menu ul.menu li a {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+@media all and (min-width: 800px) {
+  /* line 69, ../sass/partials/widgets/_toolbar.scss */
+  .navigation-container {
+    overflow: visible;
+  }
+
+  /* line 74, ../sass/partials/widgets/_toolbar.scss */
+  .region-navigation .block {
+    float: none;
+    width: auto;
+    display: block;
+    margin-bottom: 0;
+  }
+  /* line 82, ../sass/partials/widgets/_toolbar.scss */
+  .region-navigation ul.menu li {
+    float: left;
+    margin: 0;
+    white-space: nowrap;
+  }
+  /* line 88, ../sass/partials/widgets/_toolbar.scss */
+  .region-navigation ul.menu a {
+    background-color: transparent;
+  }
+
+  /* line 94, ../sass/partials/widgets/_toolbar.scss */
+  .block-toggle {
+    display: none;
+  }
+}

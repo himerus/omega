@@ -1,0 +1,33 @@
+@import "susy";
+
+$definition-list-label-columns: round($total-columns * 1/4) !default;
+
+@mixin definition-list-inline-item(
+  $prefix: $definition-list-label-columns
+) {
+  @include span-columns($total-columns - $prefix omega);
+  @include prefix($prefix);
+}
+
+@mixin definition-list-inline-label(
+  $prefix: $definition-list-label-columns
+) {
+  $offset: $total-columns / ($total-columns - $prefix);
+
+  @include span-columns($prefix);
+  width: columns($prefix) * $offset;
+  margin-left: -(space($prefix)) * $offset;
+  position: relative;
+  margin-right: 0;
+}
+
+@mixin definition-list-stacked-item {
+  @include reset-columns;
+  @include prefix(0);
+}
+
+@mixin definition-list-stacked-label {
+  @include reset-columns;
+  margin-left: 0;
+  margin-bottom: .2em;
+}

@@ -1,0 +1,29 @@
+@import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
+
+$panel-color: #fff !default;
+$panel-background-color: #888 !default;
+$panel-radius: 5px;
+
+@mixin simple-panel(
+  $color: $panel-color,
+  $background-color: $panel-background-color
+) {
+  color: $color;
+  background-color: $background-color;
+  border: 1px solid darken(desaturate($background-color, 10), 7.5);
+  padding: 1em;
+}
+
+@mixin fancy-panel(
+  $color: $panel-color,
+  $background-color: $panel-background-color,
+  $radius: $panel-radius
+) {
+  @include simple-panel($color, $background-color);
+  @include single-box-shadow(rgba(255, 255, 255, .5), 0, 1px, 0, false, true);
+
+  @if $radius {
+    @include border-radius($radius);
+  }
+}

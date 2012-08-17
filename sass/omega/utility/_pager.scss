@@ -1,0 +1,41 @@
+$pager-color: #505050 !default;
+$pager-background-color: #E9E9E9 !default;
+$pager-radius: 5px !default;
+
+@mixin pager($background-color: $pager-background-color, $color: $pager-color, $radius: $pager-radius) {
+  .item-list .pager {
+    margin: 18px 0 12px 0;
+    @include clearfix;
+
+    li {
+      margin: 0 5px 6px 0;
+      padding: 0;
+      float: left;
+      
+      &.pager-current {
+        padding: 0.25em 0.75em;
+      }
+
+      &.pager-current a {
+        @include label($background-color, $color, $radius);
+        padding: 0.25em 0.75em;
+      }
+
+      &.last {
+        margin-right: 0;
+      }
+    }
+    
+    a {
+      @include label($background-color, $color, $radius);
+      padding: 0.25em 0.75em;
+      display: block;
+      text-decoration: none;
+      
+      &:hover, &:focus, &:active {
+        color: darken($color, 10%);
+        background-color: darken($background-color, 10%);
+      }
+    }
+  }
+}

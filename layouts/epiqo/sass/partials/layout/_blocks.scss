@@ -1,0 +1,110 @@
+.block {
+  margin-bottom: 1em;
+
+  .region-banner &, .region-navigation &, .region-search & {
+    margin-bottom: 0;
+  }
+}
+
+@include at-media-query($media-small) {
+  .region-postscript, .region-preface, .region-footer {
+    .block {
+      @include block-columns(2);
+    }
+  }
+
+  .sidebar-first, .sidebar-second {
+    .region-postscript, .region-preface {
+      .block {
+        @include reset-block-columns;
+      }
+    }
+  }
+}
+
+@include at-media-query($media-narrow) {
+  .region-postscript, .region-preface, .region-footer {
+    .block {
+      @include reset-block-columns;
+      @include block-columns(3);
+    }
+  }
+
+  .sidebar-first, .sidebar-second {
+    .region-postscript, .region-preface {
+      .block {
+        @include reset-block-columns;
+        @include block-columns(2);
+      }
+    }
+  }
+
+  .two-sidebars {
+    .region-postscript, .region-preface {
+      .block {
+        @include reset-block-columns;
+      }
+    }
+  }
+}
+
+@include at-media-query($media-medium-up) {
+  .region-postscript, .region-preface, .region-footer {
+    .block {
+      @include reset-block-columns;
+      @include block-columns(4);
+    }
+  }
+
+  .sidebar-first, .sidebar-second {
+    .region-postscript, .region-preface {
+      .block {
+        @include reset-block-columns;
+        @include block-columns(3);
+      }
+    }
+  }
+
+  .two-sidebars {
+    .region-postscript, .region-preface {
+      .block {
+        @include reset-block-columns;
+        @include block-columns(2);
+      }
+    }
+  }
+}
+
+@include at-media-query($media-small-up) {
+  .front .region-content .block {
+    @include span-columns(12);
+
+    &:first-child, &:nth-child(4) {
+      // The first block after a row clears left.
+      @include span-columns(24 omega);
+      clear: left;
+    }
+
+    // The last block in a row gets the omega postfix.
+    &:nth-child(3) {
+      @include omega;
+    }
+  }
+}
+
+@include at-media-query($media-narrow-up) {
+  .front .region-content .block {
+    @include span-columns(6);
+
+    &:first-child, &:nth-child(4) {
+      // The first block after a row clears left.
+      @include span-columns(12);
+      clear: left;
+    }
+
+    // The last block in a row gets the omega postfix.
+    &:nth-child(3) {
+      @include omega;
+    }
+  }
+}

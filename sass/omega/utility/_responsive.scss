@@ -1,0 +1,13 @@
+// Simple mixin to allow easy media query usage with variables.
+@mixin at-media-query($query, $parent: false) {
+  @media #{$query} {
+    @if $parent {
+      #{$parent} {
+        @content;
+      };
+    }
+    @else {
+      @content;
+    }
+  }
+}
