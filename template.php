@@ -6,6 +6,7 @@
  */
 
 require_once dirname(__FILE__) . '/includes/omega.inc';
+require_once dirname(__FILE__) . '/includes/scripts.inc';
 
 /**
  * Slightly hacky performance tweak for theme_get_setting(). This resides
@@ -95,6 +96,13 @@ function omega_element_info_alter(&$elements) {
   if (omega_extension_enabled('css') && theme_get_setting('omega_media_queries_inline') && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
     array_unshift($elements['styles']['#pre_render'], 'omega_css_preprocessor');
   }
+
+  $elements['scripts'] = array(
+    '#items' => array(),
+    '#pre_render' => array('omega_pre_render_scripts'),
+    '#group_callback' => 'omega_group_js',
+    '#aggregate_callback' => 'omega_aggregate_js',
+  );
 }
 
 /**
@@ -227,11 +235,11 @@ function omega_theme_registry_alter(&$registry) {
   // Include the main extension file for every enabled extension. This is
   // required for the next step (allowing extensions to register hooks in the
   // theme registry).
-  foreach (omega_extensions() as $extension => $theme) {
+  foreach (omega_extensions() as $extension => $info) {
     if (theme_get_setting('omega_toggle_extension_' . $extension)) {
       // Load all the implementations for this extensions and invoke the according
       // hooks.
-      $file = drupal_get_path('theme', $theme) . '/includes/' . $extension . '/' . $extension . '.registry.inc';
+      $file = drupal_get_path('theme', $info['theme']) . '/includes/' . $extension . '/' . $extension . '.registry.inc';
       if (is_file($file)) {
         require_once $file;
       }
@@ -242,6 +250,12 @@ function omega_theme_registry_alter(&$registry) {
         $hook($registry);
       }
     }
+  }
+
+  // Override template_process_html() in order to add support for conditional
+  // comments for JavaScript files.
+  if (($index = array_search('template_process_html', $registry['html']['process functions'], TRUE)) !== FALSE) {
+    array_splice($registry['html']['process functions'], $index, 1, 'omega_template_process_html_override');
   }
 
   // Fix for integration with the theme developer module.
@@ -267,6 +281,24 @@ function omega_theme_registry_alter(&$registry) {
 }
 
 /**
+ * Overrides template_process_html() in order to provide support for the
+ * 'browsers' attribute for JavaScript files.
+ */
+function omega_template_process_html_override(&$variables) {
+  // Render page_top and page_bottom into top level variables.
+  $variables['page_top'] = drupal_render($variables['page']['page_top']);
+  $variables['page_bottom'] = drupal_render($variables['page']['page_bottom']);
+  // Place the rendered HTML for the page body into a top level variable.
+  $variables['page'] = $variables['page']['#children'];
+  $variables['page_bottom'] .= omega_get_js('footer');
+
+  $variables['head'] = drupal_get_html_head();
+  $variables['css'] = drupal_add_css();
+  $variables['styles']  = drupal_get_css();
+  $variables['scripts'] = omega_get_js();
+}
+
+/**
  * Implements hook_block_list_alter().
  *
  * Effectively hides the main content block on the front page if the theme
@@ -282,6 +314,27 @@ function omega_block_list_alter(&$blocks) {
 
     drupal_set_page_content();
   }
+}
+
+/**
+ * Implements hook_page_delivery_callback_alter().
+ */
+function omega_page_delivery_callback_alter(&$callback) {
+  if (module_exists('overlay') && overlay_display_empty_page()) {
+    $callback = 'overlay_deliver_empty_page';
+  }
+}
+
+/**
+ * Delivery callback to display an empty page.
+ *
+ * This function is used to print out a bare minimum empty page which still has
+ * the scripts and styles necessary in order to trigger the overlay to close.
+ */
+function omega_override_overlay_deliver_empty_page() {
+  $empty_page = '<html><head><title></title>' . drupal_get_css() . omega_get_js() . '</head><body class="overlay"></body></html>';
+  print $empty_page;
+  drupal_exit();
 }
 
 /**
@@ -342,18 +395,16 @@ function omega_omega_theme_libraries_info($theme) {
     'description' => t('Selectivizr is a JavaScript utility that emulates CSS3 pseudo-classes and attribute selectors in Internet Explorer 6-8. Simply include the script in your pages and selectivizr will do the rest.'),
     'vendor' => 'Keith Clark',
     'vendor url' => 'http://selectivizr.com/',
-    'package' => t('polyfills'),
+    'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
         $path . '/libraries/selectivizr/selectivizr.min.js' => array(
-          // Only load Selectivizr for Internet Explorer > 6 and < 8.
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'group' => JS_LIBRARY,
           'weight' => -100,
         ),
       ),
     ),
-    // The Selectivizr library also ships with a source (unminified) version.
     'variants' => array(
       'source' => array(
         'name' => t('Source'),
@@ -361,7 +412,6 @@ function omega_omega_theme_libraries_info($theme) {
         'files' => array(
           'js' => array(
             $path . '/libraries/selectivizr/selectivizr.js' => array(
-              // Only load Selectivizr for Internet Explorer > 6 and < 8.
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'group' => JS_LIBRARY,
               'weight' => -100,
@@ -377,15 +427,15 @@ function omega_omega_theme_libraries_info($theme) {
     'description' => t('CSS3 Media Queries is a JavaScript library to make IE 5+, Firefox 1+ and Safari 2 transparently parse, test and apply CSS3 Media Queries. Firefox 3.5+, Opera 7+, Safari 3+ and Chrome already offer native support.'),
     'vendor' => 'Wouter van der Graaf',
     'vendor url' => 'http://woutervandergraaf.nl/',
-    'package' => t('polyfills'),
+    'package' => t('Polyfills'),
     'files' => array(
-      'js' => array(
-        $path . '/libraries/css3mediaqueries/css3-mediaqueries.min.js' => array(
-          'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-          'group' => JS_LIBRARY,
-          'weight' => -100,
-        ),
+    'js' => array(
+      $path . '/libraries/css3mediaqueries/css3mediaqueries.min.js' => array(
+        'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
+        'group' => JS_LIBRARY,
+        'weight' => -100,
       ),
+    ),
     ),
     'variants' => array(
       'source' => array(
@@ -393,7 +443,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            $path . '/libraries/css3mediaqueries/css3-mediaqueries.js' => array(
+            $path . '/libraries/css3mediaqueries/css3mediaqueries.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'group' => JS_LIBRARY,
               'weight' => -100,
@@ -409,7 +459,7 @@ function omega_omega_theme_libraries_info($theme) {
     'description' => t('Respond is a fast & lightweight polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more).'),
     'vendor' => 'Scott Jehl',
     'vendor url' => 'http://scottjehl.com/',
-    'package' => 'polyfills',
+    'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
         $path . '/libraries/respond/respond.min.js' => array(
@@ -442,7 +492,7 @@ function omega_omega_theme_libraries_info($theme) {
     'vendor' => 'Keith Clark',
     'vendor url' => 'http://css3pie.com/',
     'options form' => 'omega_library_pie_options_form',
-    'package' => 'polyfills',
+    'package' => t('Polyfills'),
     'files' => array(),
     'variants' => array(
       'js' => array(
@@ -467,8 +517,9 @@ function omega_omega_theme_libraries_info($theme) {
 
   if (is_file($file)) {
     $libraries['css3pie']['files']['css'][$file] = array(
-      'group' => CSS_DEFAULT,
-      'weight' => -100,
+      'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
+      'group' => CSS_THEME,
+      'weight' => 100,
     );
   }
 
@@ -488,7 +539,7 @@ function omega_omega_theme_libraries_info($theme) {
     'name' => t('HTML5 Shiv'),
     'description' => t('This script is the defacto way to enable use of HTML5 sectioning elements in legacy Internet Explorer, as well as default HTML5 styling in Internet Explorer 6 - 9, Safari 4.x (and iPhone 3.x), and Firefox 3.x.'),
     'vendor' => 'Alexander Farkas',
-    'package' => 'polyfills',
+    'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
         $path . '/libraries/html5shiv/html5shiv.js' => array(
@@ -518,7 +569,7 @@ function omega_omega_theme_libraries_info($theme) {
   $libraries['messages'] = array(
     'name' => t('Discardable messages'),
     'description' => t("Adds a 'close' button to each message."),
-    'package' => 'goodies',
+    'package' => t('Goodies'),
     'files' => array(
       'js' => array(
         $path . '/js/omega.messages.js' => array(

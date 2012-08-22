@@ -220,7 +220,12 @@ function omega_extensions($theme = NULL) {
     foreach (omega_theme_trail($theme) as $key => $title) {
       $info = omega_theme_info($key);
       if (!empty($info['extensions'])) {
-        $extensions[$theme] = array_merge($extensions[$theme], array_fill_keys($info['extensions'], $key));
+        foreach ($info['extensions'] as $extension => $label) {
+          $extensions[$theme][$extension] = array(
+            'theme' => $key,
+            'label' => $label,
+          );
+        }
       }
     }
   }
@@ -559,7 +564,7 @@ function omega_extension_enabled($extension, $theme = NULL) {
   $cache = &drupal_static(__FUNCTION__);
 
   if (!isset($cache[$theme])) {
-    foreach (omega_extensions($theme) as $key => $theme_name) {
+    foreach (omega_extensions($theme) as $key => $name) {
       $cache[$theme][$key] = theme_get_setting('omega_toggle_extension_' . $key, $theme);
     }
   }

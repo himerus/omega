@@ -1,6 +1,11 @@
 @charset "UTF-8";
 /* line 48, ../sass/omega/utility/_messages.scss */
-div.messages .close-message {
+div.messages {
+  position: relative;
+}
+
+/* line 52, ../sass/omega/utility/_messages.scss */
+.close-message {
   text-shadow: none;
   position: absolute;
   right: .4em;
@@ -8,12 +13,12 @@ div.messages .close-message {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.3);
 }
-/* line 56, ../sass/omega/utility/_messages.scss */
-div.messages .close-message:before {
+/* line 60, ../sass/omega/utility/_messages.scss */
+.close-message:before {
   font-size: 1.4em;
   content: "×";
 }
-/* line 61, ../sass/omega/utility/_messages.scss */
-div.messages .close-message:hover, div.messages .close-message:focus, div.messages .close-message:active {
+/* line 65, ../sass/omega/utility/_messages.scss */
+.close-message:hover, .close-message:focus, .close-message:active {
   color: #000;
 }

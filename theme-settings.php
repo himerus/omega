@@ -10,10 +10,10 @@ require_once dirname(__FILE__) . '/template.php';
 /**
  * Implements hook_form_FORM_alter().
  */
-function omega_form_system_theme_settings_alter(&$form, $form_state) {
+function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = NULL) {
   // General "alters" use a form id. Settings should not be set here. The only
   // thing useful about this is if you need to alter the form for the running
-  // theme and *not* the theme setting. @see http://drupal.org/node/943212
+  // theme and *not* the the me setting. @see http://drupal.org/node/943212
   if (isset($form_id)) {
     return;
   }
@@ -67,35 +67,33 @@ function omega_form_system_theme_settings_alter(&$form, $form_state) {
     );
 
     // Load the theme settings for all enabled extensions.
-    foreach ($extensions as $extension => $theme) {
-      $label = t(filter_xss_admin(ucfirst($extension)));
-
+    foreach ($extensions as $extension => $info) {
       $form['omega_extensions']['omega_toggle_extension_' . $extension] = array(
         '#type' => 'checkbox',
-        '#title' => $label,
+        '#title' => $info['label'],
         '#default_value' => theme_get_setting('omega_toggle_extension_' . $extension),
       );
 
       if (theme_get_setting('omega_toggle_extension_' . $extension)) {
         $element = array();
 
-        // Load all the implementations for this extensions and invoke the according
-        // hooks.
-        $file = drupal_get_path('theme', $theme) . '/includes/' . $extension . '/' . $extension . '.settings.inc';
+        // Load the implementation for this extensions and invoke the according
+        // hook.
+        $file = drupal_get_path('theme', $info['theme']) . '/includes/' . $extension . '/' . $extension . '.settings.inc';
         if (is_file($file)) {
           require_once $file;
         }
 
-        $function = $theme . '_extension_' . $extension . '_settings_form';
+        $function = $info['theme'] . '_extension_' . $extension . '_settings_form';
         if (function_exists($function)) {
           // By default, each extension resides in a vertical tab
           $element = $function($element, $form, $form_state) + array(
             '#type' => 'fieldset',
-            '#title' => $label,
+            '#title' => $info['label'],
           );
-
-          drupal_alter($theme . '_extension_' . $extension . '_settings_form', $element, $form, $form_state);
         }
+
+        drupal_alter('extension_' . $extension . '_settings_form', $element, $form, $form_state);
 
         if (element_children($element)) {
           // Append the extension form to the theme settings form if it has any

@@ -45,7 +45,11 @@ $message-box-radius: 5px !default;
 }
 
 @mixin drupal-messages-close {
-  div.messages .close-message {
+  div.messages {
+    position: relative;
+  }
+
+  .close-message {
     @include single-text-shadow(none);
     position: absolute;
     right: .4em;

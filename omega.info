@@ -9,11 +9,11 @@ features[] = favicon
 features[] = name
 features[] = slogan
 
-extensions[] = development
-extensions[] = layouts
-extensions[] = compatibility
-extensions[] = scripts
-extensions[] = css
+extensions[development] = Development
+extensions[layouts] = Layouts
+extensions[compatibility] = Compatibility
+extensions[scripts] = Scripts
+extensions[css] = Stylesheets
 
 regions[navigation] = Navigation
 regions[banner] = Banner
