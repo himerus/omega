@@ -425,7 +425,7 @@ function omega_layouts_info($theme = NULL) {
             $info['attached']['css'][$file] = array(
               'media' => $media,
               'data' => $info['path'] . '/' . $file,
-              'group' => CSS_THEME,
+              'group' => CSS_DEFAULT,
               'every_page' => TRUE,
             );
           }
@@ -437,7 +437,7 @@ function omega_layouts_info($theme = NULL) {
         foreach ($info['info']['scripts'] as $file) {
           $info['attached']['js'][$file] = array(
             'data' => $info['path'] . '/' . $file,
-            'group' => JS_THEME,
+            'group' => JS_DEFAULT,
             'every_page' => TRUE,
           );
         }
