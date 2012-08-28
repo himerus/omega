@@ -71,6 +71,7 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
       $form['omega_extensions']['omega_toggle_extension_' . $extension] = array(
         '#type' => 'checkbox',
         '#title' => $info['info']['name'],
+        '#description' => $info['info']['description'],
         '#default_value' => theme_get_setting('omega_toggle_extension_' . $extension),
       );
 
@@ -78,7 +79,7 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
 
       // Load the implementation for this extensions and invoke the according
       // hook.
-      $file = drupal_get_path('theme', $info['theme']) . '/includes/' . $extension . '/' . $extension . '.settings.inc';
+      $file = $info['path'] . '/' . $extension . '.settings.inc';
       if (is_file($file)) {
         require_once $file;
       }
@@ -86,11 +87,17 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
       $function = $info['theme'] . '_extension_' . $extension . '_settings_form';
       if (function_exists($function)) {
         // By default, each extension resides in a vertical tab
-        $enabled = theme_get_setting('omega_toggle_extension_' . $extension);
         $element = $function($element, $form, $form_state) + array(
           '#type' => 'fieldset',
-          '#title' => $info['info']['name'] . (!$enabled ? ' (' . t('disabled') . ')' : ''),
-          '#disabled' => !$enabled,
+          '#title' => $info['info']['name'],
+          '#states' => array(
+            'disabled' => array(
+              'input[name="omega_toggle_extension_' . $extension . '"]' => array('checked' => FALSE),
+            ),
+          ),
+          '#attributes' => array(
+            'class' => array('omega-extension'),
+          )
         );
       }
 
