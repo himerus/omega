@@ -24,3 +24,4 @@ regions[postscript] = Postscript
 regions[footer] = Footer
 regions[sidebar_first] = First Sidebar
 regions[sidebar_second] = Second Sidebar
+regions[footer_second] = Second Footer

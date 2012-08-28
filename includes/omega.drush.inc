@@ -16,7 +16,7 @@ function omega_drush_command() {
     ),
     'options' => array(
       'destination' => dt('The destination of your subtheme. Defaults to "all" (sites/all/themes).'),
-      'machine_name' => dt('The machine-readable name of your subtheme. This will be auto-generated from the human-readable name if omitted.'),
+      'machine-name' => dt('The machine-readable name of your subtheme. This will be auto-generated from the human-readable name if omitted.'),
       'starterkit' => dt('The starterkit that your subtheme should use. Defaults to "omega_starterkit".'),
       'enable' => dt('Automatically enable the subtheme after creation.'),
       'set-default' => dt('Automatically enable the subtheme after creation and make it the default theme.'),
@@ -55,6 +55,21 @@ function omega_drush_command() {
     'aliases' => array('orev'),
   );
 
+  $items['omega-layout'] = array(
+    'description' => dt('Generates a layout from the starterkit.'),
+    'arguments' => array(
+      'theme' => dt('The machine-readable name of the theme to create the layout for.'),
+      'layout' => dt('The name of your layout.'),
+    ),
+    'options' => array(
+      'machine-name' => dt('The machine-readable name of the layout. This will be auto-generated from the human-readable name if omitted.'),
+    ),
+    'examples' => array(
+      'drush omega-layout foo bar' => dt('Creates a layout "bar" for the "foo" theme.'),
+    ),
+    'aliases' => array('olay'),
+  );
+
   return $items;
 }
 
@@ -69,6 +84,8 @@ function omega_drush_help($section) {
       return dt('Exports the theme settings of a given theme.');
     case 'drush:omega-revert':
       return dt('Reverts the theme settings of a given theme.');
+    case 'drush:omega-layout':
+      return dt('Generates a layout.');
   }
 }
 
@@ -84,7 +101,7 @@ function drush_omega_subtheme_validate($name = NULL) {
   $destination = drush_get_option('destination', 'all');
   $starterkit = drush_get_option('starterkit', 'omega_starterkit');
 
-  if ($machine_name = drush_get_option('machine_name')) {
+  if ($machine_name = drush_get_option('machine-name')) {
     // Validate the machine-readable name of the theme.
     if (!preg_match('/^[a-z][a-z0-9_]*$/', $machine_name)) {
       return drush_set_error('OMEGA_THEME_NAME_INVALID', dt('The machine name is invalid. It may only contain lowercase numbers, letters and underscores and must start with a letter.'));
@@ -118,7 +135,7 @@ function drush_omega_subtheme($name = NULL) {
 
   $subtheme = new stdClass();
   $subtheme->name = $name;
-  $subtheme->machine_name = drush_get_option('machine_name', _omega_drush_generate_theme_name($name));
+  $subtheme->machine_name = drush_get_option('machine-name', _omega_drush_generate_theme_name($name));
   $subtheme->path = 'sites/' . drush_get_option('destination', 'all') . '/themes/' . $subtheme->machine_name;
   $subtheme->starterkit = drush_get_option('starterkit', 'omega_starterkit');
   $subtheme->default = drush_get_option('set-default') !== NULL;

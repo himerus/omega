@@ -70,36 +70,36 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
     foreach ($extensions as $extension => $info) {
       $form['omega_extensions']['omega_toggle_extension_' . $extension] = array(
         '#type' => 'checkbox',
-        '#title' => $info['label'],
+        '#title' => $info['info']['name'],
         '#default_value' => theme_get_setting('omega_toggle_extension_' . $extension),
       );
 
-      if (theme_get_setting('omega_toggle_extension_' . $extension)) {
-        $element = array();
+      $element = array();
 
-        // Load the implementation for this extensions and invoke the according
-        // hook.
-        $file = drupal_get_path('theme', $info['theme']) . '/includes/' . $extension . '/' . $extension . '.settings.inc';
-        if (is_file($file)) {
-          require_once $file;
-        }
+      // Load the implementation for this extensions and invoke the according
+      // hook.
+      $file = drupal_get_path('theme', $info['theme']) . '/includes/' . $extension . '/' . $extension . '.settings.inc';
+      if (is_file($file)) {
+        require_once $file;
+      }
 
-        $function = $info['theme'] . '_extension_' . $extension . '_settings_form';
-        if (function_exists($function)) {
-          // By default, each extension resides in a vertical tab
-          $element = $function($element, $form, $form_state) + array(
-            '#type' => 'fieldset',
-            '#title' => $info['label'],
-          );
-        }
+      $function = $info['theme'] . '_extension_' . $extension . '_settings_form';
+      if (function_exists($function)) {
+        // By default, each extension resides in a vertical tab
+        $enabled = theme_get_setting('omega_toggle_extension_' . $extension);
+        $element = $function($element, $form, $form_state) + array(
+          '#type' => 'fieldset',
+          '#title' => $info['info']['name'] . (!$enabled ? ' (' . t('disabled') . ')' : ''),
+          '#disabled' => !$enabled,
+        );
+      }
 
-        drupal_alter('extension_' . $extension . '_settings_form', $element, $form, $form_state);
+      drupal_alter('extension_' . $extension . '_settings_form', $element, $form, $form_state);
 
-        if (element_children($element)) {
-          // Append the extension form to the theme settings form if it has any
-          // children.
-          $form['omega']['omega_' . $extension] = $element;
-        }
+      if (element_children($element)) {
+        // Append the extension form to the theme settings form if it has any
+        // children.
+        $form['omega']['omega_' . $extension] = $element;
       }
     }
   }

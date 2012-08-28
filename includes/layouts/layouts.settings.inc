@@ -18,10 +18,14 @@ function omega_extension_layouts_settings_form($element, &$form, $form_state) {
     );
 
     foreach ($layouts as $layout => $info) {
-      $element['omega_layout']['#options'][$layout] = $info['label'];
-      $element['omega_layout'][$layout]['#description'] = $info['description'];
-      $element['omega_layout'][$layout]['#prefix'] = '<div class="omega-layout-selection-wrapper">';
-      $element['omega_layout'][$layout]['#suffix'] = '<img class="omega-layout-icon" src="' . file_create_url($info['icon']) . '" /></div>';
+      $element['omega_layout']['#options'][$layout] = $info['info']['name'];
+      $element['omega_layout'][$layout]['#description'] = $info['info']['description'];
+
+      if (isset($info['info']['preview'])) {
+        $icon = file_create_url($info['info']['preview']);
+        $element['omega_layout'][$layout]['#prefix'] = '<div class="omega-layout-selection-wrapper">';
+        $element['omega_layout'][$layout]['#suffix'] = '<img class="omega-layout-icon" src="' . $icon . '" /></div>';
+      }
     }
 
     foreach ($layouts as $layout => $info) {
@@ -32,14 +36,5 @@ function omega_extension_layouts_settings_form($element, &$form, $form_state) {
     }
   }
 
-  $form['#submit'][] = 'omega_extension_layouts_theme_settings_form_submit';
-
   return $element;
-}
-
-/**
- * Theme settings form submit handler for the layouts extension.
- */
-function omega_extension_layouts_theme_settings_form_submit($form, &$form_state) {
-
 }

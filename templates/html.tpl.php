@@ -41,7 +41,7 @@
  * @see template_process()
  */
 ?><!DOCTYPE html>
-<?php if (omega_extension_enabled('compatibility') && theme_get_setting('omega_conditional_classes_html')): ?>
+<?php if (theme_get_setting('omega_toggle_extension_compatibility') && theme_get_setting('omega_conditional_classes_html')): ?>
   <!--[if IEMobile 7]><html class="ie iem7" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><![endif]-->
   <!--[if lte IE 6]><html class="ie lt-ie9 lt-ie8 lt-ie7" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><![endif]-->
   <!--[if (IE 7)&(!IEMobile)]><html class="ie lt-ie9 lt-ie8" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><![endif]-->

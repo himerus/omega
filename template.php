@@ -50,7 +50,7 @@ if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && !$static = &drupal_static('the
  * function declaration to make sure that the code is executed before any theme
  * hooks.
  */
-if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && omega_extension_enabled('development') && user_access('administer site configuration')) {
+if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && theme_get_setting('omega_toggle_extension_development') && user_access('administer site configuration')) {
   if (theme_get_setting('omega_rebuild_theme_registry')) {
     drupal_theme_rebuild();
 
@@ -66,7 +66,10 @@ if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && omega_extension_enabled('devel
       variable_del('drupal_' . $type . '_cache_files');
 
       foreach (file_scan_directory('public://' . $type . '', '/.*/') as $file) {
-        file_unmanaged_delete($file->uri);
+        // Delete files that are older than 20 seconds.
+        if (REQUEST_TIME - filemtime($file->uri) > 20) {
+          file_unmanaged_delete($file->uri);
+        }
       };
     }
 
@@ -93,7 +96,7 @@ function omega_preprocess(&$variables) {
  * Implements hook_element_info_alter().
  */
 function omega_element_info_alter(&$elements) {
-  if (omega_extension_enabled('css') && theme_get_setting('omega_media_queries_inline') && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
+  if (theme_get_setting('omega_toggle_extension_css') && theme_get_setting('omega_media_queries_inline') && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
     array_unshift($elements['styles']['#pre_render'], 'omega_css_preprocessor');
   }
 
@@ -109,7 +112,7 @@ function omega_element_info_alter(&$elements) {
  * Implements hook_css_alter().
  */
 function omega_css_alter(&$css) {
-  if (omega_extension_enabled('css') && $exclude = theme_get_setting('omega_css_exclude')) {
+  if (theme_get_setting('omega_toggle_extension_css') && $exclude = theme_get_setting('omega_css_exclude')) {
     omega_exclude_assets($css, $exclude);
   }
 
@@ -129,7 +132,7 @@ function omega_css_alter(&$css) {
  * Implements hook_js_alter().
  */
 function omega_js_alter(&$js) {
-  if (omega_extension_enabled('scripts') && $exclude = theme_get_setting('omega_js_exclude')) {
+  if (theme_get_setting('omega_toggle_extension_scripts') && $exclude = theme_get_setting('omega_js_exclude')) {
     omega_exclude_assets($js, $exclude);
   }
 
@@ -149,23 +152,16 @@ function omega_js_alter(&$js) {
 function omega_theme() {
   $info = array();
 
-  if (omega_extension_enabled('layouts') && $layouts = omega_layouts_info()) {
+  if (theme_get_setting('omega_toggle_extension_layouts') && $layouts = omega_layouts_info()) {
     foreach ($layouts as $key => $layout) {
-      if ($layout['supported']) {
+      if (!isset($info['page__' . $key . '_layout'])) {
         $info['page__' . $key . '_layout'] = array(
-          'layout' => $layout,
-          'template' => $layout['template'],
+          'template' => $key . '.layout',
+          'path' => $layout['path'],
         );
-
-        if ($GLOBALS['theme_engine'] == 'phptemplate') {
-          // Try to find a template override in the theme trail.
-          $path = omega_theme_trail_find_file($layout['path'] . '/' . $layout['template'] . '.tpl.php');
-          $info['page__' . $key . '_layout']['path'] = dirname($path);
-        }
-        else {
-          $info['page__' . $key . '_layout']['path'] = drupal_get_path('theme', $layout['theme']) . '/' . $layout['path'];
-        }
       }
+
+      $info['page__' . $key . '_layout']['layout'] = $layout;
     }
   }
 
@@ -236,16 +232,18 @@ function omega_theme_registry_alter(&$registry) {
   // required for the next step (allowing extensions to register hooks in the
   // theme registry).
   foreach (omega_extensions() as $extension => $info) {
+    // Load all the implementations for this extensions and invoke the according
+    // hooks.
     if (theme_get_setting('omega_toggle_extension_' . $extension)) {
-      // Load all the implementations for this extensions and invoke the according
-      // hooks.
-      $file = drupal_get_path('theme', $info['theme']) . '/includes/' . $extension . '/' . $extension . '.registry.inc';
+      $file = $info['path'] . '/' . $extension . '.inc';
+
       if (is_file($file)) {
         require_once $file;
       }
 
       // Give every enabled extension a chance to alter the theme registry.
-      $hook = $theme . '_extension_' . $extension . '_theme_registry_alter';
+      $hook = $info['theme'] . '_extension_' . $extension . '_theme_registry_alter';
+
       if (function_exists($hook)) {
         $hook($registry);
       }
@@ -345,7 +343,7 @@ function omega_override_overlay_deliver_empty_page() {
  */
 function omega_page_alter(&$page) {
   // Load the default layout from the theme settings.
-  if (!isset($page['#omega_layout']) && omega_extension_enabled('layouts')) {
+  if (!isset($page['#omega_layout']) && theme_get_setting('omega_toggle_extension_layouts')) {
     $page['#omega_layout'] = theme_get_setting('omega_layout');
   }
 
@@ -364,7 +362,7 @@ function omega_page_alter(&$page) {
     }
   }
 
-  if (omega_extension_enabled('development') && theme_get_setting('omega_dummy_blocks') && user_access('administer site configuration')) {
+  if (theme_get_setting('omega_toggle_extension_development') && theme_get_setting('omega_dummy_blocks') && user_access('administer site configuration')) {
     $item = menu_get_item();
 
     // Don't interfere with the 'Demonstrate block regions' page.
@@ -429,13 +427,13 @@ function omega_omega_theme_libraries_info($theme) {
     'vendor url' => 'http://woutervandergraaf.nl/',
     'package' => t('Polyfills'),
     'files' => array(
-    'js' => array(
-      $path . '/libraries/css3mediaqueries/css3mediaqueries.min.js' => array(
-        'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-        'group' => JS_LIBRARY,
-        'weight' => -100,
+      'js' => array(
+        $path . '/libraries/css3mediaqueries/css3mediaqueries.min.js' => array(
+          'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
+          'group' => JS_LIBRARY,
+          'weight' => -100,
+        ),
       ),
-    ),
     ),
     'variants' => array(
       'source' => array(
@@ -466,6 +464,7 @@ function omega_omega_theme_libraries_info($theme) {
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'group' => JS_LIBRARY,
           'weight' => -100,
+          'force header' => TRUE,
         ),
       ),
     ),
@@ -542,7 +541,7 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
-        $path . '/libraries/html5shiv/html5shiv.js' => array(
+        $path . '/libraries/html5shiv/html5shiv.min.js' => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'group' => JS_LIBRARY,
           'force header' => TRUE,
@@ -585,38 +584,4 @@ function omega_omega_theme_libraries_info($theme) {
   );
 
   return $libraries;
-}
-
-/**
- * Implements hook_omega_layout_info().
- */
-function omega_omega_layouts_info() {
-  // Don't use the t() function here because this is cached in the theme
-  // registry.
-  $info['epiqo'] = array(
-    'label' => 'Epiqo',
-    'description' => 'Default layout for epiqo distributions.',
-    'regions' => array(
-      'navigation' => 'Navigation',
-      'banner' => 'Banner',
-      'search' => 'Search',
-      'preface' => 'Preface',
-      'content' => 'Content',
-      'postscript' => 'Postscript',
-      'footer' => 'Footer',
-      'sidebar_first' => 'First Sidebar',
-      'sidebar_second' => 'Second Sidebar',
-    ),
-    'attached' => array(
-      'css' => array(
-        'css/epiqo.layout.css' => array('group' => CSS_DEFAULT),
-        'css/epiqo.styles.css' => array('group' => CSS_DEFAULT),
-      ),
-      'js' => array(
-        'js/epiqo.layout.js' => array('group' => JS_DEFAULT),
-      ),
-    ),
-  );
-
-  return $info;
 }

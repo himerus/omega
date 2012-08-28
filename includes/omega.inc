@@ -87,8 +87,8 @@ function omega_css_cache_media_queries($item) {
     $base = file_create_url($item['data']);
     $base = substr($base, 0, strrpos($base, '/'));
 
-    if (substr($base, 0, strlen($GLOBALS['base_omega'])) == $GLOBALS['base_omega']) {
-      $base = substr($base, strlen($GLOBALS['base_omega']));
+    if (substr($base, 0, strlen($GLOBALS['base_theme'])) == $GLOBALS['base_theme']) {
+      $base = substr($base, strlen($GLOBALS['base_theme']));
     }
 
     _drupal_build_css_path(NULL, $base . '/');
@@ -186,23 +186,23 @@ function omega_exclude_assets(&$elements, $exclude) {
 }
 
 /**
- * Retrieves the array of enabled extensions for a theme. Every feature that has
- * been toggled on in the themes .info file, excluding the default theme
- * features (as defined in core), is considered an extension. We need this
- * information to make it easy for us to conditionally build the theme settings
- * form based on which extensions are enabled. Each extension can define a
- * theme settings form altering function named
- * 'THEMENAME_extension_EXTENSION_theme_settings_form_alter()' and optionally
- * put it into 'THEME_ROOT/includes/EXTENSION/EXTENSION.settings.inc' to have it
- * automatically included whenever the theme settings form is displayed (given
- * that the extension is currently enabled). Each extension can also define a
- * 'THEMENAME_extension_EXTENSION_theme_registry_alter()' function and
- * optionally put it into 'THEME_ROOT/includes/EXTENSION/EXTENSION.inc' to
- * register custom hooks with the theme registry.
+ * Retrieves the array of enabled extensions for a theme. Extensions can be
+ * registered through the .info file. Each extension can define a theme settings
+ * form altering function named
+ * 'THEMENAME_extension_EXTENSION_theme_settings_form_alter()' through a file
+ * named 'THEME_ROOT/includes/EXTENSION/EXTENSION.settings.inc' to have it
+ * automatically included whenever the theme settings form is displayed. Each
+ * extension can also define a
+ * 'THEMENAME_extension_EXTENSION_theme_registry_alter()' function through a
+ * file named 'THEME_ROOT/includes/EXTENSION/EXTENSION.inc' to register custom
+ * hooks with the theme registry.
  *
  * @param $theme
  *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
  *   of the current theme.
+ * @param $all
+ *   (Optional) If TRUE, all extensions are included. If FALSE, only enabled
+ *   extensions are included.
  *
  * @return array
  *   The theme info array of the passed or current theme.
@@ -212,22 +212,16 @@ function omega_exclude_assets(&$elements, $exclude) {
  * @see omega_extension_development_theme_registry_alter()
  */
 function omega_extensions($theme = NULL) {
-  $extensions = &drupal_static(__FUNCTION__);
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
+  $extensions = drupal_static('__FUNCTION__');
 
   if (!isset($extensions[$theme])) {
-    $extensions[$theme] = array();
-    foreach (omega_theme_trail($theme) as $key => $title) {
-      $info = omega_theme_info($key);
-      if (!empty($info['extensions'])) {
-        foreach ($info['extensions'] as $extension => $label) {
-          $extensions[$theme][$extension] = array(
-            'theme' => $key,
-            'label' => $label,
-          );
-        }
-      }
-    }
+    $extensions[$theme] = _omega_discovery('extension', $theme);
+
+    $context = $theme;
+
+    // Give modules and themes a chance to alter the extensions info array.
+    drupal_alter('omega_extensions', $extensions[$theme], $context);
   }
 
   return $extensions[$theme];
@@ -419,30 +413,39 @@ function omega_layouts_info($theme = NULL) {
   $layouts = drupal_static('__FUNCTION__');
 
   if (!isset($layouts[$theme])) {
-    foreach (omega_invoke_all('omega_layouts_info') as $layout => $info) {
-      // Make sure sub-themes override base-theme implementations.
-      if (isset($layouts[$layout])) {
-        break;
+    $layouts[$theme] = _omega_discovery('layout', $theme);
+
+    foreach ($layouts[$theme] as $layout => &$info) {
+      $info['attached'] = array();
+
+      // Look up possible CSS and JS file overrides.
+      if (isset($info['info']['stylesheets'])) {
+        foreach ($info['info']['stylesheets'] as $media => $files) {
+          foreach ($files as $file) {
+            $info['attached']['css'][$file] = array(
+              'media' => $media,
+              'data' => $info['path'] . '/' . $file,
+              'group' => CSS_THEME,
+              'every_page' => TRUE,
+            );
+          }
+        }
       }
 
-      $info['layout'] = $layout;
+      // Look up possible CSS and JS file overrides.
+      if (isset($info['info']['scripts'])) {
+        foreach ($info['info']['scripts'] as $file) {
+          $info['attached']['js'][$file] = array(
+            'data' => $info['path'] . '/' . $file,
+            'group' => JS_THEME,
+            'every_page' => TRUE,
+          );
+        }
+      }
 
       // Check if the layout is supported by comparing the available theme
       // regions with those required by the layout.
-      $info['supported'] = module_exists('omega_tools') || !array_diff_key($info['regions'], system_region_list($theme)) ? TRUE : FALSE;
-
-      // Provide some defaults.
-      $layouts[$theme][$layout] = $info + array(
-        'label' => ucfirst($layout),
-        'description' => '',
-        'template' => $layout,
-        'path' => 'layouts/' . $layout,
-        'regions' => array(),
-        'icon' => drupal_get_path('theme', 'omega') . '/images/layout-icon-placeholder.png',
-        'attached' => array(),
-        'includes' => array(),
-        'hooks' => array(),
-      );
+      $info['supported'] = module_exists('omega_tools') || !array_diff_key($info['info']['regions'], system_region_list($theme)) ? TRUE : FALSE;
     }
 
     $context = $theme;
@@ -547,27 +550,30 @@ function omega_theme_trail_find_files($file, $path = NULL, $theme = NULL) {
 }
 
 /**
- * Checks if an extension exists and is enabled.
+ * Helper function for discovering layouts, extensions or other pluggins of any
+ * sort in the theme trail.
  *
- * @param $extension
- *   The name of the extension.
- * @param $theme
- *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
- *   of the current theme.
+ * @param $type
+ * @param null $theme
  *
- * @return bool
- *   TRUE if the extension exists and is enabled for the given theme, FALSE
- *   otherwise.
+ * @return array
  */
-function omega_extension_enabled($extension, $theme = NULL) {
-  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-  $cache = &drupal_static(__FUNCTION__);
+function _omega_discovery($type, $theme = NULL) {
+  $discovery = array();
+  $trail = array_reverse(omega_theme_trail($theme));
 
-  if (!isset($cache[$theme])) {
-    foreach (omega_extensions($theme) as $key => $name) {
-      $cache[$theme][$key] = theme_get_setting('omega_toggle_extension_' . $key, $theme);
+  foreach (drupal_system_listing('/\.' . $type . '$/', 'themes') as $name => $file) {
+    foreach ($trail as $key => $label) {
+      if (strpos($file->uri, drupal_get_path('theme', $key)) === 0) {
+        $discovery[$name] = array(
+          'name' => $name,
+          'path' => dirname($file->uri),
+          'info' => drupal_parse_info_file($file->uri),
+          'theme' => $key,
+        );
+      }
     }
   }
 
-  return !empty($cache[$theme][$extension]);
+  return $discovery;
 }

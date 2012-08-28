@@ -6,6 +6,14 @@
  */
 
 /**
+ * Implements hook_extension_EXTENSION_registry_alter().
+ */
+function omega_extension_layouts_theme_registry_alter(&$registry) {
+  $registry['page']['includes'][] = drupal_get_path('theme', 'omega') . '/includes/layouts/layouts.inc';
+  $registry['page']['process functions'][] = 'omega_extension_layouts_process_layout';
+}
+
+/**
  * Implements hook_extension_EXTENSION_process_page().
  */
 function omega_extension_layouts_process_layout(&$variables) {
@@ -17,17 +25,9 @@ function omega_extension_layouts_process_layout(&$variables) {
     if (isset($registry[$suggestion]) && isset($registry[$suggestion]['layout']) && $registry[$suggestion]['layout']['supported']) {
       $variables['theme_hook_suggestion'] = $suggestion;
 
-      // Load all the assets for the active layout.
-      drupal_process_attached(array('#attached' => $registry[$suggestion]['layout']['attached']));
-
-      foreach (array_filter($registry[$suggestion]['layout']['includes']) as $file) {
-        // Load all include files.
-        require_once $file;
-      }
-
-      foreach (array_filter($registry[$suggestion]['layout']['hooks']) as $hook) {
-        // Invoke all defined callbacks.
-        $hook($variables, $variables['page']['#omega_layout'], $registry[$suggestion]['layout']);
+      if (isset($registry[$suggestion]['layout']['attached'])) {
+        // Load all the assets for the active layout.
+        drupal_process_attached(array('#attached' => $registry[$suggestion]['layout']['attached']));
       }
     }
   }
