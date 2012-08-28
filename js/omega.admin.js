@@ -13,8 +13,8 @@ Drupal.behaviors.omegaThemeSettingsLayouts = {
 }
 
 /**
- * Allows administrators to click on the icon of a layout instead of having to
- * target the radio button in order to select it.
+ * Provide a nice little summary for the vertical tab pane of each extension
+ * which indicates whether or not it is currently enabled.
  */
 Drupal.behaviors.omegaExtensionSummary = {
   attach: function (context, settings) {
