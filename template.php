@@ -81,6 +81,9 @@ if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && theme_get_setting('omega_toggl
   }
 }
 
+/**
+ * Implements hook_system_info_alter().
+ */
 function omega_system_info_alter(&$info, $file, $type) {
   if ($type == 'theme' && array_key_exists('omega', omega_theme_trail($file->name))) {
     foreach (omega_layouts_info($file->name) as $layout) {
