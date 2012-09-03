@@ -1,0 +1,4 @@
+name = Starterkit
+description = Starterkit for new layouts.
+
+regions[footer] = Header
