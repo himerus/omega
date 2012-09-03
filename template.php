@@ -319,7 +319,7 @@ function omega_block_list_alter(&$blocks) {
  */
 function omega_page_delivery_callback_alter(&$callback) {
   if (module_exists('overlay') && overlay_display_empty_page()) {
-    $callback = 'overlay_deliver_empty_page';
+    $callback = 'omega_override_overlay_deliver_empty_page';
   }
 }
 
