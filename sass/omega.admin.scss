@@ -42,3 +42,10 @@ div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset {
     margin-left: 1.5em;
   }
 }
+
+.omega-notice, .vertical-tabs-pane .fieldset-wrapper > div.omega-notice {
+  border: 1px solid #ED5;
+  background-color: #FFFCE5;
+  color: #840;
+  padding: .8em 1.4em;
+}

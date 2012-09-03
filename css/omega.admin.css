@@ -44,3 +44,11 @@ div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset legend {
   top: 8px;
   margin-left: 1.5em;
 }
+
+/* line 46, ../sass/omega.admin.scss */
+.omega-notice, .vertical-tabs-pane .fieldset-wrapper > div.omega-notice {
+  border: 1px solid #ED5;
+  background-color: #FFFCE5;
+  color: #840;
+  padding: .8em 1.4em;
+}

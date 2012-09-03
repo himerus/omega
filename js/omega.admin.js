@@ -27,9 +27,6 @@ Drupal.behaviors.omegaExtensionSummary = {
         if (!$checkbox.is(':checked')) {
           return Drupal.t('This extension is currently disabled');
         }
-        else {
-          return '';
-        }
       })
 
       $checkbox.change(function () {
