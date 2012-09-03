@@ -415,6 +415,12 @@ function omega_layouts_info($theme = NULL) {
   if (!isset($layouts[$theme])) {
     $layouts[$theme] = _omega_discovery('layout', $theme);
 
+    // A theme or base theme can explicitly restrict the available layouts to
+    // a subset defined through the .info file.
+    if ($filter = omega_theme_trail_info('layouts', TRUE, $theme)) {
+      $layouts[$theme] = array_intersect_key($layouts[$theme], array_flip($filter));
+    }
+
     foreach ($layouts[$theme] as $layout => &$info) {
       $info['attached'] = array();
 
@@ -444,10 +450,6 @@ function omega_layouts_info($theme = NULL) {
           );
         }
       }
-
-      // Check if the layout is supported by comparing the available theme
-      // regions with those required by the layout.
-      $info['supported'] = module_exists('omega_tools') || !array_diff_key($info['info']['regions'], system_region_list($theme)) ? TRUE : FALSE;
     }
 
     $context = $theme;
@@ -565,6 +567,11 @@ function _omega_discovery($type, $theme = NULL) {
   $trail = array_reverse(omega_theme_trail($theme));
 
   foreach (drupal_system_listing('/\.' . $type . '$/', 'themes') as $name => $file) {
+    // The name 'starterkit' is reserved for actual Starterkits.
+    if ($name == 'starterkit') {
+      continue;
+    }
+
     foreach ($trail as $key => $label) {
       if (strpos($file->uri, drupal_get_path('theme', $key)) === 0) {
         $discovery[$name] = array(
