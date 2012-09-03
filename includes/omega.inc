@@ -462,6 +462,34 @@ function omega_layouts_info($theme = NULL) {
 }
 
 /**
+ * Retrieves the active layout for the current page.
+ *
+ * @return array|bool
+ *   The info array for the active layout or FALSE if the current page does not
+ *   use an alternative page layout.
+ */
+function omega_layout() {
+  $cache = &drupal_static(__FUNCTION__);
+
+  if (!isset($layout)) {
+    $cache = FALSE;
+
+    // Load the default layout from the theme settings.
+    $layout = theme_get_setting('omega_layout');
+
+    drupal_alter('omega_layout', $layout);
+
+    $registry = theme_get_registry();
+
+    if (isset($registry['page__' . $layout . '_layout']['layout'])) {
+      $cache = $registry['page__' . $layout . '_layout']['layout'];
+    }
+  }
+
+  return $cache;
+}
+
+/**
  * Allow themes to easily define libraries.
  *
  * @param $theme

@@ -81,6 +81,18 @@ if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && theme_get_setting('omega_toggl
   }
 }
 
+function omega_system_info_alter(&$info, $file, $type) {
+  if ($type == 'theme' && array_key_exists('omega', omega_theme_trail($file->name))) {
+    foreach (omega_layouts_info($file->name) as $layout) {
+      foreach ($layout['info']['regions'] as $region => $description) {
+        if (!isset($info['regions'][$region])) {
+          $info['regions'][$region] = $description;
+        }
+      }
+    }
+  }
+}
+
 /**
  * Implements hook_preprocess().
  */
@@ -303,6 +315,14 @@ function omega_template_process_html_override(&$variables) {
  * settings are configured that way.
  */
 function omega_block_list_alter(&$blocks) {
+  if (theme_get_setting('omega_toggle_extension_layouts') && $layout = omega_layout()) {
+    foreach ($blocks as $key => $block) {
+      if (!array_key_exists($block->region, $layout['info']['regions'])) {
+        unset($blocks[$key]);
+      }
+    }
+  }
+
   if (!theme_get_setting('omega_toggle_front_page_content') && drupal_is_front_page()) {
     foreach ($blocks as $key => $block) {
       if ($block->module == 'system' && $block->delta == 'main') {
@@ -342,11 +362,6 @@ function omega_override_overlay_deliver_empty_page() {
  * within a preprocess_block function.
  */
 function omega_page_alter(&$page) {
-  // Load the default layout from the theme settings.
-  if (!isset($page['#omega_layout']) && theme_get_setting('omega_toggle_extension_layouts')) {
-    $page['#omega_layout'] = theme_get_setting('omega_layout');
-  }
-
   // Look in each visible region for blocks.
   foreach (system_region_list($GLOBALS['theme'], REGIONS_VISIBLE) as $region => $name) {
     if (!empty($page[$region])) {
