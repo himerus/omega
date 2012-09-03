@@ -60,6 +60,12 @@ Drupal.behaviors.epiqoMobileSidebar = {
         if (!$('body').hasClass('show-sidebar') && $(e.srcElement).attr('id') != 'sidebar-first-toggle') {
           $('body').addClass('show-sidebar');
         }
+        else if ($('body').hasClass('show-sidebar')) {
+          var click = e.pageX - $(this).offset().left;
+          if (click > $(this).innerWidth() && click < $(this).outerWidth()) {
+            $('body').removeClass('show-sidebar');
+          }
+        }
       });
 
       // Hide the sidebar when the area outside of it is clicked.http://drupaljobs.local.dev
