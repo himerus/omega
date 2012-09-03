@@ -130,10 +130,6 @@ function omega_theme_settings_form_submit($form, &$form_state) {
   // Clear the theme settings cache.
   cache_clear_all('theme_settings:' . $form_state['build_info']['args'][0], 'cache');
 
-  // Rebuild the theme data. This is required for the system info altering code
-  // to run once again after the theme settings have been changed.
-  system_rebuild_theme_data();
-
   // Rebuild the theme registry. This has quite a performance impact but since
   // this only happens once after we (re-)saved the theme settings this is fine.
   // Also, this is actually required because we are caching certain things in
