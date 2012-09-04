@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Main extension file for the 'development' extension.
+ * Main extension file for the 'layouts' extension.
  */
 
 /**
