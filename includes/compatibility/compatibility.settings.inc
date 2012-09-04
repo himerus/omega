@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains the theme settings form elements for the metatags extension.
+ * Contains the theme settings form elements for the compatibility extension.
  */
 
 /**

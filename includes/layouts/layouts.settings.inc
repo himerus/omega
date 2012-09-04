@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains the theme settings form elements for the development extension.
+ * Contains the theme settings form elements for the layouts extension.
  */
 
 /**
