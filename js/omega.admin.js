@@ -23,7 +23,7 @@ Drupal.behaviors.omegaExtensionSummary = {
       var $fieldset = $(this);
       var $checkbox = $('input[name="omega_toggle_extension_' + extension + '"]', $(this).closest('form'));
 
-      $(this).drupalSetSummary(function (tab) {
+      $(this).drupalSetSummary(function () {
         if (!$checkbox.is(':checked')) {
           return Drupal.t('This extension is currently disabled');
         }
