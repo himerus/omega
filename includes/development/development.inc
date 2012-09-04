@@ -20,7 +20,7 @@ function omega_extension_development_theme_registry_alter(&$registry) {
  */
 function omega_extension_development_preprocess_html(&$variables) {
   $path = drupal_get_path('theme', 'omega');
-  drupal_add_css($path . '/css/omega.development.css', array('group' => CSS_THEME, 'weight' => -10));
+  drupal_add_css($path . '/css/omega.development.css', array('group' => CSS_THEME, 'weight' => -10, 'every_page' => TRUE));
 
   if (theme_get_setting('omega_dummy_blocks')) {
     $variables['attributes_array']['class'][] = 'omega-dummy-blocks';
@@ -29,7 +29,7 @@ function omega_extension_development_preprocess_html(&$variables) {
   if (!module_exists('overlay') || overlay_get_mode() == 'parent') {
     if (theme_get_setting('omega_browser_width_indicator')) {
       $variables['attributes_array']['class'][] = 'omega-browser-width-indicator';
-      drupal_add_js($path . '/js/omega.development.js', array('group' => JS_THEME, 'weight' => -10));
+      drupal_add_js($path . '/js/omega.development.js', array('group' => JS_THEME, 'weight' => -10, 'every_page' => TRUE));
     }
   }
 }

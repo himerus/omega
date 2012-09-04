@@ -427,8 +427,8 @@ function omega_layouts_info($theme = NULL) {
       // Look up possible CSS and JS file overrides.
       if (isset($info['info']['stylesheets'])) {
         foreach ($info['info']['stylesheets'] as $media => $files) {
-          foreach ($files as $file) {
-            $info['attached']['css'][$file] = array(
+          foreach ($files as $key => $file) {
+            $info['attached']['css'][$key] = array(
               'media' => $media,
               'data' => $info['path'] . '/' . $file,
               'group' => CSS_THEME,
@@ -441,8 +441,8 @@ function omega_layouts_info($theme = NULL) {
 
       // Look up possible CSS and JS file overrides.
       if (isset($info['info']['scripts'])) {
-        foreach ($info['info']['scripts'] as $file) {
-          $info['attached']['js'][$file] = array(
+        foreach ($info['info']['scripts'] as $key => $file) {
+          $info['attached']['js'][$key] = array(
             'data' => $info['path'] . '/' . $file,
             'group' => JS_THEME,
             'every_page' => TRUE,
