@@ -6,18 +6,3 @@ core = 7.x
 base theme = omega
 starterkit = TRUE
 hidden = TRUE
-
-features[] = logo
-features[] = favicon
-features[] = name
-features[] = slogan
-
-regions[navigation] = Navigation
-regions[banner] = Banner
-regions[search] = Search
-regions[preface] = Preface
-regions[content] = Content
-regions[postscript] = Postscript
-regions[footer] = Footer
-regions[sidebar_first] = First Sidebar
-regions[sidebar_second] = Second Sidebar
