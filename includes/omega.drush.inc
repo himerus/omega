@@ -18,6 +18,7 @@ function omega_drush_command() {
       'destination' => dt('The destination of your subtheme. Defaults to "all" (sites/all/themes).'),
       'machine-name' => dt('The machine-readable name of your subtheme. This will be auto-generated from the human-readable name if omitted.'),
       'starterkit' => dt('The starterkit that your subtheme should use. Defaults to "omega_starterkit".'),
+      'basetheme' => dt('Overrides the base theme defined in the starterkit.'),
       'enable' => dt('Automatically enable the subtheme after creation.'),
       'set-default' => dt('Automatically enable the subtheme after creation and make it the default theme.'),
     ),
@@ -123,6 +124,12 @@ function drush_omega_subtheme_validate($name = NULL) {
   if (!array_key_exists($starterkit, omega_drush_starterkits())) {
     return drush_set_error('OMEGA_STARTERKIT_NOT_EXISTS', dt('There is no valid Omega theme starterkit with the name @starterkit.', array('@starterkit' => $starterkit)));
   }
+
+  if ($basetheme = drush_get_option('basetheme')) {
+    if (!array_key_exists($basetheme, list_themes()) || !array_key_exists('omega', omega_theme_trail($basetheme))) {
+      return drush_set_error('OMEGA_BASETHEME_INVALID', dt('The base theme @basetheme does not exist or is invalid.', array('@basetheme' => $basetheme)));
+    }
+  }
 }
 
 /**
@@ -140,6 +147,7 @@ function drush_omega_subtheme($name = NULL) {
   $subtheme->starterkit = drush_get_option('starterkit', 'omega_starterkit');
   $subtheme->default = drush_get_option('set-default') !== NULL;
   $subtheme->enable = $subtheme->default || drush_get_option('enable') !== NULL;
+  $subtheme->basetheme = drush_get_option('basetheme');
 
   if (omega_drush_subtheme_create($subtheme)) {
     drush_log(dt('You have successfully created the theme @theme.', array('@theme' => $subtheme->name)), 'success');
@@ -474,6 +482,10 @@ function omega_drush_subtheme_create($subtheme) {
   $subtheme->info['name'] = $subtheme->name;
   $subtheme->info['description'] = $subtheme->description;
   $subtheme->info['version'] = '1.x';
+
+  if (!empty($subtheme->basetheme)) {
+    $subtheme->info['base theme'] = $subtheme->basetheme;
+  }
 
   // Overwrite the existing .info file with the changed values.
   omega_drush_write_info_file($subtheme->machine_name, $subtheme->info, $subtheme->path);
