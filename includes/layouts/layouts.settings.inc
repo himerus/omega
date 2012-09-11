@@ -22,7 +22,7 @@ function omega_extension_layouts_settings_form($element, &$form, $form_state) {
       $element['omega_layout'][$layout]['#description'] = $info['info']['description'];
 
       if (isset($info['info']['preview'])) {
-        $icon = file_create_url($info['info']['preview']);
+        $icon = file_create_url($info['path'] . '/' . $info['info']['preview']);
         $element['omega_layout'][$layout]['#prefix'] = '<div class="omega-layout-selection-wrapper">';
         $element['omega_layout'][$layout]['#suffix'] = '<img class="omega-layout-icon" src="' . $icon . '" /></div>';
       }
