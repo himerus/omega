@@ -162,7 +162,7 @@ function drush_omega_subtheme($name = NULL) {
  *
  * @param string $destination
  *   A destination string, this can either be a site path ('sites/foo'), a
- *   profile path ('profiles/foo') or the name of a theme.
+ *   profile path ('profiles/foo') or a theme path ('themes/foo').
  *
  * @return string|bool
  *   The full path to the given destination, FALSE if the destination could not
