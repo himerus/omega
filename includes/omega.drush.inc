@@ -116,7 +116,7 @@ function drush_omega_subtheme_validate($name = NULL) {
   }
 
   // Check if the destination is valid.
-  if (!in_array($destination, omega_drush_sites())) {
+  if (!omega_drush_resolve_destination($destination)) {
     return drush_set_error('OMEGA_DESITINATION_INVALID', dt('The destination is invalid.'));
   }
 
@@ -140,10 +140,12 @@ function drush_omega_subtheme($name = NULL) {
     drush_prompt(dt('Please enter the name of the new sub-theme'));
   }
 
+  $destination = drush_get_option('destination', 'sites/all');
+
   $subtheme = new stdClass();
   $subtheme->name = $name;
   $subtheme->machine_name = drush_get_option('machine-name', _omega_drush_generate_theme_name($name));
-  $subtheme->path = 'sites/' . drush_get_option('destination', 'all') . '/themes/' . $subtheme->machine_name;
+  $subtheme->path = omega_drush_resolve_destination($destination) . '/' . $subtheme->machine_name;
   $subtheme->starterkit = drush_get_option('starterkit', 'omega_starterkit');
   $subtheme->default = drush_get_option('set-default') !== NULL;
   $subtheme->enable = $subtheme->default || drush_get_option('enable') !== NULL;
@@ -152,6 +154,44 @@ function drush_omega_subtheme($name = NULL) {
   if (omega_drush_subtheme_create($subtheme)) {
     drush_log(dt('You have successfully created the theme @theme.', array('@theme' => $subtheme->name)), 'success');
   }
+}
+
+/**
+ * Resolves the destination path for a subtheme. This can either be a profile
+ * theme folder, a sites theme folder or a theme.
+ *
+ * @param string $destination
+ *   A destination string, this can either be a site path ('sites/foo'), a
+ *   profile path ('profiles/foo') or the name of a theme.
+ *
+ * @return string|bool
+ *   The full path to the given destination, FALSE if the destination could not
+ *   be resolved.
+ */
+function omega_drush_resolve_destination($destination) {
+  if (strpos($destination, 'sites/') === 0) {
+    if (in_array(substr($destination, 6), omega_drush_sites())) {
+      return $destination . '/themes';
+    }
+  }
+  elseif (strpos($destination, 'profiles/') === 0) {
+    require_once DRUPAL_ROOT . '/includes/install.core.inc';
+
+    $profile = substr($destination, 9);
+    $profiles = install_find_profiles();
+    if (array_key_exists($profile, $profiles)) {
+      return dirname($profiles[$profile]->uri) . '/themes';
+    }
+  }
+  elseif (strpos($destination, 'themes/') === 0) {
+    $theme = substr($destination, 7);
+
+    if (array_key_exists($theme, list_themes())) {
+      return drupal_get_path('theme', $theme);
+    }
+  }
+
+  return FALSE;
 }
 
 /**
