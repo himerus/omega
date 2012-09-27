@@ -5,7 +5,7 @@
  */
 function omega_preprocess_region(&$variables) {
   // Sidebar regions common template suggestion and class for all sidebars.
-  if (strpos($variables['region'], 'sidebar_') === 0) {
+  if (strpos($variables['region'], 'sidebar') === 0) {
     $variables['attributes_array']['class'][] = 'sidebar';
 
     // Allow a region-specific template to override region--sidebar.
