@@ -386,6 +386,11 @@ function omega_page_alter(&$page) {
     // Don't interfere with the 'Demonstrate block regions' page.
     if ($item['path'] != 'admin/structure/block/demo/' . $GLOBALS['theme']) {
       foreach (system_region_list($GLOBALS['theme'], REGIONS_VISIBLE) as $region => $name) {
+        if (empty($page[$region])) {
+          $page[$region]['#theme_wrappers'] = array('region');
+          $page[$region]['#region'] = $region;
+        }
+
         $page[$region]['dummy']['#markup'] = '<div class="omega-dummy-block">' . $name . '</div>';
       }
     }
