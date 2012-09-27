@@ -99,7 +99,7 @@ function drush_omega_subtheme_validate($name = NULL) {
   system_rebuild_theme_data();
 
   // Retrieve the option values from the drush command.
-  $destination = drush_get_option('destination', 'all');
+  $destination = drush_get_option('destination', 'sites/all');
   $starterkit = drush_get_option('starterkit', 'omega_starterkit');
 
   if ($machine_name = drush_get_option('machine-name')) {
