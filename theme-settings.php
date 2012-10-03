@@ -58,21 +58,22 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
       '#weight' => -10,
     );
 
-    $form['omega_extensions'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Extensions'),
-      '#description' => t('Enable or disable certain theme extensions.'),
-      '#collapsible' => TRUE,
-      '#weight' => -9,
-    );
-
     // Load the theme settings for all enabled extensions.
     foreach ($extensions as $extension => $info) {
-      $form['omega_extensions']['omega_toggle_extension_' . $extension] = array(
-        '#type' => 'checkbox',
+      $form['omega'][$extension] = array(
+        '#type' => 'fieldset',
         '#title' => $info['info']['name'],
+        '#attributes' => array(
+          'class' => array('omega-extension'),
+        ),
+      );
+
+      $form['omega'][$extension]['omega_toggle_extension_' . $extension] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Enable this extension'),
         '#description' => $info['info']['description'],
         '#default_value' => theme_get_setting('omega_toggle_extension_' . $extension),
+        '#weight' => -10,
       );
 
       $element = array();
@@ -89,15 +90,12 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
         // By default, each extension resides in a vertical tab
         $element = $function($element, $form, $form_state) + array(
           '#type' => 'fieldset',
-          '#title' => $info['info']['name'],
+          '#title' => t('Settings'),
           '#states' => array(
             'disabled' => array(
               'input[name="omega_toggle_extension_' . $extension . '"]' => array('checked' => FALSE),
             ),
           ),
-          '#attributes' => array(
-            'class' => array('omega-extension'),
-          )
         );
       }
 
@@ -106,7 +104,7 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
       if (element_children($element)) {
         // Append the extension form to the theme settings form if it has any
         // children.
-        $form['omega']['omega_' . $extension] = $element;
+        $form['omega'][$extension]['settings'] = $element;
       }
     }
   }

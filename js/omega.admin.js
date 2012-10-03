@@ -18,8 +18,8 @@ Drupal.behaviors.omegaThemeSettingsLayouts = {
  */
 Drupal.behaviors.omegaExtensionSummary = {
   attach: function (context, settings) {
-    $('fieldset[id^=edit-omega-].omega-extension', context).each(function () {
-      var extension = $(this).attr('id').substring(11);
+    $('fieldset[id^=edit-].omega-extension', context).each(function () {
+      var extension = $(this).attr('id').substring(5);
       var $fieldset = $(this);
       var $checkbox = $('input[name="omega_toggle_extension_' + extension + '"]', $(this).closest('form'));
 

@@ -32,14 +32,15 @@ function omega_extension_scripts_settings_form($element, &$form, $form_state) {
   $libraries = theme_get_setting('omega_libraries');
 
   foreach (omega_theme_libraries_info() as $library => $info) {
-    if (!isset($element['omega_libraries'][$info['package']])) {
-      $element['omega_libraries'][$info['package']] = array(
+    $key = strtolower($info['package']);
+    if (!isset($element['omega_libraries'][$key])) {
+      $element['omega_libraries'][$key] = array(
         '#type' => 'fieldset',
         '#title' => t(filter_xss_admin(ucfirst($info['package']))),
       );
     }
 
-    $element['omega_libraries'][$info['package']][$library]['status'] = array(
+    $element['omega_libraries'][$key][$library]['status'] = array(
       '#type' => 'checkbox',
       '#title' => !isset($info['vendor']) ? $info['name'] : (isset($info['vendor url']) ? t('@library by <a href="!url">@vendor</a>', array('@library' => $info['name'], '!url' => $info['vendor url'], '@vendor' => $info['vendor'])) : t('@library by @vendor', array('@library' => $info['name'], '@vendor' => $info['vendor']))),
       '#description' => $info['description'],
@@ -78,7 +79,7 @@ function omega_extension_scripts_settings_form($element, &$form, $form_state) {
     }
 
     if (!empty($options)) {
-      $element['omega_libraries'][$info['package']][$library]['options'] = array(
+      $element['omega_libraries'][$key][$library]['options'] = array(
         '#type' => 'fieldset',
         '#title' => t('Options'),
         '#states' => array(
