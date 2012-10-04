@@ -17,7 +17,7 @@ function omega_extension_layouts_theme_registry_alter(&$registry) {
  * Implements hook_extension_EXTENSION_process_page().
  */
 function omega_extension_layouts_process_layout(&$variables) {
-  if ($layout = omega_layout()) {
+  if (empty($variables['theme_hook_suggestion']) && $layout = omega_layout()) {
     $variables['theme_hook_suggestion'] = 'page__' . $layout['name'] . '_layout';
 
     // Load all the assets for the active layout.

@@ -476,7 +476,7 @@ function omega_layout() {
     // Load the default layout from the theme settings.
     $layout = theme_get_setting('omega_layout');
     drupal_alter('omega_layout', $layout);
-    
+
     $registry = theme_get_registry();
     if (isset($registry['page__' . $layout . '_layout']['layout'])) {
       $cache = $registry['page__' . $layout . '_layout']['layout'];
