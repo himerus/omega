@@ -1,4 +1,4 @@
-  <?php
+<?php
 
 /**
  * Implements hook_preprocess_block().
