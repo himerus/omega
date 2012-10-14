@@ -4,6 +4,8 @@
  * Implements hook_preprocess_block().
  */
 function omega_preprocess_block(&$variables) {
+  $variables['content_attributes_array']['class'][] = 'content';
+
   if (!empty($variables['block_html_id'])) {
     $variables['attributes_array']['id'] = $variables['block_html_id'];
     $variables['attributes_array']['class'][] = $variables['block_html_id'];
