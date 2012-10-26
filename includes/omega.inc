@@ -478,8 +478,8 @@ function omega_layout() {
     drupal_alter('omega_layout', $layout);
 
     $registry = theme_get_registry();
-    if (isset($registry['page__' . $layout . '_layout']['layout'])) {
-      $cache = $registry['page__' . $layout . '_layout']['layout'];
+    if (isset($registry['page__layout__' . $layout]['layout'])) {
+      $cache = $registry['page__layout__' . $layout]['layout'];
     }
   }
 

@@ -169,14 +169,15 @@ function omega_theme() {
 
   if (theme_get_setting('omega_toggle_extension_layouts') && $layouts = omega_layouts_info()) {
     foreach ($layouts as $key => $layout) {
-      if (!isset($info['page__' . $key . '_layout'])) {
-        $info['page__' . $key . '_layout'] = array(
+      if (!isset($info['page__layout__' . $key])) {
+        $info['page__layout__' . $key] = array(
           'template' => $key . '.layout',
           'path' => $layout['path'],
+          'base hook' => 'page',
         );
       }
 
-      $info['page__' . $key . '_layout']['layout'] = $layout;
+      $info['page__layout__' . $key]['layout'] = $layout;
     }
   }
 

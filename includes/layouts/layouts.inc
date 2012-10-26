@@ -18,7 +18,7 @@ function omega_extension_layouts_theme_registry_alter(&$registry) {
  */
 function omega_extension_layouts_process_layout(&$variables) {
   if (empty($variables['theme_hook_suggestion']) && $layout = omega_layout()) {
-    $variables['theme_hook_suggestion'] = 'page__' . $layout['name'] . '_layout';
+    $variables['theme_hook_suggestion'] = 'page__layout__' . $layout['name'];
 
     // Load all the assets for the active layout.
     drupal_process_attached(array('#attached' => $layout['attached']));
