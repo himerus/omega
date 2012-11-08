@@ -598,7 +598,7 @@ function _omega_discovery($type, $theme = NULL) {
     }
 
     foreach ($trail as $key => $label) {
-      if (strpos($file->uri, drupal_get_path('theme', $key)) === 0) {
+      if (($path = drupal_get_path('theme', $key)) && strpos($file->uri, $path) === 0) {
         $discovery[$name] = array(
           'name' => $name,
           'path' => dirname($file->uri),
