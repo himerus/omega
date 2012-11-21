@@ -592,14 +592,15 @@ function omega_theme_trail_find_files($file, $path = NULL, $theme = NULL) {
  */
 function _omega_discovery($type, $theme = NULL) {
   $discovery = array();
+  $strlen = strlen($type) + 1;
 
   foreach (array_reverse(omega_theme_trail($theme)) as $key => $label) {
     $path = drupal_get_path('theme', $key);
 
     // Support files without '.inc' extension for backwards compatibilty.
     foreach (file_scan_directory($path, '/\.' . $type . '(\.inc)?$/', array('key' => 'name')) as $name => $file) {
-      if (substr($name, -10) === '.extension') {
-        $name = substr($name, 0, strlen($name) - 10);
+      if (substr($name, -$strlen) === '.' . $type) {
+        $name = substr($name, 0, strlen($name) - $strlen);
       }
 
       // The name 'starterkit' is reserved for actual starterkits.
