@@ -217,7 +217,6 @@ function omega_extensions($theme = NULL) {
 
   if (!isset($extensions[$theme])) {
     $extensions[$theme] = _omega_discovery('extension', $theme);
-
     $context = $theme;
 
     // Give modules and themes a chance to alter the extensions info array.
@@ -583,29 +582,37 @@ function omega_theme_trail_find_files($file, $path = NULL, $theme = NULL) {
  * sort in the theme trail.
  *
  * @param $type
- * @param null $theme
+ *   A theme extension type (e.g. layout or extension).
+ * @param $theme
+ *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
+ *   of the current theme.
  *
  * @return array
+ *   An array containing the discovered definitions.
  */
 function _omega_discovery($type, $theme = NULL) {
   $discovery = array();
-  $trail = array_reverse(omega_theme_trail($theme));
 
-  foreach (drupal_system_listing('/\.' . $type . '$/', 'themes') as $name => $file) {
-    // The name 'starterkit' is reserved for actual Starterkits.
-    if ($name == 'starterkit') {
-      continue;
-    }
+  foreach (array_reverse(omega_theme_trail($theme)) as $key => $label) {
+    $path = drupal_get_path('theme', $key);
 
-    foreach ($trail as $key => $label) {
-      if (($path = drupal_get_path('theme', $key)) && strpos($file->uri, $path) === 0) {
-        $discovery[$name] = array(
-          'name' => $name,
-          'path' => dirname($file->uri),
-          'info' => drupal_parse_info_file($file->uri),
-          'theme' => $key,
-        );
+    // Support files without '.inc' extension for backwards compatibilty.
+    foreach (file_scan_directory($path, '/\.' . $type . '(\.inc)?$/', array('key' => 'name')) as $name => $file) {
+      if (substr($name, -10) === '.extension') {
+        $name = substr($name, 0, strlen($name) - 10);
       }
+
+      // The name 'starterkit' is reserved for actual starterkits.
+      if ($name == 'starterkit') {
+        continue;
+      }
+
+      $discovery[$name] = array(
+        'name' => $name,
+        'path' => dirname($file->uri),
+        'info' => drupal_parse_info_file($file->uri),
+        'theme' => $key,
+      );
     }
   }
 
