@@ -152,7 +152,11 @@ function drush_omega_subtheme($name = NULL) {
   $subtheme->basetheme = drush_get_option('basetheme');
 
   if (omega_drush_subtheme_create($subtheme)) {
-    drush_log(dt('You have successfully created the theme @theme.', array('@theme' => $subtheme->name)), 'success');
+    drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
+      '@theme' => $subtheme->name,
+      '@name' => $subtheme->machine_name,
+      '@path' => dirname($subtheme->path),
+    )), 'success');
   }
 }
 
@@ -493,7 +497,7 @@ function omega_drush_subtheme_create($subtheme) {
 
   $destination = dirname($subtheme->path);
   if (!is_writable($destination) && !file_prepare_directory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
-    return drush_set_error('OMEGA_SUBTHEME_PATH', dt('The path @path is not writable.', array('@path' => $subtheme->path)));
+    return drush_set_error('OMEGA_SUBTHEME_PATH', dt('The path @path is not writable.', array('@path' => $destination)));
   }
 
   $themes = list_themes();
@@ -506,9 +510,8 @@ function omega_drush_subtheme_create($subtheme) {
   // Recursively rewrite the file names and contents of all the files that are
   // now in the subtheme's directory to represent the human- and
   // machine-readable names of the subtheme.
-  $relative = _omega_relative_path($subtheme->path, drupal_get_path('theme', $themes[$subtheme->starterkit]->info['base theme']));
-  $search = array($subtheme->starterkit, $themes[$subtheme->starterkit]->info['name'], 'BASETHEME_PATH_RELATIVE');
-  $replace = array($subtheme->machine_name, $subtheme->name, $relative);
+  $search = array($subtheme->starterkit, $themes[$subtheme->starterkit]->info['name']);
+  $replace = array($subtheme->machine_name, $subtheme->name);
   omega_drush_rewrite_recursive($subtheme->path, $search, $replace);
 
   // Parse the contents of the current .info file (provided by the starterkit).
@@ -597,37 +600,4 @@ function _omega_drush_generate_theme_name($string) {
   }
 
   return $string;
-}
-
-/**
- * Helper function for retrieving the relative path between two endpoints.
- */
-function _omega_relative_path($from, $to) {
-  $from = explode('/', $from);
-  $to = explode('/', $to);
-  $relative = $to;
-
-  foreach ($from as $depth => $dir) {
-    // Find the first non-matching directory.
-    if ($dir === $to[$depth]) {
-      // Ignore this directory.
-      array_shift($relative);
-    }
-    else {
-      // Get the number of remaining directories to $from.
-      $remaining = count($from) - $depth;
-
-      if ($remaining > 0) {
-        // Add traversals up to the first matching directory.
-        $length = (count($relative) + $remaining) * -1;
-        $relative = array_pad($relative, $length, '..');
-        break;
-      }
-      else {
-        $relative[0] = './' . $relative[0];
-      }
-    }
-  }
-
-  return implode('/', $relative);
 }

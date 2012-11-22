@@ -43,10 +43,6 @@ relative_assets = true
 # selectors. Uncomment:
 # line_comments = false
 
-# Add the relative path to the base theme as an import path so that we can
-# easily use assets from the base theme.
-add_import_path "BASETHEME_PATH_RELATIVE/sass"
-
 # Pass options to sass. For development, we turn on the FireSass-compatible
 # debug_info if the firesass config variable above is true.
 sass_options = (environment == :development && firesass == true) ? {:debug_info => true} : {}
