@@ -125,6 +125,14 @@ function omega_element_info_alter(&$elements) {
 
 /**
  * Implements hook_css_alter().
+ *
+ * The backported CSS files have been copied from the Aurora theme. Huge props
+ * to Sam Richard (Snugug) for chasing Drupal 8 HEAD!
+ *
+ * Backports the following CSS changes made to Drupal 8:
+ * - #1216950: Clean up the CSS for Block module.
+ * - #1216948: Clean up the CSS for Aggregator module.
+ * - #1216972: Clean up the CSS for Color module.
  */
 function omega_css_alter(&$css) {
   if (theme_get_setting('omega_toggle_extension_css') && $exclude = theme_get_setting('omega_css_exclude')) {
@@ -140,6 +148,37 @@ function omega_css_alter(&$css) {
       $item['group'] = CSS_DEFAULT;
       $item['weight'] = $item['weight'] - 100;
     }
+  }
+
+  $omega = drupal_get_path('theme', 'omega');
+
+  // The following code as well as the included .css files were copied from Sam
+  // Richard's (Snugug) fabulous Aurora Base Theme - Huge props to him and his
+  // team... Thanks!
+
+  // Swap out aggregator.css with the aggregator.theme.css provided by this
+  // theme.
+  $aggregator = drupal_get_path('module', 'aggregator');
+  if (isset($css[$aggregator . '/aggregator.css'])) {
+    $css[$aggregator . '/aggregator.css']['data'] = $omega . '/aggregator/aggregator.theme.css';
+  }
+  if (isset($css[$aggregator . '/aggregator-rtl.css'])) {
+    $css[$aggregator . '/aggregator-rtl.css']['data'] = $omega . '/aggregator/aggregator.theme-rtl.css';
+  }
+
+  // Swap out block.css with the block.admin.css provided by this theme.
+  $block = drupal_get_path('module', 'block');
+  if (isset($css[$block . '/block.css'])) {
+    $css[$block . '/block.css']['data'] = $omega . '/block/block.admin.css';
+  }
+
+  // Swap out color.css with the color.admin.css provided by this theme.
+  $color = drupal_get_path('module', 'color');
+  if (isset($css[$color . '/color.css'])) {
+    $css[$color . '/color.css']['data'] = $omega . '/color/color.admin.css';
+  }
+  if (isset($css[$color . '/color-rtl.css'])) {
+    $css[$color . '/color-rtl.css']['data'] = $omega . '/color/color.admin-rtl.css';
   }
 }
 
