@@ -60,7 +60,6 @@
  */
 ?>
 <article<?php print $attributes; ?>>
-
   <?php print render($title_prefix); ?>
   <?php if ($new): ?>
     <mark class="new"><?php print $new; ?></mark>
@@ -74,7 +73,7 @@
     <?php print $permalink; ?>
   </footer>
 
-  <div class="content"<?php print $content_attributes; ?>>
+  <div<?php print $content_attributes; ?>>
     <?php
       // We hide the links now so that we can render them later.
       hide($content['links']);
