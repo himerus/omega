@@ -12,7 +12,7 @@ function omega_extension_scripts_settings_form($element, &$form, $form_state) {
   $element['omega_js_footer'] = array(
     '#type' => 'checkbox',
     '#title' => t('Output JavaScript in the footer'),
-    '#description' => t('Outputs all JavaScript files and settings in the footer instead of placing them in the header (default).'),
+    '#description' => t('Outputs all JavaScript files and settings in the footer instead of placing them in the header (default). Note: This does not affect libraries.'),
     '#default_value' => theme_get_setting('omega_js_footer'),
   );
 

@@ -193,6 +193,11 @@ function omega_js_alter(&$js) {
   // Move all the JavaScript to the footer if the theme is configured that way.
   if (theme_get_setting('omega_js_footer')) {
     foreach ($js as &$item) {
+      // JavaScript libraries should never be moved to the footer.
+      if ($item['group'] == JS_LIBRARY) {
+        continue;
+      }
+
       if (empty($item['force header'])) {
         $item['scope'] = 'footer';
       }
