@@ -1,11 +1,6 @@
 <?php
 
 /**
- * @file
- * Please supply a file description.
- */
-
-/**
  * Implements hook_preprocess_html().
  */
 function omega_preprocess_html(&$variables, $hook) {
