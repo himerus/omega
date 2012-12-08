@@ -133,6 +133,7 @@ function omega_theme_settings_form_submit($form, &$form_state) {
   // Also, this is actually required because we are caching certain things in
   // the theme registry.
   drupal_theme_rebuild();
+  system_rebuild_theme_data();
 
   // This is a relict from the vertical tabs and should be removed so it doesn't
   // end up in the theme settings array.
