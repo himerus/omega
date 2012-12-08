@@ -5,6 +5,59 @@
  * Helper functions for the Omega base theme.
  */
 
+  /**
+   * Retrieve a setting for the current theme or for a given theme.
+   *
+   * The final setting is obtained from the last value found in the following
+   * sources:
+   * - the default global settings specified in this function
+   * - the default theme-specific settings defined in any base theme's .info file
+   * - the default theme-specific settings defined in the theme's .info file
+   * - the saved values from the global theme settings form
+   * - the saved values from the theme's settings form
+   * To only retrieve the default global theme setting, an empty string should be
+   * given for $theme.
+   *
+   * @param $setting_name
+   *   The name of the setting to be retrieved.
+   * @param $default
+   *   (optional) A default value. Defaults to NULL.
+   * @param $theme
+   *   (optional) The name of a given theme. Defaults to the NULL which
+   *   evaluates to the current theme.
+   *
+   * @return
+   *   The value of the requested setting, or the $default value if the setting
+   *   does not exist.
+   *
+   * @see theme_get_setting().
+   */
+function omega_theme_get_setting($setting_name, $default = NULL, $theme = NULL) {
+  $cache = &drupal_static('theme_get_setting', array());
+
+  // If no key is given, use the current theme if we can determine it.
+  if (!isset($theme)) {
+    $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
+  }
+
+  if (empty($cache[$theme])) {
+    // If the cache has not been filled yet, invoke theme_get_setting to
+    // retrieve the value. This will populate the cache and make it available
+    // for subsequent requests.
+    if (($setting = theme_get_setting($setting_name, $theme)) === NULL) {
+      // Use the default value if the setting does not exist.
+      $setting = $default;
+    }
+  }
+  else {
+    // Retrieve the value from the cache or use the default value if the setting
+    // does not exist.
+    $setting = isset($cache[$theme][$setting_name]) ? $cache[$theme][$setting_name] : $default;
+  }
+
+  return $setting;
+}
+
 /**
  * Builds the full theme trail (deepest base theme first, subtheme last) for a
  * theme.

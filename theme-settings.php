@@ -113,8 +113,8 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
   $form['theme_settings']['omega_toggle_front_page_content'] = array(
     '#type' => 'checkbox',
     '#title' => t('Front page content'),
-    '#description' => t('Uncheck this checkbox in order to hide the main content block on the front page.'),
-    '#default_value' => theme_get_setting('omega_toggle_front_page_content'),
+    '#description' => t('Allow the main content block to be rendered on the front page.'),
+    '#default_value' => omega_theme_get_setting('omega_toggle_front_page_content', TRUE),
   );
 
   // We need a custom form submit handler for processing some of the values.
