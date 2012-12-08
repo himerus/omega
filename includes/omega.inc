@@ -5,11 +5,6 @@
  * Helper functions for the Omega base theme.
  */
 
-function omega_theme_name($theme) {
-  $themes = list_themes();
-  return $themes[$theme]->info['name'];
-}
-
 /**
  * Builds the full theme trail (deepest base theme first, subtheme last) for a
  * theme.
