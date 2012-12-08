@@ -72,7 +72,7 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
         '#type' => 'checkbox',
         '#title' => t('Enable this extension'),
         '#description' => $info['info']['description'],
-        '#default_value' => theme_get_setting('omega_toggle_extension_' . $extension),
+        '#default_value' => omega_extension_enabled($extension),
         '#weight' => -10,
       );
 

@@ -15,7 +15,7 @@ function omega_extension_css_settings_form($element, &$form, $form_state) {
     '#type' => 'checkbox',
     '#title' => t('Enforce embedded media queries'),
     '#description' => t('Embeds all media queries (and media types) in the CSS files automatically instead of leaving them on the &lt;styles&gt; tags. This potentially reduces the amount of separate CSS aggregates on your website.'),
-    '#default_value' => theme_get_setting('omega_media_queries_inline'),
+    '#default_value' => omega_theme_get_setting('omega_media_queries_inline', TRUE),
   );
 
   $element['omega_class_rules'] = array(
@@ -23,7 +23,7 @@ function omega_extension_css_settings_form($element, &$form, $form_state) {
     '#title' => t('Class rules'),
     '#description' => t("Enter one class rule per line."),
     // The rules are stored in an array.
-    '#default_value' => implode("\n", (array) theme_get_setting('omega_class_rules')),
+    '#default_value' => implode("\n", (array) omega_theme_get_setting('omega_class_rules', array())),
     '#element_validate' => array('omega_class_rules_element_validate'),
   );
 
@@ -32,7 +32,7 @@ function omega_extension_css_settings_form($element, &$form, $form_state) {
     '#title' => t('Exclude CSS files'),
     '#description' => t("Enter one file per line. The '*' character is a wildcard. Each path is relative to a module, theme, profile, theme engine or the 'misc' folder."),
     // The paths are stored in an array.
-    '#default_value' => implode("\n", (array) theme_get_setting('omega_css_exclude')),
+    '#default_value' => implode("\n", (array) omega_theme_get_setting('omega_css_exclude', array())),
   );
 
   // We need a custom submit handler to store the CSS and JS paths as arrays.

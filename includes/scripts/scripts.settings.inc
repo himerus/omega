@@ -13,7 +13,7 @@ function omega_extension_scripts_settings_form($element, &$form, $form_state) {
     '#type' => 'checkbox',
     '#title' => t('Output JavaScript in the footer'),
     '#description' => t('Outputs all JavaScript files and settings in the footer instead of placing them in the header (default). Note: This does not affect libraries.'),
-    '#default_value' => theme_get_setting('omega_js_footer'),
+    '#default_value' => omega_theme_get_setting('omega_js_footer', TRUE),
   );
 
   $element['omega_js_exclude'] = array(
@@ -21,7 +21,7 @@ function omega_extension_scripts_settings_form($element, &$form, $form_state) {
     '#title' => t('Exclude JavaScript files'),
     '#description' => t("Enter one file per line. The '*' character is a wildcard. Each path is relative to a module, theme, profile, theme engine or the 'misc' folder."),
     // The paths are stored in an array.
-    '#default_value' => implode("\n", (array) theme_get_setting('omega_js_exclude')),
+    '#default_value' => implode("\n", (array) omega_theme_get_setting('omega_js_exclude', array())),
   );
 
   $element['omega_libraries'] = array(
@@ -29,7 +29,7 @@ function omega_extension_scripts_settings_form($element, &$form, $form_state) {
     '#tree' => TRUE,
   );
 
-  $libraries = theme_get_setting('omega_libraries');
+  $libraries = omega_theme_get_setting('omega_libraries', array());
 
   foreach (omega_theme_libraries_info() as $library => $info) {
     $key = strtolower($info['package']);
@@ -149,7 +149,7 @@ function omega_library_pie_options_form(&$element, &$form, $form_state, $library
   $element['variant']['#options']['_default'] = t('HTML Component (default)');
 
   // Pull the selectors from the theme settings.
-  $settings = theme_get_setting('omega_libraries');
+  $settings = omega_theme_get_setting('omega_libraries', array());
 
   // The generated CSS file is stored in the public file system.
   $theme = $form_state['build_info']['args'][0];

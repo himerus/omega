@@ -264,11 +264,36 @@ function omega_extensions($theme = NULL) {
     $extensions[$theme] = _omega_discovery('extension', $theme);
     $context = $theme;
 
+    foreach ($extensions[$theme] as $extension => &$info) {
+      // Determine if the extension is enabled.
+      $info['enabled'] = omega_theme_get_setting('omega_toggle_extension_' . $extension, !empty($info['default']));
+    }
+
     // Give modules and themes a chance to alter the extensions info array.
     drupal_alter('omega_extensions', $extensions[$theme], $context);
   }
 
   return $extensions[$theme];
+}
+
+/**
+ * Determines if an extension is enabled.
+ *
+ * @param $extension
+ *   The machine-readable name of an extension.
+ * @param $theme
+ *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
+ *   of the current theme.
+ *
+ * @return bool
+ *   TRUE if the extension is enabled, FALSE otherwise.
+ */
+function omega_extension_enabled($extension, $theme = NULL) {
+  $extensions = omega_extensions($theme);
+  if (isset($extensions[$extension])) {
+    return !empty($extensions[$extension]['info']['enabled']);
+  }
+  return FALSE;
 }
 
 /**
@@ -518,7 +543,7 @@ function omega_layout() {
   if (!isset($cache)) {
     $cache = FALSE;
     // Load the default layout from the theme settings.
-    $layout = theme_get_setting('omega_layout');
+    $layout = omega_theme_get_setting('omega_layout', 'epiqo');
     drupal_alter('omega_layout', $layout);
 
     $registry = theme_get_registry();

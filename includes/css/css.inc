@@ -11,7 +11,7 @@
 function omega_extension_css_theme_registry_alter(&$registry) {
   // Store all configured class rules in the right hook definition and add the
   // class killer hook to the array of preprocess functions.
-  if ($rules = theme_get_setting('omega_class_rules')) {
+  if ($rules = omega_theme_get_setting('omega_class_rules', array())) {
     foreach ($rules as $rule) {
       // Only write valid rules into the registry.
       if ($rule = omega_parse_class_rule($rule)) {

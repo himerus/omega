@@ -50,8 +50,8 @@ if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && !$static = &drupal_static('the
  * function declaration to make sure that the code is executed before any theme
  * hooks.
  */
-if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && theme_get_setting('omega_toggle_extension_development') && user_access('administer site configuration')) {
-  if (theme_get_setting('omega_rebuild_theme_registry')) {
+if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && omega_extension_enabled('development') && user_access('administer site configuration')) {
+  if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
     drupal_theme_rebuild();
 
     if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning', 3)) {
@@ -61,7 +61,7 @@ if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && theme_get_setting('omega_toggl
     }
   }
 
-  if (theme_get_setting('omega_rebuild_aggregates') && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
+  if (omega_theme_get_setting('omega_rebuild_aggregates', FALSE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
     foreach (array('css', 'js') as $type) {
       variable_del('drupal_' . $type . '_cache_files');
 
@@ -111,7 +111,7 @@ function omega_preprocess(&$variables) {
  * Implements hook_element_info_alter().
  */
 function omega_element_info_alter(&$elements) {
-  if (theme_get_setting('omega_toggle_extension_css') && theme_get_setting('omega_media_queries_inline') && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
+  if (omega_extension_enabled('css') && omega_theme_get_setting('omega_media_queries_inline', TRUE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
     array_unshift($elements['styles']['#pre_render'], 'omega_css_preprocessor');
   }
 
@@ -135,7 +135,7 @@ function omega_element_info_alter(&$elements) {
  * - #1216972: Clean up the CSS for Color module.
  */
 function omega_css_alter(&$css) {
-  if (theme_get_setting('omega_toggle_extension_css') && $exclude = theme_get_setting('omega_css_exclude')) {
+  if (omega_extension_enabled('css') && $exclude = omega_theme_get_setting('omega_css_exclude', array())) {
     omega_exclude_assets($css, $exclude);
   }
 
@@ -186,12 +186,16 @@ function omega_css_alter(&$css) {
  * Implements hook_js_alter().
  */
 function omega_js_alter(&$js) {
-  if (theme_get_setting('omega_toggle_extension_scripts') && $exclude = theme_get_setting('omega_js_exclude')) {
+  if (!omega_extension_enabled('scripts')) {
+    return;
+  }
+
+  if ($exclude = omega_theme_get_setting('omega_js_exclude', array())) {
     omega_exclude_assets($js, $exclude);
   }
 
   // Move all the JavaScript to the footer if the theme is configured that way.
-  if (theme_get_setting('omega_js_footer')) {
+  if (omega_theme_get_setting('omega_js_footer', TRUE)) {
     foreach ($js as &$item) {
       // JavaScript libraries should never be moved to the footer.
       if ($item['group'] == JS_LIBRARY) {
@@ -211,7 +215,7 @@ function omega_js_alter(&$js) {
 function omega_theme() {
   $info = array();
 
-  if (theme_get_setting('omega_toggle_extension_layouts') && $layouts = omega_layouts_info()) {
+  if (omega_extension_enabled('layouts') && $layouts = omega_layouts_info()) {
     foreach ($layouts as $key => $layout) {
       if (!isset($info['page__layout__' . $key])) {
         $info['page__layout__' . $key] = array(
@@ -294,7 +298,7 @@ function omega_theme_registry_alter(&$registry) {
   foreach (omega_extensions() as $extension => $info) {
     // Load all the implementations for this extensions and invoke the according
     // hooks.
-    if (theme_get_setting('omega_toggle_extension_' . $extension)) {
+    if (omega_extension_enabled($extension)) {
       $file = $info['path'] . '/' . $extension . '.inc';
 
       if (is_file($file)) {
@@ -363,7 +367,7 @@ function omega_template_process_html_override(&$variables) {
  * settings are configured that way.
  */
 function omega_block_list_alter(&$blocks) {
-  if (theme_get_setting('omega_toggle_extension_layouts') && $layout = omega_layout()) {
+  if (omega_extension_enabled('layouts') && $layout = omega_layout()) {
     foreach ($blocks as $key => $block) {
       if (!array_key_exists($block->region, $layout['info']['regions'])) {
         unset($blocks[$key]);
@@ -371,7 +375,7 @@ function omega_block_list_alter(&$blocks) {
     }
   }
 
-  if (!theme_get_setting('omega_toggle_front_page_content') && drupal_is_front_page()) {
+  if (!omega_theme_get_setting('omega_toggle_front_page_content', TRUE) && drupal_is_front_page()) {
     foreach ($blocks as $key => $block) {
       if ($block->module == 'system' && $block->delta == 'main') {
         unset($blocks[$key]);
@@ -425,7 +429,7 @@ function omega_page_alter(&$page) {
     }
   }
 
-  if (theme_get_setting('omega_toggle_extension_development') && theme_get_setting('omega_dummy_blocks') && user_access('administer site configuration')) {
+  if (omega_extension_enabled('development') && omega_theme_get_setting('omega_dummy_blocks', TRUE) && user_access('administer site configuration')) {
     $item = menu_get_item();
 
     // Don't interfere with the 'Demonstrate block regions' page.

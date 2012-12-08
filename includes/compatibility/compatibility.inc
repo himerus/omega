@@ -18,7 +18,7 @@ function omega_extension_compatibility_theme_registry_alter(&$registry) {
  */
 function omega_extension_compatibility_preprocess_html(&$variables) {
   // Add the 'viewport' meta tag.
-  if (theme_get_setting('omega_viewport')) {
+  if (omega_theme_get_setting('omega_viewport', TRUE)) {
     $meta = array(
       '#tag' => 'meta',
       '#attributes' => array('name' => 'viewport', 'content' => 'width=device-width'),
@@ -28,7 +28,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
   }
 
   // Add the 'HandheldFriendly' meta tag.
-  if (theme_get_setting('omega_handheld_friendly')) {
+  if (omega_theme_get_setting('omega_handheld_friendly', TRUE)) {
     $meta = array(
       '#tag' => 'meta',
       '#attributes' => array('name' => 'HandheldFriendly', 'content' => 'true'),
@@ -38,7 +38,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
   }
 
   // Add a the 'MobileOptimized' meta tag.
-  if (theme_get_setting('omega_mobile_optimized')) {
+  if (omega_theme_get_setting('omega_mobile_optimized', TRUE)) {
     $meta = array(
       '#tag' => 'meta',
       '#attributes' => array('name' => 'MobileOptimized', 'content' => 'width'),
@@ -48,7 +48,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
   }
 
   // Add the 'cleartype' meta tag.
-  if (theme_get_setting('omega_cleartype')) {
+  if (omega_theme_get_setting('omega_cleartype', TRUE)) {
     $meta = array(
       '#tag' => 'meta',
       '#attributes' => array('http-equiv' => 'cleartype', 'content' => 'on'),
@@ -59,7 +59,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
 
   // Send X-UA-Compatible HTTP header to force IE to use the most recent
   // rendering engine or use Chrome's frame rendering engine if available.
-  if (theme_get_setting('omega_chrome_edge') && drupal_get_http_header('X-UA-Compatible') === NULL) {
+  if (omega_theme_get_setting('omega_chrome_edge', TRUE) && drupal_get_http_header('X-UA-Compatible') === NULL) {
     drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=1');
   }
 }

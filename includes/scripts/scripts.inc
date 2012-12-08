@@ -9,7 +9,7 @@
  * Implements hook_extension_EXTENSION_registry_alter().
  */
 function omega_extension_scripts_theme_registry_alter(&$registry) {
-  if ($settings = theme_get_setting('omega_libraries')) {
+  if ($settings = omega_theme_get_setting('omega_libraries', array())) {
     foreach (omega_theme_libraries_info() as $library => $info) {
       if (!empty($settings[$library]['status'])) {
         $registry['html']['libraries'][$library] = array(
