@@ -178,4 +178,3 @@ function omega_apply_class_rules(&$variables, $hook) {
     }
   }
 }
-

@@ -248,9 +248,6 @@ function omega_exclude_assets(&$elements, $exclude) {
  * @param $theme
  *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
  *   of the current theme.
- * @param $all
- *   (Optional) If TRUE, all extensions are included. If FALSE, only enabled
- *   extensions are included.
  *
  * @return array
  *   The theme info array of the passed or current theme.
