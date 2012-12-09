@@ -11,7 +11,7 @@ regions[footer] = Footer
 regions[sidebar_first] = First Sidebar
 regions[sidebar_second] = Second Sidebar
 
-stylesheets[all][] = css/epiqo.layout.css
+stylesheets[][] = css/epiqo.layout.css
 stylesheets[all][] = css/epiqo.styles.css
 scripts[] = js/epiqo.layout.js
 

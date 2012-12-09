@@ -44,18 +44,20 @@ function omega_theme_get_setting($setting_name, $default = NULL, $theme = NULL) 
     // If the cache has not been filled yet, invoke theme_get_setting to
     // retrieve the value. This will populate the cache and make it available
     // for subsequent requests.
-    if (($setting = theme_get_setting($setting_name, $theme)) === NULL) {
+    if (($setting = theme_get_setting($setting_name, $theme)) !== NULL) {
       // Use the default value if the setting does not exist.
-      $setting = $default;
+      return $setting;
     }
   }
   else {
-    // Retrieve the value from the cache or use the default value if the setting
-    // does not exist.
-    $setting = isset($cache[$theme][$setting_name]) ? $cache[$theme][$setting_name] : $default;
+    // Retrieve the value from the cache.
+    if (isset($cache[$theme][$setting_name])) {
+      return $cache[$theme][$setting_name];
+    }
   }
 
-  return $setting;
+  // Use the default value if the settingdoes not exist.
+  return $default;
 }
 
 /**
@@ -289,11 +291,13 @@ function omega_extensions($theme = NULL) {
  *   TRUE if the extension is enabled, FALSE otherwise.
  */
 function omega_extension_enabled($extension, $theme = NULL) {
+  if (($setting = omega_theme_get_setting('omega_toggle_extension_' . $extension)) !== NULL) {
+    return $setting;
+  }
   $extensions = omega_extensions($theme);
   if (isset($extensions[$extension])) {
     return !empty($extensions[$extension]['info']['enabled']);
   }
-  return FALSE;
 }
 
 /**
