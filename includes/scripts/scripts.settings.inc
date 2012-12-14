@@ -123,7 +123,7 @@ function omega_library_pie_selectors_submit($form, &$form_state) {
     $js = '$(function(){Drupal.behaviors.css3pie={attach:function(context,settings){if(window.PIE){$("' . implode(",", $selectors) . '").each(function(){PIE.attach(this)})}}}})(jQuery);';
 
     $path = base_path() . drupal_get_path('theme', 'omega');
-    $css = implode(",", $selectors) . "{behavior:url({$path}/libraries/css3pie/PIE.htc')}";
+    $css = implode(",", $selectors) . "{behavior:url({$path}/libraries/css3pie/PIE.htc)}";
 
     // Save the generated CSS in the public file system replacing any previous
     // version.
