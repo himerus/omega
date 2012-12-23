@@ -27,7 +27,7 @@
  *   An array of JavaScript items, as returned by drupal_add_js(), but after
  *   alteration performed by drupal_get_js().
  *
- * @return
+ * @return array
  *   An array of JavaScript groups. Each group contains the same keys (e.g.,
  *   'data', etc.) as a JavaScript item from the $javascript parameter, with the
  *   value of each key applying to the group as a whole. Each group also
@@ -119,7 +119,7 @@ function omega_group_js($javascript) {
  *   $javascript, useful when the calling function passes a $javascript array
  *   that has already been altered.
  *
- * @return
+ * @return string
  *   All JavaScript code segments and includes for the scope as HTML tags.
  *
  * @see drupal_add_js()
@@ -189,7 +189,7 @@ function omega_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALSE
 }
 
 /**
- * #pre_render callback to add the elements needed for JavaScript tags to be rendered.
+ * Callback to add the elements needed for JavaScript tags to be rendered.
  *
  * This function evaluates the aggregation enabled/disabled condition on a group
  * by group basis by testing whether an aggregate file has been made for the
@@ -197,7 +197,7 @@ function omega_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALSE
  * this function to work correctly even if modules have implemented custom
  * logic for grouping and aggregating files.
  *
- * @param $element
+ * @param $elements
  *   A render array containing:
  *   - #items: The JavaScript items as returned by drupal_add_js() and
  *     altered by drupal_get_js().
@@ -207,7 +207,7 @@ function omega_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALSE
  *   - #aggregate_callback: A function to call to aggregate the items within
  *     the groups arranged by the #group_callback function.
  *
- * @return
+ * @return array
  *   A render array that will render to a string of JavaScript tags.
  *
  * @see drupal_get_js()
@@ -355,7 +355,7 @@ function omega_aggregate_js(&$js_groups) {
  * @param $files
  *   An array of JavaScript files to aggregate and compress into one file.
  *
- * @return
+ * @return string|bool
  *   The URI of the cache file, or FALSE if the file could not be saved.
  */
 function omega_build_js_cache($files) {
