@@ -299,13 +299,23 @@ function omega_extensions($theme = NULL) {
  *   TRUE if the extension is enabled, FALSE otherwise.
  */
 function omega_extension_enabled($extension, $theme = NULL) {
-  if (($setting = omega_theme_get_setting('omega_toggle_extension_' . $extension)) !== NULL) {
-    return $setting;
+  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
+
+  if (($enabled = omega_theme_get_setting('omega_toggle_extension_' . $extension, NULL, $theme)) === NULL) {
+    $extensions = omega_extensions($theme);
+    $enabled = !empty($extensions[$extension]['info']['enabled']);
+
+    // Store a theme setting for this now so we don't have to call
+    // omega_extension() next time.
+    $settings = variable_get('theme_' . $theme . '_settings', array());
+    $settings['omega_toggle_extension_' . $extension] = $enabled;
+    variable_set('theme_' . $theme . '_settings', $settings);
+
+    // Clear the theme settings cache.
+    cache_clear_all('theme_settings:' . $theme, 'cache');
   }
-  $extensions = omega_extensions($theme);
-  if (isset($extensions[$extension])) {
-    return !empty($extensions[$extension]['info']['enabled']);
-  }
+
+  return (bool) $enabled;
 }
 
 /**
