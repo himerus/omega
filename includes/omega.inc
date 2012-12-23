@@ -263,16 +263,24 @@ function omega_extensions($theme = NULL) {
   $extensions = drupal_static('__FUNCTION__');
 
   if (!isset($extensions[$theme])) {
-    $extensions[$theme] = _omega_discovery('extension', $theme);
-    $context = $theme;
-
-    foreach ($extensions[$theme] as $extension => &$info) {
-      // Determine if the extension is enabled.
-      $info['enabled'] = omega_theme_get_setting('omega_toggle_extension_' . $extension, !empty($info['default']));
+    if (($cache = cache_get('omega:extensions:' . $theme)) !== FALSE) {
+      $extensions[$theme] = $cache->data;
     }
+    else {
+      $extensions[$theme] = _omega_discovery('extension', $theme);
+      $context = $theme;
 
-    // Give modules and themes a chance to alter the extensions info array.
-    drupal_alter('omega_extensions', $extensions[$theme], $context);
+      foreach ($extensions[$theme] as $extension => &$info) {
+        // Determine if the extension is enabled.
+        $info['enabled'] = omega_theme_get_setting('omega_toggle_extension_' . $extension, !empty($info['default']));
+      }
+
+      // Give modules and themes a chance to alter the extensions info array.
+      drupal_alter('omega_extensions', $extensions[$theme], $context);
+
+      // Write to the cache.
+      cache_set('omega:extensions:' . $theme, $extensions[$theme]);
+    }
   }
 
   return $extensions[$theme];
