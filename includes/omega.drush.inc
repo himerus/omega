@@ -562,16 +562,20 @@ function omega_drush_subtheme_create($subtheme) {
  *   An array that contains all the available sites in a multisite environment.
  */
 function omega_drush_sites() {
-  $sites = array('all' => 'all');
+  $return = array('all' => 'all', 'default' => 'default');
 
   // Load the available sites (multisite installation) from the sites.php file
   // if it exists.
   if (file_exists(DRUPAL_ROOT . '/sites/sites.php')) {
     include DRUPAL_ROOT . '/sites/sites.php';
+
+    if (isset($sites)) {
+      $return = array_merge($return, $sites);
+    }
   }
 
-  // The 'all' destination is always available.
-  return array_keys(array_merge($sites));
+  // The 'all' and 'default' destinations are always available.
+  return array_keys($return);
 }
 
 /**
