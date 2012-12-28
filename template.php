@@ -9,6 +9,17 @@ require_once dirname(__FILE__) . '/includes/omega.inc';
 require_once dirname(__FILE__) . '/includes/scripts.inc';
 
 /**
+ * We have to rebuild the theme data if hook_system_info_alter() hasn't been
+ * executed for the omega theme yet.
+ */
+if ($GLOBALS['theme'] === $GLOBALS['theme_key']) {
+  $info = system_get_info('theme', $GLOBALS['theme']);
+  if (empty($info['omega_processed'])) {
+    system_rebuild_theme_data();
+  }
+}
+
+/**
  * Slightly hacky performance tweak for theme_get_setting(). This resides
  * outside of any function declaration to make sure that it runs directly after
  * the theme has been initialized.
@@ -25,7 +36,7 @@ require_once dirname(__FILE__) . '/includes/scripts.inc';
  *
  * @see theme_get_setting()
  */
-if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && !$static = &drupal_static('theme_get_setting')) {
+if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && !$static = &drupal_static('theme_get_setting')) {
   if ($cache = cache_get('theme_settings:' . $GLOBALS['theme'])) {
     // If the cache entry exists, populate the static theme settings array with
     // its data. This prevents the theme settings from being rebuilt on every
@@ -50,7 +61,7 @@ if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && !$static = &drupal_static('the
  * function declaration to make sure that the code is executed before any theme
  * hooks.
  */
-if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && omega_extension_enabled('development') && user_access('administer site configuration')) {
+if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && omega_extension_enabled('development') && user_access('administer site configuration')) {
   if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
     drupal_theme_rebuild();
 
@@ -86,6 +97,12 @@ if ($GLOBALS['theme'] == $GLOBALS['theme_key'] && omega_extension_enabled('devel
  */
 function omega_system_info_alter(&$info, $file, $type) {
   if ($type == 'theme' && array_key_exists('omega', omega_theme_trail($file->name))) {
+    // Put a flag into the info array that indicates that this function has been
+    // executed during drupal_alter(). This is required because Drupal only
+    // executes the alter hooks on the active theme which might be the admin
+    // theme (e.g. when editing the theme settings).
+    $info['omega_processed'] = TRUE;
+
     foreach (omega_layouts_info($file->name) as $layout) {
       foreach ($layout['info']['regions'] as $region => $description) {
         if (!isset($info['regions'][$region])) {
