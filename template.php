@@ -68,7 +68,7 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && omega_extension_enabled('deve
     if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning', 3)) {
       // Alert the user that the theme registry is being rebuilt on every request.
       flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning');
-      drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))));
+      drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
     }
   }
 
@@ -87,7 +87,7 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && omega_extension_enabled('deve
     if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning', 3)) {
       // Alert the user that the theme registry is being rebuilt on every request.
       flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning');
-      drupal_set_message(t('The CSS and JS aggregates are being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))));
+      drupal_set_message(t('The CSS and JS aggregates are being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
     }
   }
 }
