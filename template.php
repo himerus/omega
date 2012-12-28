@@ -513,10 +513,11 @@ function omega_omega_theme_libraries_info($theme) {
 
   $libraries['css3mediaqueries'] = array(
     'name' => t('CSS3 Media Queries'),
-    'description' => t('CSS3 Media Queries is a JavaScript library to make IE 5+, Firefox 1+ and Safari 2 transparently parse, test and apply CSS3 Media Queries. Firefox 3.5+, Opera 7+, Safari 3+ and Chrome already offer native support.'),
+    'description' => t('CSS3 Media Queries is a JavaScript library to make IE 5+, Firefox 1+ and Safari 2 transparently parse, test and apply CSS3 Media Queries. Firefox 3.5+, Opera 7+, Safari 3+ and Chrome already offer native support. Note: This library requires <a href="!url">CSS aggregation</a> to be enabled for it to work properly.', array('!url' => url('admin/config/development/performance'))),
     'vendor' => 'Wouter van der Graaf',
     'vendor url' => 'http://woutervandergraaf.nl/',
     'package' => t('Polyfills'),
+    'callbacks' => array('omega_extension_library_requirements_css_aggregation'),
     'files' => array(
       'js' => array(
         $path . '/libraries/css3mediaqueries/css3mediaqueries.min.js' => array(
@@ -547,10 +548,11 @@ function omega_omega_theme_libraries_info($theme) {
 
   $libraries['respond'] = array(
     'name' => t('Respond'),
-    'description' => t('Respond is a fast & lightweight polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more).'),
+    'description' => t('Respond is a fast & lightweight polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more). Note: This library requires <a href="!url">CSS aggregation</a> to be enabled for it to work properly.', array('!url' => url('admin/config/development/performance'))),
     'vendor' => 'Scott Jehl',
     'vendor url' => 'http://scottjehl.com/',
     'package' => t('Polyfills'),
+    'callbacks' => array('omega_extension_library_requirements_css_aggregation'),
     'files' => array(
       'js' => array(
         $path . '/libraries/respond/respond.min.js' => array(
