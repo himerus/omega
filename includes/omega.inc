@@ -607,67 +607,6 @@ function omega_theme_libraries_info($theme = NULL) {
 }
 
 /**
- * Iterates over all themes in the theme trail in order to find an
- * implementation of a specific file and returns the first occurance of that
- * file. Sub-theme implementations override base-theme implementations.
- *
- * @param $file
- *   The name of the file.
- * @param $path
- *   (Optional) The path to the file (relative to the theme root).
- * @param $theme
- *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
- *   of the current theme.
- *
- * @return bool|string
- *   The path to the file or FALSE if no implementation exists.
- */
-function omega_theme_trail_find_file($file, $path = NULL, $theme = NULL) {
-  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-
-  foreach (array_reverse(omega_theme_trail($theme)) as $key => $name) {
-    $current = drupal_get_path('theme', $key) . (isset($path) ? '/' . $path : '') . '/' . $file;
-
-    if (is_file($current)) {
-      return $current;
-    }
-  }
-
-  return FALSE;
-}
-
-
-/**
- * Iterates over all themes in the theme trail in order to find all
- * implementations of a specific file.
- *
- * @param $file
- *   The name of the file.
- * @param $path
- *   (Optional) The path to the file (relative to the theme root).
- * @param $theme
- *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
- *   of the current theme.
- *
- * @return array
- *   An array containing the pathes to all implementations of the given file.
- */
-function omega_theme_trail_find_files($file, $path = NULL, $theme = NULL) {
-  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-
-  $files = array();
-  foreach (omega_theme_trail($theme) as $key => $name) {
-    $current = drupal_get_path('theme', $key) . (isset($path) ? '/' . $path : '') . '/' . $file;
-
-    if (is_file($current)) {
-      $files[$key] = $current;
-    }
-  }
-
-  return $files;
-}
-
-/**
  * Helper function for discovering layouts, extensions or other pluggins of any
  * sort in the theme trail.
  *
