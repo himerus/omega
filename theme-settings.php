@@ -18,6 +18,12 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
     return;
   }
 
+  // The layout extension requires Omega Tools to be installed in order to
+  // function properly.
+  foreach (omega_extensions() as $extension => $info) {
+
+  }
+
   // Include the template.php and theme-settings.php files for all the themes in
   // the theme trail.
   foreach (omega_theme_trail() as $theme => $name) {
@@ -67,6 +73,42 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
           'class' => array('omega-extension'),
         ),
       );
+
+      if (!empty($info['info']['dependencies'])) {
+        $errors = array();
+        foreach ($info['info']['dependencies'] as $dependency) {
+          $dependency = drupal_parse_dependency($dependency);
+
+          // Check if the module exists.
+          if (!$module = system_get_info('module', $dependency['name'])) {
+            $errors[] = t('This extensions requires the @module module.', array(
+              '@module' => drupal_ucfirst($dependency['name']),
+            ));
+          }
+          // Check if the module version is compatible.
+          elseif (($version = drupal_check_incompatibility($dependency, str_replace(DRUPAL_CORE_COMPATIBILITY . '-', '', $module['version']))) !== NULL) {
+            $errors[] = t('This extension requires @module @version. The currently installed version is @installed.', array(
+              '@module' => $module['name'],
+              '@version' => $version,
+              '@installed' => !empty($module['version']) ? $module['version'] : t('undetermined'),
+            ));
+          }
+        }
+
+        if (!empty($errors)) {
+          $form['omega'][$extension]['errors'] = array(
+            '#type' => 'item',
+            '#title' => t('Missing requirements'),
+            '#markup' => '<ul><li>' . implode('</li><li>', $errors) . '</li></ul>',
+            '#weight' => -20,
+            // Abuse the #name attribute to add a class to the form item.
+            '#name' => 'omega-requirements',
+          );
+        }
+
+        // Disable all options if there were any errors.
+        $form['omega'][$extension]['#disabled'] = !empty($errors);
+      }
 
       $form['omega'][$extension]['omega_toggle_extension_' . $extension] = array(
         '#type' => 'checkbox',

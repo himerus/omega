@@ -8,86 +8,80 @@
 require_once dirname(__FILE__) . '/includes/omega.inc';
 require_once dirname(__FILE__) . '/includes/scripts.inc';
 
-/**
- * We have to rebuild the theme data if hook_system_info_alter() hasn't been
- * executed for the omega theme yet.
- */
-if ($GLOBALS['theme'] === $GLOBALS['theme_key']) {
+if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && in_array('omega', $GLOBALS['base_theme_info'])) {
+  // We have to rebuild the theme data if hook_system_info_alter() hasn't been
+  // executed for the omega theme yet.
   $info = system_get_info('theme', $GLOBALS['theme']);
   if (empty($info['omega_processed'])) {
     system_rebuild_theme_data();
   }
-}
 
-/**
- * Slightly hacky performance tweak for theme_get_setting(). This resides
- * outside of any function declaration to make sure that it runs directly after
- * the theme has been initialized.
- *
- * Instead of rebuilding the theme settings array on every page load we are
- * caching the content of the static cache in the database after it has been
- * built initially. This is quite a bit faster than running all the code in
- * theme_get_setting() on every page.
- *
- * By checking whether the global 'theme' and 'theme_key' properties are
- * identical we make sure that we don't interfere with any of the theme settings
- * pages and only use this feature when actually rendering a page with this
- * theme.
- *
- * @see theme_get_setting()
- */
-if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && !$static = &drupal_static('theme_get_setting')) {
-  if ($cache = cache_get('theme_settings:' . $GLOBALS['theme'])) {
-    // If the cache entry exists, populate the static theme settings array with
-    // its data. This prevents the theme settings from being rebuilt on every
-    // page load.
-    $static[$GLOBALS['theme']] = $cache->data;
-  }
-  else {
-    // Invoke theme_get_setting() with a random argument to build the theme
-    // settings array and populate the static cache.
-    theme_get_setting('foo');
-    // Extract the theme settings from the previously populated static cache.
-    $static = &drupal_static('theme_get_setting');
+  // Slightly hacky performance tweak for theme_get_setting(). This resides
+  // outside of any function declaration to make sure that it runs directly after
+  // the theme has been initialized.
+  //
+  // Instead of rebuilding the theme settings array on every page load we are
+  // caching the content of the static cache in the database after it has been
+  // built initially. This is quite a bit faster than running all the code in
+  // theme_get_setting() on every page.
+  //
+  // By checking whether the global 'theme' and 'theme_key' properties are
+  // identical we make sure that we don't interfere with any of the theme settings
+  // pages and only use this feature when actually rendering a page with this
+  // theme.
+  //
+  // @see theme_get_setting()
+  if (!$static = &drupal_static('theme_get_setting')) {
+    if ($cache = cache_get('theme_settings:' . $GLOBALS['theme'])) {
+      // If the cache entry exists, populate the static theme settings array with
+      // its data. This prevents the theme settings from being rebuilt on every
+      // page load.
+      $static[$GLOBALS['theme']] = $cache->data;
+    }
+    else {
+      // Invoke theme_get_setting() with a random argument to build the theme
+      // settings array and populate the static cache.
+      theme_get_setting('foo');
+      // Extract the theme settings from the previously populated static cache.
+      $static = &drupal_static('theme_get_setting');
 
-    // Cache the theme settings in the database.
-    cache_set('theme_settings:' . $GLOBALS['theme'], $static[$GLOBALS['theme']]);
-  }
-}
-
-/**
- * Rebuild the theme registry / aggregates on every page load if the development
- * extension is enabled and configured to do so. This also lives outside of any
- * function declaration to make sure that the code is executed before any theme
- * hooks.
- */
-if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && omega_extension_enabled('development') && user_access('administer site configuration')) {
-  if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
-    drupal_theme_rebuild();
-
-    if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning', 3)) {
-      // Alert the user that the theme registry is being rebuilt on every request.
-      flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning');
-      drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
+      // Cache the theme settings in the database.
+      cache_set('theme_settings:' . $GLOBALS['theme'], $static[$GLOBALS['theme']]);
     }
   }
 
-  if (omega_theme_get_setting('omega_rebuild_aggregates', FALSE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
-    foreach (array('css', 'js') as $type) {
-      variable_del('drupal_' . $type . '_cache_files');
+  // Rebuild the theme registry / aggregates on every page load if the development
+  // extension is enabled and configured to do so. This also lives outside of any
+  // function declaration to make sure that the code is executed before any theme
+  // hooks.
+  if (omega_extension_enabled('development') && user_access('administer site configuration')) {
+    if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
+      drupal_theme_rebuild();
 
-      foreach (file_scan_directory('public://' . $type . '', '/.*/') as $file) {
-        // Delete files that are older than 20 seconds.
-        if (REQUEST_TIME - filemtime($file->uri) > 20) {
-          file_unmanaged_delete($file->uri);
-        }
-      };
+      if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning', 3)) {
+        // Alert the user that the theme registry is being rebuilt on every request.
+        flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning');
+        drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
+      }
     }
 
-    if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning', 3)) {
-      // Alert the user that the theme registry is being rebuilt on every request.
-      flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning');
-      drupal_set_message(t('The CSS and JS aggregates are being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
+    if (omega_theme_get_setting('omega_rebuild_aggregates', FALSE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
+      foreach (array('css', 'js') as $type) {
+        variable_del('drupal_' . $type . '_cache_files');
+
+        foreach (file_scan_directory('public://' . $type . '', '/.*/') as $file) {
+          // Delete files that are older than 20 seconds.
+          if (REQUEST_TIME - filemtime($file->uri) > 20) {
+            file_unmanaged_delete($file->uri);
+          }
+        };
+      }
+
+      if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning', 3)) {
+        // Alert the user that the theme registry is being rebuilt on every request.
+        flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning');
+        drupal_set_message(t('The CSS and JS aggregates are being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
+      }
     }
   }
 }
@@ -96,7 +90,7 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && omega_extension_enabled('deve
  * Implements hook_system_info_alter().
  */
 function omega_system_info_alter(&$info, $file, $type) {
-  if ($type == 'theme' && array_key_exists('omega', omega_theme_trail($file->name))) {
+  if ($type == 'theme' && empty($info['omega_processed']) && array_key_exists('omega', omega_theme_trail($file->name))) {
     // Put a flag into the info array that indicates that this function has been
     // executed during drupal_alter(). This is required because Drupal only
     // executes the alter hooks on the active theme which might be the admin

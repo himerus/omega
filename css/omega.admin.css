@@ -46,9 +46,10 @@ div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset legend {
 }
 
 /* line 46, ../sass/omega.admin.scss */
-.omega-notice, .vertical-tabs-pane .fieldset-wrapper > div.omega-notice {
-  border: 1px solid #ED5;
-  background-color: #FFFCE5;
-  color: #840;
-  padding: .8em 1.4em;
+.form-item.form-item-omega-requirements {
+  border: 1px solid #ed541d;
+  color: #8c2e0b;
+  background-color: #fef5f1;
+  margin: 6px 0 16px;
+  padding: 10px;
 }

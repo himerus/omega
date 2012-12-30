@@ -260,7 +260,7 @@ function omega_exclude_assets(&$elements, $exclude) {
  */
 function omega_extensions($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-  $extensions = drupal_static('__FUNCTION__');
+  $extensions = drupal_static(__FUNCTION__);
 
   if (!isset($extensions[$theme])) {
     if (($cache = cache_get('omega:extensions:' . $theme)) !== FALSE) {
@@ -268,15 +268,26 @@ function omega_extensions($theme = NULL) {
     }
     else {
       $extensions[$theme] = _omega_discovery('extension', $theme);
-      $context = $theme;
 
       foreach ($extensions[$theme] as $extension => &$info) {
+        // Make sure that the theme variable is never altered.
+        $context = $theme;
+        drupal_alter('omega_extension_info', $info, $context);
+
         // Determine if the extension is enabled.
         $info['enabled'] = omega_theme_get_setting('omega_toggle_extension_' . $extension, !empty($info['default']));
-      }
 
-      // Give modules and themes a chance to alter the extensions info array.
-      drupal_alter('omega_extensions', $extensions[$theme], $context);
+        // Check if all dependencies are met.
+        if ($info['enabled'] && !empty($info['dependencies'])) {
+          foreach ($info['dependencies'] as $dependency) {
+            $dependency = drupal_parse_dependency($dependency);
+
+            if ((!$module = system_get_info('module', $dependency['name'])) || drupal_check_incompatibility($dependency, str_replace(DRUPAL_CORE_COMPATIBILITY . '-', '', $module['version']))) {
+              $info['enabled'] = FALSE;
+            }
+          }
+        }
+      }
 
       // Write to the cache.
       cache_set('omega:extensions:' . $theme, $extensions[$theme]);
@@ -300,22 +311,9 @@ function omega_extensions($theme = NULL) {
  */
 function omega_extension_enabled($extension, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-
-  if (($enabled = omega_theme_get_setting('omega_toggle_extension_' . $extension, NULL, $theme)) === NULL) {
-    $extensions = omega_extensions($theme);
-    $enabled = !empty($extensions[$extension]['info']['enabled']);
-
-    // Store a theme setting for this now so we don't have to call
-    // omega_extension() next time.
-    $settings = variable_get('theme_' . $theme . '_settings', array());
-    $settings['omega_toggle_extension_' . $extension] = $enabled;
-    variable_set('theme_' . $theme . '_settings', $settings);
-
-    // Clear the theme settings cache.
-    cache_clear_all('theme_settings:' . $theme, 'cache');
+  if (($extensions = omega_extensions($theme)) && isset($extensions[$extension])) {
+    return $extensions[$extension]['enabled'];
   }
-
-  return (bool) $enabled;
 }
 
 /**
