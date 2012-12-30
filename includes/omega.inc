@@ -275,7 +275,7 @@ function omega_extensions($theme = NULL) {
         drupal_alter('omega_extension_info', $info, $context);
 
         // Determine if the extension is enabled.
-        $info['enabled'] = omega_theme_get_setting('omega_toggle_extension_' . $extension, !empty($info['enabled']));
+        $info['enabled'] = omega_theme_get_setting('omega_toggle_extension_' . $extension, !empty($info['info']['enabled']));
 
         // Check if all dependencies are met.
         if ($info['enabled'] && !empty($info['dependencies'])) {

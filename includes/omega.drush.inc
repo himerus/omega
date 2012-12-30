@@ -297,8 +297,9 @@ function drush_omega_revert($theme = NULL) {
   // Delete the theme settings variable for the given theme.
   variable_del('theme_' . $theme . '_settings');
 
-  // Clear the theme settings cache.
+  // Clear the theme settings and extensions cache.
   cache_clear_all('theme_settings:' . $theme, 'cache');
+  cache_clear_all('omega:extensions:' . $theme, 'cache');
 
   // Rebuild the theme data for good measure.
   drupal_theme_rebuild();

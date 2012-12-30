@@ -8,7 +8,7 @@
 require_once dirname(__FILE__) . '/includes/omega.inc';
 require_once dirname(__FILE__) . '/includes/scripts.inc';
 
-if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && !empty($GLOBALS['base_theme_info']) && $GLOBALS['base_theme_info'][0]->name == 'omega') {
+if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega' || (!empty($GLOBALS['base_theme_info']) && $GLOBALS['base_theme_info'][0]->name == 'omega'))) {
   // We have to rebuild the theme data if hook_system_info_alter() hasn't been
   // executed for the omega theme yet.
   $info = system_get_info('theme', $GLOBALS['theme']);
