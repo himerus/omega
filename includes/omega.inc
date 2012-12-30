@@ -578,11 +578,13 @@ function omega_theme_libraries_info($theme = NULL) {
  * @param $theme
  *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
  *   of the current theme.
+ * @param $all
+ *   (Optional) Whether hidden elements should be listed. Defaults to FALSE.
  *
  * @return array
  *   An array containing the discovered definitions.
  */
-function omega_discovery($type, $theme = NULL) {
+function omega_discovery($type, $theme = NULL, $all = FALSE) {
   $discovery = array();
   $strlen = strlen($type) + 1;
 
@@ -595,17 +597,15 @@ function omega_discovery($type, $theme = NULL) {
         $name = substr($name, 0, strlen($name) - $strlen);
       }
 
-      // The name 'starterkit' is reserved for actual starterkits.
-      if ($name == 'starterkit') {
-        continue;
+      // The 'hidden' flag is used by starterkits/blueprints.
+      if (($info = drupal_parse_info_file($file->uri)) && ($all || empty($info['hidden']))) {
+        $discovery[$name] = array(
+          'name' => $name,
+          'path' => dirname($file->uri),
+          'info' => $info,
+          'theme' => $key,
+        );
       }
-
-      $discovery[$name] = array(
-        'name' => $name,
-        'path' => dirname($file->uri),
-        'info' => drupal_parse_info_file($file->uri),
-        'theme' => $key,
-      );
     }
   }
 
