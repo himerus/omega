@@ -263,11 +263,12 @@ function omega_extensions($theme = NULL) {
   $extensions = drupal_static(__FUNCTION__);
 
   if (!isset($extensions[$theme])) {
-    if (($cache = cache_get('omega:extensions:' . $theme)) !== FALSE) {
+    if (($cache = cache_get('omega_extensions:' . $theme)) !== FALSE) {
       $extensions[$theme] = $cache->data;
     }
     else {
-      $extensions[$theme] = omega_discovery('extension', $theme);
+      // Extensions can't be hidden.
+      $extensions[$theme] = omega_discovery('extension', $theme, TRUE);
 
       foreach ($extensions[$theme] as $extension => &$info) {
         // Make sure that the theme variable is never altered.
@@ -290,7 +291,7 @@ function omega_extensions($theme = NULL) {
       }
 
       // Write to the cache.
-      cache_set('omega:extensions:' . $theme, $extensions[$theme]);
+      cache_set('omega_extensions:' . $theme, $extensions[$theme]);
     }
   }
 

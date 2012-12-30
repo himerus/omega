@@ -299,7 +299,7 @@ function drush_omega_revert($theme = NULL) {
 
   // Clear the theme settings and extensions cache.
   cache_clear_all('theme_settings:' . $theme, 'cache');
-  cache_clear_all('omega:extensions:' . $theme, 'cache');
+  cache_clear_all('omega_extensions:' . $theme, 'cache');
 
   // Rebuild the theme data for good measure.
   drupal_theme_rebuild();

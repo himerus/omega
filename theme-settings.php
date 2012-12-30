@@ -170,7 +170,7 @@ function omega_theme_settings_form_submit($form, &$form_state) {
   // Clear the theme settings cache.
   $theme = $form_state['build_info']['args'][0];
   cache_clear_all('theme_settings:' . $theme, 'cache');
-  cache_clear_all('omega:extensions:' . $form_state['build_info']['args'][0], 'cache');
+  cache_clear_all('omega_extensions:' . $form_state['build_info']['args'][0], 'cache');
 
   // Rebuild the theme registry. This has quite a performance impact but since
   // this only happens once after we (re-)saved the theme settings this is fine.
