@@ -367,43 +367,6 @@ function omega_theme_info($theme = NULL) {
 }
 
 /**
- * Includes all occurrences of a file in all themes in the theme trail. This is
- * very similar to module_load_include().
- *
- * @param $type
- *   The include file's type (file extension).
- * @param $name
- *   The base file name (without the $type extension).
- * @param $all
- *   (Optional) Whether all occurrences of this file should be loaded or just
- *   the first. Defaults to TRUE (all).
- * @param $theme
- *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
- *   of the current theme.
- *
- * @see module_load_include()
- */
-function omega_theme_trail_load_include($type, $name, $all = TRUE, $theme = NULL) {
-  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-  $trail = array_reverse(omega_theme_trail($theme));
-
-  foreach ($trail as $key => $title) {
-    // Check if the requested file exists in any of the themes in the theme
-    // trail and include all occurrences.
-    $file = DRUPAL_ROOT . '/' . drupal_get_path('theme', $key) . "/$name.$type";
-    if (is_file($file)) {
-      include_once $file;
-
-      // Exit right here if we only want the first occurrence of this file to
-      // be loaded.
-      if (!$all) {
-        return;
-      }
-    }
-  }
-}
-
-/**
  * Invoke a hook in all themes in the theme trail that implement it.
  *
  * @param $hook
