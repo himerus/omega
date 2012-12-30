@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/template.php';
 /**
  * Implements hook_form_FORM_alter().
  */
-function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = NULL) {
+function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id = NULL) {
   // General "alters" use a form id. Settings should not be set here. The only
   // thing useful about this is if you need to alter the form for the running
   // theme and *not* the the me setting. @see http://drupal.org/node/943212
@@ -155,6 +155,10 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
 
   // We need a custom form submit handler for processing some of the values.
   $form['#submit'][] = 'omega_theme_settings_form_submit';
+
+  // Store the extensions in an array so we can loop over them in the submit
+  // callback.
+  $form_state['extensions'] = array_keys($extensions);
 }
 
 /**
@@ -166,13 +170,41 @@ function omega_theme_settings_form_submit($form, &$form_state) {
   cache_clear_all('theme_settings:' . $theme, 'cache');
   cache_clear_all('omega_extensions:' . $theme, 'cache');
 
+  // We also need to clear the static right away.
+  drupal_static_reset('omega_extensions');
+
   // Rebuild the theme registry. This has quite a performance impact but since
   // this only happens once after we (re-)saved the theme settings this is fine.
   // Also, this is actually required because we are caching certain things in
   // the theme registry.
   drupal_theme_rebuild();
 
+  // We really don't want to reset theme settings for disabled extensions.
+  foreach ($form_state['extensions'] as $extension) {
+    if (!$form_state['values']['omega_toggle_extension_' . $extension]) {
+      _omega_retain_extension_settings($form, $form_state, $extension, $theme);
+    }
+  }
+
   // This is a relict from the vertical tabs and should be removed so it doesn't
   // end up in the theme settings array.
   unset($form_state['values']['omega__active_tab']);
+}
+
+/**
+ * Helper function for retaining settings of an extension.
+ */
+function _omega_retain_extension_settings($form, &$form_state, $extension, $theme, $parents = array()) {
+  $current = array_merge(array('omega', $extension, 'settings'), $parents);
+
+  if ($items = drupal_array_get_nested_value($form, $current)) {
+    foreach (element_children($items) as $key) {
+      if (array_key_exists($key, $form_state['values'])) {
+        $form_state['values'][$key] = omega_theme_get_setting($key, NULL, $theme);
+      }
+
+      $next = array_merge($parents, array($key));
+      _omega_retain_extension_settings($form, $form_state, $extension, $theme, $next);
+    }
+  }
 }
