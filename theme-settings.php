@@ -81,7 +81,7 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
 
           // Check if the module exists.
           if (!$module = system_get_info('module', $dependency['name'])) {
-            $errors[] = t('This extensions requires the @module module.', array(
+            $errors[] = t('This extension requires the @module module.', array(
               '@module' => drupal_ucfirst($dependency['name']),
             ));
           }
