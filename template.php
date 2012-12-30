@@ -17,8 +17,8 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
   }
 
   // Slightly hacky performance tweak for theme_get_setting(). This resides
-  // outside of any function declaration to make sure that it runs directly after
-  // the theme has been initialized.
+  // outside of any function declaration to make sure that it runs directly
+  // after the theme has been initialized.
   //
   // Instead of rebuilding the theme settings array on every page load we are
   // caching the content of the static cache in the database after it has been
@@ -26,16 +26,16 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
   // theme_get_setting() on every page.
   //
   // By checking whether the global 'theme' and 'theme_key' properties are
-  // identical we make sure that we don't interfere with any of the theme settings
-  // pages and only use this feature when actually rendering a page with this
-  // theme.
+  // identical we make sure that we don't interfere with any of the theme
+  // settings pages and only use this feature when actually rendering a page
+  // with this theme.
   //
   // @see theme_get_setting()
   if (!$static = &drupal_static('theme_get_setting')) {
     if ($cache = cache_get('theme_settings:' . $GLOBALS['theme'])) {
-      // If the cache entry exists, populate the static theme settings array with
-      // its data. This prevents the theme settings from being rebuilt on every
-      // page load.
+      // If the cache entry exists, populate the static theme settings array
+      // with its data. This prevents the theme settings from being rebuilt on
+      // every page load.
       $static[$GLOBALS['theme']] = $cache->data;
     }
     else {
@@ -50,16 +50,17 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
     }
   }
 
-  // Rebuild the theme registry / aggregates on every page load if the development
-  // extension is enabled and configured to do so. This also lives outside of any
-  // function declaration to make sure that the code is executed before any theme
-  // hooks.
+  // Rebuild the theme registry / aggregates on every page load if the
+  // development extension is enabled and configured to do so. This also lives
+  // outside of any function declaration to make sure that the code is executed
+  // before any theme hooks.
   if (omega_extension_enabled('development') && user_access('administer site configuration')) {
     if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
       drupal_theme_rebuild();
 
       if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning', 3)) {
-        // Alert the user that the theme registry is being rebuilt on every request.
+        // Alert the user that the theme registry is being rebuilt on every
+        // request.
         flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning');
         drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
       }
@@ -78,7 +79,8 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
       }
 
       if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning', 3)) {
-        // Alert the user that the theme registry is being rebuilt on every request.
+        // Alert the user that the theme registry is being rebuilt on every
+        // request.
         flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning');
         drupal_set_message(t('The CSS and JS aggregates are being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
       }
