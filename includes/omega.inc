@@ -267,7 +267,7 @@ function omega_extensions($theme = NULL) {
       $extensions[$theme] = $cache->data;
     }
     else {
-      $extensions[$theme] = _omega_discovery('extension', $theme);
+      $extensions[$theme] = omega_discovery('extension', $theme);
 
       foreach ($extensions[$theme] as $extension => &$info) {
         // Make sure that the theme variable is never altered.
@@ -502,7 +502,7 @@ function omega_layouts_info($theme = NULL) {
   $layouts = drupal_static('__FUNCTION__');
 
   if (!isset($layouts[$theme])) {
-    $layouts[$theme] = _omega_discovery('layout', $theme);
+    $layouts[$theme] = omega_discovery('layout', $theme);
 
     // A theme or base theme can explicitly restrict the available layouts to
     // a subset defined through the .info file.
@@ -619,7 +619,7 @@ function omega_theme_libraries_info($theme = NULL) {
  * @return array
  *   An array containing the discovered definitions.
  */
-function _omega_discovery($type, $theme = NULL) {
+function omega_discovery($type, $theme = NULL) {
   $discovery = array();
   $strlen = strlen($type) + 1;
 
