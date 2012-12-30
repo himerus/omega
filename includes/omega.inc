@@ -499,7 +499,7 @@ function omega_get_nested_value(&$object, array $parents, &$key_exists = NULL) {
  */
 function omega_layouts_info($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-  $layouts = drupal_static('__FUNCTION__');
+  $layouts = drupal_static(__FUNCTION__);
 
   if (!isset($layouts[$theme])) {
     $layouts[$theme] = omega_discovery('layout', $theme);
@@ -588,7 +588,7 @@ function omega_layout() {
  */
 function omega_theme_libraries_info($theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
-  $libraries = drupal_static('__FUNCTION__');
+  $libraries = drupal_static(__FUNCTION__);
 
   if (!isset($libraries[$theme])) {
     $libraries[$theme] = array();
