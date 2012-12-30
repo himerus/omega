@@ -18,12 +18,6 @@ function omega_form_system_theme_settings_alter(&$form, $form_state, $form_id = 
     return;
   }
 
-  // The layout extension requires Omega Tools to be installed in order to
-  // function properly.
-  foreach (omega_extensions() as $extension => $info) {
-
-  }
-
   // Include the template.php and theme-settings.php files for all the themes in
   // the theme trail.
   foreach (omega_theme_trail() as $theme => $name) {
