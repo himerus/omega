@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Implements THEME_field().
+ * Returns HTML for a field.
+ *
+ * @see theme_field().
  */
 function omega_field($variables) {
   $output = '';
