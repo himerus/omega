@@ -9,13 +9,6 @@ require_once dirname(__FILE__) . '/includes/omega.inc';
 require_once dirname(__FILE__) . '/includes/scripts.inc';
 
 if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega' || (!empty($GLOBALS['base_theme_info']) && $GLOBALS['base_theme_info'][0]->name == 'omega'))) {
-  // We have to rebuild the theme data if hook_system_info_alter() hasn't been
-  // executed for the omega theme yet.
-  $info = system_get_info('theme', $GLOBALS['theme']);
-  if (empty($info['omega_processed'])) {
-    system_rebuild_theme_data();
-  }
-
   // Slightly hacky performance tweak for theme_get_setting(). This resides
   // outside of any function declaration to make sure that it runs directly
   // after the theme has been initialized.
@@ -56,6 +49,9 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
   // before any theme hooks.
   if (omega_extension_enabled('development') && user_access('administer site configuration')) {
     if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
+      // Rebuild the theme data.
+      system_rebuild_theme_data();
+      // Rebuild the theme registry.
       drupal_theme_rebuild();
 
       if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning', 3)) {
@@ -92,13 +88,7 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
  * Implements hook_system_info_alter().
  */
 function omega_system_info_alter(&$info, $file, $type) {
-  if ($type == 'theme' && empty($info['omega_processed']) && array_key_exists('omega', omega_theme_trail($file->name))) {
-    // Put a flag into the info array that indicates that this function has been
-    // executed during drupal_alter(). This is required because Drupal only
-    // executes the alter hooks on the active theme which might be the admin
-    // theme (e.g. when editing the theme settings).
-    $info['omega_processed'] = TRUE;
-
+  if ($type == 'theme' && array_key_exists('omega', omega_theme_trail($file->name))) {
     foreach (omega_layouts_info($file->name) as $layout) {
       foreach ($layout['info']['regions'] as $region => $description) {
         if (!isset($info['regions'][$region])) {
