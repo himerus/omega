@@ -279,8 +279,8 @@ function omega_extensions($theme = NULL) {
         $info['enabled'] = omega_theme_get_setting('omega_toggle_extension_' . $extension, !empty($info['info']['enabled']));
 
         // Check if all dependencies are met.
-        if ($info['enabled'] && !empty($info['dependencies'])) {
-          foreach ($info['dependencies'] as $dependency) {
+        if ($info['enabled'] && !empty($info['info']['dependencies'])) {
+          foreach ($info['info']['dependencies'] as $dependency) {
             $dependency = drupal_parse_dependency($dependency);
 
             if ((!$module = system_get_info('module', $dependency['name'])) || drupal_check_incompatibility($dependency, str_replace(DRUPAL_CORE_COMPATIBILITY . '-', '', $module['version']))) {
