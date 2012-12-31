@@ -221,7 +221,7 @@ function drush_omega_export_validate($theme = NULL) {
  *   TRUE on success, FALSE on failure.
  */
 function drush_omega_export($theme = NULL) {
-  if (!isset($theme) && !$theme = _omega_drush_theme_choice()) {
+  if (!isset($theme) && !$theme = _omega_drush_theme_choice(dt('Which theme do you want to export the theme settings for?'))) {
     return;
   }
 
@@ -289,7 +289,7 @@ function drush_omega_revert_validate($theme) {
  *   The machine-readable name of a theme.
  */
 function drush_omega_revert($theme = NULL) {
-  if (!isset($theme) && !$theme = _omega_drush_theme_choice()) {
+  if (!isset($theme) && !$theme = _omega_drush_theme_choice(dt('Which theme do you want to revert the theme settings for?'))) {
     return;
   }
 
@@ -312,11 +312,14 @@ function drush_omega_revert($theme = NULL) {
  * Helper function for printing a list of available themes that the user can
  * choose from in a drush prompt.
  *
+ * @param $message
+ *   The message that should be displayed.
+ *
  * @return bool|string
  *   The machine-readable name of the chosen theme or FALSE if the operation was
  *   cancelled.
  */
-function _omega_drush_theme_choice() {
+function _omega_drush_theme_choice($message) {
   $themes = list_themes();
   $values = array_values($themes);
   $options = array();
@@ -324,7 +327,7 @@ function _omega_drush_theme_choice() {
     $options[$key] = $info->info['name'];
   }
 
-  if (!$theme = drush_choice($options, dt('Which theme do you want to export the theme settings for?'))) {
+  if (!$theme = drush_choice($options, $message)) {
     return FALSE;
   }
 

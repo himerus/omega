@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**b
  * Returns HTML for a field.
  */
 function omega_field($variables) {
