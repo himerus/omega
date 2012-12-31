@@ -283,7 +283,7 @@ function omega_extensions($theme = NULL) {
           foreach ($info['info']['dependencies'] as $dependency) {
             $dependency = drupal_parse_dependency($dependency);
 
-            if ((!$module = system_get_info('module', $dependency['name'])) || drupal_check_incompatibility($dependency, str_replace(DRUPAL_CORE_COMPATIBILITY . '-', '', $module['version']))) {
+            if ((!$module = system_get_info('module', $dependency['name'])) || omega_check_incompatibility($dependency, $module['version'])) {
               $info['enabled'] = FALSE;
             }
           }
@@ -611,4 +611,31 @@ function omega_discovery($type, $theme = NULL, $all = FALSE) {
   }
 
   return $discovery;
+}
+
+/**
+ * Checks whether a version is compatible with a given dependency.
+ *
+ * This is a wrapper for drupal_check_incompatibility() which strips the core
+ * version and any potential development version suffix fron the given string.
+ *
+ * @param $dependency
+ *   The parsed dependency structure from drupal_parse_dependency().
+ * @param $current
+ *   The version to check against (like 4.2).
+ *
+ * @return
+ *   NULL if compatible, otherwise the original dependency version string that
+ *   caused the incompatibility.
+ *
+ * @see drupal_check_incompatibility()
+ * @see drupal_parse_dependency()
+ */
+function omega_check_incompatibility($dependency, $current) {
+  // Remove the core version from the version string.
+  $current = preg_replace('/^' . DRUPAL_CORE_COMPATIBILITY . '-/', '', $current);
+  // Remove any potential development version suffixes from the string.
+  $current = preg_replace('/-dev$/', '', $current);
+
+  return drupal_check_incompatibility($dependency, $current);
 }

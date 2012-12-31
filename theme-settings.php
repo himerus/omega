@@ -80,7 +80,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
             ));
           }
           // Check if the module version is compatible.
-          elseif (($version = drupal_check_incompatibility($dependency, str_replace(DRUPAL_CORE_COMPATIBILITY . '-', '', $module['version']))) !== NULL) {
+          elseif (($version = omega_check_incompatibility($dependency, $module['version'])) !== NULL) {
             $errors[] = t('This extension requires @module @version. The currently installed version is @installed.', array(
               '@module' => $module['name'],
               '@version' => $version,
