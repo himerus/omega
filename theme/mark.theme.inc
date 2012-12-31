@@ -2,8 +2,6 @@
 
 /**
  * Returns HTML for a marker for new or updated content.
- *
- * @see theme_mark().
  */
 function omega_mark($variables) {
   $type = $variables['type'];
