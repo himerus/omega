@@ -15,7 +15,7 @@ function omega_drush_command() {
       'name' => dt('The name of your subtheme.'),
     ),
     'options' => array(
-      'destination' => dt('The destination of your subtheme. Defaults to "site/all" (sites/all/themes). May be one of "site/foo", "profile/bar" or "theme/baz" ("foo", "bar" and "baz" being the name of your site, profile or parent theme).'),
+      'destination' => dt('The destination of your subtheme. Defaults to "site:all" (sites/all/themes). May be one of "site:foo", "profile:bar" or "theme:baz" ("foo", "bar" and "baz" being the name of your site, profile or parent theme).'),
       'machine-name' => dt('The machine-readable name of your subtheme. This will be auto-generated from the human-readable name if omitted.'),
       'starterkit' => dt('The starterkit that your subtheme should use. Defaults to "omega_starterkit".'),
       'basetheme' => dt('Overrides the base theme defined in the starterkit.'),
@@ -24,7 +24,7 @@ function omega_drush_command() {
     ),
     'examples' => array(
       'drush omega-subtheme "My Theme"' => dt('Creates a Omega subtheme called "My Theme".'),
-      'drush omega-subtheme "My Theme" --destination=example.com' => dt('Creates a Omega subtheme called "My Theme" in sites/example.com/themes.'),
+      'drush omega-subtheme "My Theme" --destination=site:example.com' => dt('Creates a Omega subtheme called "My Theme" in sites/example.com/themes.'),
       'drush omega-subtheme "My Theme" --starterkit=my_custom_starterkit' => dt('Uses a custom starterkit to create a Omega subtheme called "My Theme" in sites/all/themes (default).'),
     ),
     'aliases' => array('osub'),
@@ -116,7 +116,7 @@ function drush_omega_subtheme_validate($name = NULL) {
   }
 
   // Check if the destination is valid.
-  if (!preg_match('/^(site|theme|profile)\/[a-z][a-z0-9_]*/', $destination)) {
+  if (!preg_match('/^(site|theme|profile):[a-z][a-z0-9_]*/', $destination)) {
     return drush_set_error('OMEGA_DESITINATION_INVALID', dt('The destination is invalid. Please use one of the following destination patterns (site, profile or theme): --destination="site/foo", --destination="profile/bar" or --destination="theme/baz".'));
   }
 
@@ -176,26 +176,48 @@ function drush_omega_subtheme($name = NULL) {
  *   be resolved.
  */
 function omega_drush_resolve_destination($destination) {
-  if (strpos($destination, 'site/') === 0) {
-    $site = substr($destination, 5);
-    if (array_key_exists($site, omega_drush_sites()) || $site = _omega_drush_site_choice(dt('The site @site does not exist. Did you misspell it? Please choose one of the sites from the list.', array('@site' => $site)))) {
-      return 'sites/' . $site . '/themes';
-    }
-  }
-  elseif (strpos($destination, 'profile/') === 0) {
-    require_once DRUPAL_ROOT . '/includes/install.core.inc';
+  list($type, $destination) = explode(':', $destination);
 
-    $profile = substr($destination, 8);
-    $profiles = install_find_profiles();
-    if (array_key_exists($profile, $profiles) || $profile = _omega_drush_profile_choice(dt('The profile @profile does not exist. Did you misspell it? Please choose one of the profiles from the list.', array('@profile' => $profile)))) {
-      return dirname($profiles[$profile]->uri) . '/themes';
-    }
-  }
-  elseif (strpos($destination, 'theme/') === 0) {
-    $theme = substr($destination, 7);
-    if (array_key_exists($theme, list_themes()) || $theme = _omega_drush_theme_choice(dt('The theme @theme does not exist. Did you misspell it? Please choose one of the themes from the list.', array('@theme' => $theme)))) {
-      return drupal_get_path('theme', $theme);
-    }
+  switch($type) {
+    case 'site':
+      if (!array_key_exists($destination, omega_drush_sites())) {
+        $message = dt('The site @site does not exist. Did you misspell it? Please choose one of the sites from the list.', array(
+          '@site' => $destination,
+        ));
+
+        if (($destination = _omega_drush_site_choice($message)) === FALSE) {
+          // Bail out if the operation was cancelled.
+          return FALSE;
+        }
+      }
+      return 'sites/' . $destination . '/themes';
+
+    case 'profile':
+      require_once DRUPAL_ROOT . '/includes/install.core.inc';
+      if (!array_key_exists($destination, install_find_profiles())) {
+        $message = dt('The profile @profile does not exist. Did you misspell it? Please choose one of the profiles from the list.', array(
+          '@profile' => $destination,
+        ));
+
+        if (($destination = _omega_drush_profile_choice($message)) === FALSE) {
+          // Bail out if the operation was cancelled.
+          return FALSE;
+        }
+      }
+      return 'profiles/' . $destination . '/themes';
+
+    case 'theme':
+      if (!array_key_exists($destination, list_themes())) {
+        $message = dt('The theme @theme does not exist. Did you misspell it? Please choose one of the themes from the list.', array(
+          '@theme' => $destination,
+        ));
+
+        if (($destination = _omega_drush_theme_choice($message)) === FALSE) {
+          // Bail out if the operation was cancelled.
+          return FALSE;
+        }
+      }
+      return drupal_get_path('theme', $destination);
   }
 
   return FALSE;
