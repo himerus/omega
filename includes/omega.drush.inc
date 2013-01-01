@@ -132,7 +132,7 @@ function drush_omega_subtheme_validate($name = NULL) {
  */
 function drush_omega_subtheme($name = NULL) {
   if (!isset($name)) {
-    drush_prompt(dt('Please enter the name of the new sub-theme'));
+    $name = drush_prompt(dt('Please enter the name of the new sub-theme'));
   }
 
   $destination = drush_get_option('destination', 'site:all');
