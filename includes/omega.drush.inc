@@ -5,6 +5,8 @@
  * Please supply a file description.
  */
 
+require_once dirname(__FILE__) . '/omega.inc';
+
 /**
  * Implements hook_drush_command().
  */
