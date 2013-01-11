@@ -1,8 +1,0 @@
-name = Default Omega Starterkit
-description = Default Omega Starterkit for the Omega base theme.
-screenshot = screenshot.png
-engine = phptemplate
-core = 7.x
-base theme = omega
-starterkit = TRUE
-hidden = TRUE

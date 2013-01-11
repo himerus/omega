@@ -19,8 +19,8 @@ function omega_drush_command() {
     'options' => array(
       'destination' => dt('The destination of your subtheme. Defaults to "site:all" (sites/all/themes). May be one of "site:foo", "profile:bar" or "theme:baz" ("foo", "bar" and "baz" being the name of your site, profile or parent theme).'),
       'machine-name' => dt('The machine-readable name of your subtheme. This will be auto-generated from the human-readable name if omitted.'),
-      'starterkit' => dt('The starterkit that your subtheme should use. Defaults to "omega_starterkit".'),
-      'basetheme' => dt('Overrides the base theme defined in the starterkit.'),
+      'starterkit' => dt('The starterkit that your subtheme should use. Defaults to "default".'),
+      'basetheme' => dt('Specifies a custom base theme. Defaults to "omega".'),
       'enable' => dt('Automatically enable the subtheme after creation.'),
       'set-default' => dt('Automatically enable the subtheme after creation and make it the default theme.'),
     ),
@@ -115,17 +115,17 @@ function drush_omega_subtheme_validate($name = NULL) {
 
   // Check if the destination is valid.
   if (($destination = drush_get_option('destination')) && !preg_match('/^(site|theme|profile):[a-z][a-z0-9_]*/', $destination)) {
-    return drush_set_error('OMEGA_DESITINATION_INVALID', dt('The destination is invalid. Please use one of the following destination patterns (site, profile or theme): --destination="site:foo", --destination="profile:bar" or --destination="theme:baz".'));
-  }
-
-  // Check if the starterkit is valid.
-  if (($starterkit = drush_get_option('starterkit')) && !array_key_exists($starterkit, omega_drush_starterkits())) {
-    return drush_set_error('OMEGA_STARTERKIT_NOT_EXISTS', dt('There is no valid Omega theme starterkit with the name @starterkit.', array('@starterkit' => $starterkit)));
+    return drush_set_error('OMEGA_DESTINATION_INVALID', dt('The destination is invalid. Please use one of the following destination patterns (site, profile or theme): --destination="site:foo", --destination="profile:bar" or --destination="theme:baz".'));
   }
 
   // Check if the base theme is valid.
-  if (($basetheme = drush_get_option('basetheme')) && (!array_key_exists($basetheme, list_themes()) || !array_key_exists('omega', omega_theme_trail($basetheme)))) {
+  if (($basetheme = drush_get_option('basetheme', 'omega')) && (!array_key_exists($basetheme, list_themes()) || !array_key_exists('omega', omega_theme_trail($basetheme)))) {
     return drush_set_error('OMEGA_BASETHEME_INVALID', dt('The base theme @basetheme does not exist or is invalid.', array('@basetheme' => $basetheme)));
+  }
+
+  // Check if the starterkit is valid.
+  if (($starterkit = drush_get_option('starterkit', 'default')) && !array_key_exists($starterkit, omega_discovery('starterkit', $basetheme))) {
+    return drush_set_error('OMEGA_STARTERKIT_NOT_EXISTS', dt('There is no valid Omega theme starterkit with the name @starterkit.', array('@starterkit' => $starterkit)));
   }
 }
 
@@ -146,10 +146,10 @@ function drush_omega_subtheme($name = NULL) {
   $subtheme->name = $name;
   $subtheme->machine_name = drush_get_option('machine-name', _omega_drush_generate_theme_name($name));
   $subtheme->path = $destination . '/' . $subtheme->machine_name;
-  $subtheme->starterkit = drush_get_option('starterkit', 'omega_starterkit');
+  $subtheme->starterkit = drush_get_option('starterkit', 'default');
   $subtheme->default = drush_get_option('set-default') !== NULL;
   $subtheme->enable = $subtheme->default || drush_get_option('enable') !== NULL;
-  $subtheme->basetheme = drush_get_option('basetheme');
+  $subtheme->basetheme = drush_get_option('basetheme', 'omega');
 
   if (omega_drush_subtheme_create($subtheme)) {
     drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
@@ -383,32 +383,6 @@ function _omega_drush_profile_choice($message) {
 }
 
 /**
- * Retrieves all themes that can be used as starterkits for a given base theme.
- *
- * @param $base
- *   (Optional) The machine-readable name of a base theme to filter all the
- *   available starterkits for.
- *
- * @return array
- *   An array of theme names keyed with the machine-readable name of each theme.
- */
-function omega_drush_starterkits($base = NULL) {
-  $options = array();
-
-  // Retrieve all the possible starterkits.
-  foreach (list_themes() as $name => $theme) {
-    $info = $theme->info;
-
-    // A starterkit is always flagged as such in the .info file.
-    if (!empty($info['starterkit']) && !empty($info['base theme']) && (!isset($base) || $info['base theme'] == $base)) {
-      $options[$name] = $info['name'] . (!empty($info['description']) ? ': ' . $info['description'] : '');
-    }
-  }
-
-  return $options;
-}
-
-/**
  * Recursively rewrites (and renames) all files in a given path.
  *
  * @param $path
@@ -557,35 +531,31 @@ function omega_drush_subtheme_create($subtheme) {
     return drush_set_error('OMEGA_SUBTHEME_PATH', dt('The path @path is not writable.', array('@path' => $destination)));
   }
 
-  $themes = list_themes();
+  $starterkits = omega_discovery('starterkit', $subtheme->basetheme);
   // Try to copy the starterkit to the destination path of the new subtheme.
-  $source = drupal_get_path('theme', $subtheme->starterkit);
-  if (!drush_copy_dir($source, $subtheme->path)) {
-    return drush_set_error('OMEGA_STARTERKIT', t('The starterkit @starterkit could not be copied.', array('@starterkit' => $themes[$subtheme->starterkit]->info['name'])));
+  if (!drush_copy_dir($starterkits[$subtheme->starterkit]['path'], $subtheme->path)) {
+    return drush_set_error('OMEGA_STARTERKIT', t('The starterkit @starterkit could not be copied.', array('@starterkit' => $starterkits[$subtheme->starterkit]['info']['name'])));
   }
+
+  // Convert the .starterkit.inc file to a .info file.
+  $source = $subtheme->path . '/' . basename($starterkits[$subtheme->starterkit]['file']);
+  $destination = $subtheme->path . '/' . $subtheme->machine_name . '.info';
+  drush_move_dir($source, $destination);
 
   // Recursively rewrite the file names and contents of all the files that are
   // now in the subtheme's directory to represent the human- and
   // machine-readable names of the subtheme.
-  $search = array($subtheme->starterkit, $themes[$subtheme->starterkit]->info['name']);
+  $search = array('{{ THEME }}', '{{ THEMENAME }}');
   $replace = array($subtheme->machine_name, $subtheme->name);
   omega_drush_rewrite_recursive($subtheme->path, $search, $replace);
 
   // Parse the contents of the current .info file (provided by the starterkit).
   $subtheme->info = drupal_parse_info_file($subtheme->path . '/' . $subtheme->machine_name . '.info');
-  // Unset all unneeded (and potentially hindering) properties in the .info file
-  // of the subtheme.
-  unset($subtheme->info['starterkit'], $subtheme->info['hidden'], $subtheme->info['locked'], $subtheme->info['project'], $subtheme->info['datestamp']);
 
   // Put the name and description, as well as a 'dummy' version for the new
   // subtheme in place.
   $subtheme->info['name'] = $subtheme->name;
-  $subtheme->info['description'] = $subtheme->description;
-  $subtheme->info['version'] = '1.x';
-
-  if (!empty($subtheme->basetheme)) {
-    $subtheme->info['base theme'] = $subtheme->basetheme;
-  }
+  $subtheme->info['base theme'] = $subtheme->basetheme;
 
   // Overwrite the existing .info file with the changed values.
   omega_drush_write_info_file($subtheme->machine_name, $subtheme->info, $subtheme->path);

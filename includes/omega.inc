@@ -603,6 +603,7 @@ function omega_discovery($type, $theme = NULL, $all = FALSE) {
         $discovery[$name] = array(
           'name' => $name,
           'path' => dirname($file->uri),
+          'file' => $file->uri,
           'info' => $info,
           'theme' => $key,
         );
