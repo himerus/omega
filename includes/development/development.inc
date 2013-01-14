@@ -26,7 +26,7 @@ function omega_extension_development_preprocess_html(&$variables) {
     $variables['attributes_array']['class'][] = 'omega-dummy-blocks';
   }
 
-  if (!module_exists('overlay') || overlay_get_mode() == 'parent') {
+  if (!module_exists('overlay') || (!$mode = overlay_get_mode()) || $mode == 'parent') {
     if (omega_theme_get_setting('omega_browser_width_indicator', FALSE)) {
       $variables['attributes_array']['class'][] = 'omega-browser-width-indicator';
       drupal_add_js($path . '/js/omega.development.js', array('group' => JS_THEME, 'weight' => -10, 'every_page' => TRUE));
