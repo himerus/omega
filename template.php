@@ -100,12 +100,12 @@ function omega_system_info_alter(&$info, $file, $type) {
 }
 
 /**
- * Implements hook_preprocess().
+ * Implements hook_process().
  */
-function omega_preprocess(&$variables) {
+function omega_process(&$variables) {
   // Copy over the classes array into the attributes array.
   if (!empty($variables['classes_array'])) {
-    $variables['attributes_array']['class'] = !empty($variables['attributes_array']['class']) ? $variables['attributes_array']['class'] + $variables['classes_array']: $variables['classes_array'];
+    $variables['attributes_array']['class'] = !empty($variables['attributes_array']['class']) ? array_merge($variables['attributes_array']['class'], $variables['classes_array']) : $variables['classes_array'];
     $variables['attributes_array']['class'] = array_unique($variables['attributes_array']['class']);
   }
 }
