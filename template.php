@@ -102,7 +102,7 @@ function omega_system_info_alter(&$info, $file, $type) {
 /**
  * Implements hook_process().
  */
-function omega_process(&$variables) {
+function omega_enforce_attributes(&$variables) {
   // Copy over the classes array into the attributes array.
   if (!empty($variables['classes_array'])) {
     $variables['attributes_array']['class'] = !empty($variables['attributes_array']['class']) ? array_merge($variables['attributes_array']['class'], $variables['classes_array']) : $variables['classes_array'];
@@ -243,6 +243,12 @@ function omega_theme() {
  * it uses the theme registry to cache the pathes to the files that it finds.
  */
 function omega_theme_registry_alter(&$registry) {
+  foreach ($registry as $hook => $item) {
+    if (empty($item['base hook']) && !isset($item['function'])) {
+      array_unshift($registry[$hook]['process functions'], 'omega_enforce_attributes');
+    }
+  }
+
   // Register theme hook and function implementations from
   foreach (omega_theme_trail() as $key => $theme) {
     foreach (array('preprocess', 'process', 'theme') as $type) {
@@ -321,6 +327,16 @@ function omega_theme_registry_alter(&$registry) {
   // comments for JavaScript files.
   if (($index = array_search('template_process_html', $registry['html']['process functions'], TRUE)) !== FALSE) {
     array_splice($registry['html']['process functions'], $index, 1, 'omega_template_process_html_override');
+  }
+
+  foreach ($registry as $hook => $item) {
+    if (empty($item['base hook'])) {
+      foreach (array('preprocess', 'process') as $type) {
+        if (!empty($item[$type . ' functions'])) {
+          $registry[$hook][$type . ' functions'][] = 'omega_transfer_classes';
+        }
+      }
+    }
   }
 
   // Fix for integration with the theme developer module.
