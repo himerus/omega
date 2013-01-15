@@ -58,21 +58,6 @@ function omega_drush_command() {
     'aliases' => array('orev'),
   );
 
-  $items['omega-layout'] = array(
-    'description' => dt('Generates a layout from the starterkit.'),
-    'arguments' => array(
-      'theme' => dt('The machine-readable name of the theme to create the layout for.'),
-      'layout' => dt('The name of your layout.'),
-    ),
-    'options' => array(
-      'machine-name' => dt('The machine-readable name of the layout. This will be auto-generated from the human-readable name if omitted.'),
-    ),
-    'examples' => array(
-      'drush omega-layout foo bar' => dt('Creates a layout "bar" for the "foo" theme.'),
-    ),
-    'aliases' => array('olay'),
-  );
-
   return $items;
 }
 
@@ -87,8 +72,6 @@ function omega_drush_help($section) {
       return dt('Exports the theme settings of a given theme.');
     case 'drush:omega-revert':
       return dt('Reverts the theme settings of a given theme.');
-    case 'drush:omega-layout':
-      return dt('Generates a layout.');
   }
 }
 
@@ -119,12 +102,13 @@ function drush_omega_subtheme_validate($name = NULL) {
   }
 
   // Check if the base theme is valid.
-  if (($basetheme = drush_get_option('basetheme', 'omega')) && (!array_key_exists($basetheme, list_themes()) || !array_key_exists('omega', omega_theme_trail($basetheme)))) {
+  if (($basetheme = drush_get_option('basetheme')) && (!array_key_exists($basetheme, list_themes()) || !array_key_exists('omega', omega_theme_trail($basetheme)))) {
     return drush_set_error('OMEGA_BASETHEME_INVALID', dt('The base theme @basetheme does not exist or is invalid.', array('@basetheme' => $basetheme)));
   }
 
   // Check if the starterkit is valid.
-  if (($starterkit = drush_get_option('starterkit', 'default')) && !array_key_exists($starterkit, omega_discovery('starterkit', $basetheme))) {
+  $basetheme = drush_get_option('basetheme', 'omega');
+  if (($starterkit = drush_get_option('starterkit')) && !array_key_exists($starterkit, omega_discovery('starterkit', $basetheme))) {
     return drush_set_error('OMEGA_STARTERKIT_NOT_EXISTS', dt('There is no valid Omega theme starterkit with the name @starterkit.', array('@starterkit' => $starterkit)));
   }
 }
@@ -138,86 +122,30 @@ function drush_omega_subtheme($name = NULL) {
   }
 
   $destination = drush_get_option('destination', 'site:all');
-  if (!$destination = omega_drush_resolve_destination($destination)) {
+  if (!$destination = drush_op('drush_omega_resolve_destination', $destination)) {
     return;
   }
 
+  $basetheme = drush_get_option('basetheme', 'omega');
+  $starterkits = omega_discovery('starterkit', $basetheme);
+  $starterkit = drush_get_option('starterkit', 'default');
+
   $subtheme = new stdClass();
   $subtheme->name = $name;
-  $subtheme->machine_name = drush_get_option('machine-name', _omega_drush_generate_theme_name($name));
+  $subtheme->machine_name = drush_get_option('machine-name', drush_omega_generate_theme_name($name));
   $subtheme->path = $destination . '/' . $subtheme->machine_name;
-  $subtheme->starterkit = drush_get_option('starterkit', 'default');
-  $subtheme->default = drush_get_option('set-default') !== NULL;
-  $subtheme->enable = $subtheme->default || drush_get_option('enable') !== NULL;
-  $subtheme->basetheme = drush_get_option('basetheme', 'omega');
+  $subtheme->starterkit = $starterkits[$starterkit];
+  $subtheme->default = (bool) drush_get_option('set-default');
+  $subtheme->enable = (bool) ($subtheme->default || drush_get_option('enable'));
+  $subtheme->basetheme = $basetheme;
 
-  if (omega_drush_subtheme_create($subtheme)) {
+  if (drush_op('drush_omega_generate_subtheme', $subtheme)) {
     drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
       '@theme' => $subtheme->name,
       '@name' => $subtheme->machine_name,
       '@path' => dirname($subtheme->path),
     )), 'success');
   }
-}
-
-/**
- * Resolves the destination path for a subtheme. This can either be a profile
- * theme folder, a sites theme folder or a theme.
- *
- * @param $destination
- *   A destination string, this can either be a site path ('site/foo'), a
- *   profile path ('profile/foo') or a theme path ('theme/foo').
- *
- * @return string|bool
- *   The full path to the given destination, FALSE if the destination could not
- *   be resolved.
- */
-function omega_drush_resolve_destination($destination) {
-  list($type, $destination) = explode(':', $destination);
-
-  switch($type) {
-    case 'site':
-      if (!array_key_exists($destination, omega_drush_sites())) {
-        $message = dt('The site @site does not exist. Did you misspell it? Please choose one of the sites from the list.', array(
-          '@site' => $destination,
-        ));
-
-        if (($destination = _omega_drush_site_choice($message)) === FALSE) {
-          // Bail out if the operation was cancelled.
-          return FALSE;
-        }
-      }
-      return 'sites/' . $destination . '/themes';
-
-    case 'profile':
-      require_once DRUPAL_ROOT . '/includes/install.core.inc';
-      if (!array_key_exists($destination, install_find_profiles())) {
-        $message = dt('The profile @profile does not exist. Did you misspell it? Please choose one of the profiles from the list.', array(
-          '@profile' => $destination,
-        ));
-
-        if (($destination = _omega_drush_profile_choice($message)) === FALSE) {
-          // Bail out if the operation was cancelled.
-          return FALSE;
-        }
-      }
-      return 'profiles/' . $destination . '/themes';
-
-    case 'theme':
-      if (!array_key_exists($destination, list_themes())) {
-        $message = dt('The theme @theme does not exist. Did you misspell it? Please choose one of the themes from the list.', array(
-          '@theme' => $destination,
-        ));
-
-        if (($destination = _omega_drush_theme_choice($message)) === FALSE) {
-          // Bail out if the operation was cancelled.
-          return FALSE;
-        }
-      }
-      return drupal_get_path('theme', $destination);
-  }
-
-  return FALSE;
 }
 
 /**
@@ -243,7 +171,7 @@ function drush_omega_export_validate($theme = NULL) {
  *   TRUE on success, FALSE on failure.
  */
 function drush_omega_export($theme = NULL) {
-  if (!isset($theme) && !$theme = _omega_drush_theme_choice(dt('Which theme do you want to export the theme settings for?'))) {
+  if (!isset($theme) && !$theme = drush_omega_prompt_theme(dt('Which theme do you want to export the theme settings for?'))) {
     return;
   }
 
@@ -269,10 +197,10 @@ function drush_omega_export($theme = NULL) {
   $data = trim(preg_replace('/^settings\[.*\].*\n?/mi', '', $data));
 
   // Append the exported theme settings to the .info file if there are any.
-  $data = $settings ? $data . "\n\n" . omega_drush_build_info_file($settings, 'settings') : $data;
+  $data = $settings ? $data . "\n\n" . drush_omega_compose_info_file($settings, 'settings') : $data;
 
   // Write the data to the .info file of the theme.
-  if (file_unmanaged_save_data($data, $path, FILE_EXISTS_REPLACE)) {
+  if (file_put_contents($path, $data)) {
     drush_log(dt('The theme settings for the @theme theme have been exported to the .info file of the theme.', array('@theme' => $themes[$theme]->info['name'])), 'success');
 
     if (drush_get_option('revert')) {
@@ -311,7 +239,7 @@ function drush_omega_revert_validate($theme) {
  *   The machine-readable name of a theme.
  */
 function drush_omega_revert($theme = NULL) {
-  if (!isset($theme) && !$theme = _omega_drush_theme_choice(dt('Which theme do you want to revert the theme settings for?'))) {
+  if (!isset($theme) && !$theme = drush_omega_prompt_theme(dt('Which theme do you want to revert the theme settings for?'))) {
     return;
   }
 
@@ -331,6 +259,66 @@ function drush_omega_revert($theme = NULL) {
 }
 
 /**
+ * Resolves the destination path for a subtheme. This can either be a profile
+ * theme folder, a sites theme folder or a theme.
+ *
+ * @param $destination
+ *   A destination string, this can either be a site path ('site:foo'), a
+ *   profile path ('profile:foo') or a theme path ('theme:foo').
+ *
+ * @return string|bool
+ *   The full path to the given destination, FALSE if the destination could not
+ *   be resolved.
+ */
+function drush_omega_resolve_destination($destination) {
+  list($type, $destination) = explode(':', $destination);
+
+  switch($type) {
+    case 'site':
+      if (!array_key_exists($destination, drush_omega_sites())) {
+        $message = dt('The site @site does not exist. Did you misspell it? Please choose one of the sites from the list.', array(
+          '@site' => $destination,
+        ));
+
+        if (($destination = drush_omega_prompt_site($message)) === FALSE) {
+          // Bail out if the operation was cancelled.
+          return FALSE;
+        }
+      }
+      return 'sites/' . $destination . '/themes';
+
+    case 'profile':
+      require_once DRUPAL_ROOT . '/includes/install.core.inc';
+      if (!array_key_exists($destination, install_find_profiles())) {
+        $message = dt('The profile @profile does not exist. Did you misspell it? Please choose one of the profiles from the list.', array(
+          '@profile' => $destination,
+        ));
+
+        if (($destination = drush_omega_prompt_profile($message)) === FALSE) {
+          // Bail out if the operation was cancelled.
+          return FALSE;
+        }
+      }
+      return 'profiles/' . $destination . '/themes';
+
+    case 'theme':
+      if (!array_key_exists($destination, list_themes())) {
+        $message = dt('The theme @theme does not exist. Did you misspell it? Please choose one of the themes from the list.', array(
+          '@theme' => $destination,
+        ));
+
+        if (($destination = drush_omega_prompt_theme($message)) === FALSE) {
+          // Bail out if the operation was cancelled.
+          return FALSE;
+        }
+      }
+      return drupal_get_path('theme', $destination);
+  }
+
+  return FALSE;
+}
+
+/**
  * Helper function for printing a list of available themes.
  *
  * @param $message
@@ -340,7 +328,7 @@ function drush_omega_revert($theme = NULL) {
  *   The machine-readable name of the chosen theme or FALSE if the operation was
  *   cancelled.
  */
-function _omega_drush_theme_choice($message) {
+function drush_omega_prompt_theme($message) {
   $options = array();
   foreach (list_themes() as $key => $info) {
     $options[$key] = $info->info['name'];
@@ -357,8 +345,8 @@ function _omega_drush_theme_choice($message) {
  * @return bool|string
  *   The chosen site or FALSE if the operation was cancelled.
  */
-function _omega_drush_site_choice($message) {
-  return drush_choice(omega_drush_sites(), $message);
+function drush_omega_prompt_site($message) {
+  return drush_choice(drush_omega_sites(), $message);
 }
 
 /**
@@ -370,7 +358,7 @@ function _omega_drush_site_choice($message) {
  * @return bool|string
  *   The chosen profile or FALSE if the operation was cancelled.
  */
-function _omega_drush_profile_choice($message) {
+function drush_omega_prompt_profile($message) {
   require_once DRUPAL_ROOT . '/includes/install.core.inc';
 
   $options = array();
@@ -399,10 +387,10 @@ function _omega_drush_profile_choice($message) {
  * @see omega_drush_replace_contents()
  * @see str_replace()
  */
-function omega_drush_rewrite_recursive($path, $search, $replace) {
+function drush_omega_rewrite_recursive($path, $search, $replace) {
   if ($path !== ($new = str_replace($search, $replace, $path))) {
     // First, try to rename (move) the file if the name was changed.
-    if (!drush_move_dir($path, $new, TRUE)) {
+    if (!drush_op('drush_move_dir', $path, $new, TRUE)) {
       return FALSE;
     };
   }
@@ -413,7 +401,7 @@ function omega_drush_rewrite_recursive($path, $search, $replace) {
 
     while (FALSE !== ($read = $directory->read())) {
       if ($read != '.' && $read != '..' ) {
-        if (!omega_drush_rewrite_recursive($new . '/' . $read, $search, $replace)) {
+        if (!drush_op('drush_omega_rewrite_recursive', $new . '/' . $read, $search, $replace)) {
           return FALSE;
         }
       }
@@ -425,7 +413,7 @@ function omega_drush_rewrite_recursive($path, $search, $replace) {
     // If it is a file, try to replace its contents.
     $before = file_get_contents($new);
     if ($before !== ($after = str_replace($search, $replace, $before))) {
-      if (file_unmanaged_save_data($after, $new, FILE_EXISTS_REPLACE) === FALSE) {
+      if (file_put_contents($new, $after) === FALSE) {
         return FALSE;
       }
     }
@@ -446,13 +434,13 @@ function omega_drush_rewrite_recursive($path, $search, $replace) {
  * @return string
  *   A .info file string.
  */
-function omega_drush_build_info_file($array, $prefix = FALSE) {
+function drush_omega_compose_info_file($array, $prefix = FALSE) {
   $info = '';
 
   foreach ($array as $key => $value) {
     if (is_array($value)) {
       // This is an array, let's proceed with the next level.
-      $info .= omega_drush_build_info_file($value, (!$prefix ? $key : "{$prefix}[{$key}]"));
+      $info .= drush_omega_compose_info_file($value, (!$prefix ? $key : "{$prefix}[{$key}]"));
     }
     else {
       // Escape all single quotes.
@@ -473,32 +461,6 @@ function omega_drush_build_info_file($array, $prefix = FALSE) {
 }
 
 /**
- * Helper function for creating and saving a .info file.
- *
- * @param $name
- *   The name of the .info file (equivalent to the machine-readable name of the
- *   theme that the .info file belongs to).
- * @param $data
- *   The content of the .info file.
- * @param $destination
- *   (Optional) The path in which the .info file should be saved. Defaults to
- *   the path of the theme as defined by $name.
- *
- * @return bool
- *   TRUE if the .info file was successfully saved, FALSE otherwise.
- */
-function omega_drush_write_info_file($name, $data, $destination = NULL) {
-  $destination = isset($destination) ? $destination : drupal_get_path('theme', $name);
-
-  if (!empty($destination)) {
-    $data = is_array($data) ? omega_drush_build_info_file($data) : $data;
-    return file_unmanaged_save_data($data, $destination . '/' . $name . '.info', FILE_EXISTS_REPLACE);
-  }
-
-  return FALSE;
-}
-
-/**
  * Creates a subtheme from any given starterkit.
  *
  * @param $subtheme
@@ -509,8 +471,7 @@ function omega_drush_write_info_file($name, $data, $destination = NULL) {
  *   - 'machine_name': The machine-readable name of the subtheme.
  *   - 'path': The destination that the subtheme should be placed in relative to
  *     the Drupal omega.
- *   - 'starterkit': The machine-readable name of the starterkit that should be
- *     used for creating the subtheme.
+ *   - 'starterkit': An array describing the starterkit.
  *   - 'default': (optional) Whether the subtheme should be enabled and set as
  *     the default theme after it has been created.
  *   - 'enable': (ptional) Whether the subtheme should be enabled after it has
@@ -519,48 +480,54 @@ function omega_drush_write_info_file($name, $data, $destination = NULL) {
  * @return bool
  *   TRUE if the subtheme could be successfully created, FALSE otherwise.
  */
-function omega_drush_subtheme_create($subtheme) {
+function drush_omega_generate_subtheme($subtheme) {
   // Check whether the destination path does not exist and bail out if it does
   // so we don't delete any important data by accident.
   if (is_dir($subtheme->path)) {
     return drush_set_error('OMEGA_SUBTHEME_PATH', dt('The path @path already exists.', array('@path' => $subtheme->path)));
   }
 
-  $destination = dirname($subtheme->path);
-  if (!is_writable($destination) && !file_prepare_directory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
-    return drush_set_error('OMEGA_SUBTHEME_PATH', dt('The path @path is not writable.', array('@path' => $destination)));
-  }
+  // Create a temporary directory so we don't leave any stale files if an
+  // operation fails.
+  $temporary = drush_op('drush_tempdir'). '/' . $subtheme->name;
 
-  $starterkits = omega_discovery('starterkit', $subtheme->basetheme);
   // Try to copy the starterkit to the destination path of the new subtheme.
-  if (!drush_copy_dir($starterkits[$subtheme->starterkit]['path'], $subtheme->path)) {
-    return drush_set_error('OMEGA_STARTERKIT', t('The starterkit @starterkit could not be copied.', array('@starterkit' => $starterkits[$subtheme->starterkit]['info']['name'])));
+  if (!drush_op('drush_copy_dir', $subtheme->starterkit['path'], $temporary)) {
+    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
   }
 
-  // Convert the .starterkit.inc file to a .info file.
-  $source = $subtheme->path . '/' . basename($starterkits[$subtheme->starterkit]['file']);
-  $destination = $subtheme->path . '/' . $subtheme->machine_name . '.info';
-  drush_move_dir($source, $destination);
+  // Delete the .starterkit.inc file.
+  drush_op('drush_delete_dir', $temporary . '/' . basename($subtheme->starterkit['file']));
+
+  // Parse the contents of the current .info file (provided by the starterkit).
+  $info = $subtheme->starterkit['info'];
+
+  // Put the name and description, as well as a 'dummy' version for the new
+  // subtheme in place.
+  $info['name'] = $subtheme->name;
+  $info['base theme'] = $subtheme->basetheme;
+
+  // Write to the new .info file.
+  $file = $temporary . '/' . $subtheme->machine_name . '.info';
+  if (!file_put_contents($file, drush_omega_compose_info_file($info))) {
+    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
+  }
 
   // Recursively rewrite the file names and contents of all the files that are
   // now in the subtheme's directory to represent the human- and
   // machine-readable names of the subtheme.
   $search = array('{{ THEME }}', '{{ THEMENAME }}');
   $replace = array($subtheme->machine_name, $subtheme->name);
-  omega_drush_rewrite_recursive($subtheme->path, $search, $replace);
+  if (!drush_op('drush_omega_rewrite_recursive', $temporary, $search, $replace)) {
+    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
+  }
 
-  // Parse the contents of the current .info file (provided by the starterkit).
-  $subtheme->info = drupal_parse_info_file($subtheme->path . '/' . $subtheme->machine_name . '.info');
+  // Move the new subtheme to its destination.
+  if (!drush_op('drush_mkdir', dirname($subtheme->path)) || !drush_op('drush_move_dir', $temporary, $subtheme->path)) {
+    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
+  }
 
-  // Put the name and description, as well as a 'dummy' version for the new
-  // subtheme in place.
-  $subtheme->info['name'] = $subtheme->name;
-  $subtheme->info['base theme'] = $subtheme->basetheme;
-
-  // Overwrite the existing .info file with the changed values.
-  omega_drush_write_info_file($subtheme->machine_name, $subtheme->info, $subtheme->path);
-
-  // Rebuild the theme caches so that we can do some final tasks.
+  // Rebuild the theme caches so that  we can do some final tasks.
   drupal_theme_rebuild();
   system_rebuild_theme_data();
 
@@ -583,7 +550,7 @@ function omega_drush_subtheme_create($subtheme) {
  * @return array
  *   An array that contains all the available sites in a multisite environment.
  */
-function omega_drush_sites() {
+function drush_omega_sites() {
   $return = array('all' => 'all', 'default' => 'default');
 
   // Load the available sites (multisite installation) from the sites.php file
@@ -610,7 +577,7 @@ function omega_drush_sites() {
  * @return string
  *   The generated machine-readable name.
  */
-function _omega_drush_generate_theme_name($string) {
+function drush_omega_generate_theme_name($string) {
   // Machine-readable names have to start with a lowercase letter.
   $string = preg_replace('/^[^a-z]+/', '', strtolower($string));
   // Machine-readable names may only contain alphanumeric characters and
