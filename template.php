@@ -101,12 +101,20 @@ function omega_system_info_alter(&$info, $file, $type) {
 
 /**
  * Implements hook_process().
+ *
+ * Added through omega_theme_registry_alter() to synchronize the attributes
+ * array with the classes array.
  */
 function omega_enforce_attributes(&$variables) {
   // Copy over the classes array into the attributes array.
   if (!empty($variables['classes_array'])) {
     $variables['attributes_array']['class'] = !empty($variables['attributes_array']['class']) ? array_merge($variables['attributes_array']['class'], $variables['classes_array']) : $variables['classes_array'];
     $variables['attributes_array']['class'] = array_unique($variables['attributes_array']['class']);
+  }
+
+  // Sync that with the classes array. Remember: We don't recommend using it.
+  if (!empty($variables['attributes_array']['class'])) {
+    $variables['classes_array'] = $variables['attributes_array']['class'];
   }
 }
 
