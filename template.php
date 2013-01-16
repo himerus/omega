@@ -43,11 +43,18 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
     }
   }
 
-  // Rebuild the theme registry / aggregates on every page load if the
-  // development extension is enabled and configured to do so. This also lives
-  // outside of any function declaration to make sure that the code is executed
-  // before any theme hooks.
+  // Managing debugging (flood) messages and a few development tasks. This also
+  // lives outside of any function declaration to make sure that the code is
+  // executed before any theme hooks.
   if (omega_extension_enabled('development') && user_access('administer site configuration')) {
+    if (variable_get('theme_' . $GLOBALS['theme'] . '_settings') && flood_is_allowed('omega_' . $GLOBALS['theme'] . '_theme_settings_warning', 3)) {
+      // Alert the user that the theme settings are served from a variable.
+      flood_register_event('omega_' . $GLOBALS['theme'] . '_theme_settings_warning');
+      drupal_set_message(t('The settings for this theme are currently served from a variable. You might want to export them to your .info file.'), 'warning');
+    }
+
+    // Rebuild the theme registry / aggregates on every page load if the
+    // development extension is enabled and configured to do so.
     if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
       // Rebuild the theme data.
       system_rebuild_theme_data();

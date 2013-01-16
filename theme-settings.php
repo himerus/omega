@@ -18,6 +18,11 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
     return;
   }
 
+  if (variable_get('theme_' . $GLOBALS['theme'] . '_settings')) {
+    // Alert the user that the theme settings are served from a variable.
+    drupal_set_message(t('The settings for this theme are currently served from a variable. You might want to export them to your .info file.'), 'warning', FALSE);
+  }
+
   // Include the template.php and theme-settings.php files for all the themes in
   // the theme trail.
   foreach (omega_theme_trail() as $theme => $name) {
