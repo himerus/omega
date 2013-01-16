@@ -1,5 +1,0 @@
-name = Starterkit
-description = Starterkit for new layouts.
-hidden = TRUE
-
-regions[footer] = Header
