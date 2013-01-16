@@ -225,13 +225,9 @@ function drush_omega_wizard() {
     drush_print(dt("Sorry, I couldn't generate a machine-readable name for @name", array(
       '@name' => $name,
     )));
-
-    $machine_name = drush_omega_require_valid_theme_name(dt('Please enter a machine-readable name for your new theme'));
   }
-  else {
-    // Prompt for a theme name using the automatically generated default.
-    $machine_name = drush_prompt(dt('Please provide a machine-readable name'), $machine_name);
-  }
+  // Prompt for a theme name using the automatically generated default if any.
+  $machine_name = drush_omega_require_valid_theme_name(dt('Please enter a machine-readable name for your new theme'), ($machine_name ? $machine_name : NULL));
 
   // Prompt for a base theme.
   if (!$basetheme = drush_omega_theme_choice(dt('Please choose a base theme for your new theme'))) {
@@ -547,10 +543,10 @@ function drush_omega_destination_choice($message) {
  * @return string
  *   A valid, unique machine-readable name.
  */
-function drush_omega_require_valid_theme_name($message) {
+function drush_omega_require_valid_theme_name($message, $default = NULL) {
   while (TRUE) {
     // Keep prompting for a machine-name until we get an acceptable value.
-    $prompt = drush_prompt($message);
+    $prompt = drush_prompt($message, $default);
 
     if (!preg_match('/^[a-z][a-z0-9_]*$/', $prompt)) {
       drush_print('The machine-readable name is invalid. It may only contain lowercase numbers, letters and underscores and must start with a letter.');
