@@ -1,5 +1,5 @@
-name = {{ THEMENAME }}
-description = Please provide a description for the {{ THEMENAME }} theme.
+name = Default starterkit
+description = Default starterkit for the Omega base theme.
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x

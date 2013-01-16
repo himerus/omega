@@ -32,6 +32,11 @@ function omega_drush_command() {
     'aliases' => array('osub'),
   );
 
+  $items['omega-wizard'] = array(
+    'description' => dt('Guides you through a wizard for generating a subtheme.'),
+    'aliases' => array('owiz'),
+  );
+
   $items['omega-export'] = array(
     'description' => dt('Exports the theme settings of a given theme from the database to the .info file.'),
     'arguments' => array(
@@ -68,6 +73,8 @@ function omega_drush_help($section) {
   switch ($section) {
     case 'drush:omega-subtheme':
       return dt('Generates a subtheme.');
+    case 'drush:omega-wizard':
+      return dt('Guides you through a wizard for generating a subtheme.');
     case 'drush:omega-export':
       return dt('Exports the theme settings of a given theme.');
     case 'drush:omega-revert':
@@ -164,27 +171,7 @@ function drush_omega_subtheme($name = NULL) {
       '@name' => $name,
     )));
 
-    while (!$machine_name) {
-      // Keep prompting for a machine-name until we get an acceptable value.
-      $prompt = drush_prompt(dt('Please enter a machine-readable name for your new theme'));
-
-      if (!preg_match('/^[a-z][a-z0-9_]*$/', $prompt)) {
-        drush_print('The machine-readable name is invalid. It may only contain lowercase numbers, letters and underscores and must start with a letter.');
-      }
-      else {
-        $themes = list_themes();
-        // Validate that the machine-readable name of the theme is unique.
-        if (isset($themes[$prompt])) {
-          drush_print(dt('A theme with the name @name already exists. The machine-readable name must be unique.', array(
-            '@name' => $prompt,
-          )));
-        }
-        else {
-          // The given machine-readable name is valid. Let's proceed.
-          $machine_name = $prompt;
-        }
-      }
-    }
+    $machine_name = drush_omega_require_valid_theme_name(dt('Please enter a machine-readable name for your new theme'));
   }
 
   $basetheme = drush_get_option('basetheme', 'omega');
@@ -199,6 +186,67 @@ function drush_omega_subtheme($name = NULL) {
   $subtheme->starterkit = $starterkits[$starterkit];
   $subtheme->default = (bool) drush_get_option('set-default');
   $subtheme->enable = (bool) ($subtheme->default || drush_get_option('enable'));
+  $subtheme->basetheme = $basetheme;
+
+  if (drush_op('drush_omega_generate_subtheme', $subtheme)) {
+    drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
+      '@theme' => $subtheme->name,
+      '@name' => $subtheme->machine_name,
+      '@path' => dirname($subtheme->path),
+    )), 'success');
+  }
+}
+
+/**
+ * Implements drush_hook_COMMAND().
+ */
+function drush_omega_wizard() {
+  // Rebuild the theme data so that we can safely check for the existance of
+  // themes by using the information provided by list_themes().
+  system_rebuild_theme_data();
+
+  // Prompt for a theme name.
+  $name = drush_prompt(dt('Please enter the name of the new sub-theme'));
+
+  // Try to generate a machine-readable name. If that fails, prompt for one.
+  if (!$machine_name = drush_omega_generate_theme_name($name)) {
+    drush_print(dt("Sorry, I couldn't generate a machine-readable name for @name.", array(
+      '@name' => $name,
+    )));
+
+    $machine_name = drush_omega_require_valid_theme_name(dt('Please enter a machine-readable name for your new theme'));
+  }
+
+  // Prompt for a base theme.
+  if (!$basetheme = drush_omega_theme_choice(dt('Please choose a base theme for your new theme.'))) {
+    return;
+  }
+
+  // Let the user choose a starterkit.
+  if (!$starterkit = drush_omega_starterkit_choice($basetheme, dt('Please choose a starterkit for your new theme.'))) {
+    return;
+  }
+
+  // Let the user choose a destination. == 'Yes'
+  if (!$destination = drush_omega_destination_choice(dt('Please choose a destination. This is where your sub-theme will be placed.'))) {
+    return;
+  }
+  $destination = drush_omega_resolve_destination($destination);
+
+  // Ask some final questions.
+  if ($enable = drush_prompt(dt('Do you want to enable your new theme?'), 'yes') == 'yes') {
+    $default = drush_prompt(dt('Do you want to make your new theme the default theme?'), 'yes') == 'yes';
+  }
+
+  $starterkits = omega_discovery('starterkit', $basetheme);
+
+  $subtheme = new stdClass();
+  $subtheme->name = $name;
+  $subtheme->machine_name = $machine_name;
+  $subtheme->path = $destination . '/' . $subtheme->machine_name;
+  $subtheme->starterkit = $starterkits[$starterkit];
+  $subtheme->default = $default;
+  $subtheme->enable = $enable;
   $subtheme->basetheme = $basetheme;
 
   if (drush_op('drush_omega_generate_subtheme', $subtheme)) {
@@ -239,7 +287,7 @@ function drush_omega_export_validate($theme = NULL) {
  *   TRUE on success, FALSE on failure.
  */
 function drush_omega_export($theme = NULL) {
-  if (!isset($theme) && !$theme = drush_omega_prompt_theme(dt('Which theme do you want to export the theme settings for?'))) {
+  if (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to export the theme settings for?'))) {
     return;
   }
 
@@ -313,7 +361,7 @@ function drush_omega_revert_validate($theme) {
  *   The machine-readable name of a theme.
  */
 function drush_omega_revert($theme = NULL) {
-  if (!isset($theme) && !$theme = drush_omega_prompt_theme(dt('Which theme do you want to revert the theme settings for?'))) {
+  if (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to revert the theme settings for?'))) {
     return;
   }
 
@@ -370,7 +418,7 @@ function drush_omega_resolve_destination($destination) {
 }
 
 /**
- * Helper function for printing a list of available themes.
+ * Helper function for printing a list of available Omega themes.
  *
  * @param $message
  *   The message that should be displayed.
@@ -379,12 +427,132 @@ function drush_omega_resolve_destination($destination) {
  *   The machine-readable name of the chosen theme or FALSE if the operation was
  *   cancelled.
  */
-function drush_omega_prompt_theme($message) {
+function drush_omega_theme_choice($message) {
   $options = array();
   foreach (list_themes() as $key => $info) {
-    $options[$key] = $info->info['name'];
+    $trail = omega_theme_trail($key);
+    if (array_key_exists('omega', $trail)) {
+      $options[$key] = dt('@name (Trail: !trail)', array(
+        '@name' => $info->info['name'],
+        '!trail' => implode(' > ', $trail),
+      ));
+    }
   }
   return drush_choice($options, $message);
+}
+
+/**
+ * Helper function for printing a list of available starterkits.
+ *
+ * @param $basetheme
+ *   The machine-readable name of a basetheme.
+ * @param $message
+ *   The message that should be displayed.
+ *
+ * @return bool|string
+ *   The machine-readable name of the chosen starterkit or FALSE if the
+ *   operation was cancelled.
+ */
+function drush_omega_starterkit_choice($basetheme, $message) {
+  $themes = list_themes();
+  $options = array();
+  foreach (omega_discovery('starterkit', $basetheme) as $key => $info) {
+    $options[$key] = dt('@name (Provided by @provider)', array(
+      '@name' => $info['info']['name'],
+      '@provider' => $themes[$info['theme']]->info['name'],
+    ));
+  }
+  return drush_choice($options, $message);
+}
+
+/**
+ * Helper function that asks for the desired destination of a subtheme.
+ *
+ * @param $message
+ *   The message that should be displayed.
+ *
+ * @return bool|string
+ *   The given destination using the pattern "type:destination"
+ *   (e.g. "site:all") or FALSE if the operation was cancelled.
+ */
+function drush_omega_destination_choice($message) {
+  drush_print($message);
+
+  // Let the user choose a destination.
+  $options = array(
+    'site' => dt("Site (e.g. 'all' or 'example.com')"),
+    'profile' => dt('Installation profile'),
+    'theme' => dt('Parent theme'),
+  );
+
+  if (!$type = drush_choice($options, dt('Please choose a destination type.'))) {
+    return FALSE;
+  }
+
+  switch ($type) {
+    case 'site':
+      if (!$destination = drush_choice(drush_omega_sites(), dt('Please choose a site.'))) {
+        return FALSE;
+      }
+      return 'site:' .  $destination;
+
+    case 'profile':
+      require_once DRUPAL_ROOT . '/includes/install.core.inc';
+
+      $options = array();
+      foreach (install_find_profiles() as $profile) {
+        $info = drupal_parse_info_file(dirname($profile->uri) . '/' . $profile->name . '.info');
+        $options[$profile->name] = $info['name'];
+      }
+
+      if (!$destination = drush_choice($options, dt('Please choose an installation profile.'))) {
+        return FALSE;
+      }
+      return 'profile:' . $destination;
+
+    case 'theme':
+      if (!$destination = drush_choice($options, dt('Please choose an installation profile.'))) {
+        return FALSE;
+      }
+      return 'theme:' . $destination;
+
+    default:
+      return 'site:all';
+  }
+}
+
+
+/**
+ * Helper function that continously prompts for a valid machine-readable name.
+ *
+ * @param $message
+ *   The message that should be displayed.
+ *
+ * @return string
+ *   A valid, unique machine-readable name.
+ */
+function drush_omega_require_valid_theme_name($message) {
+  while (TRUE) {
+    // Keep prompting for a machine-name until we get an acceptable value.
+    $prompt = drush_prompt($message);
+
+    if (!preg_match('/^[a-z][a-z0-9_]*$/', $prompt)) {
+      drush_print('The machine-readable name is invalid. It may only contain lowercase numbers, letters and underscores and must start with a letter.');
+    }
+    else {
+      $themes = list_themes();
+      // Validate that the machine-readable name of the theme is unique.
+      if (isset($themes[$prompt])) {
+        drush_print(dt('A theme with the name @name already exists. The machine-readable name must be unique.', array(
+          '@name' => $prompt,
+        )));
+      }
+      else {
+        // The given machine-readable name is valid. Let's proceed.
+        return $prompt;
+      }
+    }
+  }
 }
 
 /**
