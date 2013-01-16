@@ -587,7 +587,7 @@ function omega_discovery($type, $theme = NULL) {
   $discovery = array();
   $strlen = strlen($type) + 1;
 
-  foreach (array_reverse(omega_theme_trail($theme)) as $key => $label) {
+  foreach (omega_theme_trail($theme) as $key => $label) {
     $path = drupal_get_path('theme', $key);
 
     // Support files without '.inc' extension for backwards compatibilty.
