@@ -222,32 +222,36 @@ function drush_omega_wizard() {
 
   // Try to generate a machine-readable name. If that fails, prompt for one.
   if (!$machine_name = drush_omega_generate_theme_name($name)) {
-    drush_print(dt("Sorry, I couldn't generate a machine-readable name for @name.", array(
+    drush_print(dt("Sorry, I couldn't generate a machine-readable name for @name", array(
       '@name' => $name,
     )));
 
     $machine_name = drush_omega_require_valid_theme_name(dt('Please enter a machine-readable name for your new theme'));
   }
+  else {
+    // Prompt for a theme name using the automatically generated default.
+    $machine_name = drush_prompt(dt('Please provide a machine-readable name'), $machine_name);
+  }
 
   // Prompt for a base theme.
-  if (!$basetheme = drush_omega_theme_choice(dt('Please choose a base theme for your new theme.'))) {
+  if (!$basetheme = drush_omega_theme_choice(dt('Please choose a base theme for your new theme'))) {
     return;
   }
 
   // Let the user choose a starterkit.
-  if (!$starterkit = drush_omega_starterkit_choice($basetheme, dt('Please choose a starterkit for your new theme.'))) {
+  if (!$starterkit = drush_omega_starterkit_choice($basetheme, dt('Please choose a starterkit for your new theme'))) {
     return;
   }
 
   // Let the user choose a destination. == 'Yes'
-  if (!$destination = drush_omega_destination_choice(dt('Please choose a destination. This is where your sub-theme will be placed.'))) {
+  if (!$destination = drush_omega_destination_choice(dt('Please choose a destination. This is where your sub-theme will be placed'))) {
     return;
   }
   $destination = drush_omega_resolve_destination($destination);
 
   // Ask some final questions.
-  if ($enable = drush_prompt(dt('Do you want to enable your new theme?'), 'yes') == 'yes') {
-    $default = drush_prompt(dt('Do you want to make your new theme the default theme?'), 'yes') == 'yes';
+  if ($enable = preg_match('/^[yY]([eE][sS])?$/', drush_prompt(dt('Do you want to enable your new theme?'), 'yes'))) {
+    $default =  preg_match('/^[yY]([eE][sS])?$/', drush_prompt(dt('Do you want to make your new theme the default theme?'), 'yes'));
   }
 
   $starterkits = omega_discovery('starterkit', $basetheme);
@@ -523,7 +527,7 @@ function drush_omega_destination_choice($message) {
       return 'profile:' . $destination;
 
     case 'theme':
-      if (!$destination = drush_choice($options, dt('Please choose an installation profile.'))) {
+      if (!$destination = drush_omega_theme_choice(dt('Please choose a theme.'))) {
         return FALSE;
       }
       return 'theme:' . $destination;
