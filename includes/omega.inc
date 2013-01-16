@@ -326,7 +326,7 @@ function omega_theme_trail_info($element, $merge = TRUE, $theme = NULL) {
 
   // Loop over all themes in the theme trail and look up $element in the .info
   // array.
-  foreach (array_reverse(omega_theme_trail($theme)) as $key => $name) {
+  foreach (omega_theme_trail($theme) as $key => $name) {
     $info = omega_theme_info($key);
 
     // If $merge is TRUE we combine all the results of all themes in the theme
