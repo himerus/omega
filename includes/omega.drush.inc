@@ -92,6 +92,10 @@ function drush_omega_subtheme_validate($name = NULL) {
 
   if ($machine_name = drush_get_option('machine-name')) {
     // Validate the machine-readable name of the theme.
+    if (!is_string($machine_name)) {
+      return drush_set_error('OMEGA_THEME_NAME_INVALID', dt('The --machine-name option expects a string value.'));
+    }
+
     if (!preg_match('/^[a-z][a-z0-9_]*$/', $machine_name)) {
       return drush_set_error('OMEGA_THEME_NAME_INVALID', dt('The machine name (@name) is invalid. It may only contain lowercase numbers, letters and underscores and must start with a letter.', array(
         '@name' => $machine_name,
@@ -109,7 +113,7 @@ function drush_omega_subtheme_validate($name = NULL) {
 
   if ($destination = drush_get_option('destination')) {
     // Check if the syntax of the destination is valid.
-    if (!preg_match('/^(site|theme|profile):[a-z][a-z0-9_]*/', $destination)) {
+    if (!is_string($destination) || !preg_match('/^(site|theme|profile):[a-z][a-z0-9_]*/', $destination)) {
       return drush_set_error('OMEGA_DESTINATION_INVALID', dt('The destination syntax (@destination) is invalid. Please use one of the following destination patterns (site, profile or theme): --destination="site:foo", --destination="profile:bar" or --destination="theme:baz".', array(
         '@destination' => $destination,
       )));
@@ -127,6 +131,10 @@ function drush_omega_subtheme_validate($name = NULL) {
   }
 
   if ($basetheme = drush_get_option('basetheme')) {
+    if (!is_string($basetheme)) {
+      return drush_set_error('OMEGA_BASETHEME_INVALID', dt('The --basetheme option expects a string value.'));
+    }
+
     // Check if the base theme exists.
     if (!array_key_exists($basetheme, list_themes())) {
       return drush_set_error('OMEGA_BASETHEME_DOES_NOT_EXIST', dt('The base theme @basetheme does not exist or is invalid.', array(
@@ -143,6 +151,10 @@ function drush_omega_subtheme_validate($name = NULL) {
   }
 
   if ($starterkit = drush_get_option('starterkit')) {
+    if (!is_string($starterkit)) {
+      return drush_set_error('OMEGA_STARTERKIT_INVALID', dt('The --starterkit option expects a string value.'));
+    }
+
     $basetheme = drush_get_option('basetheme', 'omega');
 
     // Check if the starterkit exists.
