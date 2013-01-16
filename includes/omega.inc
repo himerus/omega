@@ -584,31 +584,64 @@ function omega_theme_libraries_info($theme = NULL) {
  *   An array containing the discovered definitions.
  */
 function omega_discovery($type, $theme = NULL) {
-  $discovery = array();
-  $strlen = strlen($type) + 1;
+  $discovery = &drupal_static(__FUNCTION__, array());
+  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
 
-  foreach (omega_theme_trail($theme) as $key => $label) {
-    $path = drupal_get_path('theme', $key);
+  if (!isset($discovery[$theme][$type])) {
+    $discovery[$theme][$type] = array();
 
-    // Support files without '.inc' extension for backwards compatibilty.
-    foreach (file_scan_directory($path, '/\.' . $type . '(\.inc)?$/', array('key' => 'name')) as $name => $file) {
-      if (substr($name, -$strlen) === '.' . $type) {
-        $name = substr($name, 0, strlen($name) - $strlen);
+    // Retrieve all themes from the theme trail of the given theme.
+    $trail = omega_theme_trail($theme);
+
+    // Collect paths to all sub-themes grouped by base themes. These will be
+    // used for filtering. This allows base themes to have sub-themes in its
+    // folder hierarchy without affecting the base themes template discovery.
+    $paths = array();
+    foreach ($trail as $key => $info) {
+      $info = system_get_info('theme', $key);
+      if (!empty($info->base_theme)) {
+        $paths[$info->base_theme][$info->name] = dirname($info->filename);
       }
+    }
+    foreach ($paths as $basetheme => $subthemes) {
+      foreach ($subthemes as $subtheme => $path) {
+        if (isset($paths[$subtheme])) {
+          $paths[$basetheme] = array_merge($paths[$basetheme], $paths[$subtheme]);
+        }
+      }
+    }
 
-      if ($info = drupal_parse_info_file($file->uri)) {
-        $discovery[$name] = array(
-          'name' => $name,
-          'path' => dirname($file->uri),
-          'file' => $file->uri,
-          'info' => $info,
-          'theme' => $key,
-        );
+    $strlen = strlen($type) + 1;
+    foreach ($trail as $key => $label) {
+      // Retrieve the array of paths that should be ignored for this theme.
+      $ignore = isset($paths[$key]) ? $paths[$key] : array();
+      $path = drupal_get_path('theme', $key);
+
+      // Support files without '.inc' extension for backwards compatibilty.
+      foreach (file_scan_directory($path, '/\.' . $type . '(\.inc)?$/', array('key' => 'name')) as $name => $file) {
+        // Ignore sub-theme templates for the current theme.
+        if (strpos($file->uri, str_replace($ignore, '', $file->uri)) !== 0) {
+          continue;
+        }
+
+        if (substr($name, -$strlen) === '.' . $type) {
+          $name = substr($name, 0, strlen($name) - $strlen);
+        }
+
+        if ($info = drupal_parse_info_file($file->uri)) {
+          $discovery[$theme][$type][$name] = array(
+            'name' => $name,
+            'path' => dirname($file->uri),
+            'file' => $file->uri,
+            'info' => $info,
+            'theme' => $key,
+          );
+        }
       }
     }
   }
 
-  return $discovery;
+  return $discovery[$theme][$type];
 }
 
 /**
