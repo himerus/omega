@@ -25,9 +25,10 @@ function omega_drush_command() {
       'set-default' => dt('Automatically enable the subtheme after creation and make it the default theme.'),
     ),
     'examples' => array(
-      'drush omega-subtheme "My Theme"' => dt('Creates a Omega subtheme called "My Theme".'),
-      'drush omega-subtheme "My Theme" --destination=site:example.com' => dt('Creates a Omega subtheme called "My Theme" in sites/example.com/themes.'),
-      'drush omega-subtheme "My Theme" --starterkit=my_custom_starterkit' => dt('Uses a custom starterkit to create a Omega subtheme called "My Theme" in sites/all/themes (default).'),
+      'drush omega-subtheme "My Theme"' => dt('Creates an Omega subtheme called "My Theme".'),
+      'drush omega-subtheme "My Theme" --destination=site:example.com' => dt('Creates an Omega subtheme called "My Theme" in sites/example.com/themes.'),
+      'drush omega-subtheme "My Theme" --basetheme=my_custom_basetheme' => dt('Uses the default starterkit from a custom basetheme to create an Omega subtheme called "My Theme" in sites/all/themes.'),
+      'drush omega-subtheme "My Theme" --basetheme=my_custom_basetheme --starterkit=my_custom_starterkit' => dt('Uses the my_custom_starterkit from a custom basetheme to create an Omega subtheme called "My Theme" in sites/all/themes.'),
     ),
     'aliases' => array('osub'),
   );
