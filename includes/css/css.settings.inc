@@ -63,11 +63,11 @@ function omega_class_rules_element_validate($element, &$form_state) {
   foreach ($values as $rule) {
     if (!preg_match('/^(\+|-)([a-z_]+)(:([a-z_])*)?\[(([a-z\-]+|(\*(?!\*))|\[[a-zA-Z0-9_# ]+(:[a-zA-Z0-9_# ]+)*\])+)\]$/', $rule, $matches)) {
       // The class rule doesn't match the regex pattern.
-      form_error($element, t('At least one of te provided class rules is invalid: @rule.', array('@rule' => $rule)), $form_state);
+      form_error($element, t('At least one of the provided class rules is invalid: @rule.', array('@rule' => $rule)), $form_state);
     }
     elseif ($matches[1] == '+' && strpos($rule, '*') !== FALSE) {
       // 'Add' rules don't support wildcards of course.
-      form_error($element, t("Wildcards (asterix characters) are not supported by 'add' (+) rules: @rule.", array('@rule' => $rule)), $form_state);
+      form_error($element, t("Wildcards (asterisk characters) are not supported by 'add' (+) rules: @rule.", array('@rule' => $rule)), $form_state);
     }
   }
 }

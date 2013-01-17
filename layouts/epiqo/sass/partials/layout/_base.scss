@@ -14,7 +14,7 @@ body {
 }
 
 // Implements the major building blocks as grid containers. By setting the
-// max-width we make sure that the website doesn't scale infinitly.
+// max-width we make sure that the website doesn't scale infinitely.
 .main, .topbar, .region-navigation, .footer-container .region, .region-search, .region-banner {
   @include grid-container;
 }

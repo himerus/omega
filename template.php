@@ -255,7 +255,7 @@ function omega_theme() {
  *
  * Allows subthemes to split preprocess / process / theme code across separate
  * files to keep the main template.php file clean. This is really fast because
- * it uses the theme registry to cache the pathes to the files that it finds.
+ * it uses the theme registry to cache the paths to the files that it finds.
  */
 function omega_theme_registry_alter(&$registry) {
   foreach ($registry as $hook => $item) {

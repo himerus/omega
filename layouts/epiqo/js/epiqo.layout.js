@@ -68,7 +68,7 @@ Drupal.behaviors.epiqoMobileSidebar = {
         }
       });
 
-      // Hide the sidebar when the area outside of it is clicked.http://drupaljobs.local.dev
+      // Hide the sidebar when the area outside of it is clicked.
       $('#main').click(function (e) {
         if ($('body').hasClass('show-sidebar') && $(e.srcElement).attr('id') != 'sidebar-first-container' && !$(e.srcElement).parents('#sidebar-first-container').length) {
           // Check if the clicked element is the sidebar or a child element of

@@ -87,7 +87,7 @@ function omega_drush_help($section) {
  * Implements drush_hook_COMMAND_validate().
  */
 function drush_omega_subtheme_validate($name = NULL) {
-  // Rebuild the theme data so that we can safely check for the existance of
+  // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
 
@@ -214,7 +214,7 @@ function drush_omega_subtheme($name = NULL) {
  * Implements drush_hook_COMMAND().
  */
 function drush_omega_wizard() {
-  // Rebuild the theme data so that we can safely check for the existance of
+  // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
 
@@ -275,7 +275,7 @@ function drush_omega_wizard() {
  * Implements drush_hook_COMMAND_validate().
  */
 function drush_omega_export_validate($theme = NULL) {
-  // Rebuild the theme data so that we can safely check for the existance of
+  // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
 
@@ -335,7 +335,7 @@ function drush_omega_export($theme = NULL) {
     if (drush_get_option('revert')) {
       // Revert the theme settings if the 'revert' option is set and they have
       // been exported successfully. In this case, we invoke the API function
-      // through the drush command to get the  print messages displazed.
+      // through the drush command to display the messages.
       drush_op('drush_omega_revert', $theme);
     }
 
@@ -351,7 +351,7 @@ function drush_omega_export($theme = NULL) {
  * Implements drush_hook_COMMAND_validate().
  */
 function drush_omega_revert_validate($theme) {
-  // Rebuild the theme data so that we can safely check for the existance of
+  // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
 
@@ -536,7 +536,7 @@ function drush_omega_destination_choice($message) {
 
 
 /**
- * Helper function that continously prompts for a valid machine-readable name.
+ * Helper function that continuously prompts for a valid machine-readable name.
  *
  * @param $message
  *   The message that should be displayed.
@@ -672,7 +672,7 @@ function drush_omega_compose_info_file($array, $prefix = FALSE) {
  *   - 'starterkit': An array describing the starterkit.
  *   - 'default': (optional) Whether the subtheme should be enabled and set as
  *     the default theme after it has been created.
- *   - 'enable': (ptional) Whether the subtheme should be enabled after it has
+ *   - 'enable': (optional) Whether the subtheme should be enabled after it has
  *     been created.
  *
  * @return bool
