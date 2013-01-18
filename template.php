@@ -290,19 +290,22 @@ function omega_theme() {
 
 /**
  * Implements hook_theme_registry_alter().
- *
- * Allows subthemes to split preprocess / process / theme code across separate
- * files to keep the main template.php file clean. This is really fast because
- * it uses the theme registry to cache the paths to the files that it finds.
  */
 function omega_theme_registry_alter(&$registry) {
+  // We prefer the attributes array instead of the plain classes array used by
+  // many core and contrib modules. In Drupal 8, we are going to convert all
+  // occurances of that into an attributes object. For now, we simply
+  // synchronize our attributes array with the classes array to encourage
+  // themers to use it.
   foreach ($registry as $hook => $item) {
     if (empty($item['base hook']) && !isset($item['function'])) {
       array_unshift($registry[$hook]['process functions'], 'omega_enforce_attributes');
     }
   }
 
-  // Register theme hook and function implementations from
+  // Allow themers to split preprocess / process / theme code across separate
+  // files to keep the main template.php file clean. This is really fast because
+  // it uses the theme registry to cache the paths to the files that it finds.
   foreach (omega_theme_trail() as $key => $theme) {
     foreach (array('preprocess', 'process', 'theme') as $type) {
       $path = drupal_get_path('theme', $key);
@@ -380,16 +383,6 @@ function omega_theme_registry_alter(&$registry) {
   // comments for JavaScript files.
   if (($index = array_search('template_process_html', $registry['html']['process functions'], TRUE)) !== FALSE) {
     array_splice($registry['html']['process functions'], $index, 1, 'omega_template_process_html_override');
-  }
-
-  foreach ($registry as $hook => $item) {
-    if (empty($item['base hook'])) {
-      foreach (array('preprocess', 'process') as $type) {
-        if (!empty($item[$type . ' functions'])) {
-          $registry[$hook][$type . ' functions'][] = 'omega_transfer_classes';
-        }
-      }
-    }
   }
 
   // Fix for integration with the theme developer module.
