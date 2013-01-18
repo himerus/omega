@@ -191,20 +191,12 @@ function omega_css_alter(&$css) {
     ),
   );
 
-  // Themes may opt-out from overrides via 'oldschool' in their .info file.
-  $oldschool = omega_theme_trail_info('oldschool');
-
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
   $types = path_is_admin(current_path()) ? array('base', 'theme', 'admin') : array('base', 'theme');
 
   // Override module provided CSS with clean and modern alternatives provided
   // by Omega.
   foreach ($overrides as $module => $files) {
-    // Themes can opt-out from overrides by declaring oldschool[$module] = FALSE
-    // in their .info file.
-    if (isset($oldschool[$module]) && $oldschool[$module] === TRUE) {
-      continue;
-    }
 
     // We gathered the CSS files with paths relative to the providing module.
     $module = drupal_get_path('module', $module);
