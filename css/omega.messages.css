@@ -1,24 +1,24 @@
 @charset "UTF-8";
-/* line 50, ../sass/omega/utility/_messages.scss */
+/* line 4, ../sass/omega.messages.scss */
 div.messages {
   position: relative;
 }
 
-/* line 54, ../sass/omega/utility/_messages.scss */
+/* line 8, ../sass/omega.messages.scss */
 .close-message {
   text-shadow: none;
   position: absolute;
   right: .4em;
-  top: -0.2em;
+  top: -.2em;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.3);
 }
-/* line 62, ../sass/omega/utility/_messages.scss */
+/* line 16, ../sass/omega.messages.scss */
 .close-message:before {
   font-size: 1.4em;
   content: "×";
 }
-/* line 67, ../sass/omega/utility/_messages.scss */
+/* line 21, ../sass/omega.messages.scss */
 .close-message:hover, .close-message:focus, .close-message:active {
   color: #000;
 }

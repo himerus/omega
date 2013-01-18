@@ -24,8 +24,7 @@ javascripts_dir = "js"
 # Require any additional compass plugins installed on your system.
 require 'rgbapng'
 require 'susy'
-#require 'stitch'
-#require 'compass-normalize'
+require 'respond-to'
 
 ##
 ## You probably don't need to edit anything below this.
@@ -48,7 +47,3 @@ relative_assets = true
 # Pass options to sass. For development, we turn on the FireSass-compatible
 # debug_info if the firesass config variable above is true.
 sass_options = (environment == :development && firesass == true) ? {:debug_info => true} : {}
-
-# Add the root partials folder as import path so we don't have to build the
-# relative paths.
-add_import_path "../../sass"
