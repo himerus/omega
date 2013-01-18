@@ -153,9 +153,7 @@ function omega_element_info_alter(&$elements) {
  * - #1216972: Clean up the CSS for Color module.
  */
 function omega_css_alter(&$css) {
-  if (omega_extension_enabled('css') && $exclude = omega_theme_get_setting('omega_css_exclude', array())) {
-    omega_exclude_assets($css, $exclude);
-  }
+  $omega = drupal_get_path('theme', 'omega');
 
   // The CSS_SYSTEM aggregation group doesn't make any sense. Therefore, we are
   // pre-pending it to the CSS_DEFAULT group. This has the same effect as giving
@@ -168,35 +166,75 @@ function omega_css_alter(&$css) {
     }
   }
 
-  $omega = drupal_get_path('theme', 'omega');
+  // Clean up core and contrib module CSS.
+  $overrides = array(
+    'aggregator' => array(
+      'aggregator.css' => array(
+        'theme' => 'aggregator.theme.css',
+      ),
+      'aggregator-rtl.css' => array(
+        'theme' => 'aggregator.theme-rtl.css',
+      ),
+    ),
+    'block' => array(
+      'block.css' => array(
+        'admin' => 'block.admin.css',
+      ),
+    ),
+    'color' => array(
+      'color.css' => array(
+        'admin' => 'color.admin.css',
+      ),
+      'color-rtl.css' => array(
+        'admin' => 'color.admin-rtl.css',
+      ),
+    ),
+  );
 
-  // The following code as well as the included .css files were copied from Sam
-  // Richard's (Snugug) fabulous Aurora Base Theme - Huge props to him and his
-  // team... Thanks!
+  // Themes may opt-out from overrides via 'oldschool' in their .info file.
+  $oldschool = omega_theme_trail_info('oldschool');
 
-  // Swap out aggregator.css with the aggregator.theme.css provided by this
-  // theme.
-  $aggregator = drupal_get_path('module', 'aggregator');
-  if (isset($css[$aggregator . '/aggregator.css'])) {
-    $css[$aggregator . '/aggregator.css']['data'] = $omega . '/aggregator/aggregator.theme.css';
-  }
-  if (isset($css[$aggregator . '/aggregator-rtl.css'])) {
-    $css[$aggregator . '/aggregator-rtl.css']['data'] = $omega . '/aggregator/aggregator.theme-rtl.css';
+  // Check if we are on an admin page. Otherwise, we can skip admin CSS.
+  $types = path_is_admin(current_path()) ? array('base', 'theme', 'admin') : array('base', 'theme');
+
+  // Override module provided CSS with clean and modern alternatives provided
+  // by Omega.
+  foreach ($overrides as $module => $files) {
+    // Themes can opt-out from overrides by declaring oldschool[$module] = FALSE
+    // in their .info file.
+    if (isset($oldschool[$module]) && $oldschool[$module] === TRUE) {
+      continue;
+    }
+
+    // We gathered the CSS files with paths relative to the providing module.
+    $module = drupal_get_path('module', $module);
+
+    foreach ($files as $file => $items) {
+      if (isset($css[$module . '/' . $file])) {
+        // Keep a copy of the original file array so we can merge that with our
+        // overrides in order to keep the 'weight' and 'group' declarations.
+        $original = $css[$module . '/' . $file];
+        unset($css[$module . '/' . $file]);
+
+        // Omega 4.x tries to follow the pattern described in
+        // http://drupal.org/node/1089868 for declaring CSS files. Therefore, it
+        // may take more than a single file to override a .css file added by
+        // core. This gives us better granularity when overriding .css files
+        // in a sub-theme.
+        foreach ($types as $type) {
+          if (isset($items[$type])) {
+            $css[$omega . '/css/aggregator/' . $items[$type]] = array(
+              'data' => $omega . '/css/aggregator/' . $items[$type],
+            ) + $original;
+          }
+        }
+      }
+    }
   }
 
-  // Swap out block.css with the block.admin.css provided by this theme.
-  $block = drupal_get_path('module', 'block');
-  if (isset($css[$block . '/block.css'])) {
-    $css[$block . '/block.css']['data'] = $omega . '/block/block.admin.css';
-  }
-
-  // Swap out color.css with the color.admin.css provided by this theme.
-  $color = drupal_get_path('module', 'color');
-  if (isset($css[$color . '/color.css'])) {
-    $css[$color . '/color.css']['data'] = $omega . '/color/color.admin.css';
-  }
-  if (isset($css[$color . '/color-rtl.css'])) {
-    $css[$color . '/color-rtl.css']['data'] = $omega . '/color/color.admin-rtl.css';
+  // Exclude CSS files as declared in the theme settings.
+  if (omega_extension_enabled('css') && $exclude = omega_theme_get_setting('omega_css_exclude', array())) {
+    omega_exclude_assets($css, $exclude);
   }
 }
 
