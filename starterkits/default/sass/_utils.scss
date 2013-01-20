@@ -1,6 +1,7 @@
 //******************************************************************************
-// style.scss
+// _utils.scss
 //
-// This file shouldn't directly contain any CSS code, instead it only serves to 
-// combine the CSS contained in other Sass partials through @import directives. 
+// Global Sass variables and mixins should be defined here along with importing
+// any Sass extentions required. These can then be accessed by importing 
+// _utils.scss where required.
 //******************************************************************************
