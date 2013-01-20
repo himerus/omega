@@ -56,7 +56,7 @@ function omega_theme_get_setting($setting_name, $default = NULL, $theme = NULL) 
     }
   }
 
-  // Use the default value if the settingdoes not exist.
+  // Use the default value if the setting does not exist.
   return $default;
 }
 
@@ -571,7 +571,7 @@ function omega_theme_libraries_info($theme = NULL) {
 }
 
 /**
- * Helper function for discovering layouts, extensions or other pluggins of any
+ * Helper function for discovering layouts, extensions or other plugins of any
  * sort in the theme trail.
  *
  * @param $type
@@ -617,7 +617,7 @@ function omega_discovery($type, $theme = NULL) {
       $ignore = isset($paths[$key]) ? $paths[$key] : array();
       $path = drupal_get_path('theme', $key);
 
-      // Support files without '.inc' extension for backwards compatibilty.
+      // Support files without '.inc' extension for backwards compatibility.
       foreach (file_scan_directory($path, '/\.' . $type . '(\.inc)?$/', array('key' => 'name')) as $name => $file) {
         // Ignore sub-theme templates for the current theme.
         if (strpos($file->uri, str_replace($ignore, '', $file->uri)) !== 0) {
@@ -648,7 +648,7 @@ function omega_discovery($type, $theme = NULL) {
  * Checks whether a version is compatible with a given dependency.
  *
  * This is a wrapper for drupal_check_incompatibility() which strips the core
- * version and any potential development version suffix fron the given string.
+ * version and any potential development version suffix from the given string.
  *
  * @param $dependency
  *   The parsed dependency structure from drupal_parse_dependency().
