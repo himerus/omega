@@ -101,10 +101,10 @@ The file structure contained in this folder looks something like this:
         styleguide should be completely styled.
 
     *   _layout.scss
-        The layout of the regions (usually, but not necessarily Drupal regions)
-        components will be added to.
+        The layout of the major regions (usually, but not necessarily Drupal
+        regions) that components will be added to.
 
     *   _components.scss
-        Imports more partials that contain full components and their 
+        Imports more partials that contain full components and their
         sub-components ('modules' in SMACSS) that can be placed within the 
         layout provided by _layout.scss.
