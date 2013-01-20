@@ -1,7 +1,17 @@
-//******************************************************************************
+//------------------------------------------------------------------------------
 // _utils.scss
 //
-// Global Sass variables and mixins should be defined here along with importing
-// any Sass extentions required. These can then be accessed by importing 
-// _utils.scss where required.
-//******************************************************************************
+// Sass offers come very useful features, these include variables functions and 
+// mixins. Extentions such as Compass and Susy can also be used to provide extra
+// functions and mixins to be used throught the theme. This file acts as a 
+// single place for defining these things, which can then be accessed by 
+// importing _utils.scss where required. The following should be defined in this
+// file:
+// - Custom Sass mixins for this theme.
+// - Custom Sass functions for this theme.
+// - Overriding the default variables profided by extentions such as Compass.
+// - Defining new variables for:
+//      - Colors.
+//      - Font sizes and families.
+//      - Layout and grid sizing.
+//------------------------------------------------------------------------------
