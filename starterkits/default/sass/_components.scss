@@ -1,8 +1,9 @@
 /*******************************************************************************
  * _components.scss
  *
- * Imports more partials that contain full components and their sub-components
- * ('modules' in SMACSS) that can be placed within the layout provided by
- * _layout.scss.
+ * Imports more partials that contain full components (modules in SMACSS).
+ *
+ * Components are discrete parts of your page that should sit within regions of
+ * your layouts.
  ******************************************************************************/
 @import "_utils.scss";
