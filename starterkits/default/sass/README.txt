@@ -31,8 +31,9 @@ Compass extensions
 ==================
 There are many extensions available for Compass. You can install and use as many
 of them together or just a single one depending on your use-case. Good examples
-for useful Compass extensions are "susy" (a responsive grid framework) or
-"compass-rgbapng" (a rgba() .png file generator) but there are many more.
+for useful Compass extensions are "susy" (a responsive grid framework
+[http://susy.oddbird.net/]) or "compass-rgbapng" (a rgba() .png file generator)
+but there are many more.
 
 Setting up and using Sass and Compass
 =====================================
@@ -51,8 +52,8 @@ Any additional library can be installed in the same way:
 $ gem install compass-rgbapng
 $ gem install susy
 
-Once you have set up your environment you can navigation to the folder that
-holds your config.rb file.
+Once you have set up your environment you can navigate to the folder that holds
+your config.rb file.
 
 The config.rb file is the configuration file that helps Sass and Compass to
 understand your environment. For example, it defines which folder your .scss
@@ -66,7 +67,7 @@ $ compass watch
 
 You can also clear and recompile your .css manually:
 
-$ compass clear
+$ compass clean
 $ compass compile
 
 The barebones CSS structure provided in this starterkit uses many of the ideas
@@ -74,12 +75,13 @@ discussed in Jonathan Snook's SMACSS (http://smacss.com/) and is intended to
 provide a starting point for building modular, scalable CSS using Sass and
 Drupal.
 
-Multiple Sass partials are used to help organise the styles, these are combined
-by including them in style.scss which is compiled into style.css in the css/
-directory.
+Multiple Sass partials are used to help organise the styles, these are combined 
+by including them in style.scss which is compiled into style.css in the css/ 
+directory. By separating our Sass into a file and folder structure makes finding
+the correct code much easier than scrolling through a large file.
 
-All styles are included in order of specificity, this means that  as you go
-down the document  each section builds upon and inherits sensibly from the
+All styles are included in order of specificity, this means that as you go
+down the document each section builds upon and inherits sensibly from the
 previous ones. This results in less undoing of styles, less specificity
 problems and all-round better architected and lighter stylesheets.
 
@@ -92,13 +94,13 @@ The file structure contained in this folder looks something like this:
 
     *   _utils.scss
         Global Sass variables and mixins should be defined here along with
-        importing any Sass extentions required. These can then be accessed by
-        importing _utils.scss where required.
+        importing any Sass extentions required. These can then be accessed by 
+        importing _utils.scss where needed.
 
-    *   _base.scss
-        These rules are the "Branding" of a site also describe how common HTML
-        and Drupal elements should look. Once this file is completed the site's
-        styleguide should be completely styled.
+    *   _base.scss 
+        These rules are the "Branding" of a theme also describe how common HTML
+        and Drupal elements should look. Once this file is completed the
+        themes's styleguide should be completely styled.
 
     *   _layout.scss
         The layout of the major regions (usually, but not necessarily Drupal
