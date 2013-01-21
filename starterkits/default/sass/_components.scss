@@ -28,12 +28,12 @@
  * - Blocks
  * - Content Types - For example, you may have a generic node component that
  *      contains sub-components for the submitted by line and links. Specific
- *      components can then be created for each content type so style the
+ *      components can then be created for each content type to style the
  *      specifics of each. Finally, by using entity view modes you can easily
  *      apply modifications based on the .node-[view-mode] classes.
  * - Forms - For instance the log in form.
- * - Views - Each view style can be made into a component, then the content of
- *      each row should be provided my a view mode styled by it's component CSS.
- *      Exposed filter forms, views pagers and other views elements are also
- *      good candidates for components.
+ * - Views - Each views output style could be made into a component, the content
+ *       of each row should be provided my a view mode styled by it's component
+ *       CSS. Exposed filter forms, views pagers and other views elements are
+ *       also good candidates for components.
  ******************************************************************************/
