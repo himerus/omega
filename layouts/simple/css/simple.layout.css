@@ -93,9 +93,9 @@
    * Sidebars
    */
   /* line 70, ../sass/simple.layout.scss */
-  .sidebar-first .content,
-  .sidebar-second .content,
-  .two-sidebars .content {
+  .sidebar-first [role="main"],
+  .sidebar-second [role="main"],
+  .two-sidebars [role="main"] {
     width: 66.10169%;
     float: left;
     margin-right: 1.69492%;
@@ -158,7 +158,7 @@
    * Sidebars
    */
   /* line 105, ../sass/simple.layout.scss */
-  .sidebar-first .content {
+  .sidebar-first [role="main"] {
     width: 74.68354%;
     float: right;
     margin-right: 0;
@@ -171,7 +171,7 @@
   }
 
   /* line 113, ../sass/simple.layout.scss */
-  .sidebar-second .content {
+  .sidebar-second [role="main"] {
     width: 74.68354%;
     float: left;
     margin-right: 1.26582%;
@@ -185,7 +185,7 @@
   }
 
   /* line 123, ../sass/simple.layout.scss */
-  .two-sidebars .content {
+  .two-sidebars [role="main"] {
     width: 49.36709%;
     float: left;
     margin-right: 1.26582%;

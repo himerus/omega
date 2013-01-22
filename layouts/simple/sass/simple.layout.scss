@@ -67,7 +67,7 @@ $desk   : 70em 16; // At 70em use 16 columns.
   .sidebar-first,
   .sidebar-second,
   .two-sidebars {
-    .content {
+    [role="main"] {
       @include span-columns(8, 12); // Span 8 out of 12 columns.
     }
     .region-sidebar-first,
@@ -102,7 +102,7 @@ $desk   : 70em 16; // At 70em use 16 columns.
    * Sidebars
    */
   .sidebar-first {
-    .content {
+    [role="main"] {
       @include span-columns(12 omega, 16); // Span the last (omega) 12 columns of 16.
     }
     .region-sidebar-first {
@@ -110,7 +110,7 @@ $desk   : 70em 16; // At 70em use 16 columns.
     }
   }
   .sidebar-second {
-    .content {
+    [role="main"] {
       @include span-columns(12, 16); // Span 12 out of 16 columns.
     }
     .region-sidebar-second {
@@ -120,7 +120,7 @@ $desk   : 70em 16; // At 70em use 16 columns.
   }
 
   .two-sidebars {
-    .content {
+    [role="main"] {
       @include span-columns(8, 16); // Span 12 out of 16 columns.
       @include push(4, 16);  // Push element by adding 4 out of 16 columns of left margin.
     }
