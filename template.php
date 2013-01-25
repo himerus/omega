@@ -215,8 +215,8 @@ function omega_css_alter(&$css) {
         // in a sub-theme.
         foreach ($types as $type) {
           if (isset($items[$type])) {
-            $css[$omega . '/css/aggregator/' . $items[$type]] = array(
-              'data' => $omega . '/css/aggregator/' . $items[$type],
+            $css[$omega . '/css/' . $module . '/' . $items[$type]] = array(
+              'data' => $omega . '/css/' . $module . '/' . $items[$type],
             ) + $original;
           }
         }
