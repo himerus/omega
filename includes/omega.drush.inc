@@ -23,6 +23,7 @@ function omega_drush_command() {
       'basetheme' => dt('Specifies a custom base theme. Defaults to "omega".'),
       'enable' => dt('Automatically enable the subtheme after creation.'),
       'set-default' => dt('Automatically enable the subtheme after creation and make it the default theme.'),
+      'no-readme' => dt('Skips readme files when generating the subtheme.'),
     ),
     'examples' => array(
       'drush omega-subtheme "My Theme"' => dt('Creates an Omega subtheme called "My Theme".'),
@@ -200,6 +201,7 @@ function drush_omega_subtheme($name = NULL) {
   $subtheme->default = (bool) drush_get_option('set-default');
   $subtheme->enable = (bool) ($subtheme->default || drush_get_option('enable'));
   $subtheme->basetheme = $basetheme;
+  $subtheme->readme = (bool) !drush_get_option('no-readme');
 
   if (drush_op('drush_omega_generate_subtheme', $subtheme)) {
     drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
@@ -246,7 +248,10 @@ function drush_omega_wizard() {
   }
   $destination = drush_omega_resolve_destination($destination);
 
-  // Ask some final questions.
+  // Optionally skip readme files when generating the subtheme.
+  $readme = preg_match('/^[yY]([eE][sS])?$/', drush_prompt(dt('Do you want to include keep the readme files that are included in the starterkit?'), 'yes'));
+
+  // Finally, let the user choose to directly enable the subtheme.
   if ($enable = preg_match('/^[yY]([eE][sS])?$/', drush_prompt(dt('Do you want to enable your new theme?'), 'yes'))) {
     $default =  preg_match('/^[yY]([eE][sS])?$/', drush_prompt(dt('Do you want to make your new theme the default theme?'), 'yes'));
   }
@@ -261,6 +266,7 @@ function drush_omega_wizard() {
   $subtheme->default = $default;
   $subtheme->enable = $enable;
   $subtheme->basetheme = $basetheme;
+  $subtheme->readme = $readme;
 
   if (drush_op('drush_omega_generate_subtheme', $subtheme)) {
     drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
@@ -709,6 +715,13 @@ function drush_omega_generate_subtheme($subtheme) {
   $file = $temporary . '/' . $subtheme->machine_name . '.info';
   if (!file_put_contents($file, drush_omega_compose_info_file($info))) {
     return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
+  }
+
+  // Optionally remove README.txt files.
+  if (!$subtheme->readme) {
+    foreach (file_scan_directory($temporary, '/^README\.txt$/') as $file) {
+      drush_op('drush_delete_dir', $file->uri);
+    }
   }
 
   // Recursively rewrite the file names and contents of all the files that are
