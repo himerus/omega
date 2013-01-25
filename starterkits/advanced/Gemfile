@@ -1,0 +1,5 @@
+group :development do
+  gem 'guard-livereload'
+  gem 'rb-inotify', '~> 0.8.8'
+  source 'https://rubygems.org'
+end
