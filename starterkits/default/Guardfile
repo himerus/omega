@@ -1,0 +1,6 @@
+# Set up livereload to watch for all .css file changes in the /css folder
+# of the theme.
+
+guard 'livereload' do
+  watch(%r{^css/.+\.css$})
+end
