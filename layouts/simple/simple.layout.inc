@@ -1,6 +1,8 @@
 name = Simple
 description = A simple 3 column layout demonstrating mobile first and Susy.
+preview = preview.png
 
+; Regions
 regions[header]         = Header
 regions[navigation]     = Navigation bar
 regions[highlighted]    = Highlighted
@@ -10,6 +12,5 @@ regions[sidebar_first]  = First sidebar
 regions[sidebar_second] = Second sidebar
 regions[footer]         = Footer
 
+; Stylesheets
 stylesheets[all][] = css/simple.layout.css
-
-preview = preview.png
