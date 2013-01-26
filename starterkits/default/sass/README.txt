@@ -72,7 +72,7 @@ $ compass compile
 
 Barebones Sass Structure
 ========================
-The barebones CSS structure provided in this starterkit uses many of the ideas 
+The barebones CSS structure provided in this starterkit uses many of the ideas
 discussed in Jonathan Snook's SMACSS (http://smacss.com/) and is intended to
 provide a starting point for building modular, scalable CSS using Sass and
 Drupal.
@@ -110,5 +110,5 @@ The file structure contained in this folder looks something like this:
  
     *   _components.scss
         Imports more partials that contain full components and their 
-        sub-components ('modules' in SMACSS) that can be placed within the 
+        sub-components ('modules' in SMACSS) that can be placed within the
         layout provided by _layout.scss.
