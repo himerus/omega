@@ -10,28 +10,25 @@
  * Variables
  **********************************/
 /**
- * Set consistant vertical and horizontal spacing units.
+ * Set consistent vertical and horizontal spacing units.
  */
-$vert-spacing-unit  : 20px;
-$horz-spacing-unit  : 1.2em;
-
+$vert-spacing-unit: 20px;
+$horz-spacing-unit: 1.2em;
 
 /**
  * Define Susy grid variables mobile first.
  */
-$total-columns  : 4;
-$column-width   : 4em;
-$gutter-width   : 1em;
-$grid-padding   : 2.5%;
+$total-columns: 4;
+$column-width: 4em;
+$gutter-width: 1em;
+$grid-padding: 5px;
 
-$container-style: fluid;
-$container-width: 95%;
+$container-style: magic;
+$container-width: 1200px;
 
 // Susy Media Layouts @see http://susy.oddbird.net/guides/reference/#ref-media-layouts
-$tab    : 44em 12; // At 44em use 12 columns.
-$desk   : 70em 16; // At 70em use 16 columns.
-
-
+$tab: 44em 12; // At 44em use 12 columns.
+$desk: 70em 16; // At 70em use 16 columns.
 
 .header,
 .main,
@@ -41,9 +38,7 @@ $desk   : 70em 16; // At 70em use 16 columns.
   margin-bottom: $vert-spacing-unit;
 }
 
-@include at-breakpoint($tab) { // At a given Susy Media Layout, use a given amount of columns.   
-  $container-width: 90%; // Change the container width at tablet breakpoint.
-
+@include at-breakpoint($tab) { // At a given Susy Media Layout, use a given amount of columns.
   .header,
   .main,
   .footer {
@@ -61,9 +56,6 @@ $desk   : 70em 16; // At 70em use 16 columns.
     clear: both;
   }
 
-  /*
-   * Sidebars
-   */
   .sidebar-first,
   .sidebar-second,
   .two-sidebars {
@@ -80,10 +72,7 @@ $desk   : 70em 16; // At 70em use 16 columns.
   }
 }
 
-
 @include at-breakpoint($desk) {
-  $container-width: 80%; // Change the container width at tablet breakpoint.
-
   .header,
   .main,
   .footer {
@@ -98,9 +87,6 @@ $desk   : 70em 16; // At 70em use 16 columns.
     @include span-columns(10 omega, 16); // Span the last (omega) 10 columns of 16.
   }
 
-  /*
-   * Sidebars
-   */
   .sidebar-first {
     [role="main"] {
       @include span-columns(12 omega, 16); // Span the last (omega) 12 columns of 16.
