@@ -96,6 +96,8 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
  */
 function omega_system_info_alter(&$info, $file, $type) {
   if ($type == 'theme' && array_key_exists('omega', omega_theme_trail($file->name))) {
+    // Backup the original list of regions.
+    $info['original regions'] = $info['regions'];
     foreach (omega_layouts_info($file->name) as $layout) {
       foreach ($layout['info']['regions'] as $region => $description) {
         if (!isset($info['regions'][$region])) {
@@ -419,19 +421,27 @@ function omega_template_process_html_override(&$variables) {
 
 /**
  * Implements hook_block_list_alter().
- *
- * Effectively hides the main content block on the front page if the theme
- * settings are configured that way.
  */
 function omega_block_list_alter(&$blocks) {
-  if (omega_extension_enabled('layouts') && $layout = omega_layout()) {
-    foreach ($blocks as $key => $block) {
-      if (!array_key_exists($block->region, $layout['info']['regions'])) {
-        unset($blocks[$key]);
+  // Remove all blocks that we don't have a region for.
+  if (omega_extension_enabled('layouts')) {
+    if ($layout = omega_layout()) {
+      $regions = $layout['info']['regions'];
+    }
+    else {
+      $info = system_get_info('theme', $GLOBALS['theme']);
+      $regions = $info['original regions'];
+    }
+
+    foreach ($blocks as $id => $block) {
+      if (!array_key_exists($block->region, $regions)) {
+        unset($blocks[$id]);
       }
     }
   }
 
+  // Hide the main content block on the front page if the theme settings are
+  // configured that way.
   if (!omega_theme_get_setting('omega_toggle_front_page_content', TRUE) && drupal_is_front_page()) {
     foreach ($blocks as $key => $block) {
       if ($block->module == 'system' && $block->delta == 'main') {
