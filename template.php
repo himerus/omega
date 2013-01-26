@@ -109,7 +109,7 @@ function omega_system_info_alter(&$info, $file, $type) {
 }
 
 /**
- * Implements hook_process().
+ * Enforces attribute arrays instead of simple class arrays.
  *
  * Added through omega_theme_registry_alter() to synchronize the attributes
  * array with the classes array.
@@ -199,7 +199,6 @@ function omega_css_alter(&$css) {
   // Override module provided CSS with clean and modern alternatives provided
   // by Omega.
   foreach ($overrides as $module => $files) {
-
     // We gathered the CSS files with paths relative to the providing module.
     $module = drupal_get_path('module', $module);
 
@@ -423,16 +422,26 @@ function omega_template_process_html_override(&$variables) {
  * Implements hook_block_list_alter().
  */
 function omega_block_list_alter(&$blocks) {
-  // Remove all blocks that we don't have a region for.
+  // We merged the regions of the theme with the regions from all the layouts
+  // in the omega_system_info_alter(). Hence, while building the list of blocks
+  // to be rendered we have to make sure that we don't invoke blocks that will
+  // never be shown because the active layout or page template does not even
+  // have a region for them.
   if (omega_extension_enabled('layouts')) {
     if ($layout = omega_layout()) {
+      // If we serve an Omega layout on the current page we simply need to check
+      // against the regions of that particular layout.
       $regions = $layout['info']['regions'];
     }
     else {
+      // For any non-layout page though, we need to compare against the original
+      // regions of the theme itself which we stored a 'original regions' backup
+      // for in omega_system_info_alter().
       $info = system_get_info('theme', $GLOBALS['theme']);
       $regions = $info['original regions'];
     }
 
+    // Remove all blocks that we don't have a region for.
     foreach ($blocks as $id => $block) {
       if (!array_key_exists($block->region, $regions)) {
         unset($blocks[$id]);
@@ -476,9 +485,6 @@ function omega_override_overlay_deliver_empty_page() {
 
 /**
  * Implements hook_page_alter().
- *
- * Look for the last block in the region. This is impossible to determine from
- * within a preprocess_block function.
  */
 function omega_page_alter(&$page) {
   // Look in each visible region for blocks.

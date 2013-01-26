@@ -70,6 +70,8 @@ You can also clear and recompile your .css manually:
 $ compass clean
 $ compass compile
 
+Barebones Sass Structure
+========================
 The barebones CSS structure provided in this starterkit uses many of the ideas
 discussed in Jonathan Snook's SMACSS (http://smacss.com/) and is intended to
 provide a starting point for building modular, scalable CSS using Sass and
@@ -107,6 +109,6 @@ The file structure contained in this folder looks something like this:
         regions) that components will be added to.
 
     *   _components.scss
-        Imports more partials that contain full components and their
-        sub-components ('modules' in SMACSS) that can be placed within the 
+        Imports more partials that contain full components and their 
+        sub-components ('modules' in SMACSS) that can be placed within the
         layout provided by _layout.scss.
