@@ -13,6 +13,3 @@ regions[sidebar_second] = Second Sidebar
 
 ; Stylesheets
 stylesheets[all][] = css/epiqo.layout.css
-
-; Scripts
-scripts[] = js/epiqo.layout.js
