@@ -299,7 +299,12 @@ function omega_theme_registry_alter(&$registry) {
   // Allow themers to split preprocess / process / theme code across separate
   // files to keep the main template.php file clean. This is really fast because
   // it uses the theme registry to cache the paths to the files that it finds.
-  foreach (omega_theme_trail() as $key => $theme) {
+  $trail = omega_theme_trail();
+  foreach ($trail as $key => $theme) {
+    // Remove the current element from the trail so we only iterate over
+    // higher level themes during subsequent checks.
+    unset($trail[$key]);
+
     foreach (array('preprocess', 'process', 'theme') as $type) {
       $path = drupal_get_path('theme', $key);
       // Only look for files that match the 'something.preprocess.inc' pattern.
@@ -313,38 +318,72 @@ function omega_theme_registry_alter(&$registry) {
       foreach (file_scan_directory($path . '/' . $type, $mask) as $item) {
         $hook = strtr(substr($item->name, 0, $strlen), '-', '_');
 
-        if (array_key_exists($hook, $registry)) {
-          // Template files override theme functions.
-          if (($type == 'theme' && isset($registry[$hook]['template']))) {
-            continue;
+        // If there is no hook with that name, continue.
+        if (!array_key_exists($hook, $registry)) {
+          continue;
+        }
+
+        // Name of the function (theme hook or theme function).
+        $function = $type == 'theme' ? $key . '_' . $hook : $key . '_' . $type . '_' . $hook;
+
+        // Make sure we don't run into any fatal errors by including any
+        // include file for a (pre)process or theme function if the same hook
+        // has already been implemented in template.php or anywhere else.
+        if (($type == 'theme' && isset($registry[$hook]['function']) && $registry[$hook]['function'] == $function) || ($type != 'theme' && in_array($function, $registry[$hook][$type . ' functions']))) {
+          // Notify the administrator about this clash through watchdog.
+          watchdog('omega', 'There are two declarations of %function in the %theme theme for the %hook %type hook. Therefore, the include file %file was skipped.', array(
+            '%function' => $function,
+            '%theme' => $theme,
+            '%hook' => $hook,
+            '%type' => $type,
+            '%file' => $item->name,
+          ));
+
+          continue;
+        }
+
+        // Furthermore, we don't want to re-override sub-theme template file or
+        // theme function overrides with theme functions from include files
+        // defined in a lower-level base theme. Without this check this would
+        // happen because our alter hook runs after the template file and theme
+        // function discovery logic from Drupal core (theme engine).
+        if ($type == 'theme' && $key != $GLOBALS['theme'] && in_array($registry[$hook]['type'], array('base_theme_engine', 'theme_engine'))) {
+          // Now we know that there is a template file or theme function
+          // override that has been defined somewhere in the theme trail. Now
+          // we need to check if the declaration of that function or template
+          // file lives further down the theme trail than the function we are
+          // currently looking it.
+          foreach ($trail as $subkey => $subtheme) {
+            if ($registry[$hook]['theme path'] == drupal_get_path('theme', $subkey)) {
+              continue(2);
+            }
           }
+        }
 
-          // Name of the function (theme hook or theme function).
-          $function = $type == 'theme' ? $key . '_' . $hook : $key . '_' . $type . '_' . $hook;
+        // Load the file once so we can check if the function exists.
+        require_once $item->uri;
 
-          // Load the file once so we can check if the function exists.
-          require_once $item->uri;
+        // Proceed if the callback doesn't exist.
+        if (!function_exists($function)) {
+          continue;
+        }
 
-          // Proceed if the callback doesn't exist.
-          if (!function_exists($function)) {
-            continue;
-          }
+        // By adding this file to the 'includes' array we make sure that it is
+        // available when the hook is executed.
+        $registry[$hook]['includes'][] = $item->uri;
 
-          // By adding this file to the 'includes' array we make sure that it is
-          // available when the hook is executed.
-          $registry[$hook]['includes'][] = $item->uri;
+        if ($type == 'theme') {
+          $registry[$hook]['type'] = $key == $GLOBALS['theme'] ? 'theme_engine' : 'base_theme_engine';
+          $registry[$hook]['theme path'] = $path;
 
-          if ($type == 'theme') {
-            $registry[$hook]['type'] = $key == $GLOBALS['theme'] ? 'theme_engine' : 'base_theme_engine';
-            $registry[$hook]['theme path'] = $path;
-
-            // Replace the theme function.
-            $registry[$hook]['function'] = $function;
-          }
-          else {
-            // Append the included preprocess hook to the array of functions.
-            $registry[$hook][$type . ' functions'][] = $function;
-          }
+          // Inject our theme function. We will leave any potential 'template'
+          // declarations in the registry as they don't hurt us anyways
+          // because drupal gives precedence to theme functions.
+          $registry[$hook]['function'] = $function;
+        }
+        else {
+          // Append the included preprocess hook to the array of functions.
+          $registry[$hook][$type . ' functions'][] = $function;
         }
       }
     }
