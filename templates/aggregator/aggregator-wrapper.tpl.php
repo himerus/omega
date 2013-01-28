@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Default theme implementation to wrap aggregator content.
+ * Omega's implementation to wrap aggregator content.
  *
  * Available variables:
  * - $content: All aggregator content.
