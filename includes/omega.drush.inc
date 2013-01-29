@@ -474,8 +474,9 @@ function drush_omega_starterkit_choice($basetheme, $message) {
   $themes = list_themes();
   $options = array();
   foreach (omega_discovery('starterkit', $basetheme) as $key => $info) {
-    $options[$key] = dt('@name (Provided by @provider)', array(
+    $options[$key] = dt('@name: !description (Provided by @provider)', array(
       '@name' => $info['info']['name'],
+      '!description' => isset($info['info']['description']) ? $info['info']['description'] : dt('No description'),
       '@provider' => $themes[$info['theme']]->info['name'],
     ));
   }
@@ -701,13 +702,12 @@ function drush_omega_generate_subtheme($subtheme) {
   // Delete the .starterkit.inc file.
   drush_op('drush_delete_dir', $temporary . '/' . basename($subtheme->starterkit['file']));
 
-  // Parse the contents of the current .info file (provided by the starterkit).
-  $info = $subtheme->starterkit['info'];
-
-  // Put the name and description, as well as a 'dummy' version for the new
-  // subtheme in place.
-  $info['name'] = $subtheme->name;
-  $info['base theme'] = $subtheme->basetheme;
+  // Put the name and description for the new subtheme in place.
+  $info = array(
+    'name' => $subtheme->name,
+    'description' => 'Please provide a description for your theme.',
+    'base theme' => $subtheme->basetheme,
+  ) + $subtheme->starterkit['info'];
 
   // Write to the new .info file.
   $file = $temporary . '/' . $subtheme->machine_name . '.info';

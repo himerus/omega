@@ -1,5 +1,5 @@
-name = Default starterkit
-description = Default starterkit for the Omega base theme.
+name = Default
+description = This is a short description for the Default starterkit.
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
