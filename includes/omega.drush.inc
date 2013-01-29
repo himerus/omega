@@ -356,7 +356,7 @@ function drush_omega_export($theme = NULL) {
 /**
  * Implements drush_hook_COMMAND_validate().
  */
-function drush_omega_revert_validate($theme) {
+function drush_omega_revert_validate($theme = NULL) {
   // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
