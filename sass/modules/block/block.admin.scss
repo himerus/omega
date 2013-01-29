@@ -1,0 +1,44 @@
+@import "compass";
+
+/* Blocks Admin Page */
+.blocks-admin {
+  .region-title {
+    font-weight: bold;
+  }
+  .region-message {
+    font-weight: normal;
+    color: #999;
+  }
+  .region-populated {
+    display: none;
+  }
+}
+
+/* Block Demo Page */
+.block-region {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 3px;
+  background-color: #ff6;
+}
+.block-demo-backlink,
+.block-demo-backlink:link,
+.block-demo-backlink:visited {
+  /* Position */
+  position: fixed;
+  z-index: 499;
+  left: 20px; /* LTR */
+  /* Box Model */
+  padding: 5px 10px;
+  /* Font */
+  color: #000;
+  font-family: "Lucida Grande", Verdana, sans-serif;
+  font-size: small;
+  line-height: 20px;
+  /* Other Declarations */
+  background-color: #B4D7F0;
+  @include border-radius(0 0 10px 10px);
+}
+.block-demo-backlink:hover {
+  text-decoration: underline;
+}

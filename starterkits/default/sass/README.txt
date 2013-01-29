@@ -95,12 +95,9 @@ All styles are included in order of specificity, this means that as you go
 down the document each section builds upon and inherits sensibly from the
 previous ones. This results in less undoing of styles, less specificity
 problems and all-round better architected and lighter stylesheets.
->>>>>>> Fixed some typos and spelling mistakes in the startkit's Sass docs.
->>>>>>> Fixed some typos and spelling mistakes in the startkit's Sass docs.
 
 The file structure contained in this folder looks something like this:
-
-    *   style.scss
+    *   styles.scss
         This file shouldn't directly contain any CSS code, instead
         it only serves to combine the CSS contained in other Sass partials
         through @import directives.
@@ -109,14 +106,6 @@ The file structure contained in this folder looks something like this:
         Global Sass variables and mixins should be defined here along with
         importing any Sass extensions required. These can then be accessed by
         importing _utils.scss where required.
-
-    *   _base.scss
-        These rules are the "Branding" of a site also describe how common HTML
-        and Drupal elements should look. Once this file is completed the site's
-        styleguide should be completely styled.
-
-        importing any Sass extensions required. These can then be accessed by
-        importing _utils.scss where needed.
 
     *   _base.scss
         These rules are the "Branding" of a theme also describe how common HTML

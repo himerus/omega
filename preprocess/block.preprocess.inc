@@ -4,7 +4,7 @@
  * Implements hook_preprocess_block().
  */
 function omega_preprocess_block(&$variables) {
-  $variables['content_attributes_array']['class'][] = 'content';
+  $variables['content_attributes_array']['class'][] = 'block__content';
 
   if (!empty($variables['block_html_id'])) {
     $variables['attributes_array']['id'] = $variables['block_html_id'];
@@ -27,7 +27,7 @@ function omega_preprocess_block(&$variables) {
   }
 
   $variables['attributes_array']['class'][] = $variables['block_zebra'];
-  $variables['title_attributes_array']['class'][] = 'block-title';
+  $variables['title_attributes_array']['class'][] = 'block__title';
 
   // Add Aria Roles via attributes.
   switch ($variables['block']->module) {
