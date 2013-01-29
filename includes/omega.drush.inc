@@ -249,11 +249,11 @@ function drush_omega_wizard() {
   $destination = drush_omega_resolve_destination($destination);
 
   // Optionally skip readme files when generating the subtheme.
-  $readme = preg_match('/^[yY]([eE][sS])?$/', drush_prompt(dt("Do you want to keep the starterkit's readme files?"), 'yes'));
+  $readme = drush_confirm(dt("Do you want to keep the starterkit's readme files?"));
 
   // Finally, let the user choose to directly enable the subtheme.
-  if ($enable = preg_match('/^[yY]([eE][sS])?$/', drush_prompt(dt('Do you want to enable your new theme?'), 'yes'))) {
-    $default =  preg_match('/^[yY]([eE][sS])?$/', drush_prompt(dt('Do you want to make your new theme the default theme?'), 'yes'));
+  if ($enable = drush_confirm(dt('Do you want to enable your new theme?'))) {
+    $default =  drush_confirm(dt('Do you want to make your new theme the default theme?'));
   }
 
   $starterkits = omega_discovery('starterkit', $basetheme);
