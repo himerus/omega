@@ -1,23 +1,6 @@
 @import "rgbapng";
 @import "compass";
 
-@media all and (max-width: 800px) {
-  .region-page-top, .region-page-bottom {
-    display: none;
-  }
-
-  #toolbar, #admin-menu {
-    display: none;
-  }
-
-  html {
-    body.toolbar, body.admin-menu {
-      padding-top: 0 !important;
-      margin-top: 0 !important;
-    }
-  }
-}
-
 .omega-browser-width {
   @include border-radius(5px);
   @include rgba-background(rgba(0, 0, 0, 0.75));
@@ -30,14 +13,25 @@
   color: #fff;
   max-width: 100%;
   margin: 5px;
-  line-height: 30px;
   padding: 5px 10px;
-  float: left;
 }
 
-.omega-dummy-block {
-  background-color: #ff6;
-  clear: both;
-  margin: 1em 0;
-  padding: 1em;
+.region--debug {
+  background-color: rgba(0, 0, 0, .1);
+  position: relative;
+  min-height: 29px;
+  outline: 1px dashed #ccc;
+
+  &:before {
+    @include border-radius(3px);
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+    font-size: 11px;
+    z-index: 50;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 3px 6px;
+    color: #fff;
+    background: rgba(#077dc3, .75);
+  }
 }

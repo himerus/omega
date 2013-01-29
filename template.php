@@ -541,18 +541,21 @@ function omega_page_alter(&$page) {
     }
   }
 
-  if (omega_extension_enabled('development') && omega_theme_get_setting('omega_dummy_blocks', TRUE) && user_access('administer site configuration')) {
+  // Place dummy blocks in each region if the 'demo regions' setting is active
+  // to force regions to be rendered.
+  if (omega_extension_enabled('development') && omega_theme_get_setting ('omega_demo_regions', TRUE) && user_access('administer site configuration')) {
     $item = menu_get_item();
 
     // Don't interfere with the 'Demonstrate block regions' page.
-    if ($item['path'] != 'admin/structure/block/demo/' . $GLOBALS['theme']) {
+    if (strpos('admin/structure/block/demo/', $item['path']) !== 0) {
       foreach (system_region_list($GLOBALS['theme'], REGIONS_VISIBLE) as $region => $name) {
         if (empty($page[$region])) {
           $page[$region]['#theme_wrappers'] = array('region');
           $page[$region]['#region'] = $region;
         }
 
-        $page[$region]['dummy']['#markup'] = '<div class="omega-dummy-block">' . $name . '</div>';
+        $page[$region]['#name'] = $name;
+        $page[$region]['#debug'] = TRUE;
       }
     }
   }

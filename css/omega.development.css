@@ -2,31 +2,14 @@
   Mixins are slightly modified from Benjamin Doherty's first implementations: http://gist.github.com/377912
   rgba-background mixin can now be passed an option $dir variable
 */
-@media all and (max-width: 800px) {
-  /* line 5, ../sass/omega.development.scss */
-  .region-page-top, .region-page-bottom {
-    display: none;
-  }
-
-  /* line 9, ../sass/omega.development.scss */
-  #toolbar, #admin-menu {
-    display: none;
-  }
-
-  /* line 14, ../sass/omega.development.scss */
-  html body.toolbar, html body.admin-menu {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-  }
-}
-/* line 21, ../sass/omega.development.scss */
+/* line 4, ../sass/omega.development.scss */
 .omega-browser-width {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
-  background: url('../images/rgbapng/000000bf.png?1358501013');
+  background: url('../images/rgbapng/000000bf.png?1359453178');
   background: rgba(0, 0, 0, 0.75);
   z-index: 1000;
   position: fixed;
@@ -37,15 +20,30 @@
   color: #fff;
   max-width: 100%;
   margin: 5px;
-  line-height: 30px;
   padding: 5px 10px;
-  float: left;
 }
 
-/* line 38, ../sass/omega.development.scss */
-.omega-dummy-block {
-  background-color: #ff6;
-  clear: both;
-  margin: 1em 0;
-  padding: 1em;
+/* line 19, ../sass/omega.development.scss */
+.region--debug {
+  background-color: rgba(0, 0, 0, 0.1);
+  position: relative;
+  min-height: 29px;
+  outline: 1px dashed #cccccc;
+}
+/* line 25, ../sass/omega.development.scss */
+.region--debug:before {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  font-size: 11px;
+  z-index: 50;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  padding: 3px 6px;
+  color: #fff;
+  background: rgba(7, 125, 195, 0.75);
 }

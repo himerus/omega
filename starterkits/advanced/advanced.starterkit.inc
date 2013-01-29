@@ -6,4 +6,5 @@ core = 7.x
 
 ; Styles
 stylesheets[all][] = css/reset.css
+stylesheets[all][] = css/hacks.css
 stylesheets[all][] = css/styles.css

@@ -5,7 +5,7 @@
  */
 Drupal.behaviors.omegaBrowserWidth = {
   attach: function (context, settings) {
-    $('body.omega-browser-width-indicator', context).once('omega-browser-width', function (){
+    $('body', context).once('omega-browser-width', function (){
       var $indicator = $('<div class="omega-browser-width" />').appendTo(this);
 
       // Bind to the window.resize event to continuously update the width.

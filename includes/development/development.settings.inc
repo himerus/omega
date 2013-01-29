@@ -30,11 +30,11 @@ function omega_extension_development_settings_form($element, &$form, $form_state
     '#default_value' => omega_theme_get_setting('omega_browser_width_indicator', FALSE),
   );
 
-  $element['omega_dummy_blocks'] = array(
+  $element['omega_demo_regions'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Dummy blocks'),
-    '#description' => t('Places dummy blocks in all (otherwise empty) regions.'),
-    '#default_value' => omega_theme_get_setting('omega_dummy_blocks', TRUE),
+    '#title' => t('Demo Regions'),
+    '#description' => t('Forces all regions to be rendered, regardless of whether they are empty or not places a label with their name on them.'),
+    '#default_value' => omega_theme_get_setting('omega_demo_regions', TRUE),
   );
 
   return $element;
