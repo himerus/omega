@@ -451,10 +451,8 @@ function drush_omega_theme_choice($message) {
   foreach (list_themes() as $key => $info) {
     $trail = omega_theme_trail($key);
     if (array_key_exists('omega', $trail)) {
-      $options[$key] = dt('@name (Trail: !trail)', array(
-        '@name' => $info->info['name'],
-        '!trail' => implode(' > ', $trail),
-      ));
+      $parent = count($trail) > 1 ? array_slice($trail, -2, 1) : FALSE;
+      $options[$key] = $info->info['name'] . ($parent ? ' (' . dt('Subtheme of @parent', array('@parent' => reset($parent))) . ')' : '');
     }
   }
   return drush_choice($options, $message);
