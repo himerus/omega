@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Default theme implementation to display a block.
+ * Omega's implementation to display a block.
  *
  * Available variables:
  * - $block->subject: Block title.
