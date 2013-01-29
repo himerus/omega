@@ -181,6 +181,7 @@ function omega_css_alter(&$css) {
     'block' => array(
       'block.css' => array(
         'admin' => 'block.admin.css',
+        'demo' => 'block.demo.css',
       ),
     ),
     'color' => array(
@@ -194,7 +195,10 @@ function omega_css_alter(&$css) {
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
-  $types = path_is_admin(current_path()) ? array('base', 'theme', 'admin') : array('base', 'theme');
+  $path = current_path();
+  $types = path_is_admin($path) ? array('base', 'theme', 'admin') : array('base', 'theme');
+  // Add a special case for the block demo page.
+  $types = strpos($path, 'admin/structure/block/demo') === 0 ? array_merge($types, array('demo')) : $types;
 
   // Override module provided CSS with clean and modern alternatives provided
   // by Omega.
