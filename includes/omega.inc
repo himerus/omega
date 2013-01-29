@@ -527,7 +527,7 @@ function omega_layout() {
   if (!isset($cache)) {
     $cache = FALSE;
     // Load the default layout from the theme settings.
-    $layout = omega_theme_get_setting('omega_layout', 'epiqo');
+    $layout = omega_theme_get_setting('omega_layout', 'simple');
     drupal_alter('omega_layout', $layout);
 
     $registry = theme_get_registry();

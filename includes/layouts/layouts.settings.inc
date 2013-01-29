@@ -14,7 +14,7 @@ function omega_extension_layouts_settings_form($element, &$form, $form_state) {
       '#type' => 'radios',
       '#options' => array(),
       '#title' => t('Choose a layout'),
-      '#default_value' => omega_theme_get_setting('omega_layout', 'epiqo'),
+      '#default_value' => omega_theme_get_setting('omega_layout', 'simple'),
     );
 
     foreach ($layouts as $layout => $info) {
