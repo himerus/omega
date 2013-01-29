@@ -754,26 +754,23 @@ function drush_omega_generate_subtheme($subtheme) {
 }
 
 /**
- * Retrieve an array of available sites from the sites.php.
+ * Retrieve an array of available sites.
  *
  * @return array
  *   An array that contains all the available sites in a multisite environment.
  */
 function drush_omega_sites() {
-  $return = array('all' => 'all', 'default' => 'default');
-
-  // Load the available sites (multisite installation) from the sites.php file
-  // if it exists.
-  if (file_exists(DRUPAL_ROOT . '/sites/sites.php')) {
-    include DRUPAL_ROOT . '/sites/sites.php';
-
-    if (isset($sites)) {
-      $return = array_merge($return, $sites);
+  $sites = array();
+  // Look up the available sites by iterating over the contents of the sites
+  // directory.
+  $files = new DirectoryIterator(DRUPAL_ROOT . '/sites');
+  foreach ($files as $file) {
+    if ($file->isDir() && !$file->isDot()) {
+      $name = $file->getFileName();
+      $sites[$name] = $name;
     }
   }
-
-  // The 'all' and 'default' destinations are always available.
-  return $return;
+  return $sites;
 }
 
 /**
