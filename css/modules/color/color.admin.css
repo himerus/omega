@@ -1,0 +1,124 @@
+/**
+ * @file
+ * Stylesheet for the administration pages of the Color module.
+ */
+/* Farbtastic placement */
+/* line 8, ../../../sass/modules/color/color.admin.scss */
+.color-form {
+  max-width: 50em;
+  position: relative;
+}
+
+/* line 12, ../../../sass/modules/color/color.admin.scss */
+#placeholder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* LTR */
+}
+
+/* Palette */
+/* line 19, ../../../sass/modules/color/color.admin.scss */
+.color-form .form-item {
+  height: 2em;
+  line-height: 2em;
+  padding-left: 1em;
+  /* LTR */
+  margin: 0.5em 0;
+}
+
+/* line 25, ../../../sass/modules/color/color.admin.scss */
+.color-form label {
+  float: left;
+  /* LTR */
+  clear: left;
+  /* LTR */
+  width: 10em;
+}
+
+/* line 31, ../../../sass/modules/color/color.admin.scss */
+.color-form .form-text,
+.color-form .form-select {
+  float: left;
+  /* LTR */
+}
+
+/* line 34, ../../../sass/modules/color/color.admin.scss */
+.color-form .form-text {
+  text-align: center;
+  margin-right: 5px;
+  /* LTR */
+  cursor: pointer;
+}
+
+/* line 40, ../../../sass/modules/color/color.admin.scss */
+#palette .hook {
+  float: left;
+  /* LTR */
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+}
+
+/* line 48, ../../../sass/modules/color/color.admin.scss */
+#palette .down,
+#palette .up,
+#palette .both {
+  background: url(images/hook.png) no-repeat 100% 0;
+  /* LTR */
+}
+
+/* line 51, ../../../sass/modules/color/color.admin.scss */
+#palette .up {
+  background-position: 100% -27px;
+  /* LTR */
+}
+
+/* line 54, ../../../sass/modules/color/color.admin.scss */
+#palette .both {
+  background-position: 100% -54px;
+  /* LTR */
+}
+
+/* line 58, ../../../sass/modules/color/color.admin.scss */
+#palette .lock {
+  float: left;
+  /* LTR */
+  position: relative;
+  top: -1.4em;
+  left: -10px;
+  /* LTR */
+  width: 20px;
+  height: 25px;
+  background: url(images/lock.png) no-repeat 50% 2px;
+  cursor: pointer;
+}
+
+/* line 68, ../../../sass/modules/color/color.admin.scss */
+#palette .unlocked {
+  background-position: 50% -22px;
+}
+
+/* line 71, ../../../sass/modules/color/color.admin.scss */
+#palette .form-item {
+  width: 20em;
+}
+
+/* line 74, ../../../sass/modules/color/color.admin.scss */
+#palette .item-selected {
+  background: #eee;
+}
+
+/* Preview */
+/* line 79, ../../../sass/modules/color/color.admin.scss */
+#preview {
+  display: none;
+}
+
+/* line 82, ../../../sass/modules/color/color.admin.scss */
+html.js #preview {
+  display: block;
+  position: relative;
+  float: left;
+  /* LTR */
+}

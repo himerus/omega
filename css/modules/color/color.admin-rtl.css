@@ -1,0 +1,67 @@
+/**
+ * @file
+ * Right-to-left specific stylesheet for the Color module.
+ */
+/* line 6, ../../../sass/modules/color/color.admin-rtl.scss */
+#placeholder {
+  left: 0;
+  right: auto;
+}
+
+/* Palette */
+/* line 12, ../../../sass/modules/color/color.admin-rtl.scss */
+.color-form .form-item {
+  padding-left: 0;
+  padding-right: 1em;
+}
+
+/* line 16, ../../../sass/modules/color/color.admin-rtl.scss */
+.color-form label {
+  float: right;
+  clear: right;
+}
+
+/* line 21, ../../../sass/modules/color/color.admin-rtl.scss */
+.color-form .form-text,
+.color-form .form-select {
+  float: right;
+}
+
+/* line 24, ../../../sass/modules/color/color.admin-rtl.scss */
+.color-form .form-text {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+/* line 28, ../../../sass/modules/color/color.admin-rtl.scss */
+#palette .hook {
+  float: right;
+}
+
+/* line 33, ../../../sass/modules/color/color.admin-rtl.scss */
+#palette .down,
+#palette .up,
+#palette .both {
+  background: url(images/hook-rtl.png) no-repeat 0 0;
+}
+
+/* line 36, ../../../sass/modules/color/color.admin-rtl.scss */
+#palette .up {
+  background-position: 0 -27px;
+}
+
+/* line 39, ../../../sass/modules/color/color.admin-rtl.scss */
+#palette .both {
+  background-position: 0 -54px;
+}
+
+/* line 42, ../../../sass/modules/color/color.admin-rtl.scss */
+#palette .lock {
+  float: right;
+  right: -10px;
+}
+
+/* line 46, ../../../sass/modules/color/color.admin-rtl.scss */
+html.js #preview {
+  float: right;
+}
