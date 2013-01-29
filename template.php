@@ -526,8 +526,10 @@ function omega_override_overlay_deliver_empty_page() {
  * Implements hook_page_alter().
  */
 function omega_page_alter(&$page) {
+  $regions = system_region_list($GLOBALS['theme_key'], REGIONS_VISIBLE);
+
   // Look in each visible region for blocks.
-  foreach (system_region_list($GLOBALS['theme'], REGIONS_VISIBLE) as $region => $name) {
+  foreach ($regions as $region => $name) {
     if (!empty($page[$region])) {
       // Find the last block in the region.
       $blocks = array_reverse(element_children($page[$region]));
@@ -548,7 +550,9 @@ function omega_page_alter(&$page) {
 
     // Don't interfere with the 'Demonstrate block regions' page.
     if (strpos('admin/structure/block/demo/', $item['path']) !== 0) {
-      foreach (system_region_list($GLOBALS['theme'], REGIONS_VISIBLE) as $region => $name) {
+      $configured = omega_theme_get_setting('omega_demo_regions_list', $regions);
+
+      foreach (array_intersect_key($regions, array_flip($configured)) as $region => $name) {
         if (empty($page[$region])) {
           $page[$region]['#theme_wrappers'] = array('region');
           $page[$region]['#region'] = $region;
