@@ -170,6 +170,15 @@ function omega_css_alter(&$css) {
         'demo' => 'block.demo.css',
       ),
     ),
+    'book' => array(
+      'book.css' => array(
+        'theme' => 'book.theme.css',
+        'admin' => 'book.admin.css',
+      ),
+      'book-rtl.css' => array(
+        'theme' => 'book.theme-rtl.css',
+      ),
+    ),
     'color' => array(
       'color.css' => array(
         'admin' => 'color.admin.css',
