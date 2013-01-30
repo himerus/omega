@@ -249,6 +249,14 @@ function omega_js_alter(&$js) {
 }
 
 /**
+ * Implements hook_form_alter().
+ */
+function omega_form_alter(&$form, &$form_state, $form_id) {
+  // Duplicate the form ID as a class so we can reduce spececifity in our CSS.
+  $form['#attributes']['class'][] = drupal_clean_css_identifier($form_id);
+}
+
+/**
  * Implements hook_theme().
  */
 function omega_theme() {
