@@ -221,6 +221,11 @@ function omega_css_alter(&$css) {
         'admin' => 'field_ui.admin-rtl.css',
       ),
     ),
+    'file' => array(
+      'file.css' => array(
+        'theme' => 'file.theme.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.

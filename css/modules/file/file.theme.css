@@ -1,0 +1,28 @@
+/**
+ * @file
+ * Admin stylesheet for file module.
+ */
+/**
+ * Managed file element.
+ */
+/* line 10, ../../../sass/modules/file/file.theme.scss */
+.form-managed-file .progress-disabled {
+  float: none;
+  display: inline;
+}
+/* line 16, ../../../sass/modules/file/file.theme.scss */
+.form-managed-file .ajax-progress,
+.form-managed-file .throbber {
+  float: none;
+}
+/* line 20, ../../../sass/modules/file/file.theme.scss */
+.form-managed-file .ajax-progress-bar {
+  display: none;
+  margin-top: 4px;
+  width: 28em;
+  padding: 0;
+}
+/* line 26, ../../../sass/modules/file/file.theme.scss */
+.form-managed-file .ajax-progress-bar .bar {
+  margin: 0;
+}
