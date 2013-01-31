@@ -70,17 +70,6 @@ function omega_drush_command() {
     'aliases' => array('orev'),
   );
 
-  $items['omega-watch'] = array(
-    'description' => dt('Reverts the theme settings of a given theme by deleting them from the database.'),
-    'arguments' => array(
-      'theme' => dt('The machine-readable name of the theme to revert the theme settings for.'),
-    ),
-    'examples' => array(
-      'drush omega-revert foo' => dt('Reverts the theme settings of the "foo" theme.'),
-    ),
-    'aliases' => array('owatch'),
-  );
-
   return $items;
 }
 
