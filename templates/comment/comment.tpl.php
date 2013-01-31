@@ -67,9 +67,9 @@
   <h3<?php print $title_attributes; ?>><?php print $title; ?></h3>
   <?php print render($title_suffix); ?>
 
-  <footer>
+  <footer class="comment__info">
     <?php print $user_picture; ?>
-    <p class="submitted"><?php print $submitted; ?></p>
+    <p class="submitted comment__submitted"><?php print $submitted; ?></p>
     <?php print $permalink; ?>
   </footer>
 
@@ -80,7 +80,7 @@
       print render($content);
     ?>
     <?php if ($signature): ?>
-    <div class="user-signature">
+    <div class="user-signature comment__signature">
       <?php print $signature; ?>
     </div>
     <?php endif; ?>

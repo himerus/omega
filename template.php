@@ -187,6 +187,14 @@ function omega_css_alter(&$css) {
         'admin' => 'color.admin-rtl.css',
       ),
     ),
+    'comment' => array(
+      'comment.css' => array(
+        'theme' => 'comment.theme.css',
+      ),
+      'comment-rtl.css' => array(
+        'theme' => 'comment.theme-rtl.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.

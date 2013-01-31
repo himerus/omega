@@ -1,0 +1,9 @@
+/**
+ * @file
+ * Right-to-left specific stylesheet for the comment module.
+ */
+/* line 6, ../../../sass/modules/comment/comment.theme-rtl.scss */
+.indented {
+  margin-left: 0;
+  margin-right: 25px;
+}
