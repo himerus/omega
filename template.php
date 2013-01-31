@@ -213,6 +213,14 @@ function omega_css_alter(&$css) {
         'theme' => 'field.theme-rtl.css',
       ),
     ),
+    'field_ui' => array(
+      'field_ui.css' => array(
+        'admin' => 'field_ui.admin.css',
+      ),
+      'field_ui-rtl.css' => array(
+        'admin' => 'field_ui.admin-rtl.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
@@ -289,6 +297,14 @@ function omega_js_alter(&$js) {
 function omega_form_alter(&$form, &$form_state, $form_id) {
   // Duplicate the form ID as a class so we can reduce spececifity in our CSS.
   $form['#attributes']['class'][] = drupal_clean_css_identifier($form_id);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function omega_form_field_ui_display_overview_form_alter(&$form, &$form_state, $form_id) {
+  // Add a class to use as a styling hook, instead of the ID attribute.
+  $form['fields']['#attributes']['class'][] = 'field-display-overview';
 }
 
 /**

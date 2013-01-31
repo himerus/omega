@@ -1,0 +1,16 @@
+/**
+ * @file
+ * Right-to-left specific stylesheet for the Field UI module.
+ */
+/**
+ *'Manage fields' and 'Manage display' overviews.
+ */
+/* line 9, ../../../sass/modules/field_ui/field_ui.admin-rtl.scss */
+.field-ui-overview {
+  /* Add New Row */
+}
+/* line 11, ../../../sass/modules/field_ui/field_ui.admin-rtl.scss */
+.field-ui-overview .add-new .label-input {
+  float: right;
+  /* LTR */
+}
