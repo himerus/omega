@@ -39,6 +39,11 @@ function omega_drush_command() {
     'aliases' => array('owiz'),
   );
 
+  $items['omega-guard'] = array(
+    'description' => dt('Runs Compass and LiveReload for the given theme.'),
+    'aliases' => array('ogrd'),
+  );
+
   $items['omega-export'] = array(
     'description' => dt('Exports the theme settings of a given theme from the database to the .info file.'),
     'arguments' => array(
@@ -88,6 +93,8 @@ function omega_drush_help($section) {
       return dt('Generates a subtheme.');
     case 'drush:omega-wizard':
       return dt('Guides you through a wizard for generating a subtheme.');
+    case 'drush:omega-guard':
+      return dt('Runs Compass and LiveReload for the given theme.');
     case 'drush:omega-export':
       return dt('Exports the theme settings of a given theme.');
     case 'drush:omega-revert':
@@ -410,12 +417,71 @@ function drush_omega_revert($theme = NULL) {
   drush_log(dt('You have successfully reverted the theme settings for the @theme theme.', array('@theme' => $themes[$theme]->info['name'])), 'success');
 }
 
-function drush_omega_watch($theme = NULL) {
+/**
+ * Implements drush_hook_COMMAND_validate().
+ *
+ * @todo Add validation for the required ruby gems, etc.
+ */
+function drush_omega_guard_validate($theme = NULL) {
+  if (!isset($theme)) {
+    return drush_set_error('OMEGA_MISSING_ARGUMENT', dt('Please specify a theme to watch.'));
+  }
+
+  // Rebuild the theme data so that we can safely check for the existence of
+  // themes by using the information provided by list_themes().
+  system_rebuild_theme_data();
+
+  // Check if the given theme exists.
+  if (!array_key_exists('omega', omega_theme_trail($theme))) {
+    return drush_set_error('OMEGA_THEME_NOT_EXISTS', dt('There is no theme with the name @theme.', array(
+      '@theme' => $theme,
+    )));
+  }
+
+  // Retrieve the absolute path to the theme.
   $path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme);
-  $cwd = getcwd();
-  drush_op('chdir', $path);
-  drush_shell_exec_interactive("bundle exec guard -p -l 5");
-  drush_op('chdir', $cwd);
+
+  // Output an error message if the gemfiles dependencies are not satisfied.
+  drush_shell_cd_and_exec($path, 'bundle check');
+  $output = drush_shell_exec_output();
+  if ($output[0] != "The Gemfile's dependencies are satisfied") {
+    return drush_set_error(dt("There was a problem while trying to execute the Gemfile:\n@error", array(
+      '@error' => implode("\n", $output),
+    )));
+  }
+}
+
+/**
+ * Implements drush_hook_COMMAND().
+ *
+ * Starts guard for the given theme for compass, theme registry rebuild and
+ * livereload.
+ *
+ * @param $theme
+ *   The machine-readable name of a theme.
+ */
+function drush_omega_guard($theme) {
+  // This is the command for running guard through bundler.
+  $command = 'bundle exec guard';
+
+  // Polling is required for making guard watch work with remote file systems
+  // e.g. in case of virtual environments where guard runs on the guest but
+  // the files are modified on the host.
+  if (drush_get_option('force-polling')) {
+    $command .= ' --force-polling';
+  }
+
+  // Sometimes it seems to be required to set a latency (e.g. 5) if working with
+  // polling because otherwise the file changed are detected twice. Hence,
+  // not setting a latency might affect your system performance. If it doesn't
+  // simply don't worry about it.
+  if ($latency = drush_get_option('latency')) {
+    $command .= ' --latency ' . $latency;
+  }
+
+  // Change the active directory to the theme folder and run the command there.
+  drush_op('chdir', DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme));
+  drush_shell_exec_interactive($command);
 }
 
 /**
