@@ -1,0 +1,12 @@
+/**
+ * @file
+ * Styling for contextual links behaviour and structure.
+ */
+/**
+ * Field display.
+ */
+/* line 10, ../../../sass/modules/field/field.theme-rtl.scss */
+.field--label-inline .field__label,
+.field--label-inline .field__items {
+  float: right;
+}
