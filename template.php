@@ -195,6 +195,16 @@ function omega_css_alter(&$css) {
         'theme' => 'comment.theme-rtl.css',
       ),
     ),
+    'contextual' => array(
+      'contextual.css' => array(
+        'base' => 'contextual.base.css',
+        'theme' => 'contextual.theme.css',
+      ),
+      'contextual-rtl.css' => array(
+        'base' => 'contextual.base-rtl.css',
+        'theme' => 'contextual.theme-rtl.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
