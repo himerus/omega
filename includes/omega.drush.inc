@@ -850,7 +850,8 @@ function drush_omega_sites() {
   // directory.
   $files = new DirectoryIterator(DRUPAL_ROOT . '/sites');
   foreach ($files as $file) {
-    if ($file->isDir() && !$file->isDot()) {
+    // The sites/default folder is not a valid destination.
+    if ($file->isDir() && !$file->isDot() && $file->getFileName() != 'default') {
       $name = $file->getFileName();
       $sites[$name] = $name;
     }
