@@ -554,8 +554,7 @@ function omega_page_alter(&$page) {
 
     // Don't interfere with the 'Demonstrate block regions' page.
     if (strpos('admin/structure/block/demo/', $item['path']) !== 0) {
-      $configured = omega_theme_get_setting('omega_demo_regions_list', $regions);
-
+      $configured = omega_theme_get_setting('omega_demo_regions_list', array_keys($regions));
       foreach (array_intersect_key($regions, array_flip($configured)) as $region => $name) {
         if (empty($page[$region])) {
           $page[$region]['#theme_wrappers'] = array('region');
