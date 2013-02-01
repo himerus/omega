@@ -429,7 +429,7 @@ function drush_omega_guard_validate($theme = NULL) {
   $matches = array();
   if (!preg_match('/^ruby ([0-9][0-9\.]*)/', $output, $matches)) {
     // Ruby was not found on this machine.
-    return drush_set_error(dt('You have to install Ruby (version 1.9 or newer).'));
+    return drush_set_error(dt('You have to install Ruby version 1.9 or newer.'));
   }
   elseif (!version_compare($matches[1], '1.9', '>=')) {
     // Ruby is outdated.
@@ -444,12 +444,27 @@ function drush_omega_guard_validate($theme = NULL) {
   $matches = array();
   if (!preg_match('/^[0-9][0-9\.]*$/', $output, $matches)) {
     // Rubygems was not found on this machine.
-    return drush_set_error(dt('You have to install Rubygems (version 1.8 or newer).'));
+    return drush_set_error(dt('You have to install Rubygems version 1.8 or newer.'));
   }
   elseif (!version_compare($matches[0], '1.8', '>=')) {
     // Rubygems is outdated.
     return drush_set_error(dt('The installed version of Rubygems (@version) is outdated. Please upgrade to version 1.8 or newever.', array(
       '@version' => $matches[0],
+    )));
+  }
+
+  // Check if Bundler is installed.
+  drush_shell_exec('bundle --version');
+  $output = reset(drush_shell_exec_output());
+  $matches = array();
+  if (!preg_match('/^Bundler version ([0-9][0-9\.]*)/', $output, $matches)) {
+    // Bundler was not found on this machine.
+    return drush_set_error(dt('You have to install Bundler version 1.2 or newer.'));
+  }
+  elseif (!version_compare($matches[1], '1.2', '>=')) {
+    // Bundler is outdated.
+    return drush_set_error(dt('The installed version of Bundler (@version) is outdated. Please upgrade to version 1.2 or newever.', array(
+      '@version' => $matches[1],
     )));
   }
 
