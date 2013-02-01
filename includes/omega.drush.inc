@@ -45,8 +45,8 @@ function omega_drush_command() {
       'name' => dt('The name of your subtheme.'),
     ),
     'options' => array(
-      '--force-polling' => dt('Polling is required for making guard watch work with remote file systems e.g. in case of virtual environments where guard runs on the guest but the files are modified on the host.'),
-      '--latency' => dt("Sometimes it seems to be required to set a latency (e.g. 5) if working with --force-polling because otherwise file changes are detected twice. Hence, not setting a latency might affect your system performance."),
+      'force-polling' => dt('Polling is required for making guard watch work with remote file systems e.g. in case of virtual environments where guard runs on the guest but the files are modified on the host.'),
+      'latency' => dt("Sometimes it seems to be required to set a latency (e.g. 5) if working with --force-polling because otherwise file changes are detected twice. Hence, not setting a latency might affect your system performance."),
     ),
     'aliases' => array('ogrd'),
   );
