@@ -90,7 +90,7 @@ function omega_drush_help($section) {
     case 'drush:omega-wizard':
       return dt('Guides you through a wizard for generating a subtheme.');
     case 'drush:omega-guard':
-      return dt('Runs Compass and LiveReload for the given theme.');
+      return dt('Runs guard for the given theme including Compass and LiveReload by default.');
     case 'drush:omega-export':
       return dt('Exports the theme settings of a given theme.');
     case 'drush:omega-revert':
@@ -295,17 +295,7 @@ function drush_omega_wizard() {
  * Implements drush_hook_COMMAND_validate().
  */
 function drush_omega_export_validate($theme = NULL) {
-  // Rebuild the theme data so that we can safely check for the existence of
-  // themes by using the information provided by list_themes().
-  system_rebuild_theme_data();
-
-  $themes = list_themes();
-  // Check if the given theme exists.
-  if (isset($theme) && !isset($themes[$theme])) {
-    return drush_set_error('OMEGA_THEME_DOES_NOT_EXIST', dt('There is no theme with the name @theme.', array(
-      '@theme' => $theme,
-    )));
-  }
+  return drush_omega_validate_theme($theme);
 }
 
 /**
@@ -371,17 +361,7 @@ function drush_omega_export($theme = NULL) {
  * Implements drush_hook_COMMAND_validate().
  */
 function drush_omega_revert_validate($theme = NULL) {
-  // Rebuild the theme data so that we can safely check for the existence of
-  // themes by using the information provided by list_themes().
-  system_rebuild_theme_data();
-
-  $themes = list_themes();
-  // Check if the given theme exists.
-  if (isset($theme) && !isset($themes[$theme])) {
-    return drush_set_error('OMEGA_THEME_NOT_EXISTS', dt('There is no theme with the name @theme.', array(
-      '@theme' => $theme,
-    )));
-  }
+  return drush_omega_validate_theme($theme);
 }
 
 /**
@@ -391,7 +371,7 @@ function drush_omega_revert_validate($theme = NULL) {
  * reverts them to the default settings from the .info file.
  *
  * @param $theme
- *   The machine-readable name of a theme.
+ *   (optional) The machine-readable name of a theme.
  */
 function drush_omega_revert($theme = NULL) {
   if (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to revert the theme settings for?'))) {
@@ -415,12 +395,23 @@ function drush_omega_revert($theme = NULL) {
 
 /**
  * Implements drush_hook_COMMAND_validate().
- *
- * @todo Add validation for the required ruby gems, etc.
  */
 function drush_omega_guard_validate($theme = NULL) {
-  if (!isset($theme)) {
-    return drush_set_error('OMEGA_MISSING_ARGUMENT', dt('Please specify a theme to watch.'));
+  return drush_omega_validate_theme($theme);
+}
+
+/**
+ * Implements drush_hook_COMMAND().
+ *
+ * Starts guard for the given theme for compass, theme registry rebuild and
+ * livereload.
+ *
+ * @param $theme
+ *   (optional) The machine-readable name of a theme.
+ */
+function drush_omega_guard($theme =  NULL) {
+  if (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to run Guard for?'))) {
+    return;
   }
 
   // Check if Ruby is installed.
@@ -468,42 +459,29 @@ function drush_omega_guard_validate($theme = NULL) {
     )));
   }
 
-  // Rebuild the theme data so that we can safely check for the existence of
-  // themes by using the information provided by list_themes().
-  system_rebuild_theme_data();
-
-  // Check if the given theme exists.
-  if (!array_key_exists('omega', omega_theme_trail($theme))) {
-    return drush_set_error('OMEGA_THEME_NOT_EXISTS', dt('There is no theme with the name @theme.', array(
-      '@theme' => $theme,
-    )));
-  }
-
-  // Retrieve the absolute path to the theme.
-  $path = DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme);
+  // Retrieve the path to the theme.
+  $path = drupal_get_path('theme', $theme);
 
   // Output an error message if the gemfiles dependencies are not satisfied.
-  drush_shell_cd_and_exec($path, 'bundle check');
-  $output = drush_shell_exec_output();
-  if ($output[0] != "The Gemfile's dependencies are satisfied") {
-    return drush_set_error(dt("There was a problem while trying to execute the Gemfile:\n@error", array(
-      '@error' => implode("\n", $output),
-    )));
-  }
-}
+  drush_shell_cd_and_exec(DRUPAL_ROOT . '/' . $path, 'bundle check --no-color');
+  switch ($output = reset(drush_shell_exec_output())) {
+    case "The Gemfile's dependencies are satisfied":
+      // All is good, we can proceed.
+      break;
 
-/**
- * Implements drush_hook_COMMAND().
- *
- * Starts guard for the given theme for compass, theme registry rebuild and
- * livereload.
- *
- * @param $theme
- *   The machine-readable name of a theme.
- */
-function drush_omega_guard($theme) {
+    case 'Could not locate Gemfile':
+      return drush_set_error(dt('There was no Gemfile at @path.', array(
+        '@path' => $path,
+      )));
+
+    default:
+      return drush_set_error(dt("There was a problem with your setup:\n!error", array(
+        '!error' => $output,
+      )));
+  }
+
   // This is the command for running guard through bundler.
-  $command = 'bundle exec guard';
+  $command = 'bundle exec guard --no-color';
 
   // Polling is required for making guard watch work with remote file systems
   // e.g. in case of virtual environments where guard runs on the guest but
@@ -513,7 +491,7 @@ function drush_omega_guard($theme) {
   }
 
   // Sometimes it seems to be required to set a latency (e.g. 5) if working with
-  // polling because otherwise the file changed are detected twice. Hence,
+  // polling because otherwise the file changes are detected twice. Hence,
   // not setting a latency might affect your system performance. If it doesn't
   // simply don't worry about it.
   if ($latency = drush_get_option('latency')) {
@@ -664,7 +642,6 @@ function drush_omega_destination_choice($message) {
       return 'site:all';
   }
 }
-
 
 /**
  * Helper function that continuously prompts for a valid machine-readable name.
@@ -931,4 +908,25 @@ function drush_omega_generate_theme_name($string) {
   }
 
   return $string;
+}
+
+/**
+ * Helper function for validating a given theme.
+ */
+function drush_omega_validate_theme($theme = NULL) {
+  if (!isset($theme)) {
+    return;
+  }
+
+  // Rebuild the theme data so that we can safely check for the existence of
+  // themes by using the information provided by list_themes().
+  system_rebuild_theme_data();
+
+  $themes = list_themes();
+  // Check if the given theme exists.
+  if (!isset($themes[$theme])) {
+    return drush_set_error('OMEGA_THEME_DOES_NOT_EXIST', dt('There is no theme with the name @theme.', array(
+      '@theme' => $theme,
+    )));
+  }
 }
