@@ -464,7 +464,8 @@ function drush_omega_guard($theme =  NULL) {
 
   // Output an error message if the gemfiles dependencies are not satisfied.
   drush_shell_cd_and_exec(DRUPAL_ROOT . '/' . $path, 'bundle check --no-color');
-  switch ($output = reset(drush_shell_exec_output())) {
+  $output = drush_shell_exec_output();
+  switch (reset($output)) {
     case "The Gemfile's dependencies are satisfied":
       // All is good, we can proceed.
       break;
@@ -474,9 +475,12 @@ function drush_omega_guard($theme =  NULL) {
         '@path' => $path,
       )));
 
+    case "Your Gemfile's dependencies could not be satisfied":
+      // @todo Add prompt for running 'bundle install'.
+
     default:
       return drush_set_error(dt("There was a problem with your setup:\n!error", array(
-        '!error' => $output,
+        '!error' => implode("\n", $output),
       )));
   }
 
