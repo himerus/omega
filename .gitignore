@@ -6,21 +6,3 @@
 # Gemfile.lock file is is environemnt specific and therefore should not be
 # commited either.
 Gemfile.lock
-
-# The images/generated folder is where Compass puts generated image files like
-# sprites. This is defined in the config.rb file. We don't want to automatically
-# put these files into version control because they might get re-generated often
-# and would therefore clutter the git log with a lot of junk.
-#
-# Instead you should manually commit them together with the re-compiled CSS
-# files every now and then in a separate, dedicated commit. Please refer to the
-# README.txt file section about version control best practices for more
-# information on this topic.
-#
-# If you don't want to apply this technique simply remove the following line.
-images/generated/*.png
-
-# The same concept applies for .css files generated in the css folder. Again,
-# please refer to the README.txt file section about version control best
-# practices for more information on this topic.
-css/*.css
