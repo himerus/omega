@@ -423,6 +423,36 @@ function drush_omega_guard_validate($theme = NULL) {
     return drush_set_error('OMEGA_MISSING_ARGUMENT', dt('Please specify a theme to watch.'));
   }
 
+  // Check if Ruby is installed.
+  drush_shell_exec('ruby --version');
+  $output = reset(drush_shell_exec_output());
+  $matches = array();
+  if (!preg_match('/^ruby ([0-9][0-9\.]*)/', $output, $matches)) {
+    // Ruby was not found on this machine.
+    return drush_set_error(dt('You have to install Ruby (version 1.9 or newer).'));
+  }
+  elseif (!version_compare($matches[1], '1.9', '>=')) {
+    // Ruby is outdated.
+    return drush_set_error(dt('The installed version of Ruby (@version) is outdated. Please upgrade to version 1.9 or newever.', array(
+      '@version' => $matches[1],
+    )));
+  }
+
+  // Check if Rubygems is installed.
+  drush_shell_exec('gem --version');
+  $output = reset(drush_shell_exec_output());
+  $matches = array();
+  if (!preg_match('/^[0-9][0-9\.]*$/', $output, $matches)) {
+    // Rubygems was not found on this machine.
+    return drush_set_error(dt('You have to install Rubygems (version 1.8 or newer).'));
+  }
+  elseif (!version_compare($matches[0], '1.8', '>=')) {
+    // Rubygems is outdated.
+    return drush_set_error(dt('The installed version of Rubygems (@version) is outdated. Please upgrade to version 1.8 or newever.', array(
+      '@version' => $matches[0],
+    )));
+  }
+
   // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
