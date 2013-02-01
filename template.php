@@ -132,7 +132,10 @@ function omega_enforce_attributes(&$variables) {
  */
 function omega_element_info_alter(&$elements) {
   if (omega_extension_enabled('css') && omega_theme_get_setting('omega_media_queries_inline', TRUE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
-    array_unshift($elements['styles']['#pre_render'], 'omega_css_preprocessor');
+    // Place our custom CSS preprocessor
+    if ($position = array_search('drupal_pre_render_styles', $elements['styles']['#pre_render'])) {
+      array_splice($elements['styles']['#pre_render'], $position, 0, 'omega_css_preprocessor');
+    }
   }
 
   $elements['scripts'] = array(
