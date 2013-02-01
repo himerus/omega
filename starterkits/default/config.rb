@@ -18,7 +18,7 @@ firesass = false
 css_dir         = "css"
 sass_dir        = "sass"
 extensions_dir  = "sass-extensions"
-images_dir      = "images"
+images_dir      = "images/generated"
 javascripts_dir = "js"
 
 # Require any additional compass plugins installed on your system.
