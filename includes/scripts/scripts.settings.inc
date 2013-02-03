@@ -109,8 +109,6 @@ function omega_library_pie_selectors_submit($form, &$form_state) {
 
   // The generated CSS file is stored in the public file system.
   $theme = $form_state['build_info']['args'][0];
-  $destination = 'public://omega/' . $theme;
-
   // Generate a CSS file for the provided selectors if the inclusion method is
   // set to 'pie.htc' or 'pie.php'.
   $selectors = array();
@@ -118,22 +116,6 @@ function omega_library_pie_selectors_submit($form, &$form_state) {
     // Sanitize the selectors.
     $selectors = array_map('trim', explode("\n", $values['selectors']));
     $selectors = array_unique($selectors);
-
-    // Build the contents of the CSS and JS file file.
-    $js = '$(function(){Drupal.behaviors.css3pie={attach:function(context,settings){if(window.PIE){$("' . implode(",", $selectors) . '").each(function(){PIE.attach(this)})}}}})(jQuery);';
-
-    $path = base_path() . drupal_get_path('theme', 'omega');
-    $css = implode(",", $selectors) . "{behavior:url({$path}/libraries/css3pie/PIE.htc)}";
-
-    // Save the generated CSS in the public file system replacing any previous
-    // version.
-    file_prepare_directory($destination, FILE_CREATE_DIRECTORY);
-    file_unmanaged_save_data($css, $destination . '/pie-selectors.css', FILE_EXISTS_REPLACE);
-    file_unmanaged_save_data($js, $destination . '/pie-selectors.js', FILE_EXISTS_REPLACE);
-  }
-  else {
-    // Otherwise, we can delete the (now stale) CSS file.
-    file_unmanaged_delete($destination . '/pie-selectors.css');
   }
 
   // Save the selectors as an array.

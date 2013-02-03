@@ -685,24 +685,31 @@ function omega_omega_theme_libraries_info($theme) {
     ),
   );
 
-  // Add the generated .css file to the corresponding variant.
-  $file = file_create_url('public://omega/' . $theme . '/pie-selectors.css');
-  $file = substr($file, strlen($GLOBALS['base_url']) + 1);
+  $settings = omega_theme_get_setting('omega_libraries');
+  if (!empty($settings['css3pie']['selectors'])) {
+    // Add the generated .css file to the corresponding variant.
+    $destination = file_create_url('public://omega/' . $theme );
+    $destination = substr($destination, strlen($GLOBALS['base_url']) + 1);
+    file_prepare_directory($destination, FILE_CREATE_DIRECTORY);
 
-  if (is_file($file)) {
+    // Save the generated CSS in the public file system.
+    $file = $destination . '/pie-selectors.css';
+    $htc = base_path() . drupal_get_path('theme', 'omega');
+    $contents = implode(",", $settings['css3pie']['selectors']) . "{behavior:url({$htc}/libraries/css3pie/PIE.htc)}";
+    file_unmanaged_save_data($contents, $file, FILE_EXISTS_REPLACE);
+
     $libraries['css3pie']['files']['css'][$file] = array(
       'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
       'group' => CSS_THEME,
       'weight' => 100,
       'every_page' => TRUE,
     );
-  }
 
-  // Add the generated .js file to the corresponding variant.
-  $file = file_create_url('public://omega/' . $theme . '/pie-selectors.js');
-  $file = substr($file, strlen($GLOBALS['base_url']) + 1);
+    // Save the generated JS in the public file system.
+    $file = $destination . '/pie-selectors.js';
+    $contents = '$(function(){Drupal.behaviors.css3pie={attach:function(context,settings){if(window.PIE){$("' . implode(",", $settings['css3pie']['selectors']) . '").each(function(){PIE.attach(this)})}}}})(jQuery);';
+    file_unmanaged_save_data($contents, $file, FILE_EXISTS_REPLACE);
 
-  if (is_file($file)) {
     $libraries['css3pie']['variants']['js']['files']['js'][$file] = array(
       'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
       'group' => JS_THEME,
