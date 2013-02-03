@@ -92,23 +92,6 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
 }
 
 /**
- * Implements hook_system_info_alter().
- */
-function omega_system_info_alter(&$info, $file, $type) {
-  if ($type == 'theme' && array_key_exists('omega', omega_theme_trail($file->name))) {
-    // Backup the original list of regions.
-    $info['original regions'] = $info['regions'];
-    foreach (omega_layouts_info($file->name) as $layout) {
-      foreach ($layout['info']['regions'] as $region => $description) {
-        if (!isset($info['regions'][$region])) {
-          $info['regions'][$region] = $description;
-        }
-      }
-    }
-  }
-}
-
-/**
  * Enforces attribute arrays instead of simple class arrays.
  *
  * Added through omega_theme_registry_alter() to synchronize the attributes
@@ -270,9 +253,8 @@ function omega_js_alter(&$js) {
  */
 function omega_theme() {
   $info = array();
-
-  if (omega_extension_enabled('layouts') && $layouts = omega_layouts_info()) {
-    foreach ($layouts as $key => $layout) {
+  if (omega_extension_enabled('layouts')) {
+    foreach (omega_layouts_info() as $key => $layout) {
       if (!isset($info['page__layout__' . $key])) {
         $info['page__layout__' . $key] = array(
           'template' => $key . '.layout',
@@ -280,11 +262,9 @@ function omega_theme() {
           'base hook' => 'page',
         );
       }
-
       $info['page__layout__' . $key]['layout'] = $layout;
     }
   }
-
   return $info;
 }
 
@@ -468,28 +448,12 @@ function omega_template_process_html_override(&$variables) {
  * Implements hook_block_list_alter().
  */
 function omega_block_list_alter(&$blocks) {
-  // We merged the regions of the theme with the regions from all the layouts
-  // in the omega_system_info_alter(). Hence, while building the list of blocks
-  // to be rendered we have to make sure that we don't invoke blocks that will
-  // never be shown because the active layout or page template does not even
-  // have a region for them.
-  if (omega_extension_enabled('layouts')) {
-    if ($layout = omega_layout()) {
-      // If we serve an Omega layout on the current page we simply need to check
-      // against the regions of that particular layout.
-      $regions = $layout['info']['regions'];
-    }
-    else {
-      // For any non-layout page though, we need to compare against the original
-      // regions of the theme itself which we stored a 'original regions' backup
-      // for in omega_system_info_alter().
-      $info = system_get_info('theme', $GLOBALS['theme']);
-      $regions = $info['original regions'];
-    }
-
-    // Remove all blocks that we don't have a region for.
+  if (omega_extension_enabled('layouts') && $layout = omega_layout()) {
+    // In case we are currently serving a Omega layout we have to make sure that
+    // we don't process blocks that will never be shown because the active layout
+    // does not even have a region for them.
     foreach ($blocks as $id => $block) {
-      if (!array_key_exists($block->region, $regions)) {
+      if (!array_key_exists($block->region, $layout['info']['regions'])) {
         unset($blocks[$id]);
       }
     }
@@ -558,6 +522,11 @@ function omega_page_alter(&$page) {
     // Don't interfere with the 'Demonstrate block regions' page.
     if (strpos('admin/structure/block/demo/', $item['path']) !== 0) {
       $configured = omega_theme_get_setting('omega_demo_regions_list', array_keys($regions));
+
+      // We don't explicitly load possible layout regions and instead really
+      // just show demo regions for those regions that we can actually place
+      // blocks in. Hence, there will only be demo regions for those regions
+      // that have been declared through the theme's .info file.
       foreach (array_intersect_key($regions, array_flip($configured)) as $region => $name) {
         if (empty($page[$region])) {
           $page[$region]['#theme_wrappers'] = array('region');
