@@ -36,6 +36,9 @@ function omega_drush_command() {
 
   $items['omega-wizard'] = array(
     'description' => dt('Guides you through a wizard for generating a subtheme.'),
+    'arguments' => array(
+      'name' => dt('The name of your subtheme.'),
+    ),
     'aliases' => array('owiz'),
   );
 
