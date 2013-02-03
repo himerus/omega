@@ -460,7 +460,7 @@ function drush_omega_guard($theme =  NULL) {
     // Ruby was not found on this machine.
     return drush_set_error(dt('You have to install Ruby version 1.9 or newer.'));
   }
-  elseif (!version_compare($matches[1], '1.9', '>=')) {
+  elseif (!version_compare($matches[1], '1.8', '>=')) {
     // Ruby is outdated.
     return drush_set_error(dt('The installed version of Ruby (@version) is outdated. Please upgrade to version 1.9 or newever.', array(
       '@version' => $matches[1],
