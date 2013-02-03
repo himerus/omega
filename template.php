@@ -323,7 +323,7 @@ function omega_theme_registry_alter(&$registry) {
             '%theme' => $theme,
             '%hook' => $hook,
             '%type' => $type,
-            '%file' => $item->name,
+            '%file' => $item->uri,
           ));
 
           continue;
