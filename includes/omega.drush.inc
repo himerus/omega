@@ -36,9 +36,6 @@ function omega_drush_command() {
 
   $items['omega-wizard'] = array(
     'description' => dt('Guides you through a wizard for generating a subtheme.'),
-    'arguments' => array(
-      'name' => dt('The name of your subtheme.'),
-    ),
     'aliases' => array('owiz'),
   );
 
@@ -104,7 +101,7 @@ function omega_drush_help($section) {
 /**
  * Implements drush_hook_COMMAND_validate().
  */
-function drush_omega_subtheme_validate($name = NULL) {
+function drush_omega_subtheme_validate() {
   // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
@@ -193,55 +190,105 @@ function drush_omega_subtheme_validate($name = NULL) {
  */
 function drush_omega_subtheme($name = NULL) {
   if (!isset($name)) {
-    // Prompt for a theme name.
-    $name = drush_prompt(dt('Please enter the name of the new sub-theme', 'Omega Subtheme'));
+    return drush_set_error('OMEGA_MISSING_ARGUMENT', dt("You didn't specify a name for the subtheme."));
   }
 
   // Try to generate a machine-readable name. If that fails, prompt for one.
   if (!$machine_name = drush_get_option('machine-name', drush_omega_generate_theme_name($name))) {
-    drush_print(dt("Sorry, I couldn't generate a machine-readable name for @name.", array(
+    drush_print(dt("Sorry, I couldn't generate a machine-readable name for @name. Please use the '--machine-name' option to specify it manually.", array(
       '@name' => $name,
     )));
-
-    $machine_name = drush_omega_require_valid_theme_name(dt('Please enter a machine-readable name for your new theme'));
   }
 
   $basetheme = drush_get_option('basetheme', 'omega');
   $starterkits = omega_discovery('starterkit', $basetheme);
   $starterkit = drush_get_option('starterkit', 'default');
-  $destination = drush_omega_resolve_destination(drush_get_option('destination', 'site:all'));
+  $starterkit = $starterkits[$starterkit];
 
-  $subtheme = new stdClass();
-  $subtheme->name = $name;
-  $subtheme->machine_name = $machine_name;
-  $subtheme->path = $destination . '/' . $subtheme->machine_name;
-  $subtheme->starterkit = $starterkits[$starterkit];
-  $subtheme->default = (bool) drush_get_option('set-default');
-  $subtheme->enable = (bool) ($subtheme->default || drush_get_option('enable'));
-  $subtheme->basetheme = $basetheme;
-  $subtheme->readme = (bool) !drush_get_option('no-readme');
-
-  if (drush_omega_generate_subtheme($subtheme)) {
-    drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
-      '@theme' => $subtheme->name,
-      '@name' => $subtheme->machine_name,
-      '@path' => dirname($subtheme->path),
-    )), 'success');
+  // Check whether the destination path does not exist and bail out if it does
+  // so we don't delete any important data by accident.
+  $destination = drush_omega_resolve_destination(drush_get_option('destination', 'site:all')) . '/' . $machine_name;
+  if (file_exists($destination)) {
+    return drush_set_error('OMEGA_SUBTHEME_PATH', dt('The path @path already exists.', array('@path' => $destination)));
   }
+
+  // Create a temporary directory so we don't leave any stale files if an
+  // operation fails.
+  $temporary = drush_tempdir() . '/' . $name;
+
+  // Try to copy the starterkit to the destination path of the new subtheme.
+  if (!drush_copy_dir($starterkit['path'], $temporary)) {
+    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
+  }
+
+  // Delete the .starterkit.inc file.
+  drush_delete_dir($temporary . '/' . basename($starterkit['file']));
+
+  // Put the name and description for the new subtheme in place.
+  $info = array(
+    'name' => $name,
+    'description' => 'Please provide a description for your theme.',
+    'base theme' => $basetheme,
+  ) + $starterkit['info'];
+
+  // Write to the new .info file.
+  $file = $temporary . '/' . $machine_name . '.info';
+  if (!file_put_contents($file, drush_omega_compose_info_file($info))) {
+    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
+  }
+
+  // Optionally remove README.txt files.
+  if (drush_get_option('no-readme')) {
+    foreach (file_scan_directory($temporary, '/^README/') as $file) {
+      drush_delete_dir($file->uri);
+    }
+  }
+
+  // Recursively rewrite the file names and contents of all the files that are
+  // now in the subtheme's directory to represent the human- and
+  // machine-readable names of the subtheme.
+  $search = array('{{ THEME }}', '{{ THEMENAME }}');
+  $replace = array($machine_name, $name);
+  if (!drush_omega_rewrite_recursive($temporary, $search, $replace)) {
+    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
+  }
+
+  // Move the new subtheme to its destination.
+  if (!drush_op('drush_mkdir', dirname($destination)) || !drush_op('drush_move_dir', $temporary, $destination)) {
+    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
+  }
+
+  // Rebuild the theme caches so that  we can do some final tasks.
+  drupal_theme_rebuild();
+  system_rebuild_theme_data();
+
+  if ($default = drush_get_option('set-default') || !drush_get_option('enable')) {
+    // Enable the subtheme.
+    drush_op('theme_enable', array($machine_name));
+
+    if ($default) {
+      // Make the newly created subtheme the default theme.
+      drush_op('variable_set', 'theme_default', $machine_name);
+    }
+  }
+
+  drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
+    '@theme' => $name,
+    '@name' => $machine_name,
+    '@path' => dirname($destination),
+  )), 'success');
 }
 
 /**
  * Implements drush_hook_COMMAND().
  */
-function drush_omega_wizard($name = NULL) {
+function drush_omega_wizard() {
   // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
 
-  if (!isset($name)) {
-    // Prompt for a theme name.
-    $name = drush_prompt(dt('Please enter the name of the new sub-theme', 'Omega Subtheme'));
-  }
+  // Prompt for a theme name.
+  $name = drush_prompt(dt('Please enter the name of the new sub-theme'), 'Omega Subtheme');
 
   // Try to generate a machine-readable name. If that fails, prompt for one.
   if (!$machine_name = drush_omega_generate_theme_name($name)) {
@@ -250,51 +297,36 @@ function drush_omega_wizard($name = NULL) {
     )));
   }
   // Prompt for a theme name using the automatically generated default if any.
-  $machine_name = drush_omega_require_valid_theme_name(dt('Please enter a machine-readable name for your new theme'), ($machine_name ? $machine_name : NULL));
+  drush_set_option('machine-name', drush_omega_require_valid_theme_name(dt('Please enter a machine-readable name for your new theme'), $machine_name));
 
   // Prompt for a base theme.
   if (!$basetheme = drush_omega_theme_choice(dt('Please choose a base theme for your new theme'))) {
     return;
   }
+  drush_set_option('basetheme', $basetheme);
 
   // Let the user choose a starterkit.
   if (!$starterkit = drush_omega_starterkit_choice($basetheme, dt('Please choose a starterkit for your new theme'))) {
     return;
   }
+  drush_set_option('starterkit', $starterkit);
 
   // Let the user choose a destination. == 'Yes'
   if (!$destination = drush_omega_destination_choice(dt('Please choose a destination. This is where your sub-theme will be placed'))) {
     return;
   }
-  $destination = drush_omega_resolve_destination($destination);
+  drush_set_option('destination', $destination);
 
   // Optionally skip readme files when generating the subtheme.
-  $readme = drush_confirm(dt("Do you want to keep the starterkit's readme files?"));
+  drush_set_option('no-readme', !drush_confirm(dt("Do you want to keep the starterkit's readme files?")));
 
   // Finally, let the user choose to directly enable the subtheme.
   if ($enable = drush_confirm(dt('Do you want to enable your new theme?'))) {
-    $default =  drush_confirm(dt('Do you want to make your new theme the default theme?'));
+    drush_set_option('set-default', drush_confirm(dt('Do you want to make your new theme the default theme?')));
   }
+  drush_set_option('enable', $enable);
 
-  $starterkits = omega_discovery('starterkit', $basetheme);
-
-  $subtheme = new stdClass();
-  $subtheme->name = $name;
-  $subtheme->machine_name = $machine_name;
-  $subtheme->path = $destination . '/' . $subtheme->machine_name;
-  $subtheme->starterkit = $starterkits[$starterkit];
-  $subtheme->default = $default;
-  $subtheme->enable = $enable;
-  $subtheme->basetheme = $basetheme;
-  $subtheme->readme = $readme;
-
-  if (drush_omega_generate_subtheme($subtheme)) {
-    drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
-      '@theme' => $subtheme->name,
-      '@name' => $subtheme->machine_name,
-      '@path' => dirname($subtheme->path),
-    )), 'success');
-  }
+  drush_invoke('omega-subtheme', $name);
 }
 
 /**
@@ -774,96 +806,6 @@ function drush_omega_compose_info_file($array, $prefix = FALSE) {
   }
 
   return $info;
-}
-
-/**
- * Creates a subtheme from any given starterkit.
- *
- * @param $subtheme
- *   An object containing all the required definitions for creating a subtheme.
- *   The available properties are:
- *
- *   - 'name': The human-readable name of the subtheme.
- *   - 'machine_name': The machine-readable name of the subtheme.
- *   - 'path': The destination that the subtheme should be placed in relative to
- *     the Drupal omega.
- *   - 'starterkit': An array describing the starterkit.
- *   - 'default': (optional) Whether the subtheme should be enabled and set as
- *     the default theme after it has been created.
- *   - 'enable': (optional) Whether the subtheme should be enabled after it has
- *     been created.
- *
- * @return bool
- *   TRUE if the subtheme could be successfully created, FALSE otherwise.
- */
-function drush_omega_generate_subtheme($subtheme) {
-  // Check whether the destination path does not exist and bail out if it does
-  // so we don't delete any important data by accident.
-  if (file_exists($subtheme->path)) {
-    return drush_set_error('OMEGA_SUBTHEME_PATH', dt('The path @path already exists.', array('@path' => $subtheme->path)));
-  }
-
-  // Create a temporary directory so we don't leave any stale files if an
-  // operation fails.
-  $temporary = drush_tempdir() . '/' . $subtheme->name;
-
-  // Try to copy the starterkit to the destination path of the new subtheme.
-  if (!drush_copy_dir($subtheme->starterkit['path'], $temporary)) {
-    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
-  }
-
-  // Delete the .starterkit.inc file.
-  drush_delete_dir($temporary . '/' . basename($subtheme->starterkit['file']));
-
-  // Put the name and description for the new subtheme in place.
-  $info = array(
-    'name' => $subtheme->name,
-    'description' => 'Please provide a description for your theme.',
-    'base theme' => $subtheme->basetheme,
-  ) + $subtheme->starterkit['info'];
-
-  // Write to the new .info file.
-  $file = $temporary . '/' . $subtheme->machine_name . '.info';
-  if (!file_put_contents($file, drush_omega_compose_info_file($info))) {
-    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
-  }
-
-  // Optionally remove README.txt files.
-  if (!$subtheme->readme) {
-    foreach (file_scan_directory($temporary, '/^README/') as $file) {
-      drush_delete_dir($file->uri);
-    }
-  }
-
-  // Recursively rewrite the file names and contents of all the files that are
-  // now in the subtheme's directory to represent the human- and
-  // machine-readable names of the subtheme.
-  $search = array('{{ THEME }}', '{{ THEMENAME }}');
-  $replace = array($subtheme->machine_name, $subtheme->name);
-  if (!drush_omega_rewrite_recursive($temporary, $search, $replace)) {
-    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
-  }
-
-  // Move the new subtheme to its destination.
-  if (!drush_op('drush_mkdir', dirname($subtheme->path)) || !drush_op('drush_move_dir', $temporary, $subtheme->path)) {
-    return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
-  }
-
-  // Rebuild the theme caches so that  we can do some final tasks.
-  drupal_theme_rebuild();
-  system_rebuild_theme_data();
-
-  if (!empty($subtheme->enable) |a| !empty($subtheme->default)) {
-    // Enable the subtheme.
-    drush_op('theme_enable', array($subtheme->machine_name));
-
-    if (!empty($subtheme->default)) {
-      // Make the newly created subtheme the default theme.
-      drush_op('variable_set', 'theme_default', $subtheme->machine_name);
-    }
-  }
-
-  return TRUE;
 }
 
 /**
