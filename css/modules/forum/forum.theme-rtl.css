@@ -1,0 +1,27 @@
+/**
+ * @file
+ * Right-to-left styling for the Forum module.
+ */
+/* line 6, ../../../sass/modules/forum/forum.theme-rtl.scss */
+.forum-icon {
+  float: right;
+  margin-left: 0;
+  margin-right: 0.4em;
+}
+
+/* line 11, ../../../sass/modules/forum/forum.theme-rtl.scss */
+.forum-topic-navigation {
+  padding: 1em 3em 0 0;
+}
+
+/* line 14, ../../../sass/modules/forum/forum.theme-rtl.scss */
+.forum-topic-navigation .topic-previous {
+  text-align: left;
+  float: right;
+}
+
+/* line 18, ../../../sass/modules/forum/forum.theme-rtl.scss */
+.forum-topic-navigation .topic-next {
+  text-align: right;
+  float: left;
+}
