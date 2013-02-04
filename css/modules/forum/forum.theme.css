@@ -38,10 +38,3 @@
 .forum-icon--status-closed {
   background-position: -120px 0;
 }
-
-/* line 31, ../../../sass/modules/forum/forum.theme.scss */
-.forum-icon {
-  float: right;
-  margin-left: 0;
-  margin-right: 0.4em;
-}
