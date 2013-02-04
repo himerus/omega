@@ -137,8 +137,8 @@ function omega_css_cache_media_queries($item) {
     $base = file_create_url($item['data']);
     $base = substr($base, 0, strrpos($base, '/'));
 
-    if (substr($base, 0, strlen($GLOBALS['base_theme'])) == $GLOBALS['base_theme']) {
-      $base = substr($base, strlen($GLOBALS['base_theme']));
+    if (substr($base, 0, strlen($GLOBALS['base_root'])) == $GLOBALS['base_root']) {
+      $base = substr($base, strlen($GLOBALS['base_root']));
     }
 
     _drupal_build_css_path(NULL, $base . '/');
