@@ -88,7 +88,7 @@
   </header>
 
   <?php if ($display_submitted): ?>
-    <footer>
+    <footer class="node__submitted">
       <?php print $user_picture; ?>
       <p class="submitted"><?php print $submitted; ?></p>
     </footer>
