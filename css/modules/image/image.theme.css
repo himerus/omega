@@ -1,0 +1,24 @@
+/**
+ * @file
+ * Styles for the image module.
+ */
+/**
+ * Image upload widget.
+ */
+/* line 8, ../../../sass/modules/image/image.theme.scss */
+.image-preview {
+  float: left;
+  /* LTR */
+  padding: 0 10px 10px 0;
+  /* LTR */
+}
+
+/* line 12, ../../../sass/modules/image/image.theme.scss */
+.image-widget-data {
+  float: left;
+  /* LTR */
+}
+/* line 15, ../../../sass/modules/image/image.theme.scss */
+.image-widget-data .text-field {
+  width: auto;
+}

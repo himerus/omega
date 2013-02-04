@@ -239,6 +239,17 @@ function omega_css_alter(&$css) {
         'theme' => 'forum.theme-rtl.css',
       ),
     ),
+    'image' => array(
+      'image.css' => array(
+        'theme' => 'image.theme.css',
+      ),
+      'image-rtl.css' => array(
+        'theme' => 'image.theme-rtl.css',
+      ),
+      'image.admin.css' => array(
+        'admin' => 'image.admin.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.

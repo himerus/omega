@@ -1,0 +1,17 @@
+/**
+ * @file
+ * Right-to-left styling for the Forum module.
+ */
+/**
+ * Image upload widget.
+ */
+/* line 8, ../../../sass/modules/image/image.theme-rtl.scss */
+.image-preview {
+  float: right;
+  padding: 0 0 10px 10px;
+}
+
+/* line 12, ../../../sass/modules/image/image.theme-rtl.scss */
+.image-widget-data {
+  float: right;
+}
