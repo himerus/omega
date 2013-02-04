@@ -250,6 +250,14 @@ function omega_css_alter(&$css) {
         'admin' => 'image.admin.css',
       ),
     ),
+    'locale' => array(
+      'locale.css' => array(
+        'admin' => 'locale.admin.css',
+      ),
+      'locale-rtl.css' => array(
+        'admin' => 'locale.admin-rtl.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
