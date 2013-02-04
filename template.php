@@ -226,6 +226,11 @@ function omega_css_alter(&$css) {
         'theme' => 'file.theme.css',
       ),
     ),
+    'filter' => array(
+      'filter.css' => array(
+        'theme' => 'filter.theme.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
