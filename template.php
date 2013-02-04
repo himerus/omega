@@ -258,6 +258,16 @@ function omega_css_alter(&$css) {
         'admin' => 'locale.admin-rtl.css',
       ),
     ),
+    'openid' => array(
+      'openid.css' => array(
+        'base' => 'openid.base.css',
+        'theme' => 'openid.theme.css',
+      ),
+      'openid-rtl.css' => array(
+        'base' => 'openid.base-rtl.css',
+        'theme' => 'openid.theme-rtl.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
