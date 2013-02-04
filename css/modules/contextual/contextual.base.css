@@ -5,14 +5,12 @@
 /**
  * Contextual links behaviour.
  */
-/* line 10, ../../../sass/modules/contextual/contextual.base.scss */
 .contextual-links-wrapper,
 .contextual-links-trigger,
 .contextual-links {
   display: none;
 }
 
-/* line 16, ../../../sass/modules/contextual/contextual.base.scss */
 html.js .contextual-links-wrapper,
 .contextual-links-region:hover .contextual-links-trigger,
 .contextual-links-active .contextual-links-trigger,
@@ -23,13 +21,11 @@ html.js .contextual-links-wrapper,
 /**
  * Contextual links structure.
  */
-/* line 23, ../../../sass/modules/contextual/contextual.base.scss */
 .contextual-links-region {
   outline: none;
   position: relative;
 }
 
-/* line 27, ../../../sass/modules/contextual/contextual.base.scss */
 .contextual-links-wrapper {
   position: absolute;
   z-index: 999;
@@ -38,7 +34,6 @@ html.js .contextual-links-wrapper,
   top: 2px;
 }
 
-/* line 33, ../../../sass/modules/contextual/contextual.base.scss */
 .contextual-links-trigger {
   overflow: hidden;
   text-align: right;

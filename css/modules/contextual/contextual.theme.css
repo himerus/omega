@@ -5,16 +5,13 @@
 /**
  * Contextual link wrappers
  */
-/* line 10, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links-region-active {
   outline: #999999 dashed 1px;
 }
 
-/* line 13, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links-wrapper {
   font-size: 90%;
 }
-/* line 16, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links-wrapper a {
   text-decoration: none;
 }
@@ -22,7 +19,6 @@
 /**
  * Contextual trigger.
 */
-/* line 24, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links-trigger {
   /* Positioning */
   height: 18px;
@@ -43,13 +39,11 @@
   /* LTR */
 }
 
-/* line 39, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links-trigger:hover,
 .contextual-links-active .contextual-links-trigger {
   background-position: 2px -18px;
 }
 
-/* line 42, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links-active .contextual-links-trigger {
   /* Positioning */
   position: relative;
@@ -69,7 +63,6 @@
 /**
  * Contextual links.
  */
-/* line 56, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links {
   /* Position */
   position: absolute;
@@ -91,7 +84,6 @@
   text-align: left;
   white-space: nowrap;
 }
-/* line 71, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links li {
   margin: 0;
   padding: 0;
@@ -99,14 +91,12 @@
   list-style: none;
   list-style-image: none;
 }
-/* line 79, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links a {
   display: block;
   margin: 0.25em 0;
   padding: 0.25em 1em 0.25em 0.5em;
   color: #333333 !important;
 }
-/* line 85, ../../../sass/modules/contextual/contextual.theme.scss */
 .contextual-links a:hover {
   background-color: #bfdcee;
 }

@@ -2,7 +2,6 @@
  * @file
  * Right-to-left styling for the Forum module.
  */
-/* line 5, ../../../sass/modules/forum/forum.theme-rtl.scss */
 .forum-icon {
   float: right;
   margin-left: 0;

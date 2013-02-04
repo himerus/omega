@@ -3,14 +3,12 @@
  * Admin styles for the locale module.
  */
 /* Untranslated locales. */
-/* line 6, ../../../sass/modules/locale/locale.admin.scss */
 .locale-untranslated {
   font-style: normal;
   text-decoration: line-through;
 }
 
 /* Translations 'exposed' filter form. */
-/* line 15, ../../../sass/modules/locale/locale.admin.scss */
 .locale-translation-filter-form .form-item-language,
 .locale-translation-filter-form .form-item-translation,
 .locale-translation-filter-form .form-item-group {
@@ -22,11 +20,9 @@
   width: 15em;
   /* Opera 9 Fix. */
 }
-/* line 21, ../../../sass/modules/locale/locale.admin.scss */
 .locale-translation-filter-form .form-type-select select {
   width: 100%;
 }
-/* line 24, ../../../sass/modules/locale/locale.admin.scss */
 .locale-translation-filter-form .form-actions {
   float: left;
   /* LTR */

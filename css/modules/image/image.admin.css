@@ -6,14 +6,12 @@
  * Image style configuration pages.
  */
 /* Add new effect form. */
-/* line 11, ../../../sass/modules/image/image.admin.scss */
 .image-style-new,
 .image-style-new div {
   display: inline;
 }
 
 /* Image style columns. */
-/* line 16, ../../../sass/modules/image/image.admin.scss */
 .image-style-preview__col {
   float: left;
   top: 50%;
@@ -23,13 +21,11 @@
 }
 
 /* Image style preview images. */
-/* line 25, ../../../sass/modules/image/image.admin.scss */
 .image-style-preview__preview-image {
   margin: auto;
   position: relative;
 }
 
-/* line 29, ../../../sass/modules/image/image.admin.scss */
 .preview-image__width {
   position: absolute;
   height: 2px;
@@ -38,13 +34,11 @@
   border: 1px solid #666666;
   border-top: none;
 }
-/* line 37, ../../../sass/modules/image/image.admin.scss */
 .preview-image__width .dimension {
   position: relative;
   top: 4px;
 }
 
-/* line 42, ../../../sass/modules/image/image.admin.scss */
 .preview-image__height {
   position: absolute;
   right: -6px;
@@ -53,7 +47,6 @@
   border: 1px solid #666666;
   border-left: none;
 }
-/* line 50, ../../../sass/modules/image/image.admin.scss */
 .preview-image__height .dimension {
   position: absolute;
   height: 2em;
@@ -65,16 +58,13 @@
 /**
  * Image anchor form element.
  */
-/* line 62, ../../../sass/modules/image/image.admin.scss */
 .image-anchor {
   width: auto;
 }
-/* line 66, ../../../sass/modules/image/image.admin.scss */
 .image-anchor .even,
 .image-anchor .odd {
   background: none;
 }
-/* line 70, ../../../sass/modules/image/image.admin.scss */
 .image-anchor td {
   border: 1px solid #cccccc;
 }

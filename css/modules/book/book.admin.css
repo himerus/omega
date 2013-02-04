@@ -5,7 +5,6 @@
 /**
  * Book outline on book edit form.
  */
-/* line 8, ../../../sass/modules/book/book.admin.scss */
 .js .book-outline-form .form-submit {
   display: none;
 }
@@ -13,22 +12,18 @@
 /**
  * Book form for administering a single book's hierarchy.
  */
-/* line 14, ../../../sass/modules/book/book.admin.scss */
 .book-admin-edit select {
   margin-right: 24px;
 }
 
-/* line 17, ../../../sass/modules/book/book.admin.scss */
 .book-admin-edit .progress-disabled {
   margin-right: 0;
 }
 
-/* line 20, ../../../sass/modules/book/book.admin.scss */
 .book-admin-edit .ajax-new-content {
   background-color: #ffd;
 }
 
-/* line 23, ../../../sass/modules/book/book.admin.scss */
 .book-admin-edit .form-item {
   float: left;
 }

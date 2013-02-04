@@ -9,7 +9,6 @@
  * - #1077602: Convert node.tpl.php to HTML5.
  */
 function omega_preprocess_node(&$variables) {
-  dpm($variables);
   $node_type = $variables['type'];
   $view_mode = $variables['view_mode'];
   // Add article ARIA role.

@@ -5,13 +5,11 @@
 /**
  * Contextual links structure.
  */
-/* line 9, ../../../sass/modules/contextual/contextual.base-rtl.scss */
 .contextual-links-wrapper {
   left: 5px;
   right: auto;
 }
 
-/* line 13, ../../../sass/modules/contextual/contextual.base-rtl.scss */
 .contextual-links-trigger {
   text-align: left;
 }

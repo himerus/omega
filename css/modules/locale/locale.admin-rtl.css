@@ -2,7 +2,6 @@
  * @file
  * RIght to left admin styles for the locale module.
  */
-/* line 8, ../../../sass/modules/locale/locale.admin-rtl.scss */
 .locale-translation-filter-form .form-item-language,
 .locale-translation-filter-form .form-item-translation,
 .locale-translation-filter-form .form-item-group {
@@ -10,7 +9,6 @@
   padding-left: .8em;
   padding-right: 0;
 }
-/* line 13, ../../../sass/modules/locale/locale.admin-rtl.scss */
 .locale-translation-filter-form .form-actions {
   float: right;
   padding: 3ex 1em 0 0;

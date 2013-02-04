@@ -2,7 +2,6 @@
  * @file
  * Basic theming for the book navigation component.
  */
-/* line 5, ../../../sass/modules/book/book.theme.scss */
 .book-navigation__previous {
   float: left;
   /* LTR */
@@ -12,7 +11,6 @@
   /* LTR */
 }
 
-/* line 11, ../../../sass/modules/book/book.theme.scss */
 .book-navigation__up {
   float: left;
   /* LTR */
@@ -21,7 +19,6 @@
   text-align: center;
 }
 
-/* line 17, ../../../sass/modules/book/book.theme.scss */
 .book-navigation__next {
   float: right;
   /* LTR */

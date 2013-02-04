@@ -5,7 +5,6 @@
 /**
  * Image upload widget.
  */
-/* line 8, ../../../sass/modules/image/image.theme.scss */
 .image-preview {
   float: left;
   /* LTR */
@@ -13,12 +12,10 @@
   /* LTR */
 }
 
-/* line 12, ../../../sass/modules/image/image.theme.scss */
 .image-widget-data {
   float: left;
   /* LTR */
 }
-/* line 15, ../../../sass/modules/image/image.theme.scss */
 .image-widget-data .text-field {
   width: auto;
 }

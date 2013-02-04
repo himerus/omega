@@ -3,7 +3,6 @@
  * Styling for the Forum module.
  */
 /* Forum Status Icons */
-/* line 6, ../../../sass/modules/forum/forum.theme.scss */
 .forum-icon {
   float: left;
   width: 24px;
@@ -14,27 +13,22 @@
   text-indent: -9999px;
 }
 
-/* line 15, ../../../sass/modules/forum/forum.theme.scss */
 .forum-icon--status-new {
   background-position: -24px 0;
 }
 
-/* line 18, ../../../sass/modules/forum/forum.theme.scss */
 .forum-icon--status-hot {
   background-position: -48px 0;
 }
 
-/* line 21, ../../../sass/modules/forum/forum.theme.scss */
 .forum-icon--status-hot-new {
   background-position: -72px 0;
 }
 
-/* line 24, ../../../sass/modules/forum/forum.theme.scss */
 .forum-icon--status-sticky {
   background-position: -96px 0;
 }
 
-/* line 27, ../../../sass/modules/forum/forum.theme.scss */
 .forum-icon--status-closed {
   background-position: -120px 0;
 }
