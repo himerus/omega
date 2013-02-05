@@ -6,13 +6,11 @@
  * Poll Results
  */
 /* Poll Bars */
-/* line 9, ../../../sass/modules/poll/poll.theme.scss */
 .poll-bars__bar {
   height: 1em;
   margin: 1px 0;
   background-color: #ddd;
 }
-/* line 14, ../../../sass/modules/poll/poll.theme.scss */
 .poll-bars__bar .foreground {
   background-color: #000;
   height: 1em;
@@ -20,14 +18,12 @@
   /* LTR */
 }
 
-/* line 20, ../../../sass/modules/poll/poll.theme.scss */
 .poll-bars__percent {
   text-align: right;
   /* LTR */
 }
 
 /* Poll Total */
-/* line 24, ../../../sass/modules/poll/poll.theme.scss */
 .poll-results__total {
   text-align: center;
 }
@@ -35,12 +31,10 @@
 /**
  * Poll Voting Form
  */
-/* line 31, ../../../sass/modules/poll/poll.theme.scss */
 .poll-vote-form {
   text-align: center;
 }
 
-/* line 34, ../../../sass/modules/poll/poll.theme.scss */
 .poll-vote-form__choices {
   text-align: left;
   /* LTR */

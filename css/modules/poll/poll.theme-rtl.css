@@ -3,17 +3,14 @@
  * Right to left theme for the poll voting form and results display.
  */
 /* Poll Bars */
-/* line 6, ../../../sass/modules/poll/poll.theme-rtl.scss */
 .poll-bars__bar .foreground {
   float: right;
 }
 
-/* line 9, ../../../sass/modules/poll/poll.theme-rtl.scss */
 .poll-bars__text {
   text-align: right;
 }
 
-/* line 12, ../../../sass/modules/poll/poll.theme-rtl.scss */
 .poll-bars__percent {
   text-align: left;
 }
