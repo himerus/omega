@@ -1,0 +1,20 @@
+/* line 2, ../../../sass/modules/poll/poll.admin.scss */
+.poll-choice-table .form-text {
+  display: inline;
+  width: auto;
+}
+/* line 6, ../../../sass/modules/poll/poll.admin.scss */
+.poll-choice-table .choice-flag {
+  white-space: nowrap;
+  width: 4em;
+}
+
+/* line 16, ../../../sass/modules/poll/poll.admin.scss */
+td.poll-chtext {
+  width: 80%;
+}
+
+/* line 19, ../../../sass/modules/poll/poll.admin.scss */
+td.poll-chvotes .form-text {
+  width: 85%;
+}

@@ -268,6 +268,15 @@ function omega_css_alter(&$css) {
         'theme' => 'openid.theme-rtl.css',
       ),
     ),
+    'poll' => array(
+      'poll.css' => array(
+        'admin' => 'poll.admin.css',
+        'theme' => 'poll.theme.css',
+      ),
+      'poll-rtl.css' => array(
+        'theme' => 'poll.theme-rtl.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
@@ -343,7 +352,7 @@ function omega_js_alter(&$js) {
  */
 function omega_form_alter(&$form, &$form_state, $form_id) {
   // Duplicate the form ID as a class so we can reduce spececifity in our CSS.
-  $form['#attributes']['class'][] = drupal_clean_css_identifier($form_id);
+  $form['#attributes']['class'][] = drupal_clean_css_identifier($form['#id']);
 }
 
 /**
