@@ -1,49 +1,47 @@
 /* Blocks Admin Page */
-/* line 5, ../../../sass/modules/block/block.admin.scss */
 .blocks-admin .region-title {
   font-weight: bold;
 }
-/* line 8, ../../../sass/modules/block/block.admin.scss */
 .blocks-admin .region-message {
   font-weight: normal;
   color: #999;
 }
-/* line 12, ../../../sass/modules/block/block.admin.scss */
 .blocks-admin .region-populated {
   display: none;
 }
 
 /* Block Demo Page */
-/* line 18, ../../../sass/modules/block/block.admin.scss */
 .block-region {
-  background-color: #ff6;
   margin-top: 4px;
   margin-bottom: 4px;
   padding: 3px;
+  background-color: #ff6;
 }
 
-/* line 26, ../../../sass/modules/block/block.admin.scss */
 .block-demo-backlink,
 .block-demo-backlink:link,
 .block-demo-backlink:visited {
+  /* Position */
+  position: fixed;
+  z-index: 499;
+  left: 20px;
+  /* LTR */
+  /* Box Model */
+  padding: 5px 10px;
+  /* Font */
+  color: #000;
+  font-family: "Lucida Grande", Verdana, sans-serif;
+  font-size: small;
+  line-height: 20px;
+  /* Other Declarations */
   background-color: #B4D7F0;
   -webkit-border-radius: 0 0 10px 10px;
   -moz-border-radius: 0 0 10px 10px;
   -ms-border-radius: 0 0 10px 10px;
   -o-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
-  color: #000;
-  font-family: "Lucida Grande", Verdana, sans-serif;
-  font-size: small;
-  line-height: 20px;
-  left: 20px;
-  /*LTR*/
-  padding: 5px 10px;
-  position: fixed;
-  z-index: 499;
 }
 
-/* line 38, ../../../sass/modules/block/block.admin.scss */
 .block-demo-backlink:hover {
   text-decoration: underline;
 }

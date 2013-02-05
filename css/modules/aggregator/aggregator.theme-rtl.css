@@ -2,7 +2,6 @@
  * @file
  * Aggregator theme CSS for right to left languages.
  */
-/* line 6, ../../../sass/modules/aggregator/aggregator.theme-rtl.scss */
 .feed-source .feed-icon {
   float: left;
 }
