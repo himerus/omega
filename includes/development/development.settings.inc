@@ -30,6 +30,52 @@ function omega_extension_development_settings_form($element, &$form, $form_state
     '#default_value' => omega_theme_get_setting('omega_browser_width_indicator', FALSE),
   );
 
+  $element['omega_livereload'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable LiveReload'),
+    '#description' => t('<a href="http://livereload.com/">LiveReload</a> monitors changes in the file system. As soon as you save a file, it is preprocessed as needed,
+      and the browser is refreshed. Even cooler, when you change a CSS file or an image, the browser is updated instantly without
+      reloading the page. After enabling this features <a href="https://github.com/livereload/livereload-js">livereload.js</a> will
+      be added to your pages which will then communicate with your LiveReload server. You can configure your own LiveReload server
+      from scratch or use \'drush omega-guard\' with the Gem- & Guardfiles provided by our starterkits.'),
+    '#default_value' => omega_theme_get_setting('omega_livereload', TRUE),
+  );
+
+  $element['omega_livereload_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('LiveReload settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#states' => array(
+      'visible' => array(
+        'input[name="omega_livereload"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+  $element['omega_livereload_settings']['omega_livereload_host'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Host'),
+    '#description' => t("The host at which the LiveReload server is running. Do not add any protocol prefixes (e.g. 'http://').
+      By default livereload.js will try to connect to a LiveReload server on the host that is served from. That means that if
+      your domain is 'example.com' livereload.js will try to connect to a LiveReload server on 'example.com' too. Therefore,
+      please only specify a custom host if the LiveReload server is hosted elsewhere. Normally, this is only the case if you are
+      running your website on a virtual machine whilest the LiveReload server runs on the host environment. In this case
+      you would specify 'localhost' as the host."),
+    '#default_value' => omega_theme_get_setting('omega_livereload_host'),
+    '#size' => 30,
+  );
+
+  $element['omega_livereload_settings']['omega_livereload_port'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Port'),
+    '#description' => t('The port through which the LiveReload server can be reached. By default livereload.js tries to connect
+      to port 35729 which is also the default for LiveReload server. Therefore, please only specify a custom port if the
+      LiveReload server is running on a different port.'),
+    '#default_value' => omega_theme_get_setting('omega_livereload_port'),
+    '#size' => 10,
+  );
+
   $regions = system_region_list($GLOBALS['theme_key'], REGIONS_VISIBLE);
   $regions = module_exists('dashboard') ? array_diff_key($regions, array_flip(dashboard_regions())) : $regions;
   if ($regions) {
