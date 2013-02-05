@@ -277,6 +277,14 @@ function omega_css_alter(&$css) {
         'theme' => 'poll.theme-rtl.css',
       ),
     ),
+    'search' => array(
+      'search.css' => array(
+        'theme' => 'search.theme.css',
+      ),
+      'search-rtl.css' => array(
+        'theme' => 'search.theme-rtl.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
