@@ -16,5 +16,5 @@ function omega_preprocess_views_view_unformatted(&$variables) {
 
   // Empty the classes array so we don't end up with bogus classes on the
   // wrapper if someone decides to use it like that.
-  $variables['classes_array'][$delta] = array();
+  $variables['classes_array'] = array();
 }
