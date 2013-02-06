@@ -523,7 +523,7 @@ function drush_omega_guard($theme =  NULL) {
   }
 
   // This is the command for running guard through bundler.
-  $command = 'bundle exec guard --no-color';
+  $command = 'bundle exec guard --no-color --no-interactions';
 
   // Polling is required for making guard watch work with remote file systems
   // e.g. in case of virtual environments where guard runs on the guest but
