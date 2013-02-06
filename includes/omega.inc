@@ -193,46 +193,63 @@ function omega_css_cache_media_queries($item) {
  *   The purged array.
  */
 function omega_exclude_assets(&$elements, $exclude) {
-  // For optimization reasons we load the theme trail to check whether a
-  // namespace matches the machine-readable name of one of the themes in the
-  // trail.
-  $trail = omega_theme_trail();
+  $mapping = array();
+  foreach ($elements as $key => $item) {
+    if ($item['type'] == 'inline') {
+      // Naturally, in-line CSS is not supported.
+      continue;
+    }
 
-  foreach ($exclude as $item) {
-    $path = '';
+    // We need to build an array containing just the 'data' attribute because
+    // that's the actual path of the file. The array key of the elements can
+    // be something else if someone is sneaky enough to use drupal_add_js() or
+    // drupal_add_css() with a bogus first argument (normally, that is the
+    // path to the file) and then specify the actual path through the 'data'
+    // attribute in the $options array.
+    $mapping[$key] = $item['data'];
+  }
+
+  foreach ($exclude as $key => $item) {
     // The first segment (everything before the first slash) is the namespace.
+    // This rule only applies to local files... So if the namespace can not be
+    // mapped to a module, profile or theme engine we assume that the we are
+    // trying to target an external file.
     list($namespace) = explode('/', $item);
 
     // Check if the namespace refers to a file residing in the 'misc' folder.
-    if ($namespace == 'misc') {
-      $path = DRUPAL_ROOT . '/misc';
-    }
-    // Check if the namespace refers to a theme.
-    elseif (array_key_exists($namespace, $trail)) {
-      $path = drupal_get_path('theme', $namespace);
-    }
-    else {
-      // Otherwise, check if it refers to a module, profile or theme engine.
-      foreach (array('module', 'profile', 'theme_engine') as $type) {
-        if ($path = drupal_get_path($type, $namespace)) {
-          break;
+    if ($namespace != '*') {
+      if ($namespace == 'misc') {
+        $prefix = DRUPAL_ROOT . '/misc';
+        $item = substr_replace($item, $prefix, 0, strlen($namespace));
+      }
+      else {
+        // Otherwise, check if it refers to a theme, module, profile or theme
+        // engine.
+        foreach (array('theme', 'module', 'profile', 'theme_engine') as $type) {
+          // We can't use drupal_get_path() directly because that uses dirname()
+          // internally which returns '.' if no filename was found.
+          if ($filename = drupal_get_filename($type, $namespace)) {
+            $prefix = dirname($filename);
+            $item = substr_replace($item, $prefix, 0, strlen($namespace));
+            break;
+          }
         }
       }
     }
 
-    // If a namespace could be identified, use its path as a prefix, otherwise
-    // use the plain file path as provided.
-    $item = $path ? $path . '/' . substr($item, strlen($namespace) + 1) : $item;
+    // Escape any regex characters and turn asterisk wildcards into actual regex
+    // wildcards.
     $item = preg_quote($item, '/');
-    // Turn the * wildcards into actual regex wildcards and make sure that, if
-    // a .css file is targeted directly we are also removing the RTL version of
-    // that file.
-    $item = str_replace(array('\*', '\.css'), array('(.*)', '(\.css|-rtl\.css)'), $item);
+    $item = str_replace('\*', '(.*)', $item);
 
-    // Look up all elements that match this exclusion pattern.
-    $filtered = preg_grep("/^$item$/", array_keys($elements));
-    $elements = array_diff_key($elements, array_flip($filtered));
+    // Make sure that RTL styles are excluded as well when a file name has been
+    // specified with it's full .css file extension.
+    $exclude[$key] = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $item);
   }
+
+  // Finally, implode the array of items to exclude into a proper regex and
+  // invoke in on the array of files to be excluded.
+  $elements = array_diff_key($elements, preg_grep('/^(' . implode('|', $exclude) . ')$/', $mapping));
 }
 
 /**
