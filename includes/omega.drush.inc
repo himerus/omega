@@ -45,6 +45,7 @@ function omega_drush_command() {
       'name' => dt('The name of your subtheme.'),
     ),
     'options' => array(
+      'screen' => dt('Run guard watch in a detached screen.'),
       'force-polling' => dt('Polling is required for making guard watch work with remote file systems e.g. in case of virtual environments where guard runs on the guest but the files are modified on the host.'),
       'latency' => dt("Sometimes it seems to be required to set a latency (e.g. 5) if working with --force-polling because otherwise file changes are detected twice. Hence, not setting a latency might affect your system performance."),
     ),
@@ -447,7 +448,7 @@ function drush_omega_guard_validate($theme = NULL) {
  * @param $theme
  *   (optional) The machine-readable name of a theme.
  */
-function drush_omega_guard($theme =  NULL) {
+function drush_omega_guard($theme = NULL) {
   if (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to run Guard for?'))) {
     return;
   }
@@ -502,8 +503,8 @@ function drush_omega_guard($theme =  NULL) {
 
   // Output an error message if the gemfiles dependencies are not satisfied.
   drush_shell_cd_and_exec(DRUPAL_ROOT . '/' . $path, 'bundle check --no-color');
-  $output = drush_shell_exec_output();
-  switch (reset($output)) {
+  $output = reset(drush_shell_exec_output());
+  switch ($output) {
     case "The Gemfile's dependencies are satisfied":
       // All is good, we can proceed.
       break;
@@ -524,6 +525,45 @@ function drush_omega_guard($theme =  NULL) {
 
   // This is the command for running guard through bundler.
   $command = 'bundle exec guard --no-color --no-interactions';
+
+  if (drush_get_option('screen')) {
+    drush_shell_exec('screen --version');
+    if (!preg_match('/^Screen version/', reset(drush_shell_exec_output()))) {
+      // Screen was not found on this machine.
+      return drush_set_error(dt("You have to install 'screen' before you can run 'omega-guard' in a detached screen."));
+    }
+
+    // Check if there is already a screen. Running multiple screens at the same
+    // time ultimately eats up too much performance. This way we ensure that
+    // you don't accidently run the same screen session multiple times.
+    drush_shell_exec('screen -list');
+    foreach (drush_shell_exec_output() as $output) {
+      $output = trim($output);
+      $matches = array();
+      if (preg_match('/^((\d+)\.omega:' . $theme . ':guard)/', $output, $matches)) {
+        $themes = list_themes();
+
+        // Make sure that we only got one screen for each theme at a time.
+        if (drush_confirm(dt("There is already a screen running for @theme. Do you want to restart it?", array('@theme' => $themes[$theme]->name)))) {
+          drush_shell_exec("screen -S $matches[2] -X quit");
+          // We found an existing guard session and killed it.
+          break;
+        }
+        else {
+          // Fine, if the user does not want us to kill the session he has to do
+          // it manually.
+          return drush_set_error(dt("There is already a screen running for the @theme theme (@screen). You have to kill the runing screen with '@command' before you can start a new one.", array(
+            '@theme' => $themes[$theme]->name,
+            '@screen' => $matches[1],
+            '@command' => "screen -S $matches[2] -X quit",
+          )));
+        }
+      }
+    };
+
+    // We want to run the command in a detached (-dmS) screen.
+    $command = "screen -dmS omega:$theme:guard $command";
+  }
 
   // Polling is required for making guard watch work with remote file systems
   // e.g. in case of virtual environments where guard runs on the guest but
