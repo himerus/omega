@@ -285,6 +285,11 @@ function omega_css_alter(&$css) {
         'theme' => 'search.theme-rtl.css',
       ),
     ),
+    'taxonomy' => array(
+      'taxonomy.css' => array(
+        'admin' => 'taxonomy.admin.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
