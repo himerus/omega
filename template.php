@@ -305,11 +305,11 @@ function omega_css_alter(&$css) {
     $path = drupal_get_path('module', $module);
 
     foreach ($files as $file => $items) {
-      if (isset($css[$module . '/' . $file])) {
+      if (isset($css[$path . '/' . $file])) {
         // Keep a copy of the original file array so we can merge that with our
         // overrides in order to keep the 'weight' and 'group' declarations.
-        $original = $css[$module . '/' . $file];
-        unset($css[$module . '/' . $file]);
+        $original = $css[$path . '/' . $file];
+        unset($css[$path . '/' . $file]);
 
         // Omega 4.x tries to follow the pattern described in
         // http://drupal.org/node/1089868 for declaring CSS files. Therefore, it
