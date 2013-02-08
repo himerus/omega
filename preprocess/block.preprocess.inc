@@ -16,16 +16,6 @@ function omega_preprocess_block(&$variables) {
     }
   }
 
-  // Classes describing the position of the block within the region.
-  if ($variables['block_id'] == 1) {
-    $variables['attributes_array']['class'][] = 'first';
-  }
-
-  // The 'last_in_region' property is set in omega_page_alter().
-  if (isset($variables['block']->last_in_region)) {
-    $variables['attributes_array']['class'][] = 'last';
-  }
-
   $variables['attributes_array']['class'][] = $variables['block_zebra'];
   $variables['title_attributes_array']['class'][] = 'block__title';
 

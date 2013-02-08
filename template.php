@@ -526,10 +526,24 @@ function omega_theme_registry_alter(&$registry) {
     }
   }
 
-  // Override template_process_html() in order to add support for conditional
-  // comments for JavaScript files.
-  if (($index = array_search('template_process_html', $registry['html']['process functions'], TRUE)) !== FALSE) {
-    array_splice($registry['html']['process functions'], $index, 1, 'omega_template_process_html_override');
+  // Override preprocess and process functions for cases where we want to take a
+  // completely different road than what core does by default.
+  $overrides = array(
+    'html' => array(
+      'process' => array(
+        'template_process_html' => 'omega_template_process_html_override',
+      ),
+    ),
+  );
+
+  foreach ($overrides as $hook => $types) {
+    foreach ($types as $type => $overrides) {
+      foreach ($overrides as $original => $override) {
+        if (($index = array_search($original, $registry[$hook][$type . ' functions'], TRUE)) !== FALSE) {
+          array_splice($registry[$hook][$type . ' functions'], $index, 1, $override);
+        }
+      }
+    }
   }
 
   // Fix for integration with the theme developer module.
@@ -555,8 +569,7 @@ function omega_theme_registry_alter(&$registry) {
 }
 
 /**
- * Overrides template_process_html() in order to provide support for the
- * 'browsers' attribute for JavaScript files.
+ * Overrides template_process_html().
  */
 function omega_template_process_html_override(&$variables) {
   // Render page_top and page_bottom into top level variables.
@@ -625,23 +638,6 @@ function omega_override_overlay_deliver_empty_page() {
  * Implements hook_page_alter().
  */
 function omega_page_alter(&$page) {
-  $regions = system_region_list($GLOBALS['theme_key'], REGIONS_VISIBLE);
-
-  // Look in each visible region for blocks.
-  foreach ($regions as $region => $name) {
-    if (!empty($page[$region])) {
-      // Find the last block in the region.
-      $blocks = array_reverse(element_children($page[$region]));
-      while ($blocks && !isset($page[$region][$blocks[0]]['#block'])) {
-        array_shift($blocks);
-      }
-
-      if ($blocks) {
-        $page[$region][$blocks[0]]['#block']->last_in_region = TRUE;
-      }
-    }
-  }
-
   // Place dummy blocks in each region if the 'demo regions' setting is active
   // to force regions to be rendered.
   if (omega_extension_enabled('development') && omega_theme_get_setting ('omega_demo_regions', TRUE) && user_access('administer site configuration')) {
@@ -655,6 +651,7 @@ function omega_page_alter(&$page) {
       // just show demo regions for those regions that we can actually place
       // blocks in. Hence, there will only be demo regions for those regions
       // that have been declared through the theme's .info file.
+      $regions = system_region_list($GLOBALS['theme_key'], REGIONS_VISIBLE);
       foreach (array_intersect_key($regions, array_flip($configured)) as $region => $name) {
         if (empty($page[$region])) {
           $page[$region]['#theme_wrappers'] = array('region');
