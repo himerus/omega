@@ -190,7 +190,7 @@ function omega_css_alter(&$css) {
   // by Omega.
   foreach ($overrides as $module => $files) {
     // We gathered the CSS files with paths relative to the providing module.
-    $module = drupal_get_path('module', $module);
+    $path = drupal_get_path('module', $module);
 
     foreach ($files as $file => $items) {
       if (isset($css[$module . '/' . $file])) {
@@ -206,8 +206,8 @@ function omega_css_alter(&$css) {
         // in a sub-theme.
         foreach ($types as $type) {
           if (isset($items[$type])) {
-            $css[$omega . '/css/' . $module . '/' . $items[$type]] = array(
-              'data' => $omega . '/css/' . $module . '/' . $items[$type],
+            $css[$omega . '/css/modules/' . $module . '/' . $items[$type]] = array(
+              'data' => $omega . '/css/modules/' . $module . '/' . $items[$type],
             ) + $original;
           }
         }
