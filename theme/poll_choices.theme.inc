@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Returns HTML for an admin poll form for choices.
  *

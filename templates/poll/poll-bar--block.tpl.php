@@ -18,11 +18,11 @@
 ?>
 
 <div class="poll-bars">
-    <div class="poll-bars__text"><?php print $title; ?></div>
-    <div class="poll-bars__bar">
-        <div style="width: <?php print $percentage; ?>%;" class="foreground"></div>
-    </div>
-    <div class="poll-bars__percent">
-      <?php print $percentage; ?>%
-    </div>
+  <div class="poll-bars__text"><?php print $title; ?></div>
+  <div class="poll-bars__bar">
+    <div style="width: <?php print $percentage; ?>%;" class="foreground"></div>
+  </div>
+  <div class="poll-bars__percent">
+    <?php print $percentage; ?>%
+  </div>
 </div>

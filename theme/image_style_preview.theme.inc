@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Returns HTML for a preview of an image style.
  *
