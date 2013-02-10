@@ -645,13 +645,13 @@ function omega_page_alter(&$page) {
 
     // Don't interfere with the 'Demonstrate block regions' page.
     if (strpos('admin/structure/block/demo/', $item['path']) !== 0) {
+      $regions = system_region_list($GLOBALS['theme_key'], REGIONS_VISIBLE);
       $configured = omega_theme_get_setting('omega_demo_regions_list', array_keys($regions));
 
       // We don't explicitly load possible layout regions and instead really
       // just show demo regions for those regions that we can actually place
       // blocks in. Hence, there will only be demo regions for those regions
       // that have been declared through the theme's .info file.
-      $regions = system_region_list($GLOBALS['theme_key'], REGIONS_VISIBLE);
       foreach (array_intersect_key($regions, array_flip($configured)) as $region => $name) {
         if (empty($page[$region])) {
           $page[$region]['#theme_wrappers'] = array('region');
