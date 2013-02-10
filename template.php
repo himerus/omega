@@ -290,6 +290,17 @@ function omega_css_alter(&$css) {
         'admin' => 'taxonomy.admin.css',
       ),
     ),
+    'user' => array(
+      'user.css' => array(
+        'base' => 'user.base.css',
+        'admin' => 'user.admin.css',
+        'theme' => 'user.theme.css',
+      ),
+      'user-rtl.css' => array(
+        'admin' => 'user.admin-rtl.css',
+        'theme' => 'user.theme-rtl.css',
+      ),
+    ),
   );
 
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.

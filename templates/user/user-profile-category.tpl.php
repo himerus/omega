@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Default theme implementation to present profile categories (groups of
+ * Omega theme implementation to present profile categories (groups of
  * profile items).
  *
  * Categories are defined when configuring user profile fields for the site.
@@ -31,7 +31,5 @@
     <?php endif; ?>
   </header>
 
-  <dl>
-    <?php print $profile_items; ?>
-  </dl>
+  <?php print $profile_items; ?>
 </section>
