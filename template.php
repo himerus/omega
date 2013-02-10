@@ -526,8 +526,10 @@ function omega_theme_registry_alter(&$registry) {
     }
   }
 
-  // Override preprocess and process functions for cases where we want to take a
-  // completely different road than what core does by default.
+  // Override pre-process and process functions for cases where we want to take
+  // a completely different approach than what core does by default. In some
+  // cases this is much more practical than altering or undoing things that were
+  // added or changed in a previous hook.
   $overrides = array(
     'html' => array(
       'process' => array(
