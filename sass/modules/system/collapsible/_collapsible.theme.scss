@@ -6,14 +6,20 @@
  */
 
 html.js fieldset.collapsible .fieldset-legend {
-  background: url(../../misc/menu-expanded.png) 5px 65% no-repeat; /* LTR */
   padding-left: 15px; /* LTR */
+  background: url(../../../images/misc/menu-expanded.png) 5px 65% no-repeat; /* LTR */
 }
-html.js fieldset.collapsed .fieldset-legend {
-  background-image: url(../../misc/menu-collapsed.png); /* LTR */
-  background-position: 5px 50%; /* LTR */
+html.js fieldset.collapsed {
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  
+  .fieldset-legend {
+    background-image: url(../../../images/misc/menu-collapsed.png); /* LTR */
+    background-position: 5px 50%; /* LTR */
+  }
 }
-.fieldset-legend span.summary {
+.fieldset-legend .summary {
   color: #999;
   font-size: 0.9em;
   margin-left: 0.5em;

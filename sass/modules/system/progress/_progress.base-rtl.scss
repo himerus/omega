@@ -1,10 +1,11 @@
 /**
  * @file
- * Base styles for the progress behavior.
+ * Right to left base styles for the progress behavior.
  *
  * @see progress.js
  */
 
+/* Bar */
 .progress .percentage {
   float: left;
 }

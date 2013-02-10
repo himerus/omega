@@ -285,6 +285,20 @@ function omega_css_alter(&$css) {
         'theme' => 'search.theme-rtl.css',
       ),
     ),
+    'system' => array(
+      'system.base.css' => array(
+        'base' => 'system.base.css',
+      ),
+      'system.base-rtl.css' => array(
+        'base' => 'system.theme-rtl.css',
+      ),
+      'system.theme.css' => array(
+        'theme' => 'system.theme.css',
+      ),
+      'system.theme-rtl.css' => array(
+        'theme' => 'system.theme-rtl.css',
+      ),
+    ),
     'taxonomy' => array(
       'taxonomy.css' => array(
         'admin' => 'taxonomy.admin.css',
