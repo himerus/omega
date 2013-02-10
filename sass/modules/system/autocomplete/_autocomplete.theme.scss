@@ -1,0 +1,12 @@
+/**
+ * @file
+ * Theme for autocomplete.
+ *
+ * @see autocomplete.js
+ */
+
+/* Suggestion list */
+#autocomplete li.selected {
+  background: #0072b9;
+  color: #fff;
+}
