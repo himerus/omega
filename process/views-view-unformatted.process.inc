@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Implements hook_preprocess_views_view().
+ * Implements hook_process_views_view_unformatted().
  *
  * @see omega_preprocess_views_view_unformatted()
  */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Implements hook_preprocess_views_view().
+ * Implements hook_preprocess_views_view_unformatted().
  */
 function omega_preprocess_views_view_unformatted(&$variables) {
   // For some reason views puts row classes into the classes array. Instead of
