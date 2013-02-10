@@ -364,7 +364,7 @@ function omega_js_alter(&$js) {
  * Implements hook_form_alter().
  */
 function omega_form_alter(&$form, &$form_state, $form_id) {
-  // Duplicate the form ID as a class so we can reduce spececifity in our CSS.
+  // Duplicate the form ID as a class so we can reduce specificity in our CSS.
   $form['#attributes']['class'][] = drupal_clean_css_identifier($form['#id']);
 }
 
@@ -402,7 +402,7 @@ function omega_theme() {
 function omega_theme_registry_alter(&$registry) {
   // We prefer the attributes array instead of the plain classes array used by
   // many core and contrib modules. In Drupal 8, we are going to convert all
-  // occurances of that into an attributes object. For now, we simply
+  // occurrences of that into an attributes object. For now, we simply
   // synchronize our attributes array with the classes array to encourage
   // themers to use it.
   foreach ($registry as $hook => $item) {
