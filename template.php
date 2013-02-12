@@ -97,7 +97,7 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
  * Added through omega_theme_registry_alter() to synchronize the attributes
  * array with the classes array.
  */
-function omega_enforce_attributes(&$variables) {
+function omega_enforce_attributes(&$variables, $hook) {
   // Copy over the classes array into the attributes array.
   if (!empty($variables['classes_array'])) {
     $variables['attributes_array']['class'] = !empty($variables['attributes_array']['class']) ? array_merge($variables['attributes_array']['class'], $variables['classes_array']) : $variables['classes_array'];
@@ -425,14 +425,30 @@ function omega_theme() {
  * Implements hook_theme_registry_alter().
  */
 function omega_theme_registry_alter(&$registry) {
+  // Fix for integration with the theme developer module.
+  if (module_exists('devel_themer')) {
+    $mapping = array(
+      'preprocess' => 'devel_function_preprocess_intercept',
+      'process' => 'devel_function_process_intercept',
+      'theme' => 'devel_function_intercept',
+    );
+  }
+  else {
+    $mapping = array(
+      'preprocess' => 'preprocess functions',
+      'process' => 'process functions',
+      'theme' => 'function',
+    );
+  }
+
   // We prefer the attributes array instead of the plain classes array used by
   // many core and contrib modules. In Drupal 8, we are going to convert all
   // occurrences of that into an attributes object. For now, we simply
   // synchronize our attributes array with the classes array to encourage
   // themers to use it.
   foreach ($registry as $hook => $item) {
-    if (empty($item['base hook']) && !isset($item['function'])) {
-      array_unshift($registry[$hook]['process functions'], 'omega_enforce_attributes');
+    if (empty($item['base hook']) && empty($item[$mapping['theme']])) {
+      array_unshift($registry[$hook][$mapping['process']], 'omega_enforce_attributes');
     }
   }
 
@@ -440,13 +456,13 @@ function omega_theme_registry_alter(&$registry) {
   // files to keep the main template.php file clean. This is really fast because
   // it uses the theme registry to cache the paths to the files that it finds.
   $trail = omega_theme_trail();
-  foreach ($trail as $key => $theme) {
+  foreach ($trail as $theme => $name) {
     // Remove the current element from the trail so we only iterate over
     // higher level themes during subsequent checks.
-    unset($trail[$key]);
+    unset($trail[$theme]);
 
-    foreach (array('preprocess', 'process', 'theme') as $type) {
-      $path = drupal_get_path('theme', $key);
+    foreach ($mapping as $type => $map) {
+      $path = drupal_get_path('theme', $theme);
       // Only look for files that match the 'something.preprocess.inc' pattern.
       $mask = '/.' . $type . '.inc$/';
       // This is the length of the suffix (e.g. '.preprocess') of the basename
@@ -464,16 +480,16 @@ function omega_theme_registry_alter(&$registry) {
         }
 
         // Name of the function (theme hook or theme function).
-        $function = $type == 'theme' ? $key . '_' . $hook : $key . '_' . $type . '_' . $hook;
+        $callback = $type == 'theme' ? $theme . '_' . $hook : $theme . '_' . $type . '_' . $hook;
 
         // Make sure we don't run into any fatal errors by including any
         // include file for a (pre)process or theme function if the same hook
         // has already been implemented in template.php or anywhere else.
-        if (($type == 'theme' && isset($registry[$hook]['function']) && $registry[$hook]['function'] == $function) || ($type != 'theme' && in_array($function, $registry[$hook][$type . ' functions']))) {
+        if (($type == 'theme' && isset($registry[$hook][$map]) && $registry[$hook][$map] == $callback) || ($type != 'theme' && in_array($callback, $registry[$hook][$map]))) {
           // Notify the administrator about this clash through watchdog.
           watchdog('omega', 'There are two declarations of %function in the %theme theme for the %hook %type hook. Therefore, the include file %file was skipped.', array(
-            '%function' => $function,
-            '%theme' => $theme,
+            '%function' => $callback,
+            '%theme' => $name,
             '%hook' => $hook,
             '%type' => $type,
             '%file' => $item->uri,
@@ -487,7 +503,7 @@ function omega_theme_registry_alter(&$registry) {
         // defined in a lower-level base theme. Without this check this would
         // happen because our alter hook runs after the template file and theme
         // function discovery logic from Drupal core (theme engine).
-        if ($type == 'theme' && $key != $GLOBALS['theme'] && in_array($registry[$hook]['type'], array('base_theme_engine', 'theme_engine'))) {
+        if ($type == 'theme' && $theme != $GLOBALS['theme'] && in_array($registry[$hook]['type'], array('base_theme_engine', 'theme_engine'))) {
           // Now we know that there is a template file or theme function
           // override that has been defined somewhere in the theme trail. Now
           // we need to check if the declaration of that function or template
@@ -504,7 +520,7 @@ function omega_theme_registry_alter(&$registry) {
         require_once $item->uri;
 
         // Proceed if the callback doesn't exist.
-        if (!function_exists($function)) {
+        if (!function_exists($callback)) {
           continue;
         }
 
@@ -513,17 +529,17 @@ function omega_theme_registry_alter(&$registry) {
         $registry[$hook]['includes'][] = $item->uri;
 
         if ($type == 'theme') {
-          $registry[$hook]['type'] = $key == $GLOBALS['theme'] ? 'theme_engine' : 'base_theme_engine';
+          $registry[$hook]['type'] = $theme == $GLOBALS['theme'] ? 'theme_engine' : 'base_theme_engine';
           $registry[$hook]['theme path'] = $path;
 
           // Inject our theme function. We will leave any potential 'template'
           // declarations in the registry as they don't hurt us anyways
           // because drupal gives precedence to theme functions.
-          $registry[$hook]['function'] = $function;
+          $registry[$hook][$map] = $callback;
         }
         else {
           // Append the included preprocess hook to the array of functions.
-          $registry[$hook][$type . ' functions'][] = $function;
+          $registry[$hook][$map][] = $callback;
         }
       }
     }
@@ -566,31 +582,10 @@ function omega_theme_registry_alter(&$registry) {
   foreach ($overrides as $hook => $types) {
     foreach ($types as $type => $overrides) {
       foreach ($overrides as $original => $override) {
-        if (($index = array_search($original, $registry[$hook][$type . ' functions'], TRUE)) !== FALSE) {
-          array_splice($registry[$hook][$type . ' functions'], $index, 1, $override);
+        if (($index = array_search($original, $registry[$hook][$mapping[$type]], TRUE)) !== FALSE) {
+          array_splice($registry[$hook][$mapping[$type]], $index, 1, $override);
         }
       }
-    }
-  }
-
-  // Fix for integration with the theme developer module.
-  if (module_exists('devel_themer')) {
-    foreach ($registry as &$item) {
-      if (isset($item['function']) && $item['function'] != 'devel_themer_catch_function') {
-        // If the hook is a function, store it so it can be run after it has been intercepted.
-        // This does not apply to template calls.
-        $item['devel_function_intercept'] = $item['function'];
-      }
-
-      // Add our catch function to intercept functions as well as templates.
-      $item['function'] = 'devel_themer_catch_function';
-
-      // Remove the process and preprocess functions so they are
-      // only called by devel_themer_theme_twin().
-      $item['devel_function_preprocess_intercept'] = !empty($item['preprocess functions']) ? array_merge($item['devel_function_preprocess_intercept'], array_diff($item['preprocess functions'], $item['devel_function_preprocess_intercept'])) : $item['devel_function_preprocess_intercept'];
-      $item['devel_function_process_intercept'] = !empty($item['process functions']) ? array_merge($item['devel_function_process_intercept'], array_diff($item['process functions'], $item['devel_function_process_intercept'])) : $item['devel_function_process_intercept'];
-      $item['preprocess functions'] = array();
-      $item['process functions'] = array();
     }
   }
 }
