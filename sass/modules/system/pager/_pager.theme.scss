@@ -7,14 +7,13 @@
   padding: 0;
   clear: both;
   text-align: center;
-  
-  li {
-    background-image: none;
-    display: inline;
-    list-style-type: none;
-    padding: 0.5em;
-  }
 }
-.pager-current {
+.pager__item {
+  background-image: none;
+  display: inline;
+  list-style-type: none;
+  padding: 0.5em;
+}
+.pager__item--current {
   font-weight: bold;
 }
