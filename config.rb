@@ -17,6 +17,7 @@ javascripts_dir = "js"
 
 # Require any additional compass plugins installed on your system.
 require 'rgbapng'
+require 'toolkit'
 require 'susy'
 
 ##
