@@ -5,10 +5,10 @@
  * @see tableselect.js
 */
 
-tr.selected td {
+.selected td {
   background: #ffc;
 }
-td.checkbox,
-th.checkbox {
+.checkbox,
+.checkbox {
   text-align: center;
 }

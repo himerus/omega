@@ -71,22 +71,9 @@ html.js .js-hide {
 }
 
 /**
- * Markup free clearing.
- *
- * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
+ * Use the clearfix from toolkit.
  */
-.clearfix:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-/* IE6 */
-* html .clearfix {
-  height: 1%;
-}
-/* IE7 */
-*:first-child + html .clearfix {
-  min-height: 1%;
+@import "toolkit/clearfix";
+.clearfix {
+  @extend %clearfix-micro;
 }
