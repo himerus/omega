@@ -5,15 +5,9 @@
  * @see tabledrag.js
  */
 
-tr.drag {
+.drag {
   background-color: #fffff0;
 }
-tr.drag-previous {
+.drag-previous {
   background-color: #ffd;
-}
-.tabledrag-toggle-weight {
-  font-size: 0.9em;
-}
-body div.tabledrag-changed-warning {
-  margin-bottom: 0.5em;
 }
