@@ -3,3 +3,5 @@ description = Omega
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
+
+plugins[panels][layouts] = panels

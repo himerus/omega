@@ -404,19 +404,22 @@ function omega_form_field_ui_display_overview_form_alter(&$form, &$form_state, $
 /**
  * Implements hook_theme().
  */
-function omega_theme() {
+function omega_theme($cache, &$type) {
   $info = array();
   if (omega_extension_enabled('layouts')) {
     foreach (omega_layouts_info() as $key => $layout) {
-      if (!isset($info['page__layout__' . $key])) {
-        $info['page__layout__' . $key] = array(
-          'template' => $key . '.layout',
-          'path' => $layout['path'],
-          'base hook' => 'page',
-        );
-      }
-      $info['page__layout__' . $key]['layout'] = $layout;
+      $info[$key . '_layout'] = array(
+        'template' => $key . '-layout',
+        'path' => $layout['path'],
+        'layout' => $layout,
+      );
     }
+
+    $info['omega'] = array(
+      'function' => 'theme_omega_layout',
+      'base hook' => 'page',
+      'file' => 'includes/layouts/layouts.inc',
+    );
   }
   return $info;
 }
