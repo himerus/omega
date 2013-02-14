@@ -86,20 +86,12 @@ html.js fieldset.collapsed .fieldset-legend {
  *
  * @see tabledrag.js
  */
-tr.drag {
+.drag {
   background-color: #fffff0;
 }
 
-tr.drag-previous {
+.drag-previous {
   background-color: #ffd;
-}
-
-.tabledrag-toggle-weight {
-  font-size: 0.9em;
-}
-
-body div.tabledrag-changed-warning {
-  margin-bottom: 0.5em;
 }
 
 /**
@@ -129,12 +121,12 @@ body div.tabledrag-changed-warning {
  *
  * @see tableselect.js
 */
-tr.selected td {
+.selected td {
   background: #ffc;
 }
 
-td.checkbox,
-th.checkbox {
+.checkbox,
+.checkbox {
   text-align: center;
 }
 
