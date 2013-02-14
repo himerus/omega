@@ -404,23 +404,32 @@ function omega_form_field_ui_display_overview_form_alter(&$form, &$form_state, $
 /**
  * Implements hook_theme().
  */
-function omega_theme($cache, &$type) {
-  $info = array();
-  if (omega_extension_enabled('layouts')) {
-    foreach (omega_layouts_info() as $key => $layout) {
-      $info[$key . '_layout'] = array(
-        'template' => $key . '-layout',
-        'path' => $layout['path'],
-        'layout' => $layout,
-      );
-    }
+function omega_theme() {
+  $path = drupal_get_path('theme', 'omega');
 
-    $info['omega'] = array(
-      'function' => 'theme_omega_layout',
-      'base hook' => 'page',
-      'file' => 'includes/layouts/layouts.inc',
+  $info = array();
+  foreach (omega_layouts_info() as $key => $layout) {
+    $info[$key . '_layout'] = array(
+      'template' => $key . '-layout',
+      'path' => $layout['path'],
+      'layout' => $key,
     );
   }
+
+  $info['omega_layout_page'] = array(
+    'function' => 'theme_omega_layout_page',
+    'file' => 'includes/layouts/layouts.inc',
+    'path' => $path,
+    'base hook' => 'page',
+  );
+
+  $info['omega_layout_renderer'] = array(
+    'variables' => array('layout' => NULL, 'variables' => NULL, 'type' => NULL),
+    'function' => 'theme_omega_layout_renderer',
+    'file' => 'includes/layouts/layouts.inc',
+    'path' => $path,
+  );
+
   return $info;
 }
 
@@ -926,4 +935,59 @@ function omega_omega_theme_libraries_info($theme) {
   );
 
   return $libraries;
+}
+
+/**
+ * Implmenets hook_preprocess_omega_layout_renderer().
+ *
+ * Temporary solution for not having error messages all over the place.
+ */
+function omega_preprocess_omega_layout_renderer(&$variables) {
+  drupal_process_attached(array('#attached' => $variables['layout']['attached']));
+
+  if ($variables['type'] == 'page') {
+    return;
+  }
+
+  $variables['variables']['base_path']         = base_path();
+  $variables['variables']['front_page']        = url();
+  $variables['variables']['feed_icons']        = drupal_get_feeds();
+  $variables['variables']['language']          = $GLOBALS['language'];
+  $variables['variables']['language']->dir     = $GLOBALS['language']->direction ? 'rtl' : 'ltr';
+  $variables['variables']['logo']              = theme_get_setting('logo');
+  $variables['variables']['main_menu']         = theme_get_setting('toggle_main_menu') ? menu_main_menu() : array();
+  $variables['variables']['secondary_menu']    = theme_get_setting('toggle_secondary_menu') ? menu_secondary_menu() : array();
+  $variables['variables']['action_links']      = menu_local_actions();
+  $variables['variables']['site_name']         = (theme_get_setting('toggle_name') ? filter_xss_admin(variable_get('site_name', 'Drupal')) : '');
+  $variables['variables']['site_slogan']       = (theme_get_setting('toggle_slogan') ? filter_xss_admin(variable_get('site_slogan', '')) : '');
+  $variables['variables']['tabs']              = menu_local_tabs();
+
+  if ($node = menu_get_object()) {
+    $variables['variables']['node'] = $node;
+  }
+}
+
+/**
+ * Implmenets hook_process_omega_layout_renderer().
+ *
+ * Temporary solution for not having error messages all over the place.
+ */
+function omega_process_omega_layout_renderer(&$variables) {
+  if (!isset($variables['variables']['breadcrumb'])) {
+    // Build the breadcrumb last, so as to increase the chance of being able to
+    // re-use the cache of an already rendered menu containing the active link
+    // for the current page.
+    // @see menu_tree_page_data()
+    $variables['variables']['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb()));
+  }
+
+  if (!isset($variables['variables']['title'])) {
+    $variables['variables']['title'] = drupal_get_title();
+  }
+
+  // Generate messages last in order to capture as many as possible for the
+  // current page.
+  if (!isset($variables['variables']['messages'])) {
+    $variables['variables']['messages'] = theme('status_messages');
+  }
 }

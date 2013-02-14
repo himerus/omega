@@ -4,4 +4,5 @@ screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
 
-plugins[panels][layouts] = panels
+plugins[panels][layouts] = panels/layouts
+plugins[panels][styles] = panels/styles

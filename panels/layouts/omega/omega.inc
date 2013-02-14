@@ -15,19 +15,14 @@ function omega_omega_panels_layouts() {
   // that works for things like 'flexible' layouts but not when the child plugin
   // mechanism is only used for an alternative discovery logic as in this
   // case.
-  $path = drupal_get_path('theme', 'omega') . '/panels/omega';
-
   return array(
     'title' => t('Omega'),
     'category' => t('Omega page layouts'),
     'description' => t('Omega page layouts for use as Panels Everywhere site templates.'),
-    'icon' => $path . '/omega.png',
-    'theme' => 'omega_panels',
-    'admin theme' => 'omega_panels_admin',
-    'file' => $path . '/omega.inc',
-    'path' => '',
     'get child' => 'omega_panels_get_sublayout',
     'get children' => 'omega_panels_get_sublayouts',
+    'theme' => 'omega_panels',
+    'admin theme' => 'omega_panels_admin',
     'regions' => array(),
   );
 }
@@ -54,6 +49,7 @@ function omega_panels_get_sublayouts($plugin, $layout) {
       $layouts["$layout:$name"] = array(
         'name' => "$layout:$name",
         'title' => $info['info']['name'],
+        'layout' => $info,
       ) + $plugin;
 
       // Panels calls the preview image 'icon'.
@@ -73,10 +69,18 @@ function omega_panels_get_sublayouts($plugin, $layout) {
   return $layouts;
 }
 
+/**
+ * Theme function for rendering a Omega layout.
+ */
 function theme_omega_panels($variables) {
-  return '';
+  $variables['page'] = &$variables['content'];
+  return theme('omega_layout_renderer', array('layout' => $variables['layout']['layout'], 'type' => 'panels', 'variables' => $variables));
 }
 
+/**
+ * Theme function for rendering a Omega layout on the Panels admin UI.
+ */
 function theme_omega_panels_admin($variables) {
-  return '';
+  $variables['page'] = &$variables['content'];
+  return theme('omega_layout_renderer', array('layout' => $variables['layout']['layout'], 'type' => 'panels', 'variables' => $variables));
 }
