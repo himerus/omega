@@ -1,0 +1,49 @@
+/**
+ * @file
+ * Administration styles for the modules table.
+ */
+
+/* Module State Flags */
+.incompatible {
+  font-weight: bold;
+}
+.admin-disabled {
+  color: #800;
+}
+.admin-enabled {
+  color: #080;
+}
+.admin-missing {
+  color: #f00;
+}
+
+
+/* Requirements */
+.admin-requirements,
+.admin-required {
+  font-size: 0.9em;
+  color: #444;
+}
+
+.module-link {
+  display: block;
+  padding: 1px 0 1px 20px; /* LTR */
+  white-space: nowrap;
+}
+.module-link-help {
+  background: url(../../../images/misc/help.png) 0 50% no-repeat; /* LTR */
+}
+.module-link-permissions {
+  background: url(../../../images/misc/permissions.png) 0 50% no-repeat; /* LTR */
+}
+.module-link-configure {
+  background: url(../../../images/misc/configure.png) 0 50% no-repeat; /* LTR */
+}
+
+
+
+
+.module-help {
+  margin-left: 1em; /* LTR */
+  float: right; /* LTR */
+}
