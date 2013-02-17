@@ -22,7 +22,6 @@ function omega_system_themes_page($variables) {
     $output .= '<div class="system-themes-list system-themes-list--'. $state .' clearfix"><h2>'. $title .'</h2>';
 
     foreach ($theme_groups[$state] as $theme) {
-      dpm($theme);
       // Theme the screenshot.
       if($theme->screenshot) {
         $theme->screenshot['attributes']['class'] = str_replace('screenshot', 'theme-selector__screenshot', $theme->screenshot['attributes']['class']);
