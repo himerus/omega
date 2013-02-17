@@ -2,3 +2,99 @@
  * @file
  * Right to left system wide administration styles.
  */
+/**
+ * @file
+ * Right to left administration style for administration blocks.
+ */
+/* Admin Panels */
+.admin-panel .admin-panel__body {
+  padding-right: 1em;
+}
+
+/* Admin Panel Page Layout */
+.admin .left {
+  float: right;
+}
+.admin .right {
+  float: left;
+}
+.admin .expert-link {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 1em;
+  padding-left: 0;
+  padding-right: 4px;
+}
+
+/**
+ * @file
+ * Right to left administration styles for the appearance page.
+ */
+table.screenshot {
+  margin-left: 1em;
+}
+
+.system-themes-list-enabled .theme-selector .screenshot,
+.system-themes-list-enabled .theme-selector .no-screenshot {
+  float: right;
+  margin: 0 0 0 20px;
+}
+
+.system-themes-list-disabled .theme-selector {
+  float: right;
+  padding: 20px 0 20px 20px;
+}
+
+.theme-selector .operations li {
+  border-right: none;
+  border-left: 1px solid #cdcdcd;
+  float: right;
+}
+
+.theme-selector .operations li.last {
+  border-left: none;
+  padding: 0 0.7em 0 0;
+}
+
+.theme-selector .operations li.first {
+  padding: 0 0 0 0.7em;
+}
+
+/**
+ * @file
+ * Right to left administration styles for the modules table.
+ */
+/* Module Operation Links */
+.module-link {
+  padding: 1px 20px 1px 0;
+}
+
+.module-link-help {
+  background: url(../../misc/help.png) 0 50% no-repeat;
+  /* LTR */
+}
+
+.module-link-permissions {
+  background: url(../../misc/permissions.png) 0 50% no-repeat;
+  /* LTR */
+}
+
+.module-link-configure {
+  background: url(../../misc/configure.png) 0 50% no-repeat;
+  /* LTR */
+}
+
+/* Module Help */
+.module-help {
+  margin-left: 0;
+  margin-right: 1em;
+  float: left;
+}
+
+/**
+ * @file
+ * Right to left administration styles for the system status report.
+ */
+.merge-up td {
+  padding: 0 28px 8px 6px;
+}
