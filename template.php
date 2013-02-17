@@ -298,6 +298,12 @@ function omega_css_alter(&$css) {
       'system.theme-rtl.css' => array(
         'theme' => 'system.theme-rtl.css',
       ),
+      'system.admin.css' => array(
+        'admin' => 'system.admin.css',
+      ),
+      'system.admin-rtl.css' => array(
+        'admin' => 'system.admin-rtl.css',
+      ),
     ),
     'taxonomy' => array(
       'taxonomy.css' => array(

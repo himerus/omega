@@ -1,12 +1,9 @@
 /**
  * @file
- * Administration styles for the modules table.
+ * Administration styles for the modules table and help.
  */
 
 /* Module State Flags */
-.incompatible {
-  font-weight: bold;
-}
 .admin-disabled {
   color: #800;
 }
@@ -17,14 +14,19 @@
   color: #f00;
 }
 
+/* Incompatible Modules */
+.incompatible {
+  font-weight: bold;
+}
 
-/* Requirements */
+/* Module Requirements */
 .admin-requirements,
 .admin-required {
   font-size: 0.9em;
   color: #444;
 }
 
+/* Module Operation Links */
 .module-link {
   display: block;
   padding: 1px 0 1px 20px; /* LTR */
@@ -40,9 +42,7 @@
   background: url(../../../images/misc/configure.png) 0 50% no-repeat; /* LTR */
 }
 
-
-
-
+/* Module Help */
 .module-help {
   margin-left: 1em; /* LTR */
   float: right; /* LTR */
