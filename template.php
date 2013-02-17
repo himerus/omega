@@ -304,6 +304,12 @@ function omega_css_alter(&$css) {
       'system.admin-rtl.css' => array(
         'admin' => 'system.admin-rtl.css',
       ),
+      'system.menus.css' => array(
+        'theme' => 'system.menus.theme.css',
+      ),
+      'system.menus-rtl.css' => array(
+        'theme' => 'system.menus.theme-rtl.css',
+      ),
     ),
     'taxonomy' => array(
       'taxonomy.css' => array(
