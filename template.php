@@ -310,6 +310,12 @@ function omega_css_alter(&$css) {
       'system.menus-rtl.css' => array(
         'theme' => 'system.menus.theme-rtl.css',
       ),
+      'system.messages.css' => array(
+        'theme' => 'system.messages.theme.css',
+      ),
+      'system.messages-rtl.css' => array(
+        'theme' => 'system.messages.theme-rtl.css',
+      ),
     ),
     'taxonomy' => array(
       'taxonomy.css' => array(
