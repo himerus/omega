@@ -9,9 +9,7 @@ function omega_preprocess_views_view_unformatted(&$variables) {
   // abuse the default versions of those for row classes. Instead, we should use
   // a custom variable for that, which is exactly what we convert it to here.
   foreach ($variables['classes_array'] as $delta => $item) {
-    if (!empty($item)) {
-      $variables['row_attributes_array'][$delta]['class'] = array($item);
-    }
+    $variables['row_attributes_array'][$delta]['class'] = explode(' ', $item);
   }
 
   // Empty the classes array so we don't end up with bogus classes on the
