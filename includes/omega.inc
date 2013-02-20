@@ -194,7 +194,7 @@ function omega_css_cache_media_queries($item) {
 function omega_exclude_assets(&$elements, $exclude) {
   $mapping = array();
   foreach ($elements as $key => $item) {
-    if ($item['type'] == 'inline') {
+    if ($item['type'] == 'inline' || $item['type'] == 'setting') {
       // Naturally, in-line CSS is not supported.
       continue;
     }
