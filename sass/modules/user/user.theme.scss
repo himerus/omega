@@ -7,7 +7,7 @@
  */
 .password-strength {
   float: right;  /* LTR */
-  margin-top: 1.4em;
+  margin-top: 1.2em;
   width: 17em;
 }
 .password-strength-title {
@@ -38,6 +38,13 @@ div.password-confirm {
   width: 17em;
   margin-top: 1.5em;
   clear: both;
+}
+
+/**
+ * Password Confirm Inputs.
+ */
+.form-type-password-confirm input {
+  width: 16em;
 }
 
 /**
