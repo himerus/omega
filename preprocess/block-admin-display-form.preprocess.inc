@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Implements hook_admin_display_form_preprocess().
+ * Implements hook_preprocess_admin_display_form().
  */
-function omega_block_admin_display_form_preprocess(&$variables) {
+function omega_preprocess_block_admin_display_form(&$variables) {
   // Add table javascript.
   drupal_add_js('misc/tableheader.js');
   drupal_add_js(drupal_get_path('module', 'block') . '/block.js');
