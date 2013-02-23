@@ -4,7 +4,7 @@
  */
 
 @import "toolkit/clearfix";
-ul.inline {
+.links--inline {
   @extend %clearfix-micro;
   list-style-type: none;
   margin: 0;
@@ -14,6 +14,6 @@ ul.inline {
     float: left; /* LTR */
     margin-right: 1em; /* LTR */
     
-    a { display: block; }
+    & > a { display: block; }
   }
 }
