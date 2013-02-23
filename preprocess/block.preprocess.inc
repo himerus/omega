@@ -9,16 +9,38 @@ function omega_preprocess_block(&$variables) {
   if (!empty($variables['block_html_id'])) {
     $variables['attributes_array']['id'] = $variables['block_html_id'];
     $variables['attributes_array']['class'][] = $variables['block_html_id'];
-
-    // Use a template with no wrapper for the page's main content.
-    if ($variables['block_html_id'] == 'block-system-main') {
-      $variables['theme_hook_suggestions'][] = 'block__minimal';
-    }
   }
 
   $variables['attributes_array']['class'][] = $variables['block_zebra'];
   $variables['title_attributes_array']['class'][] = 'block__title';
+  
+  // Add template suggestions to appropriate blocks.
+  switch ($variables['block']->module) {
+    case 'system':
+      switch ($variables['block']->delta) {
+        case 'help':
+        case 'powered-by':
+          break;
+        
+        case 'main':
+          // Use a template with no wrapper for the page's main content.
+          $variables['theme_hook_suggestions'][] = 'block__minimal';
+          break;
 
+        default:
+          // Any other "system" block is a menu block and should use block--nav.tpl.php
+          $variables['theme_hook_suggestions'][] = 'block__nav';
+          break;
+      }
+      break;
+
+    case 'menu':
+    case 'menu_block':   
+      // Use block--nav.tpl.php template.
+      $variables['theme_hook_suggestions'][] = 'block__nav';
+      break;
+  }
+  
   // Add Aria Roles via attributes.
   switch ($variables['block']->module) {
     case 'system':
@@ -40,7 +62,7 @@ function omega_preprocess_block(&$variables) {
       break;
 
     case 'menu':
-    case 'menu_block':
+    case 'menu_block':   
     case 'blog':
     case 'book':
     case 'comment':
