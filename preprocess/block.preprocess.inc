@@ -4,16 +4,16 @@
  * Implements hook_preprocess_block().
  */
 function omega_preprocess_block(&$variables) {
-  $variables['content_attributes_array']['class'][] = 'block__content';
-
   if (!empty($variables['block_html_id'])) {
     $variables['attributes_array']['id'] = $variables['block_html_id'];
-    $variables['attributes_array']['class'][] = $variables['block_html_id'];
+    $variables['attributes_array']['class'][] = str_replace('block-', 'block--', $variables['block_html_id']);
   }
+  $variables['attributes_array']['class'][] = 'block--' . $variables['block_zebra'];
 
-  $variables['attributes_array']['class'][] = $variables['block_zebra'];
   $variables['title_attributes_array']['class'][] = 'block__title';
-  
+
+  $variables['content_attributes_array']['class'][] = 'block__content';
+
   // Add template suggestions to appropriate blocks.
   switch ($variables['block']->module) {
     case 'system':
