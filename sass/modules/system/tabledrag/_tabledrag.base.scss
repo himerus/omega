@@ -10,17 +10,17 @@ body.drag {
 }
 /* Tabledrag Handle */
 .tabledrag-handle {
-  cursor: move;
   float: left; /* LTR */
   overflow: hidden;
   text-decoration: none;
+  cursor: move;
   
   .handle {
-    background: url(../../../images/misc/draggable.png) no-repeat 6px 9px;
     height: 15px;
+    width: 15px;
     margin: -0.4em 0;
     padding: 0.4em;
-    width: 15px;
+    background: url(../../../images/misc/draggable.png) no-repeat 6px 9px;
   }
   &:hover {
     text-decoration: none;

@@ -7,10 +7,10 @@
   display: block;
 
   input {
+    padding-left: 20px; /* LTR */
     background-image: url('../../../images/modules/openid/login-bg.png');
     background-position: left 50%; /* LTR */
     background-repeat: no-repeat;
-    padding-left: 20px; /* LTR */
   }
 }
 

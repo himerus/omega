@@ -4,15 +4,16 @@
  */
 
 .pager {
-  padding: 0;
   clear: both;
+  padding: 0;
   text-align: center;
 }
 .pager__item {
-  background-image: none;
   display: inline;
-  list-style-type: none;
   padding: 0.5em;
+  background-image: none;
+  list-style-type: none;
+  
 }
 .pager__item--current {
   font-weight: bold;

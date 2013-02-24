@@ -7,15 +7,15 @@
 
 /* Suggestion list */
 #autocomplete {
-  overflow: hidden;
   position: absolute;
   z-index: 100;
+  overflow: hidden;
   
   ul {
-    list-style: none;
-    list-style-image: none;
     margin: 0;
     padding: 0;
+    list-style: none;
+    list-style-image: none;
   }
   li {
     cursor: default;

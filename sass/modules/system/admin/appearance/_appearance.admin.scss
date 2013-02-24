@@ -14,8 +14,8 @@
   }
 }
 .system-themes-list--disabled {
-  border-top: 1px solid #cdcdcd;
   padding-top: 20px;
+  border-top: 1px solid #cdcdcd;
 }
 
 /**
@@ -30,10 +30,10 @@
 }
 /* Theme Selector Screenshot */
 .theme-selector__screenshot {
-  border: 1px solid #e0e0d8;
   padding: 2px;
   width: 294px;
   height: 219px;
+  border: 1px solid #e0e0d8;
   line-height: 219px;
   text-align: center;
 }
@@ -79,8 +79,8 @@
 }
 /* Theme Selector Disabled State */
 .theme-selector--disabled  {
-  width: 300px;
   float: left; /* LTR */
+  width: 300px;
   padding: 20px 20px 20px 0; /* LTR */
 
   .theme-selector__info {

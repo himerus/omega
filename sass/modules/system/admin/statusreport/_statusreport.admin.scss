@@ -6,9 +6,9 @@
 /* Status Icons */
 .system-status-report {
   .status-icon {
-    background-repeat: no-repeat;
     height: 16px;
     width: 16px;
+    background-repeat: no-repeat;
   }
   .error .status-icon {
     background-image: url(../../../images/misc/message-16-error.png);

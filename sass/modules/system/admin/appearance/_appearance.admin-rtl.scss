@@ -3,27 +3,28 @@
  * Right to left administration styles for the appearance page.
  */
 
-table.screenshot {
-  margin-left: 1em;
+/**
+ * Disabled/Enabled Theme Lists
+ */
+
+/* Theme Selector Links */
+.theme-selector__operations {
+  li {
+    float: right;
+  }
 }
-.system-themes-list-enabled .theme-selector .screenshot,
-.system-themes-list-enabled .theme-selector .no-screenshot {
+
+/* Theme Selector Enabled State */
+.theme-selector--enabled {
+  .theme-selector__info {
+    float: left;
+  }
+  .theme-selector__screenshot {
+    float: right;
+  }
+}
+/* Theme Selector Disabled State */
+.theme-selector--disabled  {
   float: right;
-  margin: 0 0 0 20px;
-}
-.system-themes-list-disabled .theme-selector {
-  float: right;
-  padding: 20px 0 20px 20px;
-}
-.theme-selector .operations li {
-  border-right: none;
-  border-left: 1px solid #cdcdcd;
-  float: right;
-}
-.theme-selector .operations li.last {
-  border-left: none;
-  padding: 0 0.7em 0 0;
-}
-.theme-selector .operations li.first {
-  padding: 0 0 0 0.7em;
+  padding: 20px 20px 20px;
 }

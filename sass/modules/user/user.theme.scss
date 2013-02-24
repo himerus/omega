@@ -18,10 +18,10 @@
   font-weight: bold;
 }
 .password-indicator {
+  clear: both;
   height: 0.3em;
   width: 100%;
   background-color: #C4C4C4;
-  clear: both;
 
   .indicator {
     height: 100%;
@@ -35,9 +35,9 @@
  */
 div.password-confirm {
   float: right;  /* LTR */
+  clear: both;
   width: 17em;
   margin-top: 1.5em;
-  clear: both;
 }
 
 /**

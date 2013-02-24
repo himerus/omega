@@ -12,9 +12,9 @@
     border: 1px solid;
   }
   .filled {
-    background-color: #000;
     height: 1.5em;
     width: 5px;
+    background-color: #000;
   }
   .percentage {
     float: right; /* LTR */
@@ -26,11 +26,11 @@
   display: inline-block;
   
   .throbber {
-    background: transparent url(../../../images/misc/throbber.gif) no-repeat 0px -18px;
     float: left; /* LTR */
     height: 15px;
-    margin: 2px;
     width: 15px;
+    margin: 2px;
+    background: transparent url(../../../images/misc/throbber.gif) no-repeat 0px -18px;
   }
   .message {
     padding-left: 20px;

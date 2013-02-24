@@ -5,19 +5,19 @@
  * @see textarea.js
  */
 
+@import "compass";
+
 .form-textarea-wrapper textarea {
   display: block;
-  margin: 0;
+  @include box-sizing(border-box);
   width: 100%;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  margin: 0;
 }
 .resizable-textarea .grippie {
+  height: 9px;
   background: #eee url(../../../images/misc/grippie.png) no-repeat center 2px;
   border: 1px solid #ddd;
   border-top-width: 0;
   cursor: s-resize;
-  height: 9px;
   overflow: hidden;
 }
