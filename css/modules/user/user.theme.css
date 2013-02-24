@@ -24,10 +24,10 @@
 }
 
 .password-indicator {
+  clear: both;
   height: 0.3em;
   width: 100%;
   background-color: #C4C4C4;
-  clear: both;
 }
 .password-indicator .indicator {
   height: 100%;
@@ -41,9 +41,9 @@
 div.password-confirm {
   float: right;
   /* LTR */
+  clear: both;
   width: 17em;
   margin-top: 1.5em;
-  clear: both;
 }
 
 /**
@@ -59,7 +59,7 @@ div.password-confirm {
 .password-suggestions {
   margin: 0.7em 0;
   padding: 0.2em 0.5em;
-  border: 1px solid #b4b4b4;
+  border: 1px solid #B4B4B4;
 }
 
 /*
@@ -81,7 +81,7 @@ div.password-confirm {
   /* LTR */
 }
 .profile h3 {
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 }
 .profile dl {
   margin: 0 0 1.5em 0;

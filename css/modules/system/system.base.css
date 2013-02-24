@@ -10,15 +10,15 @@
  */
 /* Suggestion list */
 #autocomplete {
-  overflow: hidden;
   position: absolute;
   z-index: 100;
+  overflow: hidden;
 }
 #autocomplete ul {
-  list-style: none;
-  list-style-image: none;
   margin: 0;
   padding: 0;
+  list-style: none;
+  list-style-image: none;
 }
 #autocomplete li {
   cursor: default;
@@ -70,19 +70,19 @@ fieldset.collapsible .fieldset-legend {
  */
 .form-textarea-wrapper textarea {
   display: block;
-  margin: 0;
-  width: 100%;
-  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
+  width: 100%;
+  margin: 0;
 }
 
 .resizable-textarea .grippie {
+  height: 9px;
   background: #eeeeee url(../../../images/misc/grippie.png) no-repeat center 2px;
   border: 1px solid #ddd;
   border-top-width: 0;
   cursor: s-resize;
-  height: 9px;
   overflow: hidden;
 }
 
@@ -98,18 +98,18 @@ body.drag {
 
 /* Tabledrag Handle */
 .tabledrag-handle {
-  cursor: move;
   float: left;
   /* LTR */
   overflow: hidden;
   text-decoration: none;
+  cursor: move;
 }
 .tabledrag-handle .handle {
-  background: url(../../../images/misc/draggable.png) no-repeat 6px 9px;
   height: 15px;
+  width: 15px;
   margin: -0.4em 0;
   padding: 0.4em;
-  width: 15px;
+  background: url(../../../images/misc/draggable.png) no-repeat 6px 9px;
 }
 .tabledrag-handle:hover {
   text-decoration: none;
@@ -154,8 +154,8 @@ body.drag {
  * @see tableheader.js
  */
 .sticky-header {
-  background-color: #fff;
   margin-top: 0;
+  background-color: #fff;
 }
 
 /**
@@ -170,9 +170,9 @@ body.drag {
   border: 1px solid;
 }
 .progress .filled {
-  background-color: #000;
   height: 1.5em;
   width: 5px;
+  background-color: #000;
 }
 .progress .percentage {
   float: right;
@@ -184,12 +184,12 @@ body.drag {
   display: inline-block;
 }
 .ajax-progress .throbber {
-  background: transparent url(../../../images/misc/throbber.gif) no-repeat 0px -18px;
   float: left;
   /* LTR */
   height: 15px;
-  margin: 2px;
   width: 15px;
+  margin: 2px;
+  background: transparent url(../../../images/misc/throbber.gif) no-repeat 0px -18px;
 }
 .ajax-progress .message {
   padding-left: 20px;

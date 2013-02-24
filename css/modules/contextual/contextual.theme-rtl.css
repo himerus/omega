@@ -3,13 +3,6 @@
  * Styling for contextual links look and feel.
  */
 /**
- * Contextual trigger.
- */
-.contextual-links-trigger {
-  text-indent: -90px;
-}
-
-/**
  * Contextual links.
  */
 .contextual-links {

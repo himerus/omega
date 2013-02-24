@@ -39,11 +39,11 @@ small .admin-link:after {
   width: 47%;
 }
 .admin .expert-link {
-  text-align: right;
-  /* LTR */
   margin-right: 1em;
   /* LTR */
   padding-right: 4px;
+  /* LTR */
+  text-align: right;
   /* LTR */
 }
 
@@ -62,8 +62,8 @@ small .admin-link:after {
 }
 
 .system-themes-list--disabled {
-  border-top: 1px solid #cdcdcd;
   padding-top: 20px;
+  border-top: 1px solid #cdcdcd;
 }
 
 /**
@@ -78,10 +78,10 @@ small .admin-link:after {
 
 /* Theme Selector Screenshot */
 .theme-selector__screenshot {
-  border: 1px solid #e0e0d8;
   padding: 2px;
   width: 294px;
   height: 219px;
+  border: 1px solid #e0e0d8;
   line-height: 219px;
   text-align: center;
 }
@@ -131,9 +131,9 @@ small .admin-link:after {
 
 /* Theme Selector Disabled State */
 .theme-selector--disabled {
-  width: 300px;
   float: left;
   /* LTR */
+  width: 300px;
   padding: 20px 20px 20px 0;
   /* LTR */
 }
@@ -215,9 +215,9 @@ small .admin-link:after {
 
 /* Module Help */
 .module-help {
-  margin-left: 1em;
-  /* LTR */
   float: right;
+  /* LTR */
+  margin-left: 1em;
   /* LTR */
 }
 
@@ -227,9 +227,9 @@ small .admin-link:after {
  */
 /* Status Icons */
 .system-status-report .status-icon {
-  background-repeat: no-repeat;
   height: 16px;
   width: 16px;
+  background-repeat: no-repeat;
 }
 .system-status-report .error .status-icon {
   background-image: url(../../../images/misc/message-16-error.png);

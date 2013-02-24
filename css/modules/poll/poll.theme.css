@@ -12,10 +12,10 @@
   background-color: #ddd;
 }
 .poll-bars__bar .foreground {
-  background-color: #000;
   height: 1em;
   float: left;
   /* LTR */
+  background-color: #000;
 }
 
 .poll-bars__percent {
@@ -36,8 +36,8 @@
 }
 
 .poll-vote-form__choices {
+  display: table;
+  margin: 0 auto;
   text-align: left;
   /* LTR */
-  margin: 0 auto;
-  display: table;
 }

@@ -8,9 +8,9 @@
  */
 /* Tables */
 th {
-  text-align: right;
   padding-left: 1em;
   padding-right: 0;
+  text-align: right;
 }
 
 /**
@@ -20,9 +20,9 @@ th {
  * @see collapse.js
  */
 html.js fieldset.collapsible .fieldset-legend {
-  background-position: 98% 75%;
   padding-left: 0;
   padding-right: 15px;
+  background-position: 98% 75%;
 }
 
 html.js fieldset.collapsed .fieldset-legend {
