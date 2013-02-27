@@ -143,6 +143,11 @@ function omega_element_info_alter(&$elements) {
 function omega_css_alter(&$css) {
   $omega = drupal_get_path('theme', 'omega');
 
+  // Exclude CSS files as declared in the theme settings.
+  if (omega_extension_enabled('css') && $exclude = omega_theme_get_setting('omega_css_exclude', array())) {
+    omega_exclude_assets($css, $exclude);
+  }
+
   // The CSS_SYSTEM aggregation group doesn't make any sense. Therefore, we are
   // pre-pending it to the CSS_DEFAULT group. This has the same effect as giving
   // it a separate (low-weighted) group but also allows it to be aggregated
@@ -368,11 +373,6 @@ function omega_css_alter(&$css) {
         }
       }
     }
-  }
-
-  // Exclude CSS files as declared in the theme settings.
-  if (omega_extension_enabled('css') && $exclude = omega_theme_get_setting('omega_css_exclude', array())) {
-    omega_exclude_assets($css, $exclude);
   }
 }
 
