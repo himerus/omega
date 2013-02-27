@@ -478,6 +478,12 @@ function omega_layouts_info() {
     return $layouts;
   }
 
+  // Try to retrieve the layouts definitions from cache.
+  if (($cache = cache_get('omega:layouts')) !== FALSE) {
+    return $layouts = $cache->data;
+  }
+
+  // Layouts do not have a specific theme scope.
   $layouts = omega_discovery('layout', FALSE);
   foreach ($layouts as $layout => &$info) {
     $info['attached'] = array();
@@ -512,6 +518,9 @@ function omega_layouts_info() {
 
   // Give modules and themes a chance to alter the layout info array.
   drupal_alter('omega_layouts_info', $layouts);
+
+  // Cache the layout definitions in the database.
+  cache_set('omega:layouts', $layouts);
 
   return $layouts;
 }
