@@ -114,7 +114,7 @@ function omega_enforce_attributes(&$variables, $hook) {
  * Implements hook_element_info_alter().
  */
 function omega_element_info_alter(&$elements) {
-  if (omega_extension_enabled('css') && omega_theme_get_setting('omega_media_queries_inline', TRUE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
+  if (omega_extension_enabled('assets') && omega_theme_get_setting('omega_media_queries_inline', TRUE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
     // Place our custom CSS preprocessor
     if ($position = array_search('drupal_pre_render_styles', $elements['styles']['#pre_render'])) {
       array_splice($elements['styles']['#pre_render'], $position, 0, 'omega_css_preprocessor');
@@ -136,7 +136,7 @@ function omega_css_alter(&$css) {
   $omega = drupal_get_path('theme', 'omega');
 
   // Exclude CSS files as declared in the theme settings.
-  if (omega_extension_enabled('css') && $exclude = omega_theme_get_setting('omega_css_exclude', array())) {
+  if (omega_extension_enabled('assets') && $exclude = omega_theme_get_setting('omega_css_exclude', array())) {
     omega_exclude_assets($css, $exclude);
   }
 
@@ -372,7 +372,7 @@ function omega_css_alter(&$css) {
  * Implements hook_js_alter().
  */
 function omega_js_alter(&$js) {
-  if (!omega_extension_enabled('scripts')) {
+  if (!omega_extension_enabled('assets')) {
     return;
   }
 

@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Main extension file for the 'scripts' extension.
+ * Main extension file for the 'assets' extension.
  */
 
 /**
  * Implements hook_extension_EXTENSION_registry_alter().
  */
-function omega_extension_scripts_theme_registry_alter(&$registry) {
+function omega_extension_assets_theme_registry_alter(&$registry) {
   if ($settings = omega_theme_get_setting('omega_libraries', array())) {
     foreach (omega_theme_libraries_info() as $library => $info) {
       if (!empty($settings[$library]['status'])) {
@@ -30,14 +30,14 @@ function omega_extension_scripts_theme_registry_alter(&$registry) {
 
   if (!empty($registry['html']['libraries'])) {
     $registry['html']['includes'][] = drupal_get_path('theme', 'omega') . '/includes/scripts/scripts.inc';
-    $registry['html']['preprocess functions'][] = 'omega_extension_scripts_attach_libraries';
+    $registry['html']['preprocess functions'][] = 'omega_extension_assets_attach_libraries';
   }
 }
 
 /**
  * Extension callback for attaching enabled libraries.
  */
-function omega_extension_scripts_attach_libraries(&$variables) {
+function omega_extension_assets_attach_libraries(&$variables) {
   $registry = theme_get_registry();
 
   // Check if there are any enabled libraries.

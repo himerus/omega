@@ -8,13 +8,31 @@
 /**
  * Implements hook_extension_EXTENSION_theme_settings_form_alter().
  */
-function omega_extension_scripts_settings_form($element, &$form, $form_state) {
+function omega_extension_assets_settings_form($element, &$form, $form_state) {
+  $element['omega_media_queries_inline'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enforce embedded media queries'),
+    '#description' => t('Embeds all media queries (and media types) in the CSS files automatically instead of leaving them on the &lt;styles&gt; tags. This potentially reduces the amount of separate CSS aggregates on your website.'),
+    '#default_value' => omega_theme_get_setting('omega_media_queries_inline', TRUE),
+  );
+
   $element['omega_js_footer'] = array(
     '#type' => 'checkbox',
     '#title' => t('Output JavaScript in the footer'),
     '#description' => t('Outputs all JavaScript files and settings in the footer instead of placing them in the header (default). Note: This does not affect libraries.'),
     '#default_value' => omega_theme_get_setting('omega_js_footer', TRUE),
   );
+
+  $element['omega_css_exclude'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Exclude CSS files'),
+    '#description' => t("Enter one file per line. The '*' character is a wildcard. Each path is relative to a module, theme, profile, theme engine or the 'misc' folder."),
+    // The paths are stored in an array.
+    '#default_value' => implode("\n", (array) omega_theme_get_setting('omega_css_exclude', array())),
+  );
+
+  // We need a custom submit handler to store the CSS and JS paths as arrays.
+  $form['#submit'][] = 'omega_extension_assets_theme_settings_form_submit';
 
   $element['omega_js_exclude'] = array(
     '#type' => 'textarea',
@@ -96,8 +114,6 @@ function omega_extension_scripts_settings_form($element, &$form, $form_state) {
     }
   }
 
-  $form['#submit'][] = 'omega_extension_scripts_theme_settings_form_submit';
-
   return $element;
 }
 
@@ -152,12 +168,14 @@ function omega_library_pie_options_form(&$element, &$form, $form_state, $library
 /**
  * Form submit handler for the css theme settings extension.
  */
-function omega_extension_scripts_theme_settings_form_submit($form, &$form_state) {
+function omega_extension_assets_theme_settings_form_submit($form, &$form_state) {
   $values = $form_state['values'];
-  // Explode and trim the values for the JavaScript exclusion so we end up with
-  // a clean array.
-  $exclude = array_filter(array_map('trim', explode("\n", $values['omega_js_exclude'])));
-  form_set_value(array('#parents' => array('omega_js_exclude')), $exclude, $form_state);
+
+  // Explode and trim the values for the exclusion rules.
+  foreach (array('omega_css_exclude', 'omega_js_exclude') as $item) {
+    $exclude = array_filter(array_map('trim', explode("\n", $values[$item])));
+    form_set_value(array('#parents' => array($item)), $exclude, $form_state);
+  }
 
   if (!empty($form_state['values']['omega_libraries'])) {
     $values = &$form_state['values']['omega_libraries'];
