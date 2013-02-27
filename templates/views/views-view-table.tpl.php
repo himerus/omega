@@ -13,7 +13,7 @@
     <thead>
       <tr>
         <?php foreach ($header as $field => $label): ?>
-          <th<?php if ($header_attributes[$field]); ?>>
+          <th<?php print $header_attributes[$field]; ?>>
             <?php print $label; ?>
           </th>
         <?php endforeach; ?>
