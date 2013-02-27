@@ -29,7 +29,7 @@ function omega_extension_assets_theme_registry_alter(&$registry) {
   }
 
   if (!empty($registry['html']['libraries'])) {
-    $registry['html']['includes'][] = drupal_get_path('theme', 'omega') . '/includes/scripts/scripts.inc';
+    $registry['html']['includes'][] = drupal_get_path('theme', 'omega') . '/includes/assets/assets.inc';
     $registry['html']['preprocess functions'][] = 'omega_extension_assets_attach_libraries';
   }
 }
