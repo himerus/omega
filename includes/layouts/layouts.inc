@@ -31,6 +31,6 @@ function theme_omega_layout($variables) {
 
     // Clean up the theme hook suggestion so we don't end up in an infinite loop.
     unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
-    return theme($layout['name'], $variables);
+    return theme($layout['template'], $variables);
   }
 }

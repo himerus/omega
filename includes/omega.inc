@@ -487,6 +487,8 @@ function omega_layouts_info() {
   $layouts = omega_discovery('layout', FALSE);
   foreach ($layouts as $layout => &$info) {
     $info['attached'] = array();
+    $info['template'] = isset($info['info']['template']) ? $info['info']['template'] : $layout;
+
     // Look up possible CSS and JS file overrides.
     if (isset($info['info']['stylesheets'])) {
       foreach ($info['info']['stylesheets'] as $media => $files) {

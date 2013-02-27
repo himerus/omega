@@ -418,9 +418,9 @@ function omega_theme() {
   $path = drupal_get_path('theme', 'omega');
 
   $info = array();
-  foreach (omega_layouts_info() as $key => $layout) {
-    $info[$key] = array(
-      'template' => isset($layout['info']['template']) ? $layout['info']['template'] : $key,
+  foreach (omega_layouts_info() as $layout) {
+    $info[$layout['template']] = array(
+      'template' => $layout['template'],
       'path' => $layout['path'],
     );
   }
