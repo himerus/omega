@@ -25,7 +25,7 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
   //
   // @see theme_get_setting()
   if (!$static = &drupal_static('theme_get_setting')) {
-    if ($cache = cache_get('theme_settings:' . $GLOBALS['theme'])) {
+    if ($cache = cache_get('omega:' . $GLOBALS['theme'] . ':settings')) {
       // If the cache entry exists, populate the static theme settings array
       // with its data. This prevents the theme settings from being rebuilt on
       // every page load.
@@ -39,7 +39,7 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
       $static = &drupal_static('theme_get_setting');
 
       // Cache the theme settings in the database.
-      cache_set('theme_settings:' . $GLOBALS['theme'], $static[$GLOBALS['theme']]);
+      cache_set('omega:' . $GLOBALS['theme'] . ':settings', $static[$GLOBALS['theme']]);
     }
   }
 

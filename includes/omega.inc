@@ -281,7 +281,7 @@ function omega_extensions($theme = NULL) {
     return $extensions[$theme];
   }
 
-  if (($cache = cache_get('omega_extensions:' . $theme)) !== FALSE) {
+  if (($cache = cache_get('omega:' . $theme . ':extensions')) !== FALSE) {
     return $extensions[$theme] = $cache->data;
   }
 
@@ -309,7 +309,7 @@ function omega_extensions($theme = NULL) {
   }
 
   // Write to the cache.
-  cache_set('omega_extensions:' . $theme, $extensions[$theme]);
+  cache_set('omega:' . $theme . ':extensions', $extensions[$theme]);
 
   return $extensions[$theme];
 }
