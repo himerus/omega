@@ -290,7 +290,7 @@ function omega_css_alter(&$css) {
         'base' => 'system.base.css',
       ),
       'system.base-rtl.css' => array(
-        'base' => 'system.theme-rtl.css',
+        'base' => 'system.base-rtl.css',
       ),
       'system.theme.css' => array(
         'theme' => 'system.theme.css',
