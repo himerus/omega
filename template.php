@@ -131,14 +131,6 @@ function omega_element_info_alter(&$elements) {
 
 /**
  * Implements hook_css_alter().
- *
- * The backported CSS files have been copied from the Aurora theme. Huge props
- * to Sam Richard (Snugug) for chasing Drupal 8 HEAD!
- *
- * Backports the following CSS changes made to Drupal 8:
- * - #1216950: Clean up the CSS for Block module.
- * - #1216948: Clean up the CSS for Aggregator module.
- * - #1216972: Clean up the CSS for Color module.
  */
 function omega_css_alter(&$css) {
   $omega = drupal_get_path('theme', 'omega');
