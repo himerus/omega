@@ -1,6 +1,7 @@
 name = epiqo
 description = Default layout for epiqo distributions.
 preview = preview.png
+template = epiqo-layout
 
 ; Regions
 regions[navigation] = Navigation

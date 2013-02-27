@@ -1,6 +1,7 @@
 name = Simple
 description = A simple 3 column layout demonstrating mobile first and Susy.
 preview = preview.png
+template = simple-layout
 
 ; Regions
 regions[header]         = Header

@@ -419,25 +419,17 @@ function omega_theme() {
 
   $info = array();
   foreach (omega_layouts_info() as $key => $layout) {
-    $info[$key . '_layout'] = array(
-      'template' => $key . '-layout',
+    $info[$key] = array(
+      'template' => isset($layout['info']['template']) ? $layout['info']['template'] : $key,
       'path' => $layout['path'],
-      'layout' => $key,
     );
   }
 
-  $info['omega_layout_page'] = array(
-    'function' => 'theme_omega_layout_page',
+  $info['omega_layout'] = array(
+    'function' => 'theme_omega_layout',
     'file' => 'includes/layouts/layouts.inc',
     'path' => $path,
     'base hook' => 'page',
-  );
-
-  $info['omega_layout_renderer'] = array(
-    'variables' => array('layout' => NULL, 'variables' => NULL, 'type' => NULL),
-    'function' => 'theme_omega_layout_renderer',
-    'file' => 'includes/layouts/layouts.inc',
-    'path' => $path,
   );
 
   return $info;
