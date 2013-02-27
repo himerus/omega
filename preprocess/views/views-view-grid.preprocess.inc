@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * Implements hook_preprocess_views_view_grid().
+ */
+function omega_preprocess_views_view_grid(&$variables) {
+  // For some reason views puts row classes into the classes array. Instead of
+  // classes arrays we should always use proper attributes arrays and never
+  // abuse the default versions of those for row classes. Instead, we should use
+  // a custom variable for that, which is exactly what we convert it to here.
+  foreach ($variables['rows'] as $delta => $row) {
+    $variables['row_attributes_array'][$delta] = isset($variables['row_attributes_array'][$delta]) ? $variables['row_attributes_array'][$delta] : array();
+
+    if (!empty($variables['classes_array'][$delta])) {
+      $variables['row_attributes_array'][$delta]['class'] = explode(' ', $variables['classes_array'][$delta]);
+    }
+
+    // Views tables have additional classes for each column.
+    foreach ($columns as $column => $content) {
+      $variables['column_attributes_array'][$delta][$column] = isset($variables['column_attributes_array'][$delta][$column]) ? $variables['column_attributes_array'][$delta][$column] : array();
+
+      if (!empty($variables['column_classes'][$delta][$column])) {
+        $variables['column_attributes_array'][$delta][$column]['class'] = explode(' ', $variables['column_classes'][$delta][$column]);
+      }
+    }
+  }
+}

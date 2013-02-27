@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Default simple view template to display a list of rows.
+ * Template to display a list of rows.
  */
 ?>
 <?php print $wrapper_prefix; ?>
