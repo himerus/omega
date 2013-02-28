@@ -1,7 +1,7 @@
 .form-item.form-item-omega-conditional-comments-html-options,
 .form-item.form-item-omega-viewport-widget-minimal,
 .omega-settings-container {
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   margin-left: 18px;
   margin-bottom: 12px;
   padding: 9px 18px;
@@ -13,7 +13,7 @@
 }
 
 div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset {
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
   padding: 2.5em 0 0 0;
   margin: 1em 0;
 }

@@ -109,7 +109,7 @@ small .admin-link:after {
   font-weight: bold;
 }
 .theme-selector--default .theme-selector__screenshot {
-  border: 1px solid #aaa;
+  border: 1px solid #aaaaaa;
 }
 
 /* Theme Selector Enabled State */

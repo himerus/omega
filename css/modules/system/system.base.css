@@ -80,7 +80,7 @@ fieldset.collapsible .fieldset-legend {
 .resizable-textarea .grippie {
   height: 9px;
   background: #eeeeee url(../../../images/misc/grippie.png) no-repeat center 2px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-top-width: 0;
   cursor: s-resize;
   overflow: hidden;

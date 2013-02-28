@@ -8,13 +8,13 @@
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
-  background: url('../images/rgbapng/000000bf.png?1358620888');
+  background: url('../images/rgbapng/000000bf.png?1362071959');
   background: rgba(0, 0, 0, 0.75);
   z-index: 1000;
   position: fixed;
   bottom: 0;
   right: 0;
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   font-size: 13px;
   color: #fff;
   max-width: 100%;
@@ -26,7 +26,7 @@
   background-color: rgba(0, 0, 0, 0.1);
   position: relative;
   min-height: 29px;
-  outline: 1px dashed #ccc;
+  outline: 1px dashed #cccccc;
 }
 .region--debug:before {
   -webkit-border-radius: 3px;
@@ -34,7 +34,7 @@
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   font-size: 11px;
   z-index: 50;
   position: absolute;

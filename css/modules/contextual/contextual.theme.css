@@ -6,7 +6,7 @@
  * Contextual link wrappers
  */
 .contextual-links-region-active {
-  outline: #999 dashed 1px;
+  outline: #999999 dashed 1px;
 }
 
 .contextual-links-wrapper {
@@ -74,7 +74,7 @@
   padding: 0.25em 0;
   /* Other Declarations */
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   -webkit-border-radius: 4px 0 4px 4px;
   -moz-border-radius: 4px 0 4px 4px;
   -ms-border-radius: 4px 0 4px 4px;
@@ -95,7 +95,7 @@
   display: block;
   margin: 0.25em 0;
   padding: 0.25em 1em 0.25em 0.5em;
-  color: #333 !important;
+  color: #333333 !important;
 }
 .contextual-links a:hover {
   background-color: #bfdcee;
