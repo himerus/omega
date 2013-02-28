@@ -10,15 +10,15 @@
 
   /* Menu Item Hierarchy Modifiers */
   .expanded {
-    list-style-image: url(../../../images/misc/menu-expanded.png);
+    list-style-image: image-url('misc/menu-expanded.png');
     list-style-type: circle;
   }
   .collapsed {
-    list-style-image: url(../../../images/misc/menu-collapsed.png); /* LTR */
+    list-style-image: image-url('misc/menu-collapsed.png'); /* LTR */
     list-style-type: disc;
   }
   .leaf {
-    list-style-image: url(../../../images/misc/menu-leaf.png);
+    list-style-image: image-url('misc/menu-leaf.png');
     list-style-type: square;
   }
 }

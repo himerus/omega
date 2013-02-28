@@ -8,7 +8,7 @@
 
   input {
     padding-left: 20px; /* LTR */
-    background-image: url('../../../images/modules/openid/login-bg.png');
+    background-image: image-url('modules/openid/login-bg.png');
     background-position: left 50%; /* LTR */
     background-repeat: no-repeat;
   }
@@ -23,7 +23,7 @@
   }
   a {
     padding: 0 0 0 1.5em; /* LTR */
-    background-image: url('../../../images/modules/openid/login-bg.png');
+    background-image: image-url('modules/openid/login-bg.png');
     background-position: left top; /* LTR */
     background-repeat: no-repeat;
   }

@@ -11,10 +11,10 @@
     background-repeat: no-repeat;
   }
   .error .status-icon {
-    background-image: url(../../../images/misc/message-16-error.png);
+    background-image: image-url('misc/message-16-error.png');
   }
   .warning .status-icon {
-    background-image: url(../../../images/misc/message-16-warning.png);
+    background-image: image-url('misc/message-16-warning.png');
   }
 }
 

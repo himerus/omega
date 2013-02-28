@@ -7,7 +7,7 @@
 
 html.js fieldset.collapsible .fieldset-legend {
   padding-left: 15px; /* LTR */
-  background: url(../../../images/misc/menu-expanded.png) 5px 65% no-repeat; /* LTR */
+  background: image-url('misc/menu-expanded.png') 5px 65% no-repeat; /* LTR */
 }
 html.js fieldset.collapsed {
   border-bottom-width: 0;
@@ -15,7 +15,7 @@ html.js fieldset.collapsed {
   border-right-width: 0;
   
   .fieldset-legend {
-    background-image: url(../../../images/misc/menu-collapsed.png); /* LTR */
+    background-image: image-url('misc/menu-collapsed.png'); /* LTR */
     background-position: 5px 50%; /* LTR */
   }
 }

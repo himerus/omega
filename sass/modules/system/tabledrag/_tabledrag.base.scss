@@ -20,7 +20,7 @@ body.drag {
     width: 15px;
     margin: -0.4em 0;
     padding: 0.4em;
-    background: url(../../../images/misc/draggable.png) no-repeat 6px 9px;
+    background: image-url('misc/draggable.png') no-repeat 6px 9px;
   }
   &:hover {
     text-decoration: none;
@@ -38,13 +38,13 @@ body.drag {
 
 /* Tree Images */
 .tree-child {
-  background: url(../../../images/misc/tree.png) no-repeat 12px center; /* LTR */
+  background: image-url('misc/tree.png') no-repeat 12px center; /* LTR */
 }
 .tree-child-last {
-  background: url(../../../images/misc/tree-bottom.png) no-repeat 12px center; /* LTR */
+  background: image-url('misc/tree-bottom.png') no-repeat 12px center; /* LTR */
 }
 .tree-child-horizontal {
-  background: url(../../../images/misc/tree.png) no-repeat -12px center;
+  background: image-url('misc/tree.png') no-repeat -12px center;
 }
 
 /* Toggle Weight Link */

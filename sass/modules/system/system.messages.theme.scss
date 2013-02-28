@@ -22,7 +22,7 @@
 
 /* Status Messages */
 .messages--status {
-  background-image: url(../../../images/misc/message-24-ok.png);
+  background-image: image-url('misc/message-24-ok.png');
   border-color: #be7;
 }
 .messages--status,
@@ -36,7 +36,7 @@ tr.ok {
 
 /* Warning Messages */
 .messages--warning {
-  background-image: url(../../../images/misc/message-24-warning.png);
+  background-image: image-url('misc/message-24-warning.png');
   border-color: #ed5;
 }
 .messages--warning,
@@ -50,7 +50,7 @@ tr.warning {
 
 /* Error Messages */
 .messages--error {
-  background-image: url(../../../images/misc/message-24-error.png);
+  background-image: image-url('misc/message-24-error.png');
   border-color: #ed541d;
 }
 .messages--error,

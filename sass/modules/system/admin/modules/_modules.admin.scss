@@ -33,13 +33,13 @@
   white-space: nowrap;
 }
 .module-link-help {
-  background: url(../../../images/misc/help.png) 0 50% no-repeat; /* LTR */
+  background: image-url('misc/help.png') 0 50% no-repeat; /* LTR */
 }
 .module-link-permissions {
-  background: url(../../../images/misc/permissions.png) 0 50% no-repeat; /* LTR */
+  background: image-url('misc/permissions.png') 0 50% no-repeat; /* LTR */
 }
 .module-link-configure {
-  background: url(../../../images/misc/configure.png) 0 50% no-repeat; /* LTR */
+  background: image-url('misc/configure.png') 0 50% no-repeat; /* LTR */
 }
 
 /* Module Help */
