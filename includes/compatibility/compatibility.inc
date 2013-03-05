@@ -70,7 +70,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'browsers' => array(
-          'IE' => !$supported ? TRUE : 'lt ' . $supported,
+          'IE' => !$supported ? TRUE : 'lte ' . $supported,
           '!IE' => FALSE,
         ),
       ));
@@ -80,7 +80,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
         'scope' => 'footer',
         'group' => JS_THEME,
         'browsers' => array(
-          'IE' => !$supported ? TRUE : 'lt ' . $supported,
+          'IE' => !$supported ? TRUE : 'lte ' . $supported,
           '!IE' => FALSE,
         ),
       ));
