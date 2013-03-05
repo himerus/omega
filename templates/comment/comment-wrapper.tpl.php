@@ -35,7 +35,7 @@
  * @see theme_comment_wrapper()
  */
 ?>
-<section id="comments"<?php print $attributes; ?>>
+<section<?php print $attributes; ?>>
   <?php if ($content['comments'] && $node->type != 'forum'): ?>
     <?php print render($title_prefix); ?>
     <h2><?php print t('Comments'); ?></h2>
@@ -45,7 +45,7 @@
   <?php print render($content['comments']); ?>
 
   <?php if ($content['comment_form']): ?>
-    <h2><?php print t('Add new comment'); ?></h2>
+    <h2 class=""><?php print t('Add new comment'); ?></h2>
     <?php print render($content['comment_form']); ?>
   <?php endif; ?>
 </section>
