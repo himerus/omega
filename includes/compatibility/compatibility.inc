@@ -89,7 +89,11 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
   // rendering engine or use Chrome's frame rendering engine if available.
   if (omega_theme_get_setting('omega_chrome_edge', TRUE)) {
     $supported = omega_theme_get_setting('omega_internet_explorer_support');
-    drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=' . $supported);
+
+    if (drupal_get_http_header('X-UA-Compatible') === NULL) {
+      // Only add the header if it hasn't been added before.
+      drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=' . $supported);
+    }
 
     if (omega_theme_get_setting('omega_chrome_popup', FALSE)) {
       // Automatically open the Google Chrome Frame installation iframe.
