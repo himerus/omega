@@ -92,25 +92,6 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
 }
 
 /**
- * Enforces attribute arrays instead of simple class arrays.
- *
- * Added through omega_theme_registry_alter() to synchronize the attributes
- * array with the classes array.
- */
-function omega_enforce_attributes(&$variables, $hook) {
-  // Copy over the classes array into the attributes array.
-  if (!empty($variables['classes_array'])) {
-    $variables['attributes_array']['class'] = !empty($variables['attributes_array']['class']) ? array_merge($variables['attributes_array']['class'], $variables['classes_array']) : $variables['classes_array'];
-    $variables['attributes_array']['class'] = array_unique($variables['attributes_array']['class']);
-  }
-
-  // Sync that with the classes array. Remember: We don't recommend using it.
-  if (!empty($variables['attributes_array']['class'])) {
-    $variables['classes_array'] = $variables['attributes_array']['class'];
-  }
-}
-
-/**
  * Implements hook_element_info_alter().
  */
 function omega_element_info_alter(&$elements) {
@@ -470,7 +451,10 @@ function omega_theme_registry_alter(&$registry) {
   // themers to use it.
   foreach ($registry as $hook => $item) {
     if (empty($item['base hook']) && empty($item[$mapping['theme']])) {
-      array_unshift($registry[$hook][$mapping['process']], 'omega_enforce_attributes');
+      if (($index = array_search('template_preprocess', $registry[$hook][$mapping['preprocess']], TRUE)) !== FALSE) {
+        array_unshift($registry[$hook][$mapping['process']], 'omega_process_attributes');
+        array_splice($registry[$hook][$mapping['preprocess']], $index, 1, 'omega_template_preprocess_override');
+      }
     }
   }
 
@@ -610,6 +594,53 @@ function omega_theme_registry_alter(&$registry) {
       }
     }
   }
+}
+
+/**
+ * Cleans up the attributes array.
+ */
+function omega_process_attributes(&$variables) {
+  if (empty($variables['attributes_array']['class'])) {
+    $variables['classes_array'] = array();
+    unset($variables['attributes_array']['class']);
+  }
+}
+
+/**
+ * Overrides template_preprocess().
+ */
+function omega_template_preprocess_override(&$variables, $hook) {
+  global $user;
+  static $count = array();
+
+  // Track run count for each hook to provide zebra striping.
+  // See "template_preprocess_block()" which provides the same feature specific to blocks.
+  $count[$hook] = isset($count[$hook]) && is_int($count[$hook]) ? $count[$hook] : 1;
+  $variables['zebra'] = ($count[$hook] % 2) ? 'odd' : 'even';
+  $variables['id'] = $count[$hook]++;
+
+  // Tell all templates where they are located.
+  $variables['directory'] = path_to_theme();
+
+  $variables['attributes_array']['class'] = array(drupal_html_class($hook));
+  // Initialize html class attribute for the current hook.
+  $variables['classes_array'] = &$variables['attributes_array']['class'];
+
+  // Merge in variables that don't depend on hook and don't change during a
+  // single page request.
+  // Use the advanced drupal_static() pattern, since this is called very often.
+  static $drupal_static_fast;
+  if (!isset($drupal_static_fast)) {
+    $drupal_static_fast['default_variables'] = &drupal_static(__FUNCTION__);
+  }
+  $default_variables = &$drupal_static_fast['default_variables'];
+  // Global $user object shouldn't change during a page request once rendering
+  // has started, but if there's an edge case where it does, re-fetch the
+  // variables appropriate for the new user.
+  if (!isset($default_variables) || ($user !== $default_variables['user'])) {
+    $default_variables = _template_preprocess_default_variables();
+  }
+  $variables += $default_variables;
 }
 
 /**
