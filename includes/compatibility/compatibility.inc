@@ -11,6 +11,11 @@
 function omega_extension_compatibility_theme_registry_alter(&$registry) {
   $registry['html']['includes'][] = drupal_get_path('theme', 'omega') . '/includes/compatibility/compatibility.inc';
   $registry['html']['preprocess functions'][] = 'omega_extension_compatibility_preprocess_html';
+
+  if (omega_theme_get_setting('omega_apple_touch', TRUE)) {
+    // Cache the array of apple touch icons if they are enabled.
+    $registry['html']['apple-touch-icon'] = omega_theme_trail_info('apple', FALSE);
+  }
 }
 
 /**
@@ -55,6 +60,29 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
     );
 
     drupal_add_html_head($meta, 'omega-cleartype');
+  }
+
+  // Add Apple touch icons.
+  if (omega_theme_get_setting('omega_apple_touch', TRUE)) {
+    $registry = theme_get_registry(FALSE);
+
+    // Iterate over the array of touch icons and attributes.
+    $path = drupal_get_path('theme', $registry['html']['apple-touch-icon']['theme']);
+    foreach($registry['html']['apple-touch-icon']['info'] as $sizes => $icon) {
+      $meta = array(
+        '#tag' => 'link',
+        '#attributes' => array(
+          'rel' => 'apple-touch-icon',
+          'href' => file_create_url($path . '/' . $icon),
+        ),
+      );
+
+      if ($sizes != 'default') {
+        $meta['#attributes']['sizes'] = $sizes;
+      }
+
+      drupal_add_html_head($meta, 'omega-touch-' . $sizes);
+    }
   }
 
   // Send X-UA-Compatible HTTP header to force IE to use the most recent

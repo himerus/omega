@@ -21,6 +21,13 @@ function omega_extension_compatibility_settings_form($element, &$form, $form_sta
     '#title' => t('Metatags and HTTP headers'),
   );
 
+  $element['omega_metatags']['omega_apple_touch'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Apple touch icons'),
+    '#description' => t('You can set an Apple Touch Icon for your website just like you can set a favorite icon.'),
+    '#default_value' => omega_theme_get_setting('omega_apple_touch', TRUE),
+  );
+
   $element['omega_metatags']['omega_cleartype'] = array(
     '#type' => 'checkbox',
     '#title' => t('Cleartype support for Windows'),
