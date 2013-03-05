@@ -44,6 +44,50 @@ function omega_preprocess_html(&$variables, $hook) {
   if ($GLOBALS['theme'] == 'omega') {
     _omega_preprocess_html($variables);
   }
+
+  // Build array of touch icons and attributes.
+  $path = drupal_get_path('theme', $GLOBALS['theme']);
+  $touch_icons = array(
+    // For third-generation iPad with high-resolution Retina display.
+    'apple-144x144' => array(
+      '#tag' => 'link',
+      '#attributes' => array(
+        'rel' => 'apple-touch-icon',
+        'sizes' => '144x144',
+        'href' => file_create_url($path . '/apple-touch-icon-144x144.png'),
+      ),
+    ),
+    // For iPhone with high-resolution Retina display.
+    'apple-114x114' => array(
+      '#tag' => 'link',
+      '#attributes' => array(
+        'rel' => 'apple-touch-icon',
+        'sizes' => '114x114',
+        'href' => file_create_url($path . '/apple-touch-icon-114x114.png'),
+      ),
+    ),
+    // For first and second-generation iPad.
+    'apple-72x72' => array(
+      '#tag' => 'link',
+      '#attributes' => array(
+        'rel' => 'apple-touch-icon',
+        'sizes' => '72x72',
+        'href' => file_create_url($path . '/apple-touch-icon-72x72.png'),
+      ),
+    ),
+    // For non-Retina iPhone, iPod Touch, and Android 2.1+ devices.
+    'apple' => array(
+      '#tag' => 'link',
+      '#attributes' => array(
+        'rel' => 'apple-touch-icon',
+        'href' => file_create_url($path . '/apple-touch-icon.png'),
+      ),
+    ),
+  );
+  // Add the touch icons to the HTML head.
+  foreach($touch_icons as $touch_icon_name => $touch_icon) {
+    drupal_add_html_head($touch_icon, 'omega-touch-' . $touch_icon_name);
+  }
 }
 
 /**
