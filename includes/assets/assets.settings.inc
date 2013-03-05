@@ -17,10 +17,11 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
   );
 
   $element['omega_js_footer'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Output JavaScript in the footer'),
-    '#description' => t('Outputs all JavaScript files and settings in the footer instead of placing them in the header (default). Note: This does not affect libraries.'),
-    '#default_value' => omega_theme_get_setting('omega_js_footer', TRUE),
+    '#type' => 'textarea',
+    '#title' => t('Move JS files to the footer'),
+    '#description' => t("Enter one file per line. The '*' character is a wildcard. Each path is relative to a module, theme, profile, theme engine or the 'misc' folder."),
+    // The paths are stored in an array.
+    '#default_value' => implode("\n", (array) omega_theme_get_setting('omega_js_footer', array())),
   );
 
   $element['omega_css_exclude'] = array(
@@ -31,12 +32,9 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
     '#default_value' => implode("\n", (array) omega_theme_get_setting('omega_css_exclude', array())),
   );
 
-  // We need a custom submit handler to store the CSS and JS paths as arrays.
-  $form['#submit'][] = 'omega_extension_assets_theme_settings_form_submit';
-
   $element['omega_js_exclude'] = array(
     '#type' => 'textarea',
-    '#title' => t('Exclude JavaScript files'),
+    '#title' => t('Exclude JS files'),
     '#description' => t("Enter one file per line. The '*' character is a wildcard. Each path is relative to a module, theme, profile, theme engine or the 'misc' folder."),
     // The paths are stored in an array.
     '#default_value' => implode("\n", (array) omega_theme_get_setting('omega_js_exclude', array())),
@@ -114,6 +112,9 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
     }
   }
 
+  // We need a custom submit handler to store the CSS and JS paths as arrays.
+  $form['#submit'][] = 'omega_extension_assets_theme_settings_form_submit';
+
   return $element;
 }
 
@@ -123,8 +124,6 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
 function omega_library_pie_selectors_submit($form, &$form_state) {
   $values = &$form_state['values']['omega_libraries']['css3pie'];
 
-  // The generated CSS file is stored in the public file system.
-  $theme = $form_state['build_info']['args'][0];
   // Generate a CSS file for the provided selectors if the inclusion method is
   // set to 'pie.htc' or 'pie.php'.
   $selectors = array();
@@ -172,7 +171,7 @@ function omega_extension_assets_theme_settings_form_submit($form, &$form_state) 
   $values = $form_state['values'];
 
   // Explode and trim the values for the exclusion rules.
-  foreach (array('omega_css_exclude', 'omega_js_exclude') as $item) {
+  foreach (array('omega_css_exclude', 'omega_js_exclude', 'omega_js_footer') as $item) {
     $exclude = array_filter(array_map('trim', explode("\n", $values[$item])));
     form_set_value(array('#parents' => array($item)), $exclude, $form_state);
   }

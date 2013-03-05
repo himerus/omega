@@ -136,8 +136,15 @@ function omega_css_alter(&$css) {
   $omega = drupal_get_path('theme', 'omega');
 
   // Exclude CSS files as declared in the theme settings.
-  if (omega_extension_enabled('assets') && $exclude = omega_theme_get_setting('omega_css_exclude', array())) {
-    omega_exclude_assets($css, $exclude);
+  if (omega_extension_enabled('assets') && $exclude = omega_theme_get_setting('omega_css_exclude')) {
+    $regex = omega_generate_path_regex($exclude);
+    foreach ($regex as &$item) {
+      // Make sure that RTL styles are excluded as well when a file name has been
+      // specified with it's full .css file extension.
+      $item = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $item);
+    }
+
+    omega_exclude_assets($css, $regex);
   }
 
   // The CSS_SYSTEM aggregation group doesn't make any sense. Therefore, we are
@@ -376,21 +383,18 @@ function omega_js_alter(&$js) {
     return;
   }
 
-  if ($exclude = omega_theme_get_setting('omega_js_exclude', array())) {
-    omega_exclude_assets($js, $exclude);
+  if ($exclude = omega_theme_get_setting('omega_js_exclude')) {
+    $regex = omega_generate_path_regex($exclude);
+    omega_exclude_assets($js, $regex);
   }
 
-  // Move all the JavaScript to the footer if the theme is configured that way.
-  if (omega_theme_get_setting('omega_js_footer', TRUE)) {
-    foreach ($js as &$item) {
-      // JavaScript libraries should never be moved to the footer.
-      if ($item['group'] == JS_LIBRARY) {
-        continue;
-      }
+  // Move the specified JavaScript files to the footer.
+  if (($footer = omega_theme_get_setting('omega_js_footer')) && is_array($footer)) {
+    $regex = omega_generate_path_regex($footer);
+    $mapping = omega_generate_asset_mapping($js);
 
-      if (empty($item['force header'])) {
-        $item['scope'] = 'footer';
-      }
+    foreach (preg_grep($regex, $mapping) as $key => $match) {
+      $js[$key]['scope'] = 'footer';
     }
   }
 }
