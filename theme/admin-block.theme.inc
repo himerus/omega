@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Returns HTML for an administrative block for display.
  *

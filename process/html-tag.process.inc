@@ -1,8 +1,8 @@
 <?php
 
 /**
-* Implements hook_process_html_tag().
-*/
+ * Implements hook_process_html_tag().
+ */
 function omega_process_html_tag(&$variables) {
   $element = &$variables['element'];
   // Remove type="something" and CDATA prefix/suffix.

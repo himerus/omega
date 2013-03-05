@@ -16,7 +16,6 @@
  * @see template_preprocess_poll_bar()
  */
 ?>
-
 <div class="poll-bars">
   <div class="poll-bars__text"><?php print $title; ?></div>
   <div class="poll-bars__bar">

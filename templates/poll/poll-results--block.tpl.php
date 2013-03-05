@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Default theme implementation to display the poll results in a block.
@@ -17,7 +18,6 @@
  * @see template_preprocess_poll_results()
  */
 ?>
-
 <div class="poll-results poll-results--block">
   <h4><?php print $title ?></h4>
   <?php print $results ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Returns HTML for a "more help" link.
  *

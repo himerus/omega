@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Returns HTML for a query pager.
  *

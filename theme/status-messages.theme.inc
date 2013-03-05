@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Returns HTML for status and/or error messages, grouped by type.
  *
