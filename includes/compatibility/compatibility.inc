@@ -65,7 +65,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
 
     if (omega_theme_get_setting('omega_chrome_popup', FALSE)) {
       // Automatically open the Google Chrome Frame installation iframe.
-      drupal_add_js('http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js', array(
+      drupal_add_js('//ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js', array(
         'type' => 'external',
         'scope' => 'footer',
         'group' => JS_THEME,
