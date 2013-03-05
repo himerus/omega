@@ -741,7 +741,6 @@ function omega_omega_theme_libraries_info($theme) {
     'files' => array(
       'js' => array(
         $path . '/libraries/selectivizr/selectivizr.min.js' => array(
-          'group' => JS_THEME,
           'weight' => 110,
           'force header' => TRUE,
           'every_page' => TRUE,
@@ -755,7 +754,6 @@ function omega_omega_theme_libraries_info($theme) {
         'files' => array(
           'js' => array(
             $path . '/libraries/selectivizr/selectivizr.js' => array(
-              'group' => JS_THEME,
               'weight' => 110,
               'force header' => TRUE,
               'every_page' => TRUE,
@@ -777,7 +775,6 @@ function omega_omega_theme_libraries_info($theme) {
       'js' => array(
         $path . '/libraries/css3mediaqueries/css3mediaqueries.min.js' => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-          'group' => JS_THEME,
           'weight' => 100,
           'every_page' => TRUE,
         ),
@@ -791,7 +788,6 @@ function omega_omega_theme_libraries_info($theme) {
           'js' => array(
             $path . '/libraries/css3mediaqueries/css3mediaqueries.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-              'group' => JS_THEME,
               'weight' => 100,
               'every_page' => TRUE,
             ),
@@ -811,7 +807,6 @@ function omega_omega_theme_libraries_info($theme) {
     'files' => array(
       'js' => array(
         $path . '/libraries/respond/respond.min.js' => array(
-          'group' => JS_THEME,
           'weight' => 120,
           'force header' => TRUE,
           'every_page' => TRUE,
@@ -825,7 +820,6 @@ function omega_omega_theme_libraries_info($theme) {
         'files' => array(
           'js' => array(
             $path . '/libraries/respond/respond.js' => array(
-              'group' => JS_THEME,
               'weight' => 120,
               'force header' => TRUE,
               'every_page' => TRUE,
@@ -852,7 +846,6 @@ function omega_omega_theme_libraries_info($theme) {
           'js' => array(
             $path . '/libraries/css3pie/PIE.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-              'group' => JS_THEME,
               'weight' => 100,
               'every_page' => TRUE,
             ),
@@ -877,7 +870,6 @@ function omega_omega_theme_libraries_info($theme) {
 
     $libraries['css3pie']['files']['css'][$file] = array(
       'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-      'group' => CSS_THEME,
       'weight' => 100,
       'every_page' => TRUE,
     );
@@ -889,7 +881,6 @@ function omega_omega_theme_libraries_info($theme) {
 
     $libraries['css3pie']['variants']['js']['files']['js'][$file] = array(
       'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-      'group' => JS_THEME,
       'weight' => 100,
       'every_page' => TRUE,
     );
@@ -903,7 +894,6 @@ function omega_omega_theme_libraries_info($theme) {
     'files' => array(
       'js' => array(
         $path . '/libraries/html5shiv/html5shiv.min.js' => array(
-          'group' => JS_THEME,
           'weight' => 100,
           'force header' => TRUE,
           'every_page' => TRUE,
@@ -917,7 +907,6 @@ function omega_omega_theme_libraries_info($theme) {
         'files' => array(
           'js' => array(
             $path . '/libraries/html5shiv/html5shiv.js' => array(
-              'group' => JS_THEME,
               'weight' => 100,
               'force header' => TRUE,
               'every_page' => TRUE,
@@ -935,14 +924,12 @@ function omega_omega_theme_libraries_info($theme) {
     'files' => array(
       'js' => array(
         $path . '/js/omega.messages.js' => array(
-          'group' => JS_THEME,
           'weight' => -100,
           'every_page' => TRUE,
         ),
       ),
       'css' => array(
         $path . '/css/omega.messages.css' => array(
-          'group' => CSS_THEME,
           'weight' => -100,
           'every_page' => TRUE,
         ),

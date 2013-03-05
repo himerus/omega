@@ -68,7 +68,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
       drupal_add_js('//ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js', array(
         'type' => 'external',
         'scope' => 'footer',
-        'group' => JS_THEME,
+        'weight' => 1000,
         'browsers' => array(
           'IE' => !$supported ? TRUE : 'lte ' . $supported,
           '!IE' => FALSE,
@@ -78,7 +78,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
       drupal_add_js('window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"});})', array(
         'type' => 'inline',
         'scope' => 'footer',
-        'group' => JS_THEME,
+        'weight' => 1000,
         'browsers' => array(
           'IE' => !$supported ? TRUE : 'lte ' . $supported,
           '!IE' => FALSE,
