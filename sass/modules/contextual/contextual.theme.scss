@@ -12,7 +12,7 @@
   outline: #999 dashed 1px;
 }
 .contextual-links-wrapper {
-  font-size: 90%;
+  font-size: 10px;
 
   a {
     text-decoration: none;
@@ -61,7 +61,7 @@
   top: 18px;
   /* Box Model */
   margin: 0;
-  padding: 0.25em 0;
+  padding: 5px 0;
   /* Other Declarations */
   background-color: #fff;
   border: 1px solid #ccc;
@@ -79,8 +79,8 @@
 
   a {
     display: block;
-    margin: 0.25em 0;
-    padding: 0.25em 1em 0.25em 0.5em;
+    margin: 5px 0;
+    padding: 5px 10px;
     color: #333 !important;
 
     &:hover {
