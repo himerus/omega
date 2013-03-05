@@ -10,10 +10,10 @@
 environment = :production
 
 # Location of the theme's resources.
-css_dir         = "css"
-sass_dir        = "sass"
-images_dir      = "images"
-javascripts_dir = "js"
+css_dir = "css"
+sass_dir = "sass"
+images_dir = "images"
+generated_images_dir = images_dir + "/generated"
 
 # Require any additional compass plugins installed on your system.
 require 'rgbapng'
