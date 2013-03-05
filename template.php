@@ -715,7 +715,7 @@ function omega_page_alter(&$page) {
       '#theme' => 'omega_chrome',
       '#pre_render' => array('drupal_pre_render_conditional_comments'),
       '#browsers' => array(
-        'IE' => !$supported ? TRUE : 'lt ' . $supported,
+        'IE' => !$supported ? TRUE : 'lte ' . $supported,
         '!IE' => FALSE,
       ),
     );
