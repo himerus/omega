@@ -21,7 +21,7 @@ function omega_preprocess_block(&$variables) {
         case 'help':
         case 'powered-by':
           break;
-        
+
         case 'main':
           // Use a template with no wrapper for the page's main content.
           $variables['theme_hook_suggestions'][] = 'block__minimal';
@@ -35,12 +35,12 @@ function omega_preprocess_block(&$variables) {
       break;
 
     case 'menu':
-    case 'menu_block':   
+    case 'menu_block':
       // Use block--nav.tpl.php template.
       $variables['theme_hook_suggestions'][] = 'block__nav';
       break;
   }
-  
+
   // Add Aria Roles via attributes.
   switch ($variables['block']->module) {
     case 'system':
@@ -62,7 +62,7 @@ function omega_preprocess_block(&$variables) {
       break;
 
     case 'menu':
-    case 'menu_block':   
+    case 'menu_block':
     case 'blog':
     case 'book':
     case 'comment':

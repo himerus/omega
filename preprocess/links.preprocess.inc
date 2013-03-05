@@ -2,7 +2,7 @@
 
 /**
  * Implements hook_preprocess_links().
- * 
+ *
  * Intercepts the links to change inline class to links--inline.
  */
 function omega_preprocess_links(&$variables) {

@@ -59,7 +59,31 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
 
   // Send X-UA-Compatible HTTP header to force IE to use the most recent
   // rendering engine or use Chrome's frame rendering engine if available.
-  if (omega_theme_get_setting('omega_chrome_edge', TRUE) && drupal_get_http_header('X-UA-Compatible') === NULL) {
-    drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=1');
+  if (omega_theme_get_setting('omega_chrome_edge', TRUE)) {
+    $supported = omega_theme_get_setting('omega_internet_explorer_support');
+    drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=' . $supported);
+
+    if (omega_theme_get_setting('omega_chrome_popup', FALSE)) {
+      // Automatically open the Google Chrome Frame installation iframe.
+      drupal_add_js('http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js', array(
+        'type' => 'external',
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'browsers' => array(
+          'IE' => !$supported ? TRUE : 'lt ' . $supported,
+          '!IE' => FALSE,
+        ),
+      ));
+
+      drupal_add_js('window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"});})', array(
+        'type' => 'inline',
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'browsers' => array(
+          'IE' => !$supported ? TRUE : 'lt ' . $supported,
+          '!IE' => FALSE,
+        ),
+      ));
+    }
   }
 }

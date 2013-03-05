@@ -417,7 +417,11 @@ function omega_form_field_ui_display_overview_form_alter(&$form, &$form_state, $
 function omega_theme() {
   $path = drupal_get_path('theme', 'omega');
 
-  $info = array();
+  $info['omega_chrome'] = array(
+    'render element' => 'element',
+    'file' => 'theme/omega-chrome.theme.inc',
+  );
+
   foreach (omega_layouts_info() as $layout) {
     $info[$layout['template']] = array(
       'template' => $layout['template'],
@@ -698,6 +702,19 @@ function omega_page_alter(&$page) {
         $page[$region]['#debug'] = TRUE;
       }
     }
+  }
+
+  if (omega_extension_enabled('compatibility') && omega_theme_get_setting('omega_chrome_edge', TRUE) && omega_theme_get_setting('omega_chrome_notice', TRUE)) {
+    $supported = omega_theme_get_setting('omega_internet_explorer_support');
+
+    $page['page_top']['omega_chrome'] = array(
+      '#theme' => 'omega_chrome',
+      '#pre_render' => array('drupal_pre_render_conditional_comments'),
+      '#browsers' => array(
+        'IE' => !$supported ? TRUE : 'lt ' . $supported,
+        '!IE' => FALSE,
+      ),
+    );
   }
 }
 

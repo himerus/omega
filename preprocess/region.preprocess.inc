@@ -16,7 +16,7 @@ function omega_preprocess_region(&$variables) {
     // Allow a region-specific template to override region--minimal.
     array_unshift($variables['theme_hook_suggestions'], 'region__minimal');
   }
-  
+
   // Use BEM syntax for the modifier class.
   $css_region_name = drupal_clean_css_identifier($variables['region']);
   $variables['classes_array'] = str_replace('region-' . $css_region_name, 'region--' . $css_region_name, $variables['classes_array']);
