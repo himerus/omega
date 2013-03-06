@@ -954,13 +954,11 @@ function omega_omega_theme_libraries_info($theme) {
  * Theme callback for rendering an Omega layout.
  */
 function omega_omega_layout($variables) {
-  if ($layout = omega_layout()) {
-    drupal_process_attached(array('#attached' => $layout['attached']));
+  drupal_process_attached(array('#attached' => $variables['omega_layout']['attached']));
 
-    // Clean up the theme hook suggestion so we don't end up in an infinite loop.
-    unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
-    return theme($layout['template'], $variables);
-  }
+  // Clean up the theme hook suggestion so we don't end up in an infinite loop.
+  unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
+  return theme($variables['omega_layout']['template'], $variables);
 }
 
 /**
