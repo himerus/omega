@@ -80,10 +80,10 @@ function omega_extension_compatibility_settings_form($element, &$form, $form_sta
     '#default_value' => omega_theme_get_setting('omega_internet_explorer_support'),
     '#options' => array(
       '_none' => t('No Internet Explorer support'),
-      'IE 9' => t('Internet Explorer 10'),
-      'IE 8' => t('Internet Explorer 9'),
-      'IE 7' => t('Internet Explorer 8'),
-      'IE 6' => t('Internet Explorer 7'),
+      '9' => t('Internet Explorer 10'),
+      '8' => t('Internet Explorer 9'),
+      '7' => t('Internet Explorer 8'),
+      '6' => t('Internet Explorer 7'),
     ),
   );
 

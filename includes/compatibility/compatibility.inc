@@ -92,7 +92,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
 
     if (drupal_get_http_header('X-UA-Compatible') === NULL) {
       // Only add the header if it hasn't been added before.
-      drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=' . $supported);
+      drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=' . $supported . 'IE');
     }
 
     if (omega_theme_get_setting('omega_chrome_popup', FALSE)) {
@@ -102,7 +102,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
         'scope' => 'footer',
         'weight' => 1000,
         'browsers' => array(
-          'IE' => !$supported ? TRUE : 'lte ' . $supported,
+          'IE' => !$supported ? TRUE : 'lte ' . $supported . ' IE',
           '!IE' => FALSE,
         ),
       ));
@@ -112,7 +112,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
         'scope' => 'footer',
         'weight' => 1000,
         'browsers' => array(
-          'IE' => !$supported ? TRUE : 'lte ' . $supported,
+          'IE' => !$supported ? TRUE : 'lte ' . $supported . ' IE',
           '!IE' => FALSE,
         ),
       ));
