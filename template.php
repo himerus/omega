@@ -600,8 +600,9 @@ function omega_theme_registry_alter(&$registry) {
  * Cleans up the attributes array.
  */
 function omega_process_attributes(&$variables) {
+  unset($variables['classes_array']);
+  $variables['classes_array'] = $variables['attributes_array']['class'];
   if (empty($variables['attributes_array']['class'])) {
-    $variables['classes_array'] = array();
     unset($variables['attributes_array']['class']);
   }
 }
