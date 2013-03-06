@@ -401,7 +401,10 @@ function omega_theme() {
 
   $info['omega_chrome'] = array(
     'render element' => 'element',
-    'file' => 'theme/omega-chrome.theme.inc',
+  );
+
+  $info['omega_layout'] = array(
+    'base hook' => 'page',
   );
 
   foreach (omega_layouts_info() as $layout) {
@@ -410,13 +413,6 @@ function omega_theme() {
       'path' => $layout['path'],
     );
   }
-
-  $info['omega_layout'] = array(
-    'function' => 'theme_omega_layout',
-    'file' => 'includes/layouts/layouts.inc',
-    'path' => $path,
-    'base hook' => 'page',
-  );
 
   return $info;
 }
@@ -593,6 +589,8 @@ function omega_theme_registry_alter(&$registry) {
       }
     }
   }
+
+  krumo($registry);
 }
 
 /**
@@ -950,4 +948,31 @@ function omega_omega_theme_libraries_info($theme) {
   );
 
   return $libraries;
+}
+
+/**
+ * Theme callback for rendering an Omega layout.
+ */
+function omega_omega_layout($variables) {
+  if ($layout = omega_layout()) {
+    drupal_process_attached(array('#attached' => $layout['attached']));
+
+    // Clean up the theme hook suggestion so we don't end up in an infinite loop.
+    unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
+    return theme($layout['template'], $variables);
+  }
+}
+
+/**
+ * Shows a notice when Google Chrome Frame is not installed.
+ */
+function omega_omega_chrome($variables) {
+  $message = t('You are using an outdated browser! <a href="!upgrade">Upgrade your browser today</a> or <a href="!install">install Google Chrome Frame</a> to better experience this site.', array(
+    '!upgrade' => url('http://browsehappy.com'),
+    '!install' => url('http://www.google.com/chromeframe', array(
+      'query' => array('redirect' => 'true')
+    )),
+  ));
+
+  return '<p class="chromeframe">' . $message . '</p>';
 }
