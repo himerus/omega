@@ -23,5 +23,5 @@ function omega_preprocess_node(&$variables) {
   $variables['classes_array'] = str_replace('node-sticky', 'node--sticky', $variables['classes_array']);
   // Add modifier classes for view mode.
   $variables['classes_array'][] = 'node--' . $css_view_mode;
-  $variables['classes_array'][] = 'node--' . $css_node_type . '-' . $css_view_mode;
+  $variables['classes_array'][] = 'node--' . $css_node_type . '--' . $css_view_mode;
 }
