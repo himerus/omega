@@ -719,7 +719,8 @@ function omega_page_alter(&$page) {
       '#theme' => 'omega_chrome',
       '#pre_render' => array('drupal_pre_render_conditional_comments'),
       '#browsers' => array(
-
+        'IE' => !$supported ? TRUE : 'lte IE ' . $supported,
+        '!IE' => FALSE,
       ),
     );
   }
@@ -969,5 +970,5 @@ function omega_omega_chrome($variables) {
     )),
   ));
 
-  return '<p class="messages messages--warning messages--warning--chrome">' . $message . '</p>';
+  return '<p class="chromeframe">' . $message . '</p>';
 }
