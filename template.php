@@ -118,15 +118,11 @@ function omega_css_alter(&$css) {
 
   // Exclude CSS files as declared in the theme settings.
   if (omega_extension_enabled('assets') && $exclude = omega_theme_get_setting('omega_css_exclude')) {
-    if ($regex = omega_generate_path_regex($exclude)) {
-      foreach ($regex as &$item) {
-        // Make sure that RTL styles are excluded as well when a file name has been
-        // specified with it's full .css file extension.
-        $item = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $item);
-      }
-
-      omega_exclude_assets($css, $regex);
-    }
+    $regex = omega_generate_path_regex($exclude);
+    // Make sure that RTL styles are excluded as well when a file name has been
+    // specified with it's full .css file extension.
+    $regex = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $regex);
+    omega_exclude_assets($css, $regex);
   }
 
   // The CSS_SYSTEM aggregation group doesn't make any sense. Therefore, we are
@@ -366,19 +362,17 @@ function omega_js_alter(&$js) {
   }
 
   if ($exclude = omega_theme_get_setting('omega_js_exclude')) {
-    if ($regex = omega_generate_path_regex($exclude)) {
-      omega_exclude_assets($js, $regex);
-    }
+    $regex = omega_generate_path_regex($exclude);
+    omega_exclude_assets($js, $regex);
   }
 
   // Move the specified JavaScript files to the footer.
   if (($footer = omega_theme_get_setting('omega_js_footer')) && is_array($footer)) {
-    if ($regex = omega_generate_path_regex($footer)) {
-      $mapping = omega_generate_asset_mapping($js);
+    $regex = omega_generate_path_regex($footer);
+    $mapping = omega_generate_asset_mapping($js);
 
-      foreach (preg_grep($regex, $mapping) as $key => $match) {
-        $js[$key]['scope'] = 'footer';
-      }
+    foreach (preg_grep($regex, $mapping) as $key => $match) {
+      $js[$key]['scope'] = 'footer';
     }
   }
 }
