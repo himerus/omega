@@ -589,8 +589,6 @@ function omega_theme_registry_alter(&$registry) {
       }
     }
   }
-
-  krumo($registry);
 }
 
 /**
