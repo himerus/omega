@@ -172,7 +172,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
 function omega_theme_settings_form_submit($form, &$form_state) {
   // Clear the theme cache.
   $theme = $form_state['build_info']['args'][0];
-  cache_clear_all('omega:' . $theme, 'cache', TRUE);
+  cache_clear_all('omega:' . $theme . ':', 'cache', TRUE);
 
   // We also need to clear the static right away.
   drupal_static_reset('omega_extensions');
