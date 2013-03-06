@@ -4,11 +4,15 @@
  * Implements hook_preprocess_block().
  */
 function omega_preprocess_block(&$variables) {
+  // Add BEM style classes to blocks.
   if (!empty($variables['block_html_id'])) {
     $variables['attributes_array']['id'] = $variables['block_html_id'];
     $variables['attributes_array']['class'][] = str_replace('block-', 'block--', $variables['block_html_id']);
   }
-  $variables['attributes_array']['class'][] = 'block--' . $variables['block_zebra'];
+
+  $css_module = drupal_clean_css_identifier($variables['block']->module);
+  $variables['attributes_array']['class'] = str_replace('block-' . $css_module, 'block--' . $css_module, $variables['attributes_array']['class']);
+  $variables['attributes_array']['class'] = str_replace('block-menu', 'block--menu', $variables['attributes_array']['class']);
 
   $variables['title_attributes_array']['class'][] = 'block__title';
 
