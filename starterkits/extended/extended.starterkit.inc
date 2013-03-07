@@ -1,5 +1,5 @@
-name = Advanced
-description = This is a short description for the Advanced starterkit.
+name = Extended
+description = This is a short description for the Extended starterkit.
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x

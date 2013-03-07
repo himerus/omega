@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Theme settings file for the Default Starterkit theme.
+ * Theme settings file for the {{ THEMENAME }} theme.
  */
 
 require_once dirname(__FILE__) . '/template.php';
