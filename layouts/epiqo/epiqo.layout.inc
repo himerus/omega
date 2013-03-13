@@ -13,4 +13,4 @@ regions[sidebar_first] = First Sidebar
 regions[sidebar_second] = Second Sidebar
 
 ; Stylesheets
-stylesheets[all][] = css/epiqo.layout.css
+stylesheets[all][] = css/layouts/epiqo/epiqo.layout.css

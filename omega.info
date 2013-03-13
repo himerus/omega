@@ -4,15 +4,6 @@ screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
 
-; For non-Retina iPhone, iPod Touch, and Android 2.1+ devices.
-apple[default] = apple-touch-icon.png
-; For first and second-generation iPad.
-apple[72x72] = apple-touch-icon-72x72.png
-; For iPhone with high-resolution Retina display.
-apple[114x114] = apple-touch-icon-114x114.png
-; For third-generation iPad with high-resolution Retina display.
-apple[144x144] = apple-touch-icon-144x144.png
-
 regions[header]         = Header
 regions[navigation]     = Navigation
 regions[highlighted]    = Highlighted
