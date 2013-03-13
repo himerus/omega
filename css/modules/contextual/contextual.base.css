@@ -8,14 +8,14 @@
 .contextual-links-wrapper,
 .contextual-links-trigger,
 .contextual-links {
-  display: none;
+  display: none !important;
 }
 
 html.js .contextual-links-wrapper,
 .contextual-links-region:hover .contextual-links-trigger,
 .contextual-links-active .contextual-links-trigger,
 .contextual-links-active .contextual-links {
-  display: block;
+  display: block !important;
 }
 
 /**

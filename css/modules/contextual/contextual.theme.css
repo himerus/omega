@@ -1,6 +1,11 @@
 /**
  * @file
  * Styling for contextual links look and feel.
+ *
+ * We are proactivly making use of !important to ensure the contextual links
+ * styling isn't broken by unspecific selectors such as ".block a". In order to
+ * change the styling of the contextual links you should overwrite this file in
+ * your subtheme.
  */
 /**
  * Contextual link wrappers
@@ -10,7 +15,7 @@
 }
 
 .contextual-links-wrapper {
-  font-size: 10px;
+  font-size: 12px !important;
 }
 .contextual-links-wrapper a {
   text-decoration: none;
@@ -23,12 +28,12 @@
   /* Positioning */
   height: 18px;
   /* Box Model */
-  margin: 0;
-  padding: 0 2px;
+  margin: 0 !important;
+  padding: 0 2px !important;
   width: 28px;
   /* Other Declarations */
-  background: transparent url('../../../images/modules/contextual/gear-select.png?1362567127') no-repeat 2px 0;
-  border: 1px solid transparent;
+  background: transparent url('../../../images/modules/contextual/gear-select.png?1362515957') no-repeat 2px 0 !important;
+  border: 1px solid transparent !important;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -41,7 +46,7 @@
 
 .contextual-links-trigger:hover,
 .contextual-links-active .contextual-links-trigger {
-  background-position: 2px -18px;
+  background-position: 2px -18px !important;
 }
 
 .contextual-links-active .contextual-links-trigger {
@@ -49,9 +54,9 @@
   position: relative;
   z-index: 1;
   /* Other Declarations */
-  background-color: #fff;
-  border-color: #ccc;
-  border-bottom: none;
+  background-color: white !important;
+  border-color: #cccccc !important;
+  border-bottom: none !important;
   -moz-border-radius-bottomleft: 0;
   -webkit-border-bottom-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -70,11 +75,11 @@
   /* LTR */
   top: 18px;
   /* Box Model */
-  margin: 0;
-  padding: 5px 0;
+  margin: 0 !important;
+  padding: 0 !important;
   /* Other Declarations */
-  background-color: #fff;
-  border: 1px solid #cccccc;
+  background-color: white !important;
+  border: 1px solid #cccccc !important;
   -webkit-border-radius: 4px 0 4px 4px;
   -moz-border-radius: 4px 0 4px 4px;
   -ms-border-radius: 4px 0 4px 4px;
@@ -85,18 +90,19 @@
   white-space: nowrap;
 }
 .contextual-links li {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   line-height: 100%;
   list-style: none;
   list-style-image: none;
 }
 .contextual-links a {
   display: block;
-  margin: 5px 0;
-  padding: 5px 10px;
+  margin: 0 !important;
+  padding: 5px 10px !important;
   color: #333333 !important;
+  font-size: 12px !important;
 }
 .contextual-links a:hover {
-  background-color: #bfdcee;
+  background-color: #bfdcee !important;
 }
