@@ -526,14 +526,27 @@ function omega_layouts_info() {
   foreach ($layouts as $layout => &$info) {
     $info['attached'] = array();
     $info['template'] = isset($info['info']['template']) ? $info['info']['template'] : $layout;
+    $root = drupal_get_path('theme', $info['theme']);
 
-    // Look up possible CSS and JS file overrides.
     if (isset($info['info']['stylesheets'])) {
       foreach ($info['info']['stylesheets'] as $media => $files) {
         foreach ($files as $key => $file) {
-          $info['attached']['css'][$key] = array(
+          if (is_file($info['path'] . '/' . $file)) {
+            // First, check if the file exists in the layout's path.
+            $path = $info['path'] . '/' . $file;
+          }
+          elseif (is_file($root . '/' . $file)) {
+            // Otherwise, check if the file exists in the theme's path.
+            $path = $root . '/' . $file;
+          }
+          else {
+            // The specified file does not exist.
+            continue;
+          }
+
+          $info['attached']['css']["$media:$key"] = array(
+            'data' => $path,
             'media' => $media,
-            'data' => $info['path'] . '/' . $file,
             'group' => CSS_THEME,
             'every_page' => TRUE,
             'weight' => -10,
@@ -545,8 +558,21 @@ function omega_layouts_info() {
     // Look up possible CSS and JS file overrides.
     if (isset($info['info']['scripts'])) {
       foreach ($info['info']['scripts'] as $key => $file) {
+        if (is_file($info['path'] . '/' . $file)) {
+          // First, check if the file exists in the layout's path.
+          $path = $info['path'] . '/' . $file;
+        }
+        elseif (is_file($root . '/' . $file)) {
+          // Otherwise, check if the file exists in the theme's path.
+          $path = $root . '/' . $file;
+        }
+        else {
+          // The specified file does not exist.
+          continue;
+        }
+
         $info['attached']['js'][$key] = array(
-          'data' => $info['path'] . '/' . $file,
+          'data' => $path,
           'group' => JS_THEME,
           'every_page' => TRUE,
           'weight' => -10,
