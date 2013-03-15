@@ -397,8 +397,6 @@ function omega_form_field_ui_display_overview_form_alter(&$form, &$form_state, $
  * Implements hook_theme().
  */
 function omega_theme() {
-  $path = drupal_get_path('theme', 'omega');
-
   $info['omega_chrome'] = array(
     'render element' => 'element',
   );
