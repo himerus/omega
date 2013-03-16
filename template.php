@@ -749,8 +749,8 @@ function omega_omega_theme_libraries_info($theme) {
     'files' => array(
       'js' => array(
         $path . '/libraries/selectivizr/selectivizr.min.js' => array(
+          'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 110,
-          'force header' => TRUE,
           'every_page' => TRUE,
         ),
       ),
@@ -762,8 +762,8 @@ function omega_omega_theme_libraries_info($theme) {
         'files' => array(
           'js' => array(
             $path . '/libraries/selectivizr/selectivizr.js' => array(
+              'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 110,
-              'force header' => TRUE,
               'every_page' => TRUE,
             ),
           ),
@@ -815,8 +815,8 @@ function omega_omega_theme_libraries_info($theme) {
     'files' => array(
       'js' => array(
         $path . '/libraries/respond/respond.min.js' => array(
+          'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 120,
-          'force header' => TRUE,
           'every_page' => TRUE,
         ),
       ),
@@ -828,8 +828,8 @@ function omega_omega_theme_libraries_info($theme) {
         'files' => array(
           'js' => array(
             $path . '/libraries/respond/respond.js' => array(
+              'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 120,
-              'force header' => TRUE,
               'every_page' => TRUE,
             ),
           ),
@@ -902,8 +902,8 @@ function omega_omega_theme_libraries_info($theme) {
     'files' => array(
       'js' => array(
         $path . '/libraries/html5shiv/html5shiv.min.js' => array(
+          'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
-          'force header' => TRUE,
           'every_page' => TRUE,
         ),
       ),
@@ -915,8 +915,8 @@ function omega_omega_theme_libraries_info($theme) {
         'files' => array(
           'js' => array(
             $path . '/libraries/html5shiv/html5shiv.js' => array(
+              'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
-              'force header' => TRUE,
               'every_page' => TRUE,
             ),
           ),
