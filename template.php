@@ -455,6 +455,11 @@ function omega_theme_registry_alter(&$registry) {
   // files to keep the main template.php file clean. This is really fast because
   // it uses the theme registry to cache the paths to the files that it finds.
   $trail = omega_theme_trail();
+
+  // Keep track of theme function include files that are not directly loaded
+  // into the theme registry. This is the case for previously unknown theme
+  // hook suggestion implementations.
+  $includes = array();
   foreach ($trail as $theme => $name) {
     // Remove the current element from the trail so we only iterate over
     // higher level themes during subsequent checks.
@@ -473,8 +478,11 @@ function omega_theme_registry_alter(&$registry) {
       foreach (file_scan_directory($path . '/' . $type, $mask) as $item) {
         $hook = strtr(substr($item->name, 0, $strlen), '-', '_');
 
-        // If there is no hook with that name, continue.
-        if (!array_key_exists($hook, $registry)) {
+        // If there is no hook with that name, continue. This does not apply to
+        // theme functions because if we want to support theme hook suggestions
+        // in .theme.inc files that have not previously been declared we need to
+        // run the full discovery for theme functions.
+        if (!array_key_exists($hook, $registry) && ($type !== 'theme' || strpos($hook, '__') === FALSE)) {
           continue;
         }
 
@@ -523,14 +531,26 @@ function omega_theme_registry_alter(&$registry) {
           continue;
         }
 
-        // By adding this file to the 'includes' array we make sure that it is
-        // available when the hook is executed.
-        $registry[$hook]['includes'][] = $item->uri;
+        // If we got this far and the following if() statement evaluates to true
+        // then that means that the theme function override that is currently
+        // being processed is a previously unknown theme hook suggestion.
+        if ($type == 'theme' && !array_key_exists($hook, $registry) && $separator = strpos($hook, '__')) {
+          $base_hook = substr($hook, 0, $separator);
 
-        if ($type == 'theme') {
-          $registry[$hook]['type'] = $theme == $GLOBALS['theme'] ? 'theme_engine' : 'base_theme_engine';
-          $registry[$hook]['theme path'] = $path;
+          if (!isset($registry[$base_hook])) {
+            // Bail out here if the base hook does not exist.
+            continue;
+          }
 
+          // Register the theme hook suggestion.
+          $arg_name = isset($registry[$base_hook]['variables']) ? 'variables' : 'render element';
+          $registry[$hook] = array(
+            $map => $callback,
+            $arg_name => $registry[$base_hook][$arg_name],
+            'base hook' => $base_hook,
+          );
+        }
+        elseif ($type == 'theme') {
           // Inject our theme function. We will leave any potential 'template'
           // declarations in the registry as they don't hurt us anyways
           // because drupal gives precedence to theme functions.
@@ -540,6 +560,10 @@ function omega_theme_registry_alter(&$registry) {
           // Append the included preprocess hook to the array of functions.
           $registry[$hook][$map][] = $callback;
         }
+
+        // By adding this file to the 'includes' array we make sure that it is
+        // available when the hook is executed.
+        $registry[$hook]['includes'][] = $item->uri;
       }
     }
   }
