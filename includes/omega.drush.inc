@@ -17,7 +17,7 @@ function omega_drush_command() {
       'name' => dt('The name of your subtheme.'),
     ),
     'options' => array(
-      'destination' => dt('The destination of your subtheme. Defaults to "site:all" (sites/all/themes). May be one of "site:foo", "profile:bar" or "theme:baz" ("foo", "bar" and "baz" being the name of your site, profile or parent theme).'),
+      'destination' => dt('The destination of your subtheme. Defaults to "site:all" (sites/all/themes). May be one of "site:foo", "profile:bar" or "theme:baz" ("foo", "bar" and "baz" being the name of your site, profile or parent theme). May also have a third part for sub-pathing. For example, if using site:all:custom/cat, then the theme will be created in sites/all/themes/custom/cat/<name>.'),
       'machine-name' => dt('The machine-readable name of your subtheme. This will be auto-generated from the human-readable name if omitted.'),
       'starterkit' => dt('The starterkit that your subtheme should use. Defaults to "default".'),
       'basetheme' => dt('Specifies a custom base theme. Defaults to "omega".'),
@@ -130,7 +130,7 @@ function drush_omega_subtheme_validate() {
 
   if ($destination = drush_get_option('destination')) {
     // Check if the syntax of the destination is valid.
-    if (!is_string($destination) || !preg_match('/^(site|theme|profile):[a-z][a-z0-9_]*/', $destination)) {
+    if (!is_string($destination) || !preg_match('/^(site|theme|profile)(:([a-z][a-z0-9_])*){1,2}$/', $destination)) {
       return drush_set_error('OMEGA_DESTINATION_INVALID', dt('The destination syntax (@destination) is invalid. Please use one of the following destination patterns (site, profile or theme): --destination="site:foo", --destination="profile:bar" or --destination="theme:baz".', array(
         '@destination' => $destination,
       )));
@@ -312,7 +312,7 @@ function drush_omega_wizard() {
   }
   drush_set_option('starterkit', $starterkit);
 
-  // Let the user choose a destination. == 'Yes'
+  // Let the user choose a destination.
   if (!$destination = drush_omega_destination_choice(dt('Please choose a destination. This is where your sub-theme will be placed'))) {
     return;
   }
@@ -597,25 +597,28 @@ function drush_omega_guard($theme = NULL) {
  *   be resolved.
  */
 function drush_omega_resolve_destination($destination) {
-  list($type, $destination) = explode(':', $destination);
+  list($type, $destination, $custom) = explode(':', $destination);
+
+  // Add a '/' to the custom path suffix.
+  $custom = $custom ? '/' . $custom : '';
 
   switch($type) {
     case 'site':
       if (array_key_exists($destination, drush_omega_sites())) {
-        return 'sites/' . $destination . '/themes';
+        return 'sites/' . $destination . '/themes' . $custom;
       }
       break;
 
     case 'profile':
       require_once DRUPAL_ROOT . '/includes/install.core.inc';
       if (array_key_exists($destination, install_find_profiles())) {
-        return 'profiles/' . $destination . '/themes';
+        return 'profiles/' . $destination . '/themes' . $custom;
       }
       break;
 
     case 'theme':
       if (array_key_exists($destination, list_themes())) {
-        return drupal_get_path('theme', $destination);
+        return drupal_get_path('theme', $destination) . $custom;
       }
       break;
   }
