@@ -535,19 +535,20 @@ function omega_theme_registry_alter(&$registry) {
         // then that means that the theme function override that is currently
         // being processed is a previously unknown theme hook suggestion.
         if ($type == 'theme' && !array_key_exists($hook, $registry) && $separator = strpos($hook, '__')) {
-          $base_hook = substr($hook, 0, $separator);
+          $suggestion = $hook;
+          $hook = substr($hook, 0, $separator);
 
-          if (!isset($registry[$base_hook])) {
+          if (!isset($registry[$hook])) {
             // Bail out here if the base hook does not exist.
             continue;
           }
 
           // Register the theme hook suggestion.
-          $arg_name = isset($registry[$base_hook]['variables']) ? 'variables' : 'render element';
-          $registry[$hook] = array(
+          $arg_name = isset($registry[$hook]['variables']) ? 'variables' : 'render element';
+          $registry[$suggestion] = array(
             $map => $callback,
-            $arg_name => $registry[$base_hook][$arg_name],
-            'base hook' => $base_hook,
+            $arg_name => $registry[$hook][$arg_name],
+            'base hook' => $hook,
           );
         }
         elseif ($type == 'theme') {
