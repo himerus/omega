@@ -130,7 +130,7 @@ function drush_omega_subtheme_validate() {
 
   if ($destination = drush_get_option('destination')) {
     // Check if the syntax of the destination is valid.
-    if (!is_string($destination) || !preg_match('/^(site|theme|profile)(:([a-z][a-z0-9_])*){1,2}$/', $destination)) {
+    if (!is_string($destination) || !preg_match('/^(site|theme|profile)(:\w+){1,2}$/', $destination)) {
       return drush_set_error('OMEGA_DESTINATION_INVALID', dt('The destination syntax (@destination) is invalid. Please use one of the following destination patterns (site, profile or theme): --destination="site:foo", --destination="profile:bar" or --destination="theme:baz".', array(
         '@destination' => $destination,
       )));
