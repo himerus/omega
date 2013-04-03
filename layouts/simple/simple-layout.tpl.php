@@ -6,17 +6,15 @@
       <?php endif; ?>
 
       <?php if ($site_name || $site_slogan): ?>
-        <hgroup>
-          <?php if ($site_name): ?>
-            <h1 class="site-name">
-              <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-            </h1>
-          <?php endif; ?>
+        <?php if ($site_name): ?>
+          <h1 class="site-name">
+            <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
+          </h1>
+        <?php endif; ?>
 
-          <?php if ($site_slogan): ?>
-            <h2 class="site-slogan"><?php print $site_slogan; ?></h2>
-          <?php endif; ?>
-        </hgroup>
+        <?php if ($site_slogan): ?>
+          <h2 class="site-slogan"><?php print $site_slogan; ?></h2>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
 
