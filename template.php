@@ -95,13 +95,6 @@ if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega'
  * Implements hook_element_info_alter().
  */
 function omega_element_info_alter(&$elements) {
-  if (omega_extension_enabled('assets') && omega_theme_get_setting('omega_media_queries_inline', TRUE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
-    // Place our custom CSS preprocessor
-    if ($position = array_search('drupal_pre_render_styles', $elements['styles']['#pre_render'])) {
-      array_splice($elements['styles']['#pre_render'], $position, 0, 'omega_css_preprocessor');
-    }
-  }
-
   $elements['scripts'] = array(
     '#items' => array(),
     '#pre_render' => array('omega_pre_render_scripts'),
