@@ -12,7 +12,7 @@ function omega_breadcrumb($variables) {
     $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
 
     // Override Drupal core breadcrumb item imploding (no arrow).
-    $output .= '<div class="breadcrumb">' . implode('', $breadcrumb) . '</div>';
+    $output .= '<ul class="breadcrumb"><li>' . implode('</li><li>', $breadcrumb) . '</li></div>';
     return $output;
   }
 }
