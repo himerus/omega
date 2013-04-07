@@ -110,7 +110,7 @@ function omega_pager($variables) {
     // End generation.
     if ($li_next) {
       $items[] = array(
-        'class' => array('pager__item', 'pager__item--pager-next'),
+        'class' => array('pager__item', 'pager__item--next'),
         'data' => $li_next,
       );
     }
