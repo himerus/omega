@@ -9,6 +9,13 @@
  * Implements hook_extension_EXTENSION_theme_settings_form_alter().
  */
 function omega_extension_assets_settings_form($element, &$form, $form_state) {
+  $element['omega_media_queries_inline'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enforce embedded media queries'),
+    '#description' => t('Embeds all media queries (and media types) in the CSS files automatically instead of leaving them on the &lt;styles&gt; tags. This potentially reduces the amount of separate CSS aggregates on your website.'),
+    '#default_value' => omega_theme_get_setting('omega_media_queries_inline', TRUE),
+  );
+
   $element['omega_js_footer'] = array(
     '#type' => 'textarea',
     '#title' => t('Move JS files to the footer'),
@@ -167,6 +174,14 @@ function omega_extension_assets_theme_settings_form_submit($form, &$form_state) 
   foreach (array('omega_css_exclude', 'omega_js_exclude', 'omega_js_footer') as $item) {
     $exclude = array_filter(array_map('trim', explode("\n", $values[$item])));
     form_set_value(array('#parents' => array($item)), $exclude, $form_state);
+  }
+
+  // Cache the regex for the CSS and JS excludes (if any).
+  foreach (array('omega_css_exclude', 'omega_js_exclude') as $item) {
+    if ($value = $form_state['values'][$item]) {
+      $exclude = omega_generate_path_regex($value);
+      form_set_value(array('#parents' => array($item . '_regex')), $exclude, $form_state);
+    }
   }
 
   if (!empty($form_state['values']['omega_libraries'])) {

@@ -110,8 +110,7 @@ function omega_css_alter(&$css) {
   $omega = drupal_get_path('theme', 'omega');
 
   // Exclude CSS files as declared in the theme settings.
-  if (omega_extension_enabled('assets') && $exclude = omega_theme_get_setting('omega_css_exclude')) {
-    $regex = omega_generate_path_regex($exclude);
+  if (omega_extension_enabled('assets') && $regex = omega_theme_get_setting('omega_css_exclude_regex')) {
     // Make sure that RTL styles are excluded as well when a file name has been
     // specified with it's full .css file extension.
     $regex = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $regex);
@@ -354,8 +353,7 @@ function omega_js_alter(&$js) {
     return;
   }
 
-  if ($exclude = omega_theme_get_setting('omega_js_exclude')) {
-    $regex = omega_generate_path_regex($exclude);
+  if ($regex = omega_theme_get_setting('omega_js_exclude_regex')) {
     omega_exclude_assets($js, $regex);
   }
 
