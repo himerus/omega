@@ -9,40 +9,6 @@ require_once dirname(__FILE__) . '/includes/omega.inc';
 require_once dirname(__FILE__) . '/includes/scripts.inc';
 
 if ($GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega' || (!empty($GLOBALS['base_theme_info']) && $GLOBALS['base_theme_info'][0]->name == 'omega'))) {
-  // Slightly hacky performance tweak for theme_get_setting(). This resides
-  // outside of any function declaration to make sure that it runs directly
-  // after the theme has been initialized.
-  //
-  // Instead of rebuilding the theme settings array on every page load we are
-  // caching the content of the static cache in the database after it has been
-  // built initially. This is quite a bit faster than running all the code in
-  // theme_get_setting() on every page.
-  //
-  // By checking whether the global 'theme' and 'theme_key' properties are
-  // identical we make sure that we don't interfere with any of the theme
-  // settings pages and only use this feature when actually rendering a page
-  // with this theme.
-  //
-  // @see theme_get_setting()
-  if (!$static = &drupal_static('theme_get_setting')) {
-    if ($cache = cache_get('omega:' . $GLOBALS['theme'] . ':settings')) {
-      // If the cache entry exists, populate the static theme settings array
-      // with its data. This prevents the theme settings from being rebuilt on
-      // every page load.
-      $static[$GLOBALS['theme']] = $cache->data;
-    }
-    else {
-      // Invoke theme_get_setting() with a random argument to build the theme
-      // settings array and populate the static cache.
-      theme_get_setting('foo');
-      // Extract the theme settings from the previously populated static cache.
-      $static = &drupal_static('theme_get_setting');
-
-      // Cache the theme settings in the database.
-      cache_set('omega:' . $GLOBALS['theme'] . ':settings', $static[$GLOBALS['theme']]);
-    }
-  }
-
   // Managing debugging (flood) messages and a few development tasks. This also
   // lives outside of any function declaration to make sure that the code is
   // executed before any theme hooks.
