@@ -75,7 +75,7 @@ function omega_pager($variables) {
     if ($i != $pager_max) {
       if ($i > 1) {
         $items[] = array(
-          'class' => array('pager__ellipsis'),
+          'class' => array('pager__item', 'pager__item--ellipsis'),
           'data' => '…',
         );
       }
@@ -102,7 +102,7 @@ function omega_pager($variables) {
       }
       if ($i < $pager_max) {
         $items[] = array(
-          'class' => array('pager__ellipsis'),
+          'class' => array('pager__item', 'pager__item--ellipsis'),
           'data' => '…',
         );
       }
