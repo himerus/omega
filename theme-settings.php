@@ -57,7 +57,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
     }
   }
 
-  if ($extensions = omega_extensions()) {
+  if ($extensions = omega_extensions(NULL, TRUE)) {
     $form['omega'] = array(
       '#type' => 'vertical_tabs',
       '#weight' => -10,
@@ -73,8 +73,8 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
         ),
       );
 
+      $errors = array();
       if (!empty($info['info']['dependencies'])) {
-        $errors = array();
         foreach ($info['info']['dependencies'] as $dependency) {
           $dependency = drupal_parse_dependency($dependency);
 
@@ -104,15 +104,15 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
             '#name' => 'omega-requirements',
           );
         }
-
-        // Disable all options if there were any errors.
-        $form['omega'][$extension]['#disabled'] = !empty($errors);
       }
+
+      // Disable all options if there were any errors.
+      $form['omega'][$extension]['#disabled'] = !empty($errors) || variable_get('omega_toggle_extension_' . $extension) !== NULL;
 
       $form['omega'][$extension]['omega_toggle_extension_' . $extension] = array(
         '#type' => 'checkbox',
-        '#title' => t('Enable this extension'),
-        '#description' => $info['info']['description'],
+        '#title' => t('Enable @extension extension', array('@extension' => $info['info']['name'])) . (variable_get('omega_toggle_extension_' . $extension) !== NULL ? ' <span class="marker">(' . t('overridden') . ')</span>' : ''),
+        '#description' => t('This setting can be overridden with an equally named variable (@name) so you can control it on a per-environment basis by setting it in your settings.php file.', array('@name' => 'omega_toggle_extension_' . $extension)),
         '#default_value' => omega_extension_enabled($extension),
         '#weight' => -10,
       );
@@ -131,7 +131,8 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
         // By default, each extension resides in a vertical tab
         $element = $function($element, $form, $form_state) + array(
           '#type' => 'fieldset',
-          '#title' => t('Settings'),
+          '#title' => t('@extension extension configuration', array('@extension' => $info['info']['name'])),
+          '#description' => $info['info']['description'],
           '#states' => array(
             'disabled' => array(
               'input[name="omega_toggle_extension_' . $extension . '"]' => array('checked' => FALSE),

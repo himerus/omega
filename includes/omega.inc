@@ -227,15 +227,17 @@ function omega_generate_asset_mapping($elements) {
  * @see omega_extension_development_theme_settings_form_alter()
  * @see omega_extension_development_theme_registry_alter()
  */
-function omega_extensions($theme = NULL) {
+function omega_extensions($theme = NULL, $reset = FALSE) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
 
-  if (($extensions = &drupal_static(__FUNCTION__)) && isset($extensions[$theme])) {
-    return $extensions[$theme];
-  }
+  if (!$reset) {
+    if (($extensions = &drupal_static(__FUNCTION__)) && isset($extensions[$theme])) {
+      return $extensions[$theme];
+    }
 
-  if (($cache = cache_get('omega:' . $theme . ':extensions')) !== FALSE) {
-    return $extensions[$theme] = $cache->data;
+    if (($cache = cache_get('omega:' . $theme . ':extensions')) !== FALSE) {
+      return $extensions[$theme] = $cache->data;
+    }
   }
 
   // Extensions can't be hidden.
@@ -250,12 +252,13 @@ function omega_extensions($theme = NULL) {
     $info['enabled'] = omega_theme_get_setting('omega_toggle_extension_' . $extension, !empty($info['info']['enabled']));
 
     // Check if all dependencies are met.
-    if ($info['enabled'] && !empty($info['info']['dependencies'])) {
+    $info['errors'] = FALSE;
+    if (!empty($info['info']['dependencies'])) {
       foreach ($info['info']['dependencies'] as $dependency) {
         $dependency = drupal_parse_dependency($dependency);
 
         if ((!$module = system_get_info('module', $dependency['name'])) || omega_check_incompatibility($dependency, $module['version'])) {
-          $info['enabled'] = FALSE;
+          $info['errors'] = TRUE;
         }
       }
     }
@@ -282,7 +285,7 @@ function omega_extensions($theme = NULL) {
 function omega_extension_enabled($extension, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
   if (($extensions = omega_extensions($theme)) && isset($extensions[$extension])) {
-    return $extensions[$extension]['enabled'];
+    return empty($extensions[$extension]['errors']) && !empty($extensions[$extension]['enabled']) && variable_get('omega_toggle_extension_' . $extension, TRUE);
   }
 }
 

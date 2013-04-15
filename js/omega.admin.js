@@ -6,7 +6,7 @@
  */
 Drupal.behaviors.omegaThemeSettingsLayouts = {
   attach: function (context, settings) {
-    $('.form-item-omega-layout .omega-layout-icon').click(function () {
+    $('.form-item-omega-layout .omega-layout-icon', context).click(function () {
       $(this).siblings('.form-item').find('input').click().change();
     });
   }
@@ -21,13 +21,13 @@ Drupal.behaviors.omegaExtensionSummary = {
     $('fieldset[id^=edit-].omega-extension', context).each(function () {
       var extension = $(this).attr('id').substring(5);
       var $fieldset = $(this);
-      var $checkbox = $('input[name="omega_toggle_extension_' + extension + '"]', $(this).closest('form'));
+      var $checkbox = $fieldset.find('input[name="omega_toggle_extension_' + extension + '"]');
 
-      $(this).drupalSetSummary(function () {
+      $fieldset.drupalSetSummary(function () {
         if (!$checkbox.is(':checked')) {
           return Drupal.t('This extension is currently disabled');
         }
-      })
+      });
 
       $checkbox.change(function () {
         $fieldset.trigger('summaryUpdated');
