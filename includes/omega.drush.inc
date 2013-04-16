@@ -102,7 +102,11 @@ function omega_drush_help($section) {
 /**
  * Implements drush_hook_COMMAND_validate().
  */
-function drush_omega_subtheme_validate() {
+function drush_omega_subtheme_validate($name = NULL) {
+  if (!isset($name)) {
+    return drush_set_error('OMEGA_MISSING_ARGUMENT', dt("You didn't specify a name for the subtheme."));
+  }
+
   // Rebuild the theme data so that we can safely check for the existence of
   // themes by using the information provided by list_themes().
   system_rebuild_theme_data();
@@ -189,11 +193,7 @@ function drush_omega_subtheme_validate() {
 /**
  * Implements drush_hook_COMMAND().
  */
-function drush_omega_subtheme($name = NULL) {
-  if (!isset($name)) {
-    return drush_set_error('OMEGA_MISSING_ARGUMENT', dt("You didn't specify a name for the subtheme."));
-  }
-
+function drush_omega_subtheme($name) {
   // Try to generate a machine-readable name. If that fails, prompt for one.
   if (!$machine_name = drush_get_option('machine-name', drush_omega_generate_theme_name($name))) {
     drush_print(dt("Sorry, I couldn't generate a machine-readable name for @name. Please use the '--machine-name' option to specify it manually.", array(
