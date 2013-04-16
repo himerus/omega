@@ -248,7 +248,7 @@ function drush_omega_subtheme($name = NULL) {
   // Recursively rewrite the file names and contents of all the files that are
   // now in the subtheme's directory to represent the human- and
   // machine-readable names of the subtheme.
-  $search = array('{{ THEME }}', '{{ THEMENAME }}');
+  $search = array('/{{ THEME }}/', '/{{ THEMENAME }}/');
   $replace = array($machine_name, $name);
   if (!drush_omega_rewrite_recursive($temporary, $search, $replace)) {
     return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
@@ -778,33 +778,59 @@ function drush_omega_require_valid_theme_name($message, $default = NULL) {
  * @see str_replace()
  */
 function drush_omega_rewrite_recursive($path, $search, $replace) {
-  if ($path !== ($new = str_replace($search, $replace, $path))) {
-    // First, try to rename (move) the file if the name was changed.
+  if (!is_dir($path)) {
+    return drush_set_error('INVALID_PATH', dt('The given path @path is not a directory.', array(
+      '!path' => $path,
+    )));
+  }
+
+  // Try to rename (move) the file if the name was changed.
+  $original = basename($path);
+  if (($renamed = preg_replace($search, $replace, $original)) === NULL) {
+    return drush_set_error('REWRITE_FAILURE', dt('There was an error while trying to rewrite !path (!search to !replace)', array(
+      '!path' => $path,
+      '!search' => $search,
+      '!replace' => $replace,
+    )));
+  }
+
+  // Move (rename) if the file or directory name was changed.
+  if ($original !== $renamed) {
+    $new = dirname($path) . "/$renamed";
     if (!drush_move_dir($path, $new, TRUE)) {
       return FALSE;
     };
+
+    // Use the changed path from now on.
+    $path = $new;
   }
 
-  if (is_dir($new)) {
-    // If the file actually is a directory, proceed with the recursion.
-    $directory = dir($new);
-
-    while (FALSE !== ($read = $directory->read())) {
-      if ($read != '.' && $read != '..' ) {
-        if (!drush_omega_rewrite_recursive($new . '/' . $read, $search, $replace)) {
-          return FALSE;
-        }
-      }
+  // If the file actually is a directory, proceed with the recursion.
+  $directory = new DirectoryIterator($path);
+  foreach ($directory as $item) {
+    if ($item->isDot()) {
+      // Do not process '..' and '.'.
+      continue;
     }
 
-    $directory->close();
-  }
-  elseif (is_file($new)) {
-    // If it is a file, try to replace its contents.
-    $before = file_get_contents($new);
-    if ($before !== ($after = str_replace($search, $replace, $before))) {
-      if (drush_op('file_put_contents', $new, $after) === FALSE) {
-        return FALSE;
+    // Retrieve the path of the current item.
+    $pathname = $item->getPathname();
+    if ($item->isDir() && !drush_omega_rewrite_recursive($pathname, $search, $replace)) {
+      return FALSE;
+    }
+    elseif ($item->isFile()) {
+      // If it is a file, try to replace its contents.
+      $contents = file_get_contents($pathname);
+      if (($changed = preg_replace($search, $replace, $contents)) === NULL) {
+        return drush_set_error('REWRITE_FAILURE', dt('There was an error while trying to rewrite !path (!search to !replace)', array(
+          '!path' => $pathname,
+          '!search' => $search,
+          '!replace' => $replace,
+        )));
+      }
+
+      if ($contents !== $changed) {
+        file_put_contents($pathname, $changed);
       }
     }
   }
