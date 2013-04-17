@@ -67,9 +67,10 @@ function omega_extension_compatibility_settings_form($element, &$form, $form_sta
   );
 
   $options = array('_none' => t('Default'));
-  foreach (range(0.1, 10, 0.1) as $number) {
+  foreach (range(0.1, 10, 0.1) as $value) {
     // Format the value to display with one decimal.
-    $options[(string) $number] = number_format($number, 1);
+    $value = number_format($value, 1);
+    $options[(string) $value] = $value;
   }
 
   $element['omega_metatags']['viewport_settings']['omega_viewport_initial_scale'] = array(
