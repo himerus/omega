@@ -78,6 +78,17 @@ function omega_drush_command() {
     'aliases' => array('orev'),
   );
 
+  $items['omega-override'] = array(
+    'description' => dt('Reverts the theme settings of a given theme by deleting them from the database.'),
+    'arguments' => array(
+      'theme' => dt('The machine-readable name of the theme to revert the theme settings for.'),
+    ),
+    'examples' => array(
+      'drush omega-override field' => dt("Overrides the 'field theme function."),
+    ),
+    'aliases' => array('oovr'),
+  );
+
   return $items;
 }
 
@@ -582,38 +593,6 @@ function drush_omega_guard($theme = NULL) {
   // Change the active directory to the theme folder and run the command there.
   drush_op('chdir', DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme));
   drush_shell_exec_interactive($command);
-}
-
-/**
- * Implements drush_hook_COMMAND().
- *
- * Starts guard for the given theme for compass, theme registry rebuild and
- * livereload.
- *
- * @param $theme
- *   (optional) The machine-readable name of a theme.
- */
-function drush_omega_override($theme = NULL, $component = NULL) {
-  if (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to override a theme function or template for?'))) {
-    return;
-  }
-  $trail = $base = omega_theme_trail($theme);
-  $theme = array_pop($base);
-
-  $static = &drupal_static('menu_get_custom_theme');
-  $static = $theme;
-  drupal_static_reset('theme_get_registry');
-  $registry = theme_get_registry();
-  if (!empty($component)) {
-    $component = preg_quote($component);
-    $component = str_replace('*', '(.*)', $component);
-    $registry = preg_grep($registry);
-  }
-  print_r(array_keys($registry));
-}
-
-function omega_drush_filter_theme_registry($value) {
-  return empty($value['base hook']);
 }
 
 /**
