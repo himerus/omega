@@ -134,7 +134,7 @@ function drush_omega_subtheme_validate($name = NULL) {
 
   if ($destination = drush_get_option('destination')) {
     // Check if the syntax of the destination is valid.
-    if (!is_string($destination) || !preg_match('/^(site|theme|profile)(:\w+){1,2}$/', $destination)) {
+    if (!is_string($destination) || !preg_match('/^(site|theme|profile)(:(.+?)){1,2}$/', $destination)) {
       return drush_set_error('OMEGA_DESTINATION_INVALID', dt('The destination syntax (@destination) is invalid. Please use one of the following destination patterns (site, profile or theme): --destination="site:foo", --destination="profile:bar" or --destination="theme:baz".', array(
         '@destination' => $destination,
       )));
@@ -582,6 +582,38 @@ function drush_omega_guard($theme = NULL) {
   // Change the active directory to the theme folder and run the command there.
   drush_op('chdir', DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme));
   drush_shell_exec_interactive($command);
+}
+
+/**
+ * Implements drush_hook_COMMAND().
+ *
+ * Starts guard for the given theme for compass, theme registry rebuild and
+ * livereload.
+ *
+ * @param $theme
+ *   (optional) The machine-readable name of a theme.
+ */
+function drush_omega_override($theme = NULL, $component = NULL) {
+  if (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to override a theme function or template for?'))) {
+    return;
+  }
+  $trail = $base = omega_theme_trail($theme);
+  $theme = array_pop($base);
+
+  $static = &drupal_static('menu_get_custom_theme');
+  $static = $theme;
+  drupal_static_reset('theme_get_registry');
+  $registry = theme_get_registry();
+  if (!empty($component)) {
+    $component = preg_quote($component);
+    $component = str_replace('*', '(.*)', $component);
+    $registry = preg_grep($registry);
+  }
+  print_r(array_keys($registry));
+}
+
+function omega_drush_filter_theme_registry($value) {
+  return empty($value['base hook']);
 }
 
 /**
