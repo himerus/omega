@@ -78,17 +78,6 @@ function omega_drush_command() {
     'aliases' => array('orev'),
   );
 
-  $items['omega-override'] = array(
-    'description' => dt('Reverts the theme settings of a given theme by deleting them from the database.'),
-    'arguments' => array(
-      'theme' => dt('The machine-readable name of the theme to revert the theme settings for.'),
-    ),
-    'examples' => array(
-      'drush omega-override field' => dt("Overrides the 'field theme function."),
-    ),
-    'aliases' => array('oovr'),
-  );
-
   return $items;
 }
 
