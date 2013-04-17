@@ -87,6 +87,11 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
   if (omega_theme_get_setting('omega_viewport', TRUE)) {
     $content = array('width=device-width');
 
+    // Add the 'initial-scale' property if configured.
+    if ($initial = omega_theme_get_setting('omega_viewport_initial_scale')) {
+      $content[] = "initial-scale=$initial";
+    }
+
     // The minimum-scale and maximum-scale properties are ignored if
     // user-scalable is set to 'no'.
     if (omega_theme_get_setting('omega_viewport_user_scaleable', TRUE) === FALSE) {
