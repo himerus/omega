@@ -53,16 +53,6 @@ function omega_extension_compatibility_theme_registry_alter(&$registry) {
  * Implements hook_extension_EXTENSION_preproces_html().
  */
 function omega_extension_compatibility_preprocess_html(&$variables) {
-  // Add the 'viewport' meta tag.
-  if (omega_theme_get_setting('omega_viewport', TRUE)) {
-    $meta = array(
-      '#tag' => 'meta',
-      '#attributes' => array('name' => 'viewport', 'content' => 'width=device-width'),
-    );
-
-    drupal_add_html_head($meta, 'omega-viewport');
-  }
-
   // Add the 'HandheldFriendly' meta tag.
   if (omega_theme_get_setting('omega_handheld_friendly', TRUE)) {
     $meta = array(
@@ -91,6 +81,35 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
     );
 
     drupal_add_html_head($meta, 'omega-cleartype');
+  }
+
+  // Add the 'viewport' meta tag.
+  if (omega_theme_get_setting('omega_viewport', TRUE)) {
+    $content = array('width=device-width');
+
+    // The minimum-scale and maximum-scale properties are ignored if
+    // user-scalable is set to 'no'.
+    if (omega_theme_get_setting('omega_viewport_user_scaleable', TRUE) === FALSE) {
+      $content[] = 'user-scalable=no';
+    }
+    else {
+      // Set the minimum-scale and maximum-scale properties if specified.
+      foreach (array('minimum', 'maximum') as $type) {
+        if ($value = omega_theme_get_setting("omega_viewport_{$type}_scale")) {
+          $content[] = "$type-scale=$value";
+        }
+      }
+    }
+
+    $meta = array(
+      '#tag' => 'meta',
+      '#attributes' => array('name' => 'viewport', 'content' => implode(', ', $content)),
+      // The 'viewport' metatag should be rendered after the 'HandheldFriendly'
+      // metatag.
+      '#weight' => 10,
+    );
+
+    drupal_add_html_head($meta, 'omega-viewport');
   }
 
   // Add Apple touch icons.

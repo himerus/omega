@@ -56,6 +56,63 @@ function omega_extension_compatibility_settings_form($element, &$form, $form_sta
     '#default_value' => omega_theme_get_setting('omega_viewport', TRUE),
   );
 
+  $element['omega_metatags']['viewport_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Viewport settings'),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="omega_viewport"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+  $options = array('_none' => t('Default'));
+  foreach (range(0.1, 10, 0.1) as $number) {
+    // Format the value to display with one decimal.
+    $options[(string) $number] = number_format($number, 1);
+  }
+
+  $element['omega_metatags']['viewport_settings']['omega_viewport_initial_scale'] = array(
+    '#type' => 'select',
+    '#title' => t('Initial scale'),
+    '#default_value' => omega_theme_get_setting('omega_viewport_initial_scale', '_none'),
+    '#options' => $options,
+    '#description' => t('The initial scaling of the page. Has to be in the range of the minimum- and maximum scale options.'),
+  );
+
+  $element['omega_metatags']['viewport_settings']['omega_viewport_user_scaleable'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('User scalable'),
+    '#default_value' => omega_theme_get_setting('omega_viewport_user_scaleable', TRUE),
+    '#description' => t("Whether users are allowed to zoom in and out. Defaults to 'yes'. This is usually accomplished via multi-touch gestures on iOS and Android devices. You should only disallow zooming (uncheck this checkbox) if your mobile theme is very customized and presented with good typography and graphics for a reduced mobile size."),
+  );
+
+  $element['omega_metatags']['viewport_settings']['scaling_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Scaling settings'),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="omega_viewport_user_scaleable"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+  $element['omega_metatags']['viewport_settings']['scaling_settings']['omega_viewport_minimum_scale'] = array(
+    '#type' => 'select',
+    '#title' => t('Minimum scale'),
+    '#default_value' => omega_theme_get_setting('omega_viewport_minimum_scale', '_none'),
+    '#options' => $options,
+    '#description' => t('The minimum allowed scaling of the site.'),
+  );
+
+  $element['omega_metatags']['viewport_settings']['scaling_settings']['omega_viewport_maximum_scale'] = array(
+    '#type' => 'select',
+    '#title' => t('Maximum scale'),
+    '#default_value' => omega_theme_get_setting('omega_viewport_maximum_scale', '_none'),
+    '#options' => $options,
+    '#description' => t('The maximum allowed scaling of the site.'),
+  );
+
   $element['omega_metatags']['omega_chrome_edge'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable Chrome Frame and Internet Explorer Edge support'),
@@ -110,7 +167,11 @@ function omega_extension_compatibility_settings_form($element, &$form, $form_sta
  * Form submit callback for the compatibility extension.
  */
 function omega_extension_compatibility_settings_form_submit($form, &$form_state) {
-  if ($form_state['values']['omega_internet_explorer_support'] == '_none') {
-    unset($form_state['values']['omega_internet_explorer_support']);
+  $values = &$form_state['values'];
+
+  foreach (array('omega_internet_explorer_support', 'omega_viewport_initial_scale', 'omega_viewport_minimum_scale', 'omega_viewport_maximum_scale') as $item) {
+    if ($values[$item] === '_none') {
+      unset($values[$item]);
+    }
   }
 }
