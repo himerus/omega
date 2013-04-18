@@ -1,8 +1,2 @@
 # We absolutely don't want to have the .sass-cache in git.
 .sass-cache
-
-# After installing any needed gems to your system, bundler writes a snapshot of
-# all of the gems and versions that it installed to Gemfile.lock. Hence, the
-# Gemfile.lock file is is environemnt specific and therefore should not be
-# commited either.
-Gemfile.lock
