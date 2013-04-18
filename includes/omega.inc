@@ -117,23 +117,18 @@ function omega_generate_path_regex($paths) {
     // trying to target an external file.
     list($namespace) = explode('/', $item);
 
-    // Check if the namespace refers to a file residing in the 'misc' folder.
-    if ($namespace != '*') {
-      if ($namespace == 'misc') {
-        $prefix = DRUPAL_ROOT . '/misc';
-        $item = substr_replace($item, $prefix, 0, strlen($namespace));
-      }
-      else {
-        // Otherwise, check if it refers to a theme, module, profile or theme
-        // engine.
-        foreach (array('theme', 'module', 'profile', 'theme_engine') as $type) {
-          // We can't use drupal_get_path() directly because that uses dirname()
-          // internally which returns '.' if no filename was found.
-          if ($filename = drupal_get_filename($type, $namespace)) {
-            $prefix = dirname($filename);
-            $item = substr_replace($item, $prefix, 0, strlen($namespace));
-            break;
-          }
+    // Check if the namespace refers to a file residing in the 'misc' folder or
+    // if it is a global wildcard.
+    if ($namespace !== '*' && $namespace !== 'misc') {
+      // Otherwise, check if it refers to a theme, module, profile or theme
+      // engine.
+      foreach (array('theme', 'module', 'profile', 'theme_engine') as $type) {
+        // We can't use drupal_get_path() directly because that uses dirname()
+        // internally which returns '.' if no filename was found.
+        if ($filename = drupal_get_filename($type, $namespace)) {
+          $prefix = dirname($filename);
+          $item = substr_replace($item, $prefix, 0, strlen($namespace));
+          break;
         }
       }
     }
@@ -144,7 +139,7 @@ function omega_generate_path_regex($paths) {
     $item = str_replace('\*', '(.*)', $item);
   }
 
-  return '/^(' . implode('|', $paths) . ')$/';
+  return '/^' . implode('|', $paths) . '$/';
 }
 
 /**
