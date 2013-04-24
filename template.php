@@ -75,14 +75,6 @@ function omega_element_info_alter(&$elements) {
 function omega_css_alter(&$css) {
   $omega = drupal_get_path('theme', 'omega');
 
-  // Exclude CSS files as declared in the theme settings.
-  if (omega_extension_enabled('assets') && $regex = omega_theme_get_setting('omega_css_exclude_regex')) {
-    // Make sure that RTL styles are excluded as well when a file name has been
-    // specified with it's full .css file extension.
-    $regex = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $regex);
-    omega_exclude_assets($css, $regex);
-  }
-
   // The CSS_SYSTEM aggregation group doesn't make any sense. Therefore, we are
   // pre-pending it to the CSS_DEFAULT group. This has the same effect as giving
   // it a separate (low-weighted) group but also allows it to be aggregated
@@ -308,6 +300,14 @@ function omega_css_alter(&$css) {
         }
       }
     }
+  }
+
+  // Exclude CSS files as declared in the theme settings.
+  if (omega_extension_enabled('assets') && $regex = omega_theme_get_setting('omega_css_exclude_regex')) {
+    // Make sure that RTL styles are excluded as well when a file name has been
+    // specified with it's full .css file extension.
+    $regex = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $regex);
+    omega_exclude_assets($css, $regex);
   }
 }
 
