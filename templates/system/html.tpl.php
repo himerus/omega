@@ -51,7 +51,7 @@
 <?php else: ?>
   <html lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>>
 <?php endif; ?>
-<head profile="<?php print $grddl_profile; ?>">
+<head>
   <title><?php print $head_title; ?></title>
   <?php print $head; ?>
   <?php print $styles; ?>

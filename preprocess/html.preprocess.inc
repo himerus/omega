@@ -9,6 +9,12 @@ function omega_preprocess_html(&$variables, $hook) {
     return;
   }
 
+  // Add $grddl_profile as link-tag.
+  drupal_add_html_head_link(array(
+    'rel' => 'profile',
+    'href' => $variables['grddl_profile'],
+  ));
+
   // Serialize RDF Namespaces into an RDFa 1.1 prefix attribute.
   if ($variables['rdf_namespaces']) {
     $prefixes = array();
