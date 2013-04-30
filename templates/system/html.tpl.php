@@ -58,7 +58,7 @@
   <?php print $scripts; ?>
 </head>
 <body<?php print $attributes;?>>
-  <a href="#main-content-anchor" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
+  <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>
