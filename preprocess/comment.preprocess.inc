@@ -11,6 +11,7 @@ function omega_preprocess_comment(&$variables) {
   // Add a sub component class to the comment links.
   $variables['content']['links']['#attributes']['class'][] = 'comment__links';
   // Change modifier classes to use BEM syntax.
-  $variables['classes_array'] = str_replace('comment-by-viewer', 'comment--by-viewer', $variables['classes_array']);
-  $variables['classes_array'] = str_replace('comment-by-node-author', 'comment--by-node-author', $variables['classes_array']);
+  $variables['classes_array'] = preg_replace('/^comment-new$/', 'comment--new', $variables['classes_array']);
+  $variables['classes_array'] = preg_replace('/^comment-by-viewer$/', 'comment--by-viewer', $variables['classes_array']);
+  $variables['classes_array'] = preg_replace('/^comment-by-node-author$/', 'comment--by-node-author', $variables['classes_array']);
 }

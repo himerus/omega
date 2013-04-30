@@ -8,6 +8,6 @@
 function omega_preprocess_links(&$variables) {
   // Change modifier classes to use BEM syntax.
   if(isset($variables['attributes']['class'])) {
-    $variables['attributes']['class'] = str_replace('inline', 'links--inline', $variables['attributes']['class']);
+    $variables['attributes']['class'] = preg_replace('/^inline$/', 'links--inline', $variables['attributes']['class']);
   }
 }

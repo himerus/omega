@@ -18,9 +18,9 @@ function omega_preprocess_node(&$variables) {
   $variables['content_attributes_array']['class'][] = 'node__content';
   $variables['content']['links']['#attributes']['class'][] = 'node__links';
   // Change modifier classes to use BEM syntax.
-  $variables['classes_array'] = str_replace('node-' . $css_node_type, 'node--' . $css_node_type, $variables['classes_array']);
-  $variables['classes_array'] = str_replace('node-promoted', 'node--promoted', $variables['classes_array']);
-  $variables['classes_array'] = str_replace('node-sticky', 'node--sticky', $variables['classes_array']);
+  $variables['classes_array'] = preg_replace('/^node-' . $css_node_type . '$/', 'node--' . $css_node_type, $variables['classes_array']);
+  $variables['classes_array'] = preg_replace('/^node-promoted$/', 'node--promoted', $variables['classes_array']);
+  $variables['classes_array'] = preg_replace('/^node-sticky$/', 'node--sticky', $variables['classes_array']);
   // Add modifier classes for view mode.
   $variables['classes_array'][] = 'node--' . $css_view_mode;
   $variables['classes_array'][] = 'node--' . $css_node_type . '--' . $css_view_mode;

@@ -19,7 +19,7 @@ function omega_preprocess_region(&$variables) {
 
   // Use BEM syntax for the modifier class.
   $css_region_name = drupal_clean_css_identifier($variables['region']);
-  $variables['classes_array'] = str_replace('region-' . $css_region_name, 'region--' . $css_region_name, $variables['classes_array']);
+  $variables['classes_array'] = preg_replace('/^region-' . $css_region_name . '$/', 'l-region--' . $css_region_name, $variables['classes_array']);
   // Use the prefix "l-" on region class names as described in SMACSS.
-  $variables['classes_array'] = str_replace('region', 'l-region', $variables['classes_array']);
+  $variables['classes_array'] = preg_replace('/^region$/', 'l-region', $variables['classes_array']);
 }
