@@ -1,0 +1,132 @@
+/*------------------------------------*\
+    $BASE BUTTON
+\*------------------------------------*/
+.button {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-family: inherit;
+  font-size: 100%;
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 2.2;
+  height: 2.2em;
+  padding-right: 1.2em;
+  padding-left: 1.2em;
+  background-color: $dark-grey;
+  overflow: visible;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $white;
+  letter-spacing: 0.15em;
+}
+
+.button,
+.button:hover,
+.button:active,
+.button:focus,
+.button:visited {
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: $mid-grey;
+}
+
+.button:active,
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
+}
+
+.button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/**
+ * These buttons will fill the entirety of their container.
+ */
+.button--full {
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  text-align: center;
+}
+
+/**
+ * Make the button inherit sizing from its parent.
+ */
+.button--natural {
+  vertical-align: baseline;
+  font-size: inherit;
+  line-height: inherit;
+  height: auto;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+}
+
+/*------------------------------------*\
+    $FUNCTIONS
+\*------------------------------------*/
+/**
+ * Button function modifiers.
+ */
+.button--primary {
+  background-color: $orange;
+}
+
+.button--secondary {
+  background-color: transparent;
+  border: 1px solid $light-blue;
+  color: $light-blue;
+
+  &:hover {
+    border-color: $mid-grey;
+    background-color: transparent;
+    color: $mid-grey;
+  }
+}
+
+/**
+ * Positive actions; e.g. sign in, purchase, submit, etc.
+ */
+.button--positive {
+  background-color: $green;
+  &:hover {
+    background-color: darken($green, 10%);
+  }
+}
+
+/**
+ * Negative actions; e.g. close account, delete photo, remove friend, etc.
+ */
+.button--negative {
+  background-color: $red;
+  &:hover {
+    background-color: darken($red, 10%);
+  }
+}
+
+/**
+ * Disabled buttons.
+ */
+.button--disabled,
+.button--disabled:hover,
+.button--disabled:active,
+.button--disabled:focus {
+  background-color: #ddd;
+  color: #777;
+  cursor: default;
+  box-shadow: none;
+}
+
+/**
+ * Adjacent buttons should have some space between them.
+ */
+.btn + .btn {
+  margin-left: 1em; /* LTR */
+}
