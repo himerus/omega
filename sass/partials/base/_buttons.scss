@@ -1,55 +1,55 @@
-/*------------------------------------*\
-    $BASE BUTTON
-\*------------------------------------*/
+/**
+ * $BUTTONS
+ */
+/* Base Button */
 .button {
   display: inline-block;
-  vertical-align: middle;
-  white-space: nowrap;
+  height: 2.2em;
+  margin: 0;
+  padding: 0 1.2em;
+
+  background-color: $dark-grey;
+
+  border: none;
+
+  color: $white;
+  font-weight: 700;
   font-family: inherit;
   font-size: 100%;
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding-top: 0;
-  padding-bottom: 0;
   line-height: 2.2;
-  height: 2.2em;
-  padding-right: 1.2em;
-  padding-left: 1.2em;
-  background-color: $dark-grey;
-  overflow: visible;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: $white;
   letter-spacing: 0.15em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  overflow: visible;
+  cursor: pointer;
+
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: $mid-grey;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
 }
 
-.button,
-.button:hover,
-.button:active,
-.button:focus,
-.button:visited {
-  text-decoration: none;
-}
-
-.button:hover {
-  background-color: $mid-grey;
-}
-
-.button:active,
-.button:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
-}
-
-.button::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-
-/**
- * These buttons will fill the entirety of their container.
- */
+/* Fill width of container */
 .button--full {
   width: 100%;
   padding-right: 0;
@@ -57,9 +57,7 @@
   text-align: center;
 }
 
-/**
- * Make the button inherit sizing from its parent.
- */
+/* Inherit sizing from parent  */
 .button--natural {
   vertical-align: baseline;
   font-size: inherit;
@@ -69,12 +67,8 @@
   padding-left: 0.5em;
 }
 
-/*------------------------------------*\
-    $FUNCTIONS
-\*------------------------------------*/
-/**
- * Button function modifiers.
- */
+
+/* Button Functions */
 .button--primary {
   background-color: $orange;
 }
@@ -91,9 +85,6 @@
   }
 }
 
-/**
- * Positive actions; e.g. sign in, purchase, submit, etc.
- */
 .button--positive {
   background-color: $green;
   &:hover {
@@ -101,9 +92,6 @@
   }
 }
 
-/**
- * Negative actions; e.g. close account, delete photo, remove friend, etc.
- */
 .button--negative {
   background-color: $red;
   &:hover {
@@ -111,9 +99,6 @@
   }
 }
 
-/**
- * Disabled buttons.
- */
 .button--disabled,
 .button--disabled:hover,
 .button--disabled:active,
@@ -124,9 +109,7 @@
   box-shadow: none;
 }
 
-/**
- * Adjacent buttons should have some space between them.
- */
-.btn + .btn {
-  margin-left: 1em; /* LTR */
+/* Adjacent buttons should have some space between them. */
+.button + .button {
+  margin-left: 1em;
 }
