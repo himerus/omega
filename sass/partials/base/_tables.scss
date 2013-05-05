@@ -1,0 +1,27 @@
+/**
+ * $TABLES
+ */
+table {
+  border: 1px solid $mid-blue;
+  margin-bottom: $vert-spacing-unit;
+}
+
+th {
+  padding: 0.5em 1em;
+  background-color: $mid-blue;
+  color: #FFF;
+}
+td {
+  padding: 0.5em 1em;
+}
+
+tr.odd {
+  background: #FFF;
+}
+tr.even {
+  background: lighten($pale-orange, 26%);
+}
+
+caption {
+  @extend .delta;
+}
