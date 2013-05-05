@@ -1,0 +1,21 @@
+/**
+ * $FIELDSETS
+ */
+fieldset {
+  margin-bottom: $vert-spacing-unit;
+  padding: ($vert-spacing-unit / 2) $horz-spacing-unit $vert-spacing-unit $horz-spacing-unit;
+
+  border-color: $light-grey;
+}
+
+legend {
+  @include font-size(18px);
+  padding: 0 0.8em;
+  color: $mid-grey;
+}
+
+.fieldset-description {
+  margin-bottom: $vert-spacing-unit / 2;
+  color: $mid-grey;
+  font-style: italic;
+}
