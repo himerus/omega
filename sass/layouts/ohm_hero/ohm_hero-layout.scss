@@ -1,0 +1,35 @@
+/*******************************************************************************
+ * _layout.scss
+ *
+ * Styling of the "simple" layout demonstrating the Compass grid extension Susy
+ * and building mobile first layouts.
+ ******************************************************************************/
+@import "../../partials/utility";
+
+.l-constrained {
+  @include container;
+}
+
+.l-header {
+  padding: ($vert-spacing-unit / 2) 0;
+  background-color: $light-blue;
+}
+
+@include at-breakpoint($tab) {
+  .l-constrained {
+    @include set-container-width;
+  }
+  .l-branding {
+    @include span-columns(3, 12);
+  }
+  .l-region--navigation {
+    @include span-columns(6, 12);
+  }
+  .l-region--header {
+    @include span-columns(3 omega, 12);
+  }
+}
+
+@include at-breakpoint($desk) {
+
+}
