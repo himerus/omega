@@ -1,8 +1,11 @@
 /**
  * $FIELDSETS
  */
-fieldset {
+.form-wrapper {
   margin-bottom: $vert-spacing-unit;
+}
+
+fieldset {
   padding: ($vert-spacing-unit / 2) $horz-spacing-unit $vert-spacing-unit $horz-spacing-unit;
 
   border-color: $light-grey;

@@ -38,8 +38,10 @@ h5, .epsilon,
 h6, .zeta {
   margin-top: 0;
   margin-bottom: 0.5em;
+  color: darken($mid-grey, 15%);
   font-family: $maven-pro;
   line-height: 1.5em;
+  text-transform: uppercase;
 }
 
 h1, .alpha {
