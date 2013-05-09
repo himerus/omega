@@ -6,19 +6,39 @@
  ******************************************************************************/
 @import "../../partials/utility";
 
+body {
+  background: transparent url(../../../images/diagonal.png) left top repeat;
+}
+
 .l-constrained {
   @include container;
 }
 
+/* Header */
 .l-header {
   padding: ($vert-spacing-unit / 2) 0;
   background-color: $light-blue;
+}
+
+/* Content Area */
+.l-highlighted-wrapper {
+  background: #FFF;
+  margin-bottom: $vert-spacing-unit;
+}
+
+/* Sidebars */
+.l-region--sidebar-first,
+.l-region--sidebar-second {
+  background-color: #FFF;
+  padding: $vert-spacing-unit $horz-spacing-unit;
 }
 
 @include at-breakpoint($tab) {
   .l-constrained {
     @include set-container-width;
   }
+
+  /* Header */
   .l-branding {
     @include span-columns(3, 12);
   }
@@ -28,8 +48,39 @@
   .l-region--header {
     @include span-columns(3 omega, 12);
   }
+
+  /* Sidebars */
+  .two-sidebars,
+  .one-sidebars {
+    .l-content {
+      @include span-columns(8, 12);
+    }
+    .l-region--sidebar-first,
+    .l-region--sidebar-second {
+      @include span-columns(4 omega, 12);
+      clear: right;
+    }
+  }
 }
 
 @include at-breakpoint($desk) {
+  .l-constrained {
+    @include set-container-width;
+  }
 
+  /* Sidebars */
+  .two-sidebars,
+  .one-sidebars {
+    .l-content {
+      @include span-columns(6, 12);
+    }
+    .l-region--sidebar-first,
+    .l-region--sidebar-second {
+      @include span-columns(3, 12);
+      clear: none;
+    }
+    .l-region--sidebar-second {
+      @include omega;
+    }
+  }
 }

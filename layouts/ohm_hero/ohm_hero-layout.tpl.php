@@ -22,24 +22,26 @@
   </header>
 
   <?php print render($page['hero']); ?>
+  <div class="l-highlighted-wrapper">
+    <?php print render($page['highlighted']); ?>
+  </div>
 
   <div class="l-main l-constrained">
-    <?php print $breadcrumb; ?>
-    <?php print render($page['highlighted']); ?>
     <a id="main-content"></a>
-    <?php print render($title_prefix); ?>
-    <?php if ($title): ?>
-      <h1><?php print $title; ?></h1>
-    <?php endif; ?>
-    <?php print render($title_suffix); ?>
-    <?php print $messages; ?>
     <?php print render($tabs); ?>
+    <?php print $breadcrumb; ?>
+    <?php print $messages; ?>
     <?php print render($page['help']); ?>
     <?php if ($action_links): ?>
       <ul class="action-links"><?php print render($action_links); ?></ul>
     <?php endif; ?>
 
     <div class="l-content" role="main">
+      <?php print render($title_prefix); ?>
+      <?php if ($title): ?>
+        <h1><?php print $title; ?></h1>
+      <?php endif; ?>
+      <?php print render($title_suffix); ?>
       <?php print render($page['content']); ?>
       <?php print $feed_icons; ?>
     </div>
