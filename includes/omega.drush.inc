@@ -385,7 +385,7 @@ function drush_omega_export($theme = NULL) {
       // Revert the theme settings if the 'revert' option is set and they have
       // been exported successfully. In this case, we invoke the API function
       // through the drush command to display the messages.
-      drush_invoke('omega-revert', array($theme));
+      drush_invoke_process('@self', 'omega-revert', array($theme));
     }
 
     return TRUE;
