@@ -42,6 +42,10 @@ h6, .zeta {
   font-family: $maven-pro;
   line-height: 1.5em;
   text-transform: uppercase;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 h1, .alpha {

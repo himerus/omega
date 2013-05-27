@@ -9,7 +9,8 @@
   .form-select,
   .form-text,
   .form-textarea {
-    padding: 0.4em;
+    width: 100%;
+    padding: 1em;
     background-color: #FFF;
     border: 1px solid $light-grey;
     color: $mid-grey;
