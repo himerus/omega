@@ -146,11 +146,11 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
   // Send X-UA-Compatible HTTP header to force IE to use the most recent
   // rendering engine or use Chrome's frame rendering engine if available.
   if (omega_theme_get_setting('omega_chrome_edge', TRUE)) {
-    $supported = omega_theme_get_setting('omega_internet_explorer_support');
+    $supported = omega_theme_get_setting('omega_internet_explorer_support', FALSE);
 
     if (drupal_get_http_header('X-UA-Compatible') === NULL) {
       // Only add the header if it hasn't been added before.
-      drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=IE' . $supported);
+      drupal_add_http_header('X-UA-Compatible', 'IE=edge,chrome=' . ($supported ? 'IE' . $supported : '1'));
     }
 
     if (omega_theme_get_setting('omega_chrome_popup', FALSE)) {
