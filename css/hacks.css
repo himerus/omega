@@ -1,10 +1,10 @@
 @media all and (max-width: 800px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/sites\/all\/themes\/ohm\/sass\/hacks\.scss}line{font-family:\000033}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/hacks\.scss}line{font-family:\000033}}
   #toolbar, #admin-menu {
     display: none;
   }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/sites\/all\/themes\/ohm\/sass\/hacks\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/hacks\.scss}line{font-family:\000038}}
   html body.toolbar, html body.admin-menu {
     padding-top: 0 !important;
     margin-top: 0 !important;

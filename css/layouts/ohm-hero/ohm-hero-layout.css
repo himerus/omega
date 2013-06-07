@@ -1,0 +1,149 @@
+/*******************************************************************************
+ * _layout.scss
+ *
+ * Styling of the "simple" layout demonstrating the Compass grid extension Susy
+ * and building mobile first layouts.
+ ******************************************************************************/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/toolkit-1\.1\.1\/stylesheets\/toolkit\/_border-box\.scss}line{font-family:\000036}}
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  *behavior: url('../../../behaviors/box-sizing/boxsizing.php');
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/toolkit-1\.1\.1\/stylesheets\/toolkit\/_fluid-media\.scss}line{font-family:\000034}}
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_grid\.scss}line{font-family:\000039}}
+.l-constrained {
+  *zoom: 1;
+  max-width: 1190px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
+.l-constrained:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/**
+ * $ISLAND
+ */
+/**
+ * $ARROW
+ */
+/**
+ * $HLIST
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\000039}}
+body {
+  background: transparent url('../../../images/diagonal.png?1370609566') left top repeat;
+}
+
+/* Header */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000318}}
+.l-header {
+  background-color: #52b1ea;
+}
+
+/* Content Area */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000323}}
+.l-highlighted-wrapper {
+  background: #FFF;
+  margin-bottom: 18px;
+}
+
+/* Sidebars */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000330}}
+.l-region--sidebar-first,
+.l-region--sidebar-second {
+  background-color: #FFF;
+  padding: 18px 1em;
+}
+
+@media (min-width: 44em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000336}}
+  .l-constrained {
+    max-width: 1190px;
+  }
+
+  /* Header */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000341}}
+  .l-branding {
+    width: 23.72881%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000344}}
+  .l-region--navigation {
+    width: 49.15254%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000347}}
+  .l-region--header {
+    width: 23.72881%;
+    float: right;
+    margin-right: 0;
+  }
+
+  /* Sidebars */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000354}}
+  .two-sidebars .l-content,
+  .one-sidebars .l-content {
+    width: 66.10169%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000358}}
+  .two-sidebars .l-region--sidebar-first,
+  .two-sidebars .l-region--sidebar-second,
+  .one-sidebars .l-region--sidebar-first,
+  .one-sidebars .l-region--sidebar-second {
+    width: 32.20339%;
+    float: right;
+    margin-right: 0;
+    clear: right;
+  }
+}
+@media (min-width: 70em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000366}}
+  .l-constrained {
+    max-width: 1190px;
+  }
+
+  /* Sidebars */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000373}}
+  .two-sidebars .l-content,
+  .one-sidebars .l-content {
+    width: 49.15254%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000377}}
+  .two-sidebars .l-region--sidebar-first,
+  .two-sidebars .l-region--sidebar-second,
+  .one-sidebars .l-region--sidebar-first,
+  .one-sidebars .l-region--sidebar-second {
+    width: 23.72881%;
+    float: left;
+    margin-right: 1.69492%;
+    clear: none;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000381}}
+  .two-sidebars .l-region--sidebar-second,
+  .one-sidebars .l-region--sidebar-second {
+    float: right;
+    margin-right: 0;
+  }
+}
