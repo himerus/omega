@@ -12,7 +12,7 @@
  * This polyfill triggers tests on window resize and orientationchange.
  */
 
-window.matchMedia = window.matchMedia || (function (doc, window, Drupal) {
+window.matchMedia = window.matchMedia || (function (doc, window) {
 
   "use strict";
 
@@ -27,6 +27,35 @@ window.matchMedia = window.matchMedia || (function (doc, window, Drupal) {
   fakeBody.style.background = "none";
   fakeBody.appendChild(div);
 
+  // Global cache to speed up media matching (in IE).
+  var _cache = {};
+
+  // Store current dimensions, so we can clear the cache when needed.
+  var _currentDimensions = {
+    width: window.innerWidth || doc.documentElement.clientWidth,
+    height: window.innerHeight || doc.documentElement.clientHeight
+  };
+
+  function resetCache() {
+    // Store the new dimensions.
+    _currentDimensions = {
+      width: window.innerWidth || doc.documentElement.clientWidth,
+      height: window.innerHeight || doc.documentElement.clientHeight
+    };
+    // Clear cache.
+    _cache = {};
+  }
+
+  // Clear cache on resize and orientationchange events.
+  if ('addEventListener' in window) {
+    window.addEventListener('resize', resetCache);
+    window.addEventListener('orientationchange', resetCache);
+  }
+  else if ('attachEvent' in window) {
+    window.attachEvent('onresize', resetCache);
+    window.attachEvent('onorientationchange', resetCache);
+  }
+
   /**
    * A replacement for the native MediaQueryList object.
    *
@@ -36,9 +65,13 @@ window.matchMedia = window.matchMedia || (function (doc, window, Drupal) {
   function MediaQueryList (q) {
     this.media = q;
     this.matches = false;
-    // @todo Remove this.applies once BC for $.matchmedia gets removed.
-    this.applies = false;
-    this.check.call(this);
+    if (_cache.hasOwnProperty(q)) {
+      this.matches = _cache[q];
+    }
+    else {
+      this.check.call(this);
+      _cache[q] = this.matches;
+    }
   }
 
   /**
@@ -57,8 +90,6 @@ window.matchMedia = window.matchMedia || (function (doc, window, Drupal) {
       isApplied = div.offsetWidth === 42;
       docElem.removeChild(fakeBody);
       this.matches = isApplied;
-      // @todo Remove this.applies once BC for $.matchmedia gets removed.
-      this.applies = isApplied;
     },
 
     /**
@@ -79,11 +110,11 @@ window.matchMedia = window.matchMedia || (function (doc, window, Drupal) {
           // Only execute the callback if the state has changed.
           var oldstate = mql.matches;
           mql.check();
-          if (oldstate !== mql.matches) {
+          if (oldstate != mql.matches) {
             debounced.call(mql, mql);
           }
         };
-      }(this, Drupal.debounce(callback, 250)));
+      }(this, debounce(callback, 250)));
       this.listeners.push({
         'callback': callback,
         'handler': handler
@@ -125,6 +156,32 @@ window.matchMedia = window.matchMedia || (function (doc, window, Drupal) {
   };
 
   /**
+   * Limits the invocations of a function in a given time frame.
+   *
+   * @param {Function} callback
+   *   The function to be invoked.
+   *
+   * @param {Number} wait
+   *   The time period within which the callback function should only be
+   *   invoked once. For example if the wait period is 250ms, then the callback
+   *   will only be called at most 4 times per second.
+   */
+  function debounce (callback, wait) {
+    var timeout, result;
+    return function () {
+      var context = this;
+      var args = arguments;
+      var later = function () {
+        timeout = null;
+        result = callback.apply(context, args);
+      };
+      window.clearTimeout(timeout);
+      timeout = window.setTimeout(later, wait);
+      return result;
+    };
+  }
+
+  /**
    * Return a MediaQueryList.
    *
    * @param {String} q
@@ -135,7 +192,7 @@ window.matchMedia = window.matchMedia || (function (doc, window, Drupal) {
     // Build a new MediaQueryList object with the result of the check.
     return new MediaQueryList(q);
   };
-}(document, window, Drupal));
+}(document, window));
 
 /**
  * jQuery wrapper for the matchmedia polyfill including a feature to
@@ -143,84 +200,90 @@ window.matchMedia = window.matchMedia || (function (doc, window, Drupal) {
  */
 (function ($, window, Drupal) {
 
-"use strict";
+  "use strict";
 
-/**
- * Toggles media-query specific body classes.
- */
-Drupal.behaviors.omegaMediaQueryClasses = {
-  handler: function (name, query) {
-    if (query.matches) {
-      $('body').removeClass(name + '-inactive').addClass(name + '-active');
-    }
-    else {
-      $('body').removeClass(name + '-active').addClass(name + '-inactive');
-    }
-  },
+  /**
+   * Toggles media-query specific body classes.
+   */
+  Drupal.behaviors.omegaMediaQueryClasses = {
+    handler: function (name, mql) {
+      if (mql.matches) {
+        $('body').removeClass(name + '-inactive').addClass(name + '-active');
+      }
+      else {
+        $('body').removeClass(name + '-active').addClass(name + '-inactive');
+      }
+    },
 
-  attach: function (context, settings) {
-    var behavior = this;
-    var omegaSettings = settings.omega || {};
-    var mediaQueries = omegaSettings.mediaQueries || {};
+    attach: function (context, settings) {
+      var behavior = this;
+      var omegaSettings = settings.omega || {};
+      var mediaQueries = omegaSettings.mediaQueries || {};
 
-    $('body', context).once('omega-mediaqueries', function () {
-      $.each(mediaQueries, function (index, value) {
-        var query = window.matchMedia(value);
-        query.name = index;
+      $('body', context).once('omega-mediaqueries', function () {
+        $.each(mediaQueries, function (index, value) {
+          var mql = window.matchMedia(value);
 
-        // Initially, check if the media query applies or not and add the
-        // corresponding class to the body.
-        behavior.handler(index, query);
+          // Initially, check if the media query applies or not and add the
+          // corresponding class to the body.
+          behavior.handler(index, mql);
 
-        // React to media query changes and toggle the class names.
-        query.addListener(function (query) {
-          behavior.handler(index, query);
+          // React to media query changes and toggle the class names.
+          mql.addListener(function (mql) {
+            behavior.handler(index, mql);
+          });
         });
       });
-    });
-  }
-};
+    }
+  };
 
-/**
- * Check if the given media query currently applies.
- *
- * @param query
- *   The media query to check for.
- *
- * @deprecated
- *   Use window.matchMedia() instead.
- */
-$.matchmedia = function(query) {
-  return window.matchMedia(query);
-};
+  /**
+   * Check if the given media query currently applies.
+   *
+   * @param query
+   *   The media query to check for.
+   *
+   * @deprecated
+   *   Use window.matchMedia() instead.
+   */
+  $.matchmedia = function(query) {
+    return window.matchMedia(query);
+  };
 
-/**
- * Special event for listening to media query changes.
- *
- * @deprecated
- *   Use window.matchMedia(query).addListener(callback) instead.
- */
-var event = $.event.special.mediaquery = {
-  objects: {},
+  /**
+   * Special event for listening to media query changes.
+   *
+   * @deprecated
+   *   Use window.matchMedia(query).addListener(callback) instead.
+   */
+  var event = $.event.special.mediaquery = {
+    objects: {},
 
-  add: function (handleObj) {
-    event.objects[handleObj.guid] = window.matchMedia(handleObj.data);
-    event.objects[handleObj.guid].addListener(handleObj.handler);
-  },
+    handler: function (handler) {
+      return function (mql) {
+        mql.applies = mql.matches;
+        handler.call(mql, mql);
+      };
+    },
 
-  remove: function (handleObj) {
-    event.objects[handleObj.guid].removeListener(handleObj.handler);
-  }
-};
+    add: function (handleObj) {
+      event.objects[handleObj.guid] = window.matchMedia(handleObj.data);
+      event.objects[handleObj.guid].addListener(event.handler(handleObj.handler));
+    },
 
-/**
- * Event shortcut.
- *
- * @deprecated
- *   Use window.matchMedia(query).addListener(callback) instead.
- */
-$.fn.mediaquery = function (query, callback) {
-  return $(this).bind('mediaquery', query, callback);
-};
+    remove: function (handleObj) {
+      event.objects[handleObj.guid].removeListener(event.handler(handleObj.handler));
+    }
+  };
+
+  /**
+   * Event shortcut.
+   *
+   * @deprecated
+   *   Use window.matchMedia(query).addListener(callback) instead.
+   */
+  $.fn.mediaquery = function (query, callback) {
+    return $(this).bind('mediaquery', query, callback);
+  };
 
 })(jQuery, window, Drupal);
