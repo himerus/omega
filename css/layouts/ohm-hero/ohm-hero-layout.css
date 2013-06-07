@@ -4,20 +4,6 @@
  * Styling of the "simple" layout demonstrating the Compass grid extension Susy
  * and building mobile first layouts.
  ******************************************************************************/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/toolkit-1\.1\.1\/stylesheets\/toolkit\/_border-box\.scss}line{font-family:\000036}}
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  *behavior: url('../../../behaviors/box-sizing/boxsizing.php');
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/toolkit-1\.1\.1\/stylesheets\/toolkit\/_fluid-media\.scss}line{font-family:\000034}}
-img, video {
-  max-width: 100%;
-  height: auto;
-}
-
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_grid\.scss}line{font-family:\000039}}
 .l-constrained {
   *zoom: 1;

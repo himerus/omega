@@ -1,17 +1,3 @@
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/toolkit-1\.1\.1\/stylesheets\/toolkit\/_border-box\.scss}line{font-family:\000036}}
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  *behavior: url('../behaviors/box-sizing/boxsizing.php');
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/toolkit-1\.1\.1\/stylesheets\/toolkit\/_fluid-media\.scss}line{font-family:\000034}}
-img, video {
-  max-width: 100%;
-  height: auto;
-}
-
 /**
  * $ISLAND
  */
