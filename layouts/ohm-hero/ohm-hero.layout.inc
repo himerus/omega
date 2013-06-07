@@ -1,7 +1,7 @@
 name = Ohm Hero
 description = A 3 column layout with a prominent hero region.
 preview = preview.png
-template = ohm_hero-layout
+template = ohm-hero-layout
 
 ; Regions
 regions[navigation]     = Navigation bar
@@ -15,4 +15,4 @@ regions[sidebar_second] = Second sidebar
 regions[footer]         = Footer
 
 ; Stylesheets
-stylesheets[all][] = css/layouts/ohm_hero/ohm_hero-layout.css
+stylesheets[all][] = css/layouts/ohm-hero/ohm-hero-layout.css
