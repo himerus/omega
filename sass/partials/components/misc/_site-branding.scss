@@ -3,7 +3,7 @@
  */
 .site-branding {
   padding: 1em 0;
-  @extend %clearfix-micro;
+  @include clearfix(true);
 }
 
 .site-branding__name,

@@ -7,11 +7,11 @@
 @import "../../partials/utility";
 
 body {
-  background: transparent url(../../../images/diagonal.png) left top repeat;
+  background: transparent image-url('diagonal.png') left top repeat;
 }
 
 .l-constrained {
-  @include container;
+  @extend %container;
 }
 
 /* Header */

@@ -2,7 +2,7 @@
  * $PAGER
  */
 .pager {
-  @extend %clearfix-micro;
+  @include clearfix(true);
 }
 
 .pager__item {

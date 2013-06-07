@@ -5,7 +5,7 @@
 %islet {
   display: block;
   margin-bottom: $vert-spacing-unit;
-  @extend %clearfix-micro;
+  @include clearfix(true);
 
   & > :last-child,
   & > :last-child {
