@@ -1,8 +1,9 @@
 (function ($) {
+
 /**
  * Adds a 'close' link on messages that allows them to be discarded.
  */
-Drupal.behaviors.closeableMessages = {
+Drupal.behaviors.oemgaCloseableMessages = {
   attach: function (context, settings) {
     $('.messages', context).once('closeable-messages', function () {
       $('<a href="#" class="close-message"></a>').click(function () {
