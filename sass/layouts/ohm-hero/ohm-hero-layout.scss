@@ -18,14 +18,25 @@ body {
 .l-header {
   background-color: $light-blue;
 }
+.l-region--header {
+  padding: $vert-spacing-unit 0;
+
+  .block {
+    float: right;
+  }
+}
 
 /* Content Area */
 .l-highlighted-wrapper {
+  padding: $vert-spacing-unit 0;
   background: #FFF;
-  margin-bottom: $vert-spacing-unit;
 }
 .l-region--help {
   margin-bottom: $vert-spacing-unit;
+}
+.l-main {
+  margin-top: 2 * $vert-spacing-unit;
+  margin-bottom: 2 * $vert-spacing-unit;
 }
 
 /* Sidebars */
@@ -33,6 +44,12 @@ body {
 .l-region--sidebar-second {
   background-color: #FFF;
   padding: $vert-spacing-unit $horz-spacing-unit;
+}
+
+/* Footer */
+.l-footer-wrapper {
+  padding: $vert-spacing-unit 0;
+  background: #FFF;
 }
 
 @include at-breakpoint($tab) {

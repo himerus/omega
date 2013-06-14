@@ -2,18 +2,17 @@
  * $HLIST
  */
 %hlist {
-  list-style:none;
+  list-style: none;
   margin:0;
   padding: 0;
   @include clearfix(true);
 
-  > li{
+  > li {
+    list-style: none;
 
     &,
-    > a{
-      display:inline-block;
-      *display:inline;
-      zoom:1;
+    > a {
+      float: left;
     }
   }
 }

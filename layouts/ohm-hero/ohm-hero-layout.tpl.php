@@ -19,9 +19,11 @@
 
   <?php print render($page['hero']); ?>
 
-  <div class="l-highlighted-wrapper">
-    <?php print render($page['highlighted']); ?>
-  </div>
+  <?php if (!empty($page['highlighted'])): ?>
+    <div class="l-highlighted-wrapper">
+      <?php print render($page['highlighted']); ?>
+    </div>
+  <?php endif; ?>
 
   <div class="l-main l-constrained">
     <a id="main-content"></a>
@@ -47,7 +49,7 @@
     <?php print render($page['sidebar_second']); ?>
   </div>
 
-  <footer class="l-footer" role="contentinfo">
+  <footer class="l-footer-wrapper" role="contentinfo">
     <?php print render($page['footer']); ?>
   </footer>
 </div>

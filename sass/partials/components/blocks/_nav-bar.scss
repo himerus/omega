@@ -16,9 +16,9 @@
     text-transform: uppercase;
     text-decoration: none;
     color: #FFF;
+  }
 
-    &:last-child {
-      border-right: 1px solid #FFF;
-    }
+  li:last-child a {
+    border-right: 1px solid #FFF;
   }
 }
