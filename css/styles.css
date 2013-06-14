@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Maven+Pro:400,700);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic);
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/toolkit-1\.1\.1\/stylesheets\/toolkit\/_clearfix\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/toolkit-0\.2\.4\/stylesheets\/toolkit\/_clearfix\.scss}line{font-family:\0000357}}
 .comment__content:after, .block--nav-bar .menu:after, .clearfix:after, .pager:after, .site-branding:after {
   content: "";
   display: table;
@@ -10,17 +10,17 @@
 /**
  * $ISLAND
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_island\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_island\.scss}line{font-family:\000035}}
 .comment__content {
   display: block;
   margin-bottom: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_island\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_island\.scss}line{font-family:\0000311}}
 .comment__content > :last-child, .comment__content > :last-child {
   margin-bottom: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_island\.scss}line{font-family:\0000316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_island\.scss}line{font-family:\0000316}}
 .comment__content {
   padding: 18px 1em;
 }
@@ -31,26 +31,29 @@
 /**
  * $HLIST
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_hlist\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_hlist\.scss}line{font-family:\000034}}
 .block--nav-bar .menu {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_hlist\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_hlist\.scss}line{font-family:\0000310}}
+.block--nav-bar .menu > li {
+  list-style: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_hlist\.scss}line{font-family:\0000314}}
 .block--nav-bar .menu > li,
 .block--nav-bar .menu > li > a {
-  display: inline-block;
-  *display: inline;
-  zoom: 1;
+  float: left;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/toolkit-1\.1\.1\/stylesheets\/toolkit\/_border-box\.scss}line{font-family:\000036}}
-*, *:after, *:before {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/toolkit-0\.2\.4\/stylesheets\/toolkit\/_border-box\.scss}line{font-family:\0000310}}
+*,
+*:after,
+*:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  *behavior: url('../behaviors/box-sizing/boxsizing.php');
 }
 
 /**
@@ -59,7 +62,7 @@
 /**
  * $BASE-TYPOGRAPHY
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000310}}
 html {
   font-size: 14px;
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
@@ -69,12 +72,12 @@ html {
 /**
  * $LINKS
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000320}}
 a,
 a.active {
   color: #e4621c;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000324}}
 a:hover, a:focus,
 a.active:hover,
 a.active:focus {
@@ -85,7 +88,7 @@ a.active:focus {
 /**
  * $HEADINGS
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000338}}
 h1, .alpha,
 h2, .beta, .site-branding__name,
 h3, .gamma,
@@ -99,24 +102,25 @@ h6, .zeta {
   line-height: 1.2em;
   text-transform: uppercase;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000346}}
 h1 a, .alpha a,
 h2 a, .beta a, .site-branding__name a,
 h3 a, .gamma a,
 h4 a, .delta a, caption a,
 h5 a, .epsilon a,
 h6 a, .zeta a {
+  color: inherit;
   text-decoration: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000352}}
 h1, .alpha {
   font-size: 55px;
   font-size: 3.4375rem;
   font-weight: 700;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000356}}
 h2, .beta, .site-branding__name {
   font-size: 34px;
   font-size: 2.125rem;
@@ -124,26 +128,26 @@ h2, .beta, .site-branding__name {
   color: #077dc3;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000361}}
 h3, .gamma {
   font-size: 21px;
   font-size: 1.3125rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000364}}
 h4, .delta, caption {
   font-size: 18px;
   font-size: 1.125rem;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000367}}
 h5, .epsilon {
   font-size: 16px;
   font-size: 1rem;
   font-weight: 700;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000371}}
 h6, .zeta {
   font-size: 16px;
   font-size: 1rem;
@@ -153,14 +157,14 @@ h6, .zeta {
 /**
  * $PARAGRAPHS
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000380}}
 p,
 blockquote {
   margin: 0;
   margin-bottom: 1em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000384}}
 p + img {
   float: left;
   margin-right: 1em;
@@ -169,7 +173,7 @@ p + img {
 /**
  * $QUOTES
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000391}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000392}}
 blockquote {
   padding: 1em 1.5em;
   border: 1px solid #064771;
@@ -177,12 +181,12 @@ blockquote {
   font-style: italic;
   color: #064771;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\00003100}}
 blockquote p {
   margin: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\00003105}}
 q {
   font-style: italic;
 }
@@ -190,7 +194,7 @@ q {
 /**
  * $MARKS
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_typography\.scss}line{font-family:\00003113}}
 mark,
 .marker {
   padding: 0 0.3em;
@@ -202,7 +206,7 @@ mark,
  * $BUTTONS
  */
 /* Base Button */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\000035}}
 .button {
   display: inline-block;
   height: 2.2em;
@@ -222,27 +226,27 @@ mark,
   overflow: visible;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000332}}
 .button, .button:hover, .button:active, .button:focus, .button:visited {
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000336}}
 .button:hover {
   background-color: #6a7076;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000341}}
 .button:active, .button:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000346}}
 .button::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
 
 /* Fill width of container */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000353}}
 .button--full {
   width: 100%;
   padding-right: 0;
@@ -251,7 +255,7 @@ mark,
 }
 
 /* Inherit sizing from parent  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000361}}
 .button--natural {
   vertical-align: baseline;
   font-size: inherit;
@@ -262,43 +266,43 @@ mark,
 }
 
 /* Button Functions */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000371}}
 .button--primary {
   background-color: #e4621c;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000375}}
 .button--secondary {
   background-color: transparent;
   border: 1px solid #52b1ea;
   color: #52b1ea;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000380}}
 .button--secondary:hover {
   border-color: #6a7076;
   background-color: transparent;
   color: #6a7076;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000387}}
 .button--positive {
   background-color: #4a993e;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000389}}
 .button--positive:hover {
   background-color: #38752f;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000394}}
 .button--negative {
   background-color: #b33630;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\0000396}}
 .button--negative:hover {
   background-color: #8b2a25;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\00003104}}
 .button--disabled,
 .button--disabled:hover,
 .button--disabled:active,
@@ -310,7 +314,7 @@ mark,
 }
 
 /* Adjacent buttons should have some space between them. */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_buttons\.scss}line{font-family:\00003112}}
 .button + .button {
   margin-left: 1em;
 }
@@ -318,29 +322,29 @@ mark,
 /**
  * $TABLES
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\000034}}
 table {
   margin-bottom: 18px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\000038}}
 th {
   padding: 0.5em 1em;
   background-color: #077dc3;
   color: #FFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\0000313}}
 td {
   padding: 0.5em 1em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\0000317}}
 tr.odd {
   background: #FFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_tables\.scss}line{font-family:\0000320}}
 tr.even {
   background: #fdf6f1;
 }
@@ -348,15 +352,15 @@ tr.even {
 /**
  * $FORM-ITEM
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\000034}}
 .form-item {
   color: #6a7076;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\000037}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\000037}}
 .form-item label {
   margin-bottom: 0.4em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\0000312}}
 .form-item .form-select,
 .form-item .form-text,
 .form-item .form-textarea {
@@ -367,13 +371,13 @@ tr.even {
   color: #6a7076;
   vertical-align: middle;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\0000320}}
 .form-item .description {
   margin-top: 0.2em;
   font-style: italic;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_form-items\.scss}line{font-family:\0000329}}
 select:focus,
 input:focus,
 textarea:focus {
@@ -386,18 +390,18 @@ textarea:focus {
 /**
  * $PASSWORD-INDICATOR
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_passwords\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_passwords\.scss}line{font-family:\000034}}
 .password-indicator {
   height: 0.8em;
   background: none;
   border: 1px solid #dddddd;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_passwords\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_passwords\.scss}line{font-family:\000039}}
 .password-indicator .indicator {
   background: #efa47b;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_passwords\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_passwords\.scss}line{font-family:\0000314}}
 .password-strength-title {
   margin-bottom: 0.2em;
 }
@@ -405,18 +409,18 @@ textarea:focus {
 /**
  * $FIELDSETS
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_fieldsets\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_fieldsets\.scss}line{font-family:\000034}}
 .form-wrapper {
   margin-bottom: 18px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_fieldsets\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_fieldsets\.scss}line{font-family:\000038}}
 fieldset {
   padding: 9px 1em 18px 1em;
   border-color: #dddddd;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_fieldsets\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_fieldsets\.scss}line{font-family:\0000314}}
 legend {
   font-size: 18px;
   font-size: 1.125rem;
@@ -424,23 +428,24 @@ legend {
   color: #6a7076;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_fieldsets\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/forms\/_fieldsets\.scss}line{font-family:\0000320}}
 .fieldset-description {
   margin-bottom: 9px;
   color: #6a7076;
   font-style: italic;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_media\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/base\/_media\.scss}line{font-family:\000031}}
 img, media {
   max-width: 100%;
   height: auto;
+  vertical-align: top;
 }
 
 /**
  * $PAGER
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\000038}}
 .pager__item {
   display: block;
   float: left;
@@ -448,7 +453,7 @@ img, media {
   padding: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\0000317}}
 .pager__item a,
 .pager__item--current,
 .pager__item--ellipsis {
@@ -459,20 +464,20 @@ img, media {
   text-decoration: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\0000324}}
 .pager__item a:hover {
   background-color: #e4621c;
   border-color: #e4621c;
   color: #FFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\0000329}}
 .pager__item--current {
   border-color: #e4621c;
   color: #e4621c;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\0000333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_pager\.scss}line{font-family:\0000333}}
 .pager__item--ellipsis {
   border: none;
 }
@@ -480,7 +485,7 @@ img, media {
 /**
  * $PROGRESS
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_progress\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_progress\.scss}line{font-family:\000035}}
 .progress .bar {
   background-color: #dddddd;
   border-color: #6a7076;
@@ -490,7 +495,7 @@ img, media {
   -o-border-radius: 0;
   border-radius: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_progress\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_progress\.scss}line{font-family:\0000310}}
 .progress .filled {
   background: #077dc3;
 }
@@ -498,26 +503,26 @@ img, media {
 /**
  * $MESSAGES
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_messages\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_messages\.scss}line{font-family:\000034}}
 .messages {
   padding-left: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_messages\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_messages\.scss}line{font-family:\000038}}
 .messages--status {
   color: #077dc3;
   background: #ccebfd;
   border-color: #38b0f8;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_messages\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_messages\.scss}line{font-family:\0000314}}
 .messages--warning {
   color: #d6c460;
   background: white;
   border-color: #ebe2b1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_messages\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_messages\.scss}line{font-family:\0000320}}
 .messages--error {
   color: #b33630;
   background: #f9eae9;
@@ -527,30 +532,30 @@ img, media {
 /**
  * $SITE-BRANDING
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\000034}}
 .site-branding {
   padding: 1em 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\0000310}}
 .site-branding__name,
 .site-branding__logo {
   display: block;
   float: left;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\0000315}}
 .site-branding__logo {
   width: 50px;
   margin-right: 1em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\0000319}}
 .site-branding__name {
   color: #FFF;
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_site-branding\.scss}line{font-family:\0000324}}
 .site-branding__name:hover {
   color: #064771;
 }
@@ -558,7 +563,7 @@ img, media {
 /**
  * $SECTION-TITLE
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_section-title\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/misc\/_section-title\.scss}line{font-family:\000034}}
 .section-title {
   padding-bottom: 0.5em;
   margin-bottom: 18px;
@@ -568,7 +573,7 @@ img, media {
 /**
  * $FILTER-TIPS
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/forms\/_filter-tips\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/forms\/_filter-tips\.scss}line{font-family:\000034}}
 .filter-wrapper {
   background-color: #FFF;
 }
@@ -576,7 +581,7 @@ img, media {
 /**
  * $SEARCH-FORM
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/forms\/_search-form\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/forms\/_search-form\.scss}line{font-family:\000035}}
 .search-block-form .form-text {
   width: auto;
   padding: 0.4em;
@@ -585,34 +590,47 @@ img, media {
 /**
  * $NODE
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/node\/_node\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/node\/_node\.scss}line{font-family:\000034}}
 .node--teaser {
   margin-bottom: 18px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/node\/_node\.scss}line{font-family:\000038}}
+.node__links {
+  margin-bottom: 18px;
+}
+
+/**
+ * $FIELD
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/fields\/_field\.scss}line{font-family:\000034}}
+.field {
+  margin-bottom: 1em;
 }
 
 /**
  * $NAV-BAR
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/blocks\/_nav-bar\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/blocks\/_nav-bar\.scss}line{font-family:\000039}}
 .block--nav-bar a {
   display: block;
   padding: 1em;
-  border-left: 1px solid #FFF;
+  border-left: 1px solid white;
   font-size: 20px;
   font-size: 1.25rem;
   text-transform: uppercase;
   text-decoration: none;
   color: #FFF;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/blocks\/_nav-bar\.scss}line{font-family:\0000320}}
-.block--nav-bar a:last-child {
-  border-right: 1px solid #FFF;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/blocks\/_nav-bar\.scss}line{font-family:\0000321}}
+.block--nav-bar li:last-child a {
+  border-right: 1px solid white;
 }
 
 /**
  * $COMMENT-WRAPPER
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment-wrapper\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment-wrapper\.scss}line{font-family:\000034}}
 .comment-wrapper {
   padding: 18px 1em;
   background-color: #d9e9ef;
@@ -621,51 +639,51 @@ img, media {
 /**
  * $COMMENT
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\000034}}
 .comment__info {
   margin-top: 18px;
   margin-bottom: 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\000038}}
 .comment__info .username {
   margin-bottom: 9px;
   color: #52b1ea;
   text-transform: uppercase;
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000315}}
 .comment__info .username:hover {
   text-decoration: underline;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000321}}
 .comment__content {
   background-color: #FFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000327}}
 .comment__submitted {
   display: inline;
 }
 
 @media (min-width: 44em) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000332}}
   .comment__info {
     float: left;
     width: 25%;
     text-align: center;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000338}}
   .comment__info .user-picture {
     width: 70%;
     margin: 0 auto 9px auto;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000342}}
   .comment__info .username {
     display: block;
   }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000347}}
   .comment__content {
     float: right;
     width: 70%;
@@ -673,7 +691,7 @@ img, media {
     position: relative;
     background: white;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_arrow\.scss}line{font-family:\0000328}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_arrow\.scss}line{font-family:\0000328}}
   .comment__content:after, .comment__content:before {
     right: 100%;
     border: solid transparent;
@@ -683,7 +701,7 @@ img, media {
     position: absolute;
     pointer-events: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_arrow\.scss}line{font-family:\0000350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_arrow\.scss}line{font-family:\0000350}}
   .comment__content:after {
     border-color: transparent;
     border-right-color: white;
@@ -691,12 +709,12 @@ img, media {
     top: 50%;
     margin-left: -20px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000354}}
   .comment__content:after {
     top: 20px;
   }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/components\/comments\/_comment\.scss}line{font-family:\0000359}}
   .comment__submitted {
     display: block;
     margin-bottom: 9px;

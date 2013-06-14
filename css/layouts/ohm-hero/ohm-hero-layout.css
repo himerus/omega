@@ -4,7 +4,7 @@
  * Styling of the "simple" layout demonstrating the Compass grid extension Susy
  * and building mobile first layouts.
  ******************************************************************************/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_grid\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/partials\/utility\/abstractions\/_grid\.scss}line{font-family:\000039}}
 .l-constrained {
   *zoom: 1;
   max-width: 1190px;
@@ -13,7 +13,7 @@
   margin-left: auto;
   margin-right: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/\.rvm\/gems\/ruby-1\.9\.3-p429\@omega\.ohm\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
 .l-constrained:after {
   content: "";
   display: table;
@@ -29,54 +29,81 @@
 /**
  * $HLIST
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\000039}}
 body {
-  background: transparent url('../../../images/diagonal.png?1370609566') left top repeat;
+  background: transparent url('../../../images/diagonal.png?1371212226') left top repeat;
 }
 
 /* Header */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000318}}
 .l-header {
   background-color: #52b1ea;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000321}}
+.l-region--header {
+  padding: 18px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000324}}
+.l-region--header .block {
+  float: right;
+}
+
 /* Content Area */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000330}}
 .l-highlighted-wrapper {
+  padding: 18px 0;
   background: #FFF;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000334}}
+.l-region--help {
   margin-bottom: 18px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000337}}
+.l-main {
+  margin-top: 36px;
+  margin-bottom: 36px;
+}
+
 /* Sidebars */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000344}}
 .l-region--sidebar-first,
 .l-region--sidebar-second {
   background-color: #FFF;
   padding: 18px 1em;
 }
 
+/* Footer */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000350}}
+.l-footer-wrapper {
+  padding: 18px 0;
+  background: #FFF;
+}
+
 @media (min-width: 44em) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000356}}
   .l-constrained {
     max-width: 1190px;
   }
 
   /* Header */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000361}}
   .l-branding {
     width: 23.72881%;
     float: left;
     margin-right: 1.69492%;
   }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000344}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000364}}
   .l-region--navigation {
     width: 49.15254%;
     float: left;
     margin-right: 1.69492%;
   }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000367}}
   .l-region--header {
     width: 23.72881%;
     float: right;
@@ -84,14 +111,14 @@ body {
   }
 
   /* Sidebars */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000374}}
   .two-sidebars .l-content,
   .one-sidebars .l-content {
     width: 66.10169%;
     float: left;
     margin-right: 1.69492%;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000378}}
   .two-sidebars .l-region--sidebar-first,
   .two-sidebars .l-region--sidebar-second,
   .one-sidebars .l-region--sidebar-first,
@@ -103,20 +130,20 @@ body {
   }
 }
 @media (min-width: 70em) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000386}}
   .l-constrained {
     max-width: 1190px;
   }
 
   /* Sidebars */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000373}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000393}}
   .two-sidebars .l-content,
   .one-sidebars .l-content {
     width: 49.15254%;
     float: left;
     margin-right: 1.69492%;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000397}}
   .two-sidebars .l-region--sidebar-first,
   .two-sidebars .l-region--sidebar-second,
   .one-sidebars .l-region--sidebar-first,
@@ -126,7 +153,7 @@ body {
     margin-right: 1.69492%;
     clear: none;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/fubhy\/Projects\/omega\/web\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/ohm\/site\/sites\/all\/themes\/ohm\/sass\/layouts\/ohm-hero\/ohm-hero-layout\.scss}line{font-family:\00003101}}
   .two-sidebars .l-region--sidebar-second,
   .one-sidebars .l-region--sidebar-second {
     float: right;
