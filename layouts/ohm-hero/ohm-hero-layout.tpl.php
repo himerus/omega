@@ -1,3 +1,4 @@
+
 <div class="l-page">
   <header class="l-header" role="banner">
     <div class="l-constrained">
@@ -31,9 +32,6 @@
     <?php print $breadcrumb; ?>
     <?php print $messages; ?>
     <?php print render($page['help']); ?>
-    <?php if ($action_links): ?>
-      <ul class="action-links"><?php print render($action_links); ?></ul>
-    <?php endif; ?>
 
     <div class="l-content" role="main">
       <?php print render($title_prefix); ?>
@@ -41,6 +39,9 @@
         <h1><?php print $title; ?></h1>
       <?php endif; ?>
       <?php print render($title_suffix); ?>
+      <?php if ($action_links): ?>
+        <ul class="action-links"><?php print render($action_links); ?></ul>
+      <?php endif; ?>
       <?php print render($page['content']); ?>
       <?php print $feed_icons; ?>
     </div>

@@ -9,16 +9,25 @@ th {
   padding: 0.5em 1em;
   background-color: $mid-blue;
   color: #FFF;
+
+  a,
+  a.active {
+    color: #FFF;
+
+    img {
+      margin: 2px 3px;
+    }
+  }
 }
 td {
   padding: 0.5em 1em;
 }
 
 tr.odd {
-  background: #FFF;
+  background: lighten($pale-blue, 4%);
 }
 tr.even {
-  background: lighten($pale-orange, 26%);
+  background: lighten($pale-blue, 8%);
 }
 
 caption {
