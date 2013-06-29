@@ -6,6 +6,8 @@
 }
 
 fieldset {
+  margin-left: 0;
+  margin-right: 0;
   padding: ($vert-spacing-unit / 2) $horz-spacing-unit $vert-spacing-unit $horz-spacing-unit;
 
   border-color: $light-grey;
