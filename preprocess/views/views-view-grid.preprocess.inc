@@ -13,8 +13,8 @@ function omega_preprocess_views_view_grid(&$variables) {
   foreach ($variables['rows'] as $delta => $row) {
     $variables['row_attributes_array'][$delta] = isset($variables['row_attributes_array'][$delta]) ? $variables['row_attributes_array'][$delta] : array();
 
-    if (!empty($variables['classes_array'][$delta])) {
-      $variables['row_attributes_array'][$delta]['class'] = explode(' ', $variables['classes_array'][$delta]);
+    if (!empty($variables['row_classes'][$delta])) {
+      $variables['row_attributes_array'][$delta]['class'] = explode(' ', $variables['row_classes'][$delta]);
     }
 
     // Views tables have additional classes for each column.
