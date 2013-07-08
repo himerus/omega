@@ -5,7 +5,9 @@
  * Please supply a file description.
  */
 
-require_once dirname(__FILE__) . '/omega.inc';
+if (!function_exists('omega_theme_get_setting')) {
+  require_once dirname(__FILE__) . '/omega.inc';
+}
 
 /**
  * Implements hook_drush_command().
