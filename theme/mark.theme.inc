@@ -8,10 +8,10 @@ function omega_mark($variables) {
 
   if ($GLOBALS['user']->uid) {
     if ($type == MARK_NEW) {
-      return ' <mark class="marker">' . t('new') . '</span>';
+      return ' <mark class="marker">' . t('new') . '</mark>';
     }
     elseif ($type == MARK_UPDATED) {
-      return ' <mark class="marker">' . t('updated') . '</span>';
+      return ' <mark class="marker">' . t('updated') . '</mark>';
     }
   }
 }
