@@ -12,7 +12,7 @@ The easiest way to create a new Omega-based sub-theme is by using [Drush](http:/
 
 The [Omega 4.x documentation](https://drupal.org/node/1768686) is hosted on drupal.org as part of the handbook section. Please note that we are still in the process of writing the documentation. If you want to get involved, please contact us.
 
-## Maintainenance
+## Maintainance
 
 This version of the Omega theme is maintained by [Sebastian Siemssen](http://drupal.org/user/761344) ([@thefubhy](http://twitter.com/thefubhy)) and [Matt Smith](http://drupal.org/user/1012210) ([@splatio_](http://twitter.com/splatio_))
 
