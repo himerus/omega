@@ -1,14 +1,16 @@
 name = Ohm
-description = Please provide a description for your theme.
+description = Omega based demonstration theme.
 base theme = omega
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
 
+; Stylesheets
 stylesheets[all][] = css/reset.css
 stylesheets[all][] = css/hacks.css
 stylesheets[all][] = css/styles.css
 
+; Regions
 regions[navigation]     = Navigation bar
 regions[header]         = Header
 regions[hero]           = Hero
@@ -19,6 +21,7 @@ regions[sidebar_first]  = First sidebar
 regions[sidebar_second] = Second sidebar
 regions[footer]         = Footer
 
+; Settings
 settings[omega_toggle_front_page_content] = 1
 settings[default_logo] = 1
 settings[logo_path] = ''
