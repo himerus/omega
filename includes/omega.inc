@@ -426,12 +426,12 @@ function omega_get_nested_value(&$object, array $parents, &$key_exists = NULL) {
  */
 function omega_layouts_info() {
   if (($layouts = &drupal_static(__FUNCTION__)) !== NULL) {
-    //return $layouts;
+    return $layouts;
   }
 
   // Try to retrieve the layouts definitions from cache.
   if (($cache = cache_get('omega:layouts')) !== FALSE) {
-    //return $layouts = $cache->data;
+    return $layouts = $cache->data;
   }
 
   // Layouts do not have a specific theme scope.
