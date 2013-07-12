@@ -426,12 +426,12 @@ function omega_get_nested_value(&$object, array $parents, &$key_exists = NULL) {
  */
 function omega_layouts_info() {
   if (($layouts = &drupal_static(__FUNCTION__)) !== NULL) {
-    return $layouts;
+    //return $layouts;
   }
 
   // Try to retrieve the layouts definitions from cache.
   if (($cache = cache_get('omega:layouts')) !== FALSE) {
-    return $layouts = $cache->data;
+    //return $layouts = $cache->data;
   }
 
   // Layouts do not have a specific theme scope.
@@ -583,9 +583,8 @@ function omega_discovery($type, $theme = NULL) {
   // folder hierarchy without affecting the base themes template discovery.
   $paths = array();
   foreach ($themes as $key => $info) {
-    $info = system_get_info('theme', $key);
     if (!empty($info->base_theme)) {
-      $paths[$info->base_theme][$info->name] = dirname($info->filename);
+      $paths[$info->base_theme][$key] = dirname($info->filename);
     }
   }
   foreach ($paths as $basetheme => $subthemes) {
