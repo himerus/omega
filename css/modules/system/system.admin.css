@@ -109,7 +109,7 @@ small .admin-link:after {
   font-weight: bold;
 }
 .theme-selector--default .theme-selector__screenshot {
-  border: 1px solid #aaaaaa;
+  border: 1px solid #aaa;
 }
 
 /* Theme Selector Enabled State */
@@ -199,17 +199,17 @@ small .admin-link:after {
 }
 
 .module-link-help {
-  background: url('../../../images/misc/help.png?1362515957') 0 50% no-repeat;
+  background: url('../../../images/misc/help.png?1365770950') 0 50% no-repeat;
   /* LTR */
 }
 
 .module-link-permissions {
-  background: url('../../../images/misc/permissions.png?1362515957') 0 50% no-repeat;
+  background: url('../../../images/misc/permissions.png?1365770950') 0 50% no-repeat;
   /* LTR */
 }
 
 .module-link-configure {
-  background: url('../../../images/misc/configure.png?1362515957') 0 50% no-repeat;
+  background: url('../../../images/misc/configure.png?1365770950') 0 50% no-repeat;
   /* LTR */
 }
 
@@ -232,10 +232,10 @@ small .admin-link:after {
   background-repeat: no-repeat;
 }
 .system-status-report .error .status-icon {
-  background-image: url('../../../images/misc/message-16-error.png?1362515957');
+  background-image: url('../../../images/misc/message-16-error.png?1365770950');
 }
 .system-status-report .warning .status-icon {
-  background-image: url('../../../images/misc/message-16-warning.png?1362515957');
+  background-image: url('../../../images/misc/message-16-warning.png?1365770950');
 }
 
 /* Merge Cells */
