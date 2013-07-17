@@ -62,7 +62,7 @@ function omega_extension_development_settings_form($element, &$form, $form_state
       please only specify a custom host if the LiveReload server is hosted elsewhere. Normally, this is only the case if you are
       running your website on a virtual machine whilest the LiveReload server runs on the host environment. In this case
       you would specify 'localhost' as the host."),
-    '#default_value' => omega_theme_get_setting('omega_livereload_host'),
+    '#default_value' => omega_theme_get_setting('omega_livereload_host', 'localhost'),
     '#size' => 30,
   );
 

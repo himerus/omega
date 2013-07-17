@@ -30,7 +30,7 @@ function omega_extension_development_preprocess_html(&$variables) {
 
   if (omega_theme_get_setting('omega_livereload', TRUE)) {
     $options = array();
-    if ($host = omega_theme_get_setting('omega_livereload_host')) {
+    if ($host = omega_theme_get_setting('omega_livereload_host', 'localhost')) {
       // If no host is specificed livereload.js will use the host that it is
       // served from (e.g. if livereload.js is served from example.com it will
       // try to connect to a livereload server on example.com.
