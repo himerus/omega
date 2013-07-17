@@ -568,17 +568,17 @@ function omega_initialize_attributes(&$variables) {
  */
 function omega_cleanup_attributes(&$variables, $hook) {
   // Break the reference between the classes array and the attributes array.
-  unset($variables['classes_array']);
+  $classes = !empty($variables['attributes_array']['class']) ? $variables['attributes_array']['class'] : array();
+  unset($variables['attributes_array']['class'], $variables['classes_array']);
 
   // Clone the attributes array classes into the classes array for backwards
   // compatibility reasons. Note that we do not recommend using the classes in
   // classes array anyways.
-  $variables['classes_array'] = isset($variables['attributes_array']['class']) ? $variables['attributes_array']['class'] : array();
+  $variables['classes_array'] = $classes;
 
-  if (empty($variables['attributes_array']['class'])) {
-    // Unset the 'class' attribute if it's empty so that we don't produce empty
-    // class properties.
-    unset($variables['attributes_array']['class']);
+  if (!empty($classes)) {
+    // Only write the 'class' attribute if it's not empty.
+    $variables['attributes_array']['class'] = $classes;
   }
 }
 
