@@ -73,7 +73,11 @@ function omega_extension_development_preprocess_html(&$variables) {
 function omega_extension_development_preprocess_region(&$variables) {
   if ($variables['debug'] = !empty($variables['elements']['#debug'])) {
     $class = drupal_html_class('region--debug--' . $variables['region']);
-    drupal_add_css(".$class:before { content: \"{$variables['elements']['#name']}\"; }", array('type' => 'inline'));
+    drupal_add_css(".$class:before { content: \"{$variables['elements']['#name']}\"; }", array(
+      'type' => 'inline',
+      'group' => CSS_THEME,
+      'weight' => 1000,
+    ));
 
     $variables['attributes_array']['class'][] = 'region--debug';
     $variables['attributes_array']['class'][] = $class;
