@@ -885,7 +885,7 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Goodies'),
     'files' => array(
       'js' => array(
-        omega_theme_trail_file('js/omega.messages.js') => array(
+        omega_theme_trail_file('js/omega.messages.min.js') => array(
           'weight' => -100,
           'every_page' => TRUE,
         ),

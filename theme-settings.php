@@ -46,7 +46,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
 
   // Add some custom styling and functionality to our theme settings form.
   $form['#attached']['css'][] = drupal_get_path('theme', 'omega') . '/css/omega.admin.css';
-  $form['#attached']['js'][] = drupal_get_path('theme', 'omega') . '/js/omega.admin.js';
+  $form['#attached']['js'][] = drupal_get_path('theme', 'omega') . '/js/omega.admin.min.js';
 
   // Collapse all the core theme settings tabs in order to have the form actions
   // visible all the time without having to scroll.

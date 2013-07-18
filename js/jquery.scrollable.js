@@ -1,9 +1,11 @@
 (function ($) {
 
+  'use strict';
+
   /**
    * Custom expression for filtering for scrollable elements.
    */
-  $.expr[':'].scrollable = function (elem, index, match) {
+  $.expr[':'].scrollable = function (elem) {
     var scrollable = true;
     // Backup the original scroll position.
     var original = $(elem).scrollTop();
@@ -15,6 +17,6 @@
     }
 
     return scrollable;
-  }
+  };
 
 })(jQuery);

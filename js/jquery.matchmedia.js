@@ -1,6 +1,6 @@
 (function ($, window) {
 
-  "use strict";
+  'use strict';
 
   /**
    * Check if the given media query currently applies.
@@ -11,7 +11,7 @@
    * @deprecated
    *   Use window.matchMedia() instead.
    */
-  $.matchmedia = function(query) {
+  $.matchmedia = function (query) {
     return window.matchMedia(query);
   };
 

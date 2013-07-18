@@ -1,6 +1,6 @@
 (function ($, window, Drupal) {
 
-  "use strict";
+  'use strict';
 
   /**
    * Toggles media-query specific body classes.

@@ -1,11 +1,13 @@
 (function ($) {
 
+  'use strict';
+
   /**
    * Renders a widget for displaying the current width of the browser.
    */
   Drupal.behaviors.omegaBrowserWidth = {
-    attach: function (context, settings) {
-      $('body', context).once('omega-browser-width', function (){
+    attach: function (context) {
+      $('body', context).once('omega-browser-width', function () {
         var $indicator = $('<div class="omega-browser-width" />').appendTo(this);
 
         // Bind to the window.resize event to continuously update the width.
@@ -14,6 +16,6 @@
         }).trigger('resize.omega-browser-width');
       });
     }
-  }
+  };
 
 })(jQuery);

@@ -1,4 +1,6 @@
-(function($) {
+(function ($) {
+
+  'use strict';
 
   /**
    * Container for the resizeend timeout.
@@ -34,7 +36,7 @@
   /**
    * Wrapper for the resizeend event.
    */
-  $.fn.resizeend = function (handler){
+  $.fn.resizeend = function (handler) {
     return $(this).bind('resizeend', handler);
   };
 
