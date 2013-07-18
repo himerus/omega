@@ -678,7 +678,7 @@ function omega_check_incompatibility($dependency, $current) {
  *   directly. This ensures that the code that uses this function does not break
  *   if a file does not exist anywhere.
  */
-function omega_get_theme_trail_file($file, $theme = NULL) {
+function omega_theme_trail_file($file, $theme = NULL) {
   $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
 
   // Iterate over all themes in the theme trail (starting with the active theme)

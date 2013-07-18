@@ -45,7 +45,7 @@ function omega_extension_development_preprocess_html(&$variables) {
 
     // We need to add livereload.js as external script with an absolute path
     // because otherwise Drupal core messes with the query string.
-    $file = url(file_create_url($path . '/components/livereload/dist/livereload.js'), array('query' => $options, 'external' => TRUE));
+    $file = url(file_create_url(omega_theme_trail_file('components/livereload/dist/livereload.js')), array('query' => $options, 'external' => TRUE));
     drupal_add_js($file, array(
       'type' => 'external',
       'browsers' => array(

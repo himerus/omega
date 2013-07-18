@@ -9,5 +9,7 @@
     "bower-pie": "latest",
     "css3mediaqueries": "livingston/css3-mediaqueries-js"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "livereload": "livereload/livereload-js"
+  }
 }
