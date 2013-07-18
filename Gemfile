@@ -16,13 +16,6 @@ group :development do
   gem 'oily_png'                # Faster Compass sprite generation.
   gem 'css_parser'              # Helps `compass stats` output statistics.
 
-  # Guard
-  gem 'guard'                   # Guard event handler.
-  gem 'guard-compass'           # Compile on sass/scss change.
-  gem 'guard-shell'             # Run shell commands.
-  gem 'guard-livereload'        # Browser reload.
-  gem 'yajl-ruby'               # Faster JSON with LiveReload in the browser.
-
   # Dependency to prevent polling. Setup for multiple OS environments.
   # Optionally remove the lines not specific to your OS.
   # https://github.com/guard/guard#efficient-filesystem-handling
