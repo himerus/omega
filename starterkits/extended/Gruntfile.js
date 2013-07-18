@@ -76,6 +76,20 @@ module.exports = function (grunt) {
           dest: 'js',
           ext: '.min.js'
         }]
+      },
+      components: {
+        options: {
+          mangle: false,
+          compress: false
+        },
+        files: {
+          'components/matchmedia/matchMedia.min.js': [
+            'components/matchmedia/matchMedia.js',
+            'components/matchmedia/matchMedia.addListener.js'
+          ],
+          'components/selectivizr/selectivizr.min.js': ['components/selectivizr/selectivizr.js'],
+          'components/css3mediaqueries/css3-mediaqueries.min.js': ['components/css3mediaqueries/css3-mediaqueries.js']
+        }
       }
     }
   });
@@ -90,4 +104,5 @@ module.exports = function (grunt) {
     'compass:dist',
     'jshint'
   ]);
+
 };

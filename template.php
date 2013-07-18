@@ -704,8 +704,6 @@ function omega_html_head_alter(&$head) {
  * Implements hook_omega_theme_libraries_info().
  */
 function omega_omega_theme_libraries_info($theme) {
-  $path = drupal_get_path('theme', 'omega');
-
   $libraries['selectivizr'] = array(
     'name' => t('Selectivizr'),
     'description' => t('Selectivizr is a JavaScript utility that emulates CSS3 pseudo-classes and attribute selectors in Internet Explorer 6-8. Simply include the script in your pages and selectivizr will do the rest.'),
@@ -714,7 +712,7 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
-        $path . '/libraries/selectivizr/selectivizr.min.js' => array(
+        omega_get_theme_trail_file('components/selectivizr/selectivizr.min.js') => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 110,
           'every_page' => TRUE,
@@ -727,7 +725,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            $path . '/libraries/selectivizr/selectivizr.js' => array(
+            omega_get_theme_trail_file('components/selectivizr/selectivizr.js') => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 110,
               'every_page' => TRUE,
@@ -747,7 +745,7 @@ function omega_omega_theme_libraries_info($theme) {
     'callbacks' => array('omega_extension_library_requirements_css_aggregation'),
     'files' => array(
       'js' => array(
-        $path . '/libraries/css3mediaqueries/css3mediaqueries.min.js' => array(
+        omega_get_theme_trail_file('components/css3mediaqueries/css3-mediaqueries.min.js') => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
           'every_page' => TRUE,
@@ -760,7 +758,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            $path . '/libraries/css3mediaqueries/css3mediaqueries.js' => array(
+            omega_get_theme_trail_file('components/css3mediaqueries/css3-mediaqueries.js') => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
               'every_page' => TRUE,
@@ -780,7 +778,7 @@ function omega_omega_theme_libraries_info($theme) {
     'callbacks' => array('omega_extension_library_requirements_css_aggregation'),
     'files' => array(
       'js' => array(
-        $path . '/libraries/respond/respond.min.js' => array(
+        omega_get_theme_trail_file('components/respond/respond.min.js') => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 120,
           'every_page' => TRUE,
@@ -793,7 +791,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            $path . '/libraries/respond/respond.js' => array(
+            omega_get_theme_trail_file('components/respond/respond.src.js') => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 120,
               'every_page' => TRUE,
@@ -818,7 +816,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('While the .htc behavior is still the recommended approach for most users, the JS version has some advantages that may be a better fit for some users.'),
         'files' => array(
           'js' => array(
-            $path . '/libraries/css3pie/PIE.js' => array(
+            omega_get_theme_trail_file('components/bower-pie/build/PIE.js') => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
               'every_page' => TRUE,
@@ -838,8 +836,8 @@ function omega_omega_theme_libraries_info($theme) {
 
     // Save the generated CSS in the public file system.
     $file = $destination . '/pie-selectors.css';
-    $htc = base_path() . drupal_get_path('theme', 'omega');
-    $contents = implode(",", $settings['css3pie']['selectors']) . "{behavior:url({$htc}/libraries/css3pie/PIE.htc)}";
+    $htc = base_path() . omega_get_theme_trail_file('components/bower-pie/build/PIE.htc');
+    $contents = implode(",", $settings['css3pie']['selectors']) . "{behavior:url($htc)}";
     file_unmanaged_save_data($contents, $file, FILE_EXISTS_REPLACE);
 
     $libraries['css3pie']['files']['css'][$file] = array(
@@ -867,25 +865,15 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
-        $path . '/libraries/html5shiv/html5shiv.min.js' => array(
+        omega_get_theme_trail_file('components/html5shiv-dist/html5shiv.js') => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
           'every_page' => TRUE,
         ),
-      ),
-    ),
-    'variants' => array(
-      'source' => array(
-        'name' => t('Source'),
-        'description' => t('During development it might be useful to include the source files instead of the minified version.'),
-        'files' => array(
-          'js' => array(
-            $path . '/libraries/html5shiv/html5shiv.js' => array(
-              'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-              'weight' => 100,
-              'every_page' => TRUE,
-            ),
-          ),
+        omega_get_theme_trail_file('components/html5shiv-dist/html5shiv-printshiv.js') => array(
+          'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
+          'weight' => 100,
+          'every_page' => TRUE,
         ),
       ),
     ),
@@ -897,13 +885,13 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Goodies'),
     'files' => array(
       'js' => array(
-        $path . '/js/omega.messages.js' => array(
+        omega_get_theme_trail_file('js/omega.messages.js') => array(
           'weight' => -100,
           'every_page' => TRUE,
         ),
       ),
       'css' => array(
-        $path . '/css/omega.messages.css' => array(
+        omega_get_theme_trail_file('css/omega.messages.css') => array(
           'weight' => -100,
           'every_page' => TRUE,
         ),

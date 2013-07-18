@@ -541,14 +541,23 @@ function omega_theme_libraries_info($theme = NULL) {
 
   // Check if the libraries have already been statically cached.
   if (($libraries = &drupal_static(__FUNCTION__)) && isset($libraries[$theme])) {
-    return $libraries[$theme];
+    //return $libraries[$theme];
   };
 
+  // Try to retrieve the library definitions from cache.
+  if (($cache = cache_get("omega:libraries:$theme")) !== FALSE) {
+    //return $libraries[$theme] = $cache->data;
+  }
+
+  // Retrieve the libraries by invoking the hook.
   $libraries[$theme] = omega_invoke_all('omega_theme_libraries_info');
 
   $context = $theme;
   // Give modules and themes a chance to alter the libraries info array.
   drupal_alter('omega_theme_libraries_info', $libraries[$theme], $context);
+
+  // Cache the layout definitions in the database.
+  cache_set("omega:libraries:$theme", $libraries[$theme]);
 
   return $libraries[$theme];
 }
@@ -652,4 +661,37 @@ function omega_check_incompatibility($dependency, $current) {
   $current = preg_replace('/-dev$/', '', $current);
 
   return drupal_check_incompatibility($dependency, $current);
+}
+
+/**
+ * Finds the first occurrence of a given file in the theme trail.
+ *
+ * @param $file
+ *   The relative path to a file.
+ * @param $theme
+ *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
+ *   of the current theme.
+ *
+ * @return string
+ *   The path to the file. If the file does not exist at all, it will simply
+ *   return the path of the file as it would be if it existed in the given theme
+ *   directly. This ensures that the code that uses this function does not break
+ *   if a file does not exist anywhere.
+ */
+function omega_get_theme_trail_file($file, $theme = NULL) {
+  $theme = isset($theme) ? $theme : $GLOBALS['theme_key'];
+
+  // Iterate over all themes in the theme trail (starting with the active theme)
+  // and return the first match.
+  $current = NULL;
+  foreach (array_reverse(omega_theme_trail($theme)) as $name => $info) {
+    $current = drupal_get_path('theme', $name) . '/' . $file;
+    if (file_exists($current)) {
+      return $current;
+    }
+  }
+
+  // The default (fallback) path is the path of the active theme, even if it
+  // does not actually have that file.
+  return $current;
 }
