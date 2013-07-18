@@ -1,5 +1,5 @@
 name = Extended
-description = This is a short description for the Extended starterkit.
+description = Comes with a well organized Sass setup with heavy use of partials.
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x

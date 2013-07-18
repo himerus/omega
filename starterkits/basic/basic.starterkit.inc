@@ -1,5 +1,5 @@
-name = Default
-description = This is a short description for the Default starterkit.
+name = Basic
+description = Provides a simple Sass setup.
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
