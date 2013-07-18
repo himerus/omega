@@ -358,14 +358,10 @@ function drush_omega_export($theme = NULL) {
   $themes = list_themes();
 
   // Insert the theme settings from the database.
-  if ($settings = variable_get('theme_' . $theme . '_settings')) {
-    foreach (_system_default_theme_features() as $feature) {
-      // Remove the 'toggle_foobar' elements from the theme settings array.
-      unset($settings['toggle_' . $feature]);
+  if (!$settings = variable_get('theme_' . $theme . '_settings')) {
+    if (!drush_confirm(dt('There are no theme settings for @theme stored in the database. Do you want to purge the theme settings from the .info file too?', array('@theme' => $themes[$theme]->info['name'])))) {
+      return;
     }
-  }
-  elseif (!drush_confirm(dt('There are no theme settings for @theme stored in the database. Do you want to purge the theme settings from the .info file too?', array('@theme' => $themes[$theme]->info['name'])))) {
-    return;
   }
 
   // Parse the current content of the .info file so we can append the settings
