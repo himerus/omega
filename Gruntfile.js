@@ -19,18 +19,18 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['js/{,**/}*.js', '!js/{,**/}*.js'],
-        tasks: ['jshint', 'uglify']
+        tasks: ['jshint', 'uglify:dev']
       }
     },
 
     compass: {
-      options: {
-        config: 'config.rb',
-        bundleExec: true
-      },
       all: {
-        environment: 'development',
-        force: true
+        options: {
+          environment: 'production',
+          force: true,
+          config: 'config.rb',
+          bundleExec: true
+        }
       }
     },
 

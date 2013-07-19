@@ -32,7 +32,7 @@ output_style = (environment == :production) ? :expanded : :expanded
 # the absolute path to the theme from the server omega.
 relative_assets = true
 
-# Conditionall enable line comments when in development mode.
+# Conditionally enable line comments when in development mode.
 line_comments = (environment == :production) ? false : true
 
 # Output debugging info in development mode.
