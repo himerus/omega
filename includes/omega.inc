@@ -545,7 +545,7 @@ function omega_theme_libraries_info($theme = NULL) {
   };
 
   // Try to retrieve the library definitions from cache.
-  if (($cache = cache_get("omega:libraries:$theme")) !== FALSE) {
+  if (($cache = cache_get("omega:$theme:libraries")) !== FALSE) {
     //return $libraries[$theme] = $cache->data;
   }
 
@@ -557,7 +557,7 @@ function omega_theme_libraries_info($theme = NULL) {
   drupal_alter('omega_theme_libraries_info', $libraries[$theme], $context);
 
   // Cache the layout definitions in the database.
-  cache_set("omega:libraries:$theme", $libraries[$theme]);
+  cache_set("omega:$theme:libraries", $libraries[$theme]);
 
   return $libraries[$theme];
 }
@@ -693,5 +693,5 @@ function omega_theme_trail_file($file, $theme = NULL) {
 
   // The default (fallback) path is the path of the active theme, even if it
   // does not actually have that file.
-  return $current;
+  return drupal_get_path('theme', $theme) . '/' . $file;
 }
