@@ -541,12 +541,12 @@ function omega_theme_libraries_info($theme = NULL) {
 
   // Check if the libraries have already been statically cached.
   if (($libraries = &drupal_static(__FUNCTION__)) && isset($libraries[$theme])) {
-    //return $libraries[$theme];
+    return $libraries[$theme];
   };
 
   // Try to retrieve the library definitions from cache.
   if (($cache = cache_get("omega:$theme:libraries")) !== FALSE) {
-    //return $libraries[$theme] = $cache->data;
+    return $libraries[$theme] = $cache->data;
   }
 
   // Retrieve the libraries by invoking the hook.
