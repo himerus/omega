@@ -781,27 +781,6 @@ function drush_omega_rewrite_recursive($path, $search, $replace) {
     )));
   }
 
-  // Try to rename (move) the file if the name was changed.
-  $original = basename($path);
-  if (($renamed = preg_replace($search, $replace, $original)) === NULL) {
-    return drush_set_error('REWRITE_FAILURE', dt('There was an error while trying to rewrite !path (!search to !replace)', array(
-      '!path' => $path,
-      '!search' => $search,
-      '!replace' => $replace,
-    )));
-  }
-
-  // Move (rename) if the file or directory name was changed.
-  if ($original !== $renamed) {
-    $new = dirname($path) . "/$renamed";
-    if (!drush_move_dir($path, $new, TRUE)) {
-      return FALSE;
-    };
-
-    // Use the changed path from now on.
-    $path = $new;
-  }
-
   // If the file actually is a directory, proceed with the recursion.
   $directory = new DirectoryIterator($path);
   foreach ($directory as $item) {
@@ -829,6 +808,24 @@ function drush_omega_rewrite_recursive($path, $search, $replace) {
       if ($contents !== $changed) {
         file_put_contents($pathname, $changed);
       }
+    }
+
+    // Try to rename (move) the file if the name was changed.
+    $original = basename($pathname);
+    if (($renamed = preg_replace($search, $replace, $original)) === NULL) {
+      return drush_set_error('REWRITE_FAILURE', dt('There was an error while trying to rewrite !path (!search to !replace)', array(
+        '!path' => $path,
+        '!search' => $search,
+        '!replace' => $replace,
+      )));
+    }
+
+    // Move (rename) if the file or directory name was changed.
+    if ($original !== $renamed) {
+      $new = dirname($pathname) . "/$renamed";
+      if (!drush_move_dir($pathname, $new, TRUE)) {
+        return FALSE;
+      };
     }
   }
 
