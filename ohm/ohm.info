@@ -6,9 +6,9 @@ engine = phptemplate
 core = 7.x
 
 ; Stylesheets
-stylesheets[all][] = css/reset.css
-stylesheets[all][] = css/hacks.css
-stylesheets[all][] = css/styles.css
+stylesheets[all][] = css/ohm.normalize.css
+stylesheets[all][] = css/ohm.hacks.css
+stylesheets[all][] = css/ohm.styles.css
 
 ; Regions
 regions[navigation]     = Navigation bar

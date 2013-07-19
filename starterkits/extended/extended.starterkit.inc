@@ -5,9 +5,9 @@ engine = phptemplate
 core = 7.x
 
 ; Styles
-stylesheets[all][] = css/reset.css
-stylesheets[all][] = css/hacks.css
-stylesheets[all][] = css/styles.css
+stylesheets[all][] = css/{{ THEME }}.normalize.css
+stylesheets[all][] = css/{{ THEME }}.hacks.css
+stylesheets[all][] = css/{{ THEME }}.styles.css
 
 ; Regions
 regions[header]         = Header
