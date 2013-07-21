@@ -21,6 +21,16 @@ div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset legend {
   display: block;
 }
 
+.omega-assets-missing-files {
+  color: #8c2e0b;
+  margin: 1em 0 1em 1.5em;
+}
+.omega-assets-missing-files h3 {
+  font-size: .9em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
 .omega-layout-selection-wrapper {
   margin-bottom: 20px;
   min-height: 140px;

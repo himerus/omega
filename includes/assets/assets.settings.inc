@@ -39,7 +39,6 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
   );
 
   $libraries = omega_theme_get_setting('omega_libraries', array());
-
   foreach (omega_theme_libraries_info() as $library => $info) {
     $key = strtolower($info['package']);
     if (!isset($element['omega_libraries'][$key])) {
@@ -57,8 +56,22 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
       '#parents' => array('omega_libraries', $library, 'status'),
     );
 
-    $options = array();
+    if ($missing = omega_extension_assets_check_library($info)) {
+      foreach ($missing as &$file) {
+        $path = drupal_get_path('theme', $form_state['build_info']['args'][0]);
+        $file = strpos($file, $path) === 0 ? substr($file, strlen($path) + 1) : $file;
+      }
 
+      $element['omega_libraries'][$key][$library]['missing'] = array(
+        '#theme' => 'item_list',
+        '#title' => t('Missing files'),
+        '#items' => $missing,
+        '#prefix' => '<div class="omega-assets-missing-files">',
+        '#suffix' => '</div>',
+      );
+    }
+
+    $options = array();
     // Some libraries might want to provide special options.
     if (isset($info['options form']) && function_exists($info['options form'])) {
       // If a library options form callback exists and actually returns some
@@ -68,22 +81,27 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
     }
 
     if (!empty($info['variants'])) {
-      $variants = array();
+      $options['variant'] = array(
+        '#type' => 'radios',
+        '#title' => t('Variant'),
+        '#options' => array('_default' => t('Default')),
+        '#default_value' => !empty($libraries[$library]['variant']) ? $libraries[$library]['variant'] : '_default',
+        '#parents' => array('omega_libraries', $library, 'variant'),
+        '#weight' => -10,
+      );
+
+      $options['variant']['_default'] = array(
+        '#description' => t('The default variant generally is a minified version of the library and provides the optimal production solution in most cases.'),
+      );
+
       foreach ($info['variants'] as $variant => $variant_info) {
-        $variants[$variant] = $variant_info['name'] . (isset($variant_info['description']) ? '<div class="description">' . $variant_info['description'] . '</div>': '');
-      }
+        $options['variant']['#options'][$variant] = $variant_info['name'];
 
-      if (!empty($variants)) {
-        $variants = array_merge(array('_default' => t('Default') . '<div class="description">' . t('The default variant generally is a minified version of the library and provides the optimal production solution in most cases.') . '</div>'), $variants);
-
-        $options['variant'] = array(
-          '#type' => 'radios',
-          '#title' => t('Variant'),
-          '#options' => $variants,
-          '#default_value' => !empty($libraries[$library]['variant']) ? $libraries[$library]['variant'] : '_default',
-          '#parents' => array('omega_libraries', $library, 'variant'),
-          '#weight' => -10,
-        );
+        if (!empty($variant_info['description'])) {
+          $options['variant'][$variant] = array(
+            '#description' => $variant_info['description'],
+          );
+        }
       }
     }
 
@@ -187,4 +205,40 @@ function omega_extension_assets_theme_settings_form_submit($form, &$form_state) 
       }
     }
   }
+}
+
+/**
+ * Checks a library for missing files.
+ *
+ * @param $info
+ *   A library info array.
+ *
+ * @return array
+ *   An array of missing files.
+ */
+function omega_extension_assets_check_library($info) {
+  $missing = array();
+  foreach (array_filter($info['files']) as $files) {
+    foreach ($files as $file => $data) {
+      $file = is_array($data) ? $file : $data;
+      if (!is_file($file)) {
+        $missing[$file] = $file;
+      }
+    }
+  }
+
+  if (!empty($info['variants'])) {
+    foreach ($info['variants'] as $variant) {
+      foreach (array_filter($variant['files']) as $files) {
+        foreach ($files as $file => $data) {
+          $file = is_array($data) ? $file : $data;
+          if (!is_file($file)) {
+            $missing[$file] = $file;
+          }
+        }
+      }
+    }
+  }
+
+  return $missing;
 }
