@@ -9,16 +9,19 @@ module.exports = function (grunt) {
       },
       sass: {
         files: ['sass/{,**/}*.{scss,sass}'],
-        tasks: ['compass:dev']
+        tasks: ['compass:dev'],
+        options: {
+          livereload: false
+        }
       },
       images: {
         files: ['images/**']
       },
       css: {
-        files: ['stylesheets/{,**/}*.css']
+        files: ['css/{,**/}*.css']
       },
       js: {
-        files: ['js/{,**/}*.js', '!js/{,**/}*.js'],
+        files: ['js/{,**/}*.js', '!js/{,**/}*.min.js'],
         tasks: ['jshint', 'uglify:dev']
       }
     },
@@ -76,18 +79,6 @@ module.exports = function (grunt) {
           dest: 'js',
           ext: '.min.js'
         }]
-      },
-      components: {
-        options: {
-          mangle: false,
-          compress: false
-        },
-        files: {
-          'components/matchmedia/matchMedia.min.js': ['components/matchmedia/matchMedia.js'],
-          'components/matchmedia/matchMedia.addListener.min.js':  ['components/matchmedia/matchMedia.addListener.js'],
-          'components/selectivizr/selectivizr.min.js': ['components/selectivizr/selectivizr.js'],
-          'components/css3mediaqueries/css3-mediaqueries.min.js': ['components/css3mediaqueries/css3-mediaqueries.js']
-        }
       }
     }
   });
