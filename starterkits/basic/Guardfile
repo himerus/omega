@@ -2,6 +2,7 @@ notification :off
 
 group :development do
 
+  # Only run Compass if we have a config.rb file in place.
   if File.exists?("config.rb")
     # Compile on start.
     puts `compass compile --time --quiet`
@@ -17,10 +18,10 @@ group :development do
   #guard :shell do
   #  puts 'Monitoring theme files.'
   #
-  #  watch(%r{.+\.info$|^template\.php$|\.((pre)?process|theme)\.inc$|.+\.tpl\.php$}) { |m|
+  #  watch(%r{.+\.(php|inc|info)$}) { |m|
   #    puts 'Change detected: ' + m[0]
-  #    `drush php-eval "system_rebuild_theme_data();"`
-  #    puts 'Cleared info caches.'
+  #    `drush cache-clear theme-registry`
+  #    puts 'Cleared theme registry.'
   #  }
   #end
 

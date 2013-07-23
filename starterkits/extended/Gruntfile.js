@@ -14,6 +14,13 @@ module.exports = function (grunt) {
           livereload: false
         }
       },
+      registry: {
+        files: ['*.info', '{,**}/*.{php,inc}'],
+        tasks: ['shell'],
+        options: {
+          livereload: false
+        }
+      },
       images: {
         files: ['images/**']
       },
@@ -23,6 +30,12 @@ module.exports = function (grunt) {
       js: {
         files: ['js/{,**/}*.js', '!js/{,**/}*.min.js'],
         tasks: ['jshint', 'uglify:dev']
+      }
+    },
+
+    shell: {
+      all: {
+        command: 'drush cache-clear theme-registry"'
       }
     },
 
@@ -87,6 +100,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('build', [
     'uglify:dist',
