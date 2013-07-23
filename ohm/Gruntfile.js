@@ -35,7 +35,7 @@ module.exports = function (grunt) {
 
     shell: {
       all: {
-        command: 'drush cache-clear theme-registry"'
+        command: 'drush cache-clear theme-registry'
       }
     },
 
