@@ -41,7 +41,8 @@ function omega_extension_assets_attach_libraries(&$variables) {
   $registry = theme_get_registry();
 
   // Check if there are any enabled libraries.
-  foreach ($registry['html']['libraries'] as $library => $info) {
+  $libraries = module_exists('devel_themer') ? $registry['html']['original']['libraries'] : $registry['html']['libraries'];
+  foreach ($libraries as $library => $info) {
     drupal_process_attached(array('#attached' => $info['attached']));
 
     if (!empty($info['callbacks'])) {

@@ -378,19 +378,16 @@ function omega_theme() {
 function omega_theme_registry_alter(&$registry) {
   // Fix for integration with the theme developer module.
   if (module_exists('devel_themer')) {
-    $mapping = array(
-      'preprocess' => 'devel_function_preprocess_intercept',
-      'process' => 'devel_function_process_intercept',
-      'theme' => 'devel_function_intercept',
-    );
+    foreach ($registry as $hook => $data) {
+      $registry[$hook] = $data['original'];
+    }
   }
-  else {
-    $mapping = array(
-      'preprocess' => 'preprocess functions',
-      'process' => 'process functions',
-      'theme' => 'function',
-    );
-  }
+
+  $mapping = array(
+    'preprocess' => 'preprocess functions',
+    'process' => 'process functions',
+    'theme' => 'function',
+  );
 
   // We prefer the attributes array instead of the plain classes array used by
   // many core and contrib modules. In Drupal 8, we are going to convert all
@@ -416,7 +413,6 @@ function omega_theme_registry_alter(&$registry) {
   // Keep track of theme function include files that are not directly loaded
   // into the theme registry. This is the case for previously unknown theme
   // hook suggestion implementations.
-  $includes = array();
   foreach ($trail as $theme => $name) {
     // Remove the current element from the trail so we only iterate over
     // higher level themes during subsequent checks.
@@ -552,6 +548,11 @@ function omega_theme_registry_alter(&$registry) {
         }
       }
     }
+  }
+
+  // Fix for integration with the theme developer module.
+  if (module_exists('devel_themer')) {
+    devel_themer_theme_registry_alter($registry);
   }
 }
 
