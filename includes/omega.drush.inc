@@ -637,7 +637,7 @@ function drush_omega_theme_choice($message) {
     $trail = omega_theme_trail($key);
     if (array_key_exists('omega', $trail)) {
       $parent = count($trail) > 1 ? array_slice($trail, -2, 1) : FALSE;
-      $options[$key] = $info->info['name'] . ($parent ? ' (' . dt('Subtheme of @parent', array('@parent' => reset($parent))) . ')' : '');
+      $options[$key] = $info->info['name'] . ($parent ? ' (' . dt('Subtheme of @parent', array('@parent' => reset($parent))) . ')' : '') . ' - ' . strip_tags($info->info['description']);
     }
   }
   return drush_choice($options, $message);

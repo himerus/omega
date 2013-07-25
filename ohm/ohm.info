@@ -1,5 +1,5 @@
 name = Ohm
-description = Omega based demonstration theme.
+description = Omega based demonstration theme. Serves as a best-practice reference for the Omega documentation.
 base theme = omega
 screenshot = screenshot.png
 engine = phptemplate
