@@ -4,7 +4,7 @@
 %island,
 %islet {
   display: block;
-  margin-bottom: $vert-spacing-unit;
+  @include margin-trailer(1);
   @include clearfix(true);
 
   & > :last-child,

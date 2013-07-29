@@ -1,9 +1,5 @@
-@mixin text-invisible {
-  text-indent: -999em;
-}
-
 %text-invisible {
-  @include text-invisible;
+  @include squish-text;
 }
 
 // Hide elements from all users.//

@@ -8,7 +8,7 @@
  * $BASE-TYPOGRAPHY
  */
 html {
-  font-size: 14px;
+  @include establish-baseline($base-font-size);
   font-family: $pt-sans;
   color: $dark-grey;
 }
@@ -17,13 +17,7 @@ html {
  * $LINKS
  */
 a {
-  color: $orange;
-
-  &:hover,
-  &:focus {
-    color: #000;
-    text-decoration: none;
-  }
+  @include link-colors($orange, #000, $pale-orange, $orange, #000);
 }
 
 /**
@@ -35,14 +29,13 @@ h3, .gamma,
 h4, .delta,
 h5, .epsilon,
 h6, .zeta {
-  margin-top: 0;
-  margin-bottom: 0.2em;
+  @include rhythm(0, 0, 0, 0.2);;
   color: darken($mid-grey, 15%);
   font-family: $maven-pro;
-  line-height: 1.2em;
   text-transform: uppercase;
 
-  a {
+  a,
+  a:visited {
     color: inherit;
     text-decoration: none;
   }
@@ -78,7 +71,7 @@ h6, .zeta {
 p,
 %p {
   margin: 0;
-  margin-bottom: 1em;
+  @include rhythm(0, 0, 0, 1);
 }
 p + img {
   float: left;
@@ -90,9 +83,11 @@ p + img {
  */
 blockquote {
   @extend %p;
-  padding: 1em 1.5em;
-  border: 1px solid $dark-blue;
-  border-left-width: 1.2em;
+  @include rhythm(0,1,1,0);
+  padding: 0 1.5em;
+
+  @include rhythm-borders(1px);
+  @include apply-side-rhythm-border(left, 10px);
   font-style: italic;
   color: $dark-blue;
 
