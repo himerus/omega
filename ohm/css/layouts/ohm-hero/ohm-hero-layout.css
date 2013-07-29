@@ -28,7 +28,7 @@
  * $HLIST
  */
 body {
-  background: transparent url('../../../images/diagonal.png?1373900331') left top repeat;
+  background: transparent url('../../../images/diagonal.png?1374091036') left top repeat;
 }
 
 /* Header */
@@ -71,7 +71,7 @@ body {
   background: #FFF;
 }
 
-@media (min-width: 44em) {
+@media (min-width: 38.5em) {
   .l-constrained {
     max-width: 1190px;
   }
@@ -112,7 +112,7 @@ body {
     clear: right;
   }
 }
-@media (min-width: 70em) {
+@media (min-width: 61.25em) {
   .l-constrained {
     max-width: 1190px;
   }
