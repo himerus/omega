@@ -1,5 +1,5 @@
 {
-  "name": "{{ THEME }}",
+  "name": "ohm",
   "version": "1.0.0",
   "dependencies": {
     "respond": "latest",
