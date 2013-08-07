@@ -439,6 +439,11 @@ function omega_theme_registry_alter(&$registry) {
           continue;
         }
 
+        // Skip theme function overrides if they are already declared 'final'.
+        if ($type === 'theme' && !empty($registry[$hook]['final'])) {
+          continue;
+        }
+
         // Name of the function (theme hook or theme function).
         $callback = $type == 'theme' ? $theme . '_' . $hook : $theme . '_' . $type . '_' . $hook;
 
