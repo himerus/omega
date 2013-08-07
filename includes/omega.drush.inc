@@ -146,7 +146,7 @@ function drush_omega_subtheme_validate($name = NULL) {
     if (!drush_omega_resolve_destination($destination)) {
       list($type, $destination) = explode(':', $destination);
 
-      return drush_set_error('OMEGA_DESTINATION_DOEST_NOT_EXIST', dt('The given destination @destination of type @type does not exist. Did you misspell it?', array(
+      return drush_set_error('OMEGA_DESTINATION_DOES_NOT_EXIST', dt('The given destination @destination of type @type does not exist. Did you misspell it?', array(
         '@destination' => $destination,
         '@type' => $type,
       )));
