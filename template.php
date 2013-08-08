@@ -315,6 +315,20 @@ function omega_css_alter(&$css) {
  * Implements hook_js_alter().
  */
 function omega_js_alter(&$js) {
+  // If the AJAX.js isn't included... we don't need the ajaxPageState settings!
+  if ( ! isset($js['misc/ajax.js']) && isset($js['settings']['data'])) {
+    foreach ($js['settings']['data'] as $delta => $setting) {
+      if (array_key_exists('ajaxPageState', $setting)) {
+        if (count($setting) == 1) {
+          unset($js['settings']['data'][$delta]);
+        }
+        else {
+          unset($js['settings']['data'][$delta]['ajaxPageState']);
+        }
+      }
+    }
+  }
+
   if (!omega_extension_enabled('assets')) {
     return;
   }
