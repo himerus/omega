@@ -5,6 +5,7 @@ engine = phptemplate
 core = 7.x
 
 ; Styles
+stylesheets[all][] = css/{{ THEME }}.normalize.css
 stylesheets[all][] = css/{{ THEME }}.styles.css
 
 ; Regions
