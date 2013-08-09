@@ -11,7 +11,7 @@
 ;
 ; Now you can invoke 'drush make' using the following command:
 ;
-; $ drush make omega.make --no-core --contrib-destination=.
+; $ drush make libraries.make --no-core --contrib-destination=.
 ;
 ; ##############################################################################
 

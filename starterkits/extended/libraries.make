@@ -16,7 +16,7 @@
 ;
 ; Now you can invoke 'drush make' using the following command:
 ;
-; $ drush make {{ THEME }}.make --no-core --contrib-destination=.
+; $ drush make libraries.make --no-core --contrib-destination=.
 ;
 ; ##############################################################################
 

@@ -26,6 +26,7 @@ function omega_drush_command() {
       'enable' => dt('Automatically enable the subtheme after creation.'),
       'set-default' => dt('Automatically enable the subtheme after creation and make it the default theme.'),
       'no-readme' => dt('Skips readme files when generating the subtheme.'),
+      'get-libraries' => dt("Automatically executes the theme's libraries.make file (if one exists) to download the contained libraries.")
     ),
     'examples' => array(
       'drush omega-subtheme "My Theme"' => dt('Creates an Omega subtheme called "My Theme".'),
@@ -265,7 +266,7 @@ function drush_omega_subtheme($name) {
   drupal_theme_rebuild();
   system_rebuild_theme_data();
 
-  if ($default = drush_get_option('set-default') || !drush_get_option('enable')) {
+  if (($default = drush_get_option('set-default')) || !drush_get_option('enable')) {
     // Enable the subtheme.
     drush_op('theme_enable', array($machine_name));
 
@@ -273,6 +274,16 @@ function drush_omega_subtheme($name) {
       // Make the newly created subtheme the default theme.
       drush_op('variable_set', 'theme_default', $machine_name);
     }
+  }
+
+  // Execute the theme's libraries.make file.
+  if ($libraries = drush_get_option('get-libraries')) {
+    drush_op('chdir', $destination);
+    drush_invoke_process('@self', 'make', array('libraries.make'), array(
+      'no-core' => TRUE,
+      'contrib-destination' => '.',
+      'yes' => TRUE,
+    ));
   }
 
   drush_log(dt('You have successfully created the theme @theme (@name) in @path.', array(
@@ -328,6 +339,12 @@ function drush_omega_wizard() {
     drush_set_option('set-default', drush_confirm(dt('Do you want to make your new theme the default theme?')));
   }
   drush_set_option('enable', $enable);
+
+  // Automatically download libraries if the theme has a libraries.make file.
+  $starterkits = omega_discovery('starterkit', $basetheme);
+  if (is_file("{$starterkits[$starterkit]['path']}/libraries.make")) {
+    drush_set_option('get-libraries', TRUE);
+  }
 
   drush_invoke('omega-subtheme', $name);
 }
