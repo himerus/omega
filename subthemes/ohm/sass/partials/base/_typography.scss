@@ -39,6 +39,9 @@ h6, .zeta {
     color: inherit;
     text-decoration: none;
   }
+  a:hover {
+    color: $dark-blue;
+  }
 }
 
 h1, .alpha {
@@ -83,7 +86,7 @@ p + img {
  */
 blockquote {
   @extend %p;
-  @include rhythm(0,1,1,0);
+  @include rhythm(0, 1, 1, 1);
   padding: 0 1.5em;
 
   @include rhythm-borders(1px);
