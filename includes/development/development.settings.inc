@@ -53,6 +53,17 @@ function omega_extension_development_settings_form($element, &$form, $form_state
     ),
   );
 
+  $host = omega_theme_get_setting('omega_livereload_host', $GLOBALS['base_url']);
+  $port = omega_theme_get_setting('omega_livereload_port', '35729');
+  $element['omega_livereload_settings']['omega_livereload_script'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Script URL'),
+    '#description' => t('The URL from which to load the script. When running LiveReload through Guard or Grunt the
+      script can be retrieved from wherever Guard or Grunt are running.'),
+    '#default_value' => omega_theme_get_setting('omega_livereload_script', "$host:$port/livereload.js"),
+    '#size' => 10,
+  );
+
   $element['omega_livereload_settings']['omega_livereload_host'] = array(
     '#type' => 'textfield',
     '#title' => t('Host'),
@@ -62,7 +73,7 @@ function omega_extension_development_settings_form($element, &$form, $form_state
       please only specify a custom host if the LiveReload server is hosted elsewhere. Normally, this is only the case if you are
       running your website on a virtual machine whilest the LiveReload server runs on the host environment. In this case
       you would specify 'localhost' as the host."),
-    '#default_value' => omega_theme_get_setting('omega_livereload_host', 'localhost'),
+    '#default_value' => $host,
     '#size' => 30,
   );
 
@@ -72,7 +83,7 @@ function omega_extension_development_settings_form($element, &$form, $form_state
     '#description' => t('The port through which the LiveReload server can be reached. By default livereload.js tries to connect
       to port 35729 which is also the default for LiveReload server. Therefore, please only specify a custom port if the
       LiveReload server is running on a different port.'),
-    '#default_value' => omega_theme_get_setting('omega_livereload_port'),
+    '#default_value' => $port,
     '#size' => 10,
   );
 

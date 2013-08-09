@@ -29,15 +29,15 @@ function omega_extension_development_preprocess_html(&$variables) {
   $path = drupal_get_path('theme', 'omega');
 
   if (omega_theme_get_setting('omega_livereload', TRUE)) {
-    $options = array();
-    if ($host = omega_theme_get_setting('omega_livereload_host', 'localhost')) {
+    $options = array('absolute' => TRUE);
+    if (($host = omega_theme_get_setting('omega_livereload_host', 'localhost')) != 'localhost') {
       // If no host is specificed livereload.js will use the host that it is
       // served from (e.g. if livereload.js is served from example.com it will
       // try to connect to a livereload server on example.com.
       $options['host'] = $host;
     }
 
-    if ($port = omega_theme_get_setting('omega_livereload_port')) {
+    if (($port = omega_theme_get_setting('omega_livereload_port', '35729')) != '35729') {
       // If no port is specified the livereload.js script will use the default
       // port (35729).
       $options['port'] = $port;
@@ -45,8 +45,9 @@ function omega_extension_development_preprocess_html(&$variables) {
 
     // We need to add livereload.js as external script with an absolute path
     // because otherwise Drupal core messes with the query string.
-    $file = url(file_create_url(omega_theme_trail_file('components/livereload/dist/livereload.js')), array('query' => $options, 'external' => TRUE));
-    drupal_add_js($file, array(
+    $script = omega_theme_get_setting('omega_livereload_script', 'http://localhost:35729/livereload.js');
+    drupal_add_js(url($script, $options), array(
+      'preprocess' => FALSE,
       'type' => 'external',
       'browsers' => array(
         'IE' => FALSE,
