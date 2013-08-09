@@ -18,6 +18,7 @@ require 'compass-normalize'
 require 'rgbapng'
 require 'toolkit'
 require 'susy'
+require 'sass-globbing'
 
 ##
 ## You probably don't need to edit anything below this.
