@@ -6,6 +6,14 @@
 ## file for more information.
 ##
 
+# Default to development if environment is not set.
+saved = environment
+if (environment.nil?)
+  environment = :development
+else
+  environment = saved
+end
+
 # Location of the theme's resources.
 css_dir = "css"
 sass_dir = "sass"
@@ -18,6 +26,7 @@ require 'compass-normalize'
 require 'rgbapng'
 require 'toolkit'
 require 'susy'
+require 'sass-globbing'
 
 ##
 ## You probably don't need to edit anything below this.
@@ -25,7 +34,7 @@ require 'susy'
 
 # You can select your preferred output style here (:expanded, :nested, :compact
 # or :compressed).
-output_style = (environment == :production) ? :expanded : :expanded
+output_style = (environment == :production) ? :expanded : :nested
 
 # To enable relative paths to assets via compass helper functions. Since Drupal
 # themes can be installed in multiple locations, we don't need to worry about
