@@ -732,7 +732,7 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
-        omega_theme_trail_file('components/selectivizr/selectivizr.min.js') => array(
+        omega_theme_trail_file('libraries/selectivizr/selectivizr.min.js') => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 110,
           'every_page' => TRUE,
@@ -745,42 +745,9 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            omega_theme_trail_file('components/selectivizr/selectivizr.js') => array(
+            omega_theme_trail_file('libraries/selectivizr/selectivizr.js') => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 110,
-              'every_page' => TRUE,
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
-
-  $libraries['css3mediaqueries'] = array(
-    'name' => t('CSS3 Media Queries'),
-    'description' => t('CSS3 Media Queries is a JavaScript library to make IE 5+, Firefox 1+ and Safari 2 transparently parse, test and apply CSS3 Media Queries. Firefox 3.5+, Opera 7+, Safari 3+ and Chrome already offer native support. Note: This library requires <a href="!url">CSS aggregation</a> to be enabled for it to work properly.', array('!url' => url('admin/config/development/performance', array('alias' => TRUE)))),
-    'vendor' => 'Wouter van der Graaf',
-    'vendor url' => 'http://woutervandergraaf.nl/',
-    'package' => t('Polyfills'),
-    'callbacks' => array('omega_extension_library_requirements_css_aggregation'),
-    'files' => array(
-      'js' => array(
-        omega_theme_trail_file('components/css3mediaqueries/css3-mediaqueries.min.js') => array(
-          'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-          'weight' => 100,
-          'every_page' => TRUE,
-        ),
-      ),
-    ),
-    'variants' => array(
-      'source' => array(
-        'name' => t('Source'),
-        'description' => t('During development it might be useful to include the source files instead of the minified version.'),
-        'files' => array(
-          'js' => array(
-            omega_theme_trail_file('components/css3mediaqueries/css3-mediaqueries.js') => array(
-              'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-              'weight' => 100,
               'every_page' => TRUE,
             ),
           ),
@@ -798,7 +765,7 @@ function omega_omega_theme_libraries_info($theme) {
     'callbacks' => array('omega_extension_library_requirements_css_aggregation'),
     'files' => array(
       'js' => array(
-        omega_theme_trail_file('components/respond/respond.min.js') => array(
+        omega_theme_trail_file('libraries/respond/respond.min.js') => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 120,
           'every_page' => TRUE,
@@ -811,7 +778,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            omega_theme_trail_file('components/respond/respond.src.js') => array(
+            omega_theme_trail_file('libraries/respond/respond.js') => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 120,
               'every_page' => TRUE,
@@ -836,7 +803,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('While the .htc behavior is still the recommended approach for most users, the JS version has some advantages that may be a better fit for some users.'),
         'files' => array(
           'js' => array(
-            omega_theme_trail_file('components/bower-pie/build/PIE.js') => array(
+            omega_theme_trail_file('libraries/pie/PIE.js') => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
               'every_page' => TRUE,
@@ -856,7 +823,7 @@ function omega_omega_theme_libraries_info($theme) {
 
     // Save the generated CSS in the public file system.
     $file = $destination . '/pie-selectors.css';
-    $htc = base_path() . omega_theme_trail_file('components/bower-pie/build/PIE.htc');
+    $htc = base_path() . omega_theme_trail_file('libraries/pie/PIE.htc');
     $contents = implode(",", $settings['css3pie']['selectors']) . "{behavior:url($htc)}";
     file_unmanaged_save_data($contents, $file, FILE_EXISTS_REPLACE);
 
@@ -885,15 +852,35 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
-        omega_theme_trail_file('components/html5shiv-dist/html5shiv.js') => array(
+        omega_theme_trail_file('libraries/html5shiv/html5shiv.js') => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
           'every_page' => TRUE,
         ),
-        omega_theme_trail_file('components/html5shiv-dist/html5shiv-printshiv.js') => array(
+        omega_theme_trail_file('libraries/html5shiv/html5shiv-printshiv.js') => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
           'every_page' => TRUE,
+        ),
+      ),
+    ),
+    'variants' => array(
+      'source' => array(
+        'name' => t('Source'),
+        'description' => t('During development it might be useful to include the source files instead of the minified version.'),
+        'files' => array(
+          'js' => array(
+            omega_theme_trail_file('libraries/html5shiv/html5shiv.min.js') => array(
+              'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
+              'weight' => 100,
+              'every_page' => TRUE,
+            ),
+            omega_theme_trail_file('libraries/html5shiv/html5shiv-printshiv.min.js') => array(
+              'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
+              'weight' => 100,
+              'every_page' => TRUE,
+            ),
+          ),
         ),
       ),
     ),

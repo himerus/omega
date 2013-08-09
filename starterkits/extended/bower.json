@@ -2,14 +2,10 @@
   "name": "{{ THEME }}",
   "version": "1.0.0",
   "dependencies": {
-    "respond": "latest",
-    "selectivizr": "latest",
-    "html5shiv-dist": "latest",
-    "matchmedia": "latest",
-    "bower-pie": "latest",
-    "css3mediaqueries": "livingston/css3-mediaqueries-js"
-  },
-  "devDependencies": {
-    "livereload": "livereload/livereload-js"
+    "respond": "fubhy/respond",
+    "selectivizr": "fubhy/selectivizr",
+    "html5shiv": "fubhy/html5shiv",
+    "matchmedia": "fubhy/matchmedia",
+    "pie": "fubhy/pie"
   }
 }
