@@ -3,6 +3,8 @@
  * System utility classes.
  */
 
+@import "compass/utilities/general/clearfix";
+
 /**
  * Inline items.
  */
@@ -71,10 +73,8 @@ html.js .js-hide {
 }
 
 /**
- * Use the clearfix from toolkit.
+ * Use the clearfix from Compass.
  */
-@import "toolkit-no-css";
-
 .clearfix {
-  @include clearfix(true);
+  @include pie-clearfix;
 }
