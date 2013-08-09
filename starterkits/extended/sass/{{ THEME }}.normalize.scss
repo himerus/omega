@@ -1,5 +1,13 @@
 // Include the variables.
-@import "partials/utility";
+@import "partials/utility/**/*";
 
 // Generate normalize.css.
 @import "normalize";
+
+// Use 'border-box' for the box model.
+@import "toolkit/border-box";
+
+// Override the Drupal core clearfix version.
+.clearfix {
+  @include clearfix(true);
+}
