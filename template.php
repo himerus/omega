@@ -579,8 +579,7 @@ function omega_theme_registry_alter(&$registry) {
  * Initializes the attributes array from the classes array.
  */
 function omega_initialize_attributes(&$variables) {
-  $variables['attributes_array']['class'] = $variables['classes_array'];
-  $variables['classes_array'] = &$variables['attributes_array']['class'];
+  $variables['attributes_array']['class'] = &$variables['classes_array'];
 }
 
 /**
@@ -588,7 +587,7 @@ function omega_initialize_attributes(&$variables) {
  */
 function omega_cleanup_attributes(&$variables, $hook) {
   // Break the reference between the classes array and the attributes array.
-  $classes = !empty($variables['attributes_array']['class']) ? $variables['attributes_array']['class'] : array();
+  $classes = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
   unset($variables['attributes_array']['class'], $variables['classes_array']);
 
   // Clone the attributes array classes into the classes array for backwards
