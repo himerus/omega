@@ -28,7 +28,7 @@
   display: inline;
 }
 
-@include at-breakpoint($tab) {
+@include breakpoint($tab) {
   .comment__info {
     float: left;
     width: 25%;

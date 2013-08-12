@@ -11,7 +11,10 @@ body {
 }
 
 .l-constrained {
-  @extend %container;
+  width: 95%;
+  margin: 0 auto;
+  @include grid-background;
+  @include pie-clearfix;
 }
 
 /* Header */
@@ -52,63 +55,62 @@ body {
   background: #FFF;
 }
 
-@include at-breakpoint($tab) {
+@include breakpoint($tab) {
   .l-constrained {
-    @include set-container-width;
+    width: 90%;
   }
 
   /* Header */
   .l-branding {
-    @include span-columns(3, 12);
+    @include grid-span(3, 1);
   }
   .l-region--navigation {
-    @include span-columns(6, 12);
+    @include grid-span(6, 5);
   }
   .l-region--header {
-    @include span-columns(3 omega, 12);
+    @include grid-span(3, 10);
   }
 
   /* Sidebars */
   .two-sidebars,
   .one-sidebar {
     .l-content {
-      @include span-columns(8, 12);
+      @include grid-span(8, 1);
     }
     .l-region--sidebar-first,
     .l-region--sidebar-second {
-      @include span-columns(4 omega, 12);
+      @include grid-span(4, 9);
       clear: right;
     }
   }
 }
 
-@include at-breakpoint($desk) {
+@include breakpoint($desk) {
   .l-constrained {
-    @include set-container-width;
+    width: 80%;
   }
 
   /* Sidebars */
   .one-sidebar {
     .l-content {
-      @include span-columns(8, 12);
+      @include grid-span(8, 1);
     }
     .l-region--sidebar-first {
-      @include span-columns(4, 12);
-      @include omega;
+      @include grid-span(4, 9);
       clear: none;
     }
   }
   .two-sidebars {
     .l-content {
-      @include span-columns(6, 12);
+      @include grid-span(6, 1);
     }
     .l-region--sidebar-first,
     .l-region--sidebar-second {
-      @include span-columns(3, 12);
+      @include grid-span(3, 7);
       clear: none;
     }
     .l-region--sidebar-second {
-      @include omega;
+      @include grid-span(3, 10);
     }
   }
 }
