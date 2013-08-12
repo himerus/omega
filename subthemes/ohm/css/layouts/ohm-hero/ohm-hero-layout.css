@@ -4,20 +4,6 @@
  * Styling of the "simple" layout demonstrating the Compass grid extension Susy
  * and building mobile first layouts.
  ******************************************************************************/
-.l-constrained {
-  *zoom: 1;
-  max-width: 1190px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.l-constrained:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
 /**
  * $ISLAND
  */
@@ -28,7 +14,18 @@
  * $HLIST
  */
 body {
-  background: transparent url('../../../images/diagonal.png?1374091036') left top repeat;
+  background: transparent url('../../../images/diagonal.png?1376234678') left top repeat;
+}
+
+.l-constrained {
+  width: 95%;
+  margin: 0 auto;
+  *zoom: 1;
+}
+.l-constrained:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 /* Header */
@@ -71,81 +68,100 @@ body {
   background: #FFF;
 }
 
-@media (min-width: 38.5em) {
+@media (min-width: 44em) {
   .l-constrained {
-    max-width: 1190px;
+    width: 90%;
   }
 
   /* Header */
   .l-branding {
-    width: 23.72881%;
+    width: 23.40426%;
     float: left;
-    margin-right: 1.69492%;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
   }
 
   .l-region--navigation {
-    width: 49.15254%;
+    width: 48.93617%;
     float: left;
-    margin-right: 1.69492%;
+    margin-right: -100%;
+    margin-left: 34.04255%;
+    clear: none;
   }
 
   .l-region--header {
-    width: 23.72881%;
+    width: 23.40426%;
     float: right;
+    margin-left: 0;
     margin-right: 0;
+    clear: none;
   }
 
   /* Sidebars */
   .two-sidebars .l-content,
   .one-sidebar .l-content {
-    width: 66.10169%;
+    width: 65.95745%;
     float: left;
-    margin-right: 1.69492%;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
   }
   .two-sidebars .l-region--sidebar-first,
   .two-sidebars .l-region--sidebar-second,
   .one-sidebar .l-region--sidebar-first,
   .one-sidebar .l-region--sidebar-second {
-    width: 32.20339%;
+    width: 31.91489%;
     float: right;
+    margin-left: 0;
     margin-right: 0;
+    clear: none;
     clear: right;
   }
 }
-@media (min-width: 61.25em) {
+@media (min-width: 70em) {
   .l-constrained {
-    max-width: 1190px;
+    width: 80%;
   }
 
   /* Sidebars */
   .one-sidebar .l-content {
-    width: 66.10169%;
+    width: 65.95745%;
     float: left;
-    margin-right: 1.69492%;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
   }
   .one-sidebar .l-region--sidebar-first {
-    width: 32.20339%;
-    float: left;
-    margin-right: 1.69492%;
+    width: 31.91489%;
     float: right;
+    margin-left: 0;
     margin-right: 0;
+    clear: none;
     clear: none;
   }
 
   .two-sidebars .l-content {
-    width: 49.15254%;
+    width: 48.93617%;
     float: left;
-    margin-right: 1.69492%;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
   }
   .two-sidebars .l-region--sidebar-first,
   .two-sidebars .l-region--sidebar-second {
-    width: 23.72881%;
+    width: 23.40426%;
     float: left;
-    margin-right: 1.69492%;
+    margin-right: -100%;
+    margin-left: 51.06383%;
+    clear: none;
     clear: none;
   }
   .two-sidebars .l-region--sidebar-second {
+    width: 23.40426%;
     float: right;
+    margin-left: 0;
     margin-right: 0;
+    clear: none;
   }
 }
