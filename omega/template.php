@@ -623,12 +623,18 @@ function omega_template_process_html_override(&$variables) {
  */
 function omega_block_list_alter(&$blocks) {
   if (omega_extension_enabled('layouts') && $layout = omega_layout()) {
-    // In case we are currently serving a Omega layout we have to make sure that
-    // we don't process blocks that will never be shown because the active layout
-    // does not even have a region for them.
-    foreach ($blocks as $id => $block) {
-      if (!array_key_exists($block->region, $layout['info']['regions'])) {
-        unset($blocks[$id]);
+    $callers = debug_backtrace();
+
+    // Check if drupal_alter() was invoked from _block_load_blocks(). This is
+    // required as we do not want to interfere with contrib modules like ctools.
+    if ($callers['2']['function'] === '_block_load_blocks') {
+      // In case we are currently serving a Omega layout we have to make sure that
+      // we don't process blocks that will never be shown because the active layout
+      // does not even have a region for them.
+      foreach ($blocks as $id => $block) {
+        if (!array_key_exists($block->region, $layout['info']['regions'])) {
+          unset($blocks[$id]);
+        }
       }
     }
   }
