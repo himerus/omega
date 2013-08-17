@@ -50,7 +50,7 @@ function omega_extension_development_preprocess_html(&$variables) {
 
     // We need to add livereload.js as external script with an absolute path
     // because otherwise Drupal core messes with the query string.
-    $script = empty($query) ? $script : $query . '?' . http_build_query($query);
+    $script = empty($query) ? $script : $script . '?' . http_build_query($query);
     drupal_add_js($script, array(
       'preprocess' => FALSE,
       'type' => 'external',
