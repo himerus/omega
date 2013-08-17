@@ -75,6 +75,9 @@ function omega_drush_command() {
     'arguments' => array(
       'theme' => dt('The machine-readable name of the theme to revert the theme settings for.'),
     ),
+    'options' => array(
+      'all' => dt('Reverts the theme settings of all Omega sub-themes.'),
+    ),
     'examples' => array(
       'drush omega-revert foo' => dt('Reverts the theme settings of the "foo" theme.'),
     ),
@@ -422,22 +425,41 @@ function drush_omega_revert_validate($theme = NULL) {
  *   (optional) The machine-readable name of a theme.
  */
 function drush_omega_revert($theme = NULL) {
-  if (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to revert the theme settings for?'))) {
+  if (drush_get_option('all')) {
+    // Get a list of all Omega sub-themes.
+    $themes = array();
+    foreach (list_themes() as $key => $info) {
+      $trail = omega_theme_trail($key);
+      if (array_key_exists('omega', $trail)) {
+        $themes[$key] = $info->info['name'];
+      }
+    }
+
+    // Get confirmation from user.
+    drush_print(dt('The settings for the following themes will be reverted: @themes', array('@themes' => implode(', ', $themes))));
+    if (!drush_confirm(dt('Do you really want to continue?'))) {
+      return;
+    }
+  }
+  elseif (!isset($theme) && !$theme = drush_omega_theme_choice(dt('Which theme do you want to revert the theme settings for?'))) {
     return;
   }
 
-  $themes = list_themes();
-  // Delete the theme settings variable for the given theme.
-  drush_op('variable_del', 'theme_' . $theme . '_settings');
+  $info = list_themes();
+  $themes = isset($themes) ? $themes : array($theme => $info[$theme]->info['name']);
+  foreach ($themes as $theme => $name) {
+    // Delete the theme settings variable for the given theme.
+    drush_op('variable_del', 'theme_' . $theme . '_settings');
 
-  // Clear the theme cache.
-  cache_clear_all('omega:' . $theme . ':', 'cache', TRUE);
+    // Clear the theme cache.
+    cache_clear_all('omega:' . $theme . ':', 'cache', TRUE);
+  }
 
   // Rebuild the theme data for good measure.
   drupal_theme_rebuild();
   system_rebuild_theme_data();
 
-  drush_log(dt('You have successfully reverted the theme settings for the @theme theme.', array('@theme' => $themes[$theme]->info['name'])), 'success');
+  drush_log(dt('You have successfully reverted the theme settings for these themes: @themes.', array('@themes' => implode(', ', $themes))), 'success');
 }
 
 /**
