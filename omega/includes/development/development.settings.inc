@@ -58,8 +58,8 @@ function omega_extension_development_settings_form($element, &$form, $form_state
     '#type' => 'textfield',
     '#title' => t('Script URL'),
     '#description' => t("The URL from which to load the script. When running LiveReload through Guard or Grunt the
-      script can be retrieved from wherever Guard or Grunt are running. Do not add any protocol prefixes (e.g. 'http://')."),
-    '#default_value' => omega_theme_get_setting('omega_livereload_script', "$host:$port/livereload.js"),
+      script can be retrieved from wherever Guard or Grunt are running."),
+    '#default_value' => omega_theme_get_setting('omega_livereload_script', "http://$host:$port/livereload.js"),
     '#size' => 10,
   );
 
