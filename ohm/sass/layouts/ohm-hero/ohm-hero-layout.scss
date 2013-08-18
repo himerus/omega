@@ -34,6 +34,9 @@ body {
   padding: $vert-spacing-unit 0;
   background: #FFF;
 }
+.l-region--highlighted {
+  @extend .l-constrained;
+}
 .l-region--help {
   margin-bottom: $vert-spacing-unit;
 }
@@ -53,6 +56,9 @@ body {
 .l-footer-wrapper {
   padding: $vert-spacing-unit 0;
   background: #FFF;
+}
+.l-region--footer {
+  @extend .l-constrained;
 }
 
 @include breakpoint($tab) {
