@@ -71,7 +71,7 @@ body {
     @include grid-span(3, 1);
   }
   .l-region--navigation {
-    @include grid-span(6, 5);
+    @include grid-span(6, 4);
   }
   .l-region--header {
     @include grid-span(3, 10);
