@@ -14,15 +14,15 @@
  * $HLIST
  */
 body {
-  background: transparent url('../../../images/diagonal.png?1376234678') left top repeat;
+  background: transparent url('../../../images/diagonal.png?1376778393') left top repeat;
 }
 
-.l-constrained {
+.l-constrained, .l-region--highlighted, .l-region--footer {
   width: 95%;
   margin: 0 auto;
   *zoom: 1;
 }
-.l-constrained:after {
+.l-constrained:after, .l-region--highlighted:after, .l-region--footer:after {
   content: "";
   display: table;
   clear: both;
@@ -69,7 +69,7 @@ body {
 }
 
 @media (min-width: 44em) {
-  .l-constrained {
+  .l-constrained, .l-region--highlighted, .l-region--footer {
     width: 90%;
   }
 
@@ -120,7 +120,7 @@ body {
   }
 }
 @media (min-width: 70em) {
-  .l-constrained {
+  .l-constrained, .l-region--highlighted, .l-region--footer {
     width: 80%;
   }
 
