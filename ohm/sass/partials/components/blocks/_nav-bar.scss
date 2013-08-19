@@ -8,17 +8,26 @@
 
   a {
     display: block;
-    padding: 1em;
+    padding: 1.2em 1em;
 
-    border-left: 1px solid #FFF;
-
-    @include font-size(20px);
+    @include font-size(16px);
     text-transform: uppercase;
     text-decoration: none;
     color: #FFF;
+
+    &:hover,
+    &:focus {
+      color: $dark-blue;
+    }
   }
 
-  li:last-child a {
-    border-right: 1px solid #FFF;
+  @include breakpoint(600px) {
+    a {
+      @include font-size(18px);
+      border-left: 1px solid #FFF;
+    }
+    li:last-child a {
+      border-right: 1px solid #FFF;
+    }
   }
 }
