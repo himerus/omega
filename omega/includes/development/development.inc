@@ -5,18 +5,22 @@
  * Main extension file for the 'development' extension.
  */
 
+// The development extension has some additional tasks that need to run on every
+// page load (@see _omega_extension_development_boot()).
+if (drupal_get_bootstrap_phase() >= DRUPAL_BOOTSTRAP_DATABASE && $GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega' || (!empty($GLOBALS['base_theme_info']) && $GLOBALS['base_theme_info'][0]->name == 'omega'))) {
+  if (user_access('administer site configuration')) {
+    _omega_extension_development_boot();
+  }
+}
+
 /**
  * Implements hook_extension_EXTENSION_registry_alter().
  */
 function omega_extension_development_theme_registry_alter(&$registry) {
   if (omega_theme_get_setting('omega_demo_regions', TRUE) || omega_theme_get_setting('omega_livereload', TRUE) || omega_theme_get_setting('omega_browser_width_indicator', FALSE)) {
-    $file = drupal_get_path('theme', 'omega') . '/includes/development/development.inc';
-
-    $registry['html']['includes'][] = $file;
     $registry['html']['preprocess functions'][] = 'omega_extension_development_preprocess_html';
 
     if (omega_theme_get_setting('omega_demo_regions', TRUE)) {
-      $registry['region']['includes'][] = $file;
       $registry['region']['preprocess functions'][] = 'omega_extension_development_preprocess_region';
     }
   }
@@ -42,7 +46,7 @@ function omega_extension_development_preprocess_html(&$variables) {
     }
 
     if (!isset($parsed['host']) || $parsed['host'] != $host) {
-      // If no host is specificed livereload.js will use the host that it is
+      // If no host is specified livereload.js will use the host that it is
       // served from (e.g. if livereload.js is served from example.com it will
       // try to connect to a livereload server on example.com.
       $query['host'] = $host;
@@ -87,5 +91,55 @@ function omega_extension_development_preprocess_region(&$variables) {
 
     $variables['attributes_array']['class'][] = 'region--debug';
     $variables['attributes_array']['class'][] = $class;
+  }
+}
+
+/**
+ * Helper function for bootstrap related tasks that need to run on every page.
+ */
+function _omega_extension_development_boot() {
+  // Managing debugging (flood) messages and a few development tasks. This also
+  // lives outside of any function declaration to make sure that the code is
+  // executed before any theme hooks.
+  if (variable_get('theme_' . $GLOBALS['theme'] . '_settings') && flood_is_allowed('omega_' . $GLOBALS['theme'] . '_theme_settings_warning', 3)) {
+    // Alert the user that the theme settings are served from a variable.
+    flood_register_event('omega_' . $GLOBALS['theme'] . '_theme_settings_warning');
+    drupal_set_message(t('The settings for this theme are currently served from a variable. You might want to export them to your .info file.'), 'warning');
+  }
+
+  // Rebuild the theme registry / aggregates on every page load if the
+  // development extension is enabled and configured to do so.
+  if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
+    // Rebuild the theme data.
+    system_rebuild_theme_data();
+    // Rebuild the theme registry.
+    drupal_theme_rebuild();
+
+    if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning', 3)) {
+      // Alert the user that the theme registry is being rebuilt on every
+      // request.
+      flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning');
+      drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
+    }
+  }
+
+  if (omega_theme_get_setting('omega_rebuild_aggregates', FALSE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
+    foreach (array('css', 'js') as $type) {
+      variable_del('drupal_' . $type . '_cache_files');
+
+      foreach (file_scan_directory('public://' . $type . '', '/.*/') as $file) {
+        // Delete files that are older than 20 seconds.
+        if (REQUEST_TIME - filemtime($file->uri) > 20) {
+          file_unmanaged_delete($file->uri);
+        }
+      };
+    }
+
+    if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning', 3)) {
+      // Alert the user that the theme registry is being rebuilt on every
+      // request.
+      flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning');
+      drupal_set_message(t('The CSS and JS aggregates are being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
+    }
   }
 }

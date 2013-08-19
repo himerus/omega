@@ -8,52 +8,10 @@
 require_once dirname(__FILE__) . '/includes/omega.inc';
 require_once dirname(__FILE__) . '/includes/scripts.inc';
 
-if (drupal_get_bootstrap_phase() >= DRUPAL_BOOTSTRAP_DATABASE && $GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega' || (!empty($GLOBALS['base_theme_info']) && $GLOBALS['base_theme_info'][0]->name == 'omega'))) {
-  // Managing debugging (flood) messages and a few development tasks. This also
-  // lives outside of any function declaration to make sure that the code is
-  // executed before any theme hooks.
-  if (omega_extension_enabled('development') && user_access('administer site configuration')) {
-    if (variable_get('theme_' . $GLOBALS['theme'] . '_settings') && flood_is_allowed('omega_' . $GLOBALS['theme'] . '_theme_settings_warning', 3)) {
-      // Alert the user that the theme settings are served from a variable.
-      flood_register_event('omega_' . $GLOBALS['theme'] . '_theme_settings_warning');
-      drupal_set_message(t('The settings for this theme are currently served from a variable. You might want to export them to your .info file.'), 'warning');
-    }
-
-    // Rebuild the theme registry / aggregates on every page load if the
-    // development extension is enabled and configured to do so.
-    if (omega_theme_get_setting('omega_rebuild_theme_registry', FALSE)) {
-      // Rebuild the theme data.
-      system_rebuild_theme_data();
-      // Rebuild the theme registry.
-      drupal_theme_rebuild();
-
-      if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning', 3)) {
-        // Alert the user that the theme registry is being rebuilt on every
-        // request.
-        flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_registry_warning');
-        drupal_set_message(t('The theme registry is being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
-      }
-    }
-
-    if (omega_theme_get_setting('omega_rebuild_aggregates', FALSE) && variable_get('preprocess_css', FALSE) && (!defined('MAINTENANCE_MODE') || MAINTENANCE_MODE != 'update')) {
-      foreach (array('css', 'js') as $type) {
-        variable_del('drupal_' . $type . '_cache_files');
-
-        foreach (file_scan_directory('public://' . $type . '', '/.*/') as $file) {
-          // Delete files that are older than 20 seconds.
-          if (REQUEST_TIME - filemtime($file->uri) > 20) {
-            file_unmanaged_delete($file->uri);
-          }
-        };
-      }
-
-      if (flood_is_allowed('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning', 3)) {
-        // Alert the user that the theme registry is being rebuilt on every
-        // request.
-        flood_register_event('omega_' . $GLOBALS['theme'] . '_rebuild_aggregates_warning');
-        drupal_set_message(t('The CSS and JS aggregates are being rebuilt on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/appearance/settings/' . $GLOBALS['theme']))), 'warning');
-      }
-    }
+// Include the main extension file for every enabled extension.
+foreach (omega_extensions() as $extension => $info) {
+  if (omega_extension_enabled($extension) && ($file = $info['path'] . '/' . $extension . '.inc') && is_file($file)) {
+    require_once $file;
   }
 }
 
@@ -393,7 +351,9 @@ function omega_theme_registry_alter(&$registry) {
   // Fix for integration with the theme developer module.
   if (module_exists('devel_themer')) {
     foreach ($registry as $hook => $data) {
-      $registry[$hook] = $data['original'];
+      if (isset($data['original'])) {
+        $registry[$hook] = $data['original'];
+      }
     }
   }
 
@@ -525,19 +485,10 @@ function omega_theme_registry_alter(&$registry) {
     }
   }
 
-  // Include the main extension file for every enabled extension. This is
-  // required for the next step (allowing extensions to register hooks in the
-  // theme registry).
+  // Allow extensions to register hooks in the theme registry.
   foreach (omega_extensions() as $extension => $info) {
-    // Load all the implementations for this extensions and invoke the according
-    // hooks.
+    // Invoke the according hooks for every enabled extension.
     if (omega_extension_enabled($extension)) {
-      $file = $info['path'] . '/' . $extension . '.inc';
-
-      if (is_file($file)) {
-        require_once $file;
-      }
-
       // Give every enabled extension a chance to alter the theme registry.
       $hook = $info['theme'] . '_extension_' . $extension . '_theme_registry_alter';
 
@@ -570,7 +521,7 @@ function omega_theme_registry_alter(&$registry) {
   }
 
   // Fix for integration with the theme developer module.
-  if (module_exists('devel_themer')) {
+  if (module_exists('devel_themer') && function_exists('devel_themer_theme_registry_alter')) {
     devel_themer_theme_registry_alter($registry);
   }
 }
