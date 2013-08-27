@@ -274,7 +274,7 @@ function omega_css_alter(&$css) {
  */
 function omega_js_alter(&$js) {
   // If the AJAX.js isn't included... we don't need the ajaxPageState settings!
-  if ( ! isset($js['misc/ajax.js']) && isset($js['settings']['data'])) {
+  if (!isset($js['misc/ajax.js']) && isset($js['settings']['data'])) {
     foreach ($js['settings']['data'] as $delta => $setting) {
       if (array_key_exists('ajaxPageState', $setting)) {
         if (count($setting) == 1) {
@@ -287,10 +287,12 @@ function omega_js_alter(&$js) {
     }
   }
 
+  // Everything below this point belongs to the 'assets' extension.
   if (!omega_extension_enabled('assets')) {
     return;
   }
 
+  // Remove the specified files, if any.
   if ($regex = omega_theme_get_setting('omega_js_exclude_regex')) {
     omega_exclude_assets($js, $regex);
   }
@@ -301,7 +303,9 @@ function omega_js_alter(&$js) {
     $mapping = omega_generate_asset_mapping($js);
 
     foreach (preg_grep($regex, $mapping) as $key => $match) {
-      $js[$key]['scope'] = 'footer';
+      if (is_array($js[$key])) {
+        $js[$key]['scope'] = 'footer';
+      }
     }
   }
 }
