@@ -9,6 +9,7 @@ core = 7.x
 stylesheets[all][] = css/ohm.normalize.css
 stylesheets[all][] = css/ohm.hacks.css
 stylesheets[all][] = css/ohm.styles.css
+stylesheets[all][] = css/ohm.no-query.css
 
 ; Regions
 regions[navigation]     = Navigation bar

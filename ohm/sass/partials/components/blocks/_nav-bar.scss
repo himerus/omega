@@ -21,7 +21,7 @@
     }
   }
 
-  @include breakpoint(600px) {
+  @include breakpoint(600px, true) {
     a {
       @include font-size(18px);
       border-left: 1px solid #FFF;

@@ -16,3 +16,4 @@ regions[footer]         = Footer
 
 ; Stylesheets
 stylesheets[all][] = css/layouts/ohm-hero/ohm-hero-layout.css
+stylesheets[all][] = css/layouts/ohm-hero/ohm-hero-layout.no-query.css

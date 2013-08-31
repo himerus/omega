@@ -61,7 +61,7 @@ body {
   @extend .l-constrained;
 }
 
-@include breakpoint($tab) {
+@include breakpoint($tab, true) {
   .l-constrained {
     width: 90%;
   }
@@ -91,7 +91,7 @@ body {
   }
 }
 
-@include breakpoint($desk) {
+@include breakpoint($desk, true) {
   .l-constrained {
     width: 80%;
   }
