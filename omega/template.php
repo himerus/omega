@@ -269,13 +269,16 @@ function omega_css_alter(&$css) {
   }
 
   // Allow themes to specify no-query fallback CSS files.
-  foreach (preg_grep('/\.no-query(-rtl)?\.css/', array_keys($css)) as $fallback) {
-    // Don't modify browser settings if they have already been modified.
-    if ($css[$fallback]['browsers']['IE'] && $css[$fallback]['browsers']['!IE']) {
-      $css[$fallback]['browsers'] = array(
-        '!IE' => FALSE,
-        'IE' => 'lte IE 8',
-      );
+  $mapping = omega_generate_asset_mapping($css);
+  foreach (preg_grep('/\.no-query(-rtl)?\.css/', $mapping) as $fallback) {
+    foreach($css as &$file) {
+      // Don't modify browser settings if they have already been modified.
+      if ($file['data'] == $fallback && $file['browsers']['IE'] && $file['browsers']['!IE']) {
+        $file['browsers'] = array(
+          '!IE' => FALSE,
+          'IE' => 'lte IE 8',
+        );
+      }
     }
   }
 }
