@@ -768,15 +768,13 @@ html.js fieldset.collapsed {
 .block--nav-bar a:hover, .block--nav-bar a:focus {
   color: #064771;
 }
-@media (min-width: 600px) {
-  .block--nav-bar a {
-    font-size: 18px;
-    font-size: 1.28571rem;
-    border-left: 1px solid #FFF;
-  }
-  .block--nav-bar li:last-child a {
-    border-right: 1px solid #FFF;
-  }
+.block--nav-bar a {
+  font-size: 18px;
+  font-size: 1.28571rem;
+  border-left: 1px solid #FFF;
+}
+.block--nav-bar li:last-child a {
+  border-right: 1px solid #FFF;
 }
 
 /**
@@ -827,49 +825,47 @@ html.js fieldset.collapsed {
   display: inline;
 }
 
-@media (min-width: 44em) {
-  .comment__info {
-    float: left;
-    width: 25%;
-    text-align: center;
-  }
-  .comment__info .user-picture {
-    width: 70%;
-    margin: 0 auto 9px auto;
-  }
-  .comment__info .username {
-    display: block;
-  }
+.comment__info {
+  float: left;
+  width: 25%;
+  text-align: center;
+}
+.comment__info .user-picture {
+  width: 70%;
+  margin: 0 auto 9px auto;
+}
+.comment__info .username {
+  display: block;
+}
 
-  .comment__content {
-    float: right;
-    width: 70%;
-    margin-left: 5%;
-    position: relative;
-    background: white;
-  }
-  .comment__content:after, .comment__content:before {
-    right: 100%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
-  .comment__content:after {
-    border-color: transparent;
-    border-right-color: white;
-    border-width: 20px;
-    top: 50%;
-    margin-left: -20px;
-  }
-  .comment__content:after {
-    top: 20px;
-  }
+.comment__content {
+  float: right;
+  width: 70%;
+  margin-left: 5%;
+  position: relative;
+  background: white;
+}
+.comment__content:after, .comment__content:before {
+  right: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.comment__content:after {
+  border-color: transparent;
+  border-right-color: white;
+  border-width: 20px;
+  top: 50%;
+  margin-left: -20px;
+}
+.comment__content:after {
+  top: 20px;
+}
 
-  .comment__submitted {
-    display: block;
-    margin-bottom: 9px;
-  }
+.comment__submitted {
+  display: block;
+  margin-bottom: 9px;
 }
