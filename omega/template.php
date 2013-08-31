@@ -267,6 +267,17 @@ function omega_css_alter(&$css) {
     $regex = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $regex);
     omega_exclude_assets($css, $regex);
   }
+
+  // Allow themes to specify no-query fallback CSS files.
+  foreach (preg_grep('/\.no-query(-rtl)?\.css/', array_keys($css)) as $fallback) {
+    // Don't modify browser settings if they have already been modified.
+    if ($css[$fallback]['browsers']['IE'] && $css[$fallback]['browsers']['!IE']) {
+      $css[$fallback]['browsers'] = array(
+        '!IE' => FALSE,
+        'IE' => 'lte IE 8',
+      );
+    }
+  }
 }
 
 /**

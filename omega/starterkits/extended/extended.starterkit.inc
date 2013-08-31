@@ -8,6 +8,7 @@ core = 7.x
 stylesheets[all][] = css/{{ THEME }}.normalize.css
 stylesheets[all][] = css/{{ THEME }}.hacks.css
 stylesheets[all][] = css/{{ THEME }}.styles.css
+stylesheets[all][] = css/{{ THEME }}.no-query.css
 
 ; Regions
 regions[header]         = Header
