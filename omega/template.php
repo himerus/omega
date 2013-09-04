@@ -360,6 +360,8 @@ function omega_theme() {
  * Implements hook_theme_registry_alter().
  */
 function omega_theme_registry_alter(&$registry) {
+  require_once dirname(__FILE__) . '/includes/registry.inc';
+
   // Fix for integration with the theme developer module.
   if (module_exists('devel_themer')) {
     foreach ($registry as $hook => $data) {
@@ -369,11 +371,20 @@ function omega_theme_registry_alter(&$registry) {
     }
   }
 
-  $mapping = array(
-    'preprocess' => 'preprocess functions',
-    'process' => 'process functions',
-    'theme' => 'function',
-  );
+  // For maintainability reasons, some of this code lives in a class.
+  $handler = new OmegaThemeRegistryHandler($registry, $GLOBALS['theme']);
+
+  // Allows themers to split preprocess / process / theme code across separate
+  // files to keep the main template.php file clean. This is really fast because
+  // it uses the theme registry to cache the paths to the files that it finds.
+  $trail = omega_theme_trail($GLOBALS['theme']);
+  foreach ($trail as $theme => $name) {
+    $handler->registerHooks($theme);
+    $handler->registerThemeFunctions($theme, $trail);
+  }
+
+  // Override the default 'template_process_html' hook implementation.
+  $handler->overrideHook('html', 'template_process_html', 'omega_template_process_html_override');
 
   // We prefer the attributes array instead of the plain classes array used by
   // many core and contrib modules. In Drupal 8, we are going to convert all
@@ -381,118 +392,12 @@ function omega_theme_registry_alter(&$registry) {
   // synchronize our attributes array with the classes array to encourage
   // themers to use it.
   foreach ($registry as $hook => $item) {
-    if (empty($item['base hook']) && empty($item[$mapping['theme']])) {
-      if (($index = array_search('template_preprocess', $registry[$hook][$mapping['preprocess']], TRUE)) !== FALSE) {
+    if (empty($item['base hook']) && empty($item['function'])) {
+      if (($index = array_search('template_preprocess', $registry[$hook]['preprocess functions'], TRUE)) !== FALSE) {
         // Make sure that omega_initialize_attributes() is invoked first.
-        array_unshift($registry[$hook][$mapping['process']], 'omega_cleanup_attributes');
+        array_unshift($registry[$hook]['process functions'], 'omega_cleanup_attributes');
         // Add omega_cleanup_attributes() right after template_preprocess().
-        array_splice($registry[$hook][$mapping['preprocess']], $index + 1, 0, 'omega_initialize_attributes');
-      }
-    }
-  }
-
-  // Allow themers to split preprocess / process / theme code across separate
-  // files to keep the main template.php file clean. This is really fast because
-  // it uses the theme registry to cache the paths to the files that it finds.
-  $trail = omega_theme_trail();
-
-  // Keep track of theme function include files that are not directly loaded
-  // into the theme registry. This is the case for previously unknown theme
-  // hook suggestion implementations.
-  foreach ($trail as $theme => $name) {
-    // Remove the current element from the trail so we only iterate over
-    // higher level themes during subsequent checks.
-    unset($trail[$theme]);
-
-    foreach ($mapping as $type => $map) {
-      $path = drupal_get_path('theme', $theme);
-      // Only look for files that match the 'something.preprocess.inc' pattern.
-      $mask = '/.' . $type . '.inc$/';
-      // This is the length of the suffix (e.g. '.preprocess') of the basename
-      // of a file.
-      $strlen = -(strlen($type) + 1);
-
-      // Recursively scan the folder for the current step for (pre-)process
-      // files and write them to the registry.
-      foreach (file_scan_directory($path . '/' . $type, $mask) as $item) {
-        $hook = strtr(substr($item->name, 0, $strlen), '-', '_');
-
-        // If there is no hook with that name, continue. This does not apply to
-        // theme functions because if we want to support theme hook suggestions
-        // in .theme.inc files that have not previously been declared we need to
-        // run the full discovery for theme functions.
-        if (!array_key_exists($hook, $registry) && ($type !== 'theme' || strpos($hook, '__') === FALSE)) {
-          continue;
-        }
-
-        // Skip theme function overrides if they are already declared 'final'.
-        if ($type === 'theme' && !empty($registry[$hook]['final'])) {
-          continue;
-        }
-
-        // Name of the function (theme hook or theme function).
-        $callback = $type == 'theme' ? $theme . '_' . $hook : $theme . '_' . $type . '_' . $hook;
-
-        // Furthermore, we don't want to re-override sub-theme template file or
-        // theme function overrides with theme functions from include files
-        // defined in a lower-level base theme. Without this check this would
-        // happen because our alter hook runs after the template file and theme
-        // function discovery logic from Drupal core (theme engine).
-        if ($type == 'theme' && $theme != $GLOBALS['theme'] && in_array($registry[$hook]['type'], array('base_theme_engine', 'theme_engine'))) {
-          // Now we know that there is a template file or theme function
-          // override that has been defined somewhere in the theme trail. Now
-          // we need to check if the declaration of that function or template
-          // file lives further down the theme trail than the function we are
-          // currently looking it.
-          foreach ($trail as $subkey => $subtheme) {
-            if ($registry[$hook]['theme path'] == drupal_get_path('theme', $subkey)) {
-              continue(2);
-            }
-          }
-        }
-
-        // Load the file once so we can check if the function exists.
-        require_once $item->uri;
-
-        // Proceed if the callback doesn't exist.
-        if (!function_exists($callback)) {
-          continue;
-        }
-
-        // If we got this far and the following if() statement evaluates to true
-        // then that means that the theme function override that is currently
-        // being processed is a previously unknown theme hook suggestion.
-        if ($type == 'theme' && !array_key_exists($hook, $registry) && $separator = strpos($hook, '__')) {
-          $suggestion = $hook;
-          $hook = substr($hook, 0, $separator);
-
-          if (!isset($registry[$hook])) {
-            // Bail out here if the base hook does not exist.
-            continue;
-          }
-
-          // Register the theme hook suggestion.
-          $arg_name = isset($registry[$hook]['variables']) ? 'variables' : 'render element';
-          $registry[$suggestion] = array(
-            $map => $callback,
-            $arg_name => $registry[$hook][$arg_name],
-            'base hook' => $hook,
-          );
-        }
-        elseif ($type == 'theme') {
-          // Inject our theme function. We will leave any potential 'template'
-          // declarations in the registry as they don't hurt us anyways
-          // because drupal gives precedence to theme functions.
-          $registry[$hook][$map] = $callback;
-        }
-        else {
-          // Append the included preprocess hook to the array of functions.
-          $registry[$hook][$map][] = $callback;
-        }
-
-        // By adding this file to the 'includes' array we make sure that it is
-        // available when the hook is executed.
-        $registry[$hook]['includes'][] = $item->uri;
+        array_splice($registry[$hook]['preprocess functions'], $index + 1, 0, 'omega_initialize_attributes');
       }
     }
   }
@@ -506,28 +411,6 @@ function omega_theme_registry_alter(&$registry) {
 
       if (function_exists($hook)) {
         $hook($registry);
-      }
-    }
-  }
-
-  // Override pre-process and process functions for cases where we want to take
-  // a completely different approach than what core does by default. In some
-  // cases this is much more practical than altering or undoing things that were
-  // added or changed in a previous hook.
-  $overrides = array(
-    'html' => array(
-      'process' => array(
-        'template_process_html' => 'omega_template_process_html_override',
-      ),
-    ),
-  );
-
-  foreach ($overrides as $hook => $types) {
-    foreach ($types as $type => $overrides) {
-      foreach ($overrides as $original => $override) {
-        if (($index = array_search($original, $registry[$hook][$mapping[$type]], TRUE)) !== FALSE) {
-          array_splice($registry[$hook][$mapping[$type]], $index, 1, $override);
-        }
       }
     }
   }
