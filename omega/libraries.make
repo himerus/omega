@@ -7,7 +7,7 @@
 ; To run this file with 'drush make' you first have to navigate into the Omega
 ; theme directory.
 ;
-; $ cd sites/all/themes/omega
+; $ cd sites/all/themes/omega/omega
 ;
 ; Now you can invoke 'drush make' using the following command:
 ;
