@@ -4,7 +4,7 @@
  * Styling of the "simple" layout demonstrating the Compass grid extension Susy
  * and building mobile first layouts.
  ******************************************************************************/
-@import "../../partials/utility";
+@import "ohm/utility/all";
 
 body {
   background: transparent image-url('diagonal.png') left top repeat;

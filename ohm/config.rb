@@ -46,3 +46,6 @@ line_comments = (environment == :production) ? false : true
 
 # Output debugging info in development mode.
 sass_options = (environment == :production) ? {} : {:debug_info => true}
+
+# Add the 'sass' directory itself as an import path to ease imports.
+add_import_path 'sass'
