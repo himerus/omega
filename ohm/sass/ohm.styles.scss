@@ -2,7 +2,7 @@
 //
 // We are not using globbing to import the utility directory the contained files
 // have to be imported in a specific order.
-@import "ohm/utility/all";
+@import "partials/utility/all";
 
 // Import base styles and components using Sass globbing (allows wildcards).
 //
@@ -13,5 +13,5 @@
 //
 // However, if certain files must be imported in a specific order (while using
 // globbing), you can use numerical prefixes for your file- and directory names.
-@import "ohm/base/**/*";
-@import "ohm/components/**/*";
+@import "partials/base/**/*";
+@import "partials/components/**/*";
