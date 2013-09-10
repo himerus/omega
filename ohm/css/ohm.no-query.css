@@ -69,13 +69,6 @@ img, media {
   vertical-align: top;
 }
 
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  *behavior: url('../behaviors/box-sizing/boxsizing.php');
-}
-
 /**
  * $TABLES
  */
