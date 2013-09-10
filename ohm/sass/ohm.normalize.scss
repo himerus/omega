@@ -1,5 +1,8 @@
 // Import the legacy variables (relevant for controlling compass-normalize).
-@import "ohm/utility/variables/legacy";
+@import "ohm/utility/variables/**/*";
 
 // Generate normalize.css.
 @import "normalize";
+
+// Use 'border-box' for the box model.
+@import "toolkit/border-box";
