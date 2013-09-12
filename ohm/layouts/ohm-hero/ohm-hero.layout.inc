@@ -4,6 +4,7 @@ preview = preview.png
 template = ohm-hero-layout
 
 ; Regions
+regions[branding]       = Branding
 regions[navigation]     = Navigation bar
 regions[header]         = Header
 regions[hero]           = Hero

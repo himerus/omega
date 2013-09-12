@@ -346,8 +346,20 @@ function omega_theme() {
     'base hook' => 'page',
   );
 
+  $info = array_merge($info, _omega_theme_layouts());
+
+  return $info;
+}
+
+/**
+ * Helper function for registering theme hooks for Omega layouts.
+ */
+function _omega_theme_layouts() {
+  $info = array();
+
   foreach (omega_layouts_info() as $layout) {
-    $info[$layout['template']] = array(
+    $hook = str_replace('-', '_', $layout['template']);
+    $info[$hook] = array(
       'template' => $layout['template'],
       'path' => $layout['path'],
     );
@@ -768,7 +780,8 @@ function omega_omega_layout($variables) {
 
   // Clean up the theme hook suggestion so we don't end up in an infinite loop.
   unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
-  return theme($variables['omega_layout']['template'], $variables);
+  $hook = str_replace('-', '_', $variables['omega_layout']['template']);
+  return theme($hook, $variables);
 }
 
 /**

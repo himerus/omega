@@ -86,6 +86,8 @@
           <h2 class="site-slogan"><?php print $site_slogan; ?></h2>
         <?php endif; ?>
       <?php endif; ?>
+
+      <?php print render($page['branding']); ?>
     </div>
 
     <?php print render($page['header']); ?>

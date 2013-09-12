@@ -4,6 +4,7 @@ preview = preview.png
 template = simple-layout
 
 ; Regions
+regions[branding]       = Branding
 regions[header]         = Header
 regions[navigation]     = Navigation bar
 regions[highlighted]    = Highlighted

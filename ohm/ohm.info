@@ -12,6 +12,7 @@ stylesheets[all][] = css/ohm.styles.css
 stylesheets[all][] = css/ohm.no-query.css
 
 ; Regions
+regions[branding]       = Branding
 regions[navigation]     = Navigation bar
 regions[header]         = Header
 regions[hero]           = Hero
