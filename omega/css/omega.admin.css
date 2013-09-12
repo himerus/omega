@@ -33,16 +33,16 @@ div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset legend {
 
 .omega-layout-selection-wrapper {
   margin-bottom: 20px;
-  min-height: 140px;
+  min-height: 75px;
   position: relative;
 }
 .omega-layout-selection-wrapper .form-item label.option,
 .omega-layout-selection-wrapper .form-item div.description {
-  padding-left: 130px;
+  padding-left: 80px;
 }
 .omega-layout-selection-wrapper img {
-  height: 140px;
-  width: 120px;
+  height: 75px;
+  width: 64px;
   position: absolute;
   top: 8px;
   margin-left: 1.5em;
