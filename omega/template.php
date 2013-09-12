@@ -289,7 +289,7 @@ function omega_css_alter(&$css) {
  */
 function omega_js_alter(&$js) {
   // If the AJAX.js isn't included... we don't need the ajaxPageState settings!
-  if ( ! isset($js['misc/ajax.js']) && isset($js['settings']['data'])) {
+  if (!isset($js['misc/ajax.js']) && isset($js['settings']['data'])) {
     foreach ($js['settings']['data'] as $delta => $setting) {
       if (array_key_exists('ajaxPageState', $setting)) {
         if (count($setting) == 1) {
