@@ -277,6 +277,9 @@ function omega_css_alter(&$css) {
         '!IE' => FALSE,
         'IE' => 'lte IE 8',
       );
+
+      // Make sure that we don't break any CSS aggregation groups.
+      $css[$key]['weight'] += 100;
     }
   }
 }
