@@ -35,19 +35,19 @@ div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset {
 
 .omega-layout-selection-wrapper {
   margin-bottom: 20px;
-  min-height: 140px;
+  min-height: 75px;
   position: relative;
 
   .form-item {
     label.option,
     div.description {
-      padding-left: 130px;
+      padding-left: 80px;
     }
   }
 
   img {
-    height: 140px;
-    width: 120px;
+    height: 75px;
+    width: 64px;
     position: absolute;
     top: 8px;
     margin-left: 1.5em;
