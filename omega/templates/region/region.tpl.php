@@ -26,7 +26,7 @@
  * @see template_process()
  */
 ?>
-<?php if ($content || $debug): ?>
+<?php if ($content): ?>
   <div<?php print $attributes; ?>>
     <?php print $content; ?>
   </div>

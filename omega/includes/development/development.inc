@@ -91,6 +91,9 @@ function omega_extension_development_preprocess_region(&$variables) {
 
     $variables['attributes_array']['class'][] = 'region--debug';
     $variables['attributes_array']['class'][] = $class;
+
+    // Ensure that the content is not completely empty.
+    $variables['content'] = !empty($variables['content']) ? $variables['content'] : '&nbsp;';
   }
 }
 
