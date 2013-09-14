@@ -25,7 +25,9 @@ javascripts_dir = "js"
 require 'compass-normalize'
 require 'rgbapng'
 require 'toolkit'
+require 'breakpoint'
 require 'susy'
+require 'singularitygs'
 require 'sass-globbing'
 
 ##
