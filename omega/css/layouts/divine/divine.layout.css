@@ -1,0 +1,168 @@
+/*******************************************************************************
+ * divine.layout.scss
+ *
+ * Styling of the "divine" layout demonstrating the golden rule and asymmetric
+ * grids with Singularity.
+ ******************************************************************************/
+.l-page {
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(210, 105, 30, 0.5)), color-stop(100%, rgba(210, 105, 30, 0.5)));
+  background-image: -webkit-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 100%);
+  background-image: -moz-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 100%);
+  background-image: -o-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 100%);
+  background-image: linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 100%);
+  width: 95%;
+  max-width: 110em;
+  margin: 0 auto;
+}
+@media (min-width: 700px) {
+  .l-page {
+    background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(210, 105, 30, 0.5)), color-stop(61.98347%, rgba(210, 105, 30, 0.5)), color-stop(61.98347%, rgba(210, 105, 30, 0.25)), color-stop(62.80992%, rgba(210, 105, 30, 0.25)), color-stop(62.80992%, rgba(210, 105, 30, 0.5)), color-stop(100.0%, rgba(210, 105, 30, 0.5)), color-stop(100.0%, rgba(210, 105, 30, 0.25)), color-stop(100.82645%, rgba(210, 105, 30, 0.25)));
+    background-image: -webkit-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 61.98347%, rgba(210, 105, 30, 0.25) 61.98347%, rgba(210, 105, 30, 0.25) 62.80992%, rgba(210, 105, 30, 0.5) 62.80992%, rgba(210, 105, 30, 0.5) 100.0%, rgba(210, 105, 30, 0.25) 100.0%, rgba(210, 105, 30, 0.25) 100.82645%);
+    background-image: -moz-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 61.98347%, rgba(210, 105, 30, 0.25) 61.98347%, rgba(210, 105, 30, 0.25) 62.80992%, rgba(210, 105, 30, 0.5) 62.80992%, rgba(210, 105, 30, 0.5) 100.0%, rgba(210, 105, 30, 0.25) 100.0%, rgba(210, 105, 30, 0.25) 100.82645%);
+    background-image: -o-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 61.98347%, rgba(210, 105, 30, 0.25) 61.98347%, rgba(210, 105, 30, 0.25) 62.80992%, rgba(210, 105, 30, 0.5) 62.80992%, rgba(210, 105, 30, 0.5) 100.0%, rgba(210, 105, 30, 0.25) 100.0%, rgba(210, 105, 30, 0.25) 100.82645%);
+    background-image: linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 61.98347%, rgba(210, 105, 30, 0.25) 61.98347%, rgba(210, 105, 30, 0.25) 62.80992%, rgba(210, 105, 30, 0.5) 62.80992%, rgba(210, 105, 30, 0.5) 100.0%, rgba(210, 105, 30, 0.25) 100.0%, rgba(210, 105, 30, 0.25) 100.82645%);
+  }
+}
+@media (min-width: 1250px) {
+  .l-page {
+    background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(210, 105, 30, 0.5)), color-stop(50.33557%, rgba(210, 105, 30, 0.5)), color-stop(50.33557%, rgba(210, 105, 30, 0.25)), color-stop(51.00671%, rgba(210, 105, 30, 0.25)), color-stop(51.00671%, rgba(210, 105, 30, 0.5)), color-stop(81.20805%, rgba(210, 105, 30, 0.5)), color-stop(81.20805%, rgba(210, 105, 30, 0.25)), color-stop(81.87919%, rgba(210, 105, 30, 0.25)), color-stop(81.87919%, rgba(210, 105, 30, 0.5)), color-stop(100%, rgba(210, 105, 30, 0.5)), color-stop(100%, rgba(210, 105, 30, 0.25)), color-stop(100.67114%, rgba(210, 105, 30, 0.25)));
+    background-image: -webkit-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 50.33557%, rgba(210, 105, 30, 0.25) 50.33557%, rgba(210, 105, 30, 0.25) 51.00671%, rgba(210, 105, 30, 0.5) 51.00671%, rgba(210, 105, 30, 0.5) 81.20805%, rgba(210, 105, 30, 0.25) 81.20805%, rgba(210, 105, 30, 0.25) 81.87919%, rgba(210, 105, 30, 0.5) 81.87919%, rgba(210, 105, 30, 0.5) 100%, rgba(210, 105, 30, 0.25) 100%, rgba(210, 105, 30, 0.25) 100.67114%);
+    background-image: -moz-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 50.33557%, rgba(210, 105, 30, 0.25) 50.33557%, rgba(210, 105, 30, 0.25) 51.00671%, rgba(210, 105, 30, 0.5) 51.00671%, rgba(210, 105, 30, 0.5) 81.20805%, rgba(210, 105, 30, 0.25) 81.20805%, rgba(210, 105, 30, 0.25) 81.87919%, rgba(210, 105, 30, 0.5) 81.87919%, rgba(210, 105, 30, 0.5) 100%, rgba(210, 105, 30, 0.25) 100%, rgba(210, 105, 30, 0.25) 100.67114%);
+    background-image: -o-linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 50.33557%, rgba(210, 105, 30, 0.25) 50.33557%, rgba(210, 105, 30, 0.25) 51.00671%, rgba(210, 105, 30, 0.5) 51.00671%, rgba(210, 105, 30, 0.5) 81.20805%, rgba(210, 105, 30, 0.25) 81.20805%, rgba(210, 105, 30, 0.25) 81.87919%, rgba(210, 105, 30, 0.5) 81.87919%, rgba(210, 105, 30, 0.5) 100%, rgba(210, 105, 30, 0.25) 100%, rgba(210, 105, 30, 0.25) 100.67114%);
+    background-image: linear-gradient(left, rgba(210, 105, 30, 0.5), rgba(210, 105, 30, 0.5) 50.33557%, rgba(210, 105, 30, 0.25) 50.33557%, rgba(210, 105, 30, 0.25) 51.00671%, rgba(210, 105, 30, 0.5) 51.00671%, rgba(210, 105, 30, 0.5) 81.20805%, rgba(210, 105, 30, 0.25) 81.20805%, rgba(210, 105, 30, 0.25) 81.87919%, rgba(210, 105, 30, 0.5) 81.87919%, rgba(210, 105, 30, 0.5) 100%, rgba(210, 105, 30, 0.25) 100%, rgba(210, 105, 30, 0.25) 100.67114%);
+  }
+}
+
+.l-header,
+.l-main {
+  *zoom: 1;
+  margin-bottom: 20px;
+}
+.l-header:after,
+.l-main:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media (min-width: 700px) {
+  /* Header Area */
+  .l-branding {
+    width: 61.98347%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
+  }
+
+  .l-region--header {
+    width: 37.19008%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+  }
+
+  .l-region--navigation {
+    clear: both;
+  }
+
+  /* Content Area */
+  .l-content {
+    width: 100.0%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+  }
+
+  /* Sidebars */
+  .one-sidebar .l-region--sidebar-first,
+  .one-sidebar .l-region--sidebar-second {
+    width: 100.0%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+  }
+
+  .two-sidebars .l-region--sidebar-first {
+    width: 61.98347%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: both;
+  }
+  .two-sidebars .l-region--sidebar-second {
+    width: 37.19008%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+  }
+}
+@media (min-width: 1250px) {
+  /* Header Area */
+  .l-header {
+    *zoom: 1;
+  }
+  .l-header:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .l-branding {
+    width: 50.33557%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
+  }
+
+  .l-region--header {
+    width: 48.99329%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+  }
+
+  .l-region--navigation {
+    clear: both;
+  }
+
+  /* Content Area */
+  .l-content {
+    width: 50.33557%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
+  }
+
+  /* Sidebars */
+  .one-sidebar .l-region--sidebar-first,
+  .one-sidebar .l-region--sidebar-second {
+    width: 48.99329%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+  }
+
+  .two-sidebars .l-region--sidebar-first {
+    width: 30.20134%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 51.00671%;
+    clear: none;
+  }
+  .two-sidebars .l-region--sidebar-second {
+    width: 18.12081%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+  }
+}

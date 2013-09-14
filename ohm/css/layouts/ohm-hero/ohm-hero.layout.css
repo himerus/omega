@@ -1,8 +1,7 @@
 /*******************************************************************************
- * _layout.scss
+ * ohm-hero.layout.scss
  *
- * Styling of the "simple" layout demonstrating the Compass grid extension Susy
- * and building mobile first layouts.
+ * Styles for the Ohm Hero layout.
  ******************************************************************************/
 /**
  * $ARROW
@@ -14,7 +13,7 @@
  * $ISLAND
  */
 body {
-  background: transparent url('../../../images/diagonal.png?1377596598') left top repeat;
+  background: transparent url('../../../images/diagonal.png?1376778393') left top repeat;
 }
 
 .l-constrained, .l-region--highlighted, .l-region--footer {
