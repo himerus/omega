@@ -17,7 +17,7 @@ function omega_extension_layouts_theme_registry_alter(&$registry) {
  */
 function omega_extension_layouts_process_layout(&$variables) {
   if ($layout = omega_layout()) {
-    $variables['theme_hook_suggestions'][] = 'omega_layout';
+    $variables['theme_hook_suggestions'][] = 'omega_page_layout';
     $variables['omega_layout'] = $layout;
   }
 }

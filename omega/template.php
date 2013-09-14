@@ -345,7 +345,7 @@ function omega_theme() {
     'render element' => 'element',
   );
 
-  $info['omega_layout'] = array(
+  $info['omega_page_layout'] = array(
     'base hook' => 'page',
   );
 
@@ -778,7 +778,7 @@ function omega_omega_theme_libraries_info($theme) {
 /**
  * Theme callback for rendering an Omega layout.
  */
-function omega_omega_layout($variables) {
+function omega_omega_page_layout($variables) {
   drupal_process_attached(array('#attached' => $variables['omega_layout']['attached']));
 
   // Clean up the theme hook suggestion so we don't end up in an infinite loop.
