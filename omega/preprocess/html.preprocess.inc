@@ -46,17 +46,10 @@ function omega_preprocess_html(&$variables, $hook) {
     $variables['attributes_array']['class'][] = drupal_html_class('section-' . $section);
   }
 
-  // Add some styles in case the Omega theme is the active theme.
-  if ($GLOBALS['theme'] == 'omega') {
-    _omega_preprocess_html($variables);
+  // Show a warning when the Omega theme is the active theme.
+  if ($GLOBALS['theme'] == 'omega' && omega_theme_get_setting('omega_enable_warning', TRUE)) {
+    drupal_set_message(t('Omega is a base theme and should never be used directly. Please <a href="!link">create a sub-theme</a> instead.', array(
+      '!link' => 'https://drupal.org/node/2060747'
+    )), 'warning');
   }
-}
-
-/**
- * Helper function for loading theme assets in case 'Omega' is the active theme.
- *
- * @see omega_preprocess_html()
- */
-function _omega_preprocess_html(&$variables) {
-  // @todo
 }

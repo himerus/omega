@@ -23,6 +23,16 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
     drupal_set_message(t('The settings for this theme are currently served from a variable. You might want to export them to your .info file.'), 'warning', FALSE);
   }
 
+  $form['omega_enable_warning'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show a warning message when Omega is used directly'),
+    '#description' => t('You can disable this warning message permanently, however, please be aware that Omega is a base theme and should not be used directly. You should always create a sub-theme instead.'),
+    '#default_value' => omega_theme_get_setting('omega_enable_warning', TRUE),
+    '#weight' => -10,
+    // Only show this checkbox on the Omega theme settings page.
+    '#access' => $GLOBALS['theme_key'] === 'omega',
+  );
+
   // Include the template.php and theme-settings.php files for all the themes in
   // the theme trail.
   foreach (omega_theme_trail() as $theme => $name) {
