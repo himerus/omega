@@ -12,7 +12,6 @@ body {
 .l-constrained {
   width: 95%;
   margin: 0 auto;
-  @include grid-background;
   @include pie-clearfix;
 }
 
