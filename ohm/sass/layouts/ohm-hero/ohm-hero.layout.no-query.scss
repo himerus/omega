@@ -1,5 +1,5 @@
 $breakpoint-no-queries: true;
 $breakpoint-no-query-fallbacks: true;
 
-// Re-render everything from ohm-hero-layout.scss but without media queries.
+// Re import everything from ohm-hero-layout.scss but without media queries.
 @import "ohm-hero-layout";
