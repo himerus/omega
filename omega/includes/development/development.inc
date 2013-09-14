@@ -107,7 +107,7 @@ function _omega_extension_development_boot() {
   if (variable_get('theme_' . $GLOBALS['theme'] . '_settings') && flood_is_allowed('omega_' . $GLOBALS['theme'] . '_theme_settings_warning', 3)) {
     // Alert the user that the theme settings are served from a variable.
     flood_register_event('omega_' . $GLOBALS['theme'] . '_theme_settings_warning');
-    drupal_set_message(t('The settings for this theme are currently served from a variable. You might want to export them to your .info file.'), 'warning');
+    drupal_set_message(t("The settings for this theme are currently served from a variable. You might want to export them to your .info file. This is optional and can be done the Drush command 'drush omega-export'."), 'warning');
   }
 
   // Rebuild the theme registry / aggregates on every page load if the

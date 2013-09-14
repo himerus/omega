@@ -48,8 +48,9 @@ function omega_preprocess_html(&$variables, $hook) {
 
   // Show a warning when the Omega theme is the active theme.
   if ($GLOBALS['theme'] == 'omega' && omega_theme_get_setting('omega_enable_warning', TRUE)) {
-    drupal_set_message(t('Omega is a base theme and should never be used directly. Please <a href="!link">create a sub-theme</a> instead.', array(
-      '!link' => 'https://drupal.org/node/2060747'
+    drupal_set_message(t('Omega is a base theme and should never be used directly. Please <a href="!documentation">create a sub-theme</a> instead. You can disable this message on the <a href="!settings">theme settings page</a>.', array(
+      '!documentation' => 'https://drupal.org/node/2060747',
+      '!settings' => url('admin/appearance/settings/omega'),
     )), 'warning');
   }
 }
