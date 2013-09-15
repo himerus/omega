@@ -15,7 +15,7 @@ function omega_poll_choices($variables) {
 
   drupal_add_tabledrag('poll-choice-table', 'order', 'sibling', 'poll-weight');
 
-  $is_admin= user_access('administer nodes');
+  $is_admin = user_access('administer nodes');
   $delta = 0;
   $rows = array();
   $headers = array('', t('Choice'));
@@ -50,7 +50,13 @@ function omega_poll_choices($variables) {
     $rows[] = $row;
   }
 
-  $output = theme('table', array('header' => $headers, 'rows' => $rows, 'attributes' => array('id' => 'poll-choice-table', 'class' => array('poll-choice-table'))));
+  $output = theme('table', array(
+    'header' => $headers,
+    'rows' => $rows,
+    'attributes' => array(
+      'id' => 'poll-choice-table', 'class' => array('poll-choice-table'),
+    ),
+  ));
   $output .= drupal_render_children($form);
   return $output;
 }

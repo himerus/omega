@@ -50,7 +50,14 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
 
     $element['omega_libraries'][$key][$library]['status'] = array(
       '#type' => 'checkbox',
-      '#title' => !isset($info['vendor']) ? $info['name'] : (isset($info['vendor url']) ? t('@library by <a href="!url">@vendor</a>', array('@library' => $info['name'], '!url' => $info['vendor url'], '@vendor' => $info['vendor'])) : t('@library by @vendor', array('@library' => $info['name'], '@vendor' => $info['vendor']))),
+      '#title' => !isset($info['vendor']) ? $info['name'] : (isset($info['vendor url']) ? t('@library by <a href="!url">@vendor</a>', array(
+        '@library' => $info['name'],
+        '@vendor' => $info['vendor'],
+        '!url' => $info['vendor url'],
+      )) : t('@library by @vendor', array(
+        '@library' => $info['name'],
+        '@vendor' => $info['vendor'],
+      ))),
       '#description' => $info['description'],
       '#default_value' => !empty($libraries[$library]['status']),
       '#parents' => array('omega_libraries', $library, 'status'),
@@ -166,7 +173,10 @@ function omega_library_pie_options_form(&$element, &$form, $form_state, $library
   $element['selectors'] = array(
     '#title' => t('Selectors'),
     '#type' => 'textarea',
-    '#description' => t("You can use this textarea to define all the CSS rules that you want to apply the PIE behavior to. Define one CSS selector per line. The selectors submitted with this field get directly cached in a <a href=\"!css\">.css</a> file (as well as a <a href=\"!js\">.js</a> file) in the public file system. This file is then included on page load and triggers CSS3PIE.", array('!css' => $destination . '/pie-selectors.css', '!js' => $destination . '/pie-selectors.js')),
+    '#description' => t("You can use this textarea to define all the CSS rules that you want to apply the PIE behavior to. Define one CSS selector per line. The selectors submitted with this field get directly cached in a <a href=\"!css\">.css</a> file (as well as a <a href=\"!js\">.js</a> file) in the public file system. This file is then included on page load and triggers CSS3PIE.", array(
+      '!css' => $destination . '/pie-selectors.css',
+      '!js' => $destination . '/pie-selectors.js',
+    )),
     '#default_value' => !empty($settings['css3pie']['selectors']) ? implode("\n", $settings['css3pie']['selectors']) : '',
   );
 
@@ -210,7 +220,7 @@ function omega_extension_assets_theme_settings_form_submit($form, &$form_state) 
 /**
  * Checks a library for missing files.
  *
- * @param $info
+ * @param array $info
  *   A library info array.
  *
  * @return array

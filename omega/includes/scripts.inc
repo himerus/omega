@@ -382,7 +382,7 @@ function omega_build_js_cache($files) {
 
   if (empty($uri) || !file_exists($uri)) {
     // Build aggregate JS file.
-    foreach ($files as $path => $info) {
+    foreach ($files as $info) {
       if ($info['preprocess']) {
         // Append a ';' and a newline after each JS file to prevent them from
         // running together.

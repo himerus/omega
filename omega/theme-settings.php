@@ -61,7 +61,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
   // Collapse all the core theme settings tabs in order to have the form actions
   // visible all the time without having to scroll.
   foreach (element_children($form) as $key) {
-    if ($form[$key]['#type'] == 'fieldset')  {
+    if ($form[$key]['#type'] == 'fieldset') {
       $form[$key]['#collapsible'] = TRUE;
       $form[$key]['#collapsed'] = TRUE;
     }
@@ -138,7 +138,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
 
       $function = $info['theme'] . '_extension_' . $extension . '_settings_form';
       if (function_exists($function)) {
-        // By default, each extension resides in a vertical tab
+        // By default, each extension resides in a vertical tab.
         $element = $function($element, $form, $form_state) + array(
           '#type' => 'fieldset',
           '#title' => t('@extension extension configuration', array('@extension' => $info['info']['name'])),

@@ -6,7 +6,7 @@
  */
 
 /**
- * Implementation of hook_STYLE_panels_styles()
+ * Implementation of hook_STYLE_panels_styles().
  */
 function omega_omega_panels_styles() {
   return array(

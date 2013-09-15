@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a process hook for 'page'.
+ */
+
+/**
  * Implements hook_process_page().
  */
 function {{ THEME }}_process_page(&$variables) {

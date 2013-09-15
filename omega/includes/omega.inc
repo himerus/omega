@@ -59,8 +59,7 @@ function omega_theme_get_setting($setting_name, $default = NULL, $theme = NULL) 
 }
 
 /**
- * Builds the full theme trail (deepest base theme first, subtheme last) for a
- * theme.
+ * Builds the full theme trail (deepest base theme first) for a theme.
  *
  * @param string $theme
  *   (Optional) The key (machine-readable name) of a theme. Defaults to the key

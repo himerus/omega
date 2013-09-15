@@ -902,7 +902,7 @@ function drush_omega_compose_info_file($array, $prefix = NULL) {
       // this case).
       $key = is_numeric($key) ? '' : $key;
 
-      $info .= $prefix ? ("{$prefix}[" . $key .']') : $key;
+      $info .= $prefix ? ("{$prefix}[$key]") : $key;
       $info .= ' = ' . $value . "\n";
     }
   }
@@ -932,8 +932,7 @@ function drush_omega_sites() {
 }
 
 /**
- * Helper function for generating a valid machine-readable name for a theme from
- * any string.
+ * Generates a valid machine-readable name for a theme from any string.
  *
  * @param string $string
  *   The string to generate the machine-readable name from.

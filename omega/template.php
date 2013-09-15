@@ -489,9 +489,9 @@ function omega_block_list_alter(&$blocks) {
     // Check if drupal_alter() was invoked from _block_load_blocks(). This is
     // required as we do not want to interfere with contrib modules like ctools.
     if ($callers['2']['function'] === '_block_load_blocks') {
-      // In case we are currently serving a Omega layout we have to make sure that
-      // we don't process blocks that will never be shown because the active layout
-      // does not even have a region for them.
+      // In case we are currently serving a Omega layout we have to make sure
+      // that we don't process blocks that will never be shown because the
+      // active layout does not even have a region for them.
       foreach ($blocks as $id => $block) {
         if (!array_key_exists($block->region, $layout['info']['regions'])) {
           unset($blocks[$id]);
@@ -540,7 +540,7 @@ function omega_override_overlay_deliver_empty_page() {
 function omega_page_alter(&$page) {
   // Place dummy blocks in each region if the 'demo regions' setting is active
   // to force regions to be rendered.
-  if (omega_extension_enabled('development') && omega_theme_get_setting ('omega_demo_regions', TRUE) && user_access('administer site configuration')) {
+  if (omega_extension_enabled('development') && omega_theme_get_setting('omega_demo_regions', TRUE) && user_access('administer site configuration')) {
     $item = menu_get_item();
 
     // Don't interfere with the 'Demonstrate block regions' page.
@@ -583,7 +583,9 @@ function omega_page_alter(&$page) {
  */
 function omega_html_head_alter(&$head) {
   // Simplify the meta tag for character encoding.
-  $head['system_meta_content_type']['#attributes'] = array('charset' => str_replace('text/html; charset=', '', $head['system_meta_content_type']['#attributes']['content']));
+  $head['system_meta_content_type']['#attributes'] = array(
+    'charset' => str_replace('text/html; charset=', '', $head['system_meta_content_type']['#attributes']['content']),
+  );
 }
 
 /**
@@ -683,7 +685,7 @@ function omega_omega_theme_libraries_info($theme) {
   $settings = omega_theme_get_setting('omega_libraries');
   if (!empty($settings['css3pie']['selectors'])) {
     // Add the generated .css file to the corresponding variant.
-    $destination = file_create_url('public://omega/' . $theme );
+    $destination = file_create_url('public://omega/' . $theme);
     $destination = substr($destination, strlen($GLOBALS['base_url']) + 1);
     file_prepare_directory($destination, FILE_CREATE_DIRECTORY);
 
@@ -794,7 +796,7 @@ function omega_omega_chrome($variables) {
   $message = t('You are using an outdated browser! <a href="!upgrade">Upgrade your browser today</a> or <a href="!install">install Google Chrome Frame</a> to better experience this site.', array(
     '!upgrade' => url('http://browsehappy.com'),
     '!install' => url('http://www.google.com/chromeframe', array(
-      'query' => array('redirect' => 'true')
+      'query' => array('redirect' => 'true'),
     )),
   ));
 

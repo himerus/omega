@@ -36,7 +36,7 @@ function omega_preprocess_html(&$variables, $hook) {
     // Add unique class for each page.
     $path = drupal_get_path_alias($_GET['q']);
     // Add unique class for each section of the website.
-    list($section, ) = explode('/', $path, 2);
+    list($section) = explode('/', $path, 2);
     $arg = explode('/', $_GET['q']);
 
     if ($arg[0] == 'node' && isset($arg[1])) {

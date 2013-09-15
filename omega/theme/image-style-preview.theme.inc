@@ -28,7 +28,10 @@ function omega_image_style_preview($variables) {
     $original_height = min($original_image['height'], $sample_height);
     $original_width = round($original_height / $original_image['height'] * $original_image['width']);
   }
-  $original_attributes = array_intersect_key($original_image, array('width' => '', 'height' => ''));
+  $original_attributes = array_intersect_key($original_image, array(
+    'width' => '',
+    'height' => '',
+  ));
   $original_attributes['style'] = 'width: ' . $original_width . 'px; height: ' . $original_height . 'px;';
 
   // Set up preview file information.
@@ -45,7 +48,10 @@ function omega_image_style_preview($variables) {
     $preview_height = min($preview_image['height'], $sample_height);
     $preview_width = round($preview_height / $preview_image['height'] * $preview_image['width']);
   }
-  $preview_attributes = array_intersect_key($preview_image, array('width' => '', 'height' => ''));
+  $preview_attributes = array_intersect_key($preview_image, array(
+    'width' => '',
+    'height' => '',
+  ));
   $preview_attributes['style'] = 'width: ' . $preview_width . 'px; height: ' . $preview_height . 'px;';
 
   // In the previews, timestamps are added to prevent caching of images.
@@ -56,24 +62,30 @@ function omega_image_style_preview($variables) {
   $output .= '<div class="image-style-preview__col">';
   $output .= t('original') . ' (' . l(t('view actual size'), $original_url) . ')';
   $output .= '<div class="image-style-preview__preview-image image-style-preview__preview-image--original" style="' . $original_attributes['style'] . '">';
-  $output .= '<a href="' . $original_url . '">' . theme('image', array('path' => $original_path, 'alt' => t('Sample original image'), 'title' => '', 'attributes' => $original_attributes)) . '</a>';
+  $output .= '<a href="' . $original_url . '">' . theme('image', array(
+      'path' => $original_path,
+      'alt' => t('Sample original image'),
+      'title' => '',
+      'attributes' => $original_attributes,
+    )) . '</a>';
   $output .= '<div class="preview-image__height" style="height: ' . $original_height . 'px"><span class="dimension">' . $original_image['height'] . 'px</span></div>';
   $output .= '<div class="preview-image__width" style="width: ' . $original_width . 'px"><span class="dimension">' . $original_image['width'] . 'px</span></div>';
-  $output .= '</div>'; // End preview-image.
-  $output .= '</div>'; // End preview-image-wrapper.
+  $output .= '</div></div>';
 
   // Build the preview of the image style.
   $preview_url = file_create_url($preview_file) . '?cache_bypass=' . REQUEST_TIME;
   $output .= '<div class="image-style-preview__col">';
   $output .= check_plain($style['name']) . ' (' . l(t('view actual size'), file_create_url($preview_file) . '?' . time()) . ')';
   $output .= '<div class="image-style-preview__preview-image image-style-preview__preview-image--modified" style="' . $preview_attributes['style'] . '">';
-  $output .= '<a href="' . file_create_url($preview_file) . '?' . time() . '">' . theme('image', array('path' => $preview_url, 'alt' => t('Sample modified image'), 'title' => '', 'attributes' => $preview_attributes)) . '</a>';
+  $output .= '<a href="' . file_create_url($preview_file) . '?' . time() . '">' . theme('image', array(
+      'path' => $preview_url,
+      'alt' => t('Sample modified image'),
+      'title' => '',
+      'attributes' => $preview_attributes,
+    )) . '</a>';
   $output .= '<div class="preview-image__height" style="height: ' . $preview_height . 'px"><span class="dimension">' . $preview_image['height'] . 'px</span></div>';
   $output .= '<div class="preview-image__width" style="width: ' . $preview_width . 'px"><span class="dimension">' . $preview_image['width'] . 'px</span></div>';
-  $output .= '</div>'; // End preview-image.
-  $output .= '</div>'; // End preview-image-wrapper.
-
-  $output .= '</div>'; // End image-style-preview.
+  $output .= '</div></div></div>';
 
   return $output;
 }

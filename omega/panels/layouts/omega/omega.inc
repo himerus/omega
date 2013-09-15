@@ -6,7 +6,7 @@
  */
 
 /**
- * Implementation of hook_LAYOUT_panels_layouts()
+ * Implementation of hook_LAYOUT_panels_layouts().
  */
 function omega_omega_panels_layouts() {
   // We cannot use the 'path' property here and anywhere in our layouts declared
@@ -160,7 +160,7 @@ function _omega_panels_layout_theme(&$variables) {
  *   The relative path between $from and $to.
  */
 function _omega_relative_path($from, $to) {
-  // some compatibility fixes for Windows paths
+  // Some compatibility fixes for Windows paths.
   $from = is_dir($from) ? rtrim($from, '\/') . '/' : $from;
   $to = is_dir($to) ? rtrim($to, '\/') . '/' : $to;
   $from = str_replace('\\', '/', $from);

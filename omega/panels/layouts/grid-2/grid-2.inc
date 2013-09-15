@@ -1,10 +1,11 @@
 <?php
+
 /**
  * @file
- * grid-2.inc
+ * Defines a simple 2-column grid layout.
  */
 
-// Plugin definition
+// Plugin definition.
 $plugin = array(
   'title' => t('Grid 2'),
   'icon' => 'preview.png',

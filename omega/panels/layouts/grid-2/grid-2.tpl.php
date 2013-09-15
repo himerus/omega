@@ -9,7 +9,6 @@
  * panel of the layout. This layout supports the following sections:
  */
 ?>
-
 <div class="panel-display panel-display--grid-2 <?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
   <?php foreach($content as $item): ?>
     <?php if (!empty($item)): ?>

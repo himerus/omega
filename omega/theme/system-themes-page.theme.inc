@@ -21,7 +21,7 @@ function omega_system_themes_page($variables) {
       continue;
     }
     // Start new theme group.
-    $output .= '<div class="system-themes-list system-themes-list--'. $state .' clearfix"><h2>'. $title .'</h2>';
+    $output .= '<div class="system-themes-list system-themes-list--' . $state . ' clearfix"><h2>' . $title . '</h2>';
 
     foreach ($theme_groups[$state] as $theme) {
       // Theme the screenshot.
@@ -37,14 +37,14 @@ function omega_system_themes_page($variables) {
       $description = t($theme->info['description']);
 
       // Style theme info.
-      $notes = count($theme->notes) ? ' (' . join(', ', $theme->notes) . ')' : '';
+      $notes = count($theme->notes) ? ' (' . implode(', ', $theme->notes) . ')' : '';
       $theme->classes[] = 'theme-selector';
       $theme->classes[] = 'theme-selector--' . $state;
       if ($theme->is_default) {
         $theme->classes = str_replace('theme-default', 'theme-selector--default', $theme->classes);
       }
       $theme->classes[] = 'clearfix';
-      $output .= '<div class="'. join(' ', $theme->classes) .'">' . $screenshot . '<div class="theme-selector__info"><h3>' . $theme->info['name'] . ' ' . (isset($theme->info['version']) ? $theme->info['version'] : '') . $notes . '</h3><div class="theme-description">' . $description . '</div>';
+      $output .= '<div class="' . implode(' ', $theme->classes) . '">' . $screenshot . '<div class="theme-selector__info"><h3>' . $theme->info['name'] . ' ' . (isset($theme->info['version']) ? $theme->info['version'] : '') . $notes . '</h3><div class="theme-description">' . $description . '</div>';
 
       // Make sure to provide feedback on compatibility.
       if (!empty($theme->incompatible_core)) {
@@ -65,7 +65,7 @@ function omega_system_themes_page($variables) {
         $output .= theme('links', array(
           'links' => $theme->operations,
           'attributes' => array(
-            'class' => array('theme-selector__operations', 'clearfix')
+            'class' => array('theme-selector__operations', 'clearfix'),
           ),
         ));
       }
