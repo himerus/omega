@@ -248,7 +248,7 @@ function drush_omega_subtheme($name) {
     return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
   }
 
-  // Optionally remove README.md files.
+  // Optionally remove README.txt files.
   if (drush_get_option('no-readme')) {
     foreach (file_scan_directory($temporary, '/^README/') as $file) {
       drush_delete_dir($file->uri);
@@ -258,9 +258,16 @@ function drush_omega_subtheme($name) {
   // Recursively rewrite the file names and contents of all the files that are
   // now in the subtheme's directory to represent the human- and
   // machine-readable names of the subtheme.
-  $search = array('/{{ THEME }}/', '/{{ THEMENAME }}/');
-  $replace = array($machine_name, $name);
-  if (!drush_omega_rewrite_recursive($temporary, $search, $replace)) {
+  $camel = strtr(ucwords(strtr($machine_name, array('_' => ' ', '.' => '_ '))), array(' ' => ''));
+  $search = array(
+    '/{{ THEME }}/' => $machine_name,
+    '/{{ THEME:NAME }}/' => $name,
+    '/{{ THEME:SANITIZED }}/' => str_replace('_', '-', $machine_name),
+    '/{{ THEME:CAMELCASE }}/' => $camel,
+    '/{{ THEME:CAMELCASE:LOWER }}/' => lcfirst($camel),
+  );
+
+  if (!drush_omega_rewrite_recursive($temporary, array_keys($search), array_values($search))) {
     return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
   }
 

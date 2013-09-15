@@ -1,4 +1,4 @@
-# Overriding theme function
+# Overriding theme functions
 Instead of defining theme function overrides in your template.php file Omega allows you to split them up into separate include files. These follow the same naming pattern as (pre-)process include files and are automatically lazy-loaded whenever the theme hook is invoked.
 
 This feature greatly improves the maintainability of large themes that would otherwise contain hundreds of lines of unrelated code in your template.php file.

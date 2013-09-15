@@ -5,8 +5,11 @@ engine = phptemplate
 core = 7.x
 
 ; Styles
-stylesheets[all][] = css/{{ THEME }}.normalize.css
-stylesheets[all][] = css/{{ THEME }}.styles.css
+stylesheets[all][] = css/{{ THEME:SANITIZED }}.normalize.css
+stylesheets[all][] = css/{{ THEME:SANITIZED }}.styles.css
+
+; Scripts
+scripts[] = js/{{ THEME:SANITIZED }}.behaviors.js
 
 ; Regions
 regions[header]         = Header
