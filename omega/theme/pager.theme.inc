@@ -1,20 +1,12 @@
 <?php
 
 /**
+ * @file
+ * Contains the theme function override for 'pager'.
+ */
+
+/**
  * Returns HTML for a query pager.
- *
- * Menu callbacks that display paged query results should call theme('pager') to
- * retrieve a pager control so that users can view other results. Format a list
- * of nearby pages with additional query results.
- *
- * @param $variables
- *   An associative array containing:
- *   - tags: An array of labels for the controls in the pager.
- *   - element: An optional integer to distinguish between multiple pagers on
- *     one page.
- *   - parameters: An associative array of query string parameters to append to
- *     the pager links.
- *   - quantity: The number of pages in the list.
  *
  * @ingroup themeable
  */

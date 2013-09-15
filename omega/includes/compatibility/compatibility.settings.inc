@@ -170,7 +170,14 @@ function omega_extension_compatibility_settings_form($element, &$form, $form_sta
 function omega_extension_compatibility_settings_form_submit($form, &$form_state) {
   $values = &$form_state['values'];
 
-  foreach (array('omega_internet_explorer_support', 'omega_viewport_initial_scale', 'omega_viewport_minimum_scale', 'omega_viewport_maximum_scale') as $item) {
+  $options = array(
+    'omega_internet_explorer_support',
+    'omega_viewport_initial_scale',
+    'omega_viewport_minimum_scale',
+    'omega_viewport_maximum_scale',
+  );
+
+  foreach ($options as $item) {
     if ($values[$item] === '_none') {
       unset($values[$item]);
     }

@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'views_view_list'.
+ */
+
+/**
  * Implements hook_preprocess_views_view_list().
  */
 function omega_preprocess_views_view_list(&$variables) {

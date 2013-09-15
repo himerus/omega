@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a process hook for 'views_view_unformatted'.
+ */
+
+/**
  * Implements hook_process_views_view_unformatted().
  *
  * @see omega_preprocess_views_view_unformatted()

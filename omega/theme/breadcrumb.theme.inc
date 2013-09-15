@@ -1,7 +1,14 @@
 <?php
 
 /**
+ * @file
+ * Contains the theme function override for 'breadcrumb'.
+ */
+
+/**
  * Returns HTML for a breadcrumb trail.
+ *
+ * @ingroup themeable
  */
 function omega_breadcrumb($variables) {
   $breadcrumb = $variables['breadcrumb'];

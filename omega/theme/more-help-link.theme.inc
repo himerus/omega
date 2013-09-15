@@ -1,11 +1,14 @@
 <?php
 
 /**
+ * @file
+ * Contains the theme function override for 'more_help_link'.
+ */
+
+/**
  * Returns HTML for a "more help" link.
  *
- * @param $variables
- *   An associative array containing:
- *   - url: The URL for the link.
+ * @ingroup themeable
  */
 function omega_more_help_link($variables) {
   return l(t('More help'), $variables['url'], array('attributes' => array('class' => array('more-link'))));

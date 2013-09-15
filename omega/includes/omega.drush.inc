@@ -26,7 +26,7 @@ function omega_drush_command() {
       'enable' => dt('Automatically enable the subtheme after creation.'),
       'set-default' => dt('Automatically enable the subtheme after creation and make it the default theme.'),
       'no-readme' => dt('Skips readme files when generating the subtheme.'),
-      'no-libraries' => dt("Prevent execution of the theme's libraries.make file.")
+      'no-libraries' => dt("Prevent execution of the theme's libraries.make file."),
     ),
     'examples' => array(
       'drush omega-subtheme "My Theme"' => dt('Creates an Omega subtheme called "My Theme".'),
@@ -94,12 +94,16 @@ function omega_drush_help($section) {
   switch ($section) {
     case 'drush:omega-subtheme':
       return dt('Generates a subtheme.');
+
     case 'drush:omega-wizard':
       return dt('Guides you through a wizard for generating a subtheme.');
+
     case 'drush:omega-guard':
       return dt('Runs guard for the given theme including Compass and LiveReload by default.');
+
     case 'drush:omega-export':
       return dt('Exports the theme settings of a given theme.');
+
     case 'drush:omega-revert':
       return dt('Reverts the theme settings of a given theme.');
   }
@@ -359,8 +363,9 @@ function drush_omega_export_validate($theme = NULL) {
  * Exports the theme settings for the given theme from the database and writes
  * them into the .info file of that theme.
  *
- * @param $theme
+ * @param string $theme
  *   (optional) The machine-readable name of a theme.
+ *
  * @return bool
  *   TRUE on success, FALSE on failure.
  */
@@ -475,7 +480,7 @@ function drush_omega_guard_validate($theme = NULL) {
  * Starts guard for the given theme for compass, theme registry rebuild and
  * livereload.
  *
- * @param $theme
+ * @param string $theme
  *   (optional) The machine-readable name of a theme.
  */
 function drush_omega_guard($theme = NULL) {
@@ -546,7 +551,6 @@ function drush_omega_guard($theme = NULL) {
 
     case "Your Gemfile's dependencies could not be satisfied":
       // @todo Add prompt for running 'bundle install'.
-
     default:
       return drush_set_error(dt("There was a problem with your setup:\n!error", array(
         '!error' => implode("\n", $output),
@@ -615,10 +619,11 @@ function drush_omega_guard($theme = NULL) {
 }
 
 /**
- * Resolves the destination path for a subtheme. This can either be a profile
- * theme folder, a sites theme folder or a theme.
+ * Resolves the destination path for a subtheme.
  *
- * @param $destination
+ * This can either be a profile theme folder, a sites theme folder or a theme.
+ *
+ * @param string $destination
  *   A destination string, this can either be a site path ('site:foo'), a
  *   profile path ('profile:foo') or a theme path ('theme:foo').
  *
@@ -632,7 +637,7 @@ function drush_omega_resolve_destination($destination) {
   // Add a '/' to the custom path suffix.
   $custom = $custom ? '/' . $custom : '';
 
-  switch($type) {
+  switch ($type) {
     case 'site':
       if (array_key_exists($destination, drush_omega_sites())) {
         return 'sites/' . $destination . '/themes' . $custom;
@@ -657,7 +662,7 @@ function drush_omega_resolve_destination($destination) {
 /**
  * Helper function for printing a list of available Omega themes.
  *
- * @param $message
+ * @param string $message
  *   The message that should be displayed.
  *
  * @return bool|string
@@ -679,9 +684,9 @@ function drush_omega_theme_choice($message) {
 /**
  * Helper function for printing a list of available starterkits.
  *
- * @param $basetheme
+ * @param string $basetheme
  *   The machine-readable name of a basetheme.
- * @param $message
+ * @param string $message
  *   The message that should be displayed.
  *
  * @return bool|string
@@ -704,7 +709,7 @@ function drush_omega_starterkit_choice($basetheme, $message) {
 /**
  * Helper function that asks for the desired destination of a subtheme.
  *
- * @param $message
+ * @param string $message
  *   The message that should be displayed.
  *
  * @return bool|string
@@ -760,8 +765,10 @@ function drush_omega_destination_choice($message) {
 /**
  * Helper function that continuously prompts for a valid machine-readable name.
  *
- * @param $message
+ * @param string $message
  *   The message that should be displayed.
+ * @param string $default
+ *   (Optional) The default theme name. Defaults to NULL.
  *
  * @return string
  *   A valid, unique machine-readable name.
@@ -793,12 +800,12 @@ function drush_omega_require_valid_theme_name($message, $default = NULL) {
 /**
  * Recursively rewrites (and renames) all files in a given path.
  *
- * @param $path
+ * @param string $path
  *   The path to rewrite all files in.
- * @param $search
+ * @param string|array $search
  *   The string(s) to look for when replacing the file names and contents. Can
  *   be an array or a string.
- * @param $replace
+ * @param string|array $replace
  *   The string(s) to replace $search with. Can be an array or a string.
  *
  * @return bool
@@ -868,16 +875,16 @@ function drush_omega_rewrite_recursive($path, $search, $replace) {
 /**
  * Recursively builds an .info file structure from an array.
  *
- * @param $array
+ * @param array $array
  *   The array to build the .info file from.
- * @param $prefix
+ * @param string|bool $prefix
  *   (Optional) Used internally to forward the current prefix (level of nesting)
- *   for the keys.
+ *   for the keys. Defaults to NULL.
  *
  * @return string
  *   A .info file string.
  */
-function drush_omega_compose_info_file($array, $prefix = FALSE) {
+function drush_omega_compose_info_file($array, $prefix = NULL) {
   $info = '';
 
   foreach ($array as $key => $value) {
@@ -928,7 +935,7 @@ function drush_omega_sites() {
  * Helper function for generating a valid machine-readable name for a theme from
  * any string.
  *
- * @param $string
+ * @param string $string
  *   The string to generate the machine-readable name from.
  *
  * @return string
@@ -960,7 +967,7 @@ function drush_omega_generate_theme_name($string) {
 /**
  * Helper function for validating a given theme.
  */
-function drush_omega_validate_theme($theme = NULL) {
+function drush_omega_validate_theme($theme) {
   if (!isset($theme)) {
     return;
   }

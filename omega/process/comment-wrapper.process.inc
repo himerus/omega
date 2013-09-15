@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a process hook for 'comment_wrapper'.
+ */
+
+/**
  * Implements hook_process_comment_wrapper().
  */
 function omega_process_comment_wrapper(&$variables) {

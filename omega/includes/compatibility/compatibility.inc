@@ -107,7 +107,10 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
 
     $meta = array(
       '#tag' => 'meta',
-      '#attributes' => array('name' => 'viewport', 'content' => implode(', ', $content)),
+      '#attributes' => array(
+        'name' => 'viewport',
+        'content' => implode(', ', $content),
+      ),
       // The 'viewport' metatag should be rendered after the 'HandheldFriendly'
       // metatag.
       '#weight' => 10,
@@ -122,7 +125,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
 
     if (!empty($registry['html']['apple-touch-icon'])) {
       // Iterate over the array of touch icons and attributes.
-      foreach($registry['html']['apple-touch-icon'] as $icon) {
+      foreach ($registry['html']['apple-touch-icon'] as $icon) {
         $meta = array(
           '#tag' => 'link',
           '#attributes' => array(

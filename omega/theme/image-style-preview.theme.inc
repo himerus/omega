@@ -1,11 +1,12 @@
 <?php
 
 /**
+ * @file
+ * Contains the theme function override for 'image_style_preview'.
+ */
+
+/**
  * Returns HTML for a preview of an image style.
- *
- * @param $variables
- *   An associative array containing:
- *   - style: The image style array being previewed.
  *
  * @ingroup themeable
  */

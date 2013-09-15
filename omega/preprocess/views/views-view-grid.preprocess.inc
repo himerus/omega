@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'views_view_grid'.
+ */
+
+/**
  * Implements hook_preprocess_views_view_grid().
  */
 function omega_preprocess_views_view_grid(&$variables) {

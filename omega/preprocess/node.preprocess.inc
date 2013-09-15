@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'node'.
+ */
+
+/**
  * Implements hook_preprocess_node().
  *
  * Copied from Sam Richard's (Snugug) fabulous Aurora Base Theme.

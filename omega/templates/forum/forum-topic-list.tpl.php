@@ -47,7 +47,7 @@
       <td class="forum-topic-list__icon"><?php print $topic->icon; ?></td>
       <td class="forum-topic-list__title">
         <div>
-          <?php print $topic->title; ?>
+          <?php print check_plain($topic->title); ?>
         </div>
         <div>
           <?php print $topic->created; ?>

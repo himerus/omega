@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a process hook for 'views_view_grid'.
+ */
+
+/**
  * Implements hook_process_views_view_grid().
  *
  * @see hook_preprocess_views_view_grid()

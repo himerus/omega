@@ -1,16 +1,14 @@
 <?php
 
 /**
+ * @file
+ * Contains the theme function override for 'status_messages'.
+ */
+
+/**
  * Returns HTML for status and/or error messages, grouped by type.
  *
- * An invisible heading identifies the messages for assistive technology.
- * Sighted users see a colored box. See http://www.w3.org/TR/WCAG-TECHS/H69.html
- * for info.
- *
- * @param $variables
- *   An associative array containing:
- *   - display: (optional) Set to 'status' or 'error' to display only messages
- *     of that type.
+ * @ingroup themeable
  */
 function omega_status_messages($variables) {
   $display = $variables['display'];

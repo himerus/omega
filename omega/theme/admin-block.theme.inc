@@ -1,16 +1,12 @@
 <?php
 
 /**
+ * @file
+ * Contains the theme function override for 'admin_block'.
+ */
+
+/**
  * Returns HTML for an administrative block for display.
- *
- * @param $variables
- *   An associative array containing:
- *   - block: An array containing information about the block:
- *     - show: A Boolean whether to output the block. Defaults to FALSE.
- *     - title: The block's title.
- *     - content: (optional) Formatted content for the block.
- *     - description: (optional) Description of the block. Only output if
- *       'content' is not set.
  *
  * @ingroup themeable
  */

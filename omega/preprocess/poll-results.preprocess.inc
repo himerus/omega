@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'poll_results'.
+ */
+
+/**
  * Implements hook_preprocess_poll_results__block().
  */
 function omega_preprocess_poll_results(&$variables) {

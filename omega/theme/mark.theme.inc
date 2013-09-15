@@ -1,7 +1,14 @@
 <?php
 
 /**
+ * @file
+ * Contains the theme function override for 'mark'.
+ */
+
+/**
  * Returns HTML for a marker for new or updated content.
+ *
+ * @ingroup themeable
  */
 function omega_mark($variables) {
   $type = $variables['type'];

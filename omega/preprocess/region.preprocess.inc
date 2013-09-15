@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'region'.
+ */
+
+/**
  * Implements hook_preprocess_region().
  */
 function omega_preprocess_region(&$variables) {

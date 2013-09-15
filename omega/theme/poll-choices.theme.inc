@@ -1,11 +1,12 @@
 <?php
 
 /**
+ * @file
+ * Contains the theme function override for 'poll_choices'.
+ */
+
+/**
  * Returns HTML for an admin poll form for choices.
- *
- * @param $variables
- *   An associative array containing:
- *   - form: A render element representing the form.
  *
  * @ingroup themeable
  */

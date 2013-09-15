@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a process hook for 'block'.
+ */
+
+/**
  * Implements hook_process_block().
  */
 function omega_process_block(&$variables) {

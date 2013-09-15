@@ -1,14 +1,14 @@
 <?php
+
+/**
+ * @file
+ * Contains the theme function override for 'menu_local_task'.
+ */
+
 /**
  * Returns HTML for primary and secondary local tasks.
  *
- * @param $variables
- *   An associative array containing:
- *     - primary: (optional) An array of local tasks (tabs).
- *     - secondary: (optional) An array of local tasks (tabs).
- *
  * @ingroup themeable
- * @see menu_local_tasks()
  */
 function omega_menu_local_tasks(&$variables) {
   $output = '';

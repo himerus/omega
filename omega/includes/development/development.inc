@@ -66,12 +66,20 @@ function omega_extension_development_preprocess_html(&$variables) {
   }
 
   if (omega_theme_get_setting('omega_browser_width_indicator', FALSE) || omega_theme_get_setting('omega_demo_regions', TRUE)) {
-    drupal_add_css($path . '/css/omega.development.css', array('group' => CSS_THEME, 'weight' => -10, 'every_page' => TRUE));
+    drupal_add_css($path . '/css/omega.development.css', array(
+      'group' => CSS_THEME,
+      'weight' => -10,
+      'every_page' => TRUE,
+    ));
 
     if (omega_theme_get_setting('omega_browser_width_indicator', FALSE)) {
       if (!module_exists('overlay') || (!$mode = overlay_get_mode()) || $mode == 'parent') {
         $variables['attributes_array']['class'][] = 'omega-browser-width-indicator';
-        drupal_add_js($path . '/js/omega.indicator.min.js', array('group' => JS_THEME, 'weight' => -10, 'every_page' => TRUE));
+        drupal_add_js($path . '/js/omega.indicator.min.js', array(
+          'group' => JS_THEME,
+          'weight' => -10,
+          'every_page' => TRUE,
+        ));
       }
     }
   }

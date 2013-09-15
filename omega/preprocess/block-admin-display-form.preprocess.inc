@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'block_admin_display_form'.
+ */
+
+/**
  * Implements hook_preprocess_admin_display_form().
  */
 function omega_preprocess_block_admin_display_form(&$variables) {

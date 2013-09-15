@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'field'.
+ */
+
+/**
  * Implements hook_preprocess_block().
  */
 function omega_preprocess_field(&$variables) {

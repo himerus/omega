@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'node'.
+ */
+
+/**
  * Implements hook_preprocess_TEMPLATE().
  */
 function ohm_preprocess_node(&$variables) {

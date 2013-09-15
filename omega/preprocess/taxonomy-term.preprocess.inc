@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * @file
+ * Contains a pre-process hook for 'taxonomy_term'.
+ */
+
 /**
  * Implements hook_preprocess_taxonomy_term().
  */

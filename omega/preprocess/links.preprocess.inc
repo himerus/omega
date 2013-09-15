@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'links'.
+ */
+
+/**
  * Implements hook_preprocess_links().
  *
  * Intercepts the links to change inline class to links--inline.

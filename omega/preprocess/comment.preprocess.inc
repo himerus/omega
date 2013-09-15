@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'comment'.
+ */
+
+/**
  * Implements hook_preprocess_comment().
  */
 function omega_preprocess_comment(&$variables) {

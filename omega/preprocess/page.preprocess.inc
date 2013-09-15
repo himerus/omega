@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'page'.
+ */
+
+/**
  * Implements hook_preprocess_page().
  */
 function omega_preprocess_page(&$variables) {

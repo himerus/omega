@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a process hook for 'views_view_table'.
+ */
+
+/**
  * Implements hook_process_views_view_table().
  *
  * @see hook_preprocess_views_view_table()

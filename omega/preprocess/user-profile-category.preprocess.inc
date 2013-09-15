@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'user_profile_category'.
+ */
+
+/**
  * Implements hook_preprocess_user_profile_category().
  *
  * Backports the following changes made to Drupal 8:

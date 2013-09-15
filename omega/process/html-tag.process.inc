@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a process hook for 'html_tag'.
+ */
+
+/**
  * Implements hook_process_html_tag().
  */
 function omega_process_html_tag(&$variables) {

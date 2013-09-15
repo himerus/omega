@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains a pre-process hook for 'views_view_unformatted'.
+ */
+
+/**
  * Implements hook_preprocess_views_view_unformatted().
  */
 function omega_preprocess_views_view_unformatted(&$variables) {
