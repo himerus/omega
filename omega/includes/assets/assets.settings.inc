@@ -152,7 +152,12 @@ function omega_library_pie_selectors_submit($form, &$form_state) {
   }
 
   // Save the selectors as an array.
-  $parents = array('#parents' => array('omega_libraries', 'css3pie', 'selectors'));
+  $parents = array('#parents' => array(
+    'omega_libraries',
+    'css3pie',
+    'selectors'
+  ));
+
   form_set_value($parents, $selectors, $form_state);
 }
 
@@ -173,7 +178,7 @@ function omega_library_pie_options_form(&$element, &$form, $form_state, $library
   $element['selectors'] = array(
     '#title' => t('Selectors'),
     '#type' => 'textarea',
-    '#description' => t("You can use this textarea to define all the CSS rules that you want to apply the PIE behavior to. Define one CSS selector per line. The selectors submitted with this field get directly cached in a <a href=\"!css\">.css</a> file (as well as a <a href=\"!js\">.js</a> file) in the public file system. This file is then included on page load and triggers CSS3PIE.", array(
+    '#description' => t('You can use this textarea to define all the CSS rules that you want to apply the PIE behavior to. Define one CSS selector per line. The selectors submitted with this field get directly cached in a <a href="!css">.css</a> file (as well as a <a href="!js">.js</a> file) in the public file system. This file is then included on page load and triggers CSS3PIE.', array(
       '!css' => $destination . '/pie-selectors.css',
       '!js' => $destination . '/pie-selectors.js',
     )),

@@ -30,7 +30,7 @@ body {
 /* Content Area */
 .l-highlighted-wrapper {
   padding: $vert-spacing-unit 0;
-  background: #FFF;
+  background: #fff;
 }
 .l-region--highlighted {
   @extend .l-constrained;
@@ -46,14 +46,14 @@ body {
 /* Sidebars */
 .l-region--sidebar-first,
 .l-region--sidebar-second {
-  background-color: #FFF;
+  background-color: #fff;
   padding: $vert-spacing-unit $horz-spacing-unit;
 }
 
 /* Footer */
 .l-footer-wrapper {
   padding: $vert-spacing-unit 0;
-  background: #FFF;
+  background: #fff;
 }
 .l-region--footer {
   @extend .l-constrained;

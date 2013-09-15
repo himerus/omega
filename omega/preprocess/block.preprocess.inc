@@ -37,7 +37,8 @@ function omega_preprocess_block(&$variables) {
           break;
 
         default:
-          // Any other "system" block is a menu block and should use block--nav.tpl.php
+          // Any other "system" block is a menu block and should use
+          // block--nav.tpl.php
           $variables['theme_hook_suggestions'][] = 'block__nav';
           break;
       }

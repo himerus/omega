@@ -30,7 +30,7 @@ function ohm_pager_link($variables) {
     $query = array_merge($query, $query_pager);
   }
 
-  // Set each pager link title
+  // Set each pager link title.
   if (!isset($attributes['title'])) {
     static $titles = NULL;
     if (!isset($titles)) {
@@ -57,4 +57,3 @@ function ohm_pager_link($variables) {
   $attributes['href'] = url($_GET['q'], array('query' => $query));
   return '<a' . drupal_attributes($attributes) . '>' . filter_xss($text) . '</a>';
 }
-

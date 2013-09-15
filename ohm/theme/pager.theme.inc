@@ -28,7 +28,6 @@ function ohm_pager($variables) {
   $pager_last = $pager_current + $quantity - $pager_middle;
   // Max is the maximum page number.
   $pager_max = $pager_total[$element];
-  // End of marker calculations.
 
   // Prepare for generation loop.
   $i = $pager_first;
@@ -42,7 +41,6 @@ function ohm_pager($variables) {
     $pager_last = $pager_last + (1 - $i);
     $i = 1;
   }
-  // End of generation loop preparation.
 
   $li_first = theme('pager_first', array(
     'text' => (isset($tags[0]) ? $tags[0] : '<i class="icon-first"></i>' . t('first')),

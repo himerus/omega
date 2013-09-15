@@ -248,7 +248,7 @@ function drush_omega_subtheme($name) {
     return drush_set_error('OMEGA_GENERATE_SUBTHEME', dt('Failed to generate subtheme.'));
   }
 
-  // Optionally remove README.txt files.
+  // Optionally remove README.md files.
   if (drush_get_option('no-readme')) {
     foreach (file_scan_directory($temporary, '/^README/') as $file) {
       drush_delete_dir($file->uri);
@@ -426,7 +426,7 @@ function drush_omega_revert_validate($theme = NULL) {
  * Delete the theme settings that have been stored in the database and thereby
  * reverts them to the default settings from the .info file.
  *
- * @param $theme
+ * @param string $theme
  *   (optional) The machine-readable name of a theme.
  */
 function drush_omega_revert($theme = NULL) {

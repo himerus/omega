@@ -18,11 +18,11 @@
 }
 .site-branding__name {
   @extend .gamma;
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
 
   &:visited {
-    color: #FFF;
+    color: #fff;
   }
   &:hover {
     color: $dark-blue;
