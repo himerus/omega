@@ -63,6 +63,29 @@
   padding: 18px 1em;
 }
 
+select:focus,
+input:focus,
+textarea:focus {
+  -webkit-box-shadow: 0 0 4px 1px rgba(236, 145, 96, 0.3);
+  -moz-box-shadow: 0 0 4px 1px rgba(236, 145, 96, 0.3);
+  box-shadow: 0 0 4px 1px rgba(236, 145, 96, 0.3);
+  outline: 1px solid #ec9160;
+}
+
+fieldset {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 9px 1em 18px 1em;
+  border-color: #dddddd;
+}
+
+legend {
+  font-size: 18px;
+  font-size: 1.28571rem;
+  padding: 0 0.8em;
+  color: #6a7076;
+}
+
 img, media {
   max-width: 100%;
   height: auto;
@@ -286,92 +309,6 @@ mark,
 }
 
 /**
- * $FIELDSETS
- */
-.form-wrapper {
-  margin-bottom: 18px;
-}
-
-fieldset {
-  margin-left: 0;
-  margin-right: 0;
-  padding: 9px 1em 18px 1em;
-  border-color: #dddddd;
-}
-
-legend {
-  font-size: 18px;
-  font-size: 1.28571rem;
-  padding: 0 0.8em;
-  color: #6a7076;
-}
-
-.fieldset-description {
-  margin-bottom: 9px;
-  color: #6a7076;
-  font-style: italic;
-}
-
-.vertical-tabs fieldset.vertical-tabs-pane {
-  padding: 18px 1em;
-}
-
-/**
- * $FORM-ITEM
- */
-.form-item {
-  color: #6a7076;
-}
-.form-item label {
-  margin-bottom: 0.4em;
-}
-.form-item .form-select,
-.form-item .form-text,
-.form-item .form-textarea {
-  width: 100%;
-  padding: 0.6em;
-  background-color: #fff;
-  border: 1px solid #dddddd;
-  color: #6a7076;
-  vertical-align: middle;
-}
-.form-item .description {
-  margin-top: 0.2em;
-  font-style: italic;
-}
-
-.container-inline .form-select,
-.container-inline .form-text,
-.container-inline .form-textarea {
-  width: auto;
-}
-
-select:focus,
-input:focus,
-textarea:focus {
-  -webkit-box-shadow: 0 0 4px 1px rgba(236, 145, 96, 0.3);
-  -moz-box-shadow: 0 0 4px 1px rgba(236, 145, 96, 0.3);
-  box-shadow: 0 0 4px 1px rgba(236, 145, 96, 0.3);
-  outline: 1px solid #ec9160;
-}
-
-/**
- * $PASSWORD-INDICATOR
- */
-.password-indicator {
-  height: 0.8em;
-  background: none;
-  border: 1px solid #dddddd;
-}
-.password-indicator .indicator {
-  background: #efa47b;
-}
-
-.password-strength-title {
-  margin-bottom: 0.2em;
-}
-
-/**
  * $USER-MENU
  */
 .block--system-user-menu a {
@@ -545,10 +482,57 @@ html.js fieldset.collapsed {
 }
 
 /**
+ * $FIELDSETS
+ */
+.form-wrapper {
+  margin-bottom: 18px;
+}
+
+.fieldset-description {
+  margin-bottom: 9px;
+  color: #6a7076;
+  font-style: italic;
+}
+
+.vertical-tabs fieldset.vertical-tabs-pane {
+  padding: 18px 1em;
+}
+
+/**
  * $FILTER-TIPS
  */
 .filter-wrapper {
   background-color: #fff;
+}
+
+/**
+ * $FORM-ITEM
+ */
+.form-item {
+  color: #6a7076;
+}
+.form-item label {
+  margin-bottom: 0.4em;
+}
+.form-item .form-select,
+.form-item .form-text,
+.form-item .form-textarea {
+  width: 100%;
+  padding: 0.6em;
+  background-color: #fff;
+  border: 1px solid #dddddd;
+  color: #6a7076;
+  vertical-align: middle;
+}
+.form-item .description {
+  margin-top: 0.2em;
+  font-style: italic;
+}
+
+.container-inline .form-select,
+.container-inline .form-text,
+.container-inline .form-textarea {
+  width: auto;
 }
 
 /**
@@ -561,6 +545,22 @@ div.password-confirm {
 
 div.password-indicator {
   margin-bottom: 0.4em;
+}
+
+/**
+ * $PASSWORD-INDICATOR
+ */
+.password-indicator {
+  height: 0.8em;
+  background: none;
+  border: 1px solid #dddddd;
+}
+.password-indicator .indicator {
+  background: #efa47b;
+}
+
+.password-strength-title {
+  margin-bottom: 0.2em;
 }
 
 /**
