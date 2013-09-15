@@ -38,7 +38,7 @@ function omega_extension_development_preprocess_html(&$variables) {
     $script = omega_theme_get_setting('omega_livereload_script', "http://$host:$port/livereload.js");
     $parsed = parse_url($script);
 
-    $query = array();
+    $query = array('snipver' => '1');
     if (!isset($parsed['port']) || $parsed['port'] != $port) {
       // If no port is specified the livereload.js script will use the default
       // port (35729).
@@ -58,10 +58,8 @@ function omega_extension_development_preprocess_html(&$variables) {
     drupal_add_js($script, array(
       'preprocess' => FALSE,
       'type' => 'external',
-      'browsers' => array(
-        'IE' => FALSE,
-        '!IE' => TRUE,
-      ),
+      'scope' => 'footer',
+      'weight' => 1000,
     ));
   }
 
