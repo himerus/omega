@@ -3,7 +3,12 @@
  *
  * Styles for the Ohm Hero layout.
  ******************************************************************************/
-@import "partials/utility/all";
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+
+// Globbing from within sub-folders only works with relative paths.
+@import "../../variables/**/*";
 
 body {
   background: transparent image-url('diagonal.png') left top repeat;

@@ -1,17 +1,22 @@
-// Import dependencies, variables and custom abstraction globally.
-//
-// We are not using globbing to import the utility directory the contained files
-// have to be imported in a specific order.
-@import "partials/utility/all";
+// Import external libraries.
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+@import "toolkit-no-css";
 
-// Import base styles and components using Sass globbing (allows wildcards).
+// Import variables, abstractions, base styles and components using globbing.
 //
 // Globbing will always import files alphabetically. Optimally, all your
 // components should be self-contained and explicit enough to not have any
 // contained styles leak into unrelated components: The import order should not
 // affect the result.
 //
-// However, if certain files must be imported in a specific order (while using
-// globbing), you can use numerical prefixes for your file- and directory names.
-@import "partials/base/**/*";
-@import "partials/components/**/*";
+// If there are variables, functions or mixins that depend on each other and
+// therefore need to be imported in a specific order you can import them
+// directly. Variables-, function- or mixin providing partials should never
+// output any styles themselves: Importing them multiple times to resolve
+// dependencies shouldn't be a problem.
+@import "variables/**/*";
+@import "abstractions/**/*";
+@import "base/**/*";
+@import "components/**/*";
