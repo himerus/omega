@@ -26,8 +26,9 @@ group :development do
   #end
 
   # https://github.com/guard/guard-livereload.
+  # Ignore *.normalize.scss to prevent flashing content when re-rendering.
   guard :livereload do
-    watch(%r{.+\.(css|js)$})
+    watch(%r{^((?!\.normalize\.).)*\.(css|js)$})
   end
 
 end
