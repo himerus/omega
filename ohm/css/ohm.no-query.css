@@ -17,6 +17,12 @@
   clear: both;
 }
 
+.comment__content:after, .field--type-taxonomy-term-reference .field__items:after, .pager:after, .site-branding:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 /**
  * $ARROW
  */
@@ -27,18 +33,10 @@
   margin: 0;
   padding: 0;
   border: 0;
-  /* for IE 6/7 */
-  *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
-  /* non-JS fallback */
-  *zoom: 1;
-}
-.block--system-user-menu .menu:before, .block--nav-bar .menu:before, .action-links:before, .breadcrumb:before, .block--system-user-menu .menu:after, .block--nav-bar .menu:after, .action-links:after, .breadcrumb:after {
-  content: ".";
-  display: block;
-  height: 0;
-  overflow: hidden;
 }
 .block--system-user-menu .menu:after, .block--nav-bar .menu:after, .action-links:after, .breadcrumb:after {
+  content: "";
+  display: table;
   clear: both;
 }
 .block--system-user-menu .menu li, .block--nav-bar .menu li, .action-links li, .breadcrumb li {
@@ -82,11 +80,11 @@ table {
 th {
   padding: 0.5em 1em;
   background-color: #077dc3;
-  color: #FFF;
+  color: #fff;
 }
 th a,
 th a.active {
-  color: #FFF;
+  color: #fff;
 }
 th a img,
 th a.active img {
@@ -276,7 +274,7 @@ mark,
 .marker {
   padding: 0.1em 0.5em;
   background: #52b1ea;
-  color: #FFF;
+  color: #fff;
   font-size: 12px;
   font-size: 0.85714rem;
   text-transform: capitalize;
@@ -332,7 +330,7 @@ legend {
 .form-item .form-textarea {
   width: 100%;
   padding: 0.6em;
-  background-color: #FFF;
+  background-color: #fff;
   border: 1px solid #dddddd;
   color: #6a7076;
   vertical-align: middle;
@@ -398,7 +396,7 @@ textarea:focus {
   font-size: 1.14286rem;
   text-transform: uppercase;
   text-decoration: none;
-  color: #FFF;
+  color: #fff;
 }
 .block--nav-bar a:hover, .block--nav-bar a:focus {
   color: #064771;
@@ -406,10 +404,10 @@ textarea:focus {
 .block--nav-bar a {
   font-size: 18px;
   font-size: 1.28571rem;
-  border-left: 1px solid #FFF;
+  border-left: 1px solid #fff;
 }
 .block--nav-bar li:last-child a {
-  border-right: 1px solid #FFF;
+  border-right: 1px solid #fff;
 }
 
 /**
@@ -438,7 +436,7 @@ textarea:focus {
 }
 
 .comment__content {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .comment__submitted {
@@ -547,7 +545,7 @@ html.js fieldset.collapsed {
  * $FILTER-TIPS
  */
 .filter-wrapper {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 /**
@@ -578,7 +576,7 @@ div.password-indicator {
 }
 .action-links li {
   padding-left: 16px;
-  background: transparent url('../images/../images/plus-blue.png?1376778393') left center no-repeat;
+  background: transparent url('../images/../images/plus-blue.png?1379110563') left center no-repeat;
 }
 .action-links li a {
   color: #077dc3;
@@ -635,7 +633,7 @@ div.password-indicator {
   padding: 0 1.2em;
   background-color: #222222;
   border: none;
-  color: #FFF;
+  color: #fff;
   font-weight: 700;
   font-family: inherit;
   font-size: 100%;
@@ -778,7 +776,7 @@ div.password-indicator {
 .pager__item a:hover {
   background-color: #e4621c;
   border-color: #e4621c;
-  color: #FFF;
+  color: #fff;
 }
 
 .pager__item--current {
@@ -834,11 +832,11 @@ div.password-indicator {
 }
 
 .site-branding__name {
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
 }
 .site-branding__name:visited {
-  color: #FFF;
+  color: #fff;
 }
 .site-branding__name:hover {
   color: #064771;

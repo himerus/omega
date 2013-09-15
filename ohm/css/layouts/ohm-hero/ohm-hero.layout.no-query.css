@@ -13,7 +13,7 @@
  * $ISLAND
  */
 body {
-  background: transparent url('../../../images/diagonal.png?1376778393') left top repeat;
+  background: transparent url('../../../images/diagonal.png?1379110563') left top repeat;
 }
 
 .l-constrained, .l-region--highlighted, .l-region--footer {
@@ -42,7 +42,7 @@ body {
 /* Content Area */
 .l-highlighted-wrapper {
   padding: 18px 0;
-  background: #FFF;
+  background: #fff;
 }
 
 .l-region--help {
@@ -57,14 +57,14 @@ body {
 /* Sidebars */
 .l-region--sidebar-first,
 .l-region--sidebar-second {
-  background-color: #FFF;
+  background-color: #fff;
   padding: 18px 1em;
 }
 
 /* Footer */
 .l-footer-wrapper {
   padding: 18px 0;
-  background: #FFF;
+  background: #fff;
 }
 
 .l-constrained, .l-region--highlighted, .l-region--footer {
