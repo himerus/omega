@@ -1,3 +1,3 @@
 name = Layouts
-description = There should be a description here.
+description = Choose a default layout from those provided by Omega and any installed subthemes.
 enabled = FALSE

@@ -1,3 +1,3 @@
 name = Development
-description = There should be a description here.
+description = Enable development tools such as Livereload, the browser width indicator and control caching to ease subtheme creation.
 enabled = TRUE
