@@ -33,34 +33,44 @@ function omega_extension_development_preprocess_html(&$variables) {
   $path = drupal_get_path('theme', 'omega');
 
   if (omega_theme_get_setting('omega_livereload', TRUE)) {
-    $port = omega_theme_get_setting('omega_livereload_port', '35729');
-    $host = omega_theme_get_setting('omega_livereload_host', 'localhost');
-    $script = omega_theme_get_setting('omega_livereload_script', "http://$host:$port/livereload.js");
-    $parsed = parse_url($script);
+    // LiveReload obviously only works if CSS aggregation is disabled.
+    if (!variable_get('preprocess_css', FALSE)) {
+      $port = omega_theme_get_setting('omega_livereload_port', '35729');
+      $host = omega_theme_get_setting('omega_livereload_host', 'localhost');
+      $script = omega_theme_get_setting('omega_livereload_script', "http://$host:$port/livereload.js");
+      $parsed = parse_url($script);
 
-    $query = array('snipver' => '1');
-    if (!isset($parsed['port']) || $parsed['port'] != $port) {
-      // If no port is specified the livereload.js script will use the default
-      // port (35729).
-      $query['port'] = $port;
+      $query = array('snipver' => '1');
+      if (!isset($parsed['port']) || $parsed['port'] != $port) {
+        // If no port is specified the livereload.js script will use the default
+        // port (35729).
+        $query['port'] = $port;
+      }
+
+      if (!isset($parsed['host']) || $parsed['host'] != $host) {
+        // If no host is specified livereload.js will use the host that it is
+        // served from (e.g. if livereload.js is served from example.com it will
+        // try to connect to a livereload server on example.com.
+        $query['host'] = $host;
+      }
+
+      // We need to add livereload.js as external script with an absolute path
+      // because otherwise Drupal core messes with the query string.
+      $script = empty($query) ? $script : $script . '?' . http_build_query($query);
+      drupal_add_js($script, array(
+        'preprocess' => FALSE,
+        'type' => 'external',
+        'scope' => 'footer',
+        'weight' => 1000,
+      ));
     }
-
-    if (!isset($parsed['host']) || $parsed['host'] != $host) {
-      // If no host is specified livereload.js will use the host that it is
-      // served from (e.g. if livereload.js is served from example.com it will
-      // try to connect to a livereload server on example.com.
-      $query['host'] = $host;
+    // If CSS aggregation is enabled, show a warning.
+    elseif (user_access('administer site configuration') && flood_is_allowed('oamega_' . $GLOBALS['theme'] . '_aggregation_and_livereload', 3, 3600)) {
+      flood_register_event('omega_' . $GLOBALS['theme'] . '_aggregation_and_livereload');
+      drupal_set_message(t('LiveReload does not work with aggregated CSS files. Please <a href="!link">disable CSS aggregation</a> if you want to use LiveReload for development.', array(
+        '!link' => url('admin/config/development/performance'),
+      )), 'warning');
     }
-
-    // We need to add livereload.js as external script with an absolute path
-    // because otherwise Drupal core messes with the query string.
-    $script = empty($query) ? $script : $script . '?' . http_build_query($query);
-    drupal_add_js($script, array(
-      'preprocess' => FALSE,
-      'type' => 'external',
-      'scope' => 'footer',
-      'weight' => 1000,
-    ));
   }
 
   if (omega_theme_get_setting('omega_browser_width_indicator', FALSE) || omega_theme_get_setting('omega_demo_regions', TRUE)) {
