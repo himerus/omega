@@ -89,18 +89,18 @@ body {
   }
 
   /* Sidebars */
-  .two-sidebars .l-content,
-  .one-sidebar .l-content {
+  .has-two-sidebars .l-content,
+  .has-one-sidebar .l-content {
     width: 65.95745%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
     clear: none;
   }
-  .two-sidebars .l-region--sidebar-first,
-  .two-sidebars .l-region--sidebar-second,
-  .one-sidebar .l-region--sidebar-first,
-  .one-sidebar .l-region--sidebar-second {
+  .has-two-sidebars .l-region--sidebar-first,
+  .has-two-sidebars .l-region--sidebar-second,
+  .has-one-sidebar .l-region--sidebar-first,
+  .has-one-sidebar .l-region--sidebar-second {
     width: 31.91489%;
     float: right;
     margin-left: 0;
@@ -115,14 +115,14 @@ body {
   }
 
   /* Sidebars */
-  .one-sidebar .l-content {
+  .has-one-sidebar .l-content {
     width: 65.95745%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
     clear: none;
   }
-  .one-sidebar .l-region--sidebar-first {
+  .has-one-sidebar .l-region--sidebar-first {
     width: 31.91489%;
     float: right;
     margin-left: 0;
@@ -131,15 +131,15 @@ body {
     clear: none;
   }
 
-  .two-sidebars .l-content {
+  .has-two-sidebars .l-content {
     width: 48.93617%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
     clear: none;
   }
-  .two-sidebars .l-region--sidebar-first,
-  .two-sidebars .l-region--sidebar-second {
+  .has-two-sidebars .l-region--sidebar-first,
+  .has-two-sidebars .l-region--sidebar-second {
     width: 23.40426%;
     float: left;
     margin-right: -100%;
@@ -147,7 +147,7 @@ body {
     clear: none;
     clear: none;
   }
-  .two-sidebars .l-region--sidebar-second {
+  .has-two-sidebars .l-region--sidebar-second {
     width: 23.40426%;
     float: right;
     margin-left: 0;
