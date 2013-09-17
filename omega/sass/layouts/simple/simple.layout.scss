@@ -58,7 +58,7 @@ $desk: 70em 16; // At 70em use 16 columns.
 
   .sidebar-first,
   .sidebar-second,
-  .two-sidebars {
+  .has-two-sidebars {
     .l-content {
       @include span-columns(8, 12); // Span 8 out of 12 columns.
     }
@@ -104,7 +104,7 @@ $desk: 70em 16; // At 70em use 16 columns.
     }
   }
 
-  .two-sidebars {
+  .has-two-sidebars {
     .l-content {
       @include span-columns(8, 16); // Span 8 out of 16 columns.
       @include push(4, 16);  // Push element by adding 4 out of 16 columns of left margin.

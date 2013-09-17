@@ -799,10 +799,24 @@ function _omega_preprocess_default_layout_variables(&$variables) {
   $layout = $variables['omega_layout'];
   $variables['attributes_array']['class'][] = 'l-page';
 
-  // Add information about the rendered sidebars.
-  foreach (preg_grep('/^sidebar/', array_keys($layout['info']['regions'])) as $name) {
-    if (!empty($variables['page'][$name])) {
-      $variables['attributes_array']['class'][] = 'has-' . str_replace('_', '-', $name);
+  // Add information about the rendered sidebars, but only if the layout
+  // actually supports sidebars.
+  if ($matches = preg_grep('/^sidebar/', array_keys($layout['info']['regions']))) {
+    $count = count(array_intersect_key($matches, array_keys(array_filter($variables['page']))));
+    // No-one is going to have more than *nine* sidebars. Even nine is actually
+    // already pretty unrealistic.
+    $words = array('no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine');
+
+    // Wrap this in a isset() just in case someone is stupid enough to have more
+    // than *nine* sidebar regions.
+    if (isset($words[$count])) {
+      $variables['attributes_array']['class'][] = "has-{$words[$count]}-sidebar" . (($count !== 1) ? 's' : '');
+    }
+
+    foreach ($matches as $name) {
+      if (!empty($variables['page'][$name])) {
+        $variables['attributes_array']['class'][] = 'has-' . str_replace('_', '-', $name);
+      }
     }
   }
 }

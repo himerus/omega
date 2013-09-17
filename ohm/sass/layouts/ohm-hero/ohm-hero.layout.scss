@@ -81,8 +81,8 @@ body {
   }
 
   /* Sidebars */
-  .two-sidebars,
-  .one-sidebar {
+  .has-two-sidebars,
+  .has-one-sidebar {
     .l-content {
       @include grid-span(8, 1);
     }
@@ -100,7 +100,7 @@ body {
   }
 
   /* Sidebars */
-  .one-sidebar {
+  .has-one-sidebar {
     .l-content {
       @include grid-span(8, 1);
     }
@@ -109,7 +109,7 @@ body {
       clear: none;
     }
   }
-  .two-sidebars {
+  .has-two-sidebars {
     .l-content {
       @include grid-span(6, 1);
     }
