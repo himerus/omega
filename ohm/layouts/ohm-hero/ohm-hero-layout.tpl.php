@@ -1,4 +1,4 @@
-<div class="l-page">
+<div<?php print $attributes; ?>>
   <header class="l-header" role="banner">
     <div class="l-constrained">
       <div class="l-branding site-branding">

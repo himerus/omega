@@ -424,6 +424,11 @@ function omega_theme_registry_alter(&$registry) {
     }
   }
 
+  // Prepend a preprocessor for initializing default variables to every layout.
+  foreach (array_keys(_omega_theme_layouts()) as $hook) {
+    array_unshift($registry[$hook]['preprocess functions'], '_omega_preprocess_default_layout_variables');
+  }
+
   // Allow extensions to register hooks in the theme registry.
   foreach (omega_extensions() as $extension => $info) {
     // Invoke the according hooks for every enabled extension.
@@ -447,6 +452,9 @@ function omega_theme_registry_alter(&$registry) {
  * Initializes the attributes array from the classes array.
  */
 function omega_initialize_attributes(&$variables) {
+  if (!empty($variables['attributes_array']['class'])) {
+    $variables['classes_array'] = array_unique(array_merge($variables['classes_array'], $variables['attributes_array']['class']));
+  }
   $variables['attributes_array']['class'] = &$variables['classes_array'];
 }
 
@@ -782,6 +790,21 @@ function omega_omega_theme_libraries_info($theme) {
   );
 
   return $libraries;
+}
+
+/**
+ * Omega layout preprocessor for initializing default variables.
+ */
+function _omega_preprocess_default_layout_variables(&$variables) {
+  $layout = $variables['omega_layout'];
+  $variables['attributes_array']['class'][] = 'l-page';
+
+  // Add information about the rendered sidebars.
+  foreach (preg_grep('/^sidebar/', array_keys($layout['info']['regions'])) as $name) {
+    if (!empty($variables['page'][$name])) {
+      $variables['attributes_array']['class'][] = 'has-' . str_replace('_', '-', $name);
+    }
+  }
 }
 
 /**

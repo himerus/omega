@@ -184,7 +184,7 @@ class OmegaThemeRegistryHandler {
 
     // Recursively scan the folder for the current step for (pre-)process
     // files and write them to the registry.
-    $files = file_scan_directory($path . '/' . $type, $mask);
+    $files = array_merge(file_scan_directory($path . '/' . $type, $mask), file_scan_directory($path . '/layouts', $mask));
     foreach ($files as &$file) {
       $file->hook = strtr(substr($file->name, 0, $length), '-', '_');
     };
