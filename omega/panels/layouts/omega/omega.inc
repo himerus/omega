@@ -104,6 +104,34 @@ function theme_omega_panels(&$variables) {
 function template_preprocess_omega_panels(&$variables) {
   _omega_panels_layout_preprocess($variables);
   drupal_process_attached(array('#attached' => $variables['layout']['layout']['attached']));
+
+  // Wrap every page item in a region template.
+  $layout = $variables['layout']['layout'];
+  $page = &$variables['page'];
+  foreach ($layout['info']['regions'] as $region => $name) {
+    if (!empty($variables['page'][$region])) {
+      $page[$region] = array(
+        '#region' => $region,
+        '#theme_wrappers' => array('region'),
+      );
+
+      $page[$region]['content'] = $variables['page'][$region];
+    }
+  }
+
+  // Place dummy blocks in each region if the 'demo regions' setting is active
+  // to force regions to be rendered.
+  if (omega_extension_enabled('development') && omega_theme_get_setting('omega_demo_regions', TRUE) && user_access('administer site configuration')) {
+    foreach ($layout['info']['regions'] as $region => $name) {
+      if (empty($page[$region])) {
+        $page[$region]['#theme_wrappers'] = array('region');
+        $page[$region]['#region'] = $region;
+      }
+
+      $page[$region]['#name'] = $name;
+      $page[$region]['#debug'] = TRUE;
+    }
+  }
 }
 
 /**
