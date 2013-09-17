@@ -5,7 +5,6 @@
 /**
  * Contextual links.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme-rtl\.scss}line{font-family:\0000311}}
 .contextual-links {
   left: 0;
   right: auto;
@@ -13,4 +12,5 @@
   -moz-border-radius: 0 4px 4px 4px;
   -ms-border-radius: 0 4px 4px 4px;
   -o-border-radius: 0 4px 4px 4px;
-  border-radius: 0 4px 4px 4px; }
+  border-radius: 0 4px 4px 4px;
+}

@@ -2,8 +2,8 @@
  * @file
  * Aggregator theme CSS.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/aggregator\/aggregator\.theme\.scss}line{font-family:\000036}}
 .feed-source .feed-icon {
   float: right;
   /* LTR */
-  display: block; }
+  display: block;
+}

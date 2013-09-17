@@ -7,11 +7,11 @@
  * Basic right to left styling for common HTML elements.
  */
 /* Tables */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/system\/elements\/_elements\.theme-rtl\.scss}line{font-family:\000037}}
 th {
   padding-left: 1em;
   padding-right: 0;
-  text-align: right; }
+  text-align: right;
+}
 
 /**
  * @file
@@ -19,21 +19,21 @@ th {
  *
  * @see collapse.js
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/system\/collapsible\/_collapsible\.theme-rtl\.scss}line{font-family:\000038}}
 html.js fieldset.collapsible .fieldset-legend {
   padding-left: 0;
   padding-right: 15px;
-  background-position: 98% 75%; }
+  background-position: 98% 75%;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/system\/collapsible\/_collapsible\.theme-rtl\.scss}line{font-family:\0000313}}
 html.js fieldset.collapsed .fieldset-legend {
-  background-image: url('../../../images/misc/menu-collapsed-rtl.png?1379458577');
-  background-position: 98% 50%; }
+  background-image: url('../../../images/misc/menu-collapsed-rtl.png?1379110563');
+  background-position: 98% 50%;
+}
 
 /**
  * @file
  * Right to left theme for the more link.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/system\/morelink\/_morelink\.theme-rtl\.scss}line{font-family:\000036}}
 .more-link {
-  text-align: left; }
+  text-align: left;
+}

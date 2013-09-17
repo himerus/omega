@@ -5,17 +5,17 @@
 /**
  * Image upload widget.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.theme\.scss}line{font-family:\000039}}
 .image-preview {
   float: left;
   /* LTR */
   padding: 0 10px 10px 0;
-  /* LTR */ }
+  /* LTR */
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.theme\.scss}line{font-family:\0000313}}
 .image-widget-data {
   float: left;
-  /* LTR */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.theme\.scss}line{font-family:\0000316}}
-  .image-widget-data .text-field {
-    width: auto; }
+  /* LTR */
+}
+.image-widget-data .text-field {
+  width: auto;
+}

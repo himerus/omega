@@ -2,6 +2,6 @@
  * @file
  * Base styles for the user module.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/user\/user\.base\.scss}line{font-family:\000035}}
 div.password-confirm {
-  visibility: hidden; }
+  visibility: hidden;
+}

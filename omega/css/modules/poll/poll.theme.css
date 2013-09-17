@@ -6,38 +6,38 @@
  * Poll Results
  */
 /* Poll Bars */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/poll\/poll\.theme\.scss}line{font-family:\0000311}}
 .poll-bars__bar {
   height: 1em;
   margin: 1px 0;
-  background-color: #ddd; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/poll\/poll\.theme\.scss}line{font-family:\0000316}}
-  .poll-bars__bar .foreground {
-    height: 1em;
-    float: left;
-    /* LTR */
-    background-color: #000; }
+  background-color: #ddd;
+}
+.poll-bars__bar .foreground {
+  height: 1em;
+  float: left;
+  /* LTR */
+  background-color: #000;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/poll\/poll\.theme\.scss}line{font-family:\0000322}}
 .poll-bars__percent {
   text-align: right;
-  /* LTR */ }
+  /* LTR */
+}
 
 /* Poll Total */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/poll\/poll\.theme\.scss}line{font-family:\0000327}}
 .poll-results__total {
-  text-align: center; }
+  text-align: center;
+}
 
 /**
  * Poll Voting Form
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/poll\/poll\.theme\.scss}line{font-family:\0000334}}
 .poll-vote-form {
-  text-align: center; }
+  text-align: center;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/poll\/poll\.theme\.scss}line{font-family:\0000337}}
 .poll-vote-form__choices {
   display: table;
   margin: 0 auto;
   text-align: left;
-  /* LTR */ }
+  /* LTR */
+}

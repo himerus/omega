@@ -2,8 +2,8 @@
  * @file
  * Right-to-left styling for the Forum module.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/forum\/forum\.theme-rtl\.scss}line{font-family:\000036}}
 .forum-icon {
   float: right;
   margin-left: 0;
-  margin-right: 0.4em; }
+  margin-right: 0.4em;
+}

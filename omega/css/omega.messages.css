@@ -1,20 +1,20 @@
 @charset "UTF-8";
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/omega\.messages\.scss}line{font-family:\000034}}
 div.messages {
-  position: relative; }
+  position: relative;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/omega\.messages\.scss}line{font-family:\000038}}
 .close-message {
   text-shadow: none;
   position: absolute;
   right: .4em;
   top: -.2em;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.3); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/omega\.messages\.scss}line{font-family:\0000316}}
-  .close-message:before {
-    font-size: 1.4em;
-    content: "×"; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/omega\.messages\.scss}line{font-family:\0000321}}
-  .close-message:hover, .close-message:focus, .close-message:active {
-    color: #000; }
+  color: rgba(0, 0, 0, 0.3);
+}
+.close-message:before {
+  font-size: 1.4em;
+  content: "×";
+}
+.close-message:hover, .close-message:focus, .close-message:active {
+  color: #000;
+}

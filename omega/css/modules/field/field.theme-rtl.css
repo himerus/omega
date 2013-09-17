@@ -5,7 +5,7 @@
 /**
  * Field display.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/field\/field\.theme-rtl\.scss}line{font-family:\0000311}}
 .field--label-inline .field__label,
 .field--label-inline .field__items {
-  float: right; }
+  float: right;
+}
