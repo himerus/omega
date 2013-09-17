@@ -287,42 +287,6 @@ function omega_extension_enabled($extension, $theme = NULL) {
 }
 
 /**
- * Retrieves a particular info array element from all themes in the theme trail.
- */
-function omega_theme_trail_info($element, $merge = TRUE, $theme = NULL) {
-  $output = array();
-
-  // Loop over all themes in the theme trail and look up $element in the .info
-  // array.
-  foreach (omega_theme_trail($theme) as $key => $name) {
-    $info = omega_theme_info($key);
-
-    if (is_array($element)) {
-      $exists = FALSE;
-      $value = omega_get_nested_value($info, $element, $exists);
-      if (!$exists) {
-        continue;
-      }
-    }
-    elseif (array_key_exists($element, $info)) {
-      $value = $info[$element];
-    }
-    else {
-      continue;
-    }
-
-    // If we get to this point and we are not merging the results, return.
-    if (!$merge) {
-      return $value;
-    }
-
-    $output = drupal_array_merge_deep($output, $value);
-  }
-
-  return $output;
-}
-
-/**
  * Retrieves the full info array of a theme.
  *
  * @param string $theme
@@ -542,22 +506,48 @@ function omega_layout() {
 }
 
 /**
- * @param $layout
+ * Loads the theme-bound assets of a layout, if any.
+ *
+ * @param string $layout
+ *   The layout for which to load the assets.
  */
 function omega_layout_load_theme_assets($layout) {
-  $assets = omega_theme_trail_info(array('layout', $layout['name']));
-  if (!empty($assets['stylesheets'])) {
-    foreach ($assets['stylesheets'] as $media => $files) {
-      foreach ($files as $file) {
-        drupal_add_css($file, array('group' => CSS_THEME, 'media' => $media));
+  $stylesheets = array();
+  $scripts = array();
+
+  foreach (omega_theme_trail() as $key => $name) {
+    $path = drupal_get_path('theme', $key);
+    $info = omega_theme_info($key);
+    if (!isset($info['layout'][$layout])) {
+      continue;
+    }
+
+    // Build arrays of stylesheets and scripts. Files with the same relative
+    // path and name will be overridden.
+    $assets = $info['layout'][$layout];
+    if (!empty($assets['stylesheets'])) {
+      foreach ($assets['stylesheets'] as $media => $files) {
+        foreach ($files as $file) {
+          $stylesheets[$media][$file] = "$path/$file";
+        }
+      }
+    }
+
+    if (!empty($assets['scripts'])) {
+      foreach ($assets['scripts'] as $file) {
+        $scripts[$file] = "$path/$file";
       }
     }
   }
 
-  if (!empty($assets['scripts'])) {
-    foreach ($assets['scripts'] as $file) {
-      drupal_add_js($file, array('group' => JS_THEME));
+  foreach ($stylesheets as $media => $files) {
+    foreach ($files as $file) {
+      drupal_add_css($file, array('group' => CSS_THEME, 'media' => $media));
     }
+  }
+
+  foreach ($scripts as $file) {
+    drupal_add_js($file, array('group' => JS_THEME));
   }
 }
 
