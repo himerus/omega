@@ -626,7 +626,7 @@ function omega_discovery($type, $theme = NULL) {
   // used for filtering. This allows base themes to have sub-themes in its
   // folder hierarchy without affecting the base themes template discovery.
   $paths = array();
-  foreach ($themes as $key => $info) {
+  foreach (list_themes() as $key => $info) {
     if (!empty($info->base_theme)) {
       $paths[$info->base_theme][$key] = dirname($info->filename);
     }
@@ -647,7 +647,7 @@ function omega_discovery($type, $theme = NULL) {
 
     // Support files without '.inc' extension for backwards compatibility.
     foreach (file_scan_directory($path, '/\.' . $type . '(\.inc)?$/', array('key' => 'name')) as $name => $file) {
-      // Ignore sub-theme templates for the current theme.
+      // Ignore sub-theme implementations for the current theme.
       if (strpos($file->uri, str_replace($ignore, '', $file->uri)) !== 0) {
         continue;
       }
