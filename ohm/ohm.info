@@ -23,6 +23,9 @@ regions[sidebar_first]  = First sidebar
 regions[sidebar_second] = Second sidebar
 regions[footer]         = Footer
 
+; Layout Settings
+layout[hero][stylesheets][all][] = css/layouts/hero/ohm-hero.layout.css
+
 ; Settings
 settings[toggle_logo] = 1
 settings[toggle_name] = 1

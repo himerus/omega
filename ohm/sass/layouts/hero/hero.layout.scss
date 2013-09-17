@@ -1,7 +1,7 @@
 /*******************************************************************************
- * ohm-hero.layout.scss
+ * hero.layout.scss
  *
- * Styles for the Ohm Hero layout.
+ * Styles for the Hero layout.
  ******************************************************************************/
 @import "compass";
 @import "breakpoint";
@@ -10,10 +10,6 @@
 // Globbing from within sub-folders only works with relative paths.
 @import "../../variables/**/*";
 
-body {
-  background: transparent image-url('diagonal.png') left top repeat;
-}
-
 .l-constrained {
   width: 95%;
   margin: 0 auto;
@@ -21,9 +17,6 @@ body {
 }
 
 /* Header */
-.l-header {
-  background-color: $light-blue;
-}
 .l-region--header {
   padding: $vert-spacing-unit 0;
 
@@ -35,7 +28,6 @@ body {
 /* Content Area */
 .l-highlighted-wrapper {
   padding: $vert-spacing-unit 0;
-  background: #fff;
 }
 .l-region--highlighted {
   @extend .l-constrained;
@@ -51,14 +43,12 @@ body {
 /* Sidebars */
 .l-region--sidebar-first,
 .l-region--sidebar-second {
-  background-color: #fff;
   padding: $vert-spacing-unit $horz-spacing-unit;
 }
 
 /* Footer */
 .l-footer-wrapper {
   padding: $vert-spacing-unit 0;
-  background: #fff;
 }
 .l-region--footer {
   @extend .l-constrained;
