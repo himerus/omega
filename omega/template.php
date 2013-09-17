@@ -832,7 +832,7 @@ function theme_omega_page_layout($variables) {
 
   $layout = $variables['omega_layout'];
   drupal_process_attached(array('#attached' => $layout['attached']));
-  omega_layout_load_theme_assets($layout);
+  omega_layout_load_theme_assets($layout['name']);
 
   $hook = str_replace('-', '_', $variables['omega_layout']['template']);
   return theme($hook, $variables);
