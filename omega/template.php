@@ -424,9 +424,11 @@ function omega_theme_registry_alter(&$registry) {
     }
   }
 
-  // Prepend a preprocessor for initializing default variables to every layout.
+  // Add a preprocessor for initializing default variables to every layout.
   foreach (array_keys(_omega_theme_layouts()) as $hook) {
-    array_unshift($registry[$hook]['preprocess functions'], '_omega_preprocess_default_layout_variables');
+    $registry[$hook]['preprocess functions'] = array_diff($registry[$hook]['preprocess functions'], array('template_preprocess'));
+
+    array_unshift($registry[$hook]['process functions'], '_omega_preprocess_default_layout_variables');
   }
 
   // Allow extensions to register hooks in the theme registry.
