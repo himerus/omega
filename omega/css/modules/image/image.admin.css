@@ -6,65 +6,65 @@
  * Image style configuration pages.
  */
 /* Add new effect form. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000312}}
 .image-style-new,
 .image-style-new div {
-  display: inline;
-}
+  display: inline; }
 
 /* Image style columns. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000317}}
 .image-style-preview__col {
   float: left;
   top: 50%;
   width: 48%;
   padding-bottom: 2em;
-  text-align: center;
-}
+  text-align: center; }
 
 /* Image style preview images. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000326}}
 .image-style-preview__preview-image {
   margin: auto;
-  position: relative;
-}
+  position: relative; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000330}}
 .preview-image__width {
   position: absolute;
   height: 2px;
   left: -1px;
   bottom: -6px;
   border: 1px solid #666;
-  border-top: none;
-}
-.preview-image__width .dimension {
-  position: relative;
-  top: 4px;
-}
+  border-top: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000338}}
+  .preview-image__width .dimension {
+    position: relative;
+    top: 4px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000343}}
 .preview-image__height {
   position: absolute;
   right: -6px;
   top: -1px;
   width: 2px;
   border: 1px solid #666;
-  border-left: none;
-}
-.preview-image__height .dimension {
-  position: absolute;
-  height: 2em;
-  top: 50%;
-  left: 10px;
-  margin-top: -1em;
-}
+  border-left: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000351}}
+  .preview-image__height .dimension {
+    position: absolute;
+    height: 2em;
+    top: 50%;
+    left: 10px;
+    margin-top: -1em; }
 
 /**
  * Image anchor form element.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000363}}
 .image-anchor {
-  width: auto;
-}
-.image-anchor .even,
-.image-anchor .odd {
-  background: none;
-}
-.image-anchor td {
-  border: 1px solid #ccc;
-}
+  width: auto; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000367}}
+  .image-anchor .even,
+  .image-anchor .odd {
+    background: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/image\/image\.admin\.scss}line{font-family:\0000371}}
+  .image-anchor td {
+    border: 1px solid #ccc; }

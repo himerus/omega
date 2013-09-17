@@ -5,16 +5,16 @@
 /**
  * User Permissions Page
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/user\/user\.admin\.scss}line{font-family:\000039}}
 .user-admin-permissions .module {
-  font-weight: bold;
-}
+  font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/user\/user\.admin\.scss}line{font-family:\0000312}}
 .user-admin-permissions .permission {
   padding-left: 1.5em;
-  /* LTR */
-}
+  /* LTR */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/user\/user\.admin\.scss}line{font-family:\0000315}}
 .user-admin-permissions .form-item {
-  white-space: normal;
-}
+  white-space: normal; }
 
 /**
  * User Roles Page
@@ -22,12 +22,12 @@
  * Override default textfield float to put the "Add role" button next to
  * the input textfield.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/user\/user\.admin\.scss}line{font-family:\0000327}}
 .user-admin-roles .edit-name {
-  clear: both;
-}
+  clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/user\/user\.admin\.scss}line{font-family:\0000330}}
 .user-admin-roles .form-item-name {
   float: left;
   /* LTR */
   margin-right: 1em;
-  /* LTR */
-}
+  /* LTR */ }

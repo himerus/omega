@@ -5,12 +5,12 @@
 /**
  * Field display.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/field\/field\.theme\.scss}line{font-family:\000039}}
 .field__label {
-  font-weight: bold;
-}
+  font-weight: bold; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/field\/field\.theme\.scss}line{font-family:\0000314}}
 .field--label-inline .field__label,
 .field--label-inline .field__items {
   float: left;
-  /* LTR */
-}
+  /* LTR */ }

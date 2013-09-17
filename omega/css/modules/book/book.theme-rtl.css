@@ -2,16 +2,16 @@
  * @file
  * Basic default book structural CSS for right to left languages.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/book\/book\.theme-rtl\.scss}line{font-family:\000035}}
 .book-navigation__previous {
   float: right;
-  text-align: right;
-}
+  text-align: right; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/book\/book\.theme-rtl\.scss}line{font-family:\000039}}
 .book-navigation__up {
-  float: right;
-}
+  float: right; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/book\/book\.theme-rtl\.scss}line{font-family:\0000312}}
 .book-navigation__next {
   float: left;
-  text-align: left;
-}
+  text-align: left; }

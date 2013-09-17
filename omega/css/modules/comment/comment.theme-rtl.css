@@ -2,7 +2,7 @@
  * @file
  * Right-to-left comment module look and feel styling.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/comment\/comment\.theme-rtl\.scss}line{font-family:\000036}}
 .indented {
   margin-left: 0;
-  margin-right: 25px;
-}
+  margin-right: 25px; }

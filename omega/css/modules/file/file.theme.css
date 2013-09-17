@@ -5,20 +5,20 @@
 /**
  * Managed file element.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/file\/file\.theme\.scss}line{font-family:\0000310}}
 .form-managed-file .progress-disabled {
   float: none;
-  display: inline;
-}
+  display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/file\/file\.theme\.scss}line{font-family:\0000316}}
 .form-managed-file .ajax-progress,
 .form-managed-file .throbber {
-  float: none;
-}
+  float: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/file\/file\.theme\.scss}line{font-family:\0000320}}
 .form-managed-file .ajax-progress-bar {
   display: none;
   width: 28em;
   margin-top: 4px;
-  padding: 0;
-}
-.form-managed-file .ajax-progress-bar .bar {
-  margin: 0;
-}
+  padding: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/file\/file\.theme\.scss}line{font-family:\0000326}}
+  .form-managed-file .ajax-progress-bar .bar {
+    margin: 0; }

@@ -2,14 +2,14 @@
  * @file
  * Right to left admin styles for the locale module.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/locale\/locale\.admin-rtl\.scss}line{font-family:\000039}}
 .locale-translation-filter-form .form-item-language,
 .locale-translation-filter-form .form-item-translation,
 .locale-translation-filter-form .form-item-group {
   float: right;
   padding-left: .8em;
-  padding-right: 0;
-}
+  padding-right: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/locale\/locale\.admin-rtl\.scss}line{font-family:\0000314}}
 .locale-translation-filter-form .form-actions {
   float: right;
-  padding: 3ex 1em 0 0;
-}
+  padding: 3ex 1em 0 0; }

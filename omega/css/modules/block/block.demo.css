@@ -2,13 +2,14 @@
  * @file
  * Styles for the block demo page.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/block\/block\.demo\.scss}line{font-family:\000038}}
 .block-region {
   margin-top: 4px;
   margin-bottom: 4px;
   padding: 3px;
-  background-color: #ff6;
-}
+  background-color: #ff6; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/block\/block\.demo\.scss}line{font-family:\0000316}}
 .block-demo-backlink,
 .block-demo-backlink:link,
 .block-demo-backlink:visited {
@@ -30,9 +31,8 @@
   -moz-border-radius: 0 0 10px 10px;
   -ms-border-radius: 0 0 10px 10px;
   -o-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
-}
+  border-radius: 0 0 10px 10px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/block\/block\.demo\.scss}line{font-family:\0000332}}
 .block-demo-backlink:hover {
-  text-decoration: underline;
-}
+  text-decoration: underline; }

@@ -5,10 +5,10 @@
 /**
  * User Permissions Page
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/user\/user\.admin-rtl\.scss}line{font-family:\000039}}
 .user-admin-permissions .permission {
   padding-left: 0;
-  padding-right: 1.5em;
-}
+  padding-right: 1.5em; }
 
 /**
  * User Roles Page
@@ -16,8 +16,8 @@
  * Override default textfield float to put the "Add role" button next to
  * the input textfield.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/matt\/www\/omega\/sites\/all\/themes\/omega\/omega\/sass\/modules\/user\/user\.admin-rtl\.scss}line{font-family:\0000322}}
 .user-admin-roles .form-item-name {
   float: right;
   margin-left: 1em;
-  margin-right: 0;
-}
+  margin-right: 0; }
