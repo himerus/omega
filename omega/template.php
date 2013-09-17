@@ -797,7 +797,12 @@ function omega_omega_theme_libraries_info($theme) {
 /**
  * Omega layout preprocessor for initializing default variables.
  */
-function _omega_preprocess_default_layout_variables(&$variables) {
+function _omega_preprocess_default_layout_variables(&$variables, $hook) {
+  // Invoke template_preprocess() manually but don't override the classes.
+  $classes = isset($variables['classes_array']) ? $variables['classes_array'] : array();
+  template_preprocess($variables, $hook);
+  $variables['classes_array'] = $classes;
+
   $layout = $variables['omega_layout'];
   $variables['attributes_array']['class'][] = 'l-page';
 
@@ -832,7 +837,7 @@ function theme_omega_page_layout($variables) {
 
   $layout = $variables['omega_layout'];
   drupal_process_attached(array('#attached' => $layout['attached']));
-  omega_layout_load_theme_assets($layout);
+  omega_layout_load_theme_assets($layout['name']);
 
   $hook = str_replace('-', '_', $variables['omega_layout']['template']);
   return theme($hook, $variables);
