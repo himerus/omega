@@ -51,6 +51,14 @@ function omega_preprocess_html(&$variables, $hook) {
     $variables['attributes_array']['class'][] = drupal_html_class('section-' . $section);
   }
 
+  // Remove the sidebar classes (@see template_preprocess_html()).
+  $variables['classes_array'] = array_diff($variables['classes_array'], array(
+    'two-sidebars',
+    'one-sidebar sidebar-first',
+    'one-sidebar sidebar-second',
+    'no-sidebars',
+  ));
+
   // Show a warning when the Omega theme is the active theme.
   if ($GLOBALS['theme'] == 'omega' && omega_theme_get_setting('omega_enable_warning', TRUE)) {
     drupal_set_message(t('Omega is a base theme and should never be used directly. Please <a href="!documentation">create a sub-theme</a> instead. You can disable this message on the <a href="!settings">theme settings page</a>.', array(

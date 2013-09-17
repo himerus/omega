@@ -88,14 +88,21 @@ function template_preprocess_omega_panels_admin(&$variables) {
  * Theme function for rendering an Omega layout on the Panels admin UI.
  */
 function theme_omega_panels_admin(&$variables) {
-  return _omega_panels_layout_theme($variables);
+  // Clean up the theme hook suggestion so we don't end up in an infinite loop.
+  unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
+
+  $hook = str_replace('-', '_', $variables['omega_layout']['template']);
+  return theme($hook, $variables);
 }
 
 /**
  * Theme function for rendering an Omega layout.
  */
 function theme_omega_panels(&$variables) {
-  return _omega_panels_layout_theme($variables);
+  $path = drupal_get_path('theme', 'omega');
+  require_once "$path/template.php";
+
+  return theme_omega_page_layout($variables);
 }
 
 /**
@@ -107,8 +114,6 @@ function template_preprocess_omega_panels(&$variables) {
 
   _omega_panels_layout_preprocess($variables);
 
-  $layouts = omega_layouts_info();
-  $variables['omega_layout'] = $layouts[$variables['layout']['omega_layout']];
   $layout = $variables['omega_layout'];
   $page = &$variables['page'];
 
@@ -143,6 +148,9 @@ function template_preprocess_omega_panels(&$variables) {
  * Helper function for preprocessing an Omega layout in Panels.
  */
 function _omega_panels_layout_preprocess(&$variables) {
+  $layouts = omega_layouts_info();
+  $variables['omega_layout'] = $layouts[$variables['layout']['omega_layout']];
+
   // Place a reference to the 'content' array so that the variables are
   // accessible through both, the default page.tpl.php accessor and the panels
   // layout accessor.
@@ -168,15 +176,6 @@ function _omega_panels_layout_preprocess(&$variables) {
   $variables['breadcrumb'] = '';
   $variables['title'] = '';
   $variables['messages'] = '';
-}
-
-/**
- * Helper function for rendering an Omega layout in Panels.
- */
-function _omega_panels_layout_theme(&$variables) {
-  $path = drupal_get_path('theme', 'omega');
-  require_once "$path/includes/omega.inc";
-  return theme_omega_page_layout($variables);
 }
 
 /**

@@ -544,9 +544,7 @@ function omega_layout() {
 /**
  * @param $layout
  */
-function omega_layout_load_assets($layout) {
-  drupal_process_attached(array('#attached' => $layout['attached']));
-
+function omega_layout_load_theme_assets($layout) {
   $assets = omega_theme_trail_info(array('layout', $layout['name']));
   if (!empty($assets['stylesheets'])) {
     foreach ($assets['stylesheets'] as $media => $files) {

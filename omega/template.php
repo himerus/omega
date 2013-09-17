@@ -790,7 +790,10 @@ function omega_omega_theme_libraries_info($theme) {
 function theme_omega_page_layout($variables) {
   // Clean up the theme hook suggestion so we don't end up in an infinite loop.
   unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
-  omega_layout_load_assets($variables['omega_layout']);
+
+  $layout = $variables['omega_layout'];
+  drupal_process_attached(array('#attached' => $layout['attached']));
+  omega_layout_load_theme_assets($layout);
 
   $hook = str_replace('-', '_', $variables['omega_layout']['template']);
   return theme($hook, $variables);
