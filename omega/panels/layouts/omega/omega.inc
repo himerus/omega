@@ -41,8 +41,8 @@ function omega_panels_get_sublayout($plugin, $layout, $sublayout) {
  * Callback to retrieve all Omega layouts.
  */
 function omega_panels_get_sublayouts($plugin, $layout) {
-  require_once drupal_get_path('theme', 'omega') . '/includes/omega.inc';
   $path = drupal_get_path('theme', 'omega');
+  require_once "$path/includes/omega.inc";
 
   $layouts = array();
   if ($items = omega_layouts_info('omega')) {
@@ -53,7 +53,7 @@ function omega_panels_get_sublayouts($plugin, $layout) {
       $layouts["$layout:$name"] = array(
         'name' => "$layout:$name",
         'title' => $info['info']['name'],
-        'layout' => $info,
+        'omega_layout' => $name,
       ) + $plugin;
 
       // Panels calls the preview image 'icon'.
@@ -102,12 +102,17 @@ function theme_omega_panels(&$variables) {
  * Implements hook_preprocess_omega_panels().
  */
 function template_preprocess_omega_panels(&$variables) {
+  $path = drupal_get_path('theme', 'omega');
+  require_once "$path/includes/omega.inc";
+
   _omega_panels_layout_preprocess($variables);
-  drupal_process_attached(array('#attached' => $variables['layout']['layout']['attached']));
+
+  $layouts = omega_layouts_info();
+  $variables['omega_layout'] = $layouts[$variables['layout']['omega_layout']];
+  $layout = $variables['omega_layout'];
+  $page = &$variables['page'];
 
   // Wrap every page item in a region template.
-  $layout = $variables['layout']['layout'];
-  $page = &$variables['page'];
   foreach ($layout['info']['regions'] as $region => $name) {
     if (!empty($variables['page'][$region])) {
       $page[$region] = array(
@@ -169,11 +174,9 @@ function _omega_panels_layout_preprocess(&$variables) {
  * Helper function for rendering an Omega layout in Panels.
  */
 function _omega_panels_layout_theme(&$variables) {
-  // Clean up the theme hook suggestion so we don't end up in an infinite loop.
-  unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
-
-  $hook = str_replace('-', '_', $variables['layout']['layout']['template']);
-  return theme($hook, $variables);
+  $path = drupal_get_path('theme', 'omega');
+  require_once "$path/includes/omega.inc";
+  return theme_omega_page_layout($variables);
 }
 
 /**

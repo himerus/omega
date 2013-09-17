@@ -297,15 +297,26 @@ function omega_theme_trail_info($element, $merge = TRUE, $theme = NULL) {
   foreach (omega_theme_trail($theme) as $key => $name) {
     $info = omega_theme_info($key);
 
-    // If $merge is TRUE we combine all the results of all themes in the theme
-    // trail. Otherwise we just return the first occurrence.
-    if (isset($info[$element]) && is_array($info[$element])) {
-      $output = array_merge($info[$element], $output);
-
-      if (!$merge) {
-        return array('theme' => $key, 'info' => $output);
+    if (is_array($element)) {
+      $exists = FALSE;
+      $value = omega_get_nested_value($info, $element, $exists);
+      if (!$exists) {
+        continue;
       }
     }
+    elseif (array_key_exists($element, $info)) {
+      $value = $info[$element];
+    }
+    else {
+      continue;
+    }
+
+    // If we get to this point and we are not merging the results, return.
+    if (!$merge) {
+      return $value;
+    }
+
+    $output = drupal_array_merge_deep($output, $value);
   }
 
   return $output;
@@ -463,7 +474,6 @@ function omega_layouts_info() {
             'data' => $path,
             'media' => $media,
             'group' => CSS_THEME,
-            'every_page' => TRUE,
             'weight' => -10,
           );
         }
@@ -489,7 +499,6 @@ function omega_layouts_info() {
         $info['attached']['js'][$key] = array(
           'data' => $path,
           'group' => JS_THEME,
-          'every_page' => TRUE,
           'weight' => -10,
         );
       }
@@ -518,13 +527,40 @@ function omega_layout() {
   }
 
   // Load the default layout from the theme settings.
-  $layout = omega_theme_get_setting('omega_layout', 'simple');
+  $layout = omega_extension_enabled('layouts') ? omega_theme_get_setting('omega_layout', 'simple') : NULL;
   drupal_alter('omega_layout', $layout);
 
-  $layouts = omega_layouts_info();
-  $cache = isset($layouts[$layout]) ? $layouts[$layout] : FALSE;
+  if (empty($layout)) {
+    $cache = NULL;
+  }
+  else {
+    $layouts = omega_layouts_info();
+    $cache = isset($layouts[$layout]) ? $layouts[$layout] : NULL;
+  }
 
   return $cache;
+}
+
+/**
+ * @param $layout
+ */
+function omega_layout_load_assets($layout) {
+  drupal_process_attached(array('#attached' => $layout['attached']));
+
+  $assets = omega_theme_trail_info(array('layout', $layout['name']));
+  if (!empty($assets['stylesheets'])) {
+    foreach ($assets['stylesheets'] as $media => $files) {
+      foreach ($files as $file) {
+        drupal_add_css($file, array('group' => CSS_THEME, 'media' => $media));
+      }
+    }
+  }
+
+  if (!empty($assets['scripts'])) {
+    foreach ($assets['scripts'] as $file) {
+      drupal_add_js($file, array('group' => JS_THEME));
+    }
+  }
 }
 
 /**

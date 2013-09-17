@@ -340,7 +340,14 @@ function omega_form_field_ui_display_overview_form_alter(&$form, &$form_state, $
 /**
  * Implements hook_theme().
  */
-function omega_theme() {
+function omega_theme($cache, &$type, $theme, $path) {
+  // This is actually totally evil but it's the only way to force Drupal into
+  // looking up (pre-)process hooks as if this was a module. In all seriousness
+  // this is actually fixing something that I consider a Drupal core bug as it
+  // prevents sub-themes from altering the behavior of a base-theme provided
+  // theme hook as they are not allowed to provide (pre-)process hooks for it.
+  $type = 'module';
+
   $info['omega_chrome'] = array(
     'render element' => 'element',
   );
@@ -780,11 +787,11 @@ function omega_omega_theme_libraries_info($theme) {
 /**
  * Theme callback for rendering an Omega layout.
  */
-function omega_omega_page_layout($variables) {
-  drupal_process_attached(array('#attached' => $variables['omega_layout']['attached']));
-
+function theme_omega_page_layout($variables) {
   // Clean up the theme hook suggestion so we don't end up in an infinite loop.
   unset($variables['theme_hook_suggestion'], $variables['theme_hook_suggestions']);
+  omega_layout_load_assets($variables['omega_layout']);
+
   $hook = str_replace('-', '_', $variables['omega_layout']['template']);
   return theme($hook, $variables);
 }
@@ -792,7 +799,7 @@ function omega_omega_page_layout($variables) {
 /**
  * Shows a notice when Google Chrome Frame is not installed.
  */
-function omega_omega_chrome($variables) {
+function theme_omega_chrome($variables) {
   $message = t('You are using an outdated browser! <a href="!upgrade">Upgrade your browser today</a> or <a href="!install">install Google Chrome Frame</a> to better experience this site.', array(
     '!upgrade' => url('http://browsehappy.com'),
     '!install' => url('http://www.google.com/chromeframe', array(
