@@ -797,7 +797,12 @@ function omega_omega_theme_libraries_info($theme) {
 /**
  * Omega layout preprocessor for initializing default variables.
  */
-function _omega_preprocess_default_layout_variables(&$variables) {
+function _omega_preprocess_default_layout_variables(&$variables, $hook) {
+  // Invoke template_preprocess() manually but don't override the classes.
+  $classes = isset($variables['classes_array']) ? $variables['classes_array'] : array();
+  template_preprocess($variables, $hook);
+  $variables['classes_array'] = $classes;
+
   $layout = $variables['omega_layout'];
   $variables['attributes_array']['class'][] = 'l-page';
 
