@@ -123,9 +123,8 @@ function template_preprocess_omega_panels(&$variables) {
       $page[$region] = array(
         '#region' => $region,
         '#theme_wrappers' => array('region'),
+        '#children' => $page[$region],
       );
-
-      $page[$region]['content'] = $variables['page'][$region];
     }
   }
 
