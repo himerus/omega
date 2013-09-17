@@ -213,7 +213,7 @@ function drush_omega_subtheme($name) {
 
   $basetheme = drush_get_option('basetheme', 'omega');
   $starterkits = omega_discovery('starterkit', $basetheme);
-  $starterkit = drush_get_option('starterkit', 'basic');
+  $starterkit = drush_get_option('starterkit', 'default');
   $starterkit = $starterkits[$starterkit];
 
   // Check whether the destination path does not exist and bail out if it does
