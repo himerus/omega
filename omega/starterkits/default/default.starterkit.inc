@@ -1,4 +1,4 @@
-name = Extended
+name = Default
 description = Comes with a well organized Sass setup with heavy use of partials.
 screenshot = screenshot.png
 engine = phptemplate

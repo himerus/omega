@@ -69,12 +69,12 @@ $ compass compile
 
 ## Barebones Sass Structure
 The barebones CSS structure provided in this starterkit uses many of the ideas
-discussed in Jonathan Snook's SMACSS (http://smacss.com/) and is intended to
+discussed in Jonathan [Snook's SMACSS](http://smacss.com) and is intended to
 provide a starting point for building modular, scalable CSS using Sass and
 Drupal.
 
 Multiple Sass partials are used to help organise the styles, these are combined
-by including them in style.scss which is compiled into style.css in the css/
+by including them in styles.scss which is compiled into styles.css in the css/
 directory.
 
 All styles are included in order of specificity, this means that as you go down
@@ -82,38 +82,43 @@ the document each section builds upon and inherits sensibly from the previous
 ones. This results in less undoing of styles, less specificity problems and
 all-round better architected and lighter stylesheets.
 
-Multiple Sass partials are used to help organise the styles, these are combined
-by including them in style.scss which is compiled into style.css in the css/
-directory. By separating our Sass into a file and folder structure makes finding
-the correct code much easier than scrolling through a large file.
+The file and directory structure contained in this folder looks something like
+this:
 
-All styles are included in order of specificity, this means that as you go
-down the document each section builds upon and inherits sensibly from the
-previous ones. This results in less undoing of styles, less specificity
-problems and all-round better architected and lighter stylesheets.
+### Top level files
+These files are the main entry points for the Sass compiler and shouldn't
+directly contain any CSS code, instead they only serves to combine the Sass
+contained in the partials (see below) through @import directives.
 
-The file structure contained in this folder looks something like this:
+#### {{ THEME:SANITIZED }}.styles.scss
+This file aggregates all the components into a single file.
 
-#### styles.scss
-This file shouldn't directly contain any CSS code, instead
-it only serves to combine the CSS contained in other Sass partials
-through @import directives.
+#### {{ THEME:SANITIZED }}.normalize.scss
+This file provides a CSS reset/normalize generated based on the legacy
+variables.
 
-#### _utils.scss
-Global Sass variables and mixins should be defined here along with
-importing any Sass extensions required. These can then be accessed by
-importing _utils.scss where required.
+#### {{ THEME:SANITIZED }}.hacks.scss
+This file may be used to provide temporary hot-fixes for style issues that
+you plan to properly implement as components at a later point in time or simply
+don't have a proper solution for yet.
 
-#### _base.scss
-These rules are the "Branding" of a theme also describe how common HTML
-and Drupal elements should look. Once this file is completed the
-theme's styleguide should be completely styled.
+#### {{ THEME:SANITIZED }}.no-query.scss
+This file re-renders the same contents as the styles.scss file but without any
+media queries. It can be used as a fallback for for older browsers that don't
+support media queries. You can find more information about this on the
+github repository of the
+[breakpoint](https://github.com/Team-Sass/breakpoint/wiki/No-Query-Fallbacks).
+Compass gem.
 
-#### _layout.scss
-The layout of the major regions (usually, but not necessarily Drupal
-regions) that components will be added to.
+### Partials
+#### variables
+This is where you place your Sass variables.
 
-#### _components.scss
-Imports more partials that contain full components and their
-sub-components ('modules' in SMACSS) that can be placed within the
-layout provided by _layout.scss.
+#### abstractions
+This is where you place your functions, mixins and extends.
+
+#### base
+This is where you place all your basic, raw HTML element styling.
+
+#### components
+This is where you place your components.
