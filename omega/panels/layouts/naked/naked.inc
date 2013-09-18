@@ -5,6 +5,7 @@
  * Defines a naked one-column layout.
  */
 
+// Plugin definition.
 $plugin = array(
   'title' => t('Naked'),
   'category' => t('Omega content layouts'),
