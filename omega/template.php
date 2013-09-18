@@ -809,7 +809,7 @@ function _omega_preprocess_default_layout_variables(&$variables, $hook) {
   // Add information about the rendered sidebars, but only if the layout
   // actually supports sidebars.
   if ($matches = preg_grep('/^sidebar/', array_keys($layout['info']['regions']))) {
-    $count = count(array_intersect_key($matches, array_keys(array_filter($variables['page']))));
+    $count = count(array_intersect($matches, array_keys(array_filter($variables['page']))));
     // No-one is going to have more than *nine* sidebars. Even nine is actually
     // already pretty unrealistic.
     $words = array('no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine');
