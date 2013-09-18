@@ -7,9 +7,9 @@
 
 // Plugin definition.
 $plugin = array(
-  'title' => t('Grid 2'),
+  'title' => t('Grid (2)'),
   'icon' => 'preview.png',
-  'category' => t('Grids'),
+  'category' => t('Omega content layouts'),
   'theme' => 'grid-2',
   'css' => 'grid-2.css',
   'regions' => array(
