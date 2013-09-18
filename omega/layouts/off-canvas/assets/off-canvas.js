@@ -4,13 +4,26 @@
    */
   Drupal.behaviors.omegaOffCanvasLayout = {
     attach: function (context) {
-      $('.l-off-canvas-show').click(function() {
-        $(this).parent().addClass('is-visible');
-        return false;
+      $('#off-canvas').click(function(e) {
+        if (!$(this).hasClass('is-visible')) {
+          $(this).addClass('is-visible');
+          e.preventDefault();
+          e.stopPropagation();
+        }
       });
-      $('.l-off-canvas-hide').click(function() {
+
+      $('#off-canvas-hide').click(function(e) {
         $(this).parent().removeClass('is-visible');
-        return false;
+        e.preventDefault();
+        e.stopPropagation();
+      });
+
+      $('.l-page').click(function(e) {
+        if($('#off-canvas').hasClass('is-visible') && $(e.target).attr('id') !== 'off-canvas') {
+          $('#off-canvas').removeClass('is-visible');
+          e.preventDefault();
+          e.stopPropagation();
+        }
       });
     }
   };

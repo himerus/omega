@@ -61,9 +61,11 @@
     padding-top: 24px;
 
     @include transition(left 0.2s ease-in);
+    cursor: pointer;
 
     &.is-visible {
       left: 0;
+      cursor: auto;
 
       .l-off-canvas-show {
         display: none;
