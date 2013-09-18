@@ -66,4 +66,7 @@ function omega_preprocess_html(&$variables, $hook) {
       '!settings' => url('admin/appearance/settings/omega'),
     )), 'warning');
   }
+
+  // Add Javascript to remove the no-js class from <html>.
+  drupal_add_js(drupal_get_path('theme', 'omega') . '/js/no-js.js', array('group' => JS_LIBRARY, 'every_page' => TRUE, 'weight' => -1));
 }
