@@ -93,7 +93,7 @@ function omega_extension_compatibility_preprocess_html(&$variables) {
 
     // The minimum-scale and maximum-scale properties are ignored if
     // user-scalable is set to 'no'.
-    if (omega_theme_get_setting('omega_viewport_user_scaleable', TRUE) === FALSE) {
+    if (omega_theme_get_setting('omega_viewport_user_scaleable', TRUE) == FALSE) {
       $content[] = 'user-scalable=no';
     }
     else {
