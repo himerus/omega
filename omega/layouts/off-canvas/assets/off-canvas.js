@@ -19,7 +19,8 @@
       });
 
       $('.l-page').click(function(e) {
-        if($('#off-canvas').hasClass('is-visible') && $(e.target).attr('id') !== 'off-canvas') {
+        console.log(e.target);
+        if($('#off-canvas').hasClass('is-visible') && $(e.target).closest('#off-canvas').length === 0) {
           $('#off-canvas').removeClass('is-visible');
           e.preventDefault();
           e.stopPropagation();
