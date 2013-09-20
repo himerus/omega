@@ -9,10 +9,10 @@
  * panel of the layout. This layout supports the following sections:
  */
 ?>
-<div class="panel-display panel-display--mondrian <?php if (!empty($class)) { print $class; } ?>" <?php if (!empty($css_id)) { print "id=\"$css_id\""; } ?>>
+<div<?php print $attributes ?>>
   <?php foreach($content as $name => $item): ?>
     <?php if (!empty($item)): ?>
-      <div class="mondrian-region mondrian-region--<?php print drupal_clean_css_identifier($name); ?>">
+      <div<?php print drupal_attributes($region_attributes_array[$name])?>>
         <?php print $item ?>
       </div>
     <?php endif; ?>

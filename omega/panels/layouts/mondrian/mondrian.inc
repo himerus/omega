@@ -20,3 +20,16 @@ $plugin = array(
     'tertiary-third' => t('Tertiary Third'),
   ),
 );
+
+/**
+ * Implements hook_preprocess_mondrian().
+ */
+function template_preprocess_mondrian(&$variables) {
+  $variables['attributes_array']['class'][] = 'panel-display';
+  $variables['attributes_array']['class'][] = 'panel-display--mondrian';
+
+  foreach($variables['content'] as $name => $item) {
+    $variables['region_attributes_array'][$name]['class'][] = 'mondrian-region';
+    $variables['region_attributes_array'][$name]['class'][] = 'mondrian-region--' . drupal_clean_css_identifier($name);
+  }
+}
