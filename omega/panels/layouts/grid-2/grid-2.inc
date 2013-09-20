@@ -10,7 +10,7 @@ $plugin = array(
   'title' => t('Grid (2)'),
   'icon' => 'preview.png',
   'category' => t('Omega content layouts'),
-  'theme' => 'grid-2',
+  'theme' => 'grid_2',
   'css' => 'grid-2.css',
   'regions' => array(
     'top-left' => t('Top Left'),
@@ -21,3 +21,11 @@ $plugin = array(
     'bottom-right' => t('Bottom Right'),
   ),
 );
+
+/**
+ * Implements hook_preprocess_grid_2().
+ */
+function template_preprocess_grid_2(&$variables) {
+  $variables['attributes_array']['class'][] = 'panel-display';
+  $variables['attributes_array']['class'][] = 'panel-display--grid-2';
+}
