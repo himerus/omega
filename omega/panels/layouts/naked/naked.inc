@@ -11,7 +11,7 @@ $plugin = array(
   'category' => t('Omega content layouts'),
   'icon' => 'naked.png',
   'theme' => 'naked',
-  'panels' => array(
+  'regions' => array(
     'content' => t('Content'),
   ),
 );
