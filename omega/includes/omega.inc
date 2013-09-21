@@ -724,6 +724,18 @@ function omega_theme_trail_file($file, $theme = NULL) {
   return drupal_get_path('theme', $theme) . '/' . $file;
 }
 
+/**
+ * Gets the path of a library.
+ *
+ * @param string $name
+ *   The machine name of a library to return the path for.
+ * @param string $theme
+ *   (Optional) The key (machine-readable name) of a theme. Defaults to the key
+ *   of the current theme.
+ *
+ * @return string|null
+ *   The path to the specified library or NULL if the library wasn't found.
+ */
 function omega_library_path($name, $theme = NULL) {
   if (($path = omega_theme_trail_file("libraries/$name", $theme)) && is_dir($path)) {
     return $path;
