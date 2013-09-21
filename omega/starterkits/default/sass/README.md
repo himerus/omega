@@ -90,19 +90,19 @@ These files are the main entry points for the Sass compiler and shouldn't
 directly contain any CSS code, instead they only serves to combine the Sass
 contained in the partials (see below) through @import directives.
 
-#### {{ THEME:SANITIZED }}.styles.scss
+#### {{ THEME SANITIZED }}.styles.scss
 This file aggregates all the components into a single file.
 
-#### {{ THEME:SANITIZED }}.normalize.scss
+#### {{ THEME SANITIZED }}.normalize.scss
 This file provides a CSS reset/normalize generated based on the legacy
 variables.
 
-#### {{ THEME:SANITIZED }}.hacks.scss
+#### {{ THEME SANITIZED }}.hacks.scss
 This file may be used to provide temporary hot-fixes for style issues that
 you plan to properly implement as components at a later point in time or simply
 don't have a proper solution for yet.
 
-#### {{ THEME:SANITIZED }}.no-query.scss
+#### {{ THEME SANITIZED }}.no-query.scss
 This file re-renders the same contents as the styles.scss file but without any
 media queries. It can be used as a fallback for for older browsers that don't
 support media queries. You can find more information about this on the

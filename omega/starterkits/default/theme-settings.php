@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Theme settings file for the {{ THEME:NAME }} theme.
+ * Theme settings file for the {{ THEME NAME }} theme.
  */
 
 require_once dirname(__FILE__) . '/template.php';

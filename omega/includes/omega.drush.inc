@@ -261,10 +261,10 @@ function drush_omega_subtheme($name) {
   $camel = strtr(ucwords(strtr($machine_name, array('_' => ' ', '.' => '_ '))), array(' ' => ''));
   $search = array(
     '/{{ THEME }}/' => $machine_name,
-    '/{{ THEME:NAME }}/' => $name,
-    '/{{ THEME:SANITIZED }}/' => str_replace('_', '-', $machine_name),
-    '/{{ THEME:CAMELCASE }}/' => $camel,
-    '/{{ THEME:CAMELCASE:LOWER }}/' => lcfirst($camel),
+    '/{{ THEME NAME }}/' => $name,
+    '/{{ THEME SANITIZED }}/' => str_replace('_', '-', $machine_name),
+    '/{{ THEME CAMELCASE }}/' => $camel,
+    '/{{ THEME CAMELCASE LOWER }}/' => lcfirst($camel),
   );
 
   if (!drush_omega_rewrite_recursive($temporary, array_keys($search), array_values($search))) {
