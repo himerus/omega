@@ -608,7 +608,7 @@ function omega_html_head_alter(&$head) {
 /**
  * Implements hook_omega_theme_libraries_info().
  */
-function omega_omega_theme_libraries_info($theme) {
+function omega_omega_theme_libraries_info() {
   $libraries['selectivizr'] = array(
     'name' => t('Selectivizr'),
     'description' => t('Selectivizr is a JavaScript utility that emulates CSS3 pseudo-classes and attribute selectors in Internet Explorer 6-8. Simply include the script in your pages and selectivizr will do the rest.'),
@@ -617,7 +617,7 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
-        omega_theme_trail_file('libraries/selectivizr/selectivizr.min.js') => array(
+        'selectivizr.min.js' => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 110,
           'every_page' => TRUE,
@@ -630,7 +630,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            omega_theme_trail_file('libraries/selectivizr/selectivizr.js') => array(
+            'selectivizr.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 110,
               'every_page' => TRUE,
@@ -647,10 +647,10 @@ function omega_omega_theme_libraries_info($theme) {
     'vendor' => 'Scott Jehl',
     'vendor url' => 'http://scottjehl.com/',
     'package' => t('Polyfills'),
-    'callbacks' => array('omega_extension_library_requirements_css_aggregation'),
+    'callbacks' => array('omega_extension_assets_requirements_css_aggregation'),
     'files' => array(
       'js' => array(
-        omega_theme_trail_file('libraries/respond/respond.min.js') => array(
+        'respond.min.js' => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 120,
           'every_page' => TRUE,
@@ -663,7 +663,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            omega_theme_trail_file('libraries/respond/respond.js') => array(
+            'respond.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 120,
               'every_page' => TRUE,
@@ -674,13 +674,14 @@ function omega_omega_theme_libraries_info($theme) {
     ),
   );
 
-  $libraries['css3pie'] = array(
+  $libraries['pie'] = array(
     'name' => t('CSS3 PIE'),
     'description' => t('PIE makes Internet Explorer 6-9 capable of rendering several of the most useful CSS3 decoration features.'),
     'vendor' => 'Keith Clark',
     'vendor url' => 'http://css3pie.com/',
     'options form' => 'omega_library_pie_options_form',
     'package' => t('Polyfills'),
+    'callbacks' => array('omega_extension_assets_load_pie_selectors'),
     'files' => array(),
     'variants' => array(
       'js' => array(
@@ -688,7 +689,7 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('While the .htc behavior is still the recommended approach for most users, the JS version has some advantages that may be a better fit for some users.'),
         'files' => array(
           'js' => array(
-            omega_theme_trail_file('libraries/pie/PIE.js') => array(
+            'PIE.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
               'every_page' => TRUE,
@@ -699,37 +700,6 @@ function omega_omega_theme_libraries_info($theme) {
     ),
   );
 
-  $settings = omega_theme_get_setting('omega_libraries');
-  if (!empty($settings['css3pie']['selectors'])) {
-    // Add the generated .css file to the corresponding variant.
-    $destination = file_create_url('public://omega/' . $theme);
-    $destination = substr($destination, strlen($GLOBALS['base_url']) + 1);
-    file_prepare_directory($destination, FILE_CREATE_DIRECTORY);
-
-    // Save the generated CSS in the public file system.
-    $file = $destination . '/pie-selectors.css';
-    $htc = base_path() . omega_theme_trail_file('libraries/pie/PIE.htc');
-    $contents = implode(",", $settings['css3pie']['selectors']) . "{behavior:url($htc)}";
-    file_unmanaged_save_data($contents, $file, FILE_EXISTS_REPLACE);
-
-    $libraries['css3pie']['files']['css'][$file] = array(
-      'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-      'weight' => 100,
-      'every_page' => TRUE,
-    );
-
-    // Save the generated JS in the public file system.
-    $file = $destination . '/pie-selectors.js';
-    $contents = '$(function(){Drupal.behaviors.css3pie={attach:function(context,settings){if(window.PIE){$("' . implode(",", $settings['css3pie']['selectors']) . '").each(function(){PIE.attach(this)})}}}})(jQuery);';
-    file_unmanaged_save_data($contents, $file, FILE_EXISTS_REPLACE);
-
-    $libraries['css3pie']['variants']['js']['files']['js'][$file] = array(
-      'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
-      'weight' => 100,
-      'every_page' => TRUE,
-    );
-  }
-
   $libraries['html5shiv'] = array(
     'name' => t('HTML5 Shiv'),
     'description' => t('This script is the defacto way to enable use of HTML5 sectioning elements in legacy Internet Explorer, as well as default HTML5 styling in Internet Explorer 6 - 9, Safari 4.x (and iPhone 3.x), and Firefox 3.x.'),
@@ -737,12 +707,12 @@ function omega_omega_theme_libraries_info($theme) {
     'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
-        omega_theme_trail_file('libraries/html5shiv/html5shiv.js') => array(
+        'html5shiv.js' => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
           'every_page' => TRUE,
         ),
-        omega_theme_trail_file('libraries/html5shiv/html5shiv-printshiv.js') => array(
+        'html5shiv-printshiv.js' => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
           'every_page' => TRUE,
@@ -755,37 +725,17 @@ function omega_omega_theme_libraries_info($theme) {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            omega_theme_trail_file('libraries/html5shiv/html5shiv.min.js') => array(
+            'html5shiv.min.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
               'every_page' => TRUE,
             ),
-            omega_theme_trail_file('libraries/html5shiv/html5shiv-printshiv.min.js') => array(
+            'html5shiv-printshiv.min.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
               'every_page' => TRUE,
             ),
           ),
-        ),
-      ),
-    ),
-  );
-
-  $libraries['messages'] = array(
-    'name' => t('Discardable messages'),
-    'description' => t("Adds a 'close' button to each message."),
-    'package' => t('Goodies'),
-    'files' => array(
-      'js' => array(
-        omega_theme_trail_file('js/omega.messages.min.js') => array(
-          'weight' => -100,
-          'every_page' => TRUE,
-        ),
-      ),
-      'css' => array(
-        omega_theme_trail_file('css/omega.messages.css') => array(
-          'weight' => -100,
-          'every_page' => TRUE,
         ),
       ),
     ),

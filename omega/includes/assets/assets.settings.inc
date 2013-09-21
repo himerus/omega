@@ -63,16 +63,13 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
       '#parents' => array('omega_libraries', $library, 'status'),
     );
 
-    if ($missing = omega_extension_assets_check_library($info)) {
-      foreach ($missing as &$file) {
-        $path = drupal_get_path('theme', $form_state['build_info']['args'][0]);
-        $file = strpos($file, $path) === 0 ? substr($file, strlen($path) + 1) : $file;
-      }
-
+    if (!omega_library_path($library)) {
       $element['omega_libraries'][$key][$library]['missing'] = array(
-        '#theme' => 'item_list',
-        '#title' => t('Missing files'),
-        '#items' => $missing,
+        '#type' => 'item',
+        '#title' => t('Missing library files'),
+        '#markup' => t("The library's directory (@directory) could not be found.", array(
+          '@directory' => "libraries/$library",
+        )),
         '#prefix' => '<div class="omega-assets-missing-files">',
         '#suffix' => '</div>',
       );
@@ -140,7 +137,7 @@ function omega_extension_assets_settings_form($element, &$form, $form_state) {
  * Theme settings form submit handler for handling the PIE selectors.
  */
 function omega_library_pie_selectors_submit($form, &$form_state) {
-  $values = &$form_state['values']['omega_libraries']['css3pie'];
+  $values = &$form_state['values']['omega_libraries']['pie'];
 
   // Generate a CSS file for the provided selectors if the inclusion method is
   // set to 'pie.htc' or 'pie.php'.
@@ -154,11 +151,16 @@ function omega_library_pie_selectors_submit($form, &$form_state) {
   // Save the selectors as an array.
   $parents = array('#parents' => array(
     'omega_libraries',
-    'css3pie',
+    'pie',
     'selectors'
   ));
 
   form_set_value($parents, $selectors, $form_state);
+
+  // Delete stale CSS selector files.
+  $theme = $form_state['build_info']['args'][0];
+  file_unmanaged_delete("public://omega/$theme/pie-selectors.css");
+  file_unmanaged_delete("public://omega/$theme/pie-selectors.js");
 }
 
 /**
@@ -182,7 +184,7 @@ function omega_library_pie_options_form(&$element, &$form, $form_state, $library
       '!css' => $destination . '/pie-selectors.css',
       '!js' => $destination . '/pie-selectors.js',
     )),
-    '#default_value' => !empty($settings['css3pie']['selectors']) ? implode("\n", $settings['css3pie']['selectors']) : '',
+    '#default_value' => !empty($settings['pie']['selectors']) ? implode("\n", $settings['pie']['selectors']) : '',
   );
 
   // We need to provide a submit handler to create a CSS file for the
@@ -220,40 +222,4 @@ function omega_extension_assets_theme_settings_form_submit($form, &$form_state) 
       }
     }
   }
-}
-
-/**
- * Checks a library for missing files.
- *
- * @param array $info
- *   A library info array.
- *
- * @return array
- *   An array of missing files.
- */
-function omega_extension_assets_check_library($info) {
-  $missing = array();
-  foreach (array_filter($info['files']) as $files) {
-    foreach ($files as $file => $data) {
-      $file = is_array($data) ? $file : $data;
-      if (!is_file($file)) {
-        $missing[$file] = $file;
-      }
-    }
-  }
-
-  if (!empty($info['variants'])) {
-    foreach ($info['variants'] as $variant) {
-      foreach (array_filter($variant['files']) as $files) {
-        foreach ($files as $file => $data) {
-          $file = is_array($data) ? $file : $data;
-          if (!is_file($file)) {
-            $missing[$file] = $file;
-          }
-        }
-      }
-    }
-  }
-
-  return $missing;
 }

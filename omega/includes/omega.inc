@@ -577,6 +577,9 @@ function omega_theme_libraries_info($theme = NULL) {
 
   // Retrieve the libraries by invoking the hook.
   $libraries[$theme] = omega_invoke_all('omega_theme_libraries_info');
+  foreach ($libraries[$theme] as $key => &$library) {
+    $library['path'] = omega_library_path($key);
+  }
 
   $context = $theme;
   // Give modules and themes a chance to alter the libraries info array.
@@ -719,4 +722,41 @@ function omega_theme_trail_file($file, $theme = NULL) {
   // The default (fallback) path is the path of the active theme, even if it
   // does not actually have that file.
   return drupal_get_path('theme', $theme) . '/' . $file;
+}
+
+function omega_library_path($name, $theme = NULL) {
+  if (($path = omega_theme_trail_file("libraries/$name", $theme)) && is_dir($path)) {
+    return $path;
+  }
+
+  // Use the libraries module's API if available.
+  if (module_exists('libraries')) {
+    return libraries_get_path($name);
+  }
+
+  $profile = drupal_get_path('profile', drupal_get_profile());
+  $config = conf_path();
+
+  // Similar to 'modules' and 'themes' directories in the root directory,
+  // certain distributions may want to place libraries into a 'libraries'
+  // directory in Drupal's root directory.
+  $directories[] = 'libraries';
+
+  // Similar to 'modules' and 'themes' directories inside an installation
+  // profile, installation profiles may want to place libraries into a
+  // 'libraries' directory.
+  $directories[] = "$profile/libraries";
+
+  // Always search sites/all/libraries.
+  $directories[] = 'sites/all/libraries';
+
+  // Also search sites/<domain>/*.
+  $directories[] = "$config/libraries";
+
+  // Return the first occurrence.
+  foreach (array_reverse($directories) as $dir) {
+    if (is_dir("$dir/$name")) {
+      return "$dir/$name";
+    }
+  }
 }
