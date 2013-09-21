@@ -13,12 +13,12 @@ $plugin = array(
   'theme' => 'grid_2',
   'css' => 'grid-2.css',
   'regions' => array(
-    'top-left' => t('Top Left'),
-    'top-right' => t('Top Right'),
-    'middle-left' => t('Middle Left'),
-    'middle-right' => t('Middle Right'),
-    'bottom-left' => t('Bottom Left'),
-    'bottom-right' => t('Bottom Right'),
+    'top_left' => t('Top Left'),
+    'top_right' => t('Top Right'),
+    'middle_left' => t('Middle Left'),
+    'middle_right' => t('Middle Right'),
+    'bottom_left' => t('Bottom Left'),
+    'bottom_right' => t('Bottom Right'),
   ),
 );
 

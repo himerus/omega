@@ -10,7 +10,7 @@
  */
 ?>
 <div<?php print $attributes ?>>
-  <?php foreach($content as $item): ?>
+  <?php foreach(array_intersect_key($content, $layout['regions']) as $item): ?>
     <?php if (!empty($item)): ?>
       <div class="grid-item">
         <?php print $item ?>
