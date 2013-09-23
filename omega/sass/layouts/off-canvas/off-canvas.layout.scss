@@ -35,10 +35,6 @@ $desk: 70em;
   margin-bottom: $vert-spacing-unit;
 }
 
-.l-branding {
-  @include span-columns(3 omega, 4);
-}
-
 .l-off-canvas {
   clear: both;
 }
