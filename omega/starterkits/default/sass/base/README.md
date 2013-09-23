@@ -1,5 +1,5 @@
 # Base styes
-Base styles define the default look for HTML and, to some extend, common Drupal
+Base styles define the default look for HTML and, to some extent, common Drupal
 elements.
 
 These rules will generally be made up of element selectors for HTML elements

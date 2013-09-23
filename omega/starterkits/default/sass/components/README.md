@@ -26,20 +26,15 @@ Almost everything that doesn't belong in base should be made a component.
 
 * Blocks
 * Content Types
-
-  For example, you may have a generic node component that contains
-  sub-components for the submitted by line and links. Specific components can
-  then be created for each content type to style the specifics of each. Finally,
-  by using entity view modes you can easily apply modifications based on the
-  .node-[view-mode] classes.
-
+    For example, you may have a generic node component that contains
+    sub-components for the submitted by line and links. Specific components can
+    then be created for each content type to style the specifics of each. Finally,
+    by using entity view modes you can easily apply modifications based on the
+    .node-[view-mode] classes.
 * Forms
-
-  For instance the log in form.
-
+    For instance the log in form.
 * Views
-
-  Each views output style could be made into a component, the content of each
-  row should be provided my a view mode styled by it's component CSS. Exposed
-  filter forms, views pagers and other views elements are also good candidates
-  for components.
+    Each views output style could be made into a component, the content of each
+    row should be provided my a view mode styled by it's component CSS. Exposed
+    filter forms, views pagers and other views elements are also good candidates
+    for components.
