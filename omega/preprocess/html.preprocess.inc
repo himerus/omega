@@ -33,8 +33,10 @@ function omega_preprocess_html(&$variables, $hook) {
   // Classes for body element. Allows advanced theming based on context
   // (home page, node of certain type, etc.).
   if (!$variables['is_front']) {
-    // Add unique class for each page.
-    $path = drupal_get_path_alias($_GET['q']);
+    // Add unique class for each page. The default language is used to generate
+    // the path and class names for localized sites.
+    $path = drupal_get_path_alias($_GET['q'], language_default()->language);
+
     // Add unique class for each section of the website.
     list($section) = explode('/', $path, 2);
     $arg = explode('/', $_GET['q']);
