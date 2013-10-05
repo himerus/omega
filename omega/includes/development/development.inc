@@ -8,8 +8,10 @@
 // The development extension has some additional tasks that need to run on every
 // page load (@see _omega_extension_development_boot()).
 if (drupal_get_bootstrap_phase() >= DRUPAL_BOOTSTRAP_DATABASE && $GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega' || (!empty($GLOBALS['base_theme_info']) && $GLOBALS['base_theme_info'][0]->name == 'omega'))) {
-  if (user_access('administer site configuration')) {
-    _omega_extension_development_boot();
+  if (isset($GLOBALS['user']->uid) && function_exists('user_access')) {
+    if (user_access('administer site configuration')) {
+      _omega_extension_development_boot();
+    }
   }
 }
 
