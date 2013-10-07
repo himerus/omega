@@ -102,7 +102,7 @@ class OmegaThemeRegistryHandler {
       // defined in a lower-level base theme. Without this check this would
       // happen because our alter hook runs after the template file and theme
       // function discovery logic from Drupal core (theme engine).
-      if (in_array($this->registry[$item->hook]['type'], array('base_theme_engine', 'theme_engine'))) {
+      if (array_key_exists($item->hook, $this->registry) && in_array($this->registry[$item->hook]['type'], array('base_theme_engine', 'theme_engine'))) {
         foreach (array_reverse(array_keys($this->trail)) as $key) {
           // Do not look any further once we reach the current theme.
           if ($key === $theme) {
