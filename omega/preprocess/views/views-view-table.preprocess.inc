@@ -22,7 +22,7 @@ function omega_preprocess_views_view_table(&$variables) {
 
     // Views tables have additional classes for each table column.
     foreach ($row as $field => $content) {
-      $variables['field_attributes_array'][$field][$delta] = isset($variables['field_attributes_array'][$field][$delta]) ? $variables['field_attributes_array'][$field][$delta] : array();
+      $variables['field_attributes_array'][$field][$delta] = isset($variables['field_attributes'][$field][$delta]) ? $variables['field_attributes'][$field][$delta] : array();
 
       if (!empty($variables['field_classes'][$field][$delta])) {
         $variables['field_attributes_array'][$field][$delta]['class'] = explode(' ', $variables['field_classes'][$field][$delta]);
