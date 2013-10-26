@@ -35,6 +35,6 @@ Almost everything that doesn't belong in base should be made a component.
     For instance the log in form.
 * Views
     Each views output style could be made into a component, the content of each
-    row should be provided my a view mode styled by it's component CSS. Exposed
+    row should be provided by a view mode styled by it's component CSS. Exposed
     filter forms, views pagers and other views elements are also good candidates
     for components.
