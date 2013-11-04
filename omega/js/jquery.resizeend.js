@@ -28,7 +28,7 @@
       resizeTimeout = setTimeout(function () {
         // Set correct event type
         e.type = 'resizeend';
-        $.event.handle.apply(context);
+        $(context).trigger(e);
       }, 150);
     }
   };
