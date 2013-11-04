@@ -3,12 +3,12 @@
  */
 @import url(http://fonts.googleapis.com/css?family=Maven+Pro:400,700);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic);
+@include establish-baseline($base-font-size);
 
 /**
  * $BASE-TYPOGRAPHY
  */
 html {
-  @include establish-baseline($base-font-size);
   font-family: $pt-sans;
   color: $dark-grey;
 }

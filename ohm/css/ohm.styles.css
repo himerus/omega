@@ -154,10 +154,10 @@ html {
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
   color: #222222;
 }
-html * html {
+* html {
   font-size: 87.5%;
 }
-html html {
+html {
   font-size: 14px;
   line-height: 1.42857em;
 }
