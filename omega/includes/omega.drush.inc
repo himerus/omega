@@ -393,16 +393,16 @@ function drush_omega_export($theme = NULL) {
   // Parse the current content of the .info file so we can append the settings
   // from the database.
   $path = drupal_get_path('theme', $theme) . '/' . $theme . '.info';
-  $data = file_get_contents($path);
+  $info = drupal_parse_info_file($path);
 
-  // Remove the old theme settings from the .info file.
-  $data = trim(preg_replace('/^settings\[.*\].*\n?/mi', '', $data));
-
-  // Append the exported theme settings to the .info file if there are any.
-  $data = $settings ? $data . "\n\n" . drush_omega_compose_info_file($settings, 'settings') : $data;
+  unset($info['settings']);
+  if (!empty($settings)) {
+    // Append the exported theme settings to the .info file if there are any.
+    $info['settings'] = $settings;
+  }
 
   // Write the data to the .info file of the theme.
-  if (drush_op('file_put_contents', $path, $data)) {
+  if (drush_op('file_put_contents', $path, drush_omega_compose_info_file($info))) {
     drush_log(dt('The theme settings for the @theme theme have been exported to the .info file of the theme.', array('@theme' => $themes[$theme]->info['name'])), 'success');
 
     if (drush_get_option('revert')) {
@@ -882,6 +882,9 @@ function drush_omega_rewrite_recursive($path, $search, $replace) {
 /**
  * Recursively builds an .info file structure from an array.
  *
+ * This function will take the current theme information, and create the export
+ * based upon the current info file and settings saved within the database.
+ *
  * @param array $array
  *   The array to build the .info file from.
  * @param string|bool $prefix
@@ -889,28 +892,27 @@ function drush_omega_rewrite_recursive($path, $search, $replace) {
  *   for the keys. Defaults to NULL.
  *
  * @return string
- *   A .info file string.
+ *   The full, prettified .info file.
  */
-function drush_omega_compose_info_file($array, $prefix = NULL) {
+function drush_omega_compose_info_file($array, $prefix = '') {
   $info = '';
-
+  $incremental = !empty($array) && strval(key($array)) === '0' && array_keys($array) === range(0, count($array) - 1);
   foreach ($array as $key => $value) {
     if (is_array($value)) {
-      // This is an array, let's proceed with the next level.
-      $info .= drush_omega_compose_info_file($value, (!$prefix ? $key : "{$prefix}[{$key}]"));
+      if (empty($prefix)) {
+        $region = ucwords(strtr($key, array('_' => ' ')));
+        $info .= "\n";
+        $info .= "; ========================================\n";
+        $info .= "; $region\n";
+        $info .= "; ========================================\n";
+      }
+
+      $info .= drush_omega_compose_info_file($value, (empty($prefix) ? $key : "{$prefix}[{$key}]"));
     }
     else {
-      // Escape all single quotes.
-      $value = str_replace("'", "\'", $value);
-      // Wrap the value in single quotes if it has any trailing or leading
-      // whitespace or it is an empty string from the start.
-      $value = $value === '' || trim($value) != $value ? "'" . $value . "'" : $value;
-      // If the key is numeric remove it entirely (simple brackets are enough in
-      // this case).
-      $key = is_numeric($key) ? '' : $key;
-
+      $key = $incremental ? '' : $key;
       $info .= $prefix ? ("{$prefix}[$key]") : $key;
-      $info .= ' = ' . $value . "\n";
+      $info .= " = " . str_replace("'", "\'", $value) . "\n";
     }
   }
 
