@@ -26,7 +26,7 @@ function omega_drush_command() {
       'enable' => dt('Automatically enable the subtheme after creation.'),
       'set-default' => dt('Automatically enable the subtheme after creation and make it the default theme.'),
       'no-readme' => dt('Skips readme files when generating the subtheme.'),
-      'no-libraries' => dt("Prevent execution of the theme's libraries.make file."),
+      'with-libraries' => dt("Execute the libraries.make file upon completion."),
     ),
     'examples' => array(
       'drush omega-subtheme "My Theme"' => dt('Creates an Omega subtheme called "My Theme".'),
@@ -291,7 +291,7 @@ function drush_omega_subtheme($name) {
   }
 
   // Execute the theme's libraries.make file unless disabled.
-  if (!drush_get_option('no-libraries') && is_file("$destination/libraries.make")) {
+  if (drush_get_option('with-libraries') && is_file("$destination/libraries.make")) {
     drush_op('chdir', $destination);
     drush_invoke_process('@self', 'make', array('libraries.make'), array(
       'no-core' => TRUE,
@@ -334,7 +334,8 @@ function drush_omega_wizard() {
   drush_set_option('basetheme', $basetheme);
 
   // Let the user choose a starterkit.
-  if (!$starterkit = drush_omega_starterkit_choice($basetheme, dt('Please choose a starterkit for your new theme'))) {
+  $starterkits = omega_discovery('starterkit', $basetheme);
+  if (!$starterkit = drush_omega_starterkit_choice($starterkits, dt('Please choose a starterkit for your new theme'))) {
     return;
   }
   drush_set_option('starterkit', $starterkit);
@@ -353,6 +354,11 @@ function drush_omega_wizard() {
     drush_set_option('set-default', drush_confirm(dt('Do you want to make your new theme the default theme?')));
   }
   drush_set_option('enable', $enable);
+
+  // Finally, let the user decide whether he/she wants to download the libraries directly.
+  if (is_file("{$starterkits[$starterkit]['path']}/libraries.make")) {
+    drush_set_option('with-libraries', drush_confirm(dt('Do you want to download the libraries defined in libraries.make now?')));
+  }
 
   drush_invoke('omega-subtheme', $name);
 }
@@ -691,8 +697,8 @@ function drush_omega_theme_choice($message) {
 /**
  * Helper function for printing a list of available starterkits.
  *
- * @param string $basetheme
- *   The machine-readable name of a basetheme.
+ * @param array $starterkits
+ *   An array of starterkits.
  * @param string $message
  *   The message that should be displayed.
  *
@@ -700,10 +706,10 @@ function drush_omega_theme_choice($message) {
  *   The machine-readable name of the chosen starterkit or FALSE if the
  *   operation was cancelled.
  */
-function drush_omega_starterkit_choice($basetheme, $message) {
+function drush_omega_starterkit_choice($starterkits, $message) {
   $themes = list_themes();
   $options = array();
-  foreach (omega_discovery('starterkit', $basetheme) as $key => $info) {
+  foreach ($starterkits as $key => $info) {
     $options[$key] = dt('@name: !description (Provided by @provider)', array(
       '@name' => $info['info']['name'],
       '!description' => isset($info['info']['description']) ? $info['info']['description'] : dt('No description'),
