@@ -204,14 +204,6 @@ function omega_extension_assets_theme_settings_form_submit($form, &$form_state) 
     form_set_value(array('#parents' => array($item)), $exclude, $form_state);
   }
 
-  // Cache the regex for the CSS and JS excludes (if any).
-  foreach (array('omega_css_exclude', 'omega_js_exclude') as $item) {
-    if ($value = $form_state['values'][$item]) {
-      $exclude = omega_generate_path_regex($value);
-      form_set_value(array('#parents' => array($item . '_regex')), $exclude, $form_state);
-    }
-  }
-
   if (!empty($form_state['values']['omega_libraries'])) {
     $values = &$form_state['values']['omega_libraries'];
 

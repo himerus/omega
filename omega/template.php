@@ -261,15 +261,13 @@ function omega_css_alter(&$css) {
   }
 
   // Exclude CSS files as declared in the theme settings.
-  if (omega_extension_enabled('assets') && $regex = omega_theme_get_setting('omega_css_exclude_regex')) {
-    // Make sure that RTL styles are excluded as well when a file name has been
-    // specified with it's full .css file extension.
-    $regex = preg_replace('/\\\.css$/', '(\.css|-rtl\.css)', $regex);
-    omega_exclude_assets($css, $regex);
+  if (omega_extension_enabled('assets')) {
+    omega_css_js_alter($css, 'css');
   }
 
   // Allow themes to specify no-query fallback CSS files.
-  $mapping = omega_generate_asset_mapping($css);
+  require_once "$omega/includes/assets.inc";
+  $mapping = omega_assets_generate_mapping($css);
   foreach (preg_grep('/\.no-query(-rtl)?\.css$/', $mapping) as $key => $fallback) {
     // Don't modify browser settings if they have already been modified.
     if ($css[$key]['browsers']['IE'] === TRUE && $css[$key]['browsers']['!IE'] === TRUE) {
@@ -306,16 +304,23 @@ function omega_js_alter(&$js) {
     return;
   }
 
-  if ($regex = omega_theme_get_setting('omega_js_exclude_regex')) {
-    omega_exclude_assets($js, $regex);
-  }
+  omega_css_js_alter($js, 'js');
 
   // Move the specified JavaScript files to the footer.
   if (($footer = omega_theme_get_setting('omega_js_footer')) && is_array($footer)) {
-    $regex = omega_generate_path_regex($footer);
-    $mapping = omega_generate_asset_mapping($js);
+    require_once drupal_get_path('theme', 'omega') . '/includes/assets.inc';
+    if (!$cache = cache_get("omega:{$GLOBALS['theme_key']}:footer")) {
+      // Explode and trim the values for the footer rules.
+      $steps = omega_assets_regex_steps($footer);
 
-    foreach (preg_grep($regex, $mapping) as $key => $match) {
+      cache_set("omega:{$GLOBALS['theme_key']}:footer", $steps, 'cache', CACHE_TEMPORARY);
+    }
+    else {
+      $steps = $cache->data;
+    }
+
+    $mapping = omega_assets_generate_mapping($js);
+    foreach (omega_assets_regex_execute($mapping, $steps) as $key => $match) {
       $js[$key]['scope'] = 'footer';
     }
   }
