@@ -286,6 +286,14 @@ function omega_css_alter(&$css) {
  * Implements hook_js_alter().
  */
 function omega_js_alter(&$js) {
+  // In some cases the element info array might get built before the theme
+  // system is fully bootstrapped. In this case, omega_element_info_alter() will
+  // never get called causing custom Omega pre-rendering of scripts to be
+  // skipped which results in no JavaScript being output.
+  if (!element_info('scripts')) {
+    drupal_static_reset('element_info');
+  }
+
   // If the AJAX.js isn't included... we don't need the ajaxPageState settings!
   if (!isset($js['misc/ajax.js']) && isset($js['settings']['data'])) {
     foreach ($js['settings']['data'] as $delta => $setting) {
