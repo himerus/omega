@@ -720,12 +720,12 @@ function omega_omega_theme_libraries_info() {
     'package' => t('Polyfills'),
     'files' => array(
       'js' => array(
-        'html5shiv.js' => array(
+        'html5shiv.min.js' => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
           'every_page' => TRUE,
         ),
-        'html5shiv-printshiv.js' => array(
+        'html5shiv-printshiv.min.js' => array(
           'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
           'weight' => 100,
           'every_page' => TRUE,
@@ -738,12 +738,12 @@ function omega_omega_theme_libraries_info() {
         'description' => t('During development it might be useful to include the source files instead of the minified version.'),
         'files' => array(
           'js' => array(
-            'html5shiv.min.js' => array(
+            'html5shiv.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
               'every_page' => TRUE,
             ),
-            'html5shiv-printshiv.min.js' => array(
+            'html5shiv-printshiv.js' => array(
               'browsers' => array('IE' => '(gte IE 6)&(lte IE 8)', '!IE' => FALSE),
               'weight' => 100,
               'every_page' => TRUE,
