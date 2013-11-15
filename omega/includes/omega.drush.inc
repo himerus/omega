@@ -917,8 +917,10 @@ function drush_omega_compose_info_file($array, $prefix = '') {
     }
     else {
       $key = $incremental ? '' : $key;
+      $value = str_replace("'", "\'", $value);
+      $value = strval($value) === '' ? '"' . $value . '"' : $value;
       $info .= $prefix ? ("{$prefix}[$key]") : $key;
-      $info .= " = " . str_replace("'", "\'", $value) . "\n";
+      $info .= " = $value\n";
     }
   }
 
