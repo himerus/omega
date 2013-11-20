@@ -1,3 +1,5 @@
+@import "compass";
+
 .form-item.form-item-omega-conditional-comments-html-options,
 .form-item.form-item-omega-viewport-widget-minimal,
 .omega-settings-container {
@@ -19,6 +21,21 @@ div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset {
 
   legend {
     display: block;
+  }
+}
+
+ul.omega-assets-namespace-tokens {
+  .description {
+    margin-top: 0;
+  }
+
+  .item-list & {
+    @include no-bullets;
+    @include reset-box-model;
+
+    li {
+      margin-bottom: 14px;
+    }
   }
 }
 
