@@ -3,43 +3,44 @@
  *
  * Styling of the "Grid 3" 3 column layout..
  ******************************************************************************/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/grid-3\/grid-3\.layout\.scss}line{font-family:\0000323}}
 .panel-display--grid-3 {
-  *zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
-  .panel-display--grid-3:after {
-    content: "";
-    display: table;
-    clear: both; }
+  *zoom: 1;
+}
+.panel-display--grid-3:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/grid-3\/grid-3\.layout\.scss}line{font-family:\0000327}}
 .grid-3-region {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+}
 
 @media (min-width: 1250px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/grid-3\/grid-3\.layout\.scss}line{font-family:\0000333}}
   .grid-3-region--first,
   .grid-3-region--fourth {
     width: 27.27273%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: left; }
+    clear: left;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/grid-3\/grid-3\.layout\.scss}line{font-family:\0000337}}
   .grid-3-region--second,
   .grid-3-region--fifth {
     width: 27.27273%;
     float: left;
     margin-right: -100%;
     margin-left: 36.36364%;
-    clear: none; }
+    clear: none;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/grid-3\/grid-3\.layout\.scss}line{font-family:\0000341}}
   .grid-3-region--third,
   .grid-3-region--sixth {
     width: 27.27273%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: right; } }
+    clear: right;
+  }
+}

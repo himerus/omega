@@ -5,37 +5,37 @@
 /**
  * Contextual links behaviour.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.base\.scss}line{font-family:\0000311}}
 .contextual-links-wrapper,
 .contextual-links-trigger,
 .contextual-links {
-  display: none !important; }
+  display: none !important;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.base\.scss}line{font-family:\0000317}}
 html.js .contextual-links-wrapper,
 .contextual-links-region:hover .contextual-links-trigger,
 .contextual-links-active .contextual-links-trigger,
 .contextual-links-active .contextual-links {
-  display: block !important; }
+  display: block !important;
+}
 
 /**
  * Contextual links structure.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.base\.scss}line{font-family:\0000324}}
 .contextual-links-region {
   outline: none;
-  position: relative; }
+  position: relative;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.base\.scss}line{font-family:\0000328}}
 .contextual-links-wrapper {
   position: absolute;
   z-index: 999;
   right: 5px;
   /* LTR */
-  top: 2px; }
+  top: 2px;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.base\.scss}line{font-family:\0000334}}
 .contextual-links-trigger {
   overflow: hidden;
   text-align: right;
-  /* LTR */ }
+  /* LTR */
+}

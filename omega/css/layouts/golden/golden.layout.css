@@ -4,64 +4,66 @@
  * Styling of the "Golden" layout demonstrating the golden rule and asymmetric
  * grids with Singularity.
  ******************************************************************************/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/golden\/golden\.layout\.scss}line{font-family:\0000326}}
 .panel-display--golden {
-  *zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
-  .panel-display--golden:after {
-    content: "";
-    display: table;
-    clear: both; }
+  *zoom: 1;
+}
+.panel-display--golden:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/golden\/golden\.layout\.scss}line{font-family:\0000330}}
 .golden-region {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+}
 
 @media (min-width: 700px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/golden\/golden\.layout\.scss}line{font-family:\0000335}}
   .golden-region--first {
     width: 100.0%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none; }
+    clear: none;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/golden\/golden\.layout\.scss}line{font-family:\0000338}}
   .golden-region--second {
     width: 61.98347%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: both; }
+    clear: both;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/golden\/golden\.layout\.scss}line{font-family:\0000341}}
   .golden-region--third {
     width: 37.19008%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none; } }
+    clear: none;
+  }
+}
 @media (min-width: 1250px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/golden\/golden\.layout\.scss}line{font-family:\0000347}}
   .golden-region--first {
     width: 50.33557%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: none; }
+    clear: none;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/golden\/golden\.layout\.scss}line{font-family:\0000350}}
   .golden-region--second {
     width: 30.20134%;
     float: left;
     margin-right: -100%;
     margin-left: 51.00671%;
-    clear: none; }
+    clear: none;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/golden\/golden\.layout\.scss}line{font-family:\0000353}}
   .golden-region--third {
     width: 18.12081%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none; } }
+    clear: none;
+  }
+}

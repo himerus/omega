@@ -10,21 +10,20 @@
 /**
  * Contextual link wrappers
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000316}}
 .contextual-links-region-active {
-  outline: #999 dashed 1px; }
+  outline: #999 dashed 1px;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000319}}
 .contextual-links-wrapper {
-  font-size: 12px !important; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000322}}
-  .contextual-links-wrapper a {
-    text-decoration: none; }
+  font-size: 12px !important;
+}
+.contextual-links-wrapper a {
+  text-decoration: none;
+}
 
 /**
  * Contextual trigger.
 */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000330}}
 .contextual-links-trigger {
   /* Positioning */
   height: 18px;
@@ -42,14 +41,14 @@
   border-radius: 4px;
   outline: none;
   text-indent: 9999px;
-  /* LTR */ }
+  /* LTR */
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000345}}
 .contextual-links-trigger:hover,
 .contextual-links-active .contextual-links-trigger {
-  background-position: 2px -18px !important; }
+  background-position: 2px -18px !important;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000348}}
 .contextual-links-active .contextual-links-trigger {
   /* Positioning */
   position: relative;
@@ -63,12 +62,12 @@
   border-bottom-left-radius: 0;
   -moz-border-radius-bottomright: 0;
   -webkit-border-bottom-right-radius: 0;
-  border-bottom-right-radius: 0; }
+  border-bottom-right-radius: 0;
+}
 
 /**
  * Contextual links.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000362}}
 .contextual-links {
   /* Position */
   position: absolute;
@@ -88,21 +87,22 @@
   border-radius: 4px 0 4px 4px;
   /* LTR */
   text-align: left;
-  white-space: nowrap; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000377}}
-  .contextual-links li {
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 100%;
-    list-style: none;
-    list-style-image: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000385}}
-  .contextual-links a {
-    display: block;
-    margin: 0 !important;
-    padding: 5px 10px !important;
-    color: #333 !important;
-    font-size: 12px !important; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/contextual\/contextual\.theme\.scss}line{font-family:\0000392}}
-    .contextual-links a:hover {
-      background-color: #bfdcee !important; }
+  white-space: nowrap;
+}
+.contextual-links li {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 100%;
+  list-style: none;
+  list-style-image: none;
+}
+.contextual-links a {
+  display: block;
+  margin: 0 !important;
+  padding: 5px 10px !important;
+  color: #333 !important;
+  font-size: 12px !important;
+}
+.contextual-links a:hover {
+  background-color: #bfdcee !important;
+}

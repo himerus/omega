@@ -2,13 +2,13 @@
  * @file
  * Styles for the block admin page.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/block\/block\.admin\.scss}line{font-family:\000036}}
 .blocks-admin .region-title {
-  font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/block\/block\.admin\.scss}line{font-family:\000039}}
+  font-weight: bold;
+}
 .blocks-admin .region-message {
   font-weight: normal;
-  color: #999; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/block\/block\.admin\.scss}line{font-family:\0000313}}
+  color: #999;
+}
 .blocks-admin .region-populated {
-  display: none; }
+  display: none;
+}

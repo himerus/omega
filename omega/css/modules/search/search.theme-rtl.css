@@ -5,20 +5,20 @@
 /**
  * Search Results
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/search\/search\.theme-rtl\.scss}line{font-family:\000039}}
 .search-result__snippet {
   padding-left: 0;
-  padding-right: 1em; }
+  padding-right: 1em;
+}
 
 /**
  * Advanced Search Form
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/search\/search\.theme-rtl\.scss}line{font-family:\0000318}}
 .search-advanced .criterion {
   float: right;
   margin-right: 0;
-  margin-left: 2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/search\/search\.theme-rtl\.scss}line{font-family:\0000323}}
+  margin-left: 2em;
+}
 .search-advanced .action {
   float: right;
-  clear: right; }
+  clear: right;
+}

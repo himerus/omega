@@ -3,7 +3,6 @@
  * Theme for for system messages.
  */
 /* Message */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\000037}}
 .messages {
   margin: 6px 0;
   padding: 10px 10px 10px 50px;
@@ -11,64 +10,65 @@
   background-position: 8px 8px;
   /* LTR */
   background-repeat: no-repeat;
-  border: 1px solid; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000314}}
-  .messages ul {
-    margin: 0 0 0 1em;
-    /* LTR */
-    padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000318}}
-  .messages li {
-    list-style-image: none; }
+  border: 1px solid;
+}
+.messages ul {
+  margin: 0 0 0 1em;
+  /* LTR */
+  padding: 0;
+}
+.messages li {
+  list-style-image: none;
+}
 
 /* Status Messages */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000324}}
 .messages--status {
   background-image: url('../../../images/misc/message-24-ok.png?1384945445');
-  border-color: #be7; }
+  border-color: #be7;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000329}}
 .messages--status,
 tr.ok {
-  background-color: #f8fff0; }
+  background-color: #f8fff0;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000333}}
 .messages--status,
 .ok {
-  color: #234600; }
+  color: #234600;
+}
 
 /* Warning Messages */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000338}}
 .messages--warning {
   background-image: url('../../../images/misc/message-24-warning.png?1384945445');
-  border-color: #ed5; }
+  border-color: #ed5;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000343}}
 .messages--warning,
 tr.warning {
-  background-color: #fffce5; }
+  background-color: #fffce5;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000347}}
 .messages--warning,
 .warning {
-  color: #333; }
+  color: #333;
+}
 
 /* Error Messages */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000352}}
 .messages--error {
   background-image: url('../../../images/misc/message-24-error.png?1384945445');
-  border-color: #ed541d; }
+  border-color: #ed541d;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000357}}
 .messages--error,
 tr.error {
-  background-color: #fef5f1; }
+  background-color: #fef5f1;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000361}}
 .messages--error,
 .error {
-  color: #333; }
+  color: #333;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/system\/system\.messages\.theme\.scss}line{font-family:\0000365}}
 .error .error {
-  color: #8c2e0b; }
+  color: #8c2e0b;
+}

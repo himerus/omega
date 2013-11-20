@@ -3,37 +3,36 @@
  *
  * Styling of the "mondrian" panels content layout.
  ******************************************************************************/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000324}}
 .panel-display--mondrian {
-  *zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
-  .panel-display--mondrian:after {
-    content: "";
-    display: table;
-    clear: both; }
+  *zoom: 1;
+}
+.panel-display--mondrian:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000328}}
 .mondrian-region {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000332}}
 .mondrian-region--tertiary-second {
   width: 45.45455%;
   float: left;
   margin-right: -100%;
   margin-left: 0%;
-  clear: none; }
+  clear: none;
+}
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000335}}
 .mondrian-region--tertiary-third {
   width: 45.45455%;
   float: right;
   margin-left: 0;
   margin-right: 0;
-  clear: none; }
+  clear: none;
+}
 
 @media (min-width: 700px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000341}}
   .mondrian-region--secondary,
   .mondrian-region--tertiary-second {
     width: 45.45455%;
@@ -41,9 +40,9 @@
     margin-right: -100%;
     margin-left: 0%;
     clear: none;
-    clear: left; }
+    clear: left;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000346}}
   .mondrian-region--tertiary-first,
   .mondrian-region--tertiary-third {
     width: 45.45455%;
@@ -51,44 +50,47 @@
     margin-left: 0;
     margin-right: 0;
     clear: none;
-    clear: right; } }
+    clear: right;
+  }
+}
 @media (min-width: 1250px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000353}}
   .mondrian-region--main {
     width: 72.72727%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: none; }
+    clear: none;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000356}}
   .mondrian-region--secondary {
     width: 22.72727%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none; }
+    clear: none;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000359}}
   .mondrian-region--tertiary-first {
     width: 45.45455%;
     float: left;
     margin-right: -100%;
     margin-left: 27.27273%;
-    clear: left; }
+    clear: left;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000362}}
   .mondrian-region--tertiary-second {
     width: 22.72727%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: none; }
+    clear: none;
+  }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/mondrian\/mondrian\.layout\.scss}line{font-family:\0000365}}
   .mondrian-region--tertiary-third {
     width: 22.72727%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: right; } }
+    clear: right;
+  }
+}
