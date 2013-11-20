@@ -3,14 +3,14 @@
  * Right to left theme for the poll voting form and results display.
  */
 /* Poll Bars */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/poll\/poll\.theme-rtl\.scss}line{font-family:\000037}}
 .poll-bars__bar .foreground {
-  float: right;
-}
+  float: right; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/poll\/poll\.theme-rtl\.scss}line{font-family:\0000310}}
 .poll-bars__text {
-  text-align: right;
-}
+  text-align: right; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/poll\/poll\.theme-rtl\.scss}line{font-family:\0000313}}
 .poll-bars__percent {
-  text-align: left;
-}
+  text-align: left; }

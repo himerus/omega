@@ -5,27 +5,27 @@
 /**
  * Search Results
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/search\/search\.theme\.scss}line{font-family:\000039}}
 .search-result__snippet {
   padding-left: 1em;
-  /* LTR */
-}
+  /* LTR */ }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/search\/search\.theme\.scss}line{font-family:\0000312}}
 .search-result__info {
-  font-size: 0.85em;
-}
+  font-size: 0.85em; }
 
 /**
  * Advanced Search Form
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/search\/search\.theme\.scss}line{font-family:\0000320}}
 .search-advanced .criterion {
   float: left;
   /* LTR */
   margin-right: 2em;
-  /* LTR */
-}
+  /* LTR */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/search\/search\.theme\.scss}line{font-family:\0000324}}
 .search-advanced .action {
   float: left;
   /* LTR */
   clear: left;
-  /* LTR */
-}
+  /* LTR */ }

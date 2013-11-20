@@ -6,6 +6,7 @@
 /*******************************************************************************
  * Off canvas portion of styling for the Off Canvas layout.
  ******************************************************************************/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\000036}}
 .l-off-canvas-show,
 .l-off-canvas-hide {
   display: none;
@@ -17,43 +18,43 @@
   background: transparent url("../../../layouts/off-canvas/assets/close.png") center center no-repeat;
   text-indent: -119988px;
   overflow: hidden;
-  text-align: left;
-}
+  text-align: left; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000316}}
 .l-off-canvas-show {
-  background: transparent url("../../../layouts/off-canvas/assets/menu.png") center center no-repeat;
-}
+  background: transparent url("../../../layouts/off-canvas/assets/menu.png") center center no-repeat; }
 
 @media (min-width: 0) and (max-width: 44em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000322}}
   .no-js .l-off-canvas {
     position: relative;
     min-height: 24px;
-    padding-right: 24px;
-  }
-  .no-js .l-off-canvas .l-region {
-    position: relative;
-    overflow: hidden;
-  }
-  .no-js .l-off-canvas .l-off-canvas-hide {
-    display: block;
-  }
-  .no-js .l-off-canvas:not(:target) .l-region {
-    min-height: 0;
-    height: 0;
-  }
-  .no-js .l-off-canvas:not(:target) .l-off-canvas-show {
-    display: block;
-  }
-  .no-js .l-off-canvas:not(:target) .l-off-canvas-hide {
-    display: none;
-  }
+    padding-right: 24px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000327}}
+    .no-js .l-off-canvas .l-region {
+      position: relative;
+      overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000331}}
+    .no-js .l-off-canvas .l-off-canvas-hide {
+      display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000335}}
+    .no-js .l-off-canvas:not(:target) .l-region {
+      min-height: 0;
+      height: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000339}}
+    .no-js .l-off-canvas:not(:target) .l-off-canvas-show {
+      display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000342}}
+    .no-js .l-off-canvas:not(:target) .l-off-canvas-hide {
+      display: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000349}}
   .js .l-page {
     position: relative;
     height: 100%;
-    padding-left: 12%;
-  }
+    padding-left: 12%; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000354}}
   .js .l-off-canvas {
     position: absolute;
     z-index: 99;
@@ -66,22 +67,21 @@
     -moz-transition: left 0.2s ease-in;
     -o-transition: left 0.2s ease-in;
     transition: left 0.2s ease-in;
-    cursor: pointer;
-  }
-  .js .l-off-canvas.is-visible {
-    left: 0;
-    cursor: auto;
-  }
-  .js .l-off-canvas.is-visible .l-off-canvas-show {
-    display: none;
-  }
-  .js .l-off-canvas.is-visible .l-off-canvas-hide {
-    display: block;
-  }
-  .js .l-off-canvas .l-off-canvas-show {
-    display: block;
-  }
-}
+    cursor: pointer; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000366}}
+    .js .l-off-canvas.is-visible {
+      left: 0;
+      cursor: auto; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000370}}
+      .js .l-off-canvas.is-visible .l-off-canvas-show {
+        display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000373}}
+      .js .l-off-canvas.is-visible .l-off-canvas-hide {
+        display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/_off-canvas\.scss}line{font-family:\0000377}}
+    .js .l-off-canvas .l-off-canvas-show {
+      display: block; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000332}}
 .l-header,
 .l-main,
 .l-footer {
@@ -93,62 +93,62 @@
   margin-left: auto;
   margin-right: auto;
   *zoom: 1;
-  margin-bottom: 20px;
-}
-.l-header:after,
-.l-main:after,
-.l-footer:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.l-header:after,
-.l-main:after,
-.l-footer:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+  margin-bottom: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
+  .l-header:after,
+  .l-main:after,
+  .l-footer:after {
+    content: "";
+    display: table;
+    clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
+  .l-header:after,
+  .l-main:after,
+  .l-footer:after {
+    content: "";
+    display: table;
+    clear: both; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000338}}
 .l-off-canvas {
-  clear: both;
-}
+  clear: both; }
 
 @media (min-width: 44em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000347}}
   .l-header,
   .l-main,
   .l-footer {
     max-width: 1080px;
-    _width: 1080px;
-  }
+    _width: 1080px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000351}}
   .l-branding {
     width: 32.20339%;
     float: left;
     margin-right: 1.69492%;
-    display: inline;
-  }
+    display: inline; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000354}}
   .l-region--header {
     width: 66.10169%;
     float: right;
     margin-right: 0;
     *margin-left: -1em;
-    display: inline;
-  }
+    display: inline; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000357}}
   .l-region--navigation {
-    clear: both;
-  }
+    clear: both; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000364}}
   .has-sidebar-first .l-content,
   .has-sidebar-second .l-content,
   .has-two-sidebars .l-content {
     width: 66.10169%;
     float: left;
     margin-right: 1.69492%;
-    display: inline;
-  }
+    display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000368}}
   .has-sidebar-first .l-region--sidebar-first,
   .has-sidebar-first .l-region--sidebar-second,
   .has-sidebar-second .l-region--sidebar-first,
@@ -159,81 +159,78 @@
     float: right;
     margin-right: 0;
     *margin-left: -1em;
-    display: inline;
-  }
+    display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000371}}
   .has-sidebar-first .l-region--sidebar-second,
   .has-sidebar-second .l-region--sidebar-second,
   .has-two-sidebars .l-region--sidebar-second {
-    clear: right;
-  }
-}
+    clear: right; } }
 @media (min-width: 70em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000380}}
   .l-branding {
     width: 36.70886%;
     float: left;
     margin-right: 1.26582%;
-    display: inline;
-  }
+    display: inline; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000383}}
   .l-region--header {
     width: 62.02532%;
     float: right;
     margin-right: 0;
     *margin-left: -1em;
-    display: inline;
-  }
+    display: inline; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000388}}
   .has-sidebar-first .l-content {
     width: 74.68354%;
     float: right;
     margin-right: 0;
     *margin-left: -1em;
-    display: inline;
-  }
+    display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000391}}
   .has-sidebar-first .l-region--sidebar-first {
     width: 24.05063%;
     float: left;
     margin-right: 1.26582%;
-    display: inline;
-  }
+    display: inline; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000396}}
   .has-sidebar-second .l-content {
     width: 74.68354%;
     float: left;
     margin-right: 1.26582%;
-    display: inline;
-  }
+    display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\0000399}}
   .has-sidebar-second .l-region--sidebar-second {
     width: 24.05063%;
     float: right;
     margin-right: 0;
     *margin-left: -1em;
     display: inline;
-    clear: none;
-  }
+    clear: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\00003106}}
   .has-two-sidebars .l-content {
     width: 49.36709%;
     float: left;
     margin-right: 1.26582%;
     display: inline;
-    margin-left: 25.31646%;
-  }
+    margin-left: 25.31646%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\00003111}}
   .has-two-sidebars .l-region--sidebar-first,
   .has-two-sidebars .l-region--sidebar-second {
     width: 24.05063%;
     float: left;
     margin-right: 1.26582%;
-    display: inline;
-  }
+    display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\00003114}}
   .has-two-sidebars .l-region--sidebar-first {
-    margin-left: -75.94937%;
-  }
+    margin-left: -75.94937%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/off-canvas\/off-canvas\.layout\.scss}line{font-family:\00003117}}
   .has-two-sidebars .l-region--sidebar-second {
     float: right;
     margin-right: 0;
     *margin-left: -1em;
     display: inline;
-    clear: none;
-  }
-}
+    clear: none; } }

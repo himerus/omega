@@ -7,43 +7,43 @@
  * Contains the form item being filtered, the filter format form item and
  * formatting guidelines.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000312}}
 .text-format-wrapper .form-item {
-  margin-bottom: 0;
-}
+  margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000315}}
 .text-format-wrapper .description {
-  margin-top: 0.5em;
-}
+  margin-top: 0.5em; }
 
 /* Filter Format Wrapper. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000321}}
 .filter-wrapper {
   border-top: 0;
-  margin: 0;
-}
-.filter-wrapper .form-item {
-  float: left;
-  padding: 0 0 0.5em 1.5em;
-}
-.filter-wrapper .form-item label {
-  display: inline;
-}
+  margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000325}}
+  .filter-wrapper .form-item {
+    float: left;
+    padding: 0 0 0.5em 1.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000329}}
+    .filter-wrapper .form-item label {
+      display: inline; }
 
 /* More Information Link. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000336}}
 .filter-help {
   float: right;
-  padding: 0 1.5em 0.5em;
-}
-.filter-help a {
-  background: transparent url('../../../images/misc/help.png?1379458577') right center no-repeat;
-  padding: 0 20px;
-}
+  padding: 0 1.5em 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000340}}
+  .filter-help a {
+    background: transparent url('../../../images/misc/help.png?1384945445') right center no-repeat;
+    padding: 0 20px; }
 
 /* Filter Guidelines */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000347}}
 .filter-guidelines {
   clear: left;
-  padding: 0 1.5em;
-}
+  padding: 0 1.5em; }
 
 /* Filter formatting tips. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/filter\/filter\.theme\.scss}line{font-family:\0000353}}
 .tips {
-  font-size: 0.9em;
-}
+  font-size: 0.9em; }

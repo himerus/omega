@@ -3,12 +3,13 @@
  * Admin styles for the locale module.
  */
 /* Untranslated locales. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/locale\/locale\.admin\.scss}line{font-family:\000037}}
 .locale-untranslated {
   font-style: normal;
-  text-decoration: line-through;
-}
+  text-decoration: line-through; }
 
 /* Translations 'exposed' filter form. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/locale\/locale\.admin\.scss}line{font-family:\0000316}}
 .locale-translation-filter-form .form-item-language,
 .locale-translation-filter-form .form-item-translation,
 .locale-translation-filter-form .form-item-group {
@@ -18,14 +19,13 @@
   /* LTR */
   margin: 0.1em;
   width: 15em;
-  /* Opera 9 Fix. */
-}
+  /* Opera 9 Fix. */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/locale\/locale\.admin\.scss}line{font-family:\0000322}}
 .locale-translation-filter-form .form-type-select select {
-  width: 100%;
-}
+  width: 100%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/locale\/locale\.admin\.scss}line{font-family:\0000325}}
 .locale-translation-filter-form .form-actions {
   float: left;
   /* LTR */
   padding: 3ex 0 0 1em;
-  /* LTR */
-}
+  /* LTR */ }

@@ -4,142 +4,140 @@
  * Styling of the "divine" layout demonstrating the golden rule and asymmetric
  * grids with Singularity.
  ******************************************************************************/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000326}}
 .l-page {
   width: 95%;
   max-width: 110em;
-  margin: 0 auto;
-}
+  margin: 0 auto; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000333}}
 .l-header,
 .l-main {
   *zoom: 1;
-  margin-bottom: 20px;
-}
-.l-header:after,
-.l-main:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+  margin-bottom: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
+  .l-header:after,
+  .l-main:after {
+    content: "";
+    display: table;
+    clear: both; }
 
 @media (min-width: 700px) {
   /* Header Area */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000340}}
   .l-branding {
     width: 61.98347%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: none;
-  }
+    clear: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000343}}
   .l-region--header {
     width: 37.19008%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none;
-  }
+    clear: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000346}}
   .l-region--navigation {
-    clear: both;
-  }
+    clear: both; }
 
   /* Content Area */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000351}}
   .l-content {
     width: 100.0%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none;
-  }
+    clear: none; }
 
   /* Sidebars */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000358}}
   .has-one-sidebar .l-region--sidebar-first,
   .has-one-sidebar .l-region--sidebar-second {
     width: 100.0%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none;
-  }
+    clear: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000363}}
   .has-two-sidebars .l-region--sidebar-first {
     width: 61.98347%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: both;
-  }
+    clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000366}}
   .has-two-sidebars .l-region--sidebar-second {
     width: 37.19008%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none;
-  }
-}
+    clear: none; } }
 @media (min-width: 1250px) {
   /* Header Area */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000374}}
   .l-header {
-    *zoom: 1;
-  }
-  .l-header:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+    *zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
+    .l-header:after {
+      content: "";
+      display: table;
+      clear: both; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000377}}
   .l-branding {
     width: 50.33557%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: none;
-  }
+    clear: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000380}}
   .l-region--header {
     width: 48.99329%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none;
-  }
+    clear: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000383}}
   .l-region--navigation {
-    clear: both;
-  }
+    clear: both; }
 
   /* Content Area */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000388}}
   .l-content {
     width: 50.33557%;
     float: left;
     margin-right: -100%;
     margin-left: 0%;
-    clear: none;
-  }
+    clear: none; }
 
   /* Sidebars */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\0000395}}
   .has-one-sidebar .l-region--sidebar-first,
   .has-one-sidebar .l-region--sidebar-second {
     width: 48.99329%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none;
-  }
+    clear: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\00003100}}
   .has-two-sidebars .l-region--sidebar-first {
     width: 30.20134%;
     float: left;
     margin-right: -100%;
     margin-left: 51.00671%;
-    clear: none;
-  }
+    clear: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/layouts\/divine\/divine\.layout\.scss}line{font-family:\00003103}}
   .has-two-sidebars .l-region--sidebar-second {
     width: 18.12081%;
     float: right;
     margin-left: 0;
     margin-right: 0;
-    clear: none;
-  }
-}
+    clear: none; } }

@@ -1,3 +1,4 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\000035}}
 .form-item.form-item-omega-conditional-comments-html-options,
 .form-item.form-item-omega-viewport-widget-minimal,
 .omega-settings-container {
@@ -5,53 +6,70 @@
   margin-left: 18px;
   margin-bottom: 12px;
   padding: 9px 18px;
-  background-color: #f2f2f2;
-}
+  background-color: #f2f2f2; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000313}}
 .fieldset-description {
-  margin-bottom: 15px;
-}
+  margin-bottom: 15px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000317}}
 div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset {
   border: 1px solid #ccc;
   padding: 2.5em 0 0 0;
-  margin: 1em 0;
-}
-div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset legend {
-  display: block;
-}
+  margin: 1em 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000322}}
+  div.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane fieldset legend {
+    display: block; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000328}}
+ul.omega-assets-namespace-tokens .description {
+  margin-top: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000332}}
+.item-list ul.omega-assets-namespace-tokens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/typography\/lists\/_bullets\.scss}line{font-family:\0000311}}
+  .item-list ul.omega-assets-namespace-tokens li {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000336}}
+  .item-list ul.omega-assets-namespace-tokens li {
+    margin-bottom: 14px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000342}}
 .omega-assets-missing-files {
   color: #8c2e0b;
-  margin: 1em 0 1em 1.5em;
-}
-.omega-assets-missing-files h3 {
-  font-size: .9em;
-  text-transform: uppercase;
-  margin-bottom: 0;
-}
+  margin: 1em 0 1em 1.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000346}}
+  .omega-assets-missing-files h3 {
+    font-size: .9em;
+    text-transform: uppercase;
+    margin-bottom: 0; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000353}}
 .omega-layout-selection-wrapper {
   margin-bottom: 20px;
   min-height: 75px;
-  position: relative;
-}
-.omega-layout-selection-wrapper .form-item label.option,
-.omega-layout-selection-wrapper .form-item div.description {
-  padding-left: 80px;
-}
-.omega-layout-selection-wrapper img {
-  height: 75px;
-  width: 64px;
-  position: absolute;
-  top: 8px;
-  margin-left: 1.5em;
-}
+  position: relative; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000360}}
+  .omega-layout-selection-wrapper .form-item label.option,
+  .omega-layout-selection-wrapper .form-item div.description {
+    padding-left: 80px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000365}}
+  .omega-layout-selection-wrapper img {
+    height: 75px;
+    width: 64px;
+    position: absolute;
+    top: 8px;
+    margin-left: 1.5em; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/omega\.admin\.scss}line{font-family:\0000374}}
 .form-item.form-item-omega-requirements {
   border: 1px solid #ed541d;
   color: #8c2e0b;
   background-color: #fef5f1;
   margin: 6px 0 16px;
-  padding: 10px;
-}
+  padding: 10px; }

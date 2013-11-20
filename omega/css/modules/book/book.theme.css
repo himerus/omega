@@ -2,28 +2,28 @@
  * @file
  * Basic theming for the book navigation component.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/book\/book\.theme\.scss}line{font-family:\000035}}
 .book-navigation__previous {
   float: left;
   /* LTR */
   display: block;
   width: 45%;
   text-align: left;
-  /* LTR */
-}
+  /* LTR */ }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/book\/book\.theme\.scss}line{font-family:\0000311}}
 .book-navigation__up {
   float: left;
   /* LTR */
   display: block;
   width: 10%;
-  text-align: center;
-}
+  text-align: center; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/book\/book\.theme\.scss}line{font-family:\0000317}}
 .book-navigation__next {
   float: right;
   /* LTR */
   display: block;
   width: 45%;
   text-align: right;
-  /* LTR */
-}
+  /* LTR */ }

@@ -5,10 +5,10 @@
 /**
  *'Manage fields' and 'Manage display' overviews.
  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/field_ui\/field_ui\.admin-rtl\.scss}line{font-family:\000039}}
 .field-ui-overview {
-  /* Add New Row */
-}
-.field-ui-overview .add-new .label-input {
-  float: right;
-  /* LTR */
-}
+  /* Add New Row */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/field_ui\/field_ui\.admin-rtl\.scss}line{font-family:\0000311}}
+  .field-ui-overview .add-new .label-input {
+    float: right;
+    /* LTR */ }

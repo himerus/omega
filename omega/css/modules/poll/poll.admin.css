@@ -3,11 +3,11 @@
  * Admin styles for the poll module.
  */
 /* Poll choice form on node form. */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/poll\/poll\.admin\.scss}line{font-family:\000038}}
 .poll-choice-table .form-text {
   display: inline;
-  width: auto;
-}
+  width: auto; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/opt\/dcvie-training\/drupal\/profiles\/training_profile\/themes\/contrib\/omega\/omega\/sass\/modules\/poll\/poll\.admin\.scss}line{font-family:\0000312}}
 .poll-choice-table .choice-flag {
   white-space: nowrap;
-  width: 4em;
-}
+  width: 4em; }
