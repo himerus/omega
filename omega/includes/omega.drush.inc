@@ -242,6 +242,20 @@ function drush_omega_subtheme($name) {
     'base theme' => $basetheme,
   ) + $starterkit['info'];
 
+  // If the starterkit does not provide any regions, use those defined in the
+  // base theme (if any).
+  if (empty($info['regions'])) {
+    // We explicitly avoid reading from the generated theme
+    // info array for this and get the raw, unprocessed .info file data of the
+    // base theme instead to prevent any system or module provided regions to leak
+    // into our theme's .info file (e.g. via hook_system_info_alter() as used by
+    // the dashboard module).
+    $basetheme_info = drupal_parse_info_file(drupal_get_path('theme', $basetheme) . "/$basetheme.info");
+    if (!empty($basetheme_info['regions'])) {
+      $info['regions'] = $basetheme_info['regions'];
+    }
+  }
+
   // Write to the new .info file.
   $file = $temporary . '/' . $machine_name . '.info';
   if (!file_put_contents($file, drush_omega_compose_info_file($info))) {
