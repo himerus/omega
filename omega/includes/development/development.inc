@@ -9,7 +9,7 @@
 // page load (@see _omega_extension_development_boot()).
 if (drupal_get_bootstrap_phase() >= DRUPAL_BOOTSTRAP_DATABASE && $GLOBALS['theme'] === $GLOBALS['theme_key'] && ($GLOBALS['theme'] == 'omega' || (!empty($GLOBALS['base_theme_info']) && $GLOBALS['base_theme_info'][0]->name == 'omega'))) {
   if (isset($GLOBALS['user']->uid) && function_exists('user_access')) {
-    if (user_access('administer site configuration')) {
+    if (user_access('administer site configuration') && omega_extension_enabled('development')) {
       _omega_extension_development_boot();
     }
   }
@@ -122,7 +122,7 @@ function _omega_extension_development_boot() {
   // Managing debugging (flood) messages and a few development tasks. This also
   // lives outside of any function declaration to make sure that the code is
   // executed before any theme hooks.
-  if (variable_get('theme_' . $GLOBALS['theme'] . '_settings') && flood_is_allowed('omega_' . $GLOBALS['theme'] . '_theme_settings_warning', 3)) {
+  if (omega_theme_get_setting('omega_enable_export_reminder') && variable_get('theme_' . $GLOBALS['theme'] . '_settings') && flood_is_allowed('omega_' . $GLOBALS['theme'] . '_theme_settings_warning', 3)) {
     // Alert the user that the theme settings are served from a variable.
     flood_register_event('omega_' . $GLOBALS['theme'] . '_theme_settings_warning');
     drupal_set_message(t("The settings for this theme are currently served from a variable. You might want to export them to your .info file. This is optional and can be done the Drush command 'drush omega-export'."), 'warning');
