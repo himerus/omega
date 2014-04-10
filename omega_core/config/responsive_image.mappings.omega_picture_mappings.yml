@@ -1,0 +1,20 @@
+id: omega_picture_mappings
+label: 'Omega Picture Mappings'
+mappings:
+  theme:
+    omega:
+      all:
+        1x: small
+      mobile_portrait:
+        1x: normal
+      mobile_landscape:
+        1x: large
+      narrow:
+        1x: small
+      normal:
+        1x: normal
+      wide:
+        1x: large
+breakpointGroup: theme.omega.omega
+status: true
+langcode: en

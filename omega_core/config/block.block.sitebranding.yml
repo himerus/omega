@@ -1,0 +1,31 @@
+id: omega_branding
+weight: -5
+status: true
+uuid: d578b645-e39d-46e8-a400-ff648ff20114
+langcode: en
+theme: omega
+region: header
+plugin: system_branding_block
+settings:
+  module: system
+  admin_label: ''
+  label: 'Site branding'
+  label_display: '0'
+  cache: -1
+  block_branding:
+    use_site_logo: 1
+    use_site_name: 1
+    use_site_slogan: 1
+  use_site_logo: 1
+  use_site_name: 1
+  use_site_slogan: 1
+visibility:
+  path:
+    visibility: 0
+    pages: ''
+  role:
+    roles: {  }
+  node_type:
+    types:
+      article: '0'
+      page: '0'

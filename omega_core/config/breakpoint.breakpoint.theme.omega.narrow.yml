@@ -1,0 +1,11 @@
+id: theme.omega.narrow
+name: narrow
+label: narrow
+mediaQuery: 'all and (min-width: 768px) and (max-width: 1023px)'
+source: omega
+sourceType: theme
+weight: 3
+multipliers:
+  1x: 1x
+status: true
+langcode: en

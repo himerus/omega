@@ -1,0 +1,11 @@
+id: theme.omega.normal
+name: normal
+label: normal
+mediaQuery: 'all and (min-width: 1024px) and (max-width: 1219px)'
+source: omega
+sourceType: theme
+weight: 4
+multipliers:
+  1x: 1x
+status: true
+langcode: en

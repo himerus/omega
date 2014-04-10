@@ -1,0 +1,51 @@
+/**
+ * @file
+ * Omega's primary SCSS controller, that pulls in any relevant SCSS includes
+ * 
+ * All styles declared in Omega use the !default property.
+ * Any overrides in your subtheme will not include this and can override styles and variables selectively.
+ * In your subtheme, you can comment out any of the @import declarations you like if you'd like to create your own styles for that element.
+ *
+ * @usage
+ * @media all and (min-width: $tablet) {
+ *   // styles here will apply to tablet mode and above defined in vars.scss
+ * }
+ * @media all and (min-width: $desktop) {
+ *   // styles here will apply to desktop mode and above defined in vars.scss
+ * }
+ * @media all and (min-width: $tablet) and (max-width: $desktop) {
+ *   // styles here will apply to tablet mode ONLY and not for desktop mode.
+ * }
+ */
+
+// Default Variable Import
+@import "vars.scss";
+
+
+
+
+// Omega region demo block styles
+@import "elements/_demo_block.scss";
+// Omega screen indicator styles
+@import "elements/_demo_indicator.scss";
+
+// Default HTML Element styles (a, p, img, h1-6, etc.)
+@import "elements/_html-elements.scss";
+// Drupal breadcrumb adjustments
+@import "elements/_breadcrumbs.scss";
+// Drupal pager adjustments
+@import "elements/_pagers.scss";
+// Drupal tabs adjustments
+@import "elements/_tabs.scss";
+// Drupal messages adjustments
+@import "elements/_messages.scss";
+
+
+
+
+// Drupal menu adjustments
+@import "elements/_main-menus.scss";
+// Drupal menu adjustments
+@import "elements/_site-branding.scss";
+
+

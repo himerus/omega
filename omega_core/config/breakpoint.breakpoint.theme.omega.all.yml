@@ -1,0 +1,11 @@
+id: theme.omega.all
+name: all
+label: all
+mediaQuery: 'all and (min-width: 0px)'
+source: omega
+sourceType: theme
+weight: 0
+multipliers:
+  1x: 1x
+status: true
+langcode: en

@@ -1,0 +1,73 @@
+@import "../vars.scss";
+
+
+
+#omega-screen--indicator {
+  background-color: rgba(0, 0, 0, 0.85);
+  
+  position: fixed;
+  
+  // full width for mobile
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  
+  padding: 20px;
+  color: #FFF;
+  
+  padding-left: 70px;
+  height: 70px;
+  //min-height: 150px;
+  
+  font-size: 12px;
+  
+  .indicator-data {
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .ologo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 70px;
+    
+    
+    
+    a {
+      display: block;
+      background: rgba($primaryColor1, 0.85);
+      @include omegaTransition(all, 0.25s, ease-in-out);
+
+      &:hover {
+        background: rgba($primaryColor1, 1);
+      }
+    }
+    img {
+      max-height: 100%;
+      width: auto;
+      
+    }
+  }
+  h5 {
+    margin: 0;
+    margin-right: 1em;
+    font-size: 12px;
+    display: inline-block;
+    
+  }
+  .data {
+    font-weight: bold;
+  }
+  
+  
+}
+
+@media all and (min-width: $desktop) {
+  #omega-screen--indicator {
+    left: auto;
+    width: 350px;
+  }
+}

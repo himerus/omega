@@ -1,0 +1,14 @@
+id: theme.omega.omega
+name: omega
+label: Omega
+breakpoint_ids:
+  - theme.omega.all
+  - theme.omega.mobile_portrait
+  - theme.omega.mobile_landscape
+  - theme.omega.narrow
+  - theme.omega.normal
+  - theme.omega.wide
+source: omega
+sourceType: theme
+status: true
+langcode: en

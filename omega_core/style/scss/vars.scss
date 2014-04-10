@@ -1,0 +1,71 @@
+
+/* Fonts */
+$light: "Helvetica Neue", Arial, Helvetica !default;
+$reg: "Helvetica Neue", Arial, Helvetica !default;
+$bold: "Helvetica Neue", Arial, Helvetica !default;
+
+$bodyFont: "Helvetica Neue", Arial, Helvetica !default;
+$header: Georgia, Times, serif;
+
+// Media Queries
+  
+// @media all and (min-width: $mobile)
+// @media all and (min-width: $mobileLandscape)
+// Would only be used for enhancements to mobile-first or to target more specific mobile screen resolutions
+  
+// @media all and (max-width: $mobile-only)
+// Used to target ONLY resolutions less than tablet, so mobile only. This would prevent the need to remove/override styles that were not needed on tablet/desktop resolutions.
+// 
+// @media all and (min-width: $mobilePortrait) and (max-width: $below_mobileLandscape)
+// @media all and (min-width: $mobileLandscape) and (max-width: $below_tablet)
+// @media all and (min-width: $tablet) and (max-width: $below_desktop)
+// @media all and (min-width: $desktop) and (max-width: $below_desktopWide)
+// @media all and (min-width: $desktopWide)
+
+// Used to target the specified breakpoint and anything that appears above it
+  
+// @media screen and (min-width: $tablet) and (max-width: $desktop)
+// Used to target ONLY screens between the two breakpoints so styles will not apply to $desktop and beyond in this example.
+
+$regionSpacing: 25px;
+
+$mobile: 0px !default;
+
+$mobilePortrait: 320px !default;
+$below_mobilePortrait: 319px !default;
+
+$mobileLandscape: 480px !default;
+$below_mobileLandscape: 479px !default;
+
+$mobile-only: 767px !default; // should be 1px less than $tablet
+
+
+$tablet: 768px !default;
+$below_tablet: 767px !default; 
+ 
+$desktop: 1024px !default; 
+$below_desktop: 1023px !default;
+
+$desktopWide: 1220px !default;
+$below_desktopWide: 1219px !default;
+
+$primaryColor1: #0b6194; // good blue
+$primaryColor2: #EEEEEE; // EEE
+//$primaryColor1: #8736d3; // purple
+
+$siteTitleColor: rgba($primaryColor1, 1);
+$siteTitleHoverColor: rgba($primaryColor1, 0.85);
+$siteSloganColor: #777;
+
+$menuitemBg: $primaryColor1;
+$menuitemColor: $primaryColor2;
+
+@mixin omegaTransition($type:all, $speed:0.25s, $transition: ease-in-out) {
+  transition: $type $speed $transition;
+   -moz-transition: $type $speed $transition;
+   -webkit-transition: $type $speed $transition;
+}
+
+@mixin omegaCorners($rad: 5px) {
+  
+}

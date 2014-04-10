@@ -1,0 +1,841 @@
+name: Omega
+type: theme
+description: 'A flexible theme with tons of configurable regions and a responsive, mobile-first layout.'
+package: Core
+version: VERSION
+core: 8.x
+stylesheets:
+  all:
+    - style/css/layout.css
+    - style/css/base.css
+  print:
+    - style/css/print.css
+dependencies:
+  - breakpoint
+#ckeditor_stylesheets:
+#  - css/ckeditor-iframe.css
+scripts:
+  - js/omega.js
+regions:
+  header: Header
+  help: Help
+  page_top: 'Page Top'
+  
+  highlighted: Highlighted
+  featured: Featured
+  
+  preface_first: 'Preface First'
+  preface_second: 'Preface Second'
+  preface_third: 'Preface Third'
+  preface_fourth: 'Preface Fourth'
+  
+  content: Content
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  
+  postscript_first: 'Postscript First'
+  postscript_second: 'Postscript Second'
+  postscript_third: 'Postscript Third'
+  postscript_fourth: 'Postscript Fourth'
+  
+  footer: Footer
+  page_bottom: 'Page Bottom'
+settings:
+  block_demo_mode: true
+  screen_demo_indicator: true
+  block_demo_excluded_regions:
+    - page_top
+    - page_bottom
+  default_layout: 'omega_default'
+  layouts:
+    omega_default:
+      region_groups:
+        all:
+          header:
+            row: '12'
+            regions:
+              header:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              menus:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          preface:
+            row: '12'
+            regions:
+              preface_first:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_second:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_third:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_fourth:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          core:
+            row: '12'
+            regions: 
+              messages:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              featured:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              highlighted:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              info:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          core:
+            row: '12'
+            regions: 
+              messages:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              featured:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              highlighted:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              info:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          main:
+            row: '12'
+            regions:
+              content:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              sidebar_first:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              sidebar_second:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          postscript:
+            row: '12'
+            regions:
+              postscript_first:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_second:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_third:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_fourth:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          footer:
+            row: '12'
+            regions:
+              footer:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+        mobile_portrait:
+          header:
+            row: '12'
+            regions:
+              header:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              menus:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          preface:
+            row: '12'
+            regions:
+              preface_first:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_second:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_third:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_fourth:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          core:
+            row: '12'
+            regions: 
+              messages:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              featured:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              highlighted:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              info:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          main:
+            row: '12'
+            regions:
+              content:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              sidebar_first:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              sidebar_second:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          postscript:
+            row: '12'
+            regions:
+              postscript_first:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_second:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_third:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_fourth:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          footer:
+            row: '12'
+            regions:
+              footer:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+        mobile_landscape:
+          header:
+            row: '12'
+            regions:
+              header:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              menus:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          preface:
+            row: '12'
+            regions:
+              preface_first:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_second:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_third:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              preface_fourth:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          core:
+            row: '12'
+            regions: 
+              messages:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              featured:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              highlighted:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              info:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          main:
+            row: '12'
+            regions:
+              content:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              sidebar_first:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              sidebar_second:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+          postscript:
+            row: '12'
+            regions:
+              postscript_first:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_second:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_third:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              postscript_fourth:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          footer:
+            row: '12'
+            regions:
+              footer:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+        narrow:
+          header:
+            row: '12'
+            regions:
+              header:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              menus:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          preface:
+            row: '12'
+            regions:
+              preface_first:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              preface_second:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              preface_third:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              preface_fourth:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+          core:
+            row: '12'
+            regions: 
+              messages:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              featured:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              highlighted:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              info:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          main:
+            row: '12'
+            regions:
+              content:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              sidebar_first:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              sidebar_second:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+          postscript:
+            row: '12'
+            regions:
+              postscript_first:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              postscript_second:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              postscript_third:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              postscript_fourth:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+          footer:
+            row: '12'
+            regions:
+              footer:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+        normal:
+          header:
+            row: '12'
+            regions:
+              header:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              menus:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          preface:
+            row: '12'
+            regions:
+              preface_first:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              preface_second:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              preface_third:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+              preface_fourth:
+                push: '0'
+                prefix: '0'
+                width: '6'
+                suffix: '0'
+                pull: '0'
+          core:
+            row: '12'
+            regions: 
+              messages:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              featured:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              highlighted:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              info:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          main:
+            row: '12'
+            regions:
+              content:
+                push: '0'
+                prefix: '0'
+                width: '7'
+                suffix: '0'
+                pull: '0'
+              sidebar_first:
+                push: '0'
+                prefix: '0'
+                width: '3'
+                suffix: '0'
+                pull: '0'
+              sidebar_second:
+                push: '0'
+                prefix: '0'
+                width: '2'
+                suffix: '0'
+                pull: '0'
+          postscript:
+            row: '12'
+            regions:
+              postscript_first:
+                push: '0'
+                prefix: '0'
+                width: '4'
+                suffix: '0'
+                pull: '0'
+              postscript_second:
+                push: '0'
+                prefix: '0'
+                width: '4'
+                suffix: '0'
+                pull: '0'
+              postscript_third:
+                push: '0'
+                prefix: '0'
+                width: '4'
+                suffix: '0'
+                pull: '0'
+              postscript_fourth:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          footer:
+            row: '12'
+            regions:
+              footer:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+        wide:
+          header:
+            row: '12'
+            regions:
+              header:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              menus:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          preface:
+            row: '12'
+            regions:
+              preface_first:
+                push: '0'
+                prefix: '0'
+                width: '3'
+                suffix: '0'
+                pull: '0'
+              preface_second:
+                push: '0'
+                prefix: '0'
+                width: '3'
+                suffix: '0'
+                pull: '0'
+              preface_third:
+                push: '0'
+                prefix: '0'
+                width: '3'
+                suffix: '0'
+                pull: '0'
+              preface_fourth:
+                push: '0'
+                prefix: '0'
+                width: '3'
+                suffix: '0'
+                pull: '0'
+          core:
+            row: '12'
+            regions: 
+              messages:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              featured:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              highlighted:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+              info:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
+          main:
+            row: '12'
+            regions:
+              content:
+                push: '2'
+                prefix: '0'
+                width: '8'
+                suffix: '0'
+                pull: '0'
+              sidebar_first:
+                push: '0'
+                prefix: '0'
+                width: '2'
+                suffix: '0'
+                pull: '8'
+              sidebar_second:
+                push: '0'
+                prefix: '0'
+                width: '2'
+                suffix: '0'
+                pull: '0'
+          postscript:
+            row: '12'
+            regions:
+              postscript_first:
+                push: '0'
+                prefix: '0'
+                width: '4'
+                suffix: '0'
+                pull: '0'
+              postscript_second:
+                push: '0'
+                prefix: '0'
+                width: '8'
+                suffix: '0'
+                pull: '0'
+              postscript_third:
+                push: '0'
+                prefix: '0'
+                width: '8'
+                suffix: '0'
+                pull: '0'
+              postscript_fourth:
+                push: '0'
+                prefix: '0'
+                width: '4'
+                suffix: '0'
+                pull: '0'
+          footer:
+            row: '12'
+            regions:
+              footer:
+                push: '0'
+                prefix: '0'
+                width: '12'
+                suffix: '0'
+                pull: '0'
