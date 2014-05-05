@@ -14,8 +14,6 @@ dependencies:
   - breakpoint
 #ckeditor_stylesheets:
 #  - css/ckeditor-iframe.css
-scripts:
-  - js/omega.js
 regions:
   header: Header
   help: Help
@@ -41,6 +39,14 @@ regions:
   footer: Footer
   page_bottom: 'Page Bottom'
 settings:
+  styles:
+    scss_html_elements: 1
+    scss_branding: 1
+    scss_breadcrumbs: 1
+    scss_main_menus: 1
+    scss_messages: 1
+    scss_pagers: 1
+    scss_tabs: 1
   block_demo_mode: true
   screen_demo_indicator: true
   block_demo_excluded_regions:

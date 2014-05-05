@@ -1,5 +1,15 @@
 @import "../vars.scss";
 
+
+#site-branding {
+    
+    #logo {
+      
+      
+    }
+  
+    
+  }
 #site-branding {
   position: relative;
   margin-top: 20px;
@@ -12,24 +22,42 @@
     padding-top: 0;
   }
   
+  
+  
   #logo {
     float: left;
     max-width: 90px;
     height: auto;
     margin-right: 25px;
-    background: rgba($primaryColor1, 1);
+    
     @include omegaTransition(all, 0.25s, ease-in-out);
+    @include omegaCorners(10px);
+    
+    background: rgba($primaryColor3, 1);
+    
+    &:hover {
+      background: rgba($primaryColor2, 1);
+    }
     
     a {
       display: block;
-      
     }
     
-    &:hover {
-      
-      background: rgba($primaryColor1, 0.85);
+    img {
+      display: block;
+      @include omegaCorners(10px);
+    }
+    
+  }
+  
+  &:hover {
+    
+    #logo {
+      background: rgba($primaryColor2, 1);
     }
   }
+  
+  
   
   .site-name {
     font-size: 48px;

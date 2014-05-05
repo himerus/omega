@@ -1,12 +1,9 @@
-/*
- * Fonts
- */
+/* Fonts */
 body {
   width: 100%;
   min-width: 100%;
   *zoom: 1; }
-  body:before,
-  body:after {
+  body:before, body:after {
     content: "";
     display: table; }
   body:after {
@@ -16,10 +13,10 @@ body {
   display: block;
   margin: 0 auto;
   width: 100%;
-  *width: 99.896%;
-  *zoom: 1; }
-  #header-layout:before,
-  #header-layout:after {
+  *width: 99.89583%;
+  *zoom: 1;
+  max-width: 100%; }
+  #header-layout:before, #header-layout:after {
     content: "";
     display: table; }
   #header-layout:after {
@@ -27,23 +24,23 @@ body {
   #header-layout #header {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #header-layout #menus {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
 
@@ -51,10 +48,10 @@ body {
   display: block;
   margin: 0 auto;
   width: 100%;
-  *width: 99.896%;
-  *zoom: 1; }
-  #preface-layout:before,
-  #preface-layout:after {
+  *width: 99.89583%;
+  *zoom: 1;
+  max-width: 100%; }
+  #preface-layout:before, #preface-layout:after {
     content: "";
     display: table; }
   #preface-layout:after {
@@ -62,45 +59,45 @@ body {
   #preface-layout #preface-first {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #preface-layout #preface-second {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #preface-layout #preface-third {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #preface-layout #preface-fourth {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
 
@@ -108,10 +105,10 @@ body {
   display: block;
   margin: 0 auto;
   width: 100%;
-  *width: 99.896%;
-  *zoom: 1; }
-  #core-layout:before,
-  #core-layout:after {
+  *width: 99.89583%;
+  *zoom: 1;
+  max-width: 100%; }
+  #core-layout:before, #core-layout:after {
     content: "";
     display: table; }
   #core-layout:after {
@@ -119,45 +116,45 @@ body {
   #core-layout #messages {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #core-layout #featured {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #core-layout #highlighted {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #core-layout #info {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
 
@@ -165,10 +162,10 @@ body {
   display: block;
   margin: 0 auto;
   width: 100%;
-  *width: 99.896%;
-  *zoom: 1; }
-  #main-layout:before,
-  #main-layout:after {
+  *width: 99.89583%;
+  *zoom: 1;
+  max-width: 100%; }
+  #main-layout:before, #main-layout:after {
     content: "";
     display: table; }
   #main-layout:after {
@@ -176,34 +173,34 @@ body {
   #main-layout #content {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #main-layout #sidebar-first {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #main-layout #sidebar-second {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
 
@@ -211,10 +208,10 @@ body {
   display: block;
   margin: 0 auto;
   width: 100%;
-  *width: 99.896%;
-  *zoom: 1; }
-  #postscript-layout:before,
-  #postscript-layout:after {
+  *width: 99.89583%;
+  *zoom: 1;
+  max-width: 100%; }
+  #postscript-layout:before, #postscript-layout:after {
     content: "";
     display: table; }
   #postscript-layout:after {
@@ -222,45 +219,45 @@ body {
   #postscript-layout #postscript-first {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #postscript-layout #postscript-second {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #postscript-layout #postscript-third {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
   #postscript-layout #postscript-fourth {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
 
@@ -268,10 +265,10 @@ body {
   display: block;
   margin: 0 auto;
   width: 100%;
-  *width: 99.896%;
-  *zoom: 1; }
-  #footer-layout:before,
-  #footer-layout:after {
+  *width: 99.89583%;
+  *zoom: 1;
+  max-width: 100%; }
+  #footer-layout:before, #footer-layout:after {
     content: "";
     display: table; }
   #footer-layout:after {
@@ -279,12 +276,12 @@ body {
   #footer-layout #footer {
     display: block;
     position: relative;
-    width: 97.917%;
-    margin-right: 1.042%;
-    margin-left: 1.042%;
-    *width: 97.813%;
-    *margin-right: 0.938%;
-    *margin-left: 0.938%;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
 
@@ -293,34 +290,34 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #header-layout:before,
-  #header-layout:after {
-    content: "";
-    display: table; }
-  #header-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #header-layout:before, #header-layout:after {
+      content: "";
+      display: table; }
+    #header-layout:after {
+      clear: both; }
     #header-layout #header {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #header-layout #menus {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -328,56 +325,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #preface-layout:before,
-  #preface-layout:after {
-    content: "";
-    display: table; }
-  #preface-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #preface-layout:before, #preface-layout:after {
+      content: "";
+      display: table; }
+    #preface-layout:after {
+      clear: both; }
     #preface-layout #preface-first {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-second {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-third {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-fourth {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -385,56 +382,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #core-layout:before,
-  #core-layout:after {
-    content: "";
-    display: table; }
-  #core-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #core-layout:before, #core-layout:after {
+      content: "";
+      display: table; }
+    #core-layout:after {
+      clear: both; }
     #core-layout #messages {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #featured {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #highlighted {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #info {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -442,45 +439,45 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #main-layout:before,
-  #main-layout:after {
-    content: "";
-    display: table; }
-  #main-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #main-layout:before, #main-layout:after {
+      content: "";
+      display: table; }
+    #main-layout:after {
+      clear: both; }
     #main-layout #content {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #main-layout #sidebar-first {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #main-layout #sidebar-second {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -488,56 +485,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #postscript-layout:before,
-  #postscript-layout:after {
-    content: "";
-    display: table; }
-  #postscript-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #postscript-layout:before, #postscript-layout:after {
+      content: "";
+      display: table; }
+    #postscript-layout:after {
+      clear: both; }
     #postscript-layout #postscript-first {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-second {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-third {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-fourth {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -545,59 +542,58 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #footer-layout:before,
-  #footer-layout:after {
-    content: "";
-    display: table; }
-  #footer-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #footer-layout:before, #footer-layout:after {
+      content: "";
+      display: table; }
+    #footer-layout:after {
+      clear: both; }
     #footer-layout #footer {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; } }
-
 @media all and (min-width: 480px) and (max-width: 767px) {
   #header-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #header-layout:before,
-  #header-layout:after {
-    content: "";
-    display: table; }
-  #header-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #header-layout:before, #header-layout:after {
+      content: "";
+      display: table; }
+    #header-layout:after {
+      clear: both; }
     #header-layout #header {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #header-layout #menus {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -605,56 +601,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #preface-layout:before,
-  #preface-layout:after {
-    content: "";
-    display: table; }
-  #preface-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #preface-layout:before, #preface-layout:after {
+      content: "";
+      display: table; }
+    #preface-layout:after {
+      clear: both; }
     #preface-layout #preface-first {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-second {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-third {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-fourth {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -662,56 +658,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #core-layout:before,
-  #core-layout:after {
-    content: "";
-    display: table; }
-  #core-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #core-layout:before, #core-layout:after {
+      content: "";
+      display: table; }
+    #core-layout:after {
+      clear: both; }
     #core-layout #messages {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #featured {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #highlighted {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #info {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -719,45 +715,45 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #main-layout:before,
-  #main-layout:after {
-    content: "";
-    display: table; }
-  #main-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #main-layout:before, #main-layout:after {
+      content: "";
+      display: table; }
+    #main-layout:after {
+      clear: both; }
     #main-layout #content {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #main-layout #sidebar-first {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #main-layout #sidebar-second {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -765,56 +761,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #postscript-layout:before,
-  #postscript-layout:after {
-    content: "";
-    display: table; }
-  #postscript-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #postscript-layout:before, #postscript-layout:after {
+      content: "";
+      display: table; }
+    #postscript-layout:after {
+      clear: both; }
     #postscript-layout #postscript-first {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-second {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-third {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-fourth {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -822,59 +818,58 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #footer-layout:before,
-  #footer-layout:after {
-    content: "";
-    display: table; }
-  #footer-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #footer-layout:before, #footer-layout:after {
+      content: "";
+      display: table; }
+    #footer-layout:after {
+      clear: both; }
     #footer-layout #footer {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; } }
-
 @media all and (min-width: 768px) and (max-width: 1023px) {
   #header-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #header-layout:before,
-  #header-layout:after {
-    content: "";
-    display: table; }
-  #header-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #header-layout:before, #header-layout:after {
+      content: "";
+      display: table; }
+    #header-layout:after {
+      clear: both; }
     #header-layout #header {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #header-layout #menus {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -882,56 +877,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #preface-layout:before,
-  #preface-layout:after {
-    content: "";
-    display: table; }
-  #preface-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #preface-layout:before, #preface-layout:after {
+      content: "";
+      display: table; }
+    #preface-layout:after {
+      clear: both; }
     #preface-layout #preface-first {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-second {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-third {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-fourth {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -939,56 +934,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #core-layout:before,
-  #core-layout:after {
-    content: "";
-    display: table; }
-  #core-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #core-layout:before, #core-layout:after {
+      content: "";
+      display: table; }
+    #core-layout:after {
+      clear: both; }
     #core-layout #messages {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #featured {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #highlighted {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #info {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -996,45 +991,45 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #main-layout:before,
-  #main-layout:after {
-    content: "";
-    display: table; }
-  #main-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #main-layout:before, #main-layout:after {
+      content: "";
+      display: table; }
+    #main-layout:after {
+      clear: both; }
     #main-layout #content {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #main-layout #sidebar-first {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #main-layout #sidebar-second {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1042,56 +1037,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #postscript-layout:before,
-  #postscript-layout:after {
-    content: "";
-    display: table; }
-  #postscript-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #postscript-layout:before, #postscript-layout:after {
+      content: "";
+      display: table; }
+    #postscript-layout:after {
+      clear: both; }
     #postscript-layout #postscript-first {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-second {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-third {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-fourth {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1099,59 +1094,58 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #footer-layout:before,
-  #footer-layout:after {
-    content: "";
-    display: table; }
-  #footer-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%; }
+    #footer-layout:before, #footer-layout:after {
+      content: "";
+      display: table; }
+    #footer-layout:after {
+      clear: both; }
     #footer-layout #footer {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; } }
-
 @media all and (min-width: 1024px) and (max-width: 1219px) {
   #header-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #header-layout:before,
-  #header-layout:after {
-    content: "";
-    display: table; }
-  #header-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #header-layout:before, #header-layout:after {
+      content: "";
+      display: table; }
+    #header-layout:after {
+      clear: both; }
     #header-layout #header {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #header-layout #menus {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1159,56 +1153,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #preface-layout:before,
-  #preface-layout:after {
-    content: "";
-    display: table; }
-  #preface-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #preface-layout:before, #preface-layout:after {
+      content: "";
+      display: table; }
+    #preface-layout:after {
+      clear: both; }
     #preface-layout #preface-first {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 56.25%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 56.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-second {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 39.58333%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 39.47917%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-third {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 39.58333%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 39.47917%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-fourth {
       display: block;
       position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 56.25%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 56.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1216,56 +1210,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #core-layout:before,
-  #core-layout:after {
-    content: "";
-    display: table; }
-  #core-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #core-layout:before, #core-layout:after {
+      content: "";
+      display: table; }
+    #core-layout:after {
+      clear: both; }
     #core-layout #messages {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #featured {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #highlighted {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #info {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1273,45 +1267,45 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #main-layout:before,
-  #main-layout:after {
-    content: "";
-    display: table; }
-  #main-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #main-layout:before, #main-layout:after {
+      content: "";
+      display: table; }
+    #main-layout:after {
+      clear: both; }
     #main-layout #content {
       display: block;
       position: relative;
-      width: 56.25%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 56.146%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #main-layout #sidebar-first {
       display: block;
       position: relative;
-      width: 22.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 22.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 22.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 22.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #main-layout #sidebar-second {
       display: block;
       position: relative;
-      width: 14.583%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 14.479%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 22.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 22.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1319,56 +1313,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #postscript-layout:before,
-  #postscript-layout:after {
-    content: "";
-    display: table; }
-  #postscript-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #postscript-layout:before, #postscript-layout:after {
+      content: "";
+      display: table; }
+    #postscript-layout:after {
+      clear: both; }
     #postscript-layout #postscript-first {
       display: block;
       position: relative;
       width: 31.25%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 31.146%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 31.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-second {
       display: block;
       position: relative;
       width: 31.25%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 31.146%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 31.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-third {
       display: block;
       position: relative;
       width: 31.25%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 31.146%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 31.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-fourth {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1376,59 +1370,58 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #footer-layout:before,
-  #footer-layout:after {
-    content: "";
-    display: table; }
-  #footer-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #footer-layout:before, #footer-layout:after {
+      content: "";
+      display: table; }
+    #footer-layout:after {
+      clear: both; }
     #footer-layout #footer {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; } }
-
 @media all and (min-width: 1220px) {
   #header-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #header-layout:before,
-  #header-layout:after {
-    content: "";
-    display: table; }
-  #header-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #header-layout:before, #header-layout:after {
+      content: "";
+      display: table; }
+    #header-layout:after {
+      clear: both; }
     #header-layout #header {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #header-layout #menus {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1436,56 +1429,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #preface-layout:before,
-  #preface-layout:after {
-    content: "";
-    display: table; }
-  #preface-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #preface-layout:before, #preface-layout:after {
+      content: "";
+      display: table; }
+    #preface-layout:after {
+      clear: both; }
     #preface-layout #preface-first {
       display: block;
       position: relative;
-      width: 22.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 22.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 64.58333%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 64.47917%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-second {
       display: block;
       position: relative;
-      width: 22.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 22.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 31.25%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 31.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-third {
       display: block;
       position: relative;
-      width: 22.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 22.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 31.25%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 31.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #preface-layout #preface-fourth {
       display: block;
       position: relative;
-      width: 22.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 22.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 64.58333%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 64.47917%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1493,56 +1486,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #core-layout:before,
-  #core-layout:after {
-    content: "";
-    display: table; }
-  #core-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #core-layout:before, #core-layout:after {
+      content: "";
+      display: table; }
+    #core-layout:after {
+      clear: both; }
     #core-layout #messages {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #featured {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #highlighted {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #core-layout #info {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1550,47 +1543,45 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #main-layout:before,
-  #main-layout:after {
-    content: "";
-    display: table; }
-  #main-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #main-layout:before, #main-layout:after {
+      content: "";
+      display: table; }
+    #main-layout:after {
+      clear: both; }
     #main-layout #content {
       display: block;
       position: relative;
-      width: 56.25%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 56.146%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
-      left: 25%;
       margin-bottom: 25px; }
     #main-layout #sidebar-first {
       display: block;
       position: relative;
-      width: 22.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 22.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 22.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 22.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
-      right: 58.333%;
       margin-bottom: 25px; }
     #main-layout #sidebar-second {
       display: block;
       position: relative;
-      width: 14.583%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 14.479%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 22.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 22.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1598,56 +1589,56 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #postscript-layout:before,
-  #postscript-layout:after {
-    content: "";
-    display: table; }
-  #postscript-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #postscript-layout:before, #postscript-layout:after {
+      content: "";
+      display: table; }
+    #postscript-layout:after {
+      clear: both; }
     #postscript-layout #postscript-first {
       display: block;
       position: relative;
       width: 31.25%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 31.146%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 31.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-second {
       display: block;
       position: relative;
-      width: 64.583%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 64.479%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 64.58333%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 64.47917%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-third {
       display: block;
       position: relative;
-      width: 64.583%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 64.479%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 64.58333%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 64.47917%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
     #postscript-layout #postscript-fourth {
       display: block;
       position: relative;
       width: 31.25%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 31.146%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 31.14583%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
 
@@ -1655,23 +1646,22 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    *width: 99.896%;
-    *zoom: 1; }
-  #footer-layout:before,
-  #footer-layout:after {
-    content: "";
-    display: table; }
-  #footer-layout:after {
-    clear: both; }
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 90%; }
+    #footer-layout:before, #footer-layout:after {
+      content: "";
+      display: table; }
+    #footer-layout:after {
+      clear: both; }
     #footer-layout #footer {
       display: block;
       position: relative;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; } }
-

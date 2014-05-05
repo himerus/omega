@@ -3,6 +3,59 @@
 use Drupal\omega\phpsass\SassParser;
 use Drupal\omega\phpsass\SassFile;
 
+function _omega_optional_css($theme) {
+  $status = theme_get_setting('styles', $theme);
+  //dsm($status);
+  
+  return array(
+    'scss_html_elements' => array(
+      'title' => 'Generic HTML Elements',
+      'description' => 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.',
+      'file' => 'html-elements.css',
+      'status' => $status['scss_html_elements'],
+    ),
+    
+    'scss_branding' => array(
+      'title' => 'Branding Styles',
+      'description' => 'Provides basic layout and styling for logo area.',
+      'file' => 'site-branding.css',
+      'status' => $status['scss_branding'],
+    ),
+    
+    'scss_breadcrumbs' => array(
+      'title' => 'Breadcrumbs',
+      'description' => 'Basic breadcrumb styling.',
+      'file' => 'breadcrumbs.css',
+      'status' => $status['scss_breadcrumbs'],
+    ),
+    
+    'scss_main_menus' => array(
+      'title' => 'Main Menu Styling',
+      'description' => 'Basic layout and styling for main menu elements.',
+      'file' => 'main-menus.css',
+      'status' => $status['scss_main_menus'],
+    ),
+    'scss_messages' => array(
+      'title' => 'Messages',
+      'description' => 'Custom styles for Drupal system messages.',
+      'file' => 'messages.css',
+      'status' => $status['scss_messages'],
+    ),
+    'scss_pagers' => array(
+      'title' => 'Pagers',
+      'description' => 'Custom styles for Drupal pagers.',
+      'file' => 'pagers.css',
+      'status' => $status['scss_pagers'],
+    ),
+    'scss_tabs' => array(
+      'title' => 'Local Task Tabs',
+      'description' => 'Custom styles for Drupal tabs.',
+      'file' => 'tabs.css',
+      'status' => $status['scss_tabs'],
+    ),
+  );
+}
+
 function _omega_getBreakpointId($theme) {
   // get the appropriate id based on theme name
   if (entity_load('breakpoint_group', 'theme.'.$theme.'.'.$theme)) {
@@ -34,6 +87,7 @@ function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
   // pull an array of "region groups" based on the "all" media query that should always be present
   $region_groups = $layouts[$defaultLayout]['region_groups']['all'];
   //dsm($region_groups);
+  //dsm($layouts);
   $theme_regions = $themeSettings->info['regions'];
   
   // create variable to hold all SCSS we need
@@ -77,17 +131,25 @@ function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
       // add row mixin
 
       $rowname = str_replace("_", "-", $gid) . '-layout';
-      
+      $rowval = $layout[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['row'];
+      $maxwidth = $layout[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['maxwidth'];
+      if ($layout[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['maxwidth_type'] == 'pixel') {
+        $unit = 'px';
+      }
+      else {
+        $unit = '%';
+      }
       
       $breakpoint_scss .= '#' . $rowname . ' { 
-  @include row(' . $info['row'] . ');         
+  @include row(' . $rowval . ');
+  max-width: '. $maxwidth . $unit .';         
 ';
   
       // loop over regions
       foreach($info['regions'] as $rid => $data) {
         $regionname = str_replace("_", "-", $rid);
         $breakpoint_scss .= '  #' . $regionname . ' { 
-    @include column(' . $layout[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['regions'][$rid]['width'] . '); ';
+    @include column(' . $layout[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['regions'][$rid]['width'] . ', ' . $info['row'] . '); ';
         
         if ($layout[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['regions'][$rid]['prefix'] > 0) {
           $breakpoint_scss .= '  

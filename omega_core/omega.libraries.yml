@@ -1,0 +1,46 @@
+omega:
+  version: VERSION
+  js:
+    # Core.
+    js/omega.js: {}
+    # Models.
+    # js/models/MenuModel.js: {}
+    # js/models/ToolbarModel.js: {}
+    # Views.
+    # js/views/BodyVisualView.js: {}
+    # js/views/MenuVisualView.js: {}
+    # js/views/ToolbarAuralView.js: {}
+    # js/views/ToolbarVisualView.js: {}
+  #css:
+    #component:
+      #css/toolbar.module.css: {}
+    #theme:
+      #css/toolbar.theme.css: {}
+      #css/toolbar.icons.css: {}
+  dependencies:
+    - core/modernizr
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.announce
+    - core/backbone
+    - core/matchmedia
+    - core/jquery.once
+    - core/drupal.displace
+omega_admin:
+  version: VERSION
+  js: 
+    js/omega_admin.js: {}
+  dependencies:
+    - core/modernizr
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.announce
+    - core/backbone
+    - core/matchmedia
+    - core/jquery.once
+    - core/drupal.displace
+    - core/jquery.ui
+    - core/jquery.ui.slider
+    - core/jquery.ui.resizable

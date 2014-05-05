@@ -49,16 +49,19 @@ $below_desktop: 1023px !default;
 $desktopWide: 1220px !default;
 $below_desktopWide: 1219px !default;
 
-$primaryColor1: #0b6194; // good blue
-$primaryColor2: #EEEEEE; // EEE
-//$primaryColor1: #8736d3; // purple
+$primaryColor1: #0b6194 !default; // good blue
+$primaryColor2: #008ABA !default; // lighter blue
+$primaryColor3: #174666 !default; // lighter blue
+$primaryColor4: #3A3A3A !default; // lighter blue
+$primaryColor5: #9A9A9A !default; // lighter blue
+
 
 $siteTitleColor: rgba($primaryColor1, 1);
 $siteTitleHoverColor: rgba($primaryColor1, 0.85);
 $siteSloganColor: #777;
 
-$menuitemBg: $primaryColor1;
-$menuitemColor: $primaryColor2;
+$menuitemBg: $primaryColor1 !default;
+$menuitemColor: $primaryColor2 !default;
 
 @mixin omegaTransition($type:all, $speed:0.25s, $transition: ease-in-out) {
   transition: $type $speed $transition;
@@ -67,5 +70,7 @@ $menuitemColor: $primaryColor2;
 }
 
 @mixin omegaCorners($rad: 5px) {
-  
+  -webkit-border-radius: $rad;
+  -moz-border-radius: $rad;
+  border-radius: $rad;
 }

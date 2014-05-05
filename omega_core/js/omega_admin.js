@@ -6,7 +6,295 @@
     // autoUpdate: true,
   };
   
+  function hexToRGB(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+  }
   
+  function hexFromRGB(r, g, b) {
+    var hex = [
+      r.toString( 16 ),
+      g.toString( 16 ),
+      b.toString( 16 )
+    ];
+    $.each( hex, function( nr, val ) {
+      if ( val.length === 1 ) {
+        hex[ nr ] = "0" + val;
+      }
+    });
+    return hex.join( "" ).toUpperCase();
+  }
+  
+  function refreshRGBSlider(elem, rgb, hex) {
+    var parent = elem.closest('.form-item');
+    // update the background color of the swatch to match
+    parent.find( ".swatch" ).css( "background-color", "#" + hex );
+    // update the rgb values as well
+    parent.find( ".red" ).slider( "value", rgb.r );
+    parent.find( ".green" ).slider( "value", rgb.g );
+    parent.find( ".blue" ).slider( "value", rgb.b );
+  }
+  
+  function refreshSwatch(e, ui) {
+    var parent = $(e.target).closest('.form-item');
+    var red = parent.find( ".red" ).slider( "value" );
+    var green = parent.find( ".green" ).slider( "value" );
+    var blue = parent.find( ".blue" ).slider( "value" );
+    var hex = hexFromRGB( red, green, blue );
+    
+    // update the background color of the swatch to match
+    parent.find( ".swatch" ).css( "background-color", "#" + hex );
+    // update the rgb values as well
+    parent.find( ".red input" ).val( red );
+    parent.find( ".green input" ).val( green );
+    parent.find( ".blue input" ).val( blue );
+    // update the form value to match
+    parent.find('input.color-slider').val(hex);
+    //console.log(hexToRGB(hex));
+  }
+  
+  Drupal.behaviors.addFontPreview = {
+    attach: function(context) {
+      // font styles to use in preview.
+      var fontStyleValues = {
+        'georgia': 'Georgia, serif',
+        'times': '"Times New Roman", Times, serif',
+        'palatino': '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+        'arial': 'Arial, Helvetica, sans-serif',
+        'helvetica': '"Helvetica Neue", Helvetica, Arial, sans-serif',
+        'arialBlack': '"Arial Black", Gadget, sans-serif',
+        'comicSans': '"Comic Sans MS", cursive, sans-serif',
+        'impact': 'Impact, Charcoal, sans-serif',
+        'lucidaSans': '"Lucida Sans Unicode", "Lucida Grande", sans-serif',
+        'tahoma': 'Tahoma, Geneva, sans-serif',
+        'trebuchet': '"Trebuchet MS", Helvetica, sans-serif',
+        'verdana': 'Verdana, Geneva, sans-serif',
+        'courier': '"Courier New", Courier, monospace',
+        'lucidaConsole': '"Lucida Console", Monaco, monospace',
+      };
+      
+      $('#edit-variables-fonts-defaultbodyfont').on('change keyup', function(){
+        var fontVal = $(this).val();
+        var fontFam = fontStyleValues[fontVal];
+        //console.log(fontFam);
+        $('.sample-font-content p').css('font-family', fontFam);
+      });
+      $('#edit-variables-fonts-defaultheaderfont').on('change keyup', function(){
+        var fontVal = $(this).val();
+        var fontFam = fontStyleValues[fontVal];
+        //console.log(fontVal);
+        $('.sample-font-content h2').css('font-family', fontFam);
+      });
+      // handle the same thing on page load for the preview
+      $(window).on('ready', function() {
+        var bodyFontVal = $('#edit-variables-fonts-defaultbodyfont').val();
+        var bodyFontFam = fontStyleValues[bodyFontVal];
+        var headerFontVal = $('#edit-variables-fonts-defaultheaderfont').val();
+        var headerFontFam = fontStyleValues[headerFontVal];
+        $('.sample-font-content p').css('font-family', bodyFontFam);
+        $('.sample-font-content h2').css('font-family', headerFontFam);
+      });
+    }
+  };
+  
+  Drupal.behaviors.addColorSliders = {
+    attach: function(context) {
+      
+      var sliderElements = $('input.color-slider');
+      sliderElements.each(function(){
+        $(this)
+          .closest('.form-item') // find the parent form item
+          .addClass('color-slider-controller')
+          .prepend('<div class="controls"><a href="#" class="reset">undo</a></div>')
+          .append('<div class="color-slider clearfix"><div class="red rgb-slider"><input type="text" class="rgb" maxlength="3" /></div><div class="green rgb-slider"><input type="text" class="rgb" maxlength="3" /></div><div class="blue rgb-slider"><input type="text" class="rgb" maxlength="3" /></div><div class="swatch"></div>');
+          
+        //$(this).find('.red, .green, .blue');
+      });
+      
+      
+      $( ".red, .green, .blue" ).slider({
+        orientation: "horizontal",
+        range: "min",
+        max: 255,
+        value: 0,
+        slide: function( event, ui ) {
+          refreshSwatch(event, ui);
+        },
+        change: function( event, ui ) {
+          refreshSwatch(event, ui);
+        },
+      });
+      
+      $('.color-slider-controller .controls .reset').click(function() {
+        
+        var elem = $(this).closest('.form-item').find('input.color-slider');
+        var hexValue = elem.attr('data-original-color-value');
+        var rgbValues = hexToRGB(hexValue);
+        refreshRGBSlider(elem, rgbValues, hexValue);
+        return false;
+      });
+      
+      // listen for changed to the RGB form fields to adjust the slider
+      $('.red input, .green input, .blue input').on('change', function(){
+        var relatedSlider = $(this).closest('.rgb-slider');
+        var relatedValue = $(this).val();
+        relatedSlider.slider( "value", relatedValue);
+      });
+      
+      // listen for changes to the HEX value
+      $('input.color-slider').on('change', function(){
+        var elem = $(this);
+        var hexValue = elem.val();
+        var rgbValues = hexToRGB(hexValue);
+        refreshRGBSlider(elem, rgbValues, hexValue);
+      });
+      
+      $(window).on('ready', function(){
+        
+        $('input.color-slider').each(function(){
+          var elem = $(this);
+          var hexValue = elem.val();
+          var rgbValues = hexToRGB(hexValue);
+          refreshRGBSlider(elem, rgbValues, hexValue);  
+        });
+        
+        
+        
+      });
+      
+      // will be able to remove these once I have default values loading.
+      //$( ".red" ).slider( "value", 50 );
+      //$( ".green" ).slider( "value", 50 );
+      //$( ".blue" ).slider( "value", 50 );
+    }
+  };
+  
+  
+  
+  
+  Drupal.behaviors.watchMaxWidthValues = {
+    attach: function(context) {
+      
+      $('input.row-max-width').on('change', function(){
+        var newVal = $(this).val();
+        var newType = $(this).closest('.details-wrapper').find('.row-max-width-type');
+        var percentBox = newType.find('input[value="percent"]');
+        var pixelBox = newType.find('input[value="pixel"]');
+        // assume it is a pixel value and change the radio accordingly        
+        if (newVal > 100) {
+          pixelBox.prop("checked", true);
+          percentBox.prop("checked", false);
+        }
+        // assume it is a percent value and change the radio accordingly        
+        else {
+          percentBox.prop("checked", true);
+          pixelBox.prop("checked", false);
+        }
+      });
+      
+    }
+  };
+  
+  Drupal.behaviors.addZindexButtons = {
+    attach: function(context) {
+      
+      $('.region-settings > .details-wrapper').each(function(){
+        $(this).prepend('<div class="region-controls clearfix"><a href="#" title="Send to Back" class="send-to-back"></a><a href="#" title="Send to Front" class="send-to-front"></a></div>');
+      }); 
+      
+      
+      $('.send-to-back').on('click', function(){
+        var element = $(this).closest('.region-settings');
+        element.css('z-index', 0);
+        return false;
+      });
+      $('.send-to-front').on('click', function(){
+        var element = $(this).closest('.region-settings');
+        element.css('z-index', 1000);
+        return false;
+      });
+    }
+  };
+  
+  Drupal.behaviors.alternateSelectSliders = {
+    attach: function(context) {
+      
+      
+      // SORTA WORKING SLIDER INTERFACE
+      $('.width-controller, .push-controller, .prefix-controller, .suffix-controller, .pull-controller').each(function(){
+        var select = $(this);
+        var selectWrapper = $(this).closest('.form-item');
+        var slider = $( '<div class="slider clearfix"><div class="data-value"></div></div>' ).prependTo( selectWrapper ).slider({
+          min: 1,
+          max: 13,
+          range: "min",
+          value: select[ 0 ].selectedIndex + 1,
+          create: function( event, ui ) {
+            
+            var currentValue = $(event.target).slider( "value" ) - 1;
+            //console.log(currentValue);
+            $(event.target).find('.data-value').html(currentValue);
+          },
+          slide: function( event, ui ) {
+            select[ 0 ].selectedIndex = ui.value - 1;
+            //console.log(ui.value - 1);
+            //console.log(ui);
+            var nextValue = ui.value - 1;
+            $(ui.handle).closest('.slider').find('.data-value').html(nextValue);
+          },
+          stop: function( event, ui ) {
+            //console.log(event, ui);
+            select.change();
+          }
+        });
+        selectWrapper.find('select').hide();
+      });
+    }
+  };
+  
+  Drupal.behaviors.toggleRegionSettingDisplay = {
+    attach: function(context) {
+
+      // hide push/pull by default
+      $(".region-settings .form-item[class$='-pull']").hide();
+      $(".region-settings .form-item[class$='-push']").hide();
+      // hide prefix/suffix by default 
+      $(".region-settings .form-item[class$='-prefix']").hide();
+      $(".region-settings .form-item[class$='-suffix']").hide();
+      
+      // add in some controls to enable these settings manually.
+      $("details.layout-breakpoint-regions").each(function(){
+        //var attach = $(this).children('.details-wrapper');
+        //console.log(span);
+        //attach.prepend('<div class="region-settings-toggle"><label>Show: </label><a class="push-pull-toggle" href="#">Push/Pull</a> | <a class="prefix-suffix-toggle" href="#">Prefix/Suffix</a></div>');
+      });
+      
+      // push/pull toggle functionality
+      $('.push-pull-toggle').on('click', function(){
+        var group = $(this).closest('.details-wrapper');
+        group.find(".form-item[class$='-pull'], .form-item[class$='-push']").toggle();
+        return false;
+      });
+      
+      // prefix/suffix toggle functionality
+      $('.prefix-suffix-toggle').on('click', function(){
+        var group = $(this).closest('.details-wrapper');
+        group.find(".form-item[class$='-prefix'], .form-item[class$='-suffix']").toggle();
+        return false;
+      });
+      
+    }
+  };
   
   Drupal.behaviors.updateLayoutForm = {
     attach: function (context) {
@@ -20,14 +308,14 @@
       // adjust the push value
       $('select.push-controller').on('change', function(){
         var push = $(this).val();
-        console.log("-data-omega-push updated to: " + push);
+        $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-push', push);
       });
       
       // adjust the prefix value
       $('select.prefix-controller').on('change', function(){
         var prefix = $(this).val();
-        console.log("-data-omega-prefix updated to: " + prefix);
+        $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-prefix', prefix);
       });
       
@@ -35,21 +323,22 @@
       // adjust the width value
       $('select.width-controller').on('change', function(){
         var width = $(this).val();
-        console.log("-data-omega-width updated to: " + width);
+        //var sliderWidth = width;
+        $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-width', width);
       });      
       
       // adjust the suffix value
       $('select.suffix-controller').on('change', function(){
         var suffix = $(this).val();
-        console.log("-data-omega-suffix updated to: " + suffix);
+        $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-suffix', suffix);
       });
       
       // adjust the pull value
       $('select.pull-controller').on('change', function(){
         var pull = $(this).val();
-        console.log("-data-omega-pull updated to: " + pull);
+        $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-pull', pull);
       });
     }

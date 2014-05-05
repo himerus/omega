@@ -207,194 +207,206 @@ body {
 }
 
  #header-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #header { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #menus { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #preface-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #preface-first { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-second { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-third { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-fourth { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #core-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #messages { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #featured { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #highlighted { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #info { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #main-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #content { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-first { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-second { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #postscript-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #postscript-first { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #footer-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #footer { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 @media all and (min-width: 320px) and (max-width: 479px) { 
 #header-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #header { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #menus { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #preface-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #preface-first { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-second { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-third { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-fourth { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #core-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #messages { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #featured { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #highlighted { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #info { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #main-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #content { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-first { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-second { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #postscript-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #postscript-first { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #footer-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #footer { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
@@ -403,97 +415,103 @@ body {
 }
 @media all and (min-width: 480px) and (max-width: 767px) { 
 #header-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #header { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #menus { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #preface-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #preface-first { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-second { 
-    @include column(12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-third { 
-    @include column(12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-fourth { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #core-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #messages { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #featured { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #highlighted { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #info { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #main-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #content { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-first { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-second { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #postscript-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #postscript-first { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #footer-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #footer { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
@@ -502,97 +520,103 @@ body {
 }
 @media all and (min-width: 768px) and (max-width: 1023px) { 
 #header-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #header { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #menus { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #preface-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #preface-first { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-second { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-third { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-fourth { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #core-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #messages { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #featured { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #highlighted { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #info { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #main-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #content { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-first { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-second { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #postscript-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #postscript-first { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(6); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #footer-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 100%;         
   #footer { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
@@ -601,97 +625,103 @@ body {
 }
 @media all and (min-width: 1024px) and (max-width: 1219px) { 
 #header-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #header { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #menus { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #preface-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #preface-first { 
-    @include column(6); 
+    @include column(7, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-second { 
-    @include column(6); 
+    @include column(5, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-third { 
-    @include column(6); 
+    @include column(5, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-fourth { 
-    @include column(6); 
+    @include column(7, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #core-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #messages { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #featured { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #highlighted { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #info { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #main-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #content { 
-    @include column(7); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-first { 
-    @include column(3); 
+    @include column(3, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-second { 
-    @include column(2); 
+    @include column(3, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #postscript-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #postscript-first { 
-    @include column(4); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(4); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(4); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #footer-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #footer { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
@@ -700,99 +730,103 @@ body {
 }
 @media all and (min-width: 1220px) { 
 #header-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #header { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #menus { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #preface-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #preface-first { 
-    @include column(3); 
+    @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-second { 
-    @include column(3); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-third { 
-    @include column(3); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
   #preface-fourth { 
-    @include column(3); 
+    @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #core-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #messages { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #featured { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #highlighted { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
   #info { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #main-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #content { 
-    @include column(7);   
-    @include push(3); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-first { 
-    @include column(3);   
-    @include pull(7); 
+    @include column(3, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-second { 
-    @include column(2); 
+    @include column(3, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #postscript-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #postscript-first { 
-    @include column(4); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(8); 
+    @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(8); 
+    @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(4); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #footer-layout { 
-  @include row(12);         
+  @include row(12);
+  max-width: 90%;         
   #footer { 
-    @include column(12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 

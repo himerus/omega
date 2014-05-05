@@ -1,0 +1,12 @@
+/* Fonts */
+.messages--warning {
+  box-shadow: none;
+  border-left: 8px solid #E09600; }
+
+.messages--status {
+  box-shadow: none;
+  border-left: 8px solid #77B259; }
+
+.messages--error {
+  box-shadow: none;
+  border-left: 8px solid #E62600; }

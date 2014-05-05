@@ -29,7 +29,7 @@ use Drupal\omega\phpsass\SassFile;
  *   A keyed array containing the current state of the form.
  */
 function omega_form_system_theme_settings_alter(&$form, &$form_state) {
-  
+  global $base_path;
   // Get the theme name.
   $theme = $form_state['build_info']['args'][0];
   // get a list of themes
@@ -54,11 +54,34 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     
   );
   
-  $js_path = drupal_get_path('theme', 'omega') . '/js/omega_admin.js';
-  $form['#attached']['js'][$js_path] = array(
-    
+  // add in custom JS for Omega administration
+  $form['#attached']['library'][] = 'omega/omega_admin';
+  
+  
+  
+  
+  // form a tree of variables that represent SCSS variables in vars.scss to be altered
+  $form['welcome'] = array(
+    '#type' => 'details',
+    '#attributes' => array('class' => array('welcome', 'omega-help')),
+    '#title' => t('Welcome to Omega 5.x'),
+    '#weight' => -1000,
+    '#open' => FALSE,
   );
   
+  $screenshot = $base_path . drupal_get_path('theme', 'omega') . '/screenshot.png';
+  
+  
+  $form['welcome']['omega5'] = array(
+    '#prefix' => '<div class="omega-welcome clearfix">',
+    '#markup' => '<img class="screeny" src="'. $screenshot .'" />',
+    '#suffix' => '</div>',
+    '#weight' => -9999,
+  );
+  $form['welcome']['omega5']['#markup'] .= filter_xss_admin('<h3>Omega 8.x-5.x</h3>');
+  $form['welcome']['omega5']['#markup'] .= filter_xss_admin('<p><strong>Project Page</strong> - <a href="http://drupal.org/project/omega" target="_blank">drupal.org/project/omega</a>');
+  $form['welcome']['omega5']['#markup'] .= filter_xss_admin('<p>Omega 5 will change the way you build subthemes, and use a consistent theme structure behind all your projects for an intuitive, innovative spin on responsive layouts, design, and SASS compiling on the fly.</p>');
+  $form['welcome']['omega5']['#markup'] .= filter_xss_admin('<p>Most settings in the <strong>Omega Subtheme Generator</strong> are well documented inline. For additional information and links, visit the project page listed above.</p>');
   
   // Custom settings in Vertical Tabs container
   $form['omega'] = array(
@@ -74,10 +97,15 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     '#attributes' => array('class' => array('entity-meta')),
     '#weight' => -899,
   );
+  
   $form['theme_settings']['#group'] = 'core';
   $form['logo']['#group'] = 'core';
   $form['favicon']['#group'] = 'core';
   
+  $form['theme_settings']['#open'] = FALSE;
+  $form['logo']['#open'] = FALSE;
+  $form['favicon']['#open'] = FALSE;
+  //dsm($form);
   if ($theme == 'omega') {
     //unset($form['core'], $form['theme_settings'], $form['logo'], $form['favicon']);
     $form['core']['#access'] = FALSE;
@@ -87,49 +115,337 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   }
   
   // Vertical tab sections
-  $form['default'] = array(
+  $form['options'] = array(
     '#type' => 'details',
     '#attributes' => array('class' => array('debug')),
-    '#title' => t('Default Settings'),
+    '#title' => t('Default Options'),
     '#weight' => -999,
     '#group' => 'omega',
     '#open' => TRUE,
-  );  
+  );
+  
+  $enable_advanced_layout_controls = theme_get_setting('enable_advanced_layout_controls', $theme);
+  $form['enable_advanced_layout_controls'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Advanced Layout Controls (BETA)'),
+    '#description' => t('This feature will enable various advanced features in the theme settings form like jQuery UI Sliders for adjusting width, prefix, suffix on regions, etc. The advanced features can be problematic on mobile or smaller screens. Turning this feature off will revert to the simplest form.'),
+    '#default_value' => $enable_advanced_layout_controls ? $enable_advanced_layout_controls : TRUE,
+    '#group' => 'options',
+  );
+  
+  $enable_backups = theme_get_setting('enable_backups', $theme);
+  $form['enable_backups'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Backups (BETA)'),
+    '#description' => t('Since this form has the ability to regenerate SCSS and CSS files on the fly, turning on this backup feature will create a copy of layout.scss, layout.css, and THEME.settings.yml file before overwriting any data. These backups will be stored in the default files directory under <em>public://omega/layout/backups</em>.'),
+    '#default_value' => $enable_backups ? $enable_backups : TRUE,
+    '#group' => 'options',
+  );
+  $force_subtheme_creation = theme_get_setting('force_subtheme_creation', $theme);
+  $form['force_subtheme_creation'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Force Subtheme Creation (ALPHA)'),
+    '#description' => t('Enabling this feature will "lock" this form from being saved and force the user to download a subtheme instead. The idea here is that essentially everything besides the layout options/changes should still be saved. Things like options on this section, or debugging options should still be saved and edited as expected. The layout changes are the portion that should be forced to another subtheme by this feature. (This seems like a good idea, but I dunno)'),
+    '#default_value' => $force_subtheme_creation ? $force_subtheme_creation : FALSE,
+    '#group' => 'options',
+  );
+  
+  $enable_omega_badge = theme_get_setting('enable_omega_badge', $theme);
+  $form['enable_omega_badge'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable the "I Heart Omega 5" link'),
+    '#description' => t('This feature will add an awesome little link that proudly shows your support for <a href="http://drupal.org/project/omega">Omega</a> and links to the project page. It will look for common locations like "Footer Links" or the "Powered by Drupal" block to place a link/graphic.'),
+    '#default_value' => $enable_omega_badge ? $enable_omega_badge : TRUE,
+    '#group' => 'options',
+  );
+  
+  $silence_omegaui_warning = theme_get_setting('silence_omegaui_warning', $theme);
+  $form['silence_omegaui_warning'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Silence the Omega UI Warning'),
+    '#description' => t('This will turn off the drupal_set_message() warning about not having Omega UI installed.'),
+    '#default_value' => $silence_omegaui_warning ? $silence_omegaui_warning : FALSE,
+    '#group' => 'options',
+  );
+  
+  if (!module_exists('omega_ui') && !$silence_omegaui_warning) {
+    drupal_set_message('The <a href="http://drupal.org/project/omega_ui" target="_blank"><strong>Omega UI</strong></a> module is not installed. This module would make your life much cooler. You can ignore this warning in <strong>Default Options</strong>', 'warning');
+  }
+  
   
   $form['styles'] = array(
     '#type' => 'details',
     '#attributes' => array('class' => array('styles')),
-    '#title' => t('Style Settings'),
-    '#description' => t('By selecting or unselecting styles in this section, you can greatly alter the visual appearance of your site.'),
+    '#title' => t('Optional CSS/SCSS Includes'),
     '#weight' => -899,
     '#group' => 'omega',
     '#open' => TRUE,
+    '#tree' => TRUE,
+  );
+  $form['styles']['styles_info'] = array(
+    '#prefix' => '<div class="messages messages--warning omega-styles-info">',
+    '#markup' => '',
+    '#suffix' => '</div>',
+    '#weight' => -9999,
   );
   
-  $toggleCSS = array(
-    'scss_breadcrumbs' => array(
-      'title' => 'Breadcrumbs',
-      'description' => 'Basic breadcrumb styling.',
-      'file' => '_breadcrumbs.scss',
-      'status' => theme_get_setting('scss_breadcrumbs', $theme),
-    ),
-    'scss_html_elements' => array(
-      'title' => 'Generic HTML Elements',
-      'description' => 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.',
-      'file' => '_html-elements.scss',
-      'status' => theme_get_setting('scss_html_elements', $theme),
-    ),
-  );
-  
+  $form['styles']['styles_info']['#markup'] .= '<p>By selecting or unselecting styles in this section, you can greatly alter the visual appearance of your site.</p>';
+  $toggleCSS = _omega_optional_css($theme);
+  //dsm($toggleCSS);
   foreach($toggleCSS as $id => $data) {
-    $form[$id] = array(
+    $form['styles'][$id] = array(
       '#type' => 'checkbox',
       '#title' => t($data['title'] . ' <small>(' . $data['file'] . ')</small>'),
       '#description' => t($data['description']),
       '#default_value' => $data['status'],
       '#group' => 'styles',
+      
     );
   }
+  
+  // form a tree of variables that represent SCSS variables in vars.scss to be altered
+  $form['variables'] = array(
+    '#type' => 'details',
+    '#attributes' => array('class' => array('variables')),
+    '#title' => t('SCSS Variables'),
+    '#weight' => -898,
+    '#group' => 'omega',
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  );
+  
+  $form['variables']['variables_status'] = array(
+    '#prefix' => '<div class="messages messages--error omega-variables-info">',
+    '#markup' => '',
+    '#suffix' => '</div>',
+    '#weight' => -9999,
+  );
+  
+  $form['variables']['variables_status']['#markup'] .= '<p><strong>NOTICE:</strong>While the settings in this form are saved, the functionality is not currently tied into regenerating the SCSS and CSS files. This will be completed soon.</p>';
+  
+  
+  $form['variables']['variables_info'] = array(
+    '#prefix' => '<div class="messages messages--warning omega-variables-info">',
+    '#markup' => '',
+    '#suffix' => '</div>',
+    '#weight' => -9999,
+  );
+  
+  $form['variables']['variables_info']['#markup'] .= '<p><strong>The variables represented here are SCSS variables</strong>. When they are changed, the theme must be recompiled and appropriate SCSS and CSS files overwritten.</p>';
+  $form['variables']['variables_info']['#markup'] .= '<p class="description"><em>While this is ridiculously cool, use at your own risk as it IS modifying files in your theme directly. I can only be responsible for so much... <strong>WHEN IN DOUBT, MAKE A BACKUP!!!</strong></em> <strong>\o/</strong></p>';
+  
+  $form['variables']['colors'] = array(
+    '#type' => 'details',
+    '#attributes' => array('class' => array('variables colors')),
+    '#title' => t('Color Variables'),
+    '#weight' => -999,
+    //'#group' => 'omega',
+    '#open' => TRUE,
+  );
+  
+  $variables = theme_get_setting('variables', $theme);
+  //dsm($variables);
+  $primaryColor1 = isset($variables['colors']['primaryColor1']) ? $variables['colors']['primaryColor1'] : '3a3a3a';
+  $form['variables']['colors']['primaryColor1'] = array(
+    '#type' => 'textfield',
+    '#size' => 5, 
+    '#maxlength' => 6,
+    '#attributes' => array(
+      'class' => array(
+        'primaryColor1',
+        'primary-color',
+        'color-slider',
+        'clearfix'
+      ),
+      'data-original-color-value' => $primaryColor1,
+    ),
+    '#title' => t('Primary Color 1'),
+    '#default_value' => $primaryColor1,
+  );
+  
+  $primaryColor2 = isset($variables['colors']['primaryColor2']) ? $variables['colors']['primaryColor2'] : '5a5a5a';
+  $form['variables']['colors']['primaryColor2'] = array(
+    '#type' => 'textfield',
+    '#size' => 5, 
+    '#maxlength' => 6,
+    '#attributes' => array(
+      'class' => array(
+        'primaryColor2',
+        'primary-color',
+        'color-slider',
+        'clearfix'
+      ),
+      'data-original-color-value' => $primaryColor2,
+    ),
+    '#title' => t('Primary Color 2'),
+    '#default_value' => $primaryColor2,
+  );
+  
+  $primaryColor3 = isset($variables['colors']['primaryColor3']) ? $variables['colors']['primaryColor3'] : 'CCCCCC';
+  $form['variables']['colors']['primaryColor3'] = array(
+    '#type' => 'textfield',
+    '#size' => 5, 
+    '#maxlength' => 6,
+    '#attributes' => array(
+      'class' => array(
+        'primaryColor3',
+        'primary-color',
+        'color-slider',
+        'clearfix'
+      ),
+      'data-original-color-value' => $primaryColor3,
+    ),
+    '#title' => t('Primary Color 3'),
+    '#default_value' => $primaryColor3,
+  );
+  
+  $primaryColor4 = isset($variables['colors']['primaryColor4']) ? $variables['colors']['primaryColor4'] : '1a1a1a';
+  $form['variables']['colors']['primaryColor4'] = array(
+    '#type' => 'textfield',
+    '#size' => 5, 
+    '#maxlength' => 6,
+    '#attributes' => array(
+      'class' => array(
+        'primaryColor4',
+        'primary-color',
+        'color-slider',
+        'clearfix'
+      ),
+      'data-original-color-value' => $primaryColor4,
+    ),
+    '#title' => t('Primary Color 4'),
+    '#default_value' => $primaryColor4,
+  );
+  
+  $primaryColor5 = isset($variables['colors']['primaryColor5']) ? $variables['colors']['primaryColor5'] : '9a9a9a';
+  $form['variables']['colors']['primaryColor5'] = array(
+    '#type' => 'textfield',
+    '#size' => 5, 
+    '#maxlength' => 6,
+    '#attributes' => array(
+      'class' => array(
+        'primaryColor5',
+        'primary-color',
+        'color-slider',
+        'clearfix'
+      ),
+      'data-original-color-value' => $primaryColor5,
+    ),
+    '#title' => t('Primary Color 5'),
+    '#default_value' => $primaryColor5,
+  );
+  
+  
+  
+  $form['variables']['fonts'] = array(
+    '#type' => 'details',
+    '#attributes' => array('class' => array('variables', 'fonts', 'clearfix')),
+    '#title' => t('Font Variables'),
+    '#weight' => -899,
+    //'#group' => 'omega',
+    '#open' => TRUE,
+  );
+  
+  $form['variables']['fonts']['fontParagraph'] = array(
+    '#prefix' => '<div class="sample-font-content clearfix">',
+    '#markup' => '<h2>Bacon ipsum dolor sit amet  </h2>',
+    '#suffix' => '</div>',
+    '#weight' => 999,
+  );
+  
+  $form['variables']['fonts']['fontParagraph']['#markup'] .= '<p>Drumstick ham hock tri-tip meatloaf tongue, ball tip pork chop tenderloin. Meatball prosciutto ham hock, flank pork chop swine turducken boudin tenderloin. Leberkas spare ribs tenderloin, sirloin beef ham hock short ribs tri-tip corned beef shoulder ham biltong doner. Chicken turkey short loin hamburger, doner strip steak t-bone salami tongue frankfurter. Pork fatback jowl tri-tip pastrami spare ribs. Pork loin brisket prosciutto short loin swine bresaola leberkas meatball t-bone strip steak porchetta pork belly ball tip. Beef spare ribs short loin pig ground round corned beef.</p>';
+  $form['variables']['fonts']['fontParagraph']['#markup'] .= '<p>Tri-tip ribeye flank biltong strip steak. Doner leberkas meatball short ribs salami. Shank pancetta pork belly ground round cow meatloaf short loin t-bone. Shankle turducken strip steak corned beef prosciutto. Hamburger pancetta beef ribs jerky flank fatback short ribs bacon drumstick porchetta.</p>';
+  
+  $fontStyles = array(
+    'georgia' => 'Georgia',
+    'times' => 'Times',
+    'palatino' => 'Palatino',
+    'arial' => 'Arial',
+    'helvetica' => 'Helvetica Neue',
+    'arialBlack' => 'Arial Black',
+    'comicSans' => 'Comic Sans (Woot!!)',
+    'impact' => 'Impact',
+    'lucidaSans' => 'Lucida Sans',
+    'tahoma' => 'Tahoma',
+    'trebuchet' => 'Trebuchet MS',
+    'verdana' => 'Verdana',
+    'courier' => 'Courier New',
+    'lucidaConsole' => 'Lucida Console',
+  );
+  
+  $fontStyleValues = array(
+    'georgia' => 'Georgia, serif',
+    'times' => '"Times New Roman", Times, serif',
+    'palatino' => '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+    'arial' => 'Arial, Helvetica, sans-serif',
+    'helvetica' => '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    'arialBlack' => '"Arial Black", Gadget, sans-serif',
+    'comicSans' => '"Comic Sans MS", cursive, sans-serif',
+    'impact' => 'Impact, Charcoal, sans-serif',
+    'lucidaSans' => '"Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    'tahoma' => 'Tahoma, Geneva, sans-serif',
+    'trebuchet' => '"Trebuchet MS", Helvetica, sans-serif',
+    'verdana' => 'Verdana, Geneva, sans-serif',
+    'courier' => '"Courier New", Courier, monospace',
+    'lucidaConsole' => '"Lucida Console", Monaco, monospace',
+  );
+  
+  $defaultHeaderFont = isset($variables['fonts']['defaultHeaderFont']) ? $variables['fonts']['defaultHeaderFont'] : 'georgia';
+  $form['variables']['fonts']['defaultHeaderFont'] = array(
+    '#type' => 'select',
+    '#attributes' => array(
+      'class' => array(
+        'font-variable', 
+        'clearfix'
+      ),
+    ),
+    '#title' => 'Default Header Font',
+    '#options' => $fontStyles,
+    '#default_value' => $defaultHeaderFont,
+  );
+  
+  $defaultBodyFont = isset($variables['fonts']['defaultBodyFont']) ? $variables['fonts']['defaultBodyFont'] : 'helvetica';
+  $form['variables']['fonts']['defaultBodyFont'] = array(
+    '#type' => 'select',
+    '#attributes' => array(
+      'class' => array(
+        'font-variable', 
+        'clearfix'
+      ),
+    ),
+    '#title' => 'Default Body Font',
+    '#options' => $fontStyles,
+    '#default_value' => $defaultBodyFont,
+  );
+  
+  $form['variables']['breakpoints'] = array(
+    '#type' => 'details',
+    '#attributes' => array('class' => array('variables breakpoints')),
+    '#title' => t('Breakpoint Variables'),
+    '#weight' => -898,
+    //'#group' => 'omega',
+    '#open' => TRUE,
+  );
+  
+  $form['variables']['breakpoints']['breakpointInfo'] = array(
+    '#prefix' => '<div class="messages messages--warning breakpoint-info clearfix">',
+    '#markup' => '',
+    '#suffix' => '</div>',
+    '#weight' => -9999,
+  );
+  $form['variables']['breakpoints']['breakpointInfo']['#markup'] .= filter_xss_admin('<h3>Information about SCSS Breakpoints</h3>');
+  $form['variables']['breakpoints']['breakpointInfo']['#markup'] .= filter_xss_admin('<p>The SCSS/CSS Breakpoints are setup to be the same as the breakpoints defined in breakpoint.breakpoint_group.theme.THEME.THEME.yml. <em>However</em>, it is possible to configure these to be different if a need arises.</p>');
+  $form['variables']['breakpoints']['breakpointInfo']['#markup'] .= filter_xss_admin('<p>Essentially, the Drupal defined breakpoints are used in the layout.scss/css and the layout switching. The SCSS Breakpoint variables defined here, will apply to the way CSS is applied throughout pre-configured style rules. Any changes to these breakpoints that do not match with your layout breakpoints could cause unexpected behavior. <strong>Edit these at your own risk...</strong>.</p>');
+  
+  $form['variables']['elements'] = array(
+    '#type' => 'details',
+    '#attributes' => array('class' => array('variables elements')),
+    '#title' => t('Various Element Variables'),
+    '#weight' => -799,
+    //'#group' => 'omega',
+    '#open' => TRUE,
+  );
+  
   
   $form['debug'] = array(
     '#type' => 'details',
@@ -139,33 +455,21 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     '#group' => 'omega',
     //'#open' => TRUE,
   );
-  
-  $form['debug_region'] = array(
-    '#type' => 'container',
-    //'#attributes' => array('class' => array('debug')),
-    //'#title' => t('Region Debugging'),
-    //'#description' => t('Options in this section will help you in defining and customizing your regions during development.'),
-    '#weight' => -699,
-    '#group' => 'debug',
-    //'#open' => TRUE,
-  );
-  
-  
-  
+
   $form['block_demo_mode'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable region demo mode <small>(global setting)</small>'),
-    '#description' => t('Display demonstration blocks in each theme region to aid in theme development and configuration. When this setting is enabled, ALL site visitors will see the demo blocks. <strong>This should never be enabled on a live site.</strong>'),
+    '#description' => t('Display demonstration blocks in each theme region to aid in theme development and configuration. When this setting is enabled, ALL site visitors will see the demo blocks. <br /><strong>This should never be enabled on a live site.</strong>'),
     '#default_value' => theme_get_setting('block_demo_mode', $theme),
-    '#group' => 'debug_region',
+    '#group' => 'debug',
   );
   
   $form['screen_demo_indicator'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable screen size indicator <small>(global setting)</small>'),
-    '#description' => t('Display data about the screen size, current media query, etc. When this setting is enabled, ALL site visitors will see the overlay data. <strong>This should never be enabled on a live site.</strong>'),
+    '#description' => t('Display data about the screen size, current media query, etc. When this setting is enabled, ALL site visitors will see the overlay data. <br /><strong>This should never be enabled on a live site.</strong>'),
     '#default_value' => theme_get_setting('screen_demo_indicator', $theme),
-    '#group' => 'debug_region',
+    '#group' => 'debug',
   );
   
   
@@ -210,17 +514,35 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
           ),
         ),
         '#title' => 'Region Group: ' . $gid,
-        //'#open' => TRUE,
+        '#open' => TRUE,
       );
       
       
-      /*
       $possible_cols = array();
-      for ($i = 0; $i <= 32; $i++) {
+      
+      for ($i = 12; $i <= 12; $i++) {
         $possible_cols[$i] = $i . '';
       }
       
+      /*
+$form['layouts'][$defaultLayout]['region_groups'][$breakpoint->name][$gid]['data'] = array(
+        '#type' => 'details',
+        '#attributes' => array(
+          'class' => array(
+            'layout-breakpoint-settings', 
+            'clearfix',
+          ),
+        ),
+        '#title' => 'Settings for: ' . $gid,
+        '#open' => TRUE,
+        
+      );
+      
+      
+*/
+     //dsm($info);
       $form['layouts'][$defaultLayout]['region_groups'][$breakpoint->name][$gid]['row'] = array(
+        '#prefix' => '<div class="region-group-layout-settings">',
         '#type' => 'select',
         '#attributes' => array(
           'class' => array(
@@ -228,12 +550,53 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
             'clearfix'
           ),
         ),
-        '#title' => 'Region Group: ' . $gid,
+        '#title' => 'Columns',
         '#options' => $possible_cols,
-        '#default_value' => $info['row'],
-        //'#open' => TRUE,
+        '#default_value' => isset($layouts[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['row']) ? $layouts[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['row'] : '12',
+        '#group' => '',
       );
-      */
+      
+      
+      $form['layouts'][$defaultLayout]['region_groups'][$breakpoint->name][$gid]['visual_controls'] = array(
+        '#prefix' => '<div class="omega-layout-controls form-item">',
+        '#markup' => '<label>Show/Hide: </label><div class="clearfix"><a class="push-pull-toggle" href="#">Push/Pull</a> | <a class="prefix-suffix-toggle" href="#">Prefix/Suffix</a></div>',
+        '#suffix' => '</div>',
+      );
+      
+      $form['layouts'][$defaultLayout]['region_groups'][$breakpoint->name][$gid]['maxwidth'] = array(
+        '#type' => 'textfield',
+        '#size' => 3, 
+        '#maxlength' => 4,
+        '#attributes' => array(
+          'class' => array(
+            'row-max-width', 
+            'clearfix'
+          ),
+        ),
+        '#title' => 'Max-width: ',
+        '#default_value' => isset($layouts[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['maxwidth']) ? $layouts[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['maxwidth'] : '100',
+        '#group' => '',
+      );
+      
+      $form['layouts'][$defaultLayout]['region_groups'][$breakpoint->name][$gid]['maxwidth_type'] = array(
+        '#type' => 'radios',
+        '#attributes' => array(
+          'class' => array(
+            'row-max-width-type', 
+            'clearfix'
+          ),
+        ),
+        '#options' => array(
+          'percent' => '%',
+          'pixel' => 'px'
+        ),
+        '#title' => 'Max-width type',
+        '#default_value' => isset($layouts[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['maxwidth_type']) ? $layouts[$defaultLayout]['region_groups'][$breakpoint->name][$gid]['maxwidth_type'] : 'percent',
+        '#group' => '',
+        '#suffix' => '</div>',
+      );
+      
+      
       
       
       
@@ -365,19 +728,137 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     }
   }
   
+  $form['export'] = array(
+    '#type' => 'details',
+    '#attributes' => array('class' => array('debug')),
+    '#title' => t('Export & Subtheme Generator'),
+    '#weight' => 999,
+    '#group' => 'omega',
+    //'#open' => TRUE,
+  );
+  $form['export']['export_info'] = array(
+    '#prefix' => '<div class="messages messages--error omega-export-info">',
+    '#markup' => '',
+    '#suffix' => '</div>',
+    '#weight' => -9999,
+  );
+  
+  $form['export']['export_info']['#markup'] .= '<p><strong>WARNING:</strong> The export settings for this form are only currently placeholder fields. This functionality will be completed soon.</p>';
+  
+  $form['export']['export_new_subtheme'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Export settings changes as a new subtheme'),
+    '#description' => t('This will not save changes to this current theme, rather export the updated settings as a new subtheme to be used and customized.'),
+    '#default_value' => 0,
+  );
+  
+  
+  /*
+$js_settings = array(
+    'type' => 'setting',
+    'data' => array(
+      'machineName' => array(
+        '#' . $source['#id'] => $element['#machine_name'],
+      ),
+      'langcode' => $language->id,
+    ),
+  );
+  $form['#attached']['library'][] = 'core/drupal.machine-name';
+  $form['#attached']['js'][] = $js_settings;
+*/
+  
+  
+  
+  $form['export']['export_name'] = array(
+    '#type' => 'machine_name',
+    '#maxlength' => 55,
+    '#title' => t('Theme Name'),
+    '#description' => t(''),
+    '#default_value' => '',
+    '#required' => false,
+    
+    '#machine_name' => array(
 
+      'exists' => 'omega_theme_exists',
+
+      'source' => array('title'),
+
+      'label' => t('Theme Machine Name'),
+
+      'replace_pattern' => '[^a-z0-9-]+',
+
+      'replace' => '-',
+
+    ),
+    
+    '#states' => array(
+      'invisible' => array(
+       ':input[name="export_new_subtheme"]' => array('checked' => FALSE),
+      ),
+    ),
+  );
+  
+  $form['export']['export_description'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Description'),
+    '#description' => t('Enter a short description to describe the newly exported subtheme. This appears only in the administrative interface.'),
+    '#default_value' => '',
+    '#states' => array(
+      'invisible' => array(
+       ':input[name="export_new_subtheme"]' => array('checked' => FALSE),
+      ),
+    ),
+  );
+  
+  $form['export']['export_version'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Version'),
+    '#description' => t(''),
+    '#default_value' => '8.x-5.x',
+    '#states' => array(
+      'invisible' => array(
+       ':input[name="export_new_subtheme"]' => array('checked' => FALSE),
+      ),
+    ),
+  );
+  
+  
   // push in the default functionality of theme settings form
+  $form['actions']['submit']['#value'] = t('Save Settings');
+  $form['actions']['submit']['#states'] = array(
+    // Hide the submit buttons appropriately
+    'invisible' => array(
+     ':input[name="export_new_subtheme"]' => array('checked' => TRUE),
+    ),
+  );
   $defaultSubmit = $form_state['build_info']['callback_object'];
-  $form['#submit'][] = array($defaultSubmit, 'submitForm');
+  $form['actions']['submit_layout'] = $form['actions']['submit'];
+  $form['actions']['submit_layout']['#value'] = t('Save Settings & Layout');
+  $form['actions']['submit_layout']['#submit'][] = array($defaultSubmit, 'submitForm');
   // add in custom submit handler
-  $form['#submit'][] = 'omega_theme_settings_submit';
+  $form['actions']['submit_layout']['#submit'][] = 'omega_theme_settings_submit';
+  $form['actions']['submit_layout']['#states'] = array(
+    // Hide the submit buttons appropriately
+    'invisible' => array(
+     ':input[name="export_new_subtheme"]' => array('checked' => TRUE),
+    ),
+  );
   
+  $form['actions']['generate_subtheme'] = $form['actions']['submit'];
+  $form['actions']['generate_subtheme']['#value'] = t('Export as Subtheme');
   
+  $form['actions']['generate_subtheme']['#submit'] = array('omega_theme_generate_submit');
+  $form['actions']['generate_subtheme']['#validate'] = array('omega_theme_generate_validate');
   
+  // show export only when appropriate
+  $form['actions']['generate_subtheme']['#states'] = array(
+    // Hide the submit buttons appropriately
+    'invisible' => array(
+     ':input[name="export_new_subtheme"]' => array('checked' => FALSE),
+    ),
+  );
   
-  
-  
-  
+  //dsm($form);
   
   
   
@@ -386,11 +867,15 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
   
 }
-
+function omega_theme_exists($machine) {
+  return true;
+}
 function omega_theme_settings_validate(&$form, &$form_state) {
   //dsm($form);
   //dsm($form_state);
   dsm('omega_form_system_theme_settings_validate');
+
+  //return false;
 }
 
 function omega_theme_settings_submit(&$form, &$form_state) {
@@ -427,7 +912,17 @@ function omega_theme_settings_submit(&$form, &$form_state) {
   //dsm($css);
   
   _omega_save_layout_files($scss, $css, $theme);
-    
+  //dsm($form_state['values']);
 }
 
 
+function omega_theme_generate_validate(&$form, &$form_state) {
+  dsm('function omega_theme_generate_validate() {}');
+  //dsm($form);
+  //dsm($form_state['values']);
+}
+function omega_theme_generate_submit(&$form, &$form_state) {
+  dsm('function omega_theme_generate_submit() {}');
+  //dsm($form);
+  //dsm($form_state['values']);
+}

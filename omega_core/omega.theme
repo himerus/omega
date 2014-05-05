@@ -66,6 +66,34 @@ function omega_page_alter (&$page) {
   
   
   $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
+  
+  // make sure omega.js is attached
+  $page['#attached']['library'][] = 'omega/omega';
+  
+  //dsm($page);
+  $toggleCSS = _omega_optional_css($theme);
+  //$activeStyles = theme_get_setting('styles', $theme);
+  //dsm($activeStyles);
+  
+  foreach ($toggleCSS as $style => $data) {
+    //dsm($data);
+    
+    $stylePath = drupal_get_path('theme', 'omega') . '/style/css/' . $data['file'];
+    //dsm($stylePath);
+    // check it is active
+    if ($data['status']) {
+      $page['#attached']['css'][$stylePath] = array (
+        'every_page' => TRUE,
+        'group' => CSS_AGGREGATE_THEME,
+        'weight' => CSS_THEME,
+        
+        
+      );
+    }
+    
+  }
+  
+  //dsm($page['#attached']);
   $regionDemo = theme_get_setting('block_demo_mode', $theme);
   $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
   //dsm($theme);

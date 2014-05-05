@@ -1,4 +1,4 @@
-(function ($, Drupal, drupalSettings, window) {
+(function ($, Modernizr, Drupal, drupalSettings, window) {
 
   "use strict";
 
@@ -7,12 +7,30 @@
        'all' : true
      }
   };
+  
+  var options = $.extend(
+    {
+      sampleVariable: {
+        'one': '',
+        'two': '',
+        'three': ''
+      }
+    },
+    drupalSettings.omega,
+    // Merge strings on top of drupalSettings so that they are not mutable.
+    {
+      currentBreakpoints: {
+        'all' : true
+      }
+    }
+  );
+  
   var breakpoints;
   var breakpointMatch;
   
   
   Drupal.behaviors.omegaBreakpoint = {
-    attach: function (context) {
+    attach: function (context, settings) {
       // return if not viewing on screen
       if (!window.matchMedia('only screen').matches) {
         return;
@@ -76,8 +94,9 @@
   
   
   // Drupal.behaviors attach: is NOT working in IOS under any circumstance I can find.
+  // the behaviors are ONLY not working if a user is anonymous. WTH
   Drupal.behaviors.iostest = {
-    attach: function (context) {
+    attach: function (context, settings) {
       //alert('hello!!!!!');  
       //$('body').html('<h1>WTF</h1>');
     }
@@ -86,7 +105,7 @@
   // need to use some LocalStorage to keep the indicator open/closed based on last setting.
   
   Drupal.behaviors.indicatorToggle = {
-    attach: function (context) {
+    attach: function (context, settings) {
       
       $('#indicator-toggle').on('click', function() {
         if ($(this).hasClass('indicator-open')) {
@@ -121,7 +140,7 @@
   };
   
   Drupal.behaviors.attachIndicatorData = {
-    attach: function (context) {
+    attach: function (context, settings) {
       // grab the wrapper element to manipulate
       var oScreen = $('#omega-screen--indicator');
       var screenWidth;
@@ -129,8 +148,14 @@
       
       $(window).on('ready resize', function(){
         screenWidth = $(this).width();
+        
+        //console.log(browser);
+        
+        
+        
         //alert(screenWidth);
         oScreen.find('.screen-size .data').html(screenWidth + 'px');  
+        //oScreen.find('.screen-browser .data').html(bName);  
       });
       
       breakpoints = drupalSettings.omega_breakpoints.layouts;;
@@ -149,4 +174,18 @@
     }
   };
   
-})(jQuery, Drupal, drupalSettings, window);
+  /**
+   * Toolbar methods of Backbone objects.
+   */
+  Drupal.omega = {
+
+    // A hash of View instances.
+    views: {},
+
+    // A hash of Model instances.
+    models: {},
+    
+    
+  };
+  
+})(jQuery, Modernizr, Drupal, drupalSettings, window);
