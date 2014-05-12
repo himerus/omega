@@ -268,25 +268,33 @@
       // hide push/pull by default
       $(".region-settings .form-item[class$='-pull']").hide();
       $(".region-settings .form-item[class$='-push']").hide();
+      
       // hide prefix/suffix by default 
       $(".region-settings .form-item[class$='-prefix']").hide();
       $(".region-settings .form-item[class$='-suffix']").hide();
       
-      // add in some controls to enable these settings manually.
-      $("details.layout-breakpoint-regions").each(function(){
-        //var attach = $(this).children('.details-wrapper');
-        //console.log(span);
-        //attach.prepend('<div class="region-settings-toggle"><label>Show: </label><a class="push-pull-toggle" href="#">Push/Pull</a> | <a class="prefix-suffix-toggle" href="#">Prefix/Suffix</a></div>');
+      // open up any push/pull items if they are alredy in use and not a value of zero.
+      $(".push-controller, .pull-controller").each(function(){
+        if ($(this).val() > 0) {
+          $(this).parents('.layout-breakpoint-regions').find(".form-item[class$='-pull'], .form-item[class$='-push']").show();
+        }
       });
       
-      // push/pull toggle functionality
+      // open up any prefix/suffix items if they are alredy in use and not a value of zero.
+      $(".prefix-controller, .suffix-controller").each(function(){
+        if ($(this).val() > 0) {
+          $(this).parents('.layout-breakpoint-regions').find(".form-item[class$='-prefix'], .form-item[class$='-suffix']").show();
+        }
+      });
+      
+      // push/pull toggle
       $('.push-pull-toggle').on('click', function(){
         var group = $(this).closest('.details-wrapper');
         group.find(".form-item[class$='-pull'], .form-item[class$='-push']").toggle();
         return false;
       });
       
-      // prefix/suffix toggle functionality
+      // prefix/suffix toggle
       $('.prefix-suffix-toggle').on('click', function(){
         var group = $(this).closest('.details-wrapper');
         group.find(".form-item[class$='-prefix'], .form-item[class$='-suffix']").toggle();
