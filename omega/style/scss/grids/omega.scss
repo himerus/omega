@@ -1,0 +1,190 @@
+
+// SAMPLE GRID SIZES ###########################
+// Use these, or your own calculations for a fixed width grid.
+// 1200px Grid =========
+//   $cwidth: 80; $gutter: 20; $cols: 12; 
+//   $cwidth: 55; $gutter: 20; $cols: 16;
+// 
+// 960px Grid =========
+//   $cwidth: 60; $gutter: 20; $cols: 12; 
+//   $cwidth: 40; $gutter: 20; $cols: 16;
+// Fluid Grid =========
+//   $cwidth: 60; $gutter: 20; $cols: 12; 
+//   $cwidth: 40; $gutter: 20; $cols: 16;
+
+
+
+// Default grid sizing (960px)
+$cwidth:        60px !default;    // column width
+$gutter:        20px !default;    // gutter width 
+$cols:          12 !default;    // total # of cols
+$dir:           'LTR' !default;  // Values should be LTR or RTL
+
+// Utility Width Variable — you should never need to modify these
+@function gwidth($c:$cols) {
+	@return ($cwidth * $c) + ($gutter * $c); // grid width
+}
+
+// Set $twidth to 100% for a fluid layout
+$twidth: gwidth($cols) !default; // total width
+
+// Utility function to simplify math used in mixins 
+// Will convert (when needed) widths to a percentage
+@function calcwidth() {
+  @return $twidth / gwidth($cols);
+}
+
+// Uncomment these two lines and the star-hack width/margin lines below to enable sub-pixel fix for IE6 & 7. 
+// See http://tylertate.com/blog/2012/01/05/subpixel-rounding.html 
+$min-width: 480;
+$correction: 0.5 / $min-width * 100;
+
+// The micro clearfix 
+// http://nicolasgallagher.com/micro-clearfix-hack/
+@mixin clearfix() {
+	*zoom:1;
+	
+	&:before,
+	&:after {
+	    content:"";
+	    display:table;
+	}
+	&:after {
+	    clear:both;
+	}
+}
+
+body {
+  width: 100%;
+  // The min-width is needed so items outside the grid stay the correct width if horizontal scroll 
+  // is active so they don't scale to the browser while grid items overflow
+  min-width: $twidth;
+	@include clearfix();
+}
+
+@mixin row($c:$cols) {
+  display: block;
+	margin: 0 auto;	
+	
+  // default row width
+  $rwidth: gwidth($c) * calcwidth();
+  // assuming the layout is fluid, just skip calculations and make the row 100% width for sanity in nested layouts
+  @if $twidth == 100% {
+    $rwidth: 100%;
+  }
+	width: $rwidth;
+	// IE 6 & 7 sub-pixel rounding fix
+	*width: $rwidth - $correction;
+  
+  // Make sure the row clears itself
+	@include clearfix();
+}
+
+
+// You have the ability to specify the default number of columns used in the grid here
+// This recalculates the available space in a "row" so that the grid widths are standardized
+// in the full layout.
+// This only becomes apparent in fluid and nested layouts
+
+// While in a standard, fixed-width grid, it's easy to remove margins for nested grids, in a fluid layout it 
+// poses a small problem when determining the full width of the elements. 
+// For now, we assume that we should take that margin we are removing and put it on the other margin
+// This could however, be added to the width of the element instead, but that could cause "quirks" as well depending
+// on design.
+
+// Essentially, I don't recommend using the column() mixin for nested columns inside a fluid layout
+
+@mixin column($x, $realcols:$cols, $margin: 'normal') {
+	display: block;
+	position: relative;
+	//left: 0;
+	//right: 0;
+	
+  // default width & margin values
+  $colwidth: (gwidth($x) - $gutter) * calcwidth();
+  $colmargin: ($gutter / 2) * calcwidth();
+	@if $twidth == 100% {
+	  // for fluid, the following is needed for nested columns to determine the true width & margin */
+	  $colwidth: ((gwidth($x) - $gutter) * calcwidth()) * ($cols / $realcols);
+	  $colmargin: (($gutter / 2) * calcwidth()) * ($cols / $realcols);
+	}
+	
+	$rightmargin: $colmargin;
+	$leftmargin: $colmargin;
+	
+	width: $colwidth;
+	//margin: 0 $rightmargin 0 $leftmargin;
+	margin-right: $rightmargin;
+	margin-left: $leftmargin;
+	
+	// IE 6 & 7 sub-pixel rounding fix
+	*width: $colwidth - $correction;
+	//*margin: 0 $rightmargin - $correction 0 $leftmargin - $correction;
+	*margin-right: $rightmargin - $correction;
+	*margin-left: $leftmargin - $correction;
+	
+	@if $margin == 'alpha' {
+	  @if $twidth == 100% {
+  	  $rightmargin: $rightmargin * 2;
+	  }
+    //margin: 0 $rightmargin 0 0;
+    margin-right: $rightmargin;
+	}
+	@if $margin == 'omega' {
+	  @if $twidth == 100% {
+  	  $leftmargin: $leftmargin * 2;
+	  }
+    //margin: 0 0 0 $leftmargin;	
+    margin-left: $leftmargin;
+	}
+
+	// RTL/LTR switching
+	@if $dir == 'LTR' {
+	  float: left;
+	}
+	@if $dir == 'RTL' {
+	  float: right;
+	}
+}
+
+// Content First push/pull effects
+@mixin push($x:1) {
+	@if $dir == 'LTR' {
+	  left: ($gutter + $cwidth) * calcwidth() * $x;
+	  right: auto;
+	}
+	@if $dir == 'RTL' {
+	  right: ($gutter + $cwidth) * calcwidth() * $x;
+	  left: auto;
+	}
+}
+
+@mixin pull($x:1) {
+	@if $dir == 'LTR' {
+	  right: ($gutter + $cwidth) * calcwidth() * $x;
+	  left: auto;
+	}
+	@if $dir == 'RTL' {
+	  left: ($gutter + $cwidth) * calcwidth() * $x;
+	  right: auto;
+	}
+}
+
+// Prefix/Suffix add padding to the left/right of an element to widen the gutter and additional column space
+@mixin prefix($x:1) {
+  @if $dir == 'LTR' {
+	  margin-left: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
+	}
+	@if $dir == 'RTL' {
+	  margin-right: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
+	}
+}
+
+@mixin suffix($x:1) {
+  @if $dir == 'LTR' {
+	  margin-right: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
+	}
+	@if $dir == 'RTL' {
+	  margin-left: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
+	}
+}

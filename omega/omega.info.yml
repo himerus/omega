@@ -1,0 +1,36 @@
+name: Omega
+type: theme
+description: 'A flexible theme with tons of configurable regions and a responsive, mobile-first layout.'
+package: Core
+version: VERSION
+core: 8.x
+stylesheets:
+  all:
+    - style/css/omega-layout.css
+    - style/css/base.css
+  print:
+    - style/css/print.css
+#dependencies:
+#  - breakpoint
+#ckeditor_stylesheets:
+#  - css/ckeditor-iframe.css
+regions:
+  header: Header
+  help: Help
+  page_top: 'Page Top'
+  highlighted: Highlighted
+  featured: Featured
+  preface_first: 'Preface First'
+  preface_second: 'Preface Second'
+  preface_third: 'Preface Third'
+  preface_fourth: 'Preface Fourth'
+  content: Content
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  postscript_first: 'Postscript First'
+  postscript_second: 'Postscript Second'
+  postscript_third: 'Postscript Third'
+  postscript_fourth: 'Postscript Fourth'
+  footer: Footer
+  page_bottom: 'Page Bottom'
+settings:
