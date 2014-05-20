@@ -33,4 +33,23 @@ regions:
   postscript_fourth: 'Postscript Fourth'
   footer: Footer
   page_bottom: 'Page Bottom'
-settings:
+features:
+  logo: true
+  name: true
+  slogan: true
+  node_user_picture: true
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  main_menu: true
+  secondary_menu: true
+variables:
+  colors:
+    primaryColor1: 3A3A3A
+    primaryColor2: 5A5A5A
+    primaryColor3: CCCCCC
+    primaryColor4: 1A1A1A
+    primaryColor5: 9A9A9A
+  fonts:
+    defaultHeaderFont: georgia
+    defaultBodyFont: helvetica
