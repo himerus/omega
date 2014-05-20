@@ -1150,7 +1150,7 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width: 1100px; }
   #header-layout:before,
   #header-layout:after {
     content: "";
@@ -1186,7 +1186,7 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width: 1100px; }
   #preface-layout:before,
   #preface-layout:after {
     content: "";
@@ -1244,7 +1244,7 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width: 1100px; }
   #core-layout:before,
   #core-layout:after {
     content: "";
@@ -1302,7 +1302,7 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width: 1100px; }
   #main-layout:before,
   #main-layout:after {
     content: "";
@@ -1312,10 +1312,10 @@ body {
     #main-layout #content {
       display: block;
       position: relative;
-      width: 56.25%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 56.146%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1334,10 +1334,10 @@ body {
     #main-layout #sidebar-second {
       display: block;
       position: relative;
-      width: 14.583%;
+      width: 22.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 14.479%;
+      *width: 22.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1349,7 +1349,7 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width: 1100px; }
   #postscript-layout:before,
   #postscript-layout:after {
     content: "";
@@ -1359,10 +1359,10 @@ body {
     #postscript-layout #postscript-first {
       display: block;
       position: relative;
-      width: 31.25%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 31.146%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1370,10 +1370,10 @@ body {
     #postscript-layout #postscript-second {
       display: block;
       position: relative;
-      width: 31.25%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 31.146%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1381,10 +1381,10 @@ body {
     #postscript-layout #postscript-third {
       display: block;
       position: relative;
-      width: 31.25%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 31.146%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1392,10 +1392,10 @@ body {
     #postscript-layout #postscript-fourth {
       display: block;
       position: relative;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1407,7 +1407,7 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width: 1100px; }
   #footer-layout:before,
   #footer-layout:after {
     content: "";
@@ -1646,10 +1646,10 @@ body {
     #postscript-layout #postscript-first {
       display: block;
       position: relative;
-      width: 31.25%;
+      width: 39.583%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 31.146%;
+      *width: 39.479%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1657,10 +1657,10 @@ body {
     #postscript-layout #postscript-second {
       display: block;
       position: relative;
-      width: 64.583%;
+      width: 56.25%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 64.479%;
+      *width: 56.146%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1668,10 +1668,10 @@ body {
     #postscript-layout #postscript-third {
       display: block;
       position: relative;
-      width: 64.583%;
+      width: 56.25%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 64.479%;
+      *width: 56.146%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1679,10 +1679,10 @@ body {
     #postscript-layout #postscript-fourth {
       display: block;
       position: relative;
-      width: 31.25%;
+      width: 39.583%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 31.146%;
+      *width: 39.479%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;

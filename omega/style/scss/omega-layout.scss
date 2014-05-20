@@ -638,7 +638,7 @@ body {
 @media all and (min-width: 1024px) and (max-width: 1219px) { 
 #header-layout { 
   @include row(12);
-  max-width: 100%;         
+  max-width: 1100px;         
   #header { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
@@ -651,7 +651,7 @@ body {
 }
 #preface-layout { 
   @include row(12);
-  max-width: 100%;         
+  max-width: 1100px;         
   #preface-first { 
     @include column(6, 12); 
     margin-bottom: $regionSpacing;
@@ -672,7 +672,7 @@ body {
 }
 #core-layout { 
   @include row(12);
-  max-width: 100%;         
+  max-width: 1100px;         
   #messages { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
@@ -693,9 +693,9 @@ body {
 }
 #main-layout { 
   @include row(12);
-  max-width: 100%;         
+  max-width: 1100px;         
   #content { 
-    @include column(7, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-first { 
@@ -703,35 +703,35 @@ body {
     margin-bottom: $regionSpacing;
   } 
   #sidebar-second { 
-    @include column(2, 12); 
+    @include column(3, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #postscript-layout { 
   @include row(12);
-  max-width: 100%;         
+  max-width: 1100px;         
   #postscript-first { 
-    @include column(4, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(4, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(4, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(12, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 #footer-layout { 
   @include row(12);
-  max-width: 100%;         
+  max-width: 1100px;         
   #footer { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
@@ -819,19 +819,19 @@ body {
   @include row(12);
   max-width: 1400px;         
   #postscript-first { 
-    @include column(4, 12); 
+    @include column(5, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(8, 12); 
+    @include column(7, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(8, 12); 
+    @include column(7, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(4, 12); 
+    @include column(5, 12); 
     margin-bottom: $regionSpacing;
   } 
 
