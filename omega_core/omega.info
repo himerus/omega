@@ -1,0 +1,37 @@
+name = Omega Five
+description = Omega Five was built to enable a simplistic way for non-developers to create, manage and alter advanced responsive layouts without the need for ANY coding skills.
+core = 7.x
+engine = phptemplate
+screenshot = screenshot.png
+version = VERSION
+
+; REGIONS
+
+regions[page_top] = Page Top
+
+regions[header] = Header
+
+regions[branding] = Branding
+
+regions[menu] = Menu
+
+regions[preface_first] = Preface First
+regions[preface_second] = Preface Second
+regions[preface_third] = Preface Third
+regions[preface_fourth] = Preface Fourth
+
+regions[content] = Content
+regions[sidebar_first] = Sidebar First
+regions[sidebar_second] = Sidebar Second
+
+regions[postscript_first] = Postscript First
+regions[postscript_second] = Postscript Second
+regions[postscript_third] = Postscript Third
+regions[postscript_fourth] = Postscript Fourth
+
+regions[footer] = Footer
+
+regions[page_bottom] = Page Bottom
+
+; THEME SETTINGS (DEFAULTS)
+
