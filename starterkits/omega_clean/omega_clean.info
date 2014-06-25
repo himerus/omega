@@ -1,0 +1,24 @@
+name = Omega Clean Starterkit
+description = The Omega Clean Starterkit is the simplest starterkit for Omega Five. It offers a limited amount of default regions.
+core = 7.x
+engine = phptemplate
+screenshot = screenshot.png
+version = VERSION
+base theme = omega
+
+; REGIONS
+
+regions[page_top] = Page Top
+
+regions[header] = Header
+
+regions[content] = Content
+regions[sidebar_first] = Sidebar First
+regions[sidebar_second] = Sidebar Second
+
+regions[footer] = Footer
+
+regions[page_bottom] = Page Bottom
+
+; THEME SETTINGS (DEFAULTS)
+
