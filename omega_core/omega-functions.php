@@ -229,7 +229,7 @@ function _omega_save_layout_files($scss, $css, $theme) {
   global $base_path;
   // going to overwrite some stuff
   $layoutscss = realpath(".") . $base_path . drupal_get_path('theme', $theme) . '/style/scss/layout/omega-layout.scss';
-  $layoutcss = realpath(".") . $base_path . drupal_get_path('theme', $theme) . '/style/css/omega-layout.css';
+  $layoutcss = realpath(".") . $base_path . drupal_get_path('theme', $theme) . '/style/css/layout/omega-layout.css';
   
   $scssfile = file_unmanaged_save_data($scss, $layoutscss, TRUE);
   $cssfile = file_unmanaged_save_data($css, $layoutcss, TRUE);
