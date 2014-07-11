@@ -79,39 +79,42 @@
       <div id="header-layout" class="inner-wrapper clearfix">
         
         <?php if ($page['header']): ?>
-        <div id="header" class="clearfix">
+        <div id="header" class="clearfix column">
           <?php print render($page['header']); ?>
         </div>
         <?php endif; ?>
         
-        <?php if ($logo): ?>
-          <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-            <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
-          </a>
-        <?php endif; ?>
-  
-        <?php if ($site_name || $site_slogan): ?>
-          <div id="name-and-slogan">
-            <?php if ($site_name): ?>
-              <?php if ($title): ?>
-                <div id="site-name"><strong>
-                  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-                </strong></div>
-              <?php else: /* Use h1 when the content title is empty */ ?>
-                <h1 id="site-name">
-                  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-                </h1>
+        <div id="branding" class="clearfix column">
+        
+          <?php if ($logo): ?>
+            <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
+              <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
+            </a>
+          <?php endif; ?>
+    
+          <?php if ($site_name || $site_slogan): ?>
+            <div id="name-and-slogan">
+              <?php if ($site_name): ?>
+                <?php if ($title): ?>
+                  <div id="site-name"><strong>
+                    <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
+                  </strong></div>
+                <?php else: /* Use h1 when the content title is empty */ ?>
+                  <h1 id="site-name">
+                    <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
+                  </h1>
+                <?php endif; ?>
               <?php endif; ?>
-            <?php endif; ?>
-  
-            <?php if ($site_slogan): ?>
-              <div id="site-slogan"><?php print $site_slogan; ?></div>
-            <?php endif; ?>
-          </div> <!-- /#name-and-slogan -->
-        <?php endif; ?>
+    
+              <?php if ($site_slogan): ?>
+                <div id="site-slogan"><?php print $site_slogan; ?></div>
+              <?php endif; ?>
+            </div> <!-- /#name-and-slogan -->
+          <?php endif; ?>
+        </div>
         
         <?php if($main_menu || $secondary_menu): ?>
-          <div id="menus" class="clearfix">
+          <div id="menu" class="clearfix">
             <?php if ($main_menu): ?>
               <nav id ="main-menu" class="navigation clearfix" role="navigation">
                 <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('links', 'inline', 'clearfix')))); ?>
