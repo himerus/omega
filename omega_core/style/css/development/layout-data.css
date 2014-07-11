@@ -1,0 +1,39 @@
+/* Fonts */
+#omega-screen--indicator {
+  background-color: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  padding: 20px;
+  color: #FFF;
+  padding-left: 70px;
+  height: 70px;
+  font-size: 12px; }
+  #omega-screen--indicator .indicator-data {
+    position: relative;
+    padding-left: 20px; }
+  #omega-screen--indicator .ologo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 70px; }
+    #omega-screen--indicator .ologo a {
+      display: block; }
+    #omega-screen--indicator .ologo img {
+      max-height: 100%;
+      width: auto; }
+  #omega-screen--indicator h5 {
+    margin: 0;
+    margin-right: 1em;
+    font-size: 12px;
+    display: inline-block; }
+  #omega-screen--indicator .data {
+    font-weight: bold; }
+
+@media all and (min-width: 1024px) {
+  #omega-screen--indicator {
+    left: auto;
+    width: 350px; } }

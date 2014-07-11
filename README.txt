@@ -9,7 +9,7 @@
 ##########################################################################################
 
 ##########################################################################################
-##### Omega Theme
+##### Omega Five Theme for Drupal 7
 ##########################################################################################
 
 
@@ -18,10 +18,9 @@ Documentation:
 Issue Queue:    http://drupal.org/project/issues/omega
 Usage Stats:    http://drupal.org/project/usage/omega
 Twitter:        http://twitter.com/Omeglicon
-Maintainer(s):
-                Jake Strawn
-                  http://drupal.org/user/159141
-                  http://twitter.com/himerus
+Maintainer(s):  Jake Strawn
+                http://drupal.org/user/159141
+                http://twitter.com/himerus
 ##########################################################################################
 
 Omega Five Theme Information

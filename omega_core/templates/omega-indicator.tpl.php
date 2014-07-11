@@ -1,0 +1,15 @@
+<div id="omega-screen--indicator" class="clearfix">
+  <div class="ologo">
+    <?php print($logo); ?>
+  </div>
+  <div class="indicator-data">
+    <div class="screen-size">
+      <h5>@screen width:</h5>
+      <span class="data"></span>
+    </div>
+    <div class="screen-query">
+      <h5>@breakpoints:</h5>
+      <span class="data"></span>
+    </div>
+  </div>
+</div>
