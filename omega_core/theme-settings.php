@@ -34,10 +34,20 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   //dsm($region_groups);
   $theme_regions = $themeSettings->info['regions'];
   
-  $css_path = drupal_get_path('theme', 'omega') . '/style/omega_admin.css';
+  $adminCSS = drupal_get_path('theme', 'omega') . '/style/css/omega_admin.css';  
+  $adminJS = drupal_get_path('theme', 'omega') . '/js/omega_admin.js';
+  $form['#attached'] = array(
+    'library' => array(
+      array('system', 'ui.slider'),
+    ),
+    'js' => array(
+      $adminJS,
+    ),
+    'css' => array(
+      $adminCSS,
+    ),
+  );
   
-  drupal_add_css($css_path, array('group' => CSS_DEFAULT, 'every_page' => TRUE));
-    
   // add in custom JS for Omega administration
   //$form['#attached']['library'][] = 'omega/omega_admin';
   
@@ -300,7 +310,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
               'data-omega-pull' => $current_pull,
               //'data-omega-region-title' => $theme_regions[$rid],
             ),
-            '#collapsible' => TRUE,
+            '#collapsible' => FALSE,
             '#collapsed' => FALSE,
             //'#group' => $gid . '-wrapper',
          );
