@@ -558,11 +558,13 @@ body {
   @include row(12);
   max-width: 1280px;         
   #content { 
-    @include column(6, 12); 
+    @include column(6, 12);   
+    @include push(3); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-first { 
-    @include column(3, 12); 
+    @include column(3, 12);   
+    @include pull(6); 
     margin-bottom: $regionSpacing;
   } 
   #sidebar-second { 
@@ -575,19 +577,19 @@ body {
   @include row(12);
   max-width: 1280px;         
   #postscript-first { 
-    @include column(6, 12); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-second { 
-    @include column(6, 12); 
+    @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-third { 
-    @include column(6, 12); 
+    @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
   #postscript-fourth { 
-    @include column(6, 12); 
+    @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
 

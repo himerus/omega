@@ -921,6 +921,8 @@ body {
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
+      left: 25%;
+      right: auto;
       margin-bottom: 25px; }
     #main-layout #sidebar-first {
       display: block;
@@ -932,6 +934,8 @@ body {
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
+      right: 50%;
+      left: auto;
       margin-bottom: 25px; }
     #main-layout #sidebar-second {
       display: block;
@@ -960,10 +964,10 @@ body {
     #postscript-layout #postscript-first {
       display: block;
       position: relative;
-      width: 47.91667%;
+      width: 31.25%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 47.8125%;
+      *width: 31.14583%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -971,10 +975,10 @@ body {
     #postscript-layout #postscript-second {
       display: block;
       position: relative;
-      width: 47.91667%;
+      width: 64.58333%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 47.8125%;
+      *width: 64.47917%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -982,10 +986,10 @@ body {
     #postscript-layout #postscript-third {
       display: block;
       position: relative;
-      width: 47.91667%;
+      width: 64.58333%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 47.8125%;
+      *width: 64.47917%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -993,10 +997,10 @@ body {
     #postscript-layout #postscript-fourth {
       display: block;
       position: relative;
-      width: 47.91667%;
+      width: 31.25%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 47.8125%;
+      *width: 31.14583%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
