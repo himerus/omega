@@ -1,0 +1,33 @@
+/* Fonts */
+/* Apply a natural box layout model to all elements http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+body {
+  font-family: "Helvetica Neue", Arial, Helvetica;
+  font-size: 100%;
+  max-width: 100%;
+  -webkit-text-size-adjust: none; }
+
+body.toolbar-tray-open.toolbar-vertical.toolbar-fixed {
+  margin-left: 0;
+  padding-left: 15rem; }
+
+a {
+  text-decoration: none;
+  color: #0b6194;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out; }
+  a:hover {
+    text-decoration: underline;
+    color: rgba(11, 97, 148, 0.85); }
+
+details {
+  border: none; }
+
+img {
+  max-width: 100%;
+  height: auto; }

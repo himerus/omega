@@ -1,0 +1,75 @@
+// @media all and (min-width: $mobilePortrait) and (max-width: $below_mobileLandscape)
+// @media all and (min-width: $mobileLandscape) and (max-width: $below_tablet)
+// @media all and (min-width: $tablet) and (max-width: $below_desktop)
+// @media all and (min-width: $desktop) and (max-width: $below_desktopWide)
+// @media all and (min-width: $desktopWide)
+
+@import "../vars.scss";
+
+nav.navigation {
+  ul {
+    margin: 0;
+    padding: 0;
+    
+    li {
+      margin: 3px 5px;
+      padding: 0;
+      list-style-type: none;
+      list-style-image: none;
+      display: inline-block;
+      
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+
+
+
+@media all and (min-width: $desktop) {
+  /*
+nav.navigation {
+    
+    ul, ul.links {
+      margin: 0;
+      margin-bottom: 0.5em;
+      padding: 0;
+      
+      li {
+        margin: 0 5px;
+        padding: 0;
+        list-style-type: none;
+        display: inline-block;
+
+        a {
+          display: block;
+          padding: 5px 10px;
+          background: $menuitemBg;
+          color: $menuitemColor;
+          text-decoration: none;
+          
+          @include omegaTransition(all, 0.25s, ease-in-out);
+          
+          &:hover {
+            opacity: 0.85;
+          }
+          
+        }
+
+        &:first-child {
+          margin-left: 0;
+        }
+  
+        &:last-child {
+          margin-right: 0;
+        }  
+      }
+    }
+  }
+*/
+}

@@ -1,0 +1,94 @@
+@import "../vars.scss";
+
+/* Apply a natural box layout model to all elements http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+*, *:before, *:after {
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+html {
+  //-webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: $reg;
+  font-size: 100%;
+  max-width: 100%;
+  -webkit-text-size-adjust:none;
+}
+// change the body spacing for the vertical toolbar from margin to padding
+body.toolbar-tray-open.toolbar-vertical.toolbar-fixed {
+  margin-left: 0;
+  padding-left: 15rem;
+}
+
+a {
+  text-decoration: none;
+  color: rgba($primaryColor1, 1);
+  @include omegaTransition(opacity, 0.25s, ease-in-out);
+  &:hover {
+    text-decoration: underline;
+    
+    color: rgba($primaryColor1, 0.85);
+  }
+}
+
+details {
+  border: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  
+}
+
+blockquote {
+  
+}
+
+ul {
+  
+  li {
+    
+  }
+}
+
+ol {
+  
+  li {
+    
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  
+}
+
+h1 {
+  
+}
+
+h2 {
+  
+}
+
+h3 {
+  
+}
+
+h4 {
+  
+}
+
+h5 {
+  
+}
+
+h6 {
+  
+}
