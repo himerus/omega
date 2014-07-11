@@ -10,6 +10,13 @@ version = VERSION
 
 stylesheets[all][] = style/css/base/normalize.css
 stylesheets[all][] = style/css/layout/omega-layout.css
+
+stylesheets[all][] = style/css/base/html-elements.css
+stylesheets[all][] = style/css/base/messages.css
+stylesheets[all][] = style/css/base/main-menus.css
+stylesheets[all][] = style/css/base/site-branding.css
+stylesheets[all][] = style/css/base/tabs.css
+
 stylesheets[all][] = style/css/development/layout-data.css
 stylesheets[all][] = style/css/development/region-demo.css
 
