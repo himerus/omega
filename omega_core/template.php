@@ -131,6 +131,48 @@ function omega_css_alter(&$css) {
 }
 
 /**
+ * Implements hook_js_alter().
+ */
+function omega_js_alter(&$javascript) {
+  
+  // If >=1 JavaScript asset has declared a dependency on drupalSettings, the
+  // 'settings' key will exist. Thus when that key does not exist, return early.
+  if (!isset($javascript['settings'])) {
+    //return;
+  }
+  
+  $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
+  $themes = list_themes();
+  $themeSettings = $themes[$theme];  
+  
+  $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
+  
+  $breakpoints = $themeSettings->info['breakpoints'];
+  //dsm($breakpoints);
+  
+  if ($screenDemo) {
+    $layouts = array();
+
+    //$javascript['settings']['data']['omega_breakpoints'] = array();
+    
+    foreach($breakpoints as $breakpointName => $breakpointMedia) {
+      
+      $layouts[$breakpointName] = array(
+        'query' => $breakpointMedia,
+        'name' => $breakpointName
+      );
+    }
+    
+    $javascript['settings']['data'][] = array(
+      'omega_breakpoints' => array(
+        'layouts' => $layouts
+      )
+    );
+  }
+  //dsm($javascript['settings']);
+}
+
+/**
  * hook_html_head_alter()
  */
 function omega_html_head_alter(&$head_elements) {
