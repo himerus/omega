@@ -70,7 +70,6 @@ function _omega_optional_css($theme) {
 }
 */
 
-/*
 function _omega_getBreakpointId($theme) {
   // get the appropriate id based on theme name
   if (entity_load('breakpoint_group', 'theme.'.$theme.'.'.$theme)) {
@@ -82,7 +81,6 @@ function _omega_getBreakpointId($theme) {
     return 'theme.omega.omega';
   }
 }
-*/
 
 function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
   //dsm('Running custom function "_omega_compile_layout_sass()" which will generate the appropriate scss to be passed to the parser.');

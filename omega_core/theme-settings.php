@@ -166,6 +166,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       ),
     ),
   );
+  
   $breakpoints = $themeSettings->info['breakpoints'];
   $regionGroups = $themeSettings->info['region_groups'];
   
@@ -406,6 +407,41 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     '#description' => t('Display data about the screen size, current media query, etc. When this setting is enabled, ALL site visitors will see the overlay data. <br /><strong>This should never be enabled on a live site.</strong>'),
     '#default_value' => theme_get_setting('screen_demo_indicator', $theme),
   );
+  
+   $form['export'] = array(
+    '#type' => 'fieldset',
+    '#attributes' => array('class' => array('export')),
+    '#title' => t('Export Layouts'),
+    '#weight' => 999,
+    '#group' => 'omega',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  
+  $form['export']['export_info'] = array(
+    '#prefix' => '<div class="messages warning omega-export-info">',
+    '#markup' => '',
+    '#suffix' => '</div>',
+    '#weight' => -9999,
+  );
+  $form['export']['export_info']['#markup'] .= '<p><strong>WARNING:</strong> The export settings for this form are only currently placeholder fields. This functionality will be completed soon.</p>';
+  
+  // suffix (in columns)
+  $form['export']['json'] = array(
+    '#type' => 'textarea',
+      '#attributes' => array(
+        'class' => array(
+          'json-layout-export'
+        ),
+      ),
+    '#title' => 'Export JSON Layout Data',
+    '#description' => 'You can copy/paste this data.',
+    '#default_value' => $newJson,
+  );
+  
+  
+  
+  
   
   $form['actions']['#type'] = 'actions';
   $form['actions']['save_layout'] = array(
