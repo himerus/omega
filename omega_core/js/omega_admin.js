@@ -41,28 +41,26 @@ Drupal.omega = Drupal.omega || {};
     }
   };
   
-  /*
-Drupal.behaviors.addZindexButtons = {
+  Drupal.behaviors.addZindexButtons = {
     attach: function(context) {
       
-      $('.region-settings > .details-wrapper').each(function(){
+      $('.region-settings > .fieldset-wrapper').each(function(){
         $(this).prepend('<div class="region-controls clearfix"><a href="#" title="Send to Back" class="send-to-back"></a><a href="#" title="Send to Front" class="send-to-front"></a></div>');
       }); 
       
       
-      $('.send-to-back').on('click', function(){
+      $('.send-to-back').click( function(){
         var element = $(this).closest('.region-settings');
         element.css('z-index', 0);
         return false;
       });
-      $('.send-to-front').on('click', function(){
+      $('.send-to-front').click( function(){
         var element = $(this).closest('.region-settings');
         element.css('z-index', 1000);
         return false;
       });
     }
   };
-*/
   
   
   /*
