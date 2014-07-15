@@ -438,7 +438,7 @@ body {
 .region-controls {
   height: 16px;
   position: absolute;
-  top: 10px;
+  top: -10px;
   right: 5px; }
   .region-controls .send-to-back,
   .region-controls .send-to-front {
@@ -498,7 +498,7 @@ body {
   background-image: none;
   background-color: #FFF;
   border-top-width: auto;
-  padding: 20px;
+  padding: 10px;
   padding-top: 45px;
   margin-bottom: 1.04167%;
   margin-top: 1.04167%;
@@ -547,3 +547,10 @@ body {
   .layout-breakpoint-regions .region-settings[open] summary,
   .layout-breakpoint-regions .region-settings[open] + [open] summary {
     padding-left: 0; }
+
+.export .form-textarea-wrapper {
+  max-width: 100%;
+  width: 300px; }
+.export .json-layout-export {
+  font-size: 11px;
+  min-height: 350px; }

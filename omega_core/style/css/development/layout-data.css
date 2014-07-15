@@ -1,6 +1,7 @@
 /* Fonts */
 #omega-screen--indicator {
   background-color: rgba(0, 0, 0, 0.85);
+  zoom: 1 !important;
   position: fixed;
   bottom: 0;
   right: 0;
