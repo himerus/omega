@@ -1,25 +1,41 @@
-name = Omega Five
-description = Omega Five was built to enable a simplistic way for non-developers to create, manage and alter advanced responsive layouts without the need for ANY coding skills.
+name = Sub-Sub-Theme Test
+description = For testing purposes only.
 core = 7.x
-php = 5.3
 engine = phptemplate
 screenshot = screenshot.png
 version = VERSION
-
-
-stylesheets[all][] = style/css/base/normalize.css
-stylesheets[all][] = style/css/layout/omega_default.css
-
-stylesheets[all][] = style/css/base/html-elements.css
-stylesheets[all][] = style/css/base/messages.css
-stylesheets[all][] = style/css/base/main-menus.css
-stylesheets[all][] = style/css/base/site-branding.css
-stylesheets[all][] = style/css/base/tabs.css
-
-stylesheets[all][] = style/css/development/layout-data.css
-stylesheets[all][] = style/css/development/region-demo.css
+base theme = omega_default
 
 ; REGIONS
+
+regions[page_top] = Page Top
+
+regions[header] = Header
+
+regions[branding] = Branding
+
+regions[menu] = Menu
+
+regions[preface_first] = Preface First
+regions[preface_second] = Preface Second
+regions[preface_third] = Preface Third
+regions[preface_fourth] = Preface Fourth
+
+regions[content] = Content
+regions[sidebar_first] = Sidebar First
+regions[sidebar_second] = Sidebar Second
+
+regions[postscript_first] = Postscript First
+regions[postscript_second] = Postscript Second
+regions[postscript_third] = Postscript Third
+regions[postscript_fourth] = Postscript Fourth
+
+regions[footer] = Footer
+
+regions[page_bottom] = Page Bottom
+
+; THEME SETTINGS (DEFAULTS)
+
 regions[page_top] = Page Top
 regions[header] = Header
 regions[branding] = Branding
@@ -56,6 +72,6 @@ region_groups[footer] = 'Footer'
 ; THEME SETTINGS (DEFAULTS)
 
 ; default layout name
-settings[default_layout] = 'omega_default'
+settings[default_layout] = 'custom_layout'
 settings[block_demo_excluded_regions][] = 'page_top'
 settings[block_demo_excluded_regions][] = 'page_bottom'

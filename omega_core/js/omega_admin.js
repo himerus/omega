@@ -6,21 +6,12 @@ Drupal.omega = Drupal.omega || {};
 
 (function ($) {
   
-  /**
-   * @todo
-   */
-  Drupal.behaviors.sampleAdministrativeThemeSettingsFunction = {
-    attach: function (context) {
-      
-    }
-  };
-  
   Drupal.behaviors.watchMaxWidthValues = {
     attach: function(context) {
       
       $('input.row-max-width').change( function(){
         console.log('Hello!!');
-        var newVal = $(this).val();
+        var newVal = $(this).attr('value');
         console.log(newVal);
         var newType = $(this).parents('.region-group-layout-settings').find('.row-max-width-type');
         console.log(newType);
@@ -59,12 +50,14 @@ Drupal.omega = Drupal.omega || {};
         element.css('z-index', 1000);
         return false;
       });
+    },
+    detach: function(context) {
+      $('.region-settings .region-controls').remove();
     }
   };
   
   
-  /*
-Drupal.behaviors.addToggleStyles = {
+  Drupal.behaviors.addToggleStyles = {
     attach: function(context) {
       $('a.toggle-styles-on').click( function(){
         var element = $(this).parents('#edit-styles');
@@ -78,14 +71,12 @@ Drupal.behaviors.addToggleStyles = {
       });
     }
   };
-*/
   
   Drupal.behaviors.alternateSelectSliders = {
     attach: function(context) {
-      
-      
       // SORTA WORKING SLIDER INTERFACE
-      $('.width-controller, .push-controller, .prefix-controller, .suffix-controller, .pull-controller').each(function(){
+      
+      $('.width-controller, .push-controller, .prefix-controller, .suffix-controller, .pull-controller').once(function(){
         var select = $(this);
         var selectWrapper = $(this).closest('.form-item');
         var slider = $( '<div class="slider clearfix"><div class="data-value"></div></div>' ).prependTo( selectWrapper ).slider({
@@ -94,10 +85,11 @@ Drupal.behaviors.addToggleStyles = {
           range: "min",
           value: select[ 0 ].selectedIndex + 1,
           create: function( event, ui ) {
-            
+            //console.log('Serving up some sliders for current layout...');
             var currentValue = $(event.target).slider( "value" ) - 1;
             //console.log(currentValue);
             $(event.target).find('.data-value').html(currentValue);
+            select.hide();
           },
           slide: function( event, ui ) {
             select[ 0 ].selectedIndex = ui.value - 1;
@@ -111,7 +103,15 @@ Drupal.behaviors.addToggleStyles = {
             select.change();
           }
         });
-        selectWrapper.find('select').hide();
+      });
+    },
+    detach: function(context) {
+      
+      $('.width-controller, .push-controller, .prefix-controller, .suffix-controller, .pull-controller').once(function(){
+      //$('.slider').each(function(){
+        //console.log('Destroying sliders...');
+        $('.slider').slider('destroy').remove();
+        $(this).remove();
       });
     }
   };
@@ -129,7 +129,7 @@ Drupal.behaviors.addToggleStyles = {
       
       // open up any push/pull items if they are alredy in use and not a value of zero.
       $(".push-controller, .pull-controller").each(function(){
-        if ($(this).val() > 0) {
+        if ($(this).attr('val') > 0) {
           $(this).parents('.layout-breakpoint-regions').addClass('push-pull-active').find(".form-item[class$='-pull'], .form-item[class$='-push']").show();
         }
         else {
@@ -139,7 +139,7 @@ Drupal.behaviors.addToggleStyles = {
       
       // open up any prefix/suffix items if they are alredy in use and not a value of zero.
       $(".prefix-controller, .suffix-controller").each(function(){
-        if ($(this).val() > 0) {
+        if ($(this).attr('val') > 0) {
           $(this).parents('.layout-breakpoint-regions').find(".form-item[class$='-prefix'], .form-item[class$='-suffix']").show();
         }
       });
@@ -177,14 +177,14 @@ Drupal.behaviors.addToggleStyles = {
       
       // adjust the push value
       $('select.push-controller').change( function(){
-        var push = $(this).val();
+        var push = $(this).attr('value');
         $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-push', push);
       });
       
       // adjust the prefix value
       $('select.prefix-controller').change( function(){
-        var prefix = $(this).val();
+        var prefix = $(this).attr('value');
         $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-prefix', prefix);
       });
@@ -192,7 +192,7 @@ Drupal.behaviors.addToggleStyles = {
       
       // adjust the width value
       $('select.width-controller').change( function(){
-        var width = $(this).val();
+        var width = $(this).attr('value');
         //var sliderWidth = width;
         $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-width', width);
@@ -200,17 +200,30 @@ Drupal.behaviors.addToggleStyles = {
       
       // adjust the suffix value
       $('select.suffix-controller').change( function(){
-        var suffix = $(this).val();
+        var suffix = $(this).attr('value');
         $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-suffix', suffix);
       });
       
       // adjust the pull value
       $('select.pull-controller').change( function(){
-        var pull = $(this).val();
+        var pull = $(this).attr('value');
         $(this).next('.slider').slider("value", this.selectedIndex + 1)
         $(this).parents('.region-settings').attr('data-omega-pull', pull);
       });
+    }
+  };
+  
+  Drupal.behaviors.omegaJSONlayout = {
+    attach: function (context) {
+      $('#layout-editor-select select').change(function(){
+        //$('#layout-configuration-wrapper').hide('fast');
+        console.log('Altering the layout builder view...');
+        //$('#layout-configuration-wrapper').show('slow');
+      });
+    },
+    detach: function (context) {
+      
     }
   };
   

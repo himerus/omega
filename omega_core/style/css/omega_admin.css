@@ -554,3 +554,11 @@ body {
 .export .json-layout-export {
   font-size: 11px;
   min-height: 350px; }
+
+#layout-config {
+  padding: 0;
+  margin: 0;
+  border: 0; }
+  #layout-config > .fieldset-wrapper {
+    margin: 0;
+    padding: 0; }

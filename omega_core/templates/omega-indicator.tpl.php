@@ -11,5 +11,9 @@
       <h5>@breakpoints:</h5>
       <span class="data"></span>
     </div>
+    <div class="screen-layout">
+      <h5>@layout:</h5>
+      <span class="data"></span>
+    </div>
   </div>
 </div>

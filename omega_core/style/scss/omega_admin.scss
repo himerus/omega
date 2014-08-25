@@ -606,3 +606,14 @@ fieldset.region-settings {
     
   }
 }
+
+#layout-config {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  
+  & > .fieldset-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+}

@@ -1,17 +1,141 @@
 <?php
-require_once('lib/Drupal/omega/phpsass/SassParser.php');
-//require_once('lib/Drupal/omega/phpsass/SassFile.php');
 
+require_once('lib/Drupal/omega/phpsass/SassParser.php');
+
+/**
+ * omega_clear_layout_cache
+ *
+ * Clears array data from stored JSON from database
+ * and rebuilds the array from latest .json files
+ *
+ * @param (string) (theme) active theme
+ * @return (array) returns array of available layouts
+ */
+
+function omega_clear_layout_cache($theme) {
+  // delete layout data for $theme from database
+  variable_del('theme_' . $theme . '_layouts');
+  // rebuild the array from json files
+  return _omega_get_layout_json_data($theme);
+}
+
+/**
+ * omega_json_load_layout_file
+ *
+ * Load JSON file from $location and return layout array
+ *
+ * @param (string) (location) path to JSON file
+ * @return (array) layout array data
+ */
 
 function omega_json_load_layout_file($location, $style=JSON_PRETTY_PRINT) {
   $json = file_get_contents($location);
   return json_decode($json, $style);
 }
 
+function omega_json_load_settings_array($layouts) {
+  //dsm($layouts);
+  $settings = array();
+  foreach ($layouts as $lid => $layoutData) {
+    $settings[$lid] = $layoutData['data'];
+  }
+  
+  drupal_add_js(array('availableLayouts' => $settings), 'setting');
+}
+/**
+ * omega_json_get
+ *
+ * Converts layout array to JSON data ready to save
+ *
+ * @param (array) (var) layout array variable
+ * @return (string) json data
+ */
+ 
 function omega_json_get($var, $style=JSON_PRETTY_PRINT) {
-  //$json = file_get_contents($location);
   return json_encode($var, $style);
 }
+
+function _omega_compile_layout_json($layout, $values) {
+  return json_encode($values, JSON_PRETTY_PRINT);
+}
+
+function _omega_get_layout_json_data($theme) {
+  //$theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
+  $json = array();
+  // get a list of themes
+  $themes = list_themes();
+  // theme settings for current theme
+  $themeSettings = $themes[$theme];
+  //dsm($themeSettings);
+  // We look for this and any base themes for layouts.
+  $layoutThemes = isset($themeSettings->base_themes) ? $themeSettings->base_themes : array();
+  // add the current theme as well!
+  $layoutThemes[$theme] = $themeSettings->info['name'];
+  
+  $layoutGroups = array();
+  $layoutsAvailable = array();
+  
+  $dbLayouts = is_array(variable_get('theme_' . $theme . '_layouts')) ? variable_get('theme_' . $theme . '_layouts') : array();
+  //dsm($dbLayouts);
+  
+  foreach ($layoutThemes as $t => $name) {
+    $scanPath = drupal_get_path('theme', $t) . '/layouts';
+    //dsm($theme);
+    $layoutGroups[$t] = file_scan_directory($scanPath, '/.*\.json/', array('key' => 'name'));
+  }
+  //dsm($layoutGroups);
+  
+  
+  foreach ($layoutGroups as $t => $layouts) {
+
+    foreach ($layouts as $layout) {
+      $name = $layout->name;
+      
+      
+      
+      if (isset($dbLayouts[$name])) {
+        // grab the latest settings from the database variable
+        $layoutSettings = $dbLayouts[$name];
+      }
+      else {
+        // pull the settings from the file, and add them to the database
+        $layoutSettings = omega_json_load_layout_file($layout->uri);
+        variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts, $layoutSettings));
+      }
+      
+      $usableLayout = array(
+        'theme' => $t,
+        'path' => $layout->uri,
+        'file' => $layout->filename,
+        'name' => $name,
+        'data' => $layoutSettings,
+      );
+      
+      // if this layout already exists from another theme
+      if (isset($layoutsAvailable[$name])) {
+        $usableLayout['overrides'] = array(
+          $layoutsAvailable[$name]['theme'] => $layoutsAvailable[$name],
+        );
+      }
+      
+      
+      $layoutsAvailable[$name] = $usableLayout;
+    }
+  }
+  return $layoutsAvailable;
+}
+
+
+// returns select field options for the available layouts
+function _omega_layout_json_options($layouts) {
+  $options = array();
+  foreach($layouts as $id => $info) {
+    $options[$id] = $info['theme'] . '--' . $info['name'];
+  }
+  //dsm($options);
+  return $options;
+}
+
 
 
 
@@ -70,6 +194,7 @@ function _omega_optional_css($theme) {
 }
 */
 
+/*
 function _omega_getBreakpointId($theme) {
   // get the appropriate id based on theme name
   if (entity_load('breakpoint_group', 'theme.'.$theme.'.'.$theme)) {
@@ -81,6 +206,7 @@ function _omega_getBreakpointId($theme) {
     return 'theme.omega.omega';
   }
 }
+*/
 
 function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
   //dsm('Running custom function "_omega_compile_layout_sass()" which will generate the appropriate scss to be passed to the parser.');
@@ -214,7 +340,7 @@ function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
   return $scss;
 }
 
-function _omega_render_layout_css($scss, $options) {
+function _omega_compile_layout_css($scss, $options) {
   $parser = new SassParser($options);
   
   // create CSS from SCSS
@@ -223,14 +349,41 @@ function _omega_render_layout_css($scss, $options) {
   return $css;
 }
 
-function _omega_save_layout_files($scss, $css, $theme) {
+
+
+
+
+
+
+function _omega_save_layout_files($scss, $css, $json, $theme, $layout) {
   global $base_path;
   // going to overwrite some stuff
-  $layoutscss = realpath(".") . $base_path . drupal_get_path('theme', $theme) . '/style/scss/layout/omega-layout.scss';
-  $layoutcss = realpath(".") . $base_path . drupal_get_path('theme', $theme) . '/style/css/layout/omega-layout.css';
+  $layoutscss = realpath(".") . $base_path . drupal_get_path('theme', $theme) . '/style/scss/layout/'.$layout.'.scss';
+  $layoutcss = realpath(".") . $base_path . drupal_get_path('theme', $theme) . '/style/css/layout/'.$layout.'.css';
+  $layoutjson = realpath(".") . $base_path . drupal_get_path('theme', $theme) . '/layouts/'.$layout.'.json';
+  //dsm($base_path);
+  $scssfile = file_unmanaged_save_data($scss, $layoutscss, FILE_EXISTS_REPLACE);
+  if ($scssfile) {
+    drupal_set_message(t('SCSS file saved: <strong>'. str_replace(realpath(".") . $base_path, "", $scssfile) .'</strong>'));
+  }
+  else {
+    drupal_set_message(t('WTF001: SCSS save error... : function _omega_save_layout_files()'), 'error');
+  }
   
-  $scssfile = file_unmanaged_save_data($scss, $layoutscss, TRUE);
-  $cssfile = file_unmanaged_save_data($css, $layoutcss, TRUE);
-
-  //return $file;
+  $cssfile = file_unmanaged_save_data($css, $layoutcss, FILE_EXISTS_REPLACE);
+  if ($cssfile) {
+    drupal_set_message(t('CSS file saved: <strong>'.str_replace(realpath(".") . $base_path, "", $cssfile).'</strong>'));
+  }
+  else {
+    drupal_set_message(t('WTF002: CSS save error... : function _omega_save_layout_files()'), 'error');
+  }
+  
+  $jsonfile = file_unmanaged_save_data($json, $layoutjson, FILE_EXISTS_REPLACE); 
+  if ($jsonfile) {
+    drupal_set_message(t('JSON file saved: <strong>'.str_replace(realpath(".") . $base_path, "", $jsonfile).'</strong>'));
+  }
+  else {
+    drupal_set_message(t('WTF003: JSON save error... : function _omega_save_layout_files()'), 'error');
+  }
 }
+

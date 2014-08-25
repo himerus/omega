@@ -37,6 +37,7 @@ function omega_preprocess_omega_indicator(&$vars) {
 function omega_page_alter (&$page) {
   $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
   
+  //drupal_set_message(t('Current theme: '. $theme));
   drupal_add_js(drupal_get_path('theme', 'omega') . '/js/omega.js');
   
   $regionDemo = theme_get_setting('block_demo_mode', $theme);
@@ -122,12 +123,25 @@ function omega_page_alter (&$page) {
 function omega_css_alter(&$css) {
   $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
   $ogsLayout = theme_get_setting('enable_omegags_layout', $theme);
-  $layout = isset($ogsLayout) ? $ogsLayout : TRUE;
+  $hasLayout = isset($ogsLayout) ? $ogsLayout : TRUE;
+  
+  $defaultLayout = theme_get_setting('default_layout', $theme);
+  //dsm($defaultLayout);
+  $defaultOmegaLayout = drupal_get_path('theme', 'omega') . '/style/css/layout/omega_default.css';
+  $activeLayoutCSS = drupal_get_path('theme', $theme) . '/style/css/layout/'.$defaultLayout.'.css';
+
+  //dsm($defaultOmegaLayout);
+  
   
   // turn off Omega.gs generated layout styles if user has turned off the awesome.
-  if (!$layout && isset($css['omega-layout.css'])) {
-    unset($css['omega-layout.css']);
+  if (!$hasLayout && isset($css[$defaultOmegaLayout])) {
+    unset($css[$defaultOmegaLayout]);
   }
+  // alter the CSS loaded based on the $activeLayoutCSS
+  if (isset($css[$defaultOmegaLayout])){
+    $css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
+  }
+  //dsm($css);
 }
 
 /**
@@ -146,6 +160,7 @@ function omega_js_alter(&$javascript) {
   $themeSettings = $themes[$theme];  
   
   $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
+  $activeLayout = theme_get_setting('default_layout', $theme);
   
   $breakpoints = $themeSettings->info['breakpoints'];
   //dsm($breakpoints);
@@ -165,8 +180,11 @@ function omega_js_alter(&$javascript) {
     
     $javascript['settings']['data'][] = array(
       'omega_breakpoints' => array(
-        'layouts' => $layouts
-      )
+        'layouts' => $layouts,
+      ),
+      'omega' => array(
+        'activeLayout' => $activeLayout
+      )  
     );
   }
   //dsm($javascript['settings']);

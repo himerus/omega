@@ -1,29 +1,66 @@
 <?php
 
-require_once('omega-functions.php');
+
+require_once(drupal_get_path('theme', 'omega') . '/omega-functions.php');
 //require_once('lib/Drupal/omega/phpsass/SassParser.php');
 
 
 function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   global $base_path;
-  //dsm($form);
   
+  //require_once(drupal_get_path('module', 'system') . '/theme-settings.php');
+  //form_load_include($form_state, 'inc', 'system', 'system.admin');
+  //dsm($form);
+  //form_load_include($form_state, 'php', 'omega', 'theme-settings');
+  //require_once('theme-settings.php');
   // Get the theme name.
   $theme = $form_state['build_info']['args'][0];
   // get a list of themes
   $themes = list_themes();
   
   $themeSettings = $themes[$theme];  
-  $defaultLayout = theme_get_setting('default_layout', $theme);
-  // Pull the JSON file for the current layout
-  $layoutLocation = drupal_get_path('theme', $theme) . '/layouts/' . $defaultLayout . '.json';
-  //dsm($layoutLocation);
-  $layoutJson = omega_json_load_layout_file($layoutLocation);
+  
+  //$cc = omega_clear_layout_cache($theme);
+  //dsm($cc);
+  // grab all the layout data available for this theme
+  $layoutData = _omega_get_layout_json_data($theme);
+  //dsm($layoutData);
+  
+  // add in the javascript settings array of the json data so we can 
+  // manipulate the layout editor in real time
+  omega_json_load_settings_array($layoutData);
+  
+  
+  // check for ajax update of default layout, or use default theme setting
+  $defaultLayout = isset($form_state['values']['default_layout']) ? $form_state['values']['default_layout'] : theme_get_setting('default_layout', $theme);
+  $edit_this_layout = isset($form_state['values']['edit_this_layout']) ? $form_state['values']['edit_this_layout'] : theme_get_setting('default_layout', $theme);
+  
+  if (isset($form_state['values']['default_layout'])) {
+    //dsm('Pulling default_layout from $form_state[values]');
+  }
+  
+  
+  // pull saved layout data from variables table
+  //$databaseLayouts = variable_get('theme_' . $theme . '_layouts');
+  //dsm($databaseLayouts);
+  $layouts = array();
+  /*
+if (isset($layoutData[$defaultLayout]['data'])) {
+    //$layouts[$defaultLayout] = $layoutData[$defaultLayout]['data'];
+  }
+  else {
+    // Pull the JSON file for the current layout
+    $layoutLocation = drupal_get_path('theme', $theme) . '/layouts/' . $defaultLayout . '.json';
+    $layouts[$defaultLayout] = omega_json_load_layout_file($layoutLocation);
+  }
+*/
+  $layouts = $layoutData;  
+  //$layoutJson = omega_json_load_layout_file($layoutLocation);
   //dsm($layoutJson);
-  $databaseLayout = theme_get_setting('layouts', $theme);
-  //dsm($databaseLayout);
+  
   // merge the defaults from the JSON file and the settings in the DB
-  $layouts = array_replace_recursive($layoutJson, $databaseLayout);
+  //$layouts = array_replace_recursive($layouts, $databaseLayouts);
+  //$layouts = $layoutJson;
   //dsm($layouts);
   
   $newJson = omega_json_get($layouts);
@@ -34,6 +71,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   //dsm($region_groups);
   $theme_regions = $themeSettings->info['regions'];
   
+  // Let's add in some things so that the theme settings form sucks less.
   $adminCSS = drupal_get_path('theme', 'omega') . '/style/css/omega_admin.css';  
   $adminJS = drupal_get_path('theme', 'omega') . '/js/omega_admin.js';
   $form['#attached'] = array(
@@ -47,9 +85,6 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       $adminCSS,
     ),
   );
-  
-  // add in custom JS for Omega administration
-  //$form['#attached']['library'][] = 'omega/omega_admin';
   
   // move the default theme settings to our custom vertical tabs for core theme settings
   $form['core'] = array(
@@ -87,7 +122,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     '#weight' => -9999,
   );
   
-  $form['welcome']['omega5']['#markup'] .= t('<h3>Omega Five <small>(8.x-5.x)</small></h3>');
+  $form['welcome']['omega5']['#markup'] .= t('<h3>Omega Five <small>(7.x-5.x)</small></h3>');
   $form['welcome']['omega5']['#markup'] .= t('<p><strong>Project Page</strong> - <a href="http://drupal.org/project/omega" target="_blank">drupal.org/project/omega</a>');
   $form['welcome']['omega5']['#markup'] .= t('<p>Omega Five will change the way you build subthemes, and use a consistent theme structure behind all your projects for an intuitive, innovative spin on responsive layouts, design, and SASS compiling on the fly.</p>');
   $form['welcome']['omega5']['#markup'] .= t('<p>Most settings in the <strong>Omega Subtheme Generator</strong> are well documented inline. For additional information and links, visit the project page listed above.</p>');
@@ -133,254 +168,411 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     '#tree' => TRUE,
   );
   
-  $form['layouts'] = array(
+  // #states flag to indicate that Omega.gs has been enabled
+  $omegaGSon = array(
+    'invisible' => array(
+      ':input[name="enable_omegags_layout"]' => array('checked' => FALSE),
+    ),
+  );
+  
+  // #states flag to indicate that Omega.gs has been disabled
+  $omegaGSoff = array(
+    'invisible' => array(
+      ':input[name="enable_omegags_layout"]' => array('checked' => TRUE),
+    ),
+  );
+  
+  // Fieldset to contain form options to change layout based on various contexts.
+  $form['layout-locations'] = array(
     '#type' => 'fieldset',
     '#attributes' => array('class' => array('debug')),
     '#title' => t('Layout Configuration'),
-    '#description' => t('<p class="description">You are able to configure your layout based on the breakpoints defined in your theme .info file.</p>'),
-    '#weight' => -799,
+    '#description' => t('<p>You can select which layout is used where here. </p>'),
+    '#weight' => -800,
     '#group' => 'omega',
     //'#open' => TRUE,
     '#tree' => TRUE,
   );
-  
   $enable_omegags_layout = theme_get_setting('enable_omegags_layout', $theme);
-  $form['layouts']['enable_omegags_layout'] = array(
+  $form['layout-locations']['enable_omegags_layout'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable the Awesome'),
+    '#title' => t('Enable Omega.gs Layout Management'),
     '#description' => t('Turn on the awesome Omega.gs layout management system'),
     '#default_value' => isset($enable_omegags_layout) ? $enable_omegags_layout : TRUE,
     '#weight' => -999,
     '#tree' => FALSE,
   );
   
-  $form['layouts']['non_omegags_info'] = array(
+  $form['layout-locations']['non_omegags_info'] = array(
     '#type' => 'item',
     '#prefix' => '',
     '#markup' => '<div class="messages warning omega-styles-info"><p>Since you have "<strong><em>disabled the Awesome</em></strong>" above, now the Omega.gs layout is not being used in your theme/subtheme. This means that you will need to provide your own layout system. Easy huh?!? Although, I would really just use the awesome...</p></div>',
     '#suffix' => '',
     '#weight' => -99,
-    '#states' => array(
-      'invisible' => array(
-       ':input[name="enable_omegags_layout"]' => array('checked' => TRUE),
+    '#states' => $omegaGSoff,
+  );
+  
+  $availableLayouts = _omega_layout_json_options($layoutData);
+  
+  $form['layout-locations']['default_layout'] = array(
+    '#prefix' => '<div class="default-layout-select">',
+    '#suffix' => '</div>',
+    '#type' => 'select',
+    '#attributes' => array(
+      'class' => array(
+        'layout-select', 
+        'clearfix'
       ),
     ),
+    '#title' => 'Select Default Layout',
+    '#options' => $availableLayouts,
+    '#default_value' => isset($defaultLayout) ? $defaultLayout : theme_get_setting('default_layout', $theme),
+    '#tree' => FALSE,
+    '#states' => $omegaGSon,
+    // attempting possible jQuery intervention rather than ajax 
   );
+  
+  $homeLayout = isset($form_state['values']['home_layout']) ? $form_state['values']['home_layout'] : theme_get_setting('home_layout', $theme);
+  $form['layout-locations']['home_layout'] = array(
+    '#prefix' => '<div class="home-layout-select">',
+    '#suffix' => '</div>',
+    '#type' => 'select',
+    '#attributes' => array(
+      'class' => array(
+        'layout-select', 
+        'clearfix'
+      ),
+    ),
+    '#title' => 'Homepage: Select Layout',
+    '#options' => $availableLayouts,
+    '#default_value' => isset($homeLayout) ? $homeLayout : theme_get_setting('default_layout', $theme),
+    '#tree' => FALSE,
+    '#states' => $omegaGSon,
+    // attempting possible jQuery intervention rather than ajax 
+  );
+  
+  // Show a select menu for each node type, allowing the selection
+  // of an alternate layout per node type.
+  
+  $types = node_type_get_types();
+  
+  foreach ($types AS $ctype => $ctypeData) {
+    $layout_name = $ctype . '_layout';
+    $ctypeLayout = isset($form_state['values'][$layout_name]) ? $form_state['values'][$layout_name] : theme_get_setting($layout_name, $theme);
+    
+    $form['layout-locations'][$layout_name] = array(
+      '#prefix' => '<div class="' . $ctype . '-layout-select">',
+      '#suffix' => '</div>',
+      '#type' => 'select',
+      '#attributes' => array(
+        'class' => array(
+          'layout-select', 
+          'clearfix'
+        ),
+      ),
+      '#title' => $ctypeData->name . ': Select Layout',
+      '#options' => $availableLayouts,
+      '#default_value' => isset($ctypeLayout) ? $ctypeLayout : theme_get_setting('default_layout', $theme),
+      '#tree' => FALSE,
+      '#states' => $omegaGSon,
+      // attempting possible jQuery intervention rather than ajax 
+    );  
+  }
+  
+  
+  // Layout editor
+  $form['layouts'] = array(
+    '#type' => 'fieldset',
+    '#attributes' => array('class' => array('debug')),
+    '#title' => t('Layout Builder'),
+    '#description' => t('<p class="description">You are able to configure layouts here.</p>'),
+    '#weight' => -799,
+    '#group' => 'omega',
+    //'#open' => TRUE,
+    '#tree' => TRUE,
+  );
+  
+  
   
   $breakpoints = $themeSettings->info['breakpoints'];
   $regionGroups = $themeSettings->info['region_groups'];
   
+  //dsm($layoutFiles);
   
-  //dsm($breakpoints);
-  //dsm($regionGroups);
-  foreach($breakpoints as $breakpointName => $breakpointMedia) {
-    $form['layouts'][$defaultLayout][$breakpointName] = array(
-      '#type' => 'fieldset',
-      '#attributes' => array('class' => array('layout-breakpoint')),
-      '#title' => $breakpointName . ' -- <small>' . $breakpointMedia . '</small>',
-      //'#weight' => $breakpoint->weight,
-      '#group' => 'layout',
-      '#states' => array(
-        'invisible' => array(
-         ':input[name="enable_omegags_layout"]' => array('checked' => FALSE),
-        ),
+  
+  
+  // the active layout we are editing.
+  // this var will be unset during submit
+  $form['layouts']['edit_this_layout'] = array(
+    '#prefix' => '<div id="layout-editor-select">',
+    '#suffix' => '</div>',
+    '#type' => 'select',
+    '#attributes' => array(
+      'class' => array(
+        'layout-select', 
+        'clearfix'
       ),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-    );
+    ),
+    '#title' => 'Select Layout to Edit',
+    '#options' => $availableLayouts,
+    '#default_value' => isset($edit_this_layout) ? $edit_this_layout : theme_get_setting('default_layout', $theme),
+    '#tree' => FALSE,
+    '#states' => $omegaGSon,
+    // attempting possible jQuery intervention rather than ajax 
+  );
+  
+  
+  
+  $form['layouts']['layout-config'] = array(
+    '#type' => 'fieldset',
+    '#attributes' => array(
+      'id' => array(
+        'layout-config',
+      ),
+      'class' => array(
+        'layout-config',
+      ),
+    ),
+    '#prefix' => '<div id="layout-configuration-wrapper">',
+    '#suffix' => '</div>',
+    '#tree' => FALSE,
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+  // provide some information about the layout(s)
+  $form['layouts']['layout-config']['layout_info'] = array(
+    '#type' => 'item',
+    '#prefix' => '<div class="omega-layout-info form-item">',
+    '#markup' => '<h4>Current Layout Information</h4>',
+    '#suffix' => '</div>',
+    '#states' => $omegaGSon,
+    '#weight' => -999,
+  );
+  // add each "row" of data (active layout)
+  $form['layouts']['layout-config']['layout_info']['#markup'] .= '<div><label>Active Default Layout: </label><span>'. $defaultLayout .'</span></div>';
+  
+  foreach ($layoutData as $lid => $ldata) {
     
-    foreach ($regionGroups as $groupId => $groupName ) {
-      $form['layouts'][$defaultLayout][$breakpointName][$groupId] = array(
+    $form['layouts'][$lid] = array(
         '#type' => 'fieldset',
-        '#attributes' => array(
-          'class' => array(
-            'layout-breakpoint-regions', 
-            'clearfix'
-          ),
-        ),
-        '#title' => 'Region Group: ' . $groupName,
+        '#title' => $lid,
+        '#prefix' => '<div id="layout-'. $lid . '-config">',
+        '#suffix' => '</div>',
+        //'#weight' => $breakpoint->weight,
+        '#group' => 'layout-config',
+        '#states' => $omegaGSon,
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        '#tree' => TRUE,
+      );
+  
+    //dsm($breakpoints);
+    //dsm($regionGroups);
+    foreach($breakpoints as $breakpointName => $breakpointMedia) {
+      $form['layouts'][$lid][$breakpointName] = array(
+        '#type' => 'fieldset',
+        '#attributes' => array('class' => array('layout-breakpoint')),
+        '#title' => $breakpointName . ' -- <small>' . $breakpointMedia . '</small>',
+        //'#weight' => $breakpoint->weight,
+        //'#group' => 'layout-config',
+        '#states' => $omegaGSon,
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
+        '#tree' => TRUE,
       );
       
-      
-      $possible_cols = array();
-      
-      for ($i = 12; $i <= 12; $i++) {
-        $possible_cols[$i] = $i . '';
-      }
-      
-      $form['layouts'][$defaultLayout][$breakpointName][$groupId]['row'] = array(
-        '#prefix' => '<div class="region-group-layout-settings">',
-        '#type' => 'select',
-        '#attributes' => array(
-          'class' => array(
-            'row-column-count', 
-            'clearfix'
-          ),
-        ),
-        '#title' => 'Columns',
-        '#options' => $possible_cols,
-        '#default_value' => isset($layouts[$defaultLayout][$breakpointName][$groupId]['row']) ? $layouts[$defaultLayout][$breakpointName][$groupId]['row'] : '12',
-        '#group' => '',
-      );
-      
-      
-      $form['layouts'][$defaultLayout][$breakpointName][$groupId]['visual_controls'] = array(
-        '#prefix' => '<div class="omega-layout-controls form-item">',
-        '#markup' => '<label>Show/Hide: </label><div class="clearfix"><a class="push-pull-toggle" href="#">Push/Pull</a> | <a class="prefix-suffix-toggle" href="#">Prefix/Suffix</a></div>',
-        '#suffix' => '</div>',
-      );
-      
-      $form['layouts'][$defaultLayout][$breakpointName][$groupId]['maxwidth'] = array(
-        '#type' => 'textfield',
-        '#size' => 3, 
-        '#maxlength' => 4,
-        '#attributes' => array(
-          'class' => array(
-            'row-max-width', 
-            'clearfix'
-          ),
-        ),
-        '#title' => 'Max-width: ',
-        '#default_value' => isset($layouts[$defaultLayout][$breakpointName][$groupId]['maxwidth']) ? $layouts[$defaultLayout][$breakpointName][$groupId]['maxwidth'] : '100',
-        '#group' => '',
-      );
-      
-      $form['layouts'][$defaultLayout][$breakpointName][$groupId]['maxwidth_type'] = array(
-        '#type' => 'radios',
-        '#attributes' => array(
-          'class' => array(
-            'row-max-width-type', 
-            'clearfix'
-          ),
-        ),
-        '#options' => array(
-          'percent' => '%',
-          'pixel' => 'px'
-        ),
-        '#title' => 'Max-width type',
-        '#default_value' => isset($layouts[$defaultLayout][$breakpointName][$groupId]['maxwidth_type']) ? $layouts[$defaultLayout][$breakpointName][$groupId]['maxwidth_type'] : 'percent',
-        '#group' => '',
-        '#suffix' => '</div>',
-      );
-      
-      
-      
-      
-      
-      
-      
-      // get columns for this region group
-      $available_cols = array();
-      for ($i = 0; $i <= $layouts[$defaultLayout][$breakpointName][$groupId]['row']; $i++) {
-        $available_cols[$i] = $i . '';
-      }
-      //dsm($groupId);
-      //dsm($layouts[$defaultLayout][$breakpointName][$groupId]['regions']);
-      
-      foreach($layouts[$defaultLayout][$breakpointName][$groupId]['regions'] as $rid => $data) {
-        //dsm($rid);
-        
-        $thisRegion = $layouts[$defaultLayout][$breakpointName][$groupId]['regions'][$rid];
-
-        $current_push = $thisRegion['push'];
-        $current_prefix = $thisRegion['prefix'];
-        $current_width = $thisRegion['width'];
-        $current_suffix = $thisRegion['suffix'];
-        $current_pull = $thisRegion['pull'];
-        
-        
-        $regionTitle = isset($theme_regions[$rid]) ? $theme_regions[$rid] : $rid;
-         
-         $form['layouts'][$defaultLayout][$breakpointName][$groupId]['regions'][$rid] = array(
-           '#type' => 'fieldset',
-           //'#prefix' => '<div class="region-container-box clearfix" data-omega-row="'. $info['row'] .'">',
-           //'#suffix' => '</div>',
-           '#title' => t($regionTitle),
-           //'#description' => t('This is my description'),
-           '#attributes' => array(
-             'class' => array(
-               'region-settings',
-               'clearfix',
-              ),
-              'data-omega-push' => $current_push,
-              'data-omega-prefix' => $current_prefix,
-              'data-omega-width' => $current_width,
-              'data-omega-suffix' => $current_suffix,
-              'data-omega-pull' => $current_pull,
-              //'data-omega-region-title' => $theme_regions[$rid],
+      foreach ($regionGroups as $groupId => $groupName ) {
+        $form['layouts'][$lid][$breakpointName][$groupId] = array(
+          '#type' => 'fieldset',
+          '#attributes' => array(
+            'class' => array(
+              'layout-breakpoint-regions', 
+              'clearfix'
             ),
-            '#collapsible' => FALSE,
-            '#collapsed' => FALSE,
-            //'#group' => $gid . '-wrapper',
-         );
-         // push (in columns)
-         $form['layouts'][$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['push'] = array(
-           '#type' => 'select',
-           '#attributes' => array(
-             'class' => array(
-               'push-controller'
+          ),
+          '#title' => 'Region Group: ' . $groupName,
+          '#collapsible' => TRUE,
+          '#collapsed' => FALSE,
+        );
+        
+        
+        $possible_cols = array();
+        
+        for ($i = 12; $i <= 12; $i++) {
+          $possible_cols[$i] = $i . '';
+        }
+        
+        $form['layouts'][$lid][$breakpointName][$groupId]['row'] = array(
+          '#prefix' => '<div class="region-group-layout-settings">',
+          '#type' => 'select',
+          '#attributes' => array(
+            'class' => array(
+              'row-column-count', 
+              'clearfix'
+            ),
+          ),
+          '#title' => 'Columns',
+          '#options' => $possible_cols,
+          '#default_value' => isset($layouts[$lid]['data'][$breakpointName][$groupId]['row']) ? $layouts[$lid]['data'][$breakpointName][$groupId]['row'] : '12',
+          '#group' => '',
+        );
+        
+        
+        $form['layouts'][$lid][$breakpointName][$groupId]['visual_controls'] = array(
+          '#prefix' => '<div class="omega-layout-controls form-item">',
+          '#markup' => '<label>Show/Hide: </label><div class="clearfix"><a class="push-pull-toggle" href="#">Push/Pull</a> | <a class="prefix-suffix-toggle" href="#">Prefix/Suffix</a></div>',
+          '#suffix' => '</div>',
+        );
+        
+        $form['layouts'][$lid][$breakpointName][$groupId]['maxwidth'] = array(
+          '#type' => 'textfield',
+          '#size' => 3, 
+          '#maxlength' => 4,
+          '#attributes' => array(
+            'class' => array(
+              'row-max-width', 
+              'clearfix'
+            ),
+          ),
+          '#title' => 'Max-width: ',
+          '#default_value' => isset($layouts[$lid]['data'][$breakpointName][$groupId]['maxwidth']) ? $layouts[$lid]['data'][$breakpointName][$groupId]['maxwidth'] : '100',
+          '#group' => '',
+        );
+        
+        $form['layouts'][$lid][$breakpointName][$groupId]['maxwidth_type'] = array(
+          '#type' => 'radios',
+          '#attributes' => array(
+            'class' => array(
+              'row-max-width-type', 
+              'clearfix'
+            ),
+          ),
+          '#options' => array(
+            'percent' => '%',
+            'pixel' => 'px'
+          ),
+          '#title' => 'Max-width type',
+          '#default_value' => isset($layouts[$lid][$breakpointName][$groupId]['maxwidth_type']) ? $layouts[$lid][$breakpointName][$groupId]['maxwidth_type'] : 'percent',
+          '#group' => '',
+          '#suffix' => '</div>',
+        );
+  
+        // get columns for this region group
+        $available_cols = array();
+        for ($i = 0; $i <= $layouts[$lid]['data'][$breakpointName][$groupId]['row']; $i++) {
+          $available_cols[$i] = $i . '';
+        }
+        //dsm($groupId);
+        //dsm($layouts[$defaultLayout][$breakpointName][$groupId]['regions']);
+        
+        foreach($layouts[$lid]['data'][$breakpointName][$groupId]['regions'] as $rid => $data) {
+          //dsm($rid);
+          
+          $thisRegion = $layouts[$lid]['data'][$breakpointName][$groupId]['regions'][$rid];
+  
+          $current_push = $thisRegion['push'];
+          $current_prefix = $thisRegion['prefix'];
+          $current_width = $thisRegion['width'];
+          $current_suffix = $thisRegion['suffix'];
+          $current_pull = $thisRegion['pull'];
+          
+          
+          $regionTitle = isset($theme_regions[$rid]) ? $theme_regions[$rid] : $rid;
+           
+           $form['layouts'][$lid][$breakpointName][$groupId]['regions'][$rid] = array(
+             '#type' => 'fieldset',
+             //'#prefix' => '<div class="region-container-box clearfix" data-omega-row="'. $info['row'] .'">',
+             //'#suffix' => '</div>',
+             '#title' => t($regionTitle),
+             //'#description' => t('This is my description'),
+             '#attributes' => array(
+               'class' => array(
+                 'region-settings',
+                 'clearfix',
+                ),
+                'data-omega-push' => $current_push,
+                'data-omega-prefix' => $current_prefix,
+                'data-omega-width' => $current_width,
+                'data-omega-suffix' => $current_suffix,
+                'data-omega-pull' => $current_pull,
+                //'data-omega-region-title' => $theme_regions[$rid],
+              ),
+              '#collapsible' => FALSE,
+              '#collapsed' => FALSE,
+              //'#group' => $gid . '-wrapper',
+           );
+           // push (in columns)
+           $form['layouts'][$lid][$breakpointName][$groupId]['regions'][$rid]['push'] = array(
+             '#type' => 'select',
+             '#attributes' => array(
+               'class' => array(
+                 'push-controller'
+               ),
              ),
-           ),
-           '#title' => 'Push',
-           '#options' => $available_cols,
-           '#default_value' => $current_push,
-         );
-         // prefix (in columns)
-         $form['layouts'][$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['prefix'] = array(
-           '#type' => 'select',
-           '#attributes' => array(
-             'class' => array(
-               'prefix-controller'
+             '#title' => 'Push',
+             '#options' => $available_cols,
+             '#default_value' => $current_push,
+           );
+           // prefix (in columns)
+           $form['layouts'][$lid][$breakpointName][$groupId]['regions'][$rid]['prefix'] = array(
+             '#type' => 'select',
+             '#attributes' => array(
+               'class' => array(
+                 'prefix-controller'
+               ),
              ),
-           ),
-           '#title' => 'Prefix',
-           '#options' => $available_cols,
-           '#default_value' => $current_prefix,
-         );
-         // width (in columns)
-         $form['layouts'][$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['width'] = array(
-           '#type' => 'select',
-           '#attributes' => array(
-             'class' => array(
-               'width-controller'
+             '#title' => 'Prefix',
+             '#options' => $available_cols,
+             '#default_value' => $current_prefix,
+           );
+           // width (in columns)
+           $form['layouts'][$lid][$breakpointName][$groupId]['regions'][$rid]['width'] = array(
+             '#type' => 'select',
+             '#attributes' => array(
+               'class' => array(
+                 'width-controller'
+               ),
              ),
-           ),
-           '#title' => 'Width',
-           '#options' => $available_cols,
-           '#default_value' => $current_width,
-         );
-         // suffix (in columns)
-         $form['layouts'][$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['suffix'] = array(
-           '#type' => 'select',
-           '#attributes' => array(
-             'class' => array(
-               'suffix-controller'
+             '#title' => 'Width',
+             '#options' => $available_cols,
+             '#default_value' => $current_width,
+           );
+           // suffix (in columns)
+           $form['layouts'][$lid][$breakpointName][$groupId]['regions'][$rid]['suffix'] = array(
+             '#type' => 'select',
+             '#attributes' => array(
+               'class' => array(
+                 'suffix-controller'
+               ),
              ),
-           ),
-           '#title' => 'Suffix',
-           '#options' => $available_cols,
-           '#default_value' => $current_suffix,
-         );
-         // pull (in columns)
-         $form['layouts'][$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['pull'] = array(
-           '#type' => 'select',
-           '#attributes' => array(
-             'class' => array(
-               'pull-controller'
+             '#title' => 'Suffix',
+             '#options' => $available_cols,
+             '#default_value' => $current_suffix,
+           );
+           // pull (in columns)
+           $form['layouts'][$lid][$breakpointName][$groupId]['regions'][$rid]['pull'] = array(
+             '#type' => 'select',
+             '#attributes' => array(
+               'class' => array(
+                 'pull-controller'
+               ),
              ),
-           ),
-           '#title' => 'Pull',
-           '#options' => $available_cols,
-           '#default_value' => $current_pull,
-         );
+             '#title' => 'Pull',
+             '#options' => $available_cols,
+             '#default_value' => $current_pull,
+           );
+        }
       }
-
-      
-      
     }
+  
   }
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -502,22 +694,38 @@ $form['actions']['generate_subtheme'] = $form['actions']['submit'];
   
   //dsm($form);
   //dsm($form_state);
+  //dsm(debug_backtrace());
 }
-
 
 function omega_theme_settings_validate(&$form, &$form_state) {
-  //dsm('Running omega_theme_settings_validate(&$form, &$form_state)');
+  $theme = $form_state['build_info']['args'][0];
 }
 
+
+/**
+ * @todo
+ * need to unset the $layout in theme settings variables and 
+ * save ALL layout data to theme_$theme_layouts in variables table
+*/
+
 function omega_theme_settings_submit(&$form, &$form_state) {
-  
-  //dsm('Running omega_theme_settings_submit(&$form, &$form_state)');
+  //dsm(debug_backtrace());
+  dsm('Running omega_theme_settings_submit(&$form, &$form_state)');
+  //require_once('theme-settings.php');
   // Get the theme name.
   $theme = $form_state['build_info']['args'][0];
   
   $values = $form_state['values'];
+  //dsm($values);
   $layout = $values['layouts'];
   //dsm($layout);
+  // @todo
+  // this will likely change as it is not currently in the theme settings form.
+  // but only in the .info file settings. 
+  $layoutName = isset($values['default_layout']) ? $values['default_layout'] : theme_get_setting('default_layout', $theme);
+  
+  //dsm($layoutName);
+  
   // Options for phpsass compiler. Defaults in SassParser.php
   $options = array(
     'style' => 'nested',
@@ -539,13 +747,48 @@ function omega_theme_settings_submit(&$form, &$form_state) {
   
   
   //$parser = new SassParser($options);
-  // create CSS from SCSS
-  $scss = _omega_compile_layout_sass($layout, $theme, $options);
+  
+  // create the SCSS file based on the layout configuration
+  $scss   = _omega_compile_layout_sass($layout, $theme, $options);
   //dsm($scss);
-
-  $css = _omega_render_layout_css($scss, $options);
+  
+  // create the CSS file based on the SCSS generated above
+  $css    = _omega_compile_layout_css($scss, $options);
   //dsm($css);
   
-  _omega_save_layout_files($scss, $css, $theme);
-  //dsm($form_state['values']);
+  // create the JSON format of the layout array for later use
+  $json   = _omega_compile_layout_json($layoutName, $layout);
+  //dsm($json);
+  
+  // Save all the things to files
+  //_omega_save_layout_files($scss, $css, $json, $theme, $layoutName);
+
+}
+
+/**
+
+ * Menu callback for AJAX additions. Render the new poll choices. FAIL
+
+ */
+
+function omega_update_layout_settings_form(&$form, &$form_state) {
+  //require_once(drupal_get_path('theme', 'omega') . '/theme-settings.php');
+  //$theme = $form_state['build_info']['args'][0];
+  //require_once('theme-settings.php');
+  //$values = $form_state['values'];
+  // check for ajax update of default layout, or use default theme setting
+  //$defaultLayout = isset($form_state['values']['default_layout']) ? $form_state['values']['default_layout'] : theme_get_setting('default_layout', $theme);
+  //dd($form['layouts']);
+  //$form['layouts']['default_layout']['#value'] = $defaultLayout;
+  //$form_state['rebuild'] = TRUE;
+  
+  
+  
+  
+  //form_load_include($form_state, 'inc', 'system', 'system.admin');
+  
+  
+  
+  return $form['layouts']['layout-config'];
+  //return $form;
 }

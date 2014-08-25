@@ -154,8 +154,10 @@ Drupal.behaviors.omegaMediaQueries = {
       
       $(window).ready(function(){
         screenWidth = $(this).width();
+        var layout = Drupal.settings.omega.activeLayout;
         //console.log(screenWidth);
         oScreen.find('.screen-size .data').html(screenWidth + 'px');  
+        oScreen.find('.screen-layout .data').html(layout);  
       });
       
       $(window).resize(function(){
