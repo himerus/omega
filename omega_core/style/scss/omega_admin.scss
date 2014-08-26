@@ -617,3 +617,18 @@ fieldset.region-settings {
     padding: 0;
   }
 }
+
+div.vertical-tabs .vertical-tabs-panes fieldset {
+  padding: 10px;
+  border: 1px solid #CCC;
+
+  legend {
+    display: block;
+    
+    
+    .fieldset-legend {
+      font-weight: bold;
+      font-size: 16px;
+    }
+  }
+}

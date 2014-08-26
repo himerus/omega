@@ -562,3 +562,12 @@ body {
   #layout-config > .fieldset-wrapper {
     margin: 0;
     padding: 0; }
+
+div.vertical-tabs .vertical-tabs-panes fieldset {
+  padding: 10px;
+  border: 1px solid #CCC; }
+  div.vertical-tabs .vertical-tabs-panes fieldset legend {
+    display: block; }
+    div.vertical-tabs .vertical-tabs-panes fieldset legend .fieldset-legend {
+      font-weight: bold;
+      font-size: 16px; }
