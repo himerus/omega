@@ -350,7 +350,8 @@ if (isset($layoutData[$defaultLayout]['data'])) {
   );
   // add each "row" of data (active layout)
   $form['layouts']['layout-config']['layout_info']['#markup'] .= '<div><label>Active Default Layout: </label><span>'. $defaultLayout .'</span></div>';
-  
+  //dsm($layoutData);
+  //dsm($layouts);
   foreach ($layoutData as $lid => $ldata) {
     
     $form['layouts'][$lid] = array(
@@ -698,7 +699,7 @@ $form['actions']['generate_subtheme'] = $form['actions']['submit'];
 }
 
 function omega_theme_settings_validate(&$form, &$form_state) {
-  $theme = $form_state['build_info']['args'][0];
+  //$theme = $form_state['build_info']['args'][0];
 }
 
 
@@ -710,20 +711,20 @@ function omega_theme_settings_validate(&$form, &$form_state) {
 
 function omega_theme_settings_submit(&$form, &$form_state) {
   //dsm(debug_backtrace());
-  dsm('Running omega_theme_settings_submit(&$form, &$form_state)');
+  //dsm('Running omega_theme_settings_submit(&$form, &$form_state)');
   //require_once('theme-settings.php');
   // Get the theme name.
   $theme = $form_state['build_info']['args'][0];
   
   $values = $form_state['values'];
   //dsm($values);
-  $layout = $values['layouts'];
+  
   //dsm($layout);
   // @todo
   // this will likely change as it is not currently in the theme settings form.
   // but only in the .info file settings. 
-  $layoutName = isset($values['default_layout']) ? $values['default_layout'] : theme_get_setting('default_layout', $theme);
-  
+  $layoutName = isset($values['edit_this_layout']) ? $values['edit_this_layout'] : theme_get_setting('default_layout', $theme);
+  $layout[$layoutName] = $values['layouts'][$layoutName];
   //dsm($layoutName);
   
   // Options for phpsass compiler. Defaults in SassParser.php
@@ -731,7 +732,7 @@ function omega_theme_settings_submit(&$form, &$form_state) {
     'style' => 'nested',
     'cache' => FALSE,
     'syntax' => 'scss',
-    'debug' => TRUE,
+    'debug' => FALSE,
     //'debug_info' => $debug,
     //'load_paths' => array(dirname($file['data'])),
     //'filename' => $file['data'],
@@ -742,12 +743,7 @@ function omega_theme_settings_submit(&$form, &$form_state) {
       //'debug' => $watchdog ? 'sassy_watchdog_debug' : NULL,
     ),
   );
-  
-  // Execute the compiler.
-  
-  
-  //$parser = new SassParser($options);
-  
+
   // create the SCSS file based on the layout configuration
   $scss   = _omega_compile_layout_sass($layout, $theme, $options);
   //dsm($scss);
@@ -761,7 +757,7 @@ function omega_theme_settings_submit(&$form, &$form_state) {
   //dsm($json);
   
   // Save all the things to files
-  //_omega_save_layout_files($scss, $css, $json, $theme, $layoutName);
+  _omega_save_layout_files($scss, $css, $json, $theme, $layoutName);
 
 }
 

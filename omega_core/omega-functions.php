@@ -29,6 +29,9 @@ function omega_clear_layout_cache($theme) {
  */
 
 function omega_json_load_layout_file($location, $style=JSON_PRETTY_PRINT) {
+  if (!$style) {
+    drupal_set_message('JSON_PRETTY_PRINT does not exist..');
+  }
   $json = file_get_contents($location);
   return json_decode($json, $style);
 }
@@ -51,12 +54,25 @@ function omega_json_load_settings_array($layouts) {
  * @return (string) json data
  */
  
-function omega_json_get($var, $style=JSON_PRETTY_PRINT) {
-  return json_encode($var, $style);
+function omega_json_get($var) {
+
+  $style = defined("JSON_PRETTY_PRINT") ? true : false;
+  // PHP >= 5.4
+  if ($style) {
+    //drupal_set_message('JSON_PRETTY_PRINT exists..');
+    $json = json_encode($var, JSON_PRETTY_PRINT);
+  }
+  // PHP < 5.4
+  else {
+    //drupal_set_message('JSON_PRETTY_PRINT does not exist..');
+    $json = omega_pretty_json(json_encode($var));
+  }
+  //dsm($json);
+  return $json;
 }
 
 function _omega_compile_layout_json($layout, $values) {
-  return json_encode($values, JSON_PRETTY_PRINT);
+  return omega_json_get($values);
 }
 
 function _omega_get_layout_json_data($theme) {
@@ -387,3 +403,53 @@ function _omega_save_layout_files($scss, $css, $json, $theme, $layout) {
   }
 }
 
+function omega_pretty_json($json) {
+
+  $result      = '';
+  $pos         = 0;
+  $strLen      = strlen($json);
+  $indentStr   = '    ';
+  $newLine     = "\n";
+  $prevChar    = '';
+  $outOfQuotes = true;
+
+  for ($i=0; $i<=$strLen; $i++) {
+
+    // Grab the next character in the string.
+    $char = substr($json, $i, 1);
+
+    // Are we inside a quoted string?
+    if ($char == '"' && $prevChar != '\\') {
+      $outOfQuotes = !$outOfQuotes;
+    
+    // If this character is the end of an element, 
+    // output a new line and indent the next line.
+    } else if(($char == '}' || $char == ']') && $outOfQuotes) {
+      $result .= $newLine;
+      $pos --;
+      for ($j=0; $j<$pos; $j++) {
+        $result .= $indentStr;
+      }
+    }
+    
+    // Add the character to the result string.
+    $result .= $char;
+
+    // If the last character was the beginning of an element, 
+    // output a new line and indent the next line.
+    if (($char == ',' || $char == '{' || $char == '[') && $outOfQuotes) {
+      $result .= $newLine;
+      if ($char == '{' || $char == '[') {
+        $pos ++;
+      }
+        
+      for ($j = 0; $j < $pos; $j++) {
+        $result .= $indentStr;
+      }
+    }
+    
+    $prevChar = $char;
+  }
+
+  return $result;
+}
