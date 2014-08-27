@@ -28,12 +28,9 @@ function omega_clear_layout_cache($theme) {
  * @return (array) layout array data
  */
 
-function omega_json_load_layout_file($location, $style=JSON_PRETTY_PRINT) {
-  if (!$style) {
-    drupal_set_message('JSON_PRETTY_PRINT does not exist..');
-  }
+function omega_json_load_layout_file($location) {
   $json = file_get_contents($location);
-  return json_decode($json, $style);
+  return json_decode($json, true);
 }
 
 function omega_json_load_settings_array($layouts) {
@@ -103,7 +100,7 @@ function _omega_get_layout_json_data($theme) {
   
   
   foreach ($layoutGroups as $t => $layouts) {
-
+    //dsm($layouts);
     foreach ($layouts as $layout) {
       $name = $layout->name;
       
@@ -116,7 +113,7 @@ function _omega_get_layout_json_data($theme) {
       else {
         // pull the settings from the file, and add them to the database
         $layoutSettings = omega_json_load_layout_file($layout->uri);
-        variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts[$name], $layoutSettings));
+        variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts, $layoutSettings));
       }
       
       $usableLayout = array(
