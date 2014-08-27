@@ -81,7 +81,8 @@ function _omega_get_layout_json_data($theme) {
   $themeSettings = $themes[$theme];
   //dsm($themeSettings);
   // We look for this and any base themes for layouts.
-  $layoutThemes = isset($themeSettings->base_themes) ? $themeSettings->base_themes : array();
+  //$layoutThemes = isset($themeSettings->base_themes) ? $themeSettings->base_themes : array();
+  $layoutThemes = array();
   // add the current theme as well!
   $layoutThemes[$theme] = $themeSettings->info['name'];
   
