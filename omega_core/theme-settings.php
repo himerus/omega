@@ -453,7 +453,7 @@ if (isset($layoutData[$defaultLayout]['data'])) {
             'pixel' => 'px'
           ),
           '#title' => 'Max-width type',
-          '#default_value' => isset($layouts[$lid][$breakpointName][$groupId]['maxwidth_type']) ? $layouts[$lid][$breakpointName][$groupId]['maxwidth_type'] : 'percent',
+          '#default_value' => isset($layouts[$lid]['data'][$breakpointName][$groupId]['maxwidth_type']) ? $layouts[$lid]['data'][$breakpointName][$groupId]['maxwidth_type'] : 'percent',
           '#group' => '',
           '#suffix' => '</div>',
         );
