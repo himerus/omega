@@ -758,6 +758,8 @@ function omega_theme_settings_submit(&$form, &$form_state) {
   
   // Save all the things to files
   _omega_save_layout_files($scss, $css, $json, $theme, $layoutName);
+  
+  variable_set('theme_' . $theme . '_layouts', $values['layouts']);
 
 }
 
