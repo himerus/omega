@@ -107,7 +107,7 @@ function _omega_get_layout_json_data($theme) {
     foreach ($layouts as $layout) {
       $name = $layout->name;
       
-      
+      //dsm($dbLayouts);
       
       if (isset($dbLayouts[$name])) {
         // grab the latest settings from the database variable
@@ -116,7 +116,7 @@ function _omega_get_layout_json_data($theme) {
       else {
         // pull the settings from the file, and add them to the database
         $layoutSettings = omega_json_load_layout_file($layout->uri);
-        variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts, $layoutSettings));
+        variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts[$name], $layoutSettings));
       }
       
       $usableLayout = array(
