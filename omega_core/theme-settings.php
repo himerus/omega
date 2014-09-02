@@ -63,7 +63,7 @@ if (isset($layoutData[$defaultLayout]['data'])) {
   //$layouts = $layoutJson;
   //dsm($layouts);
   
-  $newJson = omega_json_get($layouts);
+  //$newJson = omega_json_get($layouts);
   //dsm($newJson);
   
   // pull an array of "region groups" based on the "all" media query that should always be present
@@ -587,21 +587,24 @@ if (isset($layoutData[$defaultLayout]['data'])) {
     //'#open' => TRUE,
   );
 
+  $blockdemo = isset($form_state['values']['block_demo_mode']) ? $form_state['values']['block_demo_mode'] : theme_get_setting('block_demo_mode', $theme);
   $form['debug']['block_demo_mode'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable region demo mode <small>(global setting)</small>'),
     '#description' => t('Display demonstration blocks in each theme region to aid in theme development and configuration. When this setting is enabled, ALL site visitors will see the demo blocks. <br /><strong>This should never be enabled on a live site.</strong>'),
-    '#default_value' => theme_get_setting('block_demo_mode', $theme),
+    '#default_value' => $blockdemo,
   );
   
+  $indicator = isset($form_state['values']['screen_demo_indicator']) ? $form_state['values']['screen_demo_indicator'] : theme_get_setting('screen_demo_indicator', $theme);
   $form['debug']['screen_demo_indicator'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable screen size indicator <small>(global setting)</small>'),
     '#description' => t('Display data about the screen size, current media query, etc. When this setting is enabled, ALL site visitors will see the overlay data. <br /><strong>This should never be enabled on a live site.</strong>'),
-    '#default_value' => theme_get_setting('screen_demo_indicator', $theme),
+    '#default_value' => $indicator,
   );
   
-   $form['export'] = array(
+   /*
+$form['export'] = array(
     '#type' => 'fieldset',
     '#attributes' => array('class' => array('export')),
     '#title' => t('Export Layouts'),
@@ -631,6 +634,7 @@ if (isset($layoutData[$defaultLayout]['data'])) {
     '#description' => 'You can copy/paste this data.',
     '#default_value' => $newJson,
   );
+*/
   
   
   
