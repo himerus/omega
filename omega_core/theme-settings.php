@@ -20,7 +20,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
   $themeSettings = $themes[$theme];  
   
-  //$cc = omega_clear_layout_cache($theme);
+  $cc = omega_clear_layout_cache($theme);
   //dsm($cc);
   // grab all the layout data available for this theme
   $layoutData = _omega_get_layout_json_data($theme);
