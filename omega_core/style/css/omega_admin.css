@@ -563,11 +563,23 @@ body {
     margin: 0;
     padding: 0; }
 
-div.vertical-tabs .vertical-tabs-panes fieldset {
-  padding: 10px;
-  border: 1px solid #CCC; }
-  div.vertical-tabs .vertical-tabs-panes fieldset legend {
-    display: block; }
-    div.vertical-tabs .vertical-tabs-panes fieldset legend .fieldset-legend {
+/*
+#layout-configuration-wrapper fieldset {
+  
+  padding: 5px;
+  border: 1px solid #CCC;
+
+  > .fieldset-wrapper {
+    padding: 20px;  
+  }
+  legend {
+    display: block;
+    
+    
+    .fieldset-legend {
       font-weight: bold;
-      font-size: 16px; }
+      font-size: 16px;
+    }
+  }
+}
+*/

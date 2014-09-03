@@ -618,10 +618,15 @@ fieldset.region-settings {
   }
 }
 
-div.vertical-tabs .vertical-tabs-panes fieldset {
-  padding: 10px;
+/*
+#layout-configuration-wrapper fieldset {
+  
+  padding: 5px;
   border: 1px solid #CCC;
 
+  > .fieldset-wrapper {
+    padding: 20px;  
+  }
   legend {
     display: block;
     
@@ -632,3 +637,4 @@ div.vertical-tabs .vertical-tabs-panes fieldset {
     }
   }
 }
+*/
