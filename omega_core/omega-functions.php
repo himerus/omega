@@ -294,7 +294,7 @@ function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
         $unit = '%';
       }
       
-      $breakpoint_scss .= '#' . $rowname . ' { 
+      $breakpoint_scss .= '.' . $rowname . ' { 
   @include row(' . $rowval . ');
   max-width: '. $maxwidth . $unit .';         
 ';
@@ -302,7 +302,7 @@ function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
       // loop over regions
       foreach($layout[$defaultLayout][$breakpointName][$groupId]['regions'] as $rid => $data) {
         $regionname = str_replace("_", "-", $rid);
-        $breakpoint_scss .= '  #' . $regionname . ' { 
+        $breakpoint_scss .= '  .region--' . $regionname . ' { 
     @include column(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['width'] . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . '); ';
         
         if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['prefix'] > 0) {
