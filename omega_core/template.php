@@ -183,7 +183,8 @@ function omega_js_alter(&$javascript) {
         'layouts' => $layouts,
       ),
       'omega' => array(
-        'activeLayout' => $activeLayout
+        'activeLayout' => $activeLayout,
+        'activeTheme' => $theme
       )  
     );
   }

@@ -7,6 +7,10 @@
       <h5>@screen width:</h5>
       <span class="data"></span>
     </div>
+    <div class="theme-name">
+      <h5>@theme:</h5>
+      <span class="data"></span>
+    </div>
     <div class="screen-query">
       <h5>@breakpoints:</h5>
       <span class="data"></span>

@@ -157,7 +157,9 @@ Drupal.behaviors.omegaMediaQueries = {
         var layout = Drupal.settings.omega.activeLayout;
         //console.log(screenWidth);
         oScreen.find('.screen-size .data').html(screenWidth + 'px');  
-        oScreen.find('.screen-layout .data').html(layout);  
+        oScreen.find('.screen-layout .data').html(layout);
+        oScreen.find('.theme-name .data').html(Drupal.settings.omega.activeTheme);
+        
       });
       
       $(window).resize(function(){
