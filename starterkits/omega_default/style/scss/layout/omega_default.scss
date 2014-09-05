@@ -1,0 +1,623 @@
+
+/* Fonts */
+$light: "Helvetica Neue", Arial, Helvetica !default;
+$reg: "Helvetica Neue", Arial, Helvetica !default;
+$bold: "Helvetica Neue", Arial, Helvetica !default;
+
+$bodyFont: "Helvetica Neue", Arial, Helvetica !default;
+$header: Georgia, Times, serif;
+
+  
+  
+
+  
+
+$regionSpacing: 25px;
+
+$mobile: 0px !default;
+
+$mobilePortrait: 320px !default;
+$below_mobilePortrait: 319px !default;
+
+$mobileLandscape: 480px !default;
+$below_mobileLandscape: 479px !default;
+
+$mobile-only: 767px !default;
+
+
+$tablet: 768px !default;
+$below_tablet: 767px !default; 
+ 
+$desktop: 1024px !default; 
+$below_desktop: 1023px !default;
+
+$desktopWide: 1220px !default;
+$below_desktopWide: 1219px !default;
+
+$primaryColor1: #0b6194 !default;
+$primaryColor2: #008ABA !default;
+$primaryColor3: #174666 !default;
+$primaryColor4: #3A3A3A !default;
+$primaryColor5: #9A9A9A !default;
+
+
+$siteTitleColor: rgba($primaryColor1, 1);
+$siteTitleHoverColor: rgba($primaryColor1, 0.85);
+$siteSloganColor: #777;
+
+$menuitemBg: $primaryColor1 !default;
+$menuitemColor: $primaryColor2 !default;
+
+@mixin omegaTransition($type:all, $speed:0.25s, $transition: ease-in-out) {
+  transition: $type $speed $transition;
+   -moz-transition: $type $speed $transition;
+   -webkit-transition: $type $speed $transition;
+}
+
+@mixin omegaCorners($rad: 5px) {
+  -webkit-border-radius: $rad;
+  -moz-border-radius: $rad;
+  border-radius: $rad;
+}
+
+ $twidth: 100%;
+
+
+
+$cwidth:        60px !default;   
+$gutter:        20px !default;   
+$cols:          12 !default;   
+$dir:           'LTR' !default; 
+
+@function gwidth($c:$cols) {
+	@return ($cwidth * $c) + ($gutter * $c);
+}
+
+$twidth: gwidth($cols) !default;
+
+@function calcwidth() {
+  @return $twidth / gwidth($cols);
+}
+
+$min-width: 480;
+$correction: 0.5 / $min-width * 100;
+
+@mixin clearfix() {
+	*zoom:1;
+	
+	&:before,
+	&:after {
+	    content:"";
+	    display:table;
+	}
+	&:after {
+	    clear:both;
+	}
+}
+
+body {
+  width: 100%;
+ 
+ 
+  min-width: $twidth;
+	@include clearfix();
+}
+
+@mixin row($c:$cols) {
+  display: block;
+	margin: 0 auto;	
+	
+ 
+  $rwidth: gwidth($c) * calcwidth();
+ 
+  @if $twidth == 100% {
+    $rwidth: 100%;
+  }
+	width: $rwidth;
+
+	*width: $rwidth - $correction;
+  
+ 
+	@include clearfix();
+}
+
+
+
+
+
+@mixin column($x, $realcols:$cols, $margin: 'normal') {
+	display: block;
+	position: relative;
+
+
+	
+ 
+  $colwidth: (gwidth($x) - $gutter) * calcwidth();
+  $colmargin: ($gutter / 2) * calcwidth();
+	@if $twidth == 100% {
+	 
+	  $colwidth: ((gwidth($x) - $gutter) * calcwidth()) * ($cols / $realcols);
+	  $colmargin: (($gutter / 2) * calcwidth()) * ($cols / $realcols);
+	}
+	
+	$rightmargin: $colmargin;
+	$leftmargin: $colmargin;
+	
+	width: $colwidth;
+
+	margin-right: $rightmargin;
+	margin-left: $leftmargin;
+	
+
+	*width: $colwidth - $correction;
+
+	*margin-right: $rightmargin - $correction;
+	*margin-left: $leftmargin - $correction;
+	
+	@if $margin == 'alpha' {
+	  @if $twidth == 100% {
+  	  $rightmargin: $rightmargin * 2;
+	  }
+   
+    margin-right: $rightmargin;
+	}
+	@if $margin == 'omega' {
+	  @if $twidth == 100% {
+  	  $leftmargin: $leftmargin * 2;
+	  }
+   
+    margin-left: $leftmargin;
+	}
+
+
+	@if $dir == 'LTR' {
+	  float: left;
+	}
+	@if $dir == 'RTL' {
+	  float: right;
+	}
+}
+
+@mixin push($x:1) {
+	@if $dir == 'LTR' {
+	  left: ($gutter + $cwidth) * calcwidth() * $x;
+	  right: auto;
+	}
+	@if $dir == 'RTL' {
+	  right: ($gutter + $cwidth) * calcwidth() * $x;
+	  left: auto;
+	}
+}
+
+@mixin pull($x:1) {
+	@if $dir == 'LTR' {
+	  right: ($gutter + $cwidth) * calcwidth() * $x;
+	  left: auto;
+	}
+	@if $dir == 'RTL' {
+	  left: ($gutter + $cwidth) * calcwidth() * $x;
+	  right: auto;
+	}
+}
+
+@mixin prefix($x:1) {
+  @if $dir == 'LTR' {
+	  margin-left: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
+	}
+	@if $dir == 'RTL' {
+	  margin-right: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
+	}
+}
+
+@mixin suffix($x:1) {
+  @if $dir == 'LTR' {
+	  margin-right: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
+	}
+	@if $dir == 'RTL' {
+	  margin-left: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
+	}
+}
+
+ .header-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--header { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--branding { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--menu { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.preface-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--preface-first { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-second { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-third { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-fourth { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.core-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--highlighted { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--help { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.main-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--content { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--sidebar-first { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--sidebar-second { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.postscript-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--postscript-first { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-second { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-third { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-fourth { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.footer-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--footer { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+@media all and (min-width: 600px) and (max-width: 1023px) { 
+.header-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--header { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--branding { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--menu { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.preface-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--preface-first { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-second { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-third { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-fourth { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.core-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--highlighted { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--help { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.main-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--content { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--sidebar-first { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--sidebar-second { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.postscript-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--postscript-first { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-second { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-third { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-fourth { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.footer-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--footer { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+
+}
+@media all and (min-width: 1024px) and (max-width: 1279px) { 
+.header-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--header { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--branding { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--menu { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.preface-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--preface-first { 
+    @include column(8, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-second { 
+    @include column(4, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-third { 
+    @include column(4, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-fourth { 
+    @include column(8, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.core-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--highlighted { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--help { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.main-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--content { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--sidebar-first { 
+    @include column(3, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--sidebar-second { 
+    @include column(3, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.postscript-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--postscript-first { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-second { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-third { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-fourth { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.footer-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--footer { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+
+}
+@media all and (min-width: 1280px) { 
+.header-layout { 
+  @include row(12);
+  max-width: 1280px;         
+  .region--header { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--branding { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--menu { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.preface-layout { 
+  @include row(12);
+  max-width: 1280px;         
+  .region--preface-first { 
+    @include column(8, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-second { 
+    @include column(4, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-third { 
+    @include column(4, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--preface-fourth { 
+    @include column(8, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.core-layout { 
+  @include row(12);
+  max-width: 1280px;         
+  .region--highlighted { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--help { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.main-layout { 
+  @include row(12);
+  max-width: 1280px;         
+  .region--content { 
+    @include column(6, 12);   
+    @include push(3); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--sidebar-first { 
+    @include column(3, 12);   
+    @include pull(6); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--sidebar-second { 
+    @include column(3, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.postscript-layout { 
+  @include row(12);
+  max-width: 1280px;         
+  .region--postscript-first { 
+    @include column(4, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-second { 
+    @include column(8, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-third { 
+    @include column(8, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-fourth { 
+    @include column(4, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.footer-layout { 
+  @include row(12);
+  max-width: 1280px;         
+  .region--footer { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+
+}
