@@ -218,190 +218,198 @@ body {
 	}
 }
 
- #header-layout { 
+ .header-layout { 
   @include row(12);
   max-width: 100%;         
-  #header { 
+  .region--header { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #branding { 
+  .region--branding { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #menu { 
+  .region--menu { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#preface-layout { 
+.preface-layout { 
   @include row(12);
   max-width: 100%;         
-  #preface-first { 
+  .region--preface-first { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-second { 
+  .region--preface-second { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-third { 
+  .region--preface-third { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-fourth { 
+  .region--preface-fourth { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#core-layout { 
+.core-layout { 
   @include row(12);
   max-width: 100%;         
-  #highlighted { 
+  .region--highlighted { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--help { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#main-layout { 
+.main-layout { 
   @include row(12);
   max-width: 100%;         
-  #content { 
+  .region--content { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #sidebar-first { 
+  .region--sidebar-first { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #sidebar-second { 
+  .region--sidebar-second { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#postscript-layout { 
+.postscript-layout { 
   @include row(12);
   max-width: 100%;         
-  #postscript-first { 
+  .region--postscript-first { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-second { 
+  .region--postscript-second { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-third { 
+  .region--postscript-third { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-fourth { 
+  .region--postscript-fourth { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#footer-layout { 
+.footer-layout { 
   @include row(12);
   max-width: 100%;         
-  #footer { 
+  .region--footer { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
 @media all and (min-width: 600px) and (max-width: 1023px) { 
-#header-layout { 
+.header-layout { 
   @include row(12);
   max-width: 100%;         
-  #header { 
+  .region--header { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #branding { 
+  .region--branding { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #menu { 
+  .region--menu { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#preface-layout { 
+.preface-layout { 
   @include row(12);
   max-width: 100%;         
-  #preface-first { 
+  .region--preface-first { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-second { 
+  .region--preface-second { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-third { 
+  .region--preface-third { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-fourth { 
+  .region--preface-fourth { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#core-layout { 
+.core-layout { 
   @include row(12);
   max-width: 100%;         
-  #highlighted { 
+  .region--highlighted { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--help { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#main-layout { 
+.main-layout { 
   @include row(12);
   max-width: 100%;         
-  #content { 
+  .region--content { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #sidebar-first { 
+  .region--sidebar-first { 
     @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #sidebar-second { 
-    @include column(6, 12); 
-    margin-bottom: $regionSpacing;
-  } 
-
-}
-#postscript-layout { 
-  @include row(12);
-  max-width: 100%;         
-  #postscript-first { 
-    @include column(6, 12); 
-    margin-bottom: $regionSpacing;
-  } 
-  #postscript-second { 
-    @include column(6, 12); 
-    margin-bottom: $regionSpacing;
-  } 
-  #postscript-third { 
-    @include column(6, 12); 
-    margin-bottom: $regionSpacing;
-  } 
-  #postscript-fourth { 
+  .region--sidebar-second { 
     @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#footer-layout { 
+.postscript-layout { 
   @include row(12);
   max-width: 100%;         
-  #footer { 
+  .region--postscript-first { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-second { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-third { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--postscript-fourth { 
+    @include column(6, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+
+}
+.footer-layout { 
+  @include row(12);
+  max-width: 100%;         
+  .region--footer { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
@@ -410,95 +418,99 @@ body {
 
 }
 @media all and (min-width: 1024px) and (max-width: 1279px) { 
-#header-layout { 
+.header-layout { 
   @include row(12);
   max-width: 100%;         
-  #header { 
+  .region--header { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #branding { 
+  .region--branding { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #menu { 
+  .region--menu { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#preface-layout { 
+.preface-layout { 
   @include row(12);
   max-width: 100%;         
-  #preface-first { 
+  .region--preface-first { 
     @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-second { 
+  .region--preface-second { 
     @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-third { 
+  .region--preface-third { 
     @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-fourth { 
+  .region--preface-fourth { 
     @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#core-layout { 
+.core-layout { 
   @include row(12);
   max-width: 100%;         
-  #highlighted { 
+  .region--highlighted { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--help { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#main-layout { 
+.main-layout { 
   @include row(12);
   max-width: 100%;         
-  #content { 
+  .region--content { 
     @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #sidebar-first { 
+  .region--sidebar-first { 
     @include column(3, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #sidebar-second { 
+  .region--sidebar-second { 
     @include column(3, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#postscript-layout { 
+.postscript-layout { 
   @include row(12);
   max-width: 100%;         
-  #postscript-first { 
+  .region--postscript-first { 
     @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-second { 
+  .region--postscript-second { 
     @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-third { 
+  .region--postscript-third { 
     @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-fourth { 
+  .region--postscript-fourth { 
     @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#footer-layout { 
+.footer-layout { 
   @include row(12);
   max-width: 100%;         
-  #footer { 
+  .region--footer { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
@@ -507,97 +519,101 @@ body {
 
 }
 @media all and (min-width: 1280px) { 
-#header-layout { 
+.header-layout { 
   @include row(12);
   max-width: 1280px;         
-  #header { 
+  .region--header { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #branding { 
+  .region--branding { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #menu { 
+  .region--menu { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#preface-layout { 
+.preface-layout { 
   @include row(12);
   max-width: 1280px;         
-  #preface-first { 
+  .region--preface-first { 
     @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-second { 
+  .region--preface-second { 
     @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-third { 
+  .region--preface-third { 
     @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #preface-fourth { 
+  .region--preface-fourth { 
     @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#core-layout { 
+.core-layout { 
   @include row(12);
   max-width: 1280px;         
-  #highlighted { 
+  .region--highlighted { 
+    @include column(12, 12); 
+    margin-bottom: $regionSpacing;
+  } 
+  .region--help { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#main-layout { 
+.main-layout { 
   @include row(12);
   max-width: 1280px;         
-  #content { 
+  .region--content { 
     @include column(6, 12);   
     @include push(3); 
     margin-bottom: $regionSpacing;
   } 
-  #sidebar-first { 
+  .region--sidebar-first { 
     @include column(3, 12);   
     @include pull(6); 
     margin-bottom: $regionSpacing;
   } 
-  #sidebar-second { 
+  .region--sidebar-second { 
     @include column(3, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#postscript-layout { 
+.postscript-layout { 
   @include row(12);
   max-width: 1280px;         
-  #postscript-first { 
+  .region--postscript-first { 
     @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-second { 
+  .region--postscript-second { 
     @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-third { 
+  .region--postscript-third { 
     @include column(8, 12); 
     margin-bottom: $regionSpacing;
   } 
-  #postscript-fourth { 
+  .region--postscript-fourth { 
     @include column(4, 12); 
     margin-bottom: $regionSpacing;
   } 
 
 }
-#footer-layout { 
+.footer-layout { 
   @include row(12);
   max-width: 1280px;         
-  #footer { 
+  .region--footer { 
     @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 

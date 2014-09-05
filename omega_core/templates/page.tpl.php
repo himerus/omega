@@ -76,15 +76,15 @@
   <div id="page" class="clearfix <?php print $region_classes; ?>">
 
     <header id="header-outer-wrapper" class="outer-wrapper clearfix" role="banner">
-      <div id="header-layout" class="inner-wrapper clearfix">
+      <div id="header-layout" class="header-layout inner-wrapper clearfix">
         
         <?php if ($page['header']): ?>
-        <div id="header" class="clearfix column">
+        <div id="header" class="region--header clearfix column">
           <?php print render($page['header']); ?>
         </div>
         <?php endif; ?>
         
-        <div id="branding" class="clearfix column">
+        <div id="branding" class="region--branding clearfix column">
         
           <?php if ($logo): ?>
             <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
@@ -114,7 +114,7 @@
         </div>
         
         <?php if($main_menu || $secondary_menu): ?>
-          <div id="menu" class="clearfix">
+          <div id="menu" class="region--menu clearfix">
             <?php if ($main_menu): ?>
               <nav id ="main-menu" class="navigation clearfix" role="navigation">
                 <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('links', 'inline', 'clearfix')))); ?>
@@ -132,18 +132,18 @@
 
   <?php if ($page['preface_first'] || $page['preface_second'] || $page['preface_third'] || $page['preface_fourth']): ?>
     <section id="preface-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="preface-layout" class="inner-wrapper clearfix">
+      <div id="preface-layout" class="preface-layout inner-wrapper clearfix">
         <?php if ($page['preface_first']): ?>
-          <div id="preface-first" class=""><?php print render($page['preface_first']); ?></div>
+          <div id="preface-first" class="region--preface-first"><?php print render($page['preface_first']); ?></div>
         <?php endif; ?>
         <?php if ($page['preface_second']): ?>
-          <div id="preface-second" class=""><?php print render($page['preface_second']); ?></div>
+          <div id="preface-second" class="region--preface-second"><?php print render($page['preface_second']); ?></div>
         <?php endif; ?>
         <?php if ($page['preface_third']): ?>
-          <div id="preface-third" class=""><?php print render($page['preface_third']); ?></div>
+          <div id="preface-third" class="region--preface-third"><?php print render($page['preface_third']); ?></div>
         <?php endif; ?>
         <?php if ($page['preface_fourth']): ?>
-          <div id="preface-fourth" class=""><?php print render($page['preface_fourth']); ?></div>
+          <div id="preface-fourth" class="region--preface-fourth"><?php print render($page['preface_fourth']); ?></div>
         <?php endif; ?>
       </div><!-- /#preface-layout -->
     </section> <!-- /#preface-wrapper -->
@@ -155,8 +155,9 @@
   ?>
   
   <section id="core-outer-wrapper" class="outer-wrapper clearfix">
-    <div id="core-layout" class="inner-wrapper clearfix">
-      <div id="highlighted" class="column" role="main">
+    <div id="core-layout" class="core-layout inner-wrapper clearfix">
+      
+      <div id="highlighted" class="region--highlighted column">
         <?php if ($breadcrumb): ?>
         <div id="breadcrumb"><?php print $breadcrumb; ?></div>
         <?php endif; ?>
@@ -174,18 +175,25 @@
           <?php print render($page['highlighted']); ?>
         <?php endif; ?>
       </div>
+      
+      <?php if ($page['help']): ?>
+        <div id="help" class="region--help column">
+          <?php print render($page['help']); ?>
+        </div>
+      <?php endif; ?>
+    
     </div>
   </section> 
 
   <section id="content-outer-wrapper" class="outer-wrapper clearfix">
-    <div id="main-layout" class="inner-wrapper clearfix">
-      <main id="content" class="column" role="main">
+    <div id="main-layout" class="main-layout inner-wrapper clearfix">
+      <main id="content" class="region--content column" role="main">
         <?php print render($page['content']); ?>
         <?php print $feed_icons; ?>
       </main> <!-- /.section, /#content -->
   
       <?php if ($page['sidebar_first']): ?>
-        <div id="sidebar-first" class="column sidebar">
+        <div id="sidebar-first" class="region--sidebar-first column sidebar">
           <aside class="section">
             <?php print render($page['sidebar_first']); ?>
           </aside>
@@ -193,7 +201,7 @@
       <?php endif; ?>
   
       <?php if ($page['sidebar_second']): ?>
-        <div id="sidebar-second" class="column sidebar">
+        <div id="sidebar-second" class="region--sidebar-second column sidebar">
           <aside class="section">
             <?php print render($page['sidebar_second']); ?>
           </aside>
@@ -205,18 +213,18 @@
 
   <?php if ($page['postscript_first'] || $page['postscript_second'] || $page['postscript_third'] || $page['postscript_fourth']): ?>
     <section id="postscript-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="postscript-layout" class="inner-wrapper clearfix">
+      <div id="postscript-layout" class="postscript-layout inner-wrapper clearfix">
         <?php if ($page['postscript_first']): ?>
-          <div id="postscript-first" class=""><?php print render($page['postscript_first']); ?></div>
+          <div id="postscript-first" class="region--postscript-first"><?php print render($page['postscript_first']); ?></div>
         <?php endif; ?>
         <?php if ($page['postscript_second']): ?>
-          <div id="postscript-second" class=""><?php print render($page['postscript_second']); ?></div>
+          <div id="postscript-second" class="region--postscript-second"><?php print render($page['postscript_second']); ?></div>
         <?php endif; ?>
         <?php if ($page['postscript_third']): ?>
-          <div id="postscript-third" class=""><?php print render($page['postscript_third']); ?></div>
+          <div id="postscript-third" class="region--postscript-third"><?php print render($page['postscript_third']); ?></div>
         <?php endif; ?>
         <?php if ($page['postscript_fourth']): ?>
-          <div id="postscript-fourth" class=""><?php print render($page['postscript_fourth']); ?></div>
+          <div id="postscript-fourth" class="region--postscript-fourth"><?php print render($page['postscript_fourth']); ?></div>
         <?php endif; ?>
       </div><!-- /#postscript-layout -->
     </section> <!-- /#postscript-wrapper -->
@@ -224,8 +232,8 @@
   
   <?php if ($page['sidebar_second']): ?>
     <footer id="footer-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="footer-layout" role="contentinfo" class="inner-wrapper clearfix">
-        <div id="footer">
+      <div id="footer-layout" role="contentinfo" class="footer-layout inner-wrapper clearfix">
+        <div id="footer" class="region--footer">
           <?php print render($page['footer']); ?>
         </div>
       </div> <!-- /#footer -->

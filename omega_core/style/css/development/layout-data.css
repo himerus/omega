@@ -7,11 +7,11 @@
   right: 0;
   left: 0;
   z-index: 999;
-  padding: 12px 20px;
+  padding: 10px;
   color: #FFF;
   padding-left: 70px;
   height: 70px;
-  font-size: 12px; }
+  font-size: 11px; }
   #omega-screen--indicator .indicator-data {
     position: relative;
     padding-left: 20px; }
@@ -29,7 +29,7 @@
   #omega-screen--indicator h5 {
     margin: 0;
     margin-right: 1em;
-    font-size: 12px;
+    font-size: 11px;
     display: inline-block; }
   #omega-screen--indicator .data {
     font-weight: bold; }
