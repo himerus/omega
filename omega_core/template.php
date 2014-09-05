@@ -220,4 +220,9 @@ function omega_html_head_alter(&$head_elements) {
 
 function omega_preprocess_page(&$vars) {
   $vars['region_classes'] = '';
+  // removing help region if it is empty.
+  $helpsize = count($vars['page']['help']);
+  if (isset($vars['page']['help']) && $helpsize == 0) {
+    unset($vars['page']['help']);
+  }
 }
