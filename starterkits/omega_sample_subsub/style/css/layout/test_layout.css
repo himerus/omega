@@ -12,20 +12,20 @@ body {
   body:after {
     clear: both; }
 
-#header-layout {
+.header-layout {
   display: block;
   margin: 0 auto;
   width: 100%;
   *width: 99.896%;
   *zoom: 1;
   max-width: 100%; }
-  #header-layout:before,
-  #header-layout:after {
+  .header-layout:before,
+  .header-layout:after {
     content: "";
     display: table; }
-  #header-layout:after {
+  .header-layout:after {
     clear: both; }
-  #header-layout #header {
+  .header-layout .region--header {
     display: block;
     position: relative;
     width: 97.917%;
@@ -36,7 +36,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #header-layout #branding {
+  .header-layout .region--branding {
     display: block;
     position: relative;
     width: 97.917%;
@@ -47,7 +47,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #header-layout #menu {
+  .header-layout .region--menu {
     display: block;
     position: relative;
     width: 97.917%;
@@ -59,20 +59,20 @@ body {
     float: left;
     margin-bottom: 25px; }
 
-#preface-layout {
+.preface-layout {
   display: block;
   margin: 0 auto;
   width: 100%;
   *width: 99.896%;
   *zoom: 1;
   max-width: 100%; }
-  #preface-layout:before,
-  #preface-layout:after {
+  .preface-layout:before,
+  .preface-layout:after {
     content: "";
     display: table; }
-  #preface-layout:after {
+  .preface-layout:after {
     clear: both; }
-  #preface-layout #preface-first {
+  .preface-layout .region--preface-first {
     display: block;
     position: relative;
     width: 97.917%;
@@ -83,7 +83,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #preface-layout #preface-second {
+  .preface-layout .region--preface-second {
     display: block;
     position: relative;
     width: 97.917%;
@@ -94,7 +94,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #preface-layout #preface-third {
+  .preface-layout .region--preface-third {
     display: block;
     position: relative;
     width: 97.917%;
@@ -105,7 +105,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #preface-layout #preface-fourth {
+  .preface-layout .region--preface-fourth {
     display: block;
     position: relative;
     width: 97.917%;
@@ -117,20 +117,31 @@ body {
     float: left;
     margin-bottom: 25px; }
 
-#core-layout {
+.core-layout {
   display: block;
   margin: 0 auto;
   width: 100%;
   *width: 99.896%;
   *zoom: 1;
   max-width: 100%; }
-  #core-layout:before,
-  #core-layout:after {
+  .core-layout:before,
+  .core-layout:after {
     content: "";
     display: table; }
-  #core-layout:after {
+  .core-layout:after {
     clear: both; }
-  #core-layout #highlighted {
+  .core-layout .region--highlighted {
+    display: block;
+    position: relative;
+    width: 97.917%;
+    margin-right: 1.042%;
+    margin-left: 1.042%;
+    *width: 97.813%;
+    *margin-right: 0.938%;
+    *margin-left: 0.938%;
+    float: left;
+    margin-bottom: 25px; }
+  .core-layout .region--help {
     display: block;
     position: relative;
     width: 97.917%;
@@ -142,20 +153,20 @@ body {
     float: left;
     margin-bottom: 25px; }
 
-#main-layout {
+.main-layout {
   display: block;
   margin: 0 auto;
   width: 100%;
   *width: 99.896%;
   *zoom: 1;
   max-width: 100%; }
-  #main-layout:before,
-  #main-layout:after {
+  .main-layout:before,
+  .main-layout:after {
     content: "";
     display: table; }
-  #main-layout:after {
+  .main-layout:after {
     clear: both; }
-  #main-layout #content {
+  .main-layout .region--content {
     display: block;
     position: relative;
     width: 97.917%;
@@ -166,7 +177,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #main-layout #sidebar-first {
+  .main-layout .region--sidebar-first {
     display: block;
     position: relative;
     width: 97.917%;
@@ -177,7 +188,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #main-layout #sidebar-second {
+  .main-layout .region--sidebar-second {
     display: block;
     position: relative;
     width: 97.917%;
@@ -189,20 +200,20 @@ body {
     float: left;
     margin-bottom: 25px; }
 
-#postscript-layout {
+.postscript-layout {
   display: block;
   margin: 0 auto;
   width: 100%;
   *width: 99.896%;
   *zoom: 1;
   max-width: 100%; }
-  #postscript-layout:before,
-  #postscript-layout:after {
+  .postscript-layout:before,
+  .postscript-layout:after {
     content: "";
     display: table; }
-  #postscript-layout:after {
+  .postscript-layout:after {
     clear: both; }
-  #postscript-layout #postscript-first {
+  .postscript-layout .region--postscript-first {
     display: block;
     position: relative;
     width: 97.917%;
@@ -213,7 +224,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #postscript-layout #postscript-second {
+  .postscript-layout .region--postscript-second {
     display: block;
     position: relative;
     width: 97.917%;
@@ -224,7 +235,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #postscript-layout #postscript-third {
+  .postscript-layout .region--postscript-third {
     display: block;
     position: relative;
     width: 97.917%;
@@ -235,7 +246,7 @@ body {
     *margin-left: 0.938%;
     float: left;
     margin-bottom: 25px; }
-  #postscript-layout #postscript-fourth {
+  .postscript-layout .region--postscript-fourth {
     display: block;
     position: relative;
     width: 97.917%;
@@ -247,20 +258,20 @@ body {
     float: left;
     margin-bottom: 25px; }
 
-#footer-layout {
+.footer-layout {
   display: block;
   margin: 0 auto;
   width: 100%;
   *width: 99.896%;
   *zoom: 1;
   max-width: 100%; }
-  #footer-layout:before,
-  #footer-layout:after {
+  .footer-layout:before,
+  .footer-layout:after {
     content: "";
     display: table; }
-  #footer-layout:after {
+  .footer-layout:after {
     clear: both; }
-  #footer-layout #footer {
+  .footer-layout .region--footer {
     display: block;
     position: relative;
     width: 97.917%;
@@ -273,20 +284,20 @@ body {
     margin-bottom: 25px; }
 
 @media all and (min-width: 600px) and (max-width: 1023px) {
-  #header-layout {
+  .header-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #header-layout:before,
-  #header-layout:after {
+  .header-layout:before,
+  .header-layout:after {
     content: "";
     display: table; }
-  #header-layout:after {
+  .header-layout:after {
     clear: both; }
-    #header-layout #header {
+    .header-layout .region--header {
       display: block;
       position: relative;
       width: 97.917%;
@@ -297,7 +308,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #header-layout #branding {
+    .header-layout .region--branding {
       display: block;
       position: relative;
       width: 97.917%;
@@ -308,7 +319,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #header-layout #menu {
+    .header-layout .region--menu {
       display: block;
       position: relative;
       width: 97.917%;
@@ -320,20 +331,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #preface-layout {
+  .preface-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #preface-layout:before,
-  #preface-layout:after {
+  .preface-layout:before,
+  .preface-layout:after {
     content: "";
     display: table; }
-  #preface-layout:after {
+  .preface-layout:after {
     clear: both; }
-    #preface-layout #preface-first {
+    .preface-layout .region--preface-first {
       display: block;
       position: relative;
       width: 97.917%;
@@ -344,7 +355,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-second {
+    .preface-layout .region--preface-second {
       display: block;
       position: relative;
       width: 97.917%;
@@ -355,7 +366,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-third {
+    .preface-layout .region--preface-third {
       display: block;
       position: relative;
       width: 97.917%;
@@ -366,7 +377,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-fourth {
+    .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
       width: 97.917%;
@@ -378,20 +389,31 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #core-layout {
+  .core-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #core-layout:before,
-  #core-layout:after {
+  .core-layout:before,
+  .core-layout:after {
     content: "";
     display: table; }
-  #core-layout:after {
+  .core-layout:after {
     clear: both; }
-    #core-layout #highlighted {
+    .core-layout .region--highlighted {
+      display: block;
+      position: relative;
+      width: 97.917%;
+      margin-right: 1.042%;
+      margin-left: 1.042%;
+      *width: 97.813%;
+      *margin-right: 0.938%;
+      *margin-left: 0.938%;
+      float: left;
+      margin-bottom: 25px; }
+    .core-layout .region--help {
       display: block;
       position: relative;
       width: 97.917%;
@@ -403,20 +425,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #main-layout {
+  .main-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #main-layout:before,
-  #main-layout:after {
+  .main-layout:before,
+  .main-layout:after {
     content: "";
     display: table; }
-  #main-layout:after {
+  .main-layout:after {
     clear: both; }
-    #main-layout #content {
+    .main-layout .region--content {
       display: block;
       position: relative;
       width: 97.917%;
@@ -427,7 +449,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #main-layout #sidebar-first {
+    .main-layout .region--sidebar-first {
       display: block;
       position: relative;
       width: 47.917%;
@@ -438,65 +460,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #main-layout #sidebar-second {
-      display: block;
-      position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 25px; }
-
-  #postscript-layout {
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    *width: 99.896%;
-    *zoom: 1;
-    max-width: 100%; }
-  #postscript-layout:before,
-  #postscript-layout:after {
-    content: "";
-    display: table; }
-  #postscript-layout:after {
-    clear: both; }
-    #postscript-layout #postscript-first {
-      display: block;
-      position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 25px; }
-    #postscript-layout #postscript-second {
-      display: block;
-      position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 25px; }
-    #postscript-layout #postscript-third {
-      display: block;
-      position: relative;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 25px; }
-    #postscript-layout #postscript-fourth {
+    .main-layout .region--sidebar-second {
       display: block;
       position: relative;
       width: 47.917%;
@@ -508,20 +472,78 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #footer-layout {
+  .postscript-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #footer-layout:before,
-  #footer-layout:after {
+  .postscript-layout:before,
+  .postscript-layout:after {
     content: "";
     display: table; }
-  #footer-layout:after {
+  .postscript-layout:after {
     clear: both; }
-    #footer-layout #footer {
+    .postscript-layout .region--postscript-first {
+      display: block;
+      position: relative;
+      width: 47.917%;
+      margin-right: 1.042%;
+      margin-left: 1.042%;
+      *width: 47.813%;
+      *margin-right: 0.938%;
+      *margin-left: 0.938%;
+      float: left;
+      margin-bottom: 25px; }
+    .postscript-layout .region--postscript-second {
+      display: block;
+      position: relative;
+      width: 47.917%;
+      margin-right: 1.042%;
+      margin-left: 1.042%;
+      *width: 47.813%;
+      *margin-right: 0.938%;
+      *margin-left: 0.938%;
+      float: left;
+      margin-bottom: 25px; }
+    .postscript-layout .region--postscript-third {
+      display: block;
+      position: relative;
+      width: 47.917%;
+      margin-right: 1.042%;
+      margin-left: 1.042%;
+      *width: 47.813%;
+      *margin-right: 0.938%;
+      *margin-left: 0.938%;
+      float: left;
+      margin-bottom: 25px; }
+    .postscript-layout .region--postscript-fourth {
+      display: block;
+      position: relative;
+      width: 47.917%;
+      margin-right: 1.042%;
+      margin-left: 1.042%;
+      *width: 47.813%;
+      *margin-right: 0.938%;
+      *margin-left: 0.938%;
+      float: left;
+      margin-bottom: 25px; }
+
+  .footer-layout {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    *width: 99.896%;
+    *zoom: 1;
+    max-width: 100%; }
+  .footer-layout:before,
+  .footer-layout:after {
+    content: "";
+    display: table; }
+  .footer-layout:after {
+    clear: both; }
+    .footer-layout .region--footer {
       display: block;
       position: relative;
       width: 97.917%;
@@ -534,20 +556,20 @@ body {
       margin-bottom: 25px; } }
 
 @media all and (min-width: 1024px) and (max-width: 1279px) {
-  #header-layout {
+  .header-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #header-layout:before,
-  #header-layout:after {
+  .header-layout:before,
+  .header-layout:after {
     content: "";
     display: table; }
-  #header-layout:after {
+  .header-layout:after {
     clear: both; }
-    #header-layout #header {
+    .header-layout .region--header {
       display: block;
       position: relative;
       width: 97.917%;
@@ -558,7 +580,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #header-layout #branding {
+    .header-layout .region--branding {
       display: block;
       position: relative;
       width: 97.917%;
@@ -569,7 +591,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #header-layout #menu {
+    .header-layout .region--menu {
       display: block;
       position: relative;
       width: 97.917%;
@@ -581,20 +603,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #preface-layout {
+  .preface-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #preface-layout:before,
-  #preface-layout:after {
+  .preface-layout:before,
+  .preface-layout:after {
     content: "";
     display: table; }
-  #preface-layout:after {
+  .preface-layout:after {
     clear: both; }
-    #preface-layout #preface-first {
+    .preface-layout .region--preface-first {
       display: block;
       position: relative;
       width: 64.583%;
@@ -605,7 +627,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-second {
+    .preface-layout .region--preface-second {
       display: block;
       position: relative;
       width: 31.25%;
@@ -616,7 +638,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-third {
+    .preface-layout .region--preface-third {
       display: block;
       position: relative;
       width: 31.25%;
@@ -627,7 +649,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-fourth {
+    .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
       width: 64.583%;
@@ -639,20 +661,31 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #core-layout {
+  .core-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #core-layout:before,
-  #core-layout:after {
+  .core-layout:before,
+  .core-layout:after {
     content: "";
     display: table; }
-  #core-layout:after {
+  .core-layout:after {
     clear: both; }
-    #core-layout #highlighted {
+    .core-layout .region--highlighted {
+      display: block;
+      position: relative;
+      width: 97.917%;
+      margin-right: 1.042%;
+      margin-left: 1.042%;
+      *width: 97.813%;
+      *margin-right: 0.938%;
+      *margin-left: 0.938%;
+      float: left;
+      margin-bottom: 25px; }
+    .core-layout .region--help {
       display: block;
       position: relative;
       width: 97.917%;
@@ -664,20 +697,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #main-layout {
+  .main-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #main-layout:before,
-  #main-layout:after {
+  .main-layout:before,
+  .main-layout:after {
     content: "";
     display: table; }
-  #main-layout:after {
+  .main-layout:after {
     clear: both; }
-    #main-layout #content {
+    .main-layout .region--content {
       display: block;
       position: relative;
       width: 47.917%;
@@ -688,7 +721,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #main-layout #sidebar-first {
+    .main-layout .region--sidebar-first {
       display: block;
       position: relative;
       width: 22.917%;
@@ -699,7 +732,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #main-layout #sidebar-second {
+    .main-layout .region--sidebar-second {
       display: block;
       position: relative;
       width: 22.917%;
@@ -711,20 +744,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #postscript-layout {
+  .postscript-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #postscript-layout:before,
-  #postscript-layout:after {
+  .postscript-layout:before,
+  .postscript-layout:after {
     content: "";
     display: table; }
-  #postscript-layout:after {
+  .postscript-layout:after {
     clear: both; }
-    #postscript-layout #postscript-first {
+    .postscript-layout .region--postscript-first {
       display: block;
       position: relative;
       width: 47.917%;
@@ -735,7 +768,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #postscript-layout #postscript-second {
+    .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
       width: 47.917%;
@@ -746,7 +779,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #postscript-layout #postscript-third {
+    .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
       width: 47.917%;
@@ -757,7 +790,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #postscript-layout #postscript-fourth {
+    .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
       width: 47.917%;
@@ -769,20 +802,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #footer-layout {
+  .footer-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 100%; }
-  #footer-layout:before,
-  #footer-layout:after {
+  .footer-layout:before,
+  .footer-layout:after {
     content: "";
     display: table; }
-  #footer-layout:after {
+  .footer-layout:after {
     clear: both; }
-    #footer-layout #footer {
+    .footer-layout .region--footer {
       display: block;
       position: relative;
       width: 97.917%;
@@ -795,20 +828,20 @@ body {
       margin-bottom: 25px; } }
 
 @media all and (min-width: 1280px) {
-  #header-layout {
+  .header-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 1280px; }
-  #header-layout:before,
-  #header-layout:after {
+  .header-layout:before,
+  .header-layout:after {
     content: "";
     display: table; }
-  #header-layout:after {
+  .header-layout:after {
     clear: both; }
-    #header-layout #header {
+    .header-layout .region--header {
       display: block;
       position: relative;
       width: 97.917%;
@@ -819,7 +852,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #header-layout #branding {
+    .header-layout .region--branding {
       display: block;
       position: relative;
       width: 97.917%;
@@ -830,7 +863,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #header-layout #menu {
+    .header-layout .region--menu {
       display: block;
       position: relative;
       width: 97.917%;
@@ -842,20 +875,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #preface-layout {
+  .preface-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 1280px; }
-  #preface-layout:before,
-  #preface-layout:after {
+  .preface-layout:before,
+  .preface-layout:after {
     content: "";
     display: table; }
-  #preface-layout:after {
+  .preface-layout:after {
     clear: both; }
-    #preface-layout #preface-first {
+    .preface-layout .region--preface-first {
       display: block;
       position: relative;
       width: 64.583%;
@@ -866,7 +899,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-second {
+    .preface-layout .region--preface-second {
       display: block;
       position: relative;
       width: 31.25%;
@@ -877,7 +910,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-third {
+    .preface-layout .region--preface-third {
       display: block;
       position: relative;
       width: 31.25%;
@@ -888,7 +921,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #preface-layout #preface-fourth {
+    .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
       width: 64.583%;
@@ -900,20 +933,31 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #core-layout {
+  .core-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 1280px; }
-  #core-layout:before,
-  #core-layout:after {
+  .core-layout:before,
+  .core-layout:after {
     content: "";
     display: table; }
-  #core-layout:after {
+  .core-layout:after {
     clear: both; }
-    #core-layout #highlighted {
+    .core-layout .region--highlighted {
+      display: block;
+      position: relative;
+      width: 97.917%;
+      margin-right: 1.042%;
+      margin-left: 1.042%;
+      *width: 97.813%;
+      *margin-right: 0.938%;
+      *margin-left: 0.938%;
+      float: left;
+      margin-bottom: 25px; }
+    .core-layout .region--help {
       display: block;
       position: relative;
       width: 97.917%;
@@ -925,20 +969,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #main-layout {
+  .main-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 1280px; }
-  #main-layout:before,
-  #main-layout:after {
+  .main-layout:before,
+  .main-layout:after {
     content: "";
     display: table; }
-  #main-layout:after {
+  .main-layout:after {
     clear: both; }
-    #main-layout #content {
+    .main-layout .region--content {
       display: block;
       position: relative;
       width: 47.917%;
@@ -948,10 +992,8 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      left: 25%;
-      right: auto;
       margin-bottom: 25px; }
-    #main-layout #sidebar-first {
+    .main-layout .region--sidebar-first {
       display: block;
       position: relative;
       width: 22.917%;
@@ -961,10 +1003,8 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      right: 50%;
-      left: auto;
       margin-bottom: 25px; }
-    #main-layout #sidebar-second {
+    .main-layout .region--sidebar-second {
       display: block;
       position: relative;
       width: 22.917%;
@@ -976,20 +1016,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #postscript-layout {
+  .postscript-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 1280px; }
-  #postscript-layout:before,
-  #postscript-layout:after {
+  .postscript-layout:before,
+  .postscript-layout:after {
     content: "";
     display: table; }
-  #postscript-layout:after {
+  .postscript-layout:after {
     clear: both; }
-    #postscript-layout #postscript-first {
+    .postscript-layout .region--postscript-first {
       display: block;
       position: relative;
       width: 47.917%;
@@ -1000,7 +1040,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #postscript-layout #postscript-second {
+    .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
       width: 47.917%;
@@ -1011,7 +1051,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #postscript-layout #postscript-third {
+    .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
       width: 47.917%;
@@ -1022,7 +1062,7 @@ body {
       *margin-left: 0.938%;
       float: left;
       margin-bottom: 25px; }
-    #postscript-layout #postscript-fourth {
+    .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
       width: 47.917%;
@@ -1034,20 +1074,20 @@ body {
       float: left;
       margin-bottom: 25px; }
 
-  #footer-layout {
+  .footer-layout {
     display: block;
     margin: 0 auto;
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
     max-width: 1280px; }
-  #footer-layout:before,
-  #footer-layout:after {
+  .footer-layout:before,
+  .footer-layout:after {
     content: "";
     display: table; }
-  #footer-layout:after {
+  .footer-layout:after {
     clear: both; }
-    #footer-layout #footer {
+    .footer-layout .region--footer {
       display: block;
       position: relative;
       width: 97.917%;

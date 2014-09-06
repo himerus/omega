@@ -105,9 +105,13 @@ function _omega_get_layout_json_data($theme) {
     foreach ($layouts as $layout) {
       $name = $layout->name;
       
-      //dsm($dbLayouts);
       
-      if (isset($dbLayouts[$name])) {
+      $layoutSettings = omega_json_load_layout_file($layout->uri);
+      variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts, $layoutSettings[$name]));
+      //dsm($layoutSettings);
+      
+      /*
+if (isset($dbLayouts[$name])) {
         // grab the latest settings from the database variable
         $layoutSettings = $dbLayouts[$name];
       }
@@ -116,15 +120,16 @@ function _omega_get_layout_json_data($theme) {
         $layoutSettings = omega_json_load_layout_file($layout->uri);
         variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts, $layoutSettings));
       }
+*/
       
       $usableLayout = array(
         'theme' => $t,
         'path' => $layout->uri,
         'file' => $layout->filename,
         'name' => $name,
-        'data' => $layoutSettings,
+        'data' => $layoutSettings[$name],
       );
-      
+      //dsm($layoutsAvailable);
       // if this layout already exists from another theme
       if (isset($layoutsAvailable[$name])) {
         $usableLayout['overrides'] = array(
@@ -222,23 +227,18 @@ function _omega_getBreakpointId($theme) {
 }
 */
 
-function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
-  //dsm('Running custom function "_omega_compile_layout_sass()" which will generate the appropriate scss to be passed to the parser.');
-  //$scss = '$color: #FF0000; $size: 14px; .colored { color: $color; text-decoration: underline; font-size: $size; }';
+function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $options) {
   //dsm($layout);
   // get a list of themes
   $themes = list_themes();
-  // get the default BreakpointGroupID
-  //$breakpointGroupId = _omega_getBreakpointId($theme);
-  // Load the BreakpointGroup and it's Breakpoints
-  //$breakpointGroup = entity_load('breakpoint_group', $breakpointGroupId);
-  //$breakpoints = $breakpointGroup->getBreakpoints();
+  
   
   $themeSettings = $themes[$theme];
   $breakpoints = $themeSettings->info['breakpoints'];
   $regionGroups = $themeSettings->info['region_groups'];
   
-  $defaultLayout = theme_get_setting('default_layout', $theme);
+  //$defaultLayout = theme_get_setting('default_layout', $theme);
+  $defaultLayout = $layoutName;
   $layouts = theme_get_setting('layouts', $theme);
 
   $theme_regions = $themeSettings->info['regions'];

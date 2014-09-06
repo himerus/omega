@@ -25,6 +25,8 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   // grab all the layout data available for this theme
   $layoutData = _omega_get_layout_json_data($theme);
   //dsm($layoutData);
+  //$layoutData = omega_clear_layout_cache($theme);
+  //dsm($layoutData);
   
   // add in the javascript settings array of the json data so we can 
   // manipulate the layout editor in real time
@@ -365,6 +367,11 @@ if (isset($layoutData[$defaultLayout]['data'])) {
         '#collapsible' => TRUE,
         '#collapsed' => FALSE,
         '#tree' => TRUE,
+        '#states' => array(
+          'visible' => array(
+            ':input[name="edit_this_layout"]' => array('value' => $lid),
+          ),
+        ),
       );
   
     //dsm($breakpoints);
@@ -457,7 +464,7 @@ if (isset($layoutData[$defaultLayout]['data'])) {
           '#group' => '',
           '#suffix' => '</div>',
         );
-  
+        //dsm($layouts[$lid]['data']);
         // get columns for this region group
         $available_cols = array();
         for ($i = 0; $i <= $layouts[$lid]['data'][$breakpointName][$groupId]['row']; $i++) {
@@ -749,7 +756,7 @@ function omega_theme_settings_submit(&$form, &$form_state) {
   );
 
   // create the SCSS file based on the layout configuration
-  $scss   = _omega_compile_layout_sass($layout, $theme, $options);
+  $scss   = _omega_compile_layout_sass($layout, $layoutName, $theme, $options);
   //dsm($scss);
   
   // create the CSS file based on the SCSS generated above
