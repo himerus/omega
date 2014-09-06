@@ -9,34 +9,6 @@ base theme = omega
 ; REGIONS
 
 regions[page_top] = Page Top
-
-regions[header] = Header
-
-regions[branding] = Branding
-
-regions[menu] = Menu
-
-regions[preface_first] = Preface First
-regions[preface_second] = Preface Second
-regions[preface_third] = Preface Third
-regions[preface_fourth] = Preface Fourth
-
-regions[content] = Content
-regions[sidebar_first] = Sidebar First
-regions[sidebar_second] = Sidebar Second
-
-regions[postscript_first] = Postscript First
-regions[postscript_second] = Postscript Second
-regions[postscript_third] = Postscript Third
-regions[postscript_fourth] = Postscript Fourth
-
-regions[footer] = Footer
-
-regions[page_bottom] = Page Bottom
-
-; THEME SETTINGS (DEFAULTS)
-
-regions[page_top] = Page Top
 regions[header] = Header
 regions[branding] = Branding
 regions[menu] = Menu
@@ -71,7 +43,13 @@ region_groups[postscript] = 'Postscript'
 region_groups[footer] = 'Footer'
 
 ; THEME SETTINGS (DEFAULTS)
-
+settings[styles][scss_html_elements] = 1
+settings[styles][scss_branding] = 1
+settings[styles][scss_breadcrumbs] = 1
+settings[styles][scss_main_menus] = 1
+settings[styles][scss_messages] = 1
+settings[styles][scss_pagers] = 1
+settings[styles][scss_tabs] = 1
 ; default layout name
 settings[default_layout] = 'omega_default'
 settings[block_demo_excluded_regions][] = 'page_top'

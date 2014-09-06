@@ -10,11 +10,11 @@ version = VERSION
 stylesheets[all][] = style/css/base/normalize.css
 stylesheets[all][] = style/css/layout/omega_default.css
 
-stylesheets[all][] = style/css/base/html-elements.css
-stylesheets[all][] = style/css/base/messages.css
-stylesheets[all][] = style/css/base/main-menus.css
-stylesheets[all][] = style/css/base/site-branding.css
-stylesheets[all][] = style/css/base/tabs.css
+;stylesheets[all][] = style/css/base/html-elements.css
+;stylesheets[all][] = style/css/base/messages.css
+;stylesheets[all][] = style/css/base/main-menus.css
+;stylesheets[all][] = style/css/base/site-branding.css
+;stylesheets[all][] = style/css/base/tabs.css
 
 stylesheets[all][] = style/css/development/layout-data.css
 stylesheets[all][] = style/css/development/region-demo.css
@@ -55,6 +55,13 @@ region_groups[postscript] = 'Postscript'
 region_groups[footer] = 'Footer'
 
 ; THEME SETTINGS (DEFAULTS)
+settings[styles][scss_html_elements] = 1
+settings[styles][scss_branding] = 1
+settings[styles][scss_breadcrumbs] = 1
+settings[styles][scss_main_menus] = 1
+settings[styles][scss_messages] = 1
+settings[styles][scss_pagers] = 1
+settings[styles][scss_tabs] = 1
 
 ; default layout name
 settings[default_layout] = 'omega_default'

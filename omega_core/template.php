@@ -1,5 +1,5 @@
 <?php
-
+require_once(drupal_get_path('theme', 'omega') . '/omega-functions.php');
 /**
  * Implements hook_theme().
  */
@@ -116,7 +116,7 @@ function omega_page_alter (&$page) {
     }
   }
   
-  
+  //dsm($page);
   
 }
 
@@ -131,7 +131,7 @@ function omega_css_alter(&$css) {
   $activeLayoutCSS = drupal_get_path('theme', $theme) . '/style/css/layout/'.$defaultLayout.'.css';
 
   //dsm($defaultOmegaLayout);
-  
+  $copyCSS = $css[$defaultOmegaLayout];
   
   // turn off Omega.gs generated layout styles if user has turned off the awesome.
   if (!$hasLayout && isset($css[$defaultOmegaLayout])) {
@@ -140,6 +140,22 @@ function omega_css_alter(&$css) {
   // alter the CSS loaded based on the $activeLayoutCSS
   if (isset($css[$defaultOmegaLayout])){
     $css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
+  }
+  
+  $toggleCSS = _omega_optional_css($theme);
+  
+  
+  
+  
+  foreach ($toggleCSS as $style => $data) {
+    
+    $stylePath = drupal_get_path('theme', 'omega') . '/style/css/base/' . $data['file'];
+    // check it is active
+    if ($data['status']) {
+      $css[$stylePath] = $copyCSS;
+      $css[$stylePath]['data'] = $stylePath;
+    }
+    
   }
   //dsm($css);
 }

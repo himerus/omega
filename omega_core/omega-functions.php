@@ -159,7 +159,6 @@ function _omega_layout_json_options($layouts) {
 
 
 
-/*
 function _omega_optional_css($theme) {
   $status = theme_get_setting('styles', $theme);
   //dsm($status);
@@ -171,21 +170,18 @@ function _omega_optional_css($theme) {
       'file' => 'html-elements.css',
       'status' => $status['scss_html_elements'],
     ),
-    
     'scss_branding' => array(
       'title' => 'Branding Styles',
       'description' => 'Provides basic layout and styling for logo area.',
       'file' => 'site-branding.css',
       'status' => $status['scss_branding'],
     ),
-    
     'scss_breadcrumbs' => array(
       'title' => 'Breadcrumbs',
       'description' => 'Basic breadcrumb styling.',
       'file' => 'breadcrumbs.css',
       'status' => $status['scss_breadcrumbs'],
     ),
-    
     'scss_main_menus' => array(
       'title' => 'Main Menu Styling',
       'description' => 'Basic layout and styling for main menu elements.',
@@ -212,7 +208,6 @@ function _omega_optional_css($theme) {
     ),
   );
 }
-*/
 
 /*
 function _omega_getBreakpointId($theme) {

@@ -1,8 +1,15 @@
 /* Fonts */
+/* Apply a natural box layout model to all elements http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+#omega-screen--indicator, #omega-screen--indicator *, #omega-screen--indicator *:before, #omega-screen--indicator *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
 #omega-screen--indicator {
   background-color: rgba(0, 0, 0, 0.85);
   zoom: 1 !important;
   position: fixed;
+  font-family: "Helvetica Neue",Arial,Helvetica;
   bottom: 0;
   right: 0;
   left: 0;
@@ -25,6 +32,7 @@
       display: block; }
     #omega-screen--indicator .ologo img {
       max-height: 100%;
+      max-width: 100%;
       width: auto; }
   #omega-screen--indicator h5 {
     margin: 0;
