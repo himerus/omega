@@ -124,10 +124,10 @@ function omega_css_alter(&$css) {
   $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
   $ogsLayout = theme_get_setting('enable_omegags_layout', $theme);
   $hasLayout = isset($ogsLayout) ? $ogsLayout : TRUE;
-  
-  $defaultLayout = theme_get_setting('default_layout', $theme);
-  //dsm($defaultLayout);
+
+  // setup default layout
   $defaultOmegaLayout = drupal_get_path('theme', 'omega') . '/style/css/layout/omega_default.css';
+  $defaultLayout = omega_return_active_layout();
   $activeLayoutCSS = drupal_get_path('theme', $theme) . '/style/css/layout/'.$defaultLayout.'.css';
 
   //dsm($defaultOmegaLayout);
@@ -160,7 +160,8 @@ function omega_js_alter(&$javascript) {
   $themeSettings = $themes[$theme];  
   
   $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
-  $activeLayout = theme_get_setting('default_layout', $theme);
+  // need to use a function for this after setting up layout "switcheroo"
+  $activeLayout = omega_return_active_layout();
   
   $breakpoints = $themeSettings->info['breakpoints'];
   //dsm($breakpoints);
@@ -225,4 +226,24 @@ function omega_preprocess_page(&$vars) {
   if (isset($vars['page']['help']) && $helpsize == 0) {
     unset($vars['page']['help']);
   }
+}
+
+function omega_return_active_layout() {
+  $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
+  $front = drupal_is_front_page();
+  $node = menu_get_object();
+
+  // setup default layout
+  $defaultLayout = theme_get_setting('default_layout', $theme);
+  // if it is a node, check for an alternate layout
+  if ($node) {
+    $type = $node->type;
+    $defaultLayout = theme_get_setting($type . '_layout', $theme);
+  }
+  // if it is the front page, check for an alternate layout
+  if ($front) {
+    $defaultLayout = theme_get_setting('home_layout', $theme);
+  }
+  
+  return $defaultLayout;
 }

@@ -149,7 +149,8 @@ if (isset($dbLayouts[$name])) {
 function _omega_layout_json_options($layouts) {
   $options = array();
   foreach($layouts as $id => $info) {
-    $options[$id] = $info['theme'] . '--' . $info['name'];
+    //$options[$id] = $info['theme'] . '--' . $info['name'];
+    $options[$id] = $info['name'];
   }
   //dsm($options);
   return $options;

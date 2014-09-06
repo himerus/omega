@@ -323,37 +323,6 @@ if (isset($layoutData[$defaultLayout]['data'])) {
     // attempting possible jQuery intervention rather than ajax 
   );
   
-  
-  
-  $form['layouts']['layout-config'] = array(
-    '#type' => 'fieldset',
-    '#attributes' => array(
-      'id' => array(
-        'layout-config',
-      ),
-      'class' => array(
-        'layout-config',
-      ),
-    ),
-    '#prefix' => '<div id="layout-configuration-wrapper">',
-    '#suffix' => '</div>',
-    '#tree' => FALSE,
-    '#collapsible' => FALSE,
-    '#collapsed' => FALSE,
-  );
-  // provide some information about the layout(s)
-  $form['layouts']['layout-config']['layout_info'] = array(
-    '#type' => 'item',
-    '#prefix' => '<div class="omega-layout-info form-item">',
-    '#markup' => '<h4>Current Layout Information</h4>',
-    '#suffix' => '</div>',
-    '#states' => $omegaGSon,
-    '#weight' => -999,
-  );
-  // add each "row" of data (active layout)
-  $form['layouts']['layout-config']['layout_info']['#markup'] .= '<div><label>Active Default Layout: </label><span>'. $defaultLayout .'</span></div>';
-  //dsm($layoutData);
-  //dsm($layouts);
   foreach ($layoutData as $lid => $ldata) {
     
     $form['layouts'][$lid] = array(
