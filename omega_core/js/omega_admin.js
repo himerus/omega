@@ -60,13 +60,11 @@ Drupal.omega = Drupal.omega || {};
   Drupal.behaviors.addToggleStyles = {
     attach: function(context) {
       $('a.toggle-styles-on').click( function(){
-        var element = $(this).parents('#edit-styles');
-        element.find(':checkbox').prop('checked', true);
+        $(this).parents('#edit-styles').find(':checkbox').attr('checked', true);
         return false;
       });
       $('a.toggle-styles-off').click( function(){
-        var element = $(this).parents('#edit-styles');
-        element.find(':checkbox').prop('checked', false);
+        $(this).parents('#edit-styles').find(':checkbox').attr('checked', false);
         return false;
       });
     }
