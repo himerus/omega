@@ -158,11 +158,13 @@
     <div id="core-layout" class="core-layout inner-wrapper clearfix">
       
       <div id="highlighted" class="region--highlighted column">
+        <?php print $messages; ?>
+        
         <?php if ($breadcrumb): ?>
         <div id="breadcrumb"><?php print $breadcrumb; ?></div>
         <?php endif; ?>
     
-        <?php print $messages; ?>
+        
         <a id="main-content"></a>
         <?php print render($title_prefix); ?>
         <?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
