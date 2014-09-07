@@ -14,14 +14,14 @@
   right: 0;
   left: 0;
   z-index: 999;
-  padding: 10px;
+  padding: 8px;
   color: #FFF;
   padding-left: 70px;
   height: 70px;
   font-size: 11px; }
   #omega-screen--indicator .indicator-data {
     position: relative;
-    padding-left: 20px; }
+    padding-left: 10px; }
   #omega-screen--indicator .ologo {
     position: absolute;
     top: 0;
@@ -38,7 +38,8 @@
     margin: 0;
     margin-right: 1em;
     font-size: 11px;
-    display: inline-block; }
+    display: inline-block;
+    min-width: 80px; }
   #omega-screen--indicator .data {
     font-weight: bold; }
 

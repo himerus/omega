@@ -18,7 +18,7 @@
   left: 0;
   z-index: 999;
   
-  padding: 10px;
+  padding: 8px;
   color: #FFF;
   
   padding-left: 70px;
@@ -29,7 +29,7 @@
   
   .indicator-data {
     position: relative;
-    padding-left: 20px;
+    padding-left: 10px;
   }
   
   .ologo {
@@ -62,7 +62,7 @@
     margin-right: 1em;
     font-size: 11px;
     display: inline-block;
-    
+    min-width: 80px;
   }
   .data {
     font-weight: bold;
