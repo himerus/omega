@@ -16,10 +16,11 @@ function omega_theme() {
 }
 
 function omega_preprocess_omega_indicator(&$vars) {
-  //dsm($vars);
-  
-  $logo_image = '<img src="' . drupal_get_path('theme', 'omega') . '/logo.png" />';
-  
+  // find Omega logo to display in indicator.
+  $logo_image = theme('image', array(
+    'path' => drupal_get_path('theme', 'omega') . '/logo.png',
+    'title' => t('Powered by Omega Five'),
+  ));  
   $vars['logo'] = l($logo_image, 'http://drupal.org/project/omega', array(
     'attributes' => array(
       //'target' => '_blank',
@@ -27,11 +28,10 @@ function omega_preprocess_omega_indicator(&$vars) {
       'class' => array(
         'indicator-open'
       ),
+      'target' => '_blank',
     ),
     'html' => true,
   ));
-  
-  //dsm($vars);
 }
 
 function omega_page_alter (&$page) {
