@@ -395,6 +395,15 @@ if (isset($layoutData[$defaultLayout]['data'])) {
       );
       
       foreach ($regionGroups as $groupId => $groupName ) {
+        $collapsed = FALSE;
+        $collapseVal = isset($layouts[$lid]['data'][$breakpointName][$groupId]['collapsed']) ? $layouts[$lid]['data'][$breakpointName][$groupId]['collapsed'] : '';
+        if (isset($collapseVal) && $collapseVal == 'TRUE') {
+          $collapsed = TRUE;
+        }
+        if (isset($collapseVal) && $collapseVal == 'FALSE') {
+          $collapsed = FALSE;
+        }
+
         $form['layouts'][$lid][$breakpointName][$groupId] = array(
           '#type' => 'fieldset',
           '#attributes' => array(
@@ -405,7 +414,7 @@ if (isset($layoutData[$defaultLayout]['data'])) {
           ),
           '#title' => 'Region Group: ' . $groupName,
           '#collapsible' => TRUE,
-          '#collapsed' => FALSE,
+          '#collapsed' => $collapsed,
         );
         
         
@@ -475,9 +484,7 @@ if (isset($layoutData[$defaultLayout]['data'])) {
         for ($i = 0; $i <= $layouts[$lid]['data'][$breakpointName][$groupId]['row']; $i++) {
           $available_cols[$i] = $i . '';
         }
-        //dsm($groupId);
-        //dsm($layouts[$defaultLayout][$breakpointName][$groupId]['regions']);
-        
+
         foreach($layouts[$lid]['data'][$breakpointName][$groupId]['regions'] as $rid => $data) {
           //dsm($rid);
           
@@ -579,12 +586,6 @@ if (isset($layoutData[$defaultLayout]['data'])) {
     }
   
   }
-  
-  
-  
-  
-  
-  
   
   
   

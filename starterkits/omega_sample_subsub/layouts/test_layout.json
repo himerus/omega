@@ -3,6 +3,7 @@
         "all":{
             "header":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -31,6 +32,7 @@
             },
             "preface":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -66,6 +68,7 @@
             },
             "core":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -87,6 +90,7 @@
             },
             "main":{
                 "row":"12",
+                "collapsed": "FALSE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -115,6 +119,7 @@
             },
             "postscript":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -150,6 +155,7 @@
             },
             "footer":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -166,6 +172,7 @@
         "tablet":{
             "header":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -194,6 +201,7 @@
             },
             "preface":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -229,6 +237,7 @@
             },
             "core":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -250,6 +259,7 @@
             },
             "main":{
                 "row":"12",
+                "collapsed": "FALSE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -278,6 +288,7 @@
             },
             "postscript":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -313,6 +324,7 @@
             },
             "footer":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -329,6 +341,7 @@
         "desktop":{
             "header":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -357,6 +370,7 @@
             },
             "preface":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -392,6 +406,7 @@
             },
             "core":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -413,6 +428,7 @@
             },
             "main":{
                 "row":"12",
+                "collapsed": "FALSE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -441,6 +457,7 @@
             },
             "postscript":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -476,6 +493,7 @@
             },
             "footer":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"100",
                 "maxwidth_type":"percent",
                 "regions":{
@@ -492,6 +510,7 @@
         "wide":{
             "header":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"1280",
                 "maxwidth_type":"pixel",
                 "regions":{
@@ -520,6 +539,7 @@
             },
             "preface":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"1280",
                 "maxwidth_type":"pixel",
                 "regions":{
@@ -555,6 +575,7 @@
             },
             "core":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"1280",
                 "maxwidth_type":"pixel",
                 "regions":{
@@ -576,6 +597,7 @@
             },
             "main":{
                 "row":"12",
+                "collapsed": "FALSE",
                 "maxwidth":"1280",
                 "maxwidth_type":"pixel",
                 "regions":{
@@ -604,6 +626,7 @@
             },
             "postscript":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"1280",
                 "maxwidth_type":"pixel",
                 "regions":{
@@ -639,6 +662,7 @@
             },
             "footer":{
                 "row":"12",
+                "collapsed": "TRUE",
                 "maxwidth":"1280",
                 "maxwidth_type":"pixel",
                 "regions":{
