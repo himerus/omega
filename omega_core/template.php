@@ -251,6 +251,7 @@ function omega_return_active_layout() {
 
   // setup default layout
   $defaultLayout = theme_get_setting('default_layout', $theme);
+  $layout = $defaultLayout;
   // if it is a node, check for an alternate layout
   if ($node) {
     $type = $node->type;
