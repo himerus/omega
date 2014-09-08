@@ -10,11 +10,11 @@ Drupal.omega = Drupal.omega || {};
     attach: function(context) {
       
       $('input.row-max-width').change( function(){
-        console.log('Hello!!');
+        //console.log('Hello!!');
         var newVal = $(this).attr('value');
-        console.log(newVal);
+        //console.log(newVal);
         var newType = $(this).parents('.region-group-layout-settings').find('.row-max-width-type');
-        console.log(newType);
+        //console.log(newType);
         var percentBox = newType.find('input[value="percent"]');
         var pixelBox = newType.find('input[value="pixel"]');
         // assume it is a pixel value and change the radio accordingly        
@@ -127,7 +127,7 @@ Drupal.omega = Drupal.omega || {};
       
       // open up any push/pull items if they are alredy in use and not a value of zero.
       $(".push-controller, .pull-controller").each(function(){
-        if ($(this).attr('val') > 0) {
+        if ($(this).attr('value') > 0) {
           $(this).parents('.layout-breakpoint-regions').addClass('push-pull-active').find(".form-item[class$='-pull'], .form-item[class$='-push']").show();
         }
         else {
@@ -137,7 +137,7 @@ Drupal.omega = Drupal.omega || {};
       
       // open up any prefix/suffix items if they are alredy in use and not a value of zero.
       $(".prefix-controller, .suffix-controller").each(function(){
-        if ($(this).attr('val') > 0) {
+        if ($(this).attr('value') > 0) {
           $(this).parents('.layout-breakpoint-regions').find(".form-item[class$='-prefix'], .form-item[class$='-suffix']").show();
         }
       });
@@ -216,7 +216,7 @@ Drupal.omega = Drupal.omega || {};
     attach: function (context) {
       $('#layout-editor-select select').change(function(){
         //$('#layout-configuration-wrapper').hide('fast');
-        console.log('Altering the layout builder view...');
+        //console.log('Altering the layout builder view...');
         //$('#layout-configuration-wrapper').show('slow');
       });
     },
