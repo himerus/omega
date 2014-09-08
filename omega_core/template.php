@@ -254,12 +254,14 @@ function omega_return_active_layout() {
   // if it is a node, check for an alternate layout
   if ($node) {
     $type = $node->type;
-    $defaultLayout = theme_get_setting($type . '_layout', $theme);
+    $nodeLayout = theme_get_setting($type . '_layout', $theme);
+    $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
   }
   // if it is the front page, check for an alternate layout
   if ($front) {
-    $defaultLayout = theme_get_setting('home_layout', $theme);
+    $homeLayout = theme_get_setting('home_layout', $theme);
+    $layout = $homeLayout ? $homeLayout : $defaultLayout;
   }
   
-  return $defaultLayout;
+  return $layout;
 }
