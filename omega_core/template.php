@@ -182,29 +182,27 @@ function omega_js_alter(&$javascript) {
   $breakpoints = $themeSettings->info['breakpoints'];
   //dsm($breakpoints);
   
-  if ($screenDemo) {
-    $layouts = array();
+  $layouts = array();
 
-    //$javascript['settings']['data']['omega_breakpoints'] = array();
+  //$javascript['settings']['data']['omega_breakpoints'] = array();
+  
+  foreach($breakpoints as $breakpointName => $breakpointMedia) {
     
-    foreach($breakpoints as $breakpointName => $breakpointMedia) {
-      
-      $layouts[$breakpointName] = array(
-        'query' => $breakpointMedia,
-        'name' => $breakpointName
-      );
-    }
-    
-    $javascript['settings']['data'][] = array(
-      'omega_breakpoints' => array(
-        'layouts' => $layouts,
-      ),
-      'omega' => array(
-        'activeLayout' => $activeLayout,
-        'activeTheme' => $theme
-      )  
+    $layouts[$breakpointName] = array(
+      'query' => $breakpointMedia,
+      'name' => $breakpointName
     );
   }
+  
+  $javascript['settings']['data'][] = array(
+    'omega_breakpoints' => array(
+      'layouts' => $layouts,
+    ),
+    'omega' => array(
+      'activeLayout' => $activeLayout,
+      'activeTheme' => $theme
+    )  
+  );
   //dsm($javascript['settings']);
 }
 
