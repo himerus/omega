@@ -93,26 +93,33 @@ Drupal.behaviors.omegaMediaQueries = {
               breakpointMatch = true;
               Drupal.omega.currentBreakpoints[this.name] = true;
               $('body').addClass('omega-breapoint--'+this.name);
-              
-              
               $.event.trigger('breakpointAdded', {name: this.name, query: this.query});
-              //console.log(this.name + ' added');
             }
             else {
               Drupal.omega.currentBreakpoints[this.name] = false;
-              $('body').removeClass('omega-breapoint--'+this.name);
-              //console.log('matchMedia skip: ' + this.query);
-              // don't trigger the event since it is on page load, just rely on setting it to false above.
-              //$.event.trigger('breakpointRemoved', {breakpoint: this.name, query: this.query});
             }
           });
           // run it once on page load
           Drupal.omega.updateIndicatorBreakpoints(breakpoints, Drupal.omega.currentBreakpoints);
-          //console.log(Drupal.omega.currentBreakpoints);
+          
+          $( 'body' ).bind({
+            breakpointAdded: function(query) {
+              // do something when a breakpoint is added
+            },
+            breakpointRemoved: function(query) {
+              // do something when a breakpoint is removed
+            },
+            breakpointUpdated: function() {
+              // do something when breakpoints are updated
+            }
+          });
+          
+          $.event.trigger('breakpointUpdated', {});
         });
         
         // handle resize events
-        $(window).resize( function(){
+        $(window).resize( function() {
+          var breakpointAdjust = false;
           
           $.each(breakpoints, function() {
           	
@@ -120,6 +127,7 @@ Drupal.behaviors.omegaMediaQueries = {
           	  breakpointMatch = true;
               // if it wasn't already active
               if (Drupal.omega.currentBreakpoints[this.name] != true) {
+                breakpointAdjust = true;
                 Drupal.omega.currentBreakpoints[this.name] = true;
                 $.event.trigger('breakpointAdded', {name: this.name, query: this.query});
                 $('body').addClass('omega-breapoint--'+this.name);
@@ -128,14 +136,20 @@ Drupal.behaviors.omegaMediaQueries = {
             else {
               // if it was already active
               if (Drupal.omega.currentBreakpoints[this.name] == true) {
+                breakpointAdjust = true;
                 Drupal.omega.currentBreakpoints[this.name] = false;
                 $.event.trigger('breakpointRemoved', {name: this.name, query: this.query});
                 $('body').removeClass('omega-breapoint--'+this.name);
               }
-              
             }
           });
-            
+          
+          // if the breakpoints have been updated by adding or removing something, then fire breakpointUpdated
+          if (breakpointAdjust) {
+            $.event.trigger('breakpointUpdated', {});  
+          }
+          
+          
           // must be mobile or something shitty like IE8
           if (!breakpointMatch) {
             breakpointMatch = false;
@@ -179,14 +193,15 @@ Drupal.behaviors.omegaMediaQueries = {
         
         $( 'body' ).bind({
           breakpointAdded: function(query) {
-            //console.log('BreakpointAdded executing...' + query);
+            // do something when a breakpoint is added
             Drupal.omega.updateIndicatorBreakpoints(breakpoints, Drupal.omega.currentBreakpoints);
-            // Do something on click
           },
           breakpointRemoved: function(query) {
-            //console.log('BreakpointRemoved executing...' + query);
+            // do something when a breakpoint is removed
             Drupal.omega.updateIndicatorBreakpoints(breakpoints, Drupal.omega.currentBreakpoints);
-            // Do something on mouseenter
+          },
+          breakpointUpdated: function() {
+            // do something when  breakpoints are updated
           }
         });
       });
