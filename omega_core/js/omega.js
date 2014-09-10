@@ -74,13 +74,11 @@ Drupal.behaviors.omegaMediaQueries = {
       
       $('body', context).once('omega-breakpoint', function () {
         
-        //console.log('Running: Drupal.behaviors.omegaBreakpoint');
         // return if not viewing on screen
         if (!window.matchMedia('only screen').matches) {
           //console.log('This appears not to be a screen...');
           return;
         }
-        
         
         breakpoints = Drupal.settings.omega_breakpoints.layouts;
         breakpointMatch = false;
@@ -94,7 +92,7 @@ Drupal.behaviors.omegaMediaQueries = {
           	  //console.log('matchMedia match found: ' + this.query);
               breakpointMatch = true;
               Drupal.omega.currentBreakpoints[this.name] = true;
-              
+              $('body').addClass('omega-breapoint--'+this.name);
               
               
               $.event.trigger('breakpointAdded', {name: this.name, query: this.query});
@@ -102,6 +100,7 @@ Drupal.behaviors.omegaMediaQueries = {
             }
             else {
               Drupal.omega.currentBreakpoints[this.name] = false;
+              $('body').removeClass('omega-breapoint--'+this.name);
               //console.log('matchMedia skip: ' + this.query);
               // don't trigger the event since it is on page load, just rely on setting it to false above.
               //$.event.trigger('breakpointRemoved', {breakpoint: this.name, query: this.query});
@@ -122,7 +121,8 @@ Drupal.behaviors.omegaMediaQueries = {
               // if it wasn't already active
               if (Drupal.omega.currentBreakpoints[this.name] != true) {
                 Drupal.omega.currentBreakpoints[this.name] = true;
-                $.event.trigger('breakpointAdded', {name: this.name, query: this.query});  
+                $.event.trigger('breakpointAdded', {name: this.name, query: this.query});
+                $('body').addClass('omega-breapoint--'+this.name);
               }
             }
             else {
@@ -130,6 +130,7 @@ Drupal.behaviors.omegaMediaQueries = {
               if (Drupal.omega.currentBreakpoints[this.name] == true) {
                 Drupal.omega.currentBreakpoints[this.name] = false;
                 $.event.trigger('breakpointRemoved', {name: this.name, query: this.query});
+                $('body').removeClass('omega-breapoint--'+this.name);
               }
               
             }
