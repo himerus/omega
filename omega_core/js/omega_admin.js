@@ -172,7 +172,10 @@ Drupal.omega = Drupal.omega || {};
         //var regionTitle = $(this).attr('data-omega-region-title');
         //$(this).prepend('<h4>' + regionTitle + '</h4');
       });
-      
+      /**
+       * MUST add the ability to disable the primary region if all regions are full width after a change
+       * LOGIC must also show that you can't add a 12 of 12 column to a 3 of 12 column
+       */
       // adjust the push value
       $('select.push-controller').change( function(){
         var push = $(this).attr('value');

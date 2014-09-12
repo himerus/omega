@@ -391,16 +391,21 @@ body {
     display: table; }
   .region-group-layout-settings:after {
     clear: both; }
-  .region-group-layout-settings div.form-type-select[class*=-row] {
+  .region-group-layout-settings div.form-type-select[class*=-row],
+  .region-group-layout-settings div.form-type-select[class*=-primary-region] {
     display: block;
     float: left;
     border-right: 1px solid #CCC;
     margin: 0;
     padding: 0 10px; }
-    .region-group-layout-settings div.form-type-select[class*=-row] label {
+    .region-group-layout-settings div.form-type-select[class*=-row] label,
+    .region-group-layout-settings div.form-type-select[class*=-primary-region] label {
       font-size: 11px; }
-    .region-group-layout-settings div.form-type-select[class*=-row] select {
+    .region-group-layout-settings div.form-type-select[class*=-row] select,
+    .region-group-layout-settings div.form-type-select[class*=-primary-region] select {
       width: 50px; }
+  .region-group-layout-settings div.form-type-select[class*=-primary-region] select {
+    width: auto; }
   .region-group-layout-settings .omega-layout-controls {
     display: block;
     float: left;
@@ -420,20 +425,27 @@ body {
     .region-group-layout-settings div.form-type-textfield[class*=-maxwidth] input {
       text-align: right;
       width: 70px; }
-  .region-group-layout-settings div.form-type-radios[class*=-maxwidth-type] {
+  .region-group-layout-settings div.form-type-radios[class*=-maxwidth-type],
+  .region-group-layout-settings div.form-type-radios[class*=-collapsed] {
     display: block;
     float: left;
     margin: 0;
-    padding: 0 10px; }
-    .region-group-layout-settings div.form-type-radios[class*=-maxwidth-type] label {
+    padding: 0 10px;
+    border-right: 1px solid #CCC; }
+    .region-group-layout-settings div.form-type-radios[class*=-maxwidth-type] label,
+    .region-group-layout-settings div.form-type-radios[class*=-collapsed] label {
       font-size: 11px; }
-    .region-group-layout-settings div.form-type-radios[class*=-maxwidth-type] .form-type-radio {
+    .region-group-layout-settings div.form-type-radios[class*=-maxwidth-type] .form-type-radio,
+    .region-group-layout-settings div.form-type-radios[class*=-collapsed] .form-type-radio {
       display: inline-block;
       margin-right: 0.25em;
       font-size: 10px;
       padding: 0; }
-    .region-group-layout-settings div.form-type-radios[class*=-maxwidth-type] legend {
+    .region-group-layout-settings div.form-type-radios[class*=-maxwidth-type] legend,
+    .region-group-layout-settings div.form-type-radios[class*=-collapsed] legend {
       display: none; }
+  .region-group-layout-settings div.form-type-radios[class*=-collapsed] {
+    border-right: none; }
 
 .region-controls {
   height: 16px;

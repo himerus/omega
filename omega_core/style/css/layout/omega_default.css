@@ -192,6 +192,36 @@ body {
     *margin-left: 0.9375%;
     float: left;
     margin-bottom: 25px; }
+  .main-layout.with--content.without--sidebar-first .region--content {
+    display: block;
+    position: relative;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
+    float: left; }
+  .main-layout.with--content.without--sidebar-second .region--content {
+    display: block;
+    position: relative;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
+    float: left; }
+  .main-layout.with--content.without--sidebar-first.without--sidebar-second .region--content {
+    display: block;
+    position: relative;
+    width: 97.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    *width: 97.8125%;
+    *margin-right: 0.9375%;
+    *margin-left: 0.9375%;
+    float: left; }
 
 .postscript-layout {
   display: block;
@@ -458,6 +488,36 @@ body {
       *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
+    .main-layout.with--content.without--sidebar-first .region--content {
+      display: block;
+      position: relative;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .main-layout.with--content.without--sidebar-second .region--content {
+      display: block;
+      position: relative;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .main-layout.with--content.without--sidebar-first.without--sidebar-second .region--content {
+      display: block;
+      position: relative;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
 
   .postscript-layout {
     display: block;
@@ -723,6 +783,36 @@ body {
       *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
+    .main-layout.with--content.without--sidebar-first .region--content {
+      display: block;
+      position: relative;
+      width: 72.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 72.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .main-layout.with--content.without--sidebar-second .region--content {
+      display: block;
+      position: relative;
+      width: 72.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 72.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .main-layout.with--content.without--sidebar-first.without--sidebar-second .region--content {
+      display: block;
+      position: relative;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
 
   .postscript-layout {
     display: block;
@@ -958,28 +1048,24 @@ body {
     .main-layout .region--content {
       display: block;
       position: relative;
-      width: 47.91667%;
+      width: 39.58333%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 47.8125%;
+      *width: 39.47917%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
-      left: 25%;
-      right: auto;
       margin-bottom: 25px; }
     .main-layout .region--sidebar-first {
       display: block;
       position: relative;
-      width: 22.91667%;
+      width: 31.25%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 22.8125%;
+      *width: 31.14583%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
-      right: 50%;
-      left: auto;
       margin-bottom: 25px; }
     .main-layout .region--sidebar-second {
       display: block;
@@ -992,6 +1078,36 @@ body {
       *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
+    .main-layout.with--content.without--sidebar-first .region--content {
+      display: block;
+      position: relative;
+      width: 72.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 72.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .main-layout.with--content.without--sidebar-second .region--content {
+      display: block;
+      position: relative;
+      width: 64.58333%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 64.47917%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .main-layout.with--content.without--sidebar-first.without--sidebar-second .region--content {
+      display: block;
+      position: relative;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
 
   .postscript-layout {
     display: block;
@@ -1008,10 +1124,10 @@ body {
     .postscript-layout .region--postscript-first {
       display: block;
       position: relative;
-      width: 31.25%;
+      width: 22.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 31.14583%;
+      *width: 22.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -1019,10 +1135,10 @@ body {
     .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
-      width: 64.58333%;
+      width: 22.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 64.47917%;
+      *width: 22.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -1030,10 +1146,10 @@ body {
     .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
-      width: 64.58333%;
+      width: 22.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 64.47917%;
+      *width: 22.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -1041,14 +1157,84 @@ body {
     .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
-      width: 31.25%;
+      width: 22.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 31.14583%;
+      *width: 22.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
       margin-bottom: 25px; }
+    .postscript-layout.with--postscript_first.without--postscript-second .region--postscript_first {
+      display: block;
+      position: relative;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .postscript-layout.with--postscript_first.without--postscript-third .region--postscript_first {
+      display: block;
+      position: relative;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .postscript-layout.with--postscript_first.without--postscript-fourth .region--postscript_first {
+      display: block;
+      position: relative;
+      width: 47.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 47.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .postscript-layout.with--postscript_first.without--postscript-second.without--postscript-third .region--postscript_first {
+      display: block;
+      position: relative;
+      width: 72.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 72.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .postscript-layout.with--postscript_first.without--postscript-second.without--postscript-fourth .region--postscript_first {
+      display: block;
+      position: relative;
+      width: 72.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 72.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .postscript-layout.with--postscript_first.without--postscript-third.without--postscript-fourth .region--postscript_first {
+      display: block;
+      position: relative;
+      width: 72.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 72.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
+    .postscript-layout.with--postscript_first.without--postscript-second.without--postscript-third.without--postscript-fourth .region--postscript_first {
+      display: block;
+      position: relative;
+      width: 97.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 97.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left; }
 
   .footer-layout {
     display: block;

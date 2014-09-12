@@ -72,6 +72,21 @@ function _omega_compile_layout_json($layout, $values) {
   return omega_json_get($values);
 }
 
+
+
+
+
+/** 
+ * @function _omega_get_layout_json_data
+ * @todo
+ *
+ * THIS STILL NEEDS TO BE CHANGED TO recognize the database
+ * settings stored that may not have yet been written
+ * Possibly compare the json array to the database one, and 
+ * throw a warning that they are out of sync and to save
+ * the layout to affect the changes in the DB that are not yet
+ * active.
+ */
 function _omega_get_layout_json_data($theme) {
   //$theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
   $json = array();
@@ -89,8 +104,7 @@ function _omega_get_layout_json_data($theme) {
   $layoutGroups = array();
   $layoutsAvailable = array();
   
-  $dbLayouts = is_array(variable_get('theme_' . $theme . '_layouts')) ? variable_get('theme_' . $theme . '_layouts') : array();
-  //dsm($dbLayouts);
+  
   
   foreach ($layoutThemes as $t => $name) {
     $scanPath = drupal_get_path('theme', $t) . '/layouts';
@@ -107,21 +121,9 @@ function _omega_get_layout_json_data($theme) {
       
       
       $layoutSettings = omega_json_load_layout_file($layout->uri);
-      variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts, $layoutSettings[$name]));
-      //dsm($layoutSettings);
       
-      /*
-if (isset($dbLayouts[$name])) {
-        // grab the latest settings from the database variable
-        $layoutSettings = $dbLayouts[$name];
-      }
-      else {
-        // pull the settings from the file, and add them to the database
-        $layoutSettings = omega_json_load_layout_file($layout->uri);
-        variable_set('theme_' . $theme . '_layouts', array_replace_recursive($dbLayouts, $layoutSettings));
-      }
-*/
       
+            
       $usableLayout = array(
         'theme' => $t,
         'path' => $layout->uri,
@@ -141,6 +143,10 @@ if (isset($dbLayouts[$name])) {
       $layoutsAvailable[$name] = $usableLayout;
     }
   }
+  
+  
+  // THIS GIVES ME THE VARIABLE STRUCTURE I WANT TO RECREATED IN _omega_save_database_layouts()
+  //variable_set('theme_' . $theme . '_layouts', $layoutsAvailable);
   return $layoutsAvailable;
 }
 
@@ -223,132 +229,7 @@ function _omega_getBreakpointId($theme) {
 }
 */
 
-function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $options) {
-  //dsm($layout);
-  // get a list of themes
-  $themes = list_themes();
-  
-  
-  $themeSettings = $themes[$theme];
-  $breakpoints = $themeSettings->info['breakpoints'];
-  $regionGroups = $themeSettings->info['region_groups'];
-  
-  //$defaultLayout = theme_get_setting('default_layout', $theme);
-  $defaultLayout = $layoutName;
-  $layouts = theme_get_setting('layouts', $theme);
 
-  $theme_regions = $themeSettings->info['regions'];
-  
-  // create variable to hold all SCSS we need
-  $scss = '';
-  
-  
-  
-  global $base_path;
-  //dsm(realpath(".") . $base_path);
-  // Options for phpsass compiler. Defaults in SassParser.php
-  
-
-  //dsm($layout);
-
-
-  $parser = new SassParser($options);
-  
-  // get the variables for the theme
-  $vars = realpath(".") . $base_path . drupal_get_path('theme', 'omega') . '/style/scss/vars.scss';
-  $omegavars = new SassFile;
-  $varscss = $omegavars->get_file_contents($vars, $parser);
-  // set the grid to fluid
-  $varscss .= '$twidth: 100%;';
-  
-  // get the SCSS for the grid system
-  $gs = realpath(".") . $base_path . drupal_get_path('theme', 'omega') . '/style/scss/grids/omega.scss';
-  $omegags = new SassFile;
-  $gsscss = $omegags->get_file_contents($gs, $parser);
-
-  $scss = $varscss . $gsscss;  
-  //$scss .= '#content { @include column(8); } #sidebar-first { @include column(2); } #sidebar-second { @include column(2); }';
-
-    // loop over the media queries
-  foreach($breakpoints as $breakpointName => $breakpointMedia) {
-    // create a clean var for the scss for this breakpoint
-    $breakpoint_scss = '';
-    //dsm($breakpointMedia);
-    
-    // loop over the region groups
-    foreach ($regionGroups as $groupId => $groupName ) {
-    //dsm($groupId);
-      // add row mixin
-
-      $rowname = str_replace("_", "-", $groupId) . '-layout';
-      $rowval = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
-      $maxwidth = $layout[$defaultLayout][$breakpointName][$groupId]['maxwidth'];
-      if ($layout[$defaultLayout][$breakpointName][$groupId]['maxwidth_type'] == 'pixel') {
-        $unit = 'px';
-      }
-      else {
-        $unit = '%';
-      }
-      
-      $breakpoint_scss .= '.' . $rowname . ' { 
-  @include row(' . $rowval . ');
-  max-width: '. $maxwidth . $unit .';         
-';
-  
-      // loop over regions
-      foreach($layout[$defaultLayout][$breakpointName][$groupId]['regions'] as $rid => $data) {
-        $regionname = str_replace("_", "-", $rid);
-        $breakpoint_scss .= '  .region--' . $regionname . ' { 
-    @include column(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['width'] . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . '); ';
-        
-        if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['prefix'] > 0) {
-          $breakpoint_scss .= '  
-    @include prefix(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['prefix'] . '); ';  
-        }
-        
-        if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['suffix'] > 0) {
-        $breakpoint_scss .= '  
-    @include suffix(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['suffix'] . '); ';
-        }
-        
-        if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['push'] > 0) {
-        $breakpoint_scss .= '  
-    @include push(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['push'] . '); ';
-        }
-        
-        if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['pull'] > 0) {
-        $breakpoint_scss .= '  
-    @include pull(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['pull'] . '); ';
-        }
-        
-        $breakpoint_scss .= '
-    margin-bottom: $regionSpacing;
-  } 
-';
-        // apply all functions 
-      }
-      
-      $breakpoint_scss .= '
-}
-';
-    }
-    
-    // if not the defualt media query that should apply to all screens
-    // we will wrap the scss we've generated in the appropriate media query.
-    if ($breakpointName != 'all') {
-      $breakpoint_scss = '@media ' . $breakpointMedia . ' { 
-' . $breakpoint_scss . '
-}
-';
-    }
-    
-    // add in the SCSS from this breakpoint and add to our SCSS
-    $scss .= $breakpoint_scss; 
-  }
-  //dsm($scss);
-  
-  return $scss;
-}
 
 function _omega_compile_layout_css($scss, $options) {
   $parser = new SassParser($options);
@@ -395,6 +276,35 @@ function _omega_save_layout_files($scss, $css, $json, $theme, $layout) {
   else {
     drupal_set_message(t('WTF003: JSON save error... : function _omega_save_layout_files()'), 'error');
   }
+}
+
+
+function _omega_save_database_layouts($layout, $name, $theme) {
+  
+  // Save all the things to the database
+  $dbLayouts = is_array(variable_get('theme_' . $theme . '_layouts')) ? variable_get('theme_' . $theme . '_layouts') : array();
+  
+  $updatedLayout = array(
+    $name => array(
+    'data' => $layout[$name],
+    ),
+  );
+  
+  if (!isset($dbLayouts[$name])) {
+    $dbLayouts[$name] = array();
+  }
+  
+  // create a var with the merged values
+  $newLayout = array_replace_recursive($dbLayouts[$name], $updatedLayout[$name]);
+  
+  // assign the variable back to the array from the DB.
+  $dbLayouts[$name] = $newLayout;
+  
+  // set/override the variable
+  variable_set('theme_' . $theme . '_layouts', $dbLayouts);
+  
+  // should do some testing here prior to returning true.
+  return true;
 }
 
 function omega_pretty_json($json) {
@@ -446,4 +356,440 @@ function omega_pretty_json($json) {
   }
 
   return $result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $options) {
+  global $base_path;
+  // get a list of themes
+  $themes = list_themes();
+  
+  
+  $themeSettings = $themes[$theme];
+  $breakpoints = $themeSettings->info['breakpoints'];
+  $regionGroups = $themeSettings->info['region_groups'];
+  
+  //$defaultLayout = theme_get_setting('default_layout', $theme);
+  $defaultLayout = $layoutName;
+  $layouts = theme_get_setting('layouts', $theme);
+
+  $theme_regions = $themeSettings->info['regions'];
+  
+  // create variable to hold all SCSS we need
+  $scss = '';
+  
+  
+  $parser = new SassParser($options);
+  
+  // get the variables for the theme
+  $vars = realpath(".") . $base_path . drupal_get_path('theme', 'omega') . '/style/scss/vars.scss';
+  $omegavars = new SassFile;
+  $varscss = $omegavars->get_file_contents($vars, $parser);
+  // set the grid to fluid
+  $varscss .= '$twidth: 100%;';
+  
+  // get the SCSS for the grid system
+  $gs = realpath(".") . $base_path . drupal_get_path('theme', 'omega') . '/style/scss/grids/omega.scss';
+  $omegags = new SassFile;
+  $gsscss = $omegags->get_file_contents($gs, $parser);
+  $scss = $varscss . $gsscss;  
+
+  // loop over the media queries
+  foreach($breakpoints as $breakpointName => $breakpointMedia) {
+    // create a clean var for the scss for this breakpoint
+    $breakpoint_scss = '';
+    //dsm($breakpointMedia);
+    
+    // loop over the region groups
+    foreach ($regionGroups as $groupId => $groupName ) {
+    //dsm($groupId);
+      // add row mixin
+
+      $rowname = str_replace("_", "-", $groupId) . '-layout';
+      $rowval = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
+      $primary_region = $layout[$defaultLayout][$breakpointName][$groupId]['primary_region'];
+      $total_regions = count($layout[$defaultLayout][$breakpointName][$groupId]['regions']);
+      $maxwidth = $layout[$defaultLayout][$breakpointName][$groupId]['maxwidth'];
+      if ($layout[$defaultLayout][$breakpointName][$groupId]['maxwidth_type'] == 'pixel') {
+        $unit = 'px';
+      }
+      else {
+        $unit = '%';
+      }
+// FORMATTED INTENTIONALLY
+      $breakpoint_scss .= '
+// Breakpoint: ' . $breakpointName . '; Region Group: ' . $groupId . ';
+.' . $rowname . ' { 
+  @include row(' . $rowval . ');
+  max-width: '. $maxwidth . $unit .';
+';
+// END FORMATTED INTENTIONALLY
+      // loop over regions for basic responsive configuration
+      foreach($layout[$defaultLayout][$breakpointName][$groupId]['regions'] as $rid => $data) {
+        $regionname = str_replace("_", "-", $rid);
+// FORMATTED INTENTIONALLY        
+        $breakpoint_scss .= '
+  // Breakpoint: ' . $breakpointName . '; Region Group: ' . $groupId . '; Region: ' . $rid . ';
+  .region--' . $regionname . ' { 
+    @include column(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['width'] . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . '); ';
+        
+        if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['prefix'] > 0) {
+          $breakpoint_scss .= '  
+    @include prefix(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['prefix'] . '); ';  
+        }
+        
+        if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['suffix'] > 0) {
+        $breakpoint_scss .= '  
+    @include suffix(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['suffix'] . '); ';
+        }
+        
+        if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['push'] > 0) {
+        $breakpoint_scss .= '  
+    @include push(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['push'] . '); ';
+        }
+        
+        if ($layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['pull'] > 0) {
+        $breakpoint_scss .= '  
+    @include pull(' . $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$rid]['pull'] . '); ';
+        }
+        
+        $breakpoint_scss .= '
+    margin-bottom: $regionSpacing;
+  } 
+'; // end of initial region configuration
+// END FORMATTED INTENTIONALLY        
+      }
+      // check to see if primary region is set
+      if ($primary_region && $total_regions <= 4) {
+// FORMATTED INTENTIONALLY        
+        $breakpoint_scss .= '
+  // A primary region exists for the '. $groupId .' region group.
+  // so we are going to iterate over combinations of available/missing
+  // regions to change the layout for this group based on those scenarios.
+  
+  // 1 missing region
+';
+// END FORMATTED INTENTIONALLY
+        // loop over the regions that are not the primary one again
+        $mainRegion = $layout[$defaultLayout][$breakpointName][$groupId]['regions'][$primary_region];
+        $otherRegions = $layout[$defaultLayout][$breakpointName][$groupId]['regions'];
+        unset($otherRegions[$primary_region]);
+        $num_otherRegions = count($otherRegions);
+        
+        $classMatch = array();
+        $classCreate = array(
+          '.with--'. $primary_region
+        );
+        
+        foreach($otherRegions as $orid => $odata) {
+          
+          $classCreate[] = '.without--' . $regionname;
+          $regionname = str_replace("_", "-", $orid);
+          // combine the region widths
+          
+          
+          // combine the width (including prefix & suffix) of the empty region with that of the main one
+          $newWidth = $odata['width'] + $odata['prefix'] + $odata['suffix'] + $mainRegion['width'];
+          
+          // if the columns combine to be wider than the row, set the max columns
+          if ($newWidth > $layout[$defaultLayout][$breakpointName][$groupId]['row']) {
+            $newWidth = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
+          }
+          
+// FORMATTED INTENTIONALLY          
+          $breakpoint_scss .= '
+  &.with--'. $primary_region . '.without--' . $regionname .' {
+    .region--' . $primary_region . ' {
+      @include column(' . $newWidth . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . ');';
+// END FORMATTED INTENTIONALLY          
+          
+      // @todo need to adjust for push/pull here
+
+
+// FORMATTED INTENTIONALLY          
+          $breakpoint_scss .= '
+    }'; // end of iteration of condition missing one region
+// END FORMATTED INTENTIONALLY
+        
+        
+        
+          
+        
+// FORMATTED INTENTIONALLY
+        $breakpoint_scss .= '
+  }
+'; // end of intial loop of regions to assign individual cases of missing regions first in the scss/css
+// END FORMATTED INTENTIONALLY
+        
+        
+        
+        } // end foreach loop
+        
+// FORMATTED INTENTIONALLY
+        // throw a comment in the scss
+        $breakpoint_scss .= '
+  // 2 missing regions
+';
+// END FORMATTED INTENTIONALLY
+
+
+
+
+
+          // here we are beginning to loop again, assuming more than just 
+          // one region might be missing and to assign to the primary_region accordingly
+          
+          $classMatch = array();
+          //$classCreate = array();
+          
+          // loop the "other" regions that aren't the primary one again
+          foreach($otherRegions as $orid => $odata) {
+            $regionname = str_replace("_", "-", $orid);
+            
+            //$classCreate[] = '.with--'. $primary_region . '.without--' . $regionname;
+            
+            // now that we are looping, we will loop again to then create
+            // .without--sidebar-first.without--sidebar-second.without--sidebar-second
+            foreach($otherRegions as $orid2 => $odata2) {
+              $regionname2 = str_replace("_", "-", $orid2);
+              $notYetMatched = TRUE;
+              
+              
+              if ($regionname != $regionname2) {
+                $attemptedTest = array(
+                  '.with--'. $primary_region,
+                  '.without--' . $regionname,
+                  '.without--' . $regionname2,
+                );
+                asort($attemptedTest);
+                //dsm($attemptedTest);
+                $attemptedMatch = implode('', $attemptedTest);
+                //asort()
+                
+                if (in_array($attemptedMatch, $classMatch)) {
+                  $notYetMatched = FALSE;  
+                }
+                
+                
+                
+                
+                // combine the width (including prefix & suffix) of the empty region(s) with that of the main one
+                $newWidth2 = $odata['width'] + $odata['prefix'] + $odata['suffix'] + $odata2['width'] + $odata2['prefix'] + $odata2['suffix'] + $mainRegion['width'];
+                
+                // if the columns combine to be wider than the row, set the max columns
+                if ($newWidth2 > $layout[$defaultLayout][$breakpointName][$groupId]['row']) {
+                  $newWidth2 = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
+                }
+                
+                if ($notYetMatched) {
+                  $classCreate = '.with--'. $primary_region . '.without--' . $regionname . '.without--' . $regionname2;
+                  
+                  
+                  $classMatch[] = $attemptedMatch;
+                  
+                  if (count($classMatch) >= 1) {
+                    //dsm($classMatch);  
+                  }
+
+            
+// FORMATTED INTENTIONALLY          
+                  $breakpoint_scss .= '
+  &' . $classCreate . ' {
+    .region--' . $primary_region . ' {
+      @include column(' . $newWidth2 . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . ');';
+// END FORMATTED INTENTIONALLY          
+          
+      // @todo need to adjust for push/pull here
+
+// FORMATTED INTENTIONALLY          
+          $breakpoint_scss .= '
+    }'; 
+// END FORMATTED INTENTIONALLY
+
+// FORMATTED INTENTIONALLY
+              $breakpoint_scss .= '
+  }
+'; 
+// END FORMATTED INTENTIONALLY
+                } // end if ($notYetMatched)
+              } // end if ($regionname != $regionname2)
+            
+            
+              
+              
+            
+            
+            
+            } // end foreach $otherRegions (2nd loop)
+          }  // end foreach $otherRegions (1st loop)
+          
+          if ($num_otherRegions == 3) {
+          
+// FORMATTED INTENTIONALLY
+        // throw a comment in the scss
+        $breakpoint_scss .= '
+  // 3 missing regions
+';
+// END FORMATTED INTENTIONALLY    
+          
+          // .without--sidebar-first.without--sidebar-second.without--sidebar-second.without--sidebar-third
+          
+          // loop the "other" regions that aren't the primary one again
+          foreach($otherRegions as $orid => $odata) {
+            $regionname = str_replace("_", "-", $orid);
+            
+            //$classCreate[] = '.with--'. $primary_region . '.without--' . $regionname;
+            
+            // now that we are looping, we will loop again to then create
+            // .without--sidebar-first.without--sidebar-second.without--sidebar-second
+            foreach($otherRegions as $orid2 => $odata2) {
+              $regionname2 = str_replace("_", "-", $orid2);
+              
+            foreach($otherRegions as $orid3 => $odata3) {
+              $regionname3 = str_replace("_", "-", $orid3);
+              $notYetMatched = TRUE;
+              
+              
+              if ($regionname != $regionname2 && $regionname != $regionname3 && $regionname2 != $regionname3) {
+                $attemptedTest = array(
+                  '.with--'. $primary_region,
+                  '.without--' . $regionname,
+                  '.without--' . $regionname2,
+                  '.without--' . $regionname3,
+                );
+                asort($attemptedTest);
+                //dsm($attemptedTest);
+                $attemptedMatch = implode('', $attemptedTest);
+                //asort()
+                
+                if (in_array($attemptedMatch, $classMatch)) {
+                  $notYetMatched = FALSE;  
+                }
+                
+                
+                
+                
+                // combine the width (including prefix & suffix) of the empty region(s) with that of the main one
+                $newWidth3 = $odata['width'] + $odata['prefix'] + $odata['suffix'] + $odata2['width'] + $odata2['prefix'] + $odata2['suffix'] + $odata3['width'] + $odata3['prefix'] + $odata3['suffix'] + $mainRegion['width'];
+                
+                // if the columns combine to be wider than the row, set the max columns
+                if ($newWidth3 > $layout[$defaultLayout][$breakpointName][$groupId]['row']) {
+                  $newWidth3 = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
+                }
+                
+                if ($notYetMatched) {
+                  $classCreate = '.with--'. $primary_region . '.without--' . $regionname . '.without--' . $regionname2 . '.without--' . $regionname3;
+                  
+                  
+                  $classMatch[] = $attemptedMatch;
+                  
+                  if (count($classMatch) >= 1) {
+                    //dsm($classMatch);  
+                  }
+                
+// FORMATTED INTENTIONALLY          
+                  $breakpoint_scss .= '
+  &' . $classCreate . ' {
+    .region--' . $primary_region . ' {
+      @include column(' . $newWidth3 . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . ');';
+// END FORMATTED INTENTIONALLY          
+          
+      // @todo need to adjust for push/pull here
+
+// FORMATTED INTENTIONALLY          
+          $breakpoint_scss .= '
+    }'; 
+// END FORMATTED INTENTIONALLY
+
+// FORMATTED INTENTIONALLY
+              $breakpoint_scss .= '
+  }'; 
+// END FORMATTED INTENTIONALLY
+                } // end if ($notYetMatched)
+              } // end if ($regionname != $regionname2)
+            
+            
+            
+            }
+            }
+            
+            
+            } // end foreach $otherRegions (3rd loop)
+            } // end if 3 regions count
+          
+        }  // end if($primary_region)
+// FORMATTED INTENTIONALLY      
+      $breakpoint_scss .= '
+}
+'; // end of region group
+// END FORMATTED INTENTIONALLY
+      
+    }
+    
+    // if not the defualt media query that should apply to all screens
+    // we will wrap the scss we've generated in the appropriate media query.
+    if ($breakpointName != 'all') {
+      $breakpoint_scss = '@media ' . $breakpointMedia . ' { ' . $breakpoint_scss . '
+}
+';
+    }
+    
+    // add in the SCSS from this breakpoint and add to our SCSS
+    $scss .= $breakpoint_scss; 
+  }
+  //dsm($scss);
+  
+  return $scss;
 }

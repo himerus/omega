@@ -76,7 +76,7 @@
   <div id="page" class="clearfix <?php print $region_classes; ?>">
 
     <header id="header-outer-wrapper" class="outer-wrapper clearfix" role="banner">
-      <div id="header-layout" class="header-layout inner-wrapper clearfix">
+      <div id="header-layout" class="header-layout inner-wrapper clearfix <?php print $region_classes['header']; ?>">
         
         <?php if ($page['header']): ?>
         <div id="header" class="region--header clearfix column">
@@ -132,7 +132,7 @@
 
   <?php if ($page['preface_first'] || $page['preface_second'] || $page['preface_third'] || $page['preface_fourth']): ?>
     <section id="preface-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="preface-layout" class="preface-layout inner-wrapper clearfix">
+      <div id="preface-layout" class="preface-layout inner-wrapper clearfix <?php print $region_classes['preface']; ?>">
         <?php if ($page['preface_first']): ?>
           <div id="preface-first" class="region--preface-first"><?php print render($page['preface_first']); ?></div>
         <?php endif; ?>
@@ -155,7 +155,7 @@
   ?>
   
   <section id="core-outer-wrapper" class="outer-wrapper clearfix">
-    <div id="core-layout" class="core-layout inner-wrapper clearfix">
+    <div id="core-layout" class="core-layout inner-wrapper clearfix <?php print $region_classes['core']; ?>">
       
       <div id="highlighted" class="region--highlighted column">
         <?php print $messages; ?>
@@ -188,7 +188,7 @@
   </section> 
 
   <section id="content-outer-wrapper" class="outer-wrapper clearfix">
-    <div id="main-layout" class="main-layout inner-wrapper clearfix">
+    <div id="main-layout" class="main-layout inner-wrapper clearfix <?php print $region_classes['main']; ?>">
       <main id="content" class="region--content column" role="main">
         <?php print render($page['content']); ?>
         <?php print $feed_icons; ?>
@@ -215,7 +215,7 @@
 
   <?php if ($page['postscript_first'] || $page['postscript_second'] || $page['postscript_third'] || $page['postscript_fourth']): ?>
     <section id="postscript-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="postscript-layout" class="postscript-layout inner-wrapper clearfix">
+      <div id="postscript-layout" class="postscript-layout inner-wrapper clearfix <?php print $region_classes['postscript']; ?>">
         <?php if ($page['postscript_first']): ?>
           <div id="postscript-first" class="region--postscript-first"><?php print render($page['postscript_first']); ?></div>
         <?php endif; ?>
@@ -234,7 +234,7 @@
   
   <?php if ($page['sidebar_second']): ?>
     <footer id="footer-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="footer-layout" role="contentinfo" class="footer-layout inner-wrapper clearfix">
+      <div id="footer-layout" role="contentinfo" class="footer-layout inner-wrapper clearfix <?php print $region_classes['footer']; ?>">
         <div id="footer" class="region--footer">
           <?php print render($page['footer']); ?>
         </div>

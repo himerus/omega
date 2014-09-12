@@ -395,7 +395,8 @@ $twidth: 100%;
   
   @include clearfix();
   
-  div.form-type-select[class*=-row] {
+  div.form-type-select[class*=-row],
+  div.form-type-select[class*=-primary-region] {
     display: block;
     float: left;
     border-right: 1px solid #CCC;
@@ -407,6 +408,11 @@ $twidth: 100%;
     }
     select {
       width: 50px;
+    }
+  }
+  div.form-type-select[class*=-primary-region] {
+    select {
+      width: auto;
     }
   }
   
@@ -441,11 +447,13 @@ $twidth: 100%;
     }
   }
   
-  div.form-type-radios[class*=-maxwidth-type] {
+  div.form-type-radios[class*=-maxwidth-type],
+  div.form-type-radios[class*=-collapsed] {
     display: block;
     float: left;
     margin: 0;
     padding: 0 10px;
+    border-right: 1px solid #CCC;
     
     label {
       font-size: 11px;
@@ -462,7 +470,9 @@ $twidth: 100%;
     }
   }
   
-  
+  div.form-type-radios[class*=-collapsed] {
+    border-right: none;
+  }
 }
 
 

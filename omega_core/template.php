@@ -211,7 +211,45 @@ function omega_html_head_alter(&$head_elements) {
  * Implements template_preprocess_page().
  */
 function omega_preprocess_page(&$vars) {
-  $vars['region_classes'] = '';
+  $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
+  // get a list of themes
+  $themes = list_themes();
+  // get theme settings for active theme
+  $themeSettings = $themes[$theme];
+  // defined regions for active theme
+  $theme_regions = $themeSettings->info['regions'];
+
+  // create an array to define the with-sidebar_first without-sidebar_first classes
+  $region_classes = array();
+  $layout = omega_return_active_layout();
+  $regionGroups = $themeSettings->info['region_groups'];
+  
+  // grab the layout data stored in the DB
+  $layouts = is_array(variable_get('theme_' . $theme . '_layouts')) ? variable_get('theme_' . $theme . '_layouts') : array();
+  
+  
+  foreach($regionGroups as $group_id => $group_name) {
+    $groupRegions = element_children($layouts[$layout]['data']['all'][$group_id]['regions']);
+    
+    foreach($groupRegions as $region_id) {
+    
+      $altered_region_id = str_replace("_", "-", $region_id);
+    
+      if (isset($vars['page'][$region_id]['#region'])) {
+        $region_classes[$group_id][] = 'with--' . $altered_region_id;
+      }
+      else {
+        $region_classes[$group_id][] = 'without--' . $altered_region_id;
+      }
+    } 
+    // convert to string version
+    $region_classes[$group_id] = implode(" ", $region_classes[$group_id]);
+    
+  }
+  // assign classes to page.tpl.php
+  $vars['region_classes'] = $region_classes;
+  
+
   // removing help region if it is empty.
   $helpsize = isset($vars['page']['help']) ? count($vars['page']['help']) : 0;
   if (isset($vars['page']['help']) && $helpsize == 0) {
@@ -243,4 +281,29 @@ function omega_return_active_layout() {
   }
   
   return $layout;
+}
+
+/**
+ * Overrides theme_system_powered_by().
+ */
+function omega_system_powered_by() {
+  // Drupal
+  $drupal = l(t('Drupal'), 'http://drupal.org/', array(
+    'attributes' => array(
+      'target' => '_blank',
+      'class' => array(
+        'powered-by-link'
+      ),
+    ),
+  ));
+  // Omega
+  $omega = l(t('Omega Five'), 'http://drupal.org/project/omega', array(
+    'attributes' => array(
+      'target' => '_blank',
+      'class' => array(
+        'powered-by-link'
+      ),
+    ),
+  ));
+  return '<div class="powered-by">Powered by ' . $drupal . ' and ' . $omega . '</div>';
 }

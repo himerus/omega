@@ -20,7 +20,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
   $themeSettings = $themes[$theme];  
   
-  $cc = omega_clear_layout_cache($theme);
+  //$cc = omega_clear_layout_cache($theme);
   //dsm($cc);
   // grab all the layout data available for this theme
   $layoutData = _omega_get_layout_json_data($theme);
@@ -44,7 +44,8 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
   // pull saved layout data from variables table
   //$databaseLayouts = variable_get('theme_' . $theme . '_layouts');
-  //dsm($databaseLayouts);
+  $dbLayouts = is_array(variable_get('theme_' . $theme . '_layouts')) ? variable_get('theme_' . $theme . '_layouts') : array();
+  //dsm($dbLayouts);
   $layouts = array();
   /*
 if (isset($layoutData[$defaultLayout]['data'])) {
@@ -424,6 +425,19 @@ if (isset($layoutData[$defaultLayout]['data'])) {
           $possible_cols[$i] = $i . '';
         }
         
+        $regions = array('0' => '-- None');
+        foreach($layouts[$lid]['data'][$breakpointName][$groupId]['regions'] as $region_id => $region_info) {
+          $regions[$region_id] = isset($theme_regions[$region_id]) ? $theme_regions[$region_id] : $region_id;;
+        }
+        $rcount = count($layouts[$lid]['data'][$breakpointName][$groupId]['regions']);
+        if ($rcount > 4) {
+          $primary_access = FALSE;
+        }
+        else {
+          $primary_access = TRUE;
+        }
+        
+        
         $form['layouts'][$lid][$breakpointName][$groupId]['row'] = array(
           '#prefix' => '<div class="region-group-layout-settings">',
           '#type' => 'select',
@@ -439,6 +453,20 @@ if (isset($layoutData[$defaultLayout]['data'])) {
           '#group' => '',
         );
         
+        $form['layouts'][$lid][$breakpointName][$groupId]['primary_region'] = array(
+          '#type' => 'select',
+          '#attributes' => array(
+            'class' => array(
+              'row-primary-region', 
+              'clearfix'
+            ),
+          ),
+          '#title' => 'Primary Region',
+          '#options' => $regions,
+          '#default_value' => isset($layouts[$lid]['data'][$breakpointName][$groupId]['primary_region']) ? $layouts[$lid]['data'][$breakpointName][$groupId]['primary_region'] : '',
+          '#group' => '',
+          '#access' => $primary_access,
+        );
         
         $form['layouts'][$lid][$breakpointName][$groupId]['visual_controls'] = array(
           '#prefix' => '<div class="omega-layout-controls form-item">',
@@ -476,8 +504,27 @@ if (isset($layoutData[$defaultLayout]['data'])) {
           '#title' => 'Max-width type',
           '#default_value' => isset($layouts[$lid]['data'][$breakpointName][$groupId]['maxwidth_type']) ? $layouts[$lid]['data'][$breakpointName][$groupId]['maxwidth_type'] : 'percent',
           '#group' => '',
+        );
+        
+        $form['layouts'][$lid][$breakpointName][$groupId]['collapsed'] = array(
+          '#type' => 'radios',
+          '#attributes' => array(
+            'class' => array(
+              'row-collapsed', 
+              'clearfix'
+            ),
+          ),
+          '#options' => array(
+            'TRUE' => 'Y',
+            'FALSE' => 'N',
+          ),
+          '#title' => 'Collapsed',
+          '#default_value' => isset($layouts[$lid]['data'][$breakpointName][$groupId]['collapsed']) ? $layouts[$lid]['data'][$breakpointName][$groupId]['collapsed'] : 'FALSE',
+          '#group' => '',
           '#suffix' => '</div>',
         );
+        
+        
         //dsm($layouts[$lid]['data']);
         // get columns for this region group
         $available_cols = array();
@@ -727,22 +774,13 @@ function omega_theme_settings_validate(&$form, &$form_state) {
 */
 
 function omega_theme_settings_submit(&$form, &$form_state) {
-  //dsm(debug_backtrace());
-  //dsm('Running omega_theme_settings_submit(&$form, &$form_state)');
-  //require_once('theme-settings.php');
   // Get the theme name.
   $theme = $form_state['build_info']['args'][0];
   
   $values = $form_state['values'];
-  //dsm($values);
   
-  //dsm($layout);
-  // @todo
-  // this will likely change as it is not currently in the theme settings form.
-  // but only in the .info file settings. 
   $layoutName = isset($values['edit_this_layout']) ? $values['edit_this_layout'] : theme_get_setting('default_layout', $theme);
   $layout[$layoutName] = $values['layouts'][$layoutName];
-  //dsm($layoutName);
   
   // Options for phpsass compiler. Defaults in SassParser.php
   $options = array(
@@ -750,60 +788,20 @@ function omega_theme_settings_submit(&$form, &$form_state) {
     'cache' => FALSE,
     'syntax' => 'scss',
     'debug' => FALSE,
-    //'debug_info' => $debug,
-    //'load_paths' => array(dirname($file['data'])),
-    //'filename' => $file['data'],
-    //'load_path_functions' => array('sassy_load_callback'),
-    //'functions' => sassy_get_functions(),
-    'callbacks' => array(
-      //'warn' => $watchdog ? 'sassy_watchdog_warn' : NULL,
-      //'debug' => $watchdog ? 'sassy_watchdog_debug' : NULL,
-    ),
   );
 
   // create the SCSS file based on the layout configuration
   $scss   = _omega_compile_layout_sass($layout, $layoutName, $theme, $options);
-  //dsm($scss);
   
   // create the CSS file based on the SCSS generated above
   $css    = _omega_compile_layout_css($scss, $options);
-  //dsm($css);
   
   // create the JSON format of the layout array for later use
   $json   = _omega_compile_layout_json($layoutName, $layout);
-  //dsm($json);
   
   // Save all the things to files
   _omega_save_layout_files($scss, $css, $json, $theme, $layoutName);
   
-  variable_set('theme_' . $theme . '_layouts', $values['layouts']);
-
-}
-
-/**
-
- * Menu callback for AJAX additions. Render the new poll choices. FAIL
-
- */
-
-function omega_update_layout_settings_form(&$form, &$form_state) {
-  //require_once(drupal_get_path('theme', 'omega') . '/theme-settings.php');
-  //$theme = $form_state['build_info']['args'][0];
-  //require_once('theme-settings.php');
-  //$values = $form_state['values'];
-  // check for ajax update of default layout, or use default theme setting
-  //$defaultLayout = isset($form_state['values']['default_layout']) ? $form_state['values']['default_layout'] : theme_get_setting('default_layout', $theme);
-  //dd($form['layouts']);
-  //$form['layouts']['default_layout']['#value'] = $defaultLayout;
-  //$form_state['rebuild'] = TRUE;
-  
-  
-  
-  
-  //form_load_include($form_state, 'inc', 'system', 'system.admin');
-  
-  
-  
-  return $form['layouts']['layout-config'];
-  //return $form;
+  // Save all the things to database
+  $db = _omega_save_database_layouts($layout, $layoutName, $theme);
 }
