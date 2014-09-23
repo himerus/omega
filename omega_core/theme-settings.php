@@ -430,7 +430,7 @@ if (isset($layoutData[$defaultLayout]['data'])) {
           $regions[$region_id] = isset($theme_regions[$region_id]) ? $theme_regions[$region_id] : $region_id;;
         }
         $rcount = count($layouts[$lid]['data'][$breakpointName][$groupId]['regions']);
-        if ($rcount > 4) {
+        if ($rcount > 3 || $rcount <= 1) {
           $primary_access = FALSE;
         }
         else {

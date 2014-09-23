@@ -128,9 +128,7 @@ body {
 @mixin column($x, $realcols:$cols, $margin: 'normal') {
 	display: block;
 	position: relative;
-
-
-	
+  clear: none;
  
   $colwidth: (gwidth($x) - $gutter) * calcwidth();
   $colmargin: ($gutter / 2) * calcwidth();
@@ -144,7 +142,7 @@ body {
 	$leftmargin: $colmargin;
 	
 	width: $colwidth;
-
+	
 	margin-right: $rightmargin;
 	margin-left: $leftmargin;
 	
@@ -216,6 +214,16 @@ body {
 	@if $dir == 'RTL' {
 	  margin-left: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
 	}
+}
+
+@mixin column-reset() {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  left: auto;
+  right: auto;
+  float: none;
+  clear: both;
 }
 
  
@@ -325,12 +333,14 @@ body {
 
   &.with--content.without--sidebar-first {
     .region--content {
+      @include column-reset();
       @include column(12, 12);
     }
   }
 
   &.with--content.without--sidebar-second {
     .region--content {
+      @include column-reset();
       @include column(12, 12);
     }
   }
@@ -339,7 +349,9 @@ body {
 
   &.with--content.without--sidebar-first.without--sidebar-second {
     .region--content {
+      @include column-reset();
       @include column(12, 12);
+
     }
   }
 
@@ -495,12 +507,14 @@ body {
 
   &.with--content.without--sidebar-first {
     .region--content {
+      @include column-reset();
       @include column(12, 12);
     }
   }
 
   &.with--content.without--sidebar-second {
     .region--content {
+      @include column-reset();
       @include column(12, 12);
     }
   }
@@ -509,7 +523,9 @@ body {
 
   &.with--content.without--sidebar-first.without--sidebar-second {
     .region--content {
+      @include column-reset();
       @include column(12, 12);
+
     }
   }
 
@@ -667,12 +683,14 @@ body {
 
   &.with--content.without--sidebar-first {
     .region--content {
+      @include column-reset();
       @include column(9, 12);
     }
   }
 
   &.with--content.without--sidebar-second {
     .region--content {
+      @include column-reset();
       @include column(9, 12);
     }
   }
@@ -681,7 +699,9 @@ body {
 
   &.with--content.without--sidebar-first.without--sidebar-second {
     .region--content {
+      @include column-reset();
       @include column(12, 12);
+
     }
   }
 
@@ -815,19 +835,22 @@ body {
 
   // Breakpoint: wide; Region Group: main; Region: content;
   .region--content { 
-    @include column(5, 12); 
+    @include column(5, 12);   
+    @include push(7); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: wide; Region Group: main; Region: sidebar_first;
   .region--sidebar-first { 
-    @include column(4, 12); 
+    @include column(4, 12);   
+    @include pull(5); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: wide; Region Group: main; Region: sidebar_second;
   .region--sidebar-second { 
-    @include column(3, 12); 
+    @include column(3, 12);   
+    @include pull(5); 
     margin-bottom: $regionSpacing;
   } 
 
@@ -839,13 +862,27 @@ body {
 
   &.with--content.without--sidebar-first {
     .region--content {
+      @include column-reset();
       @include column(9, 12);
+      @include push(3);
+    }
+    .region--sidebar-second {
+      @include column-reset();
+      @include column(3, 12);
+      @include pull(9);
     }
   }
 
   &.with--content.without--sidebar-second {
     .region--content {
+      @include column-reset();
       @include column(8, 12);
+      @include push(4);
+    }
+    .region--sidebar-first {
+      @include column-reset();
+      @include column(4, 12);
+      @include pull(8);
     }
   }
 
@@ -853,7 +890,9 @@ body {
 
   &.with--content.without--sidebar-first.without--sidebar-second {
     .region--content {
+      @include column-reset();
       @include column(12, 12);
+
     }
   }
 
@@ -888,57 +927,6 @@ body {
     margin-bottom: $regionSpacing;
   } 
 
-  // A primary region exists for the postscript region group.
-  // so we are going to iterate over combinations of available/missing
-  // regions to change the layout for this group based on those scenarios.
-  
-  // 1 missing region
-
-  &.with--postscript_first.without--postscript-second {
-    .region--postscript_first {
-      @include column(6, 12);
-    }
-  }
-
-  &.with--postscript_first.without--postscript-third {
-    .region--postscript_first {
-      @include column(6, 12);
-    }
-  }
-
-  &.with--postscript_first.without--postscript-fourth {
-    .region--postscript_first {
-      @include column(6, 12);
-    }
-  }
-
-  // 2 missing regions
-
-  &.with--postscript_first.without--postscript-second.without--postscript-third {
-    .region--postscript_first {
-      @include column(9, 12);
-    }
-  }
-
-  &.with--postscript_first.without--postscript-second.without--postscript-fourth {
-    .region--postscript_first {
-      @include column(9, 12);
-    }
-  }
-
-  &.with--postscript_first.without--postscript-third.without--postscript-fourth {
-    .region--postscript_first {
-      @include column(9, 12);
-    }
-  }
-
-  // 3 missing regions
-
-  &.with--postscript_first.without--postscript-second.without--postscript-third.without--postscript-fourth {
-    .region--postscript_first {
-      @include column(12, 12);
-    }
-  }
 }
 
 // Breakpoint: wide; Region Group: footer;

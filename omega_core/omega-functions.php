@@ -512,7 +512,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
 // END FORMATTED INTENTIONALLY        
       }
       // check to see if primary region is set
-      if ($primary_region && $total_regions <= 4) {
+      if ($primary_region && $total_regions <= 3) {
 // FORMATTED INTENTIONALLY        
         $breakpoint_scss .= '
   // A primary region exists for the '. $groupId .' region group.
@@ -527,8 +527,11 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
         $otherRegions = $layout[$defaultLayout][$breakpointName][$groupId]['regions'];
         unset($otherRegions[$primary_region]);
         $num_otherRegions = count($otherRegions);
-        
+        $cols = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
         $classMatch = array();
+        // in order to ensure the primary region we want to assign extra empty space to
+        // exists, we use the .with--region_name class so it would only apply if the
+        // primary region is present.
         $classCreate = array(
           '.with--'. $primary_region
         );
@@ -540,31 +543,100 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
           // combine the region widths
           
           
-          // combine the width (including prefix & suffix) of the empty region with that of the main one
-          $newWidth = $odata['width'] + $odata['prefix'] + $odata['suffix'] + $mainRegion['width'];
           
-          // if the columns combine to be wider than the row, set the max columns
-          if ($newWidth > $layout[$defaultLayout][$breakpointName][$groupId]['row']) {
-            $newWidth = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
-          }
+          $adjust = _omega_layout_generation_adjust($mainRegion, array($otherRegions[$orid]), $cols);
+          
           
 // FORMATTED INTENTIONALLY          
           $breakpoint_scss .= '
   &.with--'. $primary_region . '.without--' . $regionname .' {
     .region--' . $primary_region . ' {
-      @include column(' . $newWidth . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . ');';
+      @include column-reset();
+      @include column(' . $adjust['width'] . ', ' . $cols . ');';
 // END FORMATTED INTENTIONALLY          
           
       // @todo need to adjust for push/pull here
-
-
+      
+      
+      // ACK!!! .sidebar-first would need push/pull adjusted if 
+      // the sidebar-second is gone
+      // this might be IMPOSSIBLE
+      
+      $pushPullAltered = FALSE;
+      
+      if ($adjust['pull'] >= 1) {
+// FORMATTED INTENTIONALLY          
+          $pushPullAltered = TRUE;
+          $breakpoint_scss .= '
+      @include pull(' . $adjust['pull'] . ');';
+// END FORMATTED INTENTIONALLY        
+      }
+      
+      if ($adjust['push'] >= 1) {
+// FORMATTED INTENTIONALLY          
+          $pushPullAltered = TRUE;
+          $breakpoint_scss .= '
+      @include push(' . $adjust['push'] . ');';
+// END FORMATTED INTENTIONALLY        
+      }
+      
 // FORMATTED INTENTIONALLY          
           $breakpoint_scss .= '
     }'; // end of iteration of condition missing one region
 // END FORMATTED INTENTIONALLY
         
         
-        
+          // now what if we adjusted the push/pull of the main region, or the 
+          // remaining region had a push/pull, we need to re-evaluate the layout for that region
+          
+          if ($pushPullAltered) {
+            // find that other remaining region.
+            
+            $region_other = $otherRegions;
+            unset($region_other[$orid]);
+            $region_other_keys = array_keys($region_other);
+            $region_other_id = $region_other_keys[0];
+            $regionname_other = str_replace("_", "-", $region_other_id);
+            $otherRegionWidth = $region_other[$region_other_id]['width'];
+            
+            
+            $breakpoint_scss .= '
+    .region--' . $regionname_other . ' {
+      @include column-reset();
+      @include column(' . $region_other[$region_other_id]['width'] . ', ' . $cols . ');';
+// END FORMATTED INTENTIONALLY
+            
+            
+            
+            
+            // APPEARS to position the remaining (not primary) region
+            // BUT the primary region is positioned wrong with push/pull
+            
+            
+            
+            // if there is a pull on the primary region, we adjust the push on the remaining one
+            if ($adjust['pull'] >= 1) {
+// FORMATTED INTENTIONALLY          
+              $pushPullAltered = TRUE;
+              $breakpoint_scss .= '
+      @include push(' . $adjust['width'] . ');';
+// END FORMATTED INTENTIONALLY        
+            }
+            // if there is a push on the primary region, we adjust the pull on the remaining one
+            if ($adjust['push'] >= 1) {
+// FORMATTED INTENTIONALLY          
+              $pushPullAltered = TRUE;
+              $breakpoint_scss .= '
+      @include pull(' . $adjust['width'] . ');';
+// END FORMATTED INTENTIONALLY        
+            }
+            
+            
+// FORMATTED INTENTIONALLY          
+          $breakpoint_scss .= '
+    }'; // end of iteration of condition missing one region
+// END FORMATTED INTENTIONALLY
+          }
           
         
 // FORMATTED INTENTIONALLY
@@ -625,13 +697,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
                 
                 
                 
-                // combine the width (including prefix & suffix) of the empty region(s) with that of the main one
-                $newWidth2 = $odata['width'] + $odata['prefix'] + $odata['suffix'] + $odata2['width'] + $odata2['prefix'] + $odata2['suffix'] + $mainRegion['width'];
-                
-                // if the columns combine to be wider than the row, set the max columns
-                if ($newWidth2 > $layout[$defaultLayout][$breakpointName][$groupId]['row']) {
-                  $newWidth2 = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
-                }
+                $adjust = _omega_layout_generation_adjust($mainRegion, array($otherRegions[$orid], $otherRegions[$orid2]), $cols);
                 
                 if ($notYetMatched) {
                   $classCreate = '.with--'. $primary_region . '.without--' . $regionname . '.without--' . $regionname2;
@@ -648,7 +714,9 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
                   $breakpoint_scss .= '
   &' . $classCreate . ' {
     .region--' . $primary_region . ' {
-      @include column(' . $newWidth2 . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . ');';
+      @include column-reset();
+      @include column(' . $adjust['width'] . ', ' . $cols . ');
+';
 // END FORMATTED INTENTIONALLY          
           
       // @todo need to adjust for push/pull here
@@ -675,99 +743,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
             } // end foreach $otherRegions (2nd loop)
           }  // end foreach $otherRegions (1st loop)
           
-          if ($num_otherRegions == 3) {
           
-// FORMATTED INTENTIONALLY
-        // throw a comment in the scss
-        $breakpoint_scss .= '
-  // 3 missing regions
-';
-// END FORMATTED INTENTIONALLY    
-          
-          // .without--sidebar-first.without--sidebar-second.without--sidebar-second.without--sidebar-third
-          
-          // loop the "other" regions that aren't the primary one again
-          foreach($otherRegions as $orid => $odata) {
-            $regionname = str_replace("_", "-", $orid);
-            
-            //$classCreate[] = '.with--'. $primary_region . '.without--' . $regionname;
-            
-            // now that we are looping, we will loop again to then create
-            // .without--sidebar-first.without--sidebar-second.without--sidebar-second
-            foreach($otherRegions as $orid2 => $odata2) {
-              $regionname2 = str_replace("_", "-", $orid2);
-              
-            foreach($otherRegions as $orid3 => $odata3) {
-              $regionname3 = str_replace("_", "-", $orid3);
-              $notYetMatched = TRUE;
-              
-              
-              if ($regionname != $regionname2 && $regionname != $regionname3 && $regionname2 != $regionname3) {
-                $attemptedTest = array(
-                  '.with--'. $primary_region,
-                  '.without--' . $regionname,
-                  '.without--' . $regionname2,
-                  '.without--' . $regionname3,
-                );
-                asort($attemptedTest);
-                //dsm($attemptedTest);
-                $attemptedMatch = implode('', $attemptedTest);
-                //asort()
-                
-                if (in_array($attemptedMatch, $classMatch)) {
-                  $notYetMatched = FALSE;  
-                }
-                
-                
-                
-                
-                // combine the width (including prefix & suffix) of the empty region(s) with that of the main one
-                $newWidth3 = $odata['width'] + $odata['prefix'] + $odata['suffix'] + $odata2['width'] + $odata2['prefix'] + $odata2['suffix'] + $odata3['width'] + $odata3['prefix'] + $odata3['suffix'] + $mainRegion['width'];
-                
-                // if the columns combine to be wider than the row, set the max columns
-                if ($newWidth3 > $layout[$defaultLayout][$breakpointName][$groupId]['row']) {
-                  $newWidth3 = $layout[$defaultLayout][$breakpointName][$groupId]['row'];
-                }
-                
-                if ($notYetMatched) {
-                  $classCreate = '.with--'. $primary_region . '.without--' . $regionname . '.without--' . $regionname2 . '.without--' . $regionname3;
-                  
-                  
-                  $classMatch[] = $attemptedMatch;
-                  
-                  if (count($classMatch) >= 1) {
-                    //dsm($classMatch);  
-                  }
-                
-// FORMATTED INTENTIONALLY          
-                  $breakpoint_scss .= '
-  &' . $classCreate . ' {
-    .region--' . $primary_region . ' {
-      @include column(' . $newWidth3 . ', ' . $layout[$defaultLayout][$breakpointName][$groupId]['row'] . ');';
-// END FORMATTED INTENTIONALLY          
-          
-      // @todo need to adjust for push/pull here
-
-// FORMATTED INTENTIONALLY          
-          $breakpoint_scss .= '
-    }'; 
-// END FORMATTED INTENTIONALLY
-
-// FORMATTED INTENTIONALLY
-              $breakpoint_scss .= '
-  }'; 
-// END FORMATTED INTENTIONALLY
-                } // end if ($notYetMatched)
-              } // end if ($regionname != $regionname2)
-            
-            
-            
-            }
-            }
-            
-            
-            } // end foreach $otherRegions (3rd loop)
-            } // end if 3 regions count
           
         }  // end if($primary_region)
 // FORMATTED INTENTIONALLY      
@@ -792,4 +768,94 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   //dsm($scss);
   
   return $scss;
+}
+
+/**
+ * Helper function to calculate the new width/push/pull/prefix/suffix of a primary region 
+ * $main is the primary region for a group which will actually be the one we are adjusting
+ * $empty_regions is an array of region data for regions that would be empty
+ * $cols is the total number of columns assigned using row(); for the region group
+ * 
+ * @return array()
+ * array contains width, push, pull, prefix and suffix of adjusted primary region
+ */
+function _omega_layout_generation_adjust($main, $empty_regions = array(), $cols) {
+  // assign values from $main region's data
+  $original_prefix = $prefix = $main['prefix'];
+  $original_pull = $pull = $main['pull'];
+  $original_width = $width = $main['width'];
+  $original_push = $push = $main['push'];
+  $original_suffix = $suffix = $main['suffix'];
+  
+  foreach($empty_regions as $rid => $data) {
+    
+    
+    /* Calculate the width */
+    
+    // add the width, prefix & suffix of the regions we are combining
+    // this creates the "true" width of the primary regions
+    $newActualWidth = $data['width'] + $data['prefix'] + $data['suffix'] + $width;
+    // reassign the $width variable
+    $width = $newActualWidth;
+    // this ensures if the primary region has a prefix/suffix, they are calculated too
+    // when ensuring that the region doesn't have more columns than the container.
+    $newTotalWidth = $newActualWidth + $prefix + $suffix;
+    
+    /* END EARLY IF WIDTH IS TOO WIDE */
+    
+    // if the columns combine to be wider than the row, set the max columns
+    // and remove all push/pull/prefix/suffix values
+    if ($newTotalWidth > $cols) {
+      return array(
+        'width' => $cols,
+        'prefix' => 0,
+        'suffix' => 0,
+        'push' => 0,
+        'pull' => 0,
+      );
+    }
+    
+    
+    
+    /* Calculate updates for the push/pull */
+    if ($data['push'] >= 1) {
+      
+      // appears these regions were swapped, compensate by removing the push/pull
+      if ($data['push'] == $original_width && $data['width'] == $original_pull) {
+        $pull = 0;
+      }
+      
+      // assume now that BOTH other regions were pushed
+      if ($original_pull > $data['width']) {
+        $pull = $cols - $width;
+      }
+      
+    }
+    
+    if ($data['pull'] >= 1) {
+      // appears these regions were swapped, compensate by removing the push/pull
+      if ($data['pull'] == $original_width && $data['width'] == $original_push) {
+        $push = 0;
+      }
+      
+      // assume now that BOTH other regions were pushed
+      if ($original_push > $data['width']) {
+        $push = $cols - $width;
+      }
+    }
+    
+    /* Calculate the prefix/suffix */
+    // we don't actually need to do this as the prefix/suffix is added to the actual 
+    // width of the primary region rather than adding/subtracting additional margings.
+    
+    
+  }
+  
+  return array(
+    'width' => $width,
+    'prefix' => $prefix,
+    'suffix' => $suffix,
+    'push' => $push,
+    'pull' => $pull,
+  );
 }

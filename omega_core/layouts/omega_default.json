@@ -624,7 +624,7 @@
                 "collapsed":"FALSE",
                 "regions":{
                     "content":{
-                        "push":"0",
+                        "push":"7",
                         "prefix":"0",
                         "width":"5",
                         "suffix":"0",
@@ -635,23 +635,23 @@
                         "prefix":"0",
                         "width":"4",
                         "suffix":"0",
-                        "pull":"0"
+                        "pull":"5"
                     },
                     "sidebar_second":{
                         "push":"0",
                         "prefix":"0",
                         "width":"3",
                         "suffix":"0",
-                        "pull":"0"
+                        "pull":"5"
                     }
                 }
             },
             "postscript":{
                 "row":"12",
-                "primary_region":"postscript_first",
+                "primary_region":"0",
                 "maxwidth":"1280",
                 "maxwidth_type":"pixel",
-                "collapsed":"FALSE",
+                "collapsed":"TRUE",
                 "regions":{
                     "postscript_first":{
                         "push":"0",

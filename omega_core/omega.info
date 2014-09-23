@@ -70,4 +70,6 @@ settings[block_demo_excluded_regions][] = 'page_bottom'
 settings[block_demo_excluded_regions][] = 'highlighted'
 settings[block_demo_excluded_regions][] = 'help'
 
+; TEST for content first/primary region functionality
+;settings[block_demo_excluded_regions][] = 'sidebar_first'
 ;settings[block_demo_excluded_regions][] = 'sidebar_second'
