@@ -73,7 +73,7 @@
  */
 ?>
 <div id="page-wrapper" class="clearfix">
-  <div id="page" class="clearfix <?php print $region_classes; ?>">
+  <div id="page" class="clearfix">
 
     <header id="header-outer-wrapper" class="outer-wrapper clearfix" role="banner">
       <div id="header-layout" class="header-layout inner-wrapper clearfix <?php print $region_classes['header']; ?>">
