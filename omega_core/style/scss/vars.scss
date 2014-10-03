@@ -49,11 +49,31 @@ $below_desktop: 1023px !default;
 $desktopWide: 1220px !default;
 $below_desktopWide: 1219px !default;
 
+$darken: 5% !default;
+$lighten: 10% !default;
+
 $primaryColor1: #0b6194 !default; // good blue
 $primaryColor2: #008ABA !default; // lighter blue
 $primaryColor3: #174666 !default; // lighter blue
 $primaryColor4: #3A3A3A !default; // lighter blue
 $primaryColor5: #9A9A9A !default; // lighter blue
+
+$blue-1: #0b6194 !default; // good blue
+$blue-2: #008ABA !default; // lighter blue
+$blue-3: #65d6f2 !default; // lighter blue
+$blue-4: #bcf2ff !default; // lighter blue
+
+$gray-0: #FFFFFF !default; // white
+$gray-1: #e1e1e1 !default; // light
+$gray-2: #c1c1c1 !default; // med
+$gray-3: #4a4a4a !default; // dark
+$gray-4: #2a2a2a !default; // darkest
+
+$font-size-small: 10px !default;
+$font-size-med:   14px !default;
+$font-size-large: 18px !default;
+$font-size-huge:  24px !default;
+
 
 
 $siteTitleColor: rgba($primaryColor1, 1);
@@ -73,4 +93,18 @@ $menuitemColor: $primaryColor2 !default;
   -webkit-border-radius: $rad;
   -moz-border-radius: $rad;
   border-radius: $rad;
+}
+// The micro clearfix 
+// http://nicolasgallagher.com/micro-clearfix-hack/
+@mixin clearfix() {
+	*zoom:1;
+	
+	&:before,
+	&:after {
+	    content:"";
+	    display:table;
+	}
+	&:after {
+	    clear:both;
+	}
 }
