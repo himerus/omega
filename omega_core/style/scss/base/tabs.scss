@@ -1,16 +1,117 @@
 @import "../vars.scss";
 
-nav.tabs {
+div.tabs {
+  
+  padding: 0;
+  background: $gray-4;
+
+  @media all and (min-width: $tablet) {
+    display: inline-block;
+    @include omegaCorners(5px);
+  }
+  
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  // primary reset to default Drupal styling
   ul.tabs {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: $font-size-med;
+    font-variant: small-caps;
+    
+    @include clearfix();
+    
+    @media all and (min-width: $tablet) {
+      display: block;
+      float: left;
+    }
+    
     li {
-      
+      margin: 0;
+      padding: 0;
+      border: 0;
+      display: block;
+      float: left;
+      margin-right: 5px;
+        
       a {
+        padding: 0;
+        margin: 0;
+        background: none;
+        border: 0;
+        display: block;
         
       }
             
       &.active {
-        
+        a {
+          background: none;
+          border: none;
+        }
       }
     }
+  }
+  
+  ul.primary,
+  ul.secondary {
+    
+    
+    @media all and (min-width: $tablet) {
+      @include omegaCorners(5px);
+    }
+    
+    li {
+      
+      a {
+        background: $gray-1;
+        color: $gray-3;
+        border: 1px solid $gray-2;
+        padding: 4px 8px;
+        @include omegaCorners(5px);
+        
+        &:hover {
+          background: darken($gray-1, $darken);
+          color: darken($gray-3, $darken);
+          border-color: darken($gray-2, $darken);
+        }
+        
+        &.active {
+          background: $blue-2;
+          border: 1px solid $blue-2;
+          color: $gray-0;
+          font-weight: bold;
+        }
+      }
+      
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  ul.primary {
+    //border: 1px solid $gray-2;
+    background: $gray-1;
+    padding: 5px;
+    padding-left: $font-size-med / 2;
+    padding-right: $font-size-med / 2;
+  }
+  ul.secondary {
+    font-size: $font-size-small;
+    padding-top: $font-size-med / 2;
+    padding-bottom: $font-size-med / 2;
+    padding-left: $font-size-med / 2;
+    padding-right: $font-size-med / 2;
+    
+    @media all and (min-width: $tablet) {
+      padding-left: $font-size-med;
+      padding-right: $font-size-med;
+    }
+    
+    
   }
 }
