@@ -225,8 +225,11 @@ function omega_preprocess_page(&$vars) {
   $regionGroups = $themeSettings->info['region_groups'];
   
   // grab the layout data stored in the DB
-  $layouts = is_array(variable_get('theme_' . $theme . '_layouts')) ? variable_get('theme_' . $theme . '_layouts') : array();
-  
+  $layouts = is_array(variable_get('theme_' . $theme . '_layouts')) ? variable_get('theme_' . $theme . '_layouts') : FALSE;
+  // if there's not data in the DB, create it to avoid warnings.
+  if (!$layouts) {
+    $layouts = _omega_get_layout_json_data($theme);
+  }
   
   foreach($regionGroups as $group_id => $group_name) {
     $groupRegions = element_children($layouts[$layout]['data']['all'][$group_id]['regions']);
