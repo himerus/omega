@@ -260,6 +260,17 @@ function omega_preprocess_page(&$vars) {
   }
 }
 
+
+/**
+ * Implements template_preprocess_node().
+ */
+function omega_preprocess_node(&$vars) {
+  if (!isset($vars['title_attributes_array']['class'])) {
+    $vars['title_attributes_array']['class'] = array();
+  }
+  $vars['title_attributes_array']['class'][] = 'node-title';
+}
+
 /**
  * Custom function to return the active layout to be used for the active page.
  */
