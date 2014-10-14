@@ -265,10 +265,42 @@ function omega_preprocess_page(&$vars) {
  * Implements template_preprocess_node().
  */
 function omega_preprocess_node(&$vars) {
+  $node = $vars['node'];
+
   if (!isset($vars['title_attributes_array']['class'])) {
     $vars['title_attributes_array']['class'] = array();
   }
   $vars['title_attributes_array']['class'][] = 'node-title';
+  
+  /* @todo ADD Configuration for each of these items. */  
+  
+  // add a better node type class
+  $vars['classes_array'][] = 'node-type--' . $node->type;
+  
+  // add a better node type class
+  $vars['classes_array'][] = 'node-zebra--' . $vars['zebra'];
+  
+  // add a better node view mode class
+  $vars['classes_array'][] = 'node-view-mode--' . $vars['view_mode'];
+  
+  // add a better node language class
+  $vars['classes_array'][] = 'node-language--' . $node->language;
+  
+  // add a better node author class
+  $vars['classes_array'][] = 'node-author--' . $node->name;
+  
+  // add a better sticky class
+  $vars['classes_array'][] = $node->sticky ? 'node-sticky--true' : 'node-sticky--false';
+  
+  // add a better published class
+  $vars['classes_array'][] = $node->status ? 'node-published--true' : 'node-published--false';
+  
+  // add a better promoted class
+  $vars['classes_array'][] = $node->promote ? 'node-promoted--true' : 'node-promoted--false';
+  
+  // add a better comment status class
+  $vars['classes_array'][] = $node->comment ? 'node-comments--enabled' : 'node-comments--disabled';
+  
 }
 
 /**
