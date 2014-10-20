@@ -168,7 +168,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state, $form_id =
   $form['theme_settings']['omega_toggle_front_page_content'] = array(
     '#type' => 'checkbox',
     '#title' => t('Front page content'),
-    '#description' => t('Allow the main content block to be rendered on the front page.'),
+    '#description' => t('Allow the default content list to be rendered on the front page.'),
     '#default_value' => omega_theme_get_setting('omega_toggle_front_page_content', TRUE),
   );
 

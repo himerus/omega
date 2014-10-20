@@ -545,8 +545,9 @@ function omega_block_list_alter(&$blocks) {
   }
 
   // Hide the main content block on the front page if the theme settings are
-  // configured that way.
-  if (!omega_theme_get_setting('omega_toggle_front_page_content', TRUE) && drupal_is_front_page()) {
+  // configured that way and there is no content set to override the homepage.
+  $front = variable_get('site_frontpage', 'node');
+  if ($front == 'node' && !omega_theme_get_setting('omega_toggle_front_page_content', TRUE) && drupal_is_front_page()) {
     foreach ($blocks as $key => $block) {
       if ($block->module == 'system' && $block->delta == 'main') {
         unset($blocks[$key]);
