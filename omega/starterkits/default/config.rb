@@ -45,6 +45,3 @@ relative_assets = true
 
 # Output source maps in development mode.
 sass_options = (environment == :production) ? {} : {:sourcemap => true}
-
-# Add the 'sass' directory itself as an import path to ease imports.
-add_import_path 'sass'
