@@ -166,20 +166,23 @@ function omega_get_js($scope = 'header', $javascript = NULL, $skip_alter = FALSE
     }
   }
 
-  // Provide the page with information about the individual JavaScript files
-  // used, information not otherwise available when aggregation is enabled.
-  $setting['ajaxPageState']['js'] = array_fill_keys(array_keys($items), 1);
-  unset($setting['ajaxPageState']['js']['settings']);
-  drupal_add_js($setting, 'setting');
+  // There is no need for the ajax page state if there is no ajax js!
+  if (array_key_exists('misc/ajax.js', $javascript)) {
+    // Provide the page with information about the individual JavaScript files
+    // used, information not otherwise available when aggregation is enabled.
+    $setting['ajaxPageState']['js'] = array_fill_keys(array_keys($items), 1);
+    unset($setting['ajaxPageState']['js']['settings']);
+    drupal_add_js($setting, 'setting');
 
-  // If we're outputting the header scope, then this might be the final time
-  // that drupal_get_js() is running, so add the setting to this output as well
-  // as to the drupal_add_js() cache. If $items['settings'] doesn't exist, it's
-  // because drupal_get_js() was intentionally passed a $javascript argument
-  // stripped of settings, potentially in order to override how settings get
-  // output, so in this case, do not add the setting to this output.
-  if ($scope == 'header' && isset($items['settings'])) {
-    $items['settings']['data'][] = $setting;
+    // If we're outputting the header scope, then this might be the final time
+    // that drupal_get_js() is running, so add the setting to this output as well
+    // as to the drupal_add_js() cache. If $items['settings'] doesn't exist, it's
+    // because drupal_get_js() was intentionally passed a $javascript argument
+    // stripped of settings, potentially in order to override how settings get
+    // output, so in this case, do not add the setting to this output.
+    if ($scope == 'header' && isset($items['settings'])) {
+      $items['settings']['data'][] = $setting;
+    }
   }
 
   // Render the HTML needed to load the JavaScript.
