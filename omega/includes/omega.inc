@@ -111,7 +111,7 @@ function omega_css_js_alter(&$data, $type = 'css') {
     // Explode and trim the values for the exclusion rules.
     $steps = omega_assets_regex_steps($excludes);
 
-    cache_set("omega:{$GLOBALS['theme_key']}:excludes:$type", $steps, CACHE_TEMPORARY);
+    cache_set("omega:{$GLOBALS['theme_key']}:excludes:$type", $steps, 'cache', CACHE_TEMPORARY);
   }
   else {
     $steps = $cache->data;
