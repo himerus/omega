@@ -378,10 +378,6 @@ function omega_theme($cache, &$type, $theme, $path) {
   // theme hook as they are not allowed to provide (pre-)process hooks for it.
   $type = 'module';
 
-  $info['omega_chrome'] = array(
-    'render element' => 'element',
-  );
-
   $info['omega_page_layout'] = array(
     'base hook' => 'page',
   );
@@ -808,18 +804,4 @@ function theme_omega_page_layout($variables) {
 
   $hook = str_replace('-', '_', $variables['omega_layout']['template']);
   return theme($hook, $variables);
-}
-
-/**
- * Shows a notice when Google Chrome Frame is not installed.
- */
-function theme_omega_chrome($variables) {
-  $message = t('You are using an outdated browser! <a href="!upgrade">Upgrade your browser today</a> or <a href="!install">install Google Chrome Frame</a> to better experience this site.', array(
-    '!upgrade' => url('http://browsehappy.com'),
-    '!install' => url('http://www.google.com/chromeframe', array(
-      'query' => array('redirect' => 'true'),
-    )),
-  ));
-
-  return '<p class="chromeframe">' . $message . '</p>';
 }
