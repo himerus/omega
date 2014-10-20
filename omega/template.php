@@ -251,6 +251,11 @@ function omega_css_alter(&$css) {
         // in a sub-theme.
         foreach ($types as $type) {
           if (isset($items[$type])) {
+            $original['weight'] = isset($original['weight']) ? $original['weight'] : 0;
+
+            // Always add a tiny value to the weight, to conserve the insertion order.
+            $original['weight'] += count($css) / 10000;
+
             $css[$omega . '/css/modules/' . $module . '/' . $items[$type]] = array(
               'data' => $omega . '/css/modules/' . $module . '/' . $items[$type],
             ) + $original;
