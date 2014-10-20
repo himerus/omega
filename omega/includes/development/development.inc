@@ -59,15 +59,28 @@ function omega_extension_development_preprocess_html(&$variables) {
       // We need to add livereload.js as external script with an absolute path
       // because otherwise Drupal core messes with the query string.
       $script = empty($query) ? $script : $script . '?' . http_build_query($query);
-      drupal_add_js($script, array(
-        'preprocess' => FALSE,
-        'type' => 'external',
-        'scope' => 'footer',
-        'weight' => 1000,
-      ));
+
+      // Check if livereload.js can be loaded.
+      if (@file_get_contents($script) === FALSE) {
+        if (user_access('administer site configuration') && flood_is_allowed('omega_' . $GLOBALS['theme'] . '_livereload_error', 3, 3600)) {
+          flood_register_event('omega_' . $GLOBALS['theme'] . '_livereload_error');
+          drupal_set_message(t('LiveReload is currently enabled but could not be loaded. Please ensure that livereload.js is being served at the <a href="!link">configured path</a> (@script).', array(
+            '@script' => $script,
+            '!link' => url('admin/appearance/settings/' . $GLOBALS['theme']),
+          )), 'error');
+        }
+      }
+      else {
+        drupal_add_js($script, array(
+          'preprocess' => FALSE,
+          'type' => 'external',
+          'scope' => 'footer',
+          'weight' => 1000,
+        ));
+      }
     }
     // If CSS aggregation is enabled, show a warning.
-    elseif (user_access('administer site configuration') && flood_is_allowed('oamega_' . $GLOBALS['theme'] . '_aggregation_and_livereload', 3, 3600)) {
+    elseif (user_access('administer site configuration') && flood_is_allowed('omega_' . $GLOBALS['theme'] . '_aggregation_and_livereload', 3, 3600)) {
       flood_register_event('omega_' . $GLOBALS['theme'] . '_aggregation_and_livereload');
       drupal_set_message(t('LiveReload does not work with aggregated CSS files. Please <a href="!link">disable CSS aggregation</a> if you want to use LiveReload for development.', array(
         '!link' => url('admin/config/development/performance'),
