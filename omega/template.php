@@ -605,19 +605,6 @@ function omega_page_alter(&$page) {
       }
     }
   }
-
-  if (omega_extension_enabled('compatibility') && omega_theme_get_setting('omega_chrome_edge', TRUE) && omega_theme_get_setting('omega_chrome_notice', TRUE)) {
-    $supported = omega_theme_get_setting('omega_internet_explorer_support', FALSE);
-
-    $page['page_top']['omega_chrome'] = array(
-      '#theme' => 'omega_chrome',
-      '#pre_render' => array('drupal_pre_render_conditional_comments'),
-      '#browsers' => array(
-        'IE' => !$supported ? TRUE : 'lte IE ' . $supported,
-        '!IE' => FALSE,
-      ),
-    );
-  }
 }
 
 /**
