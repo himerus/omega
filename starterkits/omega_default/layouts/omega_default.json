@@ -216,28 +216,28 @@
                     "preface_first":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"12",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_second":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"12",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_third":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"12",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_fourth":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"12",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     }
@@ -391,28 +391,28 @@
                     "preface_first":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"8",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_second":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"4",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_third":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"4",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_fourth":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"8",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     }
@@ -566,28 +566,28 @@
                     "preface_first":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"8",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_second":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"4",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_third":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"4",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "preface_fourth":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"8",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     }
@@ -624,7 +624,7 @@
                 "collapsed":"FALSE",
                 "regions":{
                     "content":{
-                        "push":"3",
+                        "push":"0",
                         "prefix":"0",
                         "width":"6",
                         "suffix":"0",
@@ -635,7 +635,7 @@
                         "prefix":"0",
                         "width":"3",
                         "suffix":"0",
-                        "pull":"6"
+                        "pull":"0"
                     },
                     "sidebar_second":{
                         "push":"0",
@@ -656,28 +656,28 @@
                     "postscript_first":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"4",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "postscript_second":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"8",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "postscript_third":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"8",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     },
                     "postscript_fourth":{
                         "push":"0",
                         "prefix":"0",
-                        "width":"4",
+                        "width":"6",
                         "suffix":"0",
                         "pull":"0"
                     }
