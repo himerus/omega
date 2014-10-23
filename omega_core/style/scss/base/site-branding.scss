@@ -3,7 +3,6 @@
 
 #branding {
   position: relative;
-  margin-top: 20px;
   
   .site-logo {
 
@@ -52,7 +51,8 @@
   
   #site-name {
     font-size: 48px;
-    //line-height: 36px;
+    margin-top: 5px;
+    margin-bottom: 0;
     font-weight: bold;
     letter-spacing: -0.075em;
     font-family: $bodyFont;

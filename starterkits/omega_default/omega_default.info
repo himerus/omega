@@ -50,8 +50,11 @@ settings[styles][scss_main_menus] = 1
 settings[styles][scss_messages] = 1
 settings[styles][scss_pagers] = 1
 settings[styles][scss_tabs] = 1
+
 ; default layout name
 settings[default_layout] = 'omega_default'
+
+; regions to not show the Omega placeholder blocks in
 settings[block_demo_excluded_regions][] = 'page_top'
 settings[block_demo_excluded_regions][] = 'page_bottom'
 settings[block_demo_excluded_regions][] = 'highlighted'

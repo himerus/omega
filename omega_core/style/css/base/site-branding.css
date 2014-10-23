@@ -1,7 +1,6 @@
 /* Fonts */
 #branding {
-  position: relative;
-  margin-top: 20px; }
+  position: relative; }
   #branding .site-name-slogan {
     padding-top: 0; }
   #branding #logo {
@@ -18,6 +17,8 @@
       display: block; }
   #branding #site-name {
     font-size: 48px;
+    margin-top: 5px;
+    margin-bottom: 0;
     font-weight: bold;
     letter-spacing: -0.075em;
     font-family: "Helvetica Neue", Arial, Helvetica;
