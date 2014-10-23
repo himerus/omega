@@ -7,7 +7,6 @@ require_once(drupal_get_path('theme', 'omega') . '/omega-functions.php');
 function omega_theme() {
   return array(
     'omega_indicator' => array(
-      //'render element' => 'elements',
       'variables' => array(
         'logo' => NULL,
       ),
@@ -27,7 +26,6 @@ function omega_preprocess_omega_indicator(&$vars) {
   ));  
   $vars['logo'] = l($logo_image, 'http://drupal.org/project/omega', array(
     'attributes' => array(
-      //'target' => '_blank',
       'id' => 'indicator-toggle',
       'class' => array(
         'indicator-open'
@@ -51,7 +49,6 @@ function omega_page_alter (&$page) {
   $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
   
   if ($regionDemo) {
-    //dsm($page);
     drupal_set_message(t('Region Demonstration mode is on. This can be turned off in theme settings.'), 'warning');
     // get a list of themes
     $themes = list_themes();
