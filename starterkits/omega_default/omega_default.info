@@ -6,8 +6,13 @@ screenshot = screenshot.png
 version = VERSION
 base theme = omega
 
-; REGIONS
+; BREAKPONTS (DEFAULTS)
+breakpoints[all] = 'all'
+breakpoints[tablet] = 'all and (min-width: 600px) and (max-width: 1023px)'
+breakpoints[desktop] = 'all and (min-width: 1024px) and (max-width: 1279px)'
+breakpoints[wide] = 'all and (min-width: 1280px)'
 
+; REGIONS
 regions[page_top] = Page Top
 regions[header] = Header
 regions[branding] = Branding
@@ -27,12 +32,6 @@ regions[postscript_third] = Postscript Third
 regions[postscript_fourth] = Postscript Fourth
 regions[footer] = Footer
 regions[page_bottom] = Page Bottom
-
-; BREAKPONTS (DEFAULTS)
-breakpoints[all] = 'all'
-breakpoints[tablet] = 'all and (min-width: 600px) and (max-width: 1023px)'
-breakpoints[desktop] = 'all and (min-width: 1024px) and (max-width: 1279px)'
-breakpoints[wide] = 'all and (min-width: 1280px)'
 
 ; REGION GROUPS (DEFAULTS)
 region_groups[header] = 'Header'
@@ -54,7 +53,7 @@ settings[styles][scss_tabs] = 1
 ; default layout name
 settings[default_layout] = 'omega_default'
 
-; regions to not show the Omega placeholder blocks in
+; regions to not show the Omega placeholder blocks in, even when they are enabled
 settings[block_demo_excluded_regions][] = 'page_top'
 settings[block_demo_excluded_regions][] = 'page_bottom'
 settings[block_demo_excluded_regions][] = 'highlighted'

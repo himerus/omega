@@ -6,15 +6,8 @@ engine = phptemplate
 screenshot = screenshot.png
 version = VERSION
 
-
 stylesheets[all][] = style/css/base/normalize.css
 stylesheets[all][] = style/css/layout/omega_default.css
-
-;stylesheets[all][] = style/css/base/html-elements.css
-;stylesheets[all][] = style/css/base/messages.css
-;stylesheets[all][] = style/css/base/main-menus.css
-;stylesheets[all][] = style/css/base/site-branding.css
-;stylesheets[all][] = style/css/base/tabs.css
 
 stylesheets[all][] = style/css/development/layout-data.css
 stylesheets[all][] = style/css/development/region-demo.css
@@ -65,11 +58,9 @@ settings[styles][scss_tabs] = 1
 
 ; default layout name
 settings[default_layout] = 'omega_default'
+
+; regions to not show the Omega placeholder blocks in, even when they are enabled
 settings[block_demo_excluded_regions][] = 'page_top'
 settings[block_demo_excluded_regions][] = 'page_bottom'
 settings[block_demo_excluded_regions][] = 'highlighted'
-settings[block_demo_excluded_regions][] = 'help'
-
-; TEST for content first/primary region functionality
-;settings[block_demo_excluded_regions][] = 'sidebar_first'
-;settings[block_demo_excluded_regions][] = 'sidebar_second'
+settings[block_demo_excluded_regions][] = 'help

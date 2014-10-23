@@ -7,18 +7,31 @@ version = VERSION
 base theme = omega
 
 ; REGIONS
-
 regions[page_top] = Page Top
-
 regions[header] = Header
-
 regions[content] = Content
 regions[sidebar_first] = Sidebar First
 regions[sidebar_second] = Sidebar Second
-
 regions[footer] = Footer
-
 regions[page_bottom] = Page Bottom
 
-; THEME SETTINGS (DEFAULTS)
+; REGION GROUPS (DEFAULTS)
+region_groups[header] = 'Header'
+region_groups[core] = 'Core'
+region_groups[main] = 'Main'
+region_groups[footer] = 'Footer'
 
+; BREAKPONTS (DEFAULTS)
+breakpoints[all] = 'all'
+breakpoints[tablet] = 'all and (min-width: 600px) and (max-width: 1023px)'
+breakpoints[desktop] = 'all and (min-width: 1024px) and (max-width: 1279px)'
+breakpoints[wide] = 'all and (min-width: 1280px)'
+
+; THEME SETTINGS (DEFAULTS)
+settings[styles][scss_html_elements] = 1
+settings[styles][scss_branding] = 1
+settings[styles][scss_breadcrumbs] = 1
+settings[styles][scss_main_menus] = 1
+settings[styles][scss_messages] = 1
+settings[styles][scss_pagers] = 1
+settings[styles][scss_tabs] = 1
