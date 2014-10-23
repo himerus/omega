@@ -66,4 +66,4 @@ settings[screen_demo_indicator] = 1
 settings[block_demo_excluded_regions][] = 'page_top'
 settings[block_demo_excluded_regions][] = 'page_bottom'
 settings[block_demo_excluded_regions][] = 'highlighted'
-settings[block_demo_excluded_regions][] = 'help
+settings[block_demo_excluded_regions][] = 'help'
