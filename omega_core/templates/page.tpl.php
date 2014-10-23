@@ -232,7 +232,7 @@
     </section> <!-- /#postscript-wrapper -->
   <?php endif; ?>
   
-  <?php if ($page['sidebar_second']): ?>
+  <?php if ($page['footer']): ?>
     <footer id="footer-outer-wrapper" class="outer-wrapper clearfix">
       <div id="footer-layout" role="contentinfo" class="footer-layout inner-wrapper clearfix <?php print $region_classes['footer']; ?>">
         <div id="footer" class="region--footer">
