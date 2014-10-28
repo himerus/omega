@@ -273,7 +273,7 @@ function omega_css_alter(&$css) {
   // Allow themes to specify no-query fallback CSS files.
   require_once "$omega/includes/assets.inc";
   $mapping = omega_assets_generate_mapping($css);
-  $pattern = $GLOBALS['language']->dir == 'rtl' ? '/\.no-query(-rtl)?\.css$/' : '/\.no-query\.css$/';
+  $pattern = $GLOBALS['language']->direction == LANGUAGE_RTL ? '/\.no-query(-rtl)?\.css$/' : '/\.no-query\.css$/';
   foreach (preg_grep($pattern, $mapping) as $key => $fallback) {
     // Don't modify browser settings if they have already been modified.
     if ($css[$key]['browsers']['IE'] === TRUE && $css[$key]['browsers']['!IE'] === TRUE) {
