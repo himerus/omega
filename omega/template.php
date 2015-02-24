@@ -225,6 +225,9 @@ function omega_css_alter(&$css) {
     ),
   );
 
+  // Filter out inactive modules.
+  $overrides = array_intersect_key($overrides, module_list());
+
   // Check if we are on an admin page. Otherwise, we can skip admin CSS.
   $path = current_path();
   $types = path_is_admin($path) ? array('base', 'theme', 'admin') : array('base', 'theme');
