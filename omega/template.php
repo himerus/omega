@@ -360,7 +360,12 @@ function omega_form_alter(&$form, &$form_state, $form_id) {
     $form['#attributes']['class'] = explode(' ', $form['#attributes']['class']);
   }
   // Duplicate the form ID as a class so we can reduce specificity in our CSS.
-  $form['#attributes']['class'][] = drupal_clean_css_identifier($form['#id']);
+  if (!empty($form['#id'])) {
+    $form['#attributes']['class'][] = drupal_clean_css_identifier($form['#id']);
+  }
+  else {
+    $form['#attributes']['class'][] = drupal_clean_css_identifier($form_id);
+  }
 }
 
 /**
