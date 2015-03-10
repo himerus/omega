@@ -15,6 +15,12 @@ foreach (omega_extensions() as $extension => $info) {
   }
 }
 
+// Clear the static element info cache if the 'scripts' element type is missing.
+// @see https://www.drupal.org/node/2351739.
+if (!element_info('scripts')) {
+  drupal_static_reset('element_info');
+}
+
 /**
  * Implements hook_element_info_alter().
  */
