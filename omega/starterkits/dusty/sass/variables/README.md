@@ -10,4 +10,5 @@ should be defined as variables are:
 * Font sizes and related metrics such as line height.
 * Font stacks.
 * Grid sizing
+* Legacy browser support.
 

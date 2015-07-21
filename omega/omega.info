@@ -1,5 +1,5 @@
 name = Omega
-description = A powerful HTML5 base theme framework utilizing tools like <a href="http://sass-lang.com/" title="Sass">Sass</a>, <a href="http://compass-style.org/" title="Compass">Compass</a>, <a href="http://gruntjs.com/" title="Grunt">Grunt</a>, <a href="http://bower.io/" title="Bower">Bower</a>, <a href="http://rvm.io/" title="Ruby Version Manager">Ruby Version Manager</a>, <a href="http://bundler.io/" title="Bundler">Bundler</a> and more.
+description = A powerful base theme framework.
 screenshot = screenshot.png
 engine = phptemplate
 core = 7.x
