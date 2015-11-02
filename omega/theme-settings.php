@@ -33,7 +33,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   // Get the theme name.
   $theme = $form_state['build_info']['args'][0];
   // get a list of themes
-  $themes = list_themes();
+  $themes = \Drupal::service('theme_handler')->listInfo();
   // get the default BreakpointGroupID
   $breakpointGroupId = _omega_getBreakpointId($theme);
   // Load the BreakpointGroup and it's Breakpoints
@@ -595,7 +595,7 @@ $form['layouts'][$defaultLayout]['region_groups'][$breakpoint->name][$gid]['data
       
       
 */
-     //dsm($info);
+      //dsm($info);
       $form['layouts'][$defaultLayout]['region_groups'][$breakpoint->name][$gid]['row'] = array(
         '#prefix' => '<div class="region-group-layout-settings">',
         '#type' => 'select',

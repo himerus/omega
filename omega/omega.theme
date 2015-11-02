@@ -123,7 +123,7 @@ function omega_page_alter (&$page) {
     //dsm($page);
     drupal_set_message(t('Region Demonstration mode is on. This can be turned off in theme settings.'), 'warning');
     // get a list of themes
-    $themes = list_themes();
+    $themes = \Drupal::service('theme_handler')->listInfo();
     // get the default theme
     //$config = \Drupal::config('system.theme');
     //$default_theme = $config->get('default');
@@ -242,7 +242,7 @@ function omega_preprocess_page(&$vars) {
   
   $exlude = theme_get_setting('block_demo_excluded_regions');
   $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : 'omega';
-  $themes = list_themes();
+  $themes = \Drupal::service('theme_handler')->listInfo();
   $defaultLayout = theme_get_setting('default_layout');
   $themeSettings = $themes[$theme];
   //dsm($themeSettings);

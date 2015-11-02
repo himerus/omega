@@ -73,7 +73,7 @@ function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
   //$scss = '$color: #FF0000; $size: 14px; .colored { color: $color; text-decoration: underline; font-size: $size; }';
   //dsm($layout);
   // get a list of themes
-  $themes = list_themes();
+  $themes = \Drupal::service('theme_handler')->listInfo();
   // get the default BreakpointGroupID
   $breakpointGroupId = _omega_getBreakpointId($theme);
   // Load the BreakpointGroup and it's Breakpoints
