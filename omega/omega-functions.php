@@ -6,6 +6,41 @@ use Drupal\omega\phpsass\SassFile;
 // Include Breakpoint Functionality
 use Drupal\breakpoint;
 
+
+/**
+ * Custom function to return the active layout to be used for the active page.
+ */
+function omega_return_active_layout() {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  
+  //$front = drupal_is_front_page();
+  //$node = menu_get_object();
+
+  // setup default layout
+  $defaultLayout = theme_get_setting('default_layout', $theme);
+  $layout = $defaultLayout;
+  
+  /*
+  // if it is a node, check for an alternate layout
+  if ($node) {
+    $type = $node->type;
+    $nodeLayout = theme_get_setting($type . '_layout', $theme);
+    $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
+  }
+  // if it is the front page, check for an alternate layout
+  if ($front) {
+    $homeLayout = theme_get_setting('home_layout', $theme);
+    $layout = $homeLayout ? $homeLayout : $defaultLayout;
+  }
+  */
+  
+  return $layout;
+}
+
+/** 
+ *  Returns array of optional Libraries that can be enabled/disabled in theme settings
+ *  for Omega, and Omega sub-themes. The listings here are tied to entries in omega.libraries.yml.
+ */
 function _omega_optional_css($theme) {
   $status = theme_get_setting('styles', $theme);
   
