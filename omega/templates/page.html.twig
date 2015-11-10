@@ -84,22 +84,8 @@
 
     <header id="header-outer-wrapper" class="outer-wrapper clearfix {{ secondary_menu ? 'with-secondary-menu' : 'without-secondary-menu' }}" role="banner">
       <div id="header-layout" class="inner-wrapper clearfix">
-        
         <div id="header" class="clearfix">
           {{ page.header }}
-        </div>
-        
-        <div id="menus" class="clearfix">
-          {% if main_menu %}
-            <nav id ="main-menu" class="navigation clearfix" role="navigation">
-              {{ main_menu }}
-            </nav> <!-- /#main-menu -->
-          {% endif %}
-          {% if secondary_menu %}
-            <nav id="secondary-menu" class="navigation clearfix" role="navigation">
-              {{ secondary_menu }}
-            </nav> <!-- /#secondary-menu -->
-          {% endif %}
         </div>
       </div>
     </header> <!-- /.section, /#header-->
@@ -129,48 +115,11 @@
 
   <section id="core-outer-wrapper" class="outer-wrapper clearfix">
     <div id="core-layout" class="inner-wrapper clearfix">
-      
-      {% if messages %}
-        <div id="messages" class="clearfix">
-          {{ messages }}
-        </div>
-      {% endif %}
-      
-      {% if page.featured %}
-        <div id="featured" class="section clearfix">
-          {{ page.featured }}
-        </div>
-      {% endif %}
-      
       {% if page.highlighted %}
         <div id="highlighted" class="section clearfix">
           {{ page.highlighted }}
         </div>
       {% endif %}
-      
-      <div id="info">
-        {% if page.help %}  
-          {{ page.help }}
-        {% endif %}
-        <a id="main-content"></a>
-        {{ title_prefix }}
-        {% if title %}
-          <h1 class="title" id="page-title">
-            {{ title }}
-          </h1>
-        {% endif %}
-        {{ title_suffix }}
-        {% if tabs %}
-          <nav class="tabs clearfix" role="navigation">
-            {{ tabs }}
-          </nav>
-        {% endif %}
-        {% if action_links %}
-          <ul class="action-links clearfix">
-            {{ action_links }}
-          </ul>
-        {% endif %}
-      </div>
     </div>
   </section>
   
@@ -225,9 +174,7 @@
   {% if page.footer %}
     <footer id="footer-outer-wrapper" class="outer-wrapper clearfix">
       <div id="footer-layout" role="contentinfo" class="inner-wrapper clearfix">
-        <div id="footer">
-          {{ page.footer }}
-        </div>
+        <div id="footer">{{ page.footer }}</div>
       </div> <!-- /#footer -->
     </footer> <!-- /#footer-outer-wrapper -->
   {% endif %}
