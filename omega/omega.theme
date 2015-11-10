@@ -18,6 +18,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\Entity\ConfigStorageController;
 
 use Drupal\Core\Url;
+use Drupal\Core\Render\Element;
 
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Render\FormattableMarkup;
@@ -200,36 +201,7 @@ function omega_preprocess_page(&$vars) {
     }
   }
   
-  
-  
-  
-  // Entire section needs to be updated to d7 model where regions are assigned per region group container
-/*
-  // create an array to define the with-sidebar_first without-sidebar_first classes
-  $theme_regions = $themeSettings->info['regions'];
-  //dsm($theme_regions);
-  $region_classes = array();
-  foreach($theme_regions as $region_id => $region) {
-    if (isset($vars['page'][$region_id]['#region'])) {
-      $region_classes[] = 'with-' . $region_id;
-    }
-    else {
-      $region_classes[] = 'without-' . $region_id;
-    }
-  }
-  // assign classes to #page in page.html.twig  
-  $vars['region_classes'] = implode(" ", $region_classes);
-  dsm($vars['region_classes']);
-  
-  foreach ($regionGroups as $rgId => $rgInfo) {
-    foreach($rgInfo['regions'] as $regionId => $cols) {
-      if (isset($vars['page'][$regionId]['#region'])) {
-        //dsm('Active Region: ' . $regionId . '; Grid Columns: ' . $cols);
-      }
-    }
-  }
-*/
-
+  // Display demo placeholder blocks for every region.
   $regionDemo = theme_get_setting('block_demo_mode', $theme);
   
   if ($regionDemo) {
@@ -242,7 +214,7 @@ function omega_preprocess_page(&$vars) {
       // skip the regions listed in block_demo_excluded_regions, primarily page_top & page_bottom
       if (!in_array($region, $regionSkip)) {
         // here we want to add a simple block that we can use to demonstrate region placements for ALL regions in the theme(s)
-        if (isset($page[$region])) {
+        if (isset($page[$region]['#region'])) {
           $regiondemoblock = array(
             'regiondemoblock' => array(
               '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
@@ -267,6 +239,30 @@ function omega_preprocess_page(&$vars) {
       }
     }
   }
+  
+  // create an array to define the with-sidebar_first without-sidebar_first classes
+  $region_classes = array();
+  $layout = omega_return_active_layout();
+  $layouts = theme_get_setting('layouts', $theme);
+  $region_groups = $layouts[$layout]['region_groups']['all'];
+  
+  foreach($region_groups as $group_id => $group_info) {
+    $groupRegions = Element::children($region_groups[$group_id]['regions']);
+    foreach($groupRegions as $region_id) {
+      $altered_region_id = str_replace("_", "-", $region_id);
+    
+      if (isset($vars['page'][$region_id]['#region'])) {
+        $region_classes[$group_id][] = 'with--' . $altered_region_id;
+      }
+      else {
+        $region_classes[$group_id][] = 'without--' . $altered_region_id;
+      }
+    } 
+    // convert array of class names to string version
+    $region_classes[$group_id] = implode(" ", $region_classes[$group_id]);
+  }
+  // assign classes to page.tpl.php
+  $vars['region_classes'] = $region_classes;
 } // END omega_preprocess_page
 
 /**

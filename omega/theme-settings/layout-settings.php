@@ -5,7 +5,7 @@ $form['layouts'] = array(
   '#type' => 'details',
   '#attributes' => array('class' => array('debug')),
   '#title' => t('Layout Configuration'),
-  '#description' => t('<p class="description">You are able to configure your layout based on the breakpoints defined in <strong>(' . $breakpointGroupId . ')</strong></p>'),
+  '#description' => t('<p class="description">You are able to configure your layout based on the breakpoints defined in <strong>(' . $theme . '.breakpoints.yml)</strong></p>'),
   '#weight' => -799,
   '#group' => 'omega',
   //'#open' => TRUE,

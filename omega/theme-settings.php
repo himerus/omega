@@ -142,6 +142,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['actions']['submit_layout']['#states'] = array(
     'visible' => array(
      ':input[name="enable_omegags_layout"]' => array('checked' => TRUE),
+     // once export ability is included, will need to enable/test this again
      //':input[name="export_new_subtheme"]' => array('checked' => FALSE),     
     ),
   );
