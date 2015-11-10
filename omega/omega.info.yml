@@ -20,7 +20,7 @@ regions:
   postscript_second: 'Postscript Second'
   postscript_third: 'Postscript Third'
   postscript_fourth: 'Postscript Fourth'
-  footer: Footer
+  footer: 'Footer'
   page_bottom: 'Page Bottom'
 features:
   logo: true
@@ -32,13 +32,3 @@ features:
   favicon: true
   main_menu: true
   secondary_menu: true
-variables:
-  colors:
-    primaryColor1: 3A3A3A
-    primaryColor2: 5A5A5A
-    primaryColor3: CCCCCC
-    primaryColor4: 1A1A1A
-    primaryColor5: 9A9A9A
-  fonts:
-    defaultHeaderFont: georgia
-    defaultBodyFont: helvetica
