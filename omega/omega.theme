@@ -95,6 +95,8 @@ function omega_page_attachments_alter (&$attachments) {
     }
     // add all the current (possible) breakpoints to the omega_breakpoints variable for use in omega.js
     $attachments['#attached']['drupalSettings']['omega_breakpoints'] = $layouts;
+    $attachments['#attached']['drupalSettings']['omega']['activeLayout'] = omega_return_active_layout();
+    $attachments['#attached']['drupalSettings']['omega']['activeTheme'] = $theme;    
   }
   
   // Functionality to attach selected css/js from omega theme settings

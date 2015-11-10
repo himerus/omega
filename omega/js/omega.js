@@ -2,10 +2,8 @@
 
   "use strict";
 
-  drupalSettings.omega = {
-     currentBreakpoints: {
-       'All' : true
-     }
+  drupalSettings.omega.currentBreakpoints = {
+    'All' : true
   };
   
   
@@ -136,17 +134,11 @@
       
       $(window).on('load resize', function(){
         screenWidth = $(this).width();
-        
-        //console.log(browser);
-        
-        
-        
-        //alert(screenWidth);
-        oScreen.find('.screen-size .data').html(screenWidth + 'px');  
-        //oScreen.find('.screen-browser .data').html(bName);  
+        var layout = drupalSettings.omega.activeLayout;
+        oScreen.find('.screen-size .data').html(screenWidth + 'px');
+        oScreen.find('.screen-layout .data').html(layout);
+        oScreen.find('.theme-name .data').html(drupalSettings.omega.activeTheme);
       });
-      
-      //breakpoints = drupalSettings.omega_breakpoints.layouts;
       
       // if a breakpiont has been added or removed, change the text
       $(window).on('breakpointAdded breakpointRemoved', function(e, b){

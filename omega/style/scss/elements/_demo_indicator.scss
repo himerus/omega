@@ -1,30 +1,35 @@
 @import "../vars.scss";
 
-
+/* Apply a natural box layout model to all elements http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+#omega-screen--indicator, #omega-screen--indicator *, #omega-screen--indicator *:before, #omega-screen--indicator *:after {
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
 
 #omega-screen--indicator {
   background-color: rgba(0, 0, 0, 0.85);
-  
+  zoom: 1 !important;
   position: fixed;
-  
+  font-family: "Helvetica Neue",Arial,Helvetica;
   // full width for mobile
   bottom: 0;
   right: 0;
   left: 0;
   z-index: 999;
   
-  padding: 20px;
+  padding: 8px;
   color: #FFF;
   
   padding-left: 70px;
   height: 70px;
   //min-height: 150px;
   
-  font-size: 12px;
+  font-size: 11px;
   
   .indicator-data {
     position: relative;
-    padding-left: 20px;
+    padding-left: 10px;
   }
   
   .ologo {
@@ -47,16 +52,18 @@
     }
     img {
       max-height: 100%;
+      max-width: 100%;
       width: auto;
       
     }
   }
   h5 {
+    font-family: "Helvetica Neue",Arial,Helvetica;
     margin: 0;
     margin-right: 1em;
-    font-size: 12px;
+    font-size: 11px;
     display: inline-block;
-    
+    min-width: 80px;
   }
   .data {
     font-weight: bold;
