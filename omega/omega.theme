@@ -214,14 +214,14 @@ function omega_preprocess_page(&$vars) {
       // skip the regions listed in block_demo_excluded_regions, primarily page_top & page_bottom
       if (!in_array($region, $regionSkip)) {
         // here we want to add a simple block that we can use to demonstrate region placements for ALL regions in the theme(s)
-        if (isset($page[$region]['#region'])) {
+        if (isset($vars['page'][$region]['#region'])) {
           $regiondemoblock = array(
             'regiondemoblock' => array(
               '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
               '#weight' => -9999  
             ),
           );
-          $vars['page'][$region] = $regiondemoblock + $page[$region];
+          $vars['page'][$region] = $regiondemoblock + $vars['page'][$region];
         }
         else {
           // no region was already present, so we'll need to insert it
