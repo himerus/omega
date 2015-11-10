@@ -9,7 +9,7 @@ omega.standard.all:
   group: omega.standard
 omega.standard.mobile_portrait:
   label: Mobile Portrait
-  mediaQuery: 'all and (min-width: 320px) and (max-width: 479px)'
+  mediaQuery: 'all and (max-width: 479px)'
   weight: 1
   multipliers:
     - 1x
