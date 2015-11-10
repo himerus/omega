@@ -108,51 +108,36 @@ function _omega_getActiveBreakpoints($theme) {
 }
 
 function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
-  //dsm('Running custom function "_omega_compile_layout_sass()" which will generate the appropriate scss to be passed to the parser.');
-  //$scss = '$color: #FF0000; $size: 14px; .colored { color: $color; text-decoration: underline; font-size: $size; }';
   //dsm($layout);
   // get a list of themes
   $themes = \Drupal::service('theme_handler')->listInfo();
-  // get the default BreakpointGroupID
-  $breakpointGroupId = _omega_getBreakpointId($theme);
-  // Load the BreakpointGroup and it's Breakpoints
-  $breakpointGroup = entity_load('breakpoint_group', $breakpointGroupId);
-  $breakpoints = $breakpointGroup->getBreakpoints();
-
+  // get the current settings/info for the theme
   $themeSettings = $themes[$theme];
+  // get the default layout/breakpoint group
   $defaultLayout = theme_get_setting('default_layout', $theme);
+  // get all the active breakpoints we'll be editing
+  $breakpoints = _omega_getActiveBreakpoints($theme);
+  // get the stored layout data
   $layouts = theme_get_setting('layouts', $theme);
-
   // pull an array of "region groups" based on the "all" media query that should always be present
   $region_groups = $layouts[$defaultLayout]['region_groups']['all'];
   //dsm($region_groups);
   //dsm($layouts);
   $theme_regions = $themeSettings->info['regions'];
-  
   // create variable to hold all SCSS we need
   $scss = '';
-  
-  
-  
-  global $base_path;
-  //dsm(realpath(".") . $base_path);
-  // Options for phpsass compiler. Defaults in SassParser.php
-  
-
-
-
-
+ 
   $parser = new SassParser($options);
   
   // get the variables for the theme
-  $vars = realpath(".") . $base_path . drupal_get_path('theme', 'omega') . '/style/scss/vars.scss';
+  $vars = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/vars.scss';
   $omegavars = new SassFile;
   $varscss = $omegavars->get_file_contents($vars, $parser);
   // set the grid to fluid
   $varscss .= '$twidth: 100%;';
   
   // get the SCSS for the grid system
-  $gs = realpath(".") . $base_path . drupal_get_path('theme', 'omega') . '/style/scss/grids/omega.scss';
+  $gs = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/grids/omega.scss';
   $omegags = new SassFile;
   $gsscss = $omegags->get_file_contents($gs, $parser);
 
