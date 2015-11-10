@@ -18,7 +18,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\Entity\ConfigStorageController;
 
 use Drupal\Core\Url;
-use Drupal\Core\Render\Element;
 
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Render\FormattableMarkup;
@@ -244,13 +243,14 @@ function omega_preprocess_page(&$vars) {
   
   // create an array to define the with-sidebar_first without-sidebar_first classes
   $region_classes = array();
+  $pass_classes = array();
   $layout = omega_return_active_layout();
   $layouts = theme_get_setting('layouts', $theme);
   $region_groups = $layouts[$layout]['region_groups']['all'];
-  
+  //krumo($region_groups);
   foreach($region_groups as $group_id => $group_info) {
-    $groupRegions = Element::children($region_groups[$group_id]['regions']);
-    foreach($groupRegions as $region_id) {
+    $groupRegions = $region_groups[$group_id]['regions'];
+    foreach($groupRegions as $region_id => $region_info) {
       $altered_region_id = str_replace("_", "-", $region_id);
     
       if (isset($vars['page'][$region_id]['#region'])) {
@@ -261,10 +261,22 @@ function omega_preprocess_page(&$vars) {
       }
     } 
     // convert array of class names to string version
-    $region_classes[$group_id] = implode(" ", $region_classes[$group_id]);
+    $pass_classes[$group_id]['#plain_text'] = implode(" ", $region_classes[$group_id]);
   }
   // assign classes to page.tpl.php
-  $vars['region_classes'] = $region_classes;
+  $vars['region_classes'] = $pass_classes;
+  
+  
+/*
+  // attempting to 'hide' empty highlighted region
+  // appears help and messages blocks render arrays even when empty
+  krumo($vars['page']['highlighted']);
+  // removing highlighted region if it is empty.
+  $highlightsize = isset($vars['page']['highlighted']) ? count($vars['page']['highlighted']) : 0;
+  if (isset($vars['page']['highlighted']) && $highlightsize == 0) {
+    unset($vars['page']['highlighted']);
+  }
+*/
 } // END omega_preprocess_page
 
 /**

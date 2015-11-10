@@ -23,7 +23,7 @@ $form['enable_advanced_layout_controls'] = array(
 $enable_backups = theme_get_setting('enable_backups', $theme);
 $form['enable_backups'] = array(
   '#type' => 'checkbox',
-  '#title' => t('Enable Backups (BETA)'),
+  '#title' => t('Enable Backups (NON-Functional)'),
   '#description' => t('Since this form has the ability to regenerate SCSS and CSS files on the fly, turning on this backup feature will create a copy of layout.scss, layout.css, and THEME.settings.yml file before overwriting any data. These backups will be stored in the default files directory under <em>public://omega/layout/backups</em>.'),
   '#default_value' => isset($enable_backups) ? $enable_backups : TRUE,
   '#group' => 'options',
@@ -31,12 +31,13 @@ $form['enable_backups'] = array(
 $force_subtheme_creation = theme_get_setting('force_subtheme_creation', $theme);
 $form['force_subtheme_creation'] = array(
   '#type' => 'checkbox',
-  '#title' => t('Force Subtheme Creation (ALPHA)'),
+  '#title' => t('Force Subtheme Creation (NON-Functional)'),
   '#description' => t('Enabling this feature will "lock" this form from being saved and force the user to download a subtheme instead. The idea here is that essentially everything besides the layout options/changes should still be saved. Things like options on this section, or debugging options should still be saved and edited as expected. The layout changes are the portion that should be forced to another subtheme by this feature. (This seems like a good idea, but I dunno)'),
   '#default_value' => isset($force_subtheme_creation) ? $force_subtheme_creation : FALSE,
   '#group' => 'options',
 );
 
+/*
 $enable_omega_badge = theme_get_setting('enable_omega_badge', $theme);
 $form['enable_omega_badge'] = array(
   '#type' => 'checkbox',
@@ -45,20 +46,4 @@ $form['enable_omega_badge'] = array(
   '#default_value' => isset($enable_omega_badge) ? $enable_omega_badge : TRUE,
   '#group' => 'options',
 );
-
-/*
-$silence_omegaui_warning = theme_get_setting('silence_omegaui_warning', $theme);
-$form['silence_omegaui_warning'] = array(
-  '#type' => 'checkbox',
-  '#title' => t('Silence the Omega UI Warning'),
-  '#description' => t('This will turn off the drupal_set_message() warning about not having Omega UI installed.'),
-  '#default_value' => $silence_omegaui_warning ? $silence_omegaui_warning : FALSE,
-  '#group' => 'options',
-);
-
-
-if (!module_exists('omega_ui') && !$silence_omegaui_warning) {
-  drupal_set_message('The <a href="http://drupal.org/project/omega_ui" target="_blank"><strong>Omega UI</strong></a> module is not installed. This module would make your life much cooler. You can ignore this warning in <strong>Default Options</strong>', 'warning');
-}
-
-*/  
+*/
