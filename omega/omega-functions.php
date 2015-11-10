@@ -2,10 +2,8 @@
 
 use Drupal\omega\phpsass\SassParser;
 use Drupal\omega\phpsass\SassFile;
-
 // Include Breakpoint Functionality
 use Drupal\breakpoint;
-
 
 /**
  * Custom function to return the active layout to be used for the active page.
@@ -105,6 +103,13 @@ function _omega_getActiveBreakpoints($theme) {
     // default omega breakpoints
     return \Drupal::service('breakpoint.manager')->getBreakpointsByGroup('omega.standard');
   }
+}
+
+function _omega_compile_layout_css($scss, $options) {
+  $parser = new SassParser($options);
+  // create CSS from SCSS
+  $css = $parser->toCss($scss, false);
+  return $css;
 }
 
 function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
@@ -223,14 +228,7 @@ function _omega_compile_layout_sass($layout, $theme = 'omega', $options) {
   return $scss;
 }
 
-function _omega_render_layout_css($scss, $options) {
-  $parser = new SassParser($options);
-  
-  // create CSS from SCSS
-  $css = $parser->toCss($scss, false);
-  
-  return $css;
-}
+
 
 function _omega_save_layout_files($scss, $css, $theme) {
   global $base_path;
@@ -242,4 +240,96 @@ function _omega_save_layout_files($scss, $css, $theme) {
   $cssfile = file_unmanaged_save_data($css, $layoutcss, TRUE);
 
   //return $file;
+}
+
+
+
+/**
+ * Helper function to calculate the new width/push/pull/prefix/suffix of a primary region 
+ * $main is the primary region for a group which will actually be the one we are adjusting
+ * $empty_regions is an array of region data for regions that would be empty
+ * $cols is the total number of columns assigned using row(); for the region group
+ * 
+ * @return array()
+ * array contains width, push, pull, prefix and suffix of adjusted primary region
+ */
+function _omega_layout_generation_adjust($main, $empty_regions = array(), $cols) {
+  // assign values from $main region's data
+  $original_prefix = $prefix = $main['prefix'];
+  $original_pull = $pull = $main['pull'];
+  $original_width = $width = $main['width'];
+  $original_push = $push = $main['push'];
+  $original_suffix = $suffix = $main['suffix'];
+  
+  foreach($empty_regions as $rid => $data) {
+    
+    
+    /* Calculate the width */
+    
+    // add the width, prefix & suffix of the regions we are combining
+    // this creates the "true" width of the primary regions
+    $newActualWidth = $data['width'] + $data['prefix'] + $data['suffix'] + $width;
+    // reassign the $width variable
+    $width = $newActualWidth;
+    // this ensures if the primary region has a prefix/suffix, they are calculated too
+    // when ensuring that the region doesn't have more columns than the container.
+    $newTotalWidth = $newActualWidth + $prefix + $suffix;
+    
+    /* END EARLY IF WIDTH IS TOO WIDE */
+    
+    // if the columns combine to be wider than the row, set the max columns
+    // and remove all push/pull/prefix/suffix values
+    if ($newTotalWidth > $cols) {
+      return array(
+        'width' => $cols,
+        'prefix' => 0,
+        'suffix' => 0,
+        'push' => 0,
+        'pull' => 0,
+      );
+    }
+    
+    
+    
+    /* Calculate updates for the push/pull */
+    if ($data['push'] >= 1) {
+      
+      // appears these regions were swapped, compensate by removing the push/pull
+      if ($data['push'] == $original_width && $data['width'] == $original_pull) {
+        $pull = 0;
+      }
+      
+      // assume now that BOTH other regions were pushed
+      if ($original_pull > $data['width']) {
+        $pull = $cols - $width;
+      }
+      
+    }
+    
+    if ($data['pull'] >= 1) {
+      // appears these regions were swapped, compensate by removing the push/pull
+      if ($data['pull'] == $original_width && $data['width'] == $original_push) {
+        $push = 0;
+      }
+      
+      // assume now that BOTH other regions were pushed
+      if ($original_push > $data['width']) {
+        $push = $cols - $width;
+      }
+    }
+    
+    /* Calculate the prefix/suffix */
+    // we don't actually need to do this as the prefix/suffix is added to the actual 
+    // width of the primary region rather than adding/subtracting additional margings.
+    
+    
+  }
+  
+  return array(
+    'width' => $width,
+    'prefix' => $prefix,
+    'suffix' => $suffix,
+    'push' => $push,
+    'pull' => $pull,
+  );
 }

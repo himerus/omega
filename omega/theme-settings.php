@@ -37,32 +37,14 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $theme = $build_info['args'][0];
   // get a list of themes
   $themes = \Drupal::service('theme_handler')->listInfo();
-  //kint($themes);
   // get the default settings for the current theme
   $themeSettings = $themes[$theme];
-  //kint($themeSettings);
-  // Get this themes config settings
-  //$config = \Drupal::config($theme . '.settings')->get('settings');
-  //kint($config);
-  
-  //kint(\Drupal::service('breakpoint.manager')->getGroups());
-  
   
   $defaultLayout = theme_get_setting('default_layout', $theme);
   
   $breakpoints = _omega_getActiveBreakpoints($theme);
-  //kint($breakpoints);
-  
-  
-  
-  
-  
-  
-  
-  
   
   $layouts = theme_get_setting('layouts', $theme);
-  //kint($layouts);
 
   // pull an array of "region groups" based on the "all" media query that should always be present
   $region_groups = $layouts[$defaultLayout]['region_groups']['all'];
@@ -193,7 +175,6 @@ function omega_theme_settings_validate(&$form, &$form_state) {
 function omega_theme_settings_submit(&$form, &$form_state) {
   // Get the theme name.
   $theme = $form_state->build_info['args'][0];
-  
   $values = $form_state->values;
   $layout = $values['layouts'];
   //dsm($values);
@@ -203,27 +184,23 @@ function omega_theme_settings_submit(&$form, &$form_state) {
     'cache' => FALSE,
     'syntax' => 'scss',
     'debug' => TRUE,
-    //'debug_info' => $debug,
-    //'load_paths' => array(dirname($file['data'])),
-    //'filename' => $file['data'],
-    //'load_path_functions' => array('sassy_load_callback'),
-    //'functions' => sassy_get_functions(),
-    'callbacks' => array(
-      //'warn' => $watchdog ? 'sassy_watchdog_warn' : NULL,
-      //'debug' => $watchdog ? 'sassy_watchdog_debug' : NULL,
-    ),
   );
  
   // Execute the compiler.
   $parser = new SassParser($options);
   // create CSS from SCSS
   $scss = _omega_compile_layout_sass($layout, $theme, $options);
-  //dsm($scss);
 
-  $css = _omega_render_layout_css($scss, $options);
+  $css = _omega_compile_layout_css($scss, $options);
   //dsm($css);
   
   _omega_save_layout_files($scss, $css, $theme);
+  
+  
+  // Save all the things to database
+  // used in D7, may want to break out the layout settings from 
+  // omega.settings.yml
+  //$db = _omega_save_database_layouts($layout, $layoutName, $theme);
   //dsm($form_state['values']);
 }
 
