@@ -1,22 +1,12 @@
 omega:
   version: VERSION
   js:
-    # Core.
     js/omega.js: {}
-    # Models.
-    # js/models/MenuModel.js: {}
-    # js/models/ToolbarModel.js: {}
-    # Views.
-    # js/views/BodyVisualView.js: {}
-    # js/views/MenuVisualView.js: {}
-    # js/views/ToolbarAuralView.js: {}
-    # js/views/ToolbarVisualView.js: {}
-  #css:
-    #component:
-      #css/toolbar.module.css: {}
-    #theme:
-      #css/toolbar.theme.css: {}
-      #css/toolbar.icons.css: {}
+  css:
+    base:
+      style/css/base.css: {}
+    layout: 
+      style/css/omega-layout.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
@@ -27,10 +17,14 @@ omega:
     - core/matchmedia
     - core/jquery.once
     - core/drupal.displace
+
 omega_admin:
   version: VERSION
   js: 
     js/omega_admin.js: {}
+  css:
+    theme:
+      style/css/omega_admin.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
@@ -45,3 +39,59 @@ omega_admin:
     - core/jquery.ui
     - core/jquery.ui.slider
     - core/jquery.ui.resizable
+    
+omega_html_elements:
+  version: VERSION
+  css: 
+    base:
+      style/css/html-elements.css: {}
+  dependencies:
+    - omega/omega
+    
+omega_branding:
+  version: VERSION
+  css: 
+    base:
+      style/css/site-branding.css: {}
+  dependencies:
+    - omega/omega
+    
+omega_breadcrumbs:
+  version: VERSION
+  css: 
+    base:
+      style/css/breadcrumbs.css: {}
+  dependencies:
+    - omega/omega
+    
+omega_main_menus:
+  version: VERSION
+  css: 
+    base:
+      style/css/main-menus.css: {}
+  dependencies:
+    - omega/omega
+    
+omega_messages:
+  version: VERSION
+  css: 
+    base:
+      style/css/messages.css: {}
+  dependencies:
+    - omega/omega
+    
+omega_pagers:
+  version: VERSION
+  css: 
+    base:
+      style/css/pagers.css: {}
+  dependencies:
+    - omega/omega
+    
+omega_tabs:
+  version: VERSION
+  css: 
+    base:
+      style/css/tabs.css: {}
+  dependencies:
+    - omega/omega

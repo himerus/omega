@@ -3,68 +3,72 @@
 use Drupal\omega\phpsass\SassParser;
 use Drupal\omega\phpsass\SassFile;
 
+// Include Breakpoint Functionality
+use Drupal\breakpoint;
+
 function _omega_optional_css($theme) {
   $status = theme_get_setting('styles', $theme);
-  //dsm($status);
   
   return array(
     'scss_html_elements' => array(
       'title' => 'Generic HTML Elements',
       'description' => 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.',
-      'file' => 'html-elements.css',
+      'library' => 'omega/omega_html_elements',
       'status' => $status['scss_html_elements'],
     ),
     
     'scss_branding' => array(
       'title' => 'Branding Styles',
       'description' => 'Provides basic layout and styling for logo area.',
-      'file' => 'site-branding.css',
+      'library' => 'omega/omega_branding',
       'status' => $status['scss_branding'],
     ),
     
     'scss_breadcrumbs' => array(
       'title' => 'Breadcrumbs',
       'description' => 'Basic breadcrumb styling.',
-      'file' => 'breadcrumbs.css',
+      'library' => 'omega/omega_breadcrumbs',
       'status' => $status['scss_breadcrumbs'],
     ),
     
     'scss_main_menus' => array(
       'title' => 'Main Menu Styling',
       'description' => 'Basic layout and styling for main menu elements.',
-      'file' => 'main-menus.css',
+      'library' => 'omega/omega_main_menus',
       'status' => $status['scss_main_menus'],
     ),
     'scss_messages' => array(
       'title' => 'Messages',
       'description' => 'Custom styles for Drupal system messages.',
-      'file' => 'messages.css',
+      'library' => 'omega/omega_messages',
       'status' => $status['scss_messages'],
     ),
     'scss_pagers' => array(
       'title' => 'Pagers',
       'description' => 'Custom styles for Drupal pagers.',
-      'file' => 'pagers.css',
+      'library' => 'omega/omega_pagers',
       'status' => $status['scss_pagers'],
     ),
     'scss_tabs' => array(
       'title' => 'Local Task Tabs',
       'description' => 'Custom styles for Drupal tabs.',
-      'file' => 'tabs.css',
+      'library' => 'omega/omega_tabs',
       'status' => $status['scss_tabs'],
     ),
   );
 }
 
-function _omega_getBreakpointId($theme) {
-  // get the appropriate id based on theme name
-  if (entity_load('breakpoint_group', 'theme.'.$theme.'.'.$theme)) {
+function _omega_getActiveBreakpoints($theme) {
+  // get the default layout and convert to name for breakpoint group
+  $breakpointGroupId = str_replace("_", ".", theme_get_setting('default_layout', $theme));
+  $breakpointGroup = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($breakpointGroupId);
+  if ($breakpointGroup) {
     // custom theme breakpoints
-    return 'theme.'.$theme.'.'.$theme;
+    return $breakpointGroup;
   }
   else {
     // default omega breakpoints
-    return 'theme.omega.omega';
+    return \Drupal::service('breakpoint.manager')->getBreakpointsByGroup('omega.standard');
   }
 }
 
