@@ -57,23 +57,17 @@
  *
  * Regions:
  * - page.header: Items for the header region.
- * - page.featured: Items for the featured region.
  * - page.highlighted: Items for the highlighted content region.
- * - page.help: Dynamic help text, mostly for admin pages.
  * - page.content: The main content of the current page.
  * - page.sidebar_first: Items for the first sidebar.
  * - page.sidebar_second: Items for the second sidebar.
- * - page.triptych_first: Items for the first triptych.
- * - page.triptych_middle: Items for the middle triptych.
- * - page.triptych_last: Items for the last triptych.
- * - page.footer_firstcolumn: Items for the first footer column.
- * - page.footer_secondcolumn: Items for the second footer column.
- * - page.footer_thirdcolumn: Items for the third footer column.
- * - page.footer_fourthcolumn: Items for the fourth footer column.
  * - page.footer: Items for the footer region.
  *
+ * Omega utility variables
+ * - region_classes.REGION_CONTAINERID - region_classes.main will render classes like with--sidebar-first on container
+ * 
  * @see template_preprocess_page()
- * @see bartik_preprocess_page()
+ * @see omega_preprocess_page()
  * @see html.html.twig
  *
  * @ingroup themeable
@@ -83,16 +77,26 @@
   <div id="page" class="clearfix {{ region_classes }}">
 
     <header id="header-outer-wrapper" class="outer-wrapper clearfix {{ secondary_menu ? 'with-secondary-menu' : 'without-secondary-menu' }}" role="banner">
-      <div id="header-layout" class="inner-wrapper clearfix">
+      <div id="header-layout" class="{{ region_classes.header }} inner-wrapper clearfix">
         <div id="header" class="clearfix">
           {{ page.header }}
         </div>
       </div>
     </header> <!-- /.section, /#header-->
   
-  {% if page.preface_first or page.preface_second or page.preface_third or page.preface_fourth %}
+    <section id="core-outer-wrapper" class="outer-wrapper clearfix">
+      <div id="core-layout" class="{{ region_classes.core }} inner-wrapper clearfix">
+        {% if page.highlighted %}
+          <div id="highlighted" class="section clearfix">
+            {{ page.highlighted }}
+          </div>
+        {% endif %}
+      </div>
+    </section>
+    
+    {% if page.preface_first or page.preface_second or page.preface_third or page.preface_fourth %}
     <section id="preface-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="preface-layout" class="inner-wrapper clearfix">
+      <div id="preface-layout" class="{{ region_classes.preface }} inner-wrapper clearfix">
         {% if page.preface_first %}
           <div id="preface-first" class="">{{ page.preface_first }}</div>
         {% endif %}
@@ -107,52 +111,44 @@
         {% endif %}
       </div><!-- /#preface-layout -->
     </section> <!-- /#preface-wrapper -->
-  {% endif %}
+    {% endif %}
   
   
   
   
 
-  <section id="core-outer-wrapper" class="outer-wrapper clearfix">
-    <div id="core-layout" class="inner-wrapper clearfix">
-      {% if page.highlighted %}
-        <div id="highlighted" class="section clearfix">
-          {{ page.highlighted }}
-        </div>
-      {% endif %}
-    </div>
-  </section>
   
-  <section id="content-outer-wrapper" class="outer-wrapper clearfix">
-    <div id="main-layout" class="inner-wrapper clearfix">
-      <main id="content" class="column" role="main">
-        
-        {{ page.content }}
-        {{ feed_icons }}
-      </main> <!-- /.section, /#content -->
   
-      {% if page.sidebar_first %}
-        <div id="sidebar-first" class="column sidebar">
-          <aside class="section">
-            {{ page.sidebar_first }}
-          </aside>
-        </div><!-- /.section, /#sidebar-first -->
-      {% endif %}
+    <section id="content-outer-wrapper" class="outer-wrapper clearfix">
+      <div id="main-layout" class="{{ region_classes.main }} inner-wrapper clearfix">
+        <main id="content" class="column" role="main">
+          
+          {{ page.content }}
+          {{ feed_icons }}
+        </main> <!-- /.section, /#content -->
+    
+        {% if page.sidebar_first %}
+          <div id="sidebar-first" class="column sidebar">
+            <aside class="section">
+              {{ page.sidebar_first }}
+            </aside>
+          </div><!-- /.section, /#sidebar-first -->
+        {% endif %}
+    
+        {% if page.sidebar_second %}
+          <div id="sidebar-second" class="column sidebar">
+            <aside class="section">
+              {{ page.sidebar_second }}
+            </aside>
+          </div><!-- /.section, /#sidebar-second -->
+        {% endif %}
+    
+      </div><!-- /#main -->
+    </section><!-- /#main-outer-wrapper -->
   
-      {% if page.sidebar_second %}
-        <div id="sidebar-second" class="column sidebar">
-          <aside class="section">
-            {{ page.sidebar_second }}
-          </aside>
-        </div><!-- /.section, /#sidebar-second -->
-      {% endif %}
-  
-    </div><!-- /#main -->
-  </section><!-- /#main-outer-wrapper -->
-  
-  {% if page.postscript_first or page.postscript_second or page.postscript_third or page.postscript_fourth %}
+    {% if page.postscript_first or page.postscript_second or page.postscript_third or page.postscript_fourth %}
     <section id="postscript-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="postscript-layout" class="inner-wrapper clearfix">
+      <div id="postscript-layout" class="{{ region_classes.postscript }} inner-wrapper clearfix">
         {% if page.postscript_first %}
           <div id="postscript-first">{{ page.postscript_first }}</div>
         {% endif %}
@@ -167,15 +163,15 @@
         {% endif %}
       </div><!-- /#postscript-layout -->
     </section> <!-- /#postscript-outer-wrapper -->
-  {% endif %}
+    {% endif %}
   
   
   
-  {% if page.footer %}
+    {% if page.footer %}
     <footer id="footer-outer-wrapper" class="outer-wrapper clearfix">
-      <div id="footer-layout" role="contentinfo" class="inner-wrapper clearfix">
+      <div id="footer-layout" role="contentinfo" class="{{ region_classes.footer }} inner-wrapper clearfix">
         <div id="footer">{{ page.footer }}</div>
       </div> <!-- /#footer -->
     </footer> <!-- /#footer-outer-wrapper -->
-  {% endif %}
+    {% endif %}
 </div></div> <!-- /#page, /#page-wrapper -->
