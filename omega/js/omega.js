@@ -4,26 +4,11 @@
 
   drupalSettings.omega = {
      currentBreakpoints: {
-       'all' : true
+       'All' : true
      }
   };
   
-  var options = $.extend(
-    {
-      sampleVariable: {
-        'one': '',
-        'two': '',
-        'three': ''
-      }
-    },
-    drupalSettings.omega,
-    // Merge strings on top of drupalSettings so that they are not mutable.
-    {
-      currentBreakpoints: {
-        'all' : true
-      }
-    }
-  );
+  
   
   var breakpoints;
   var breakpointMatch;
@@ -36,13 +21,16 @@
         return;
       }
       
+      //console.log(drupalSettings.omega);
       
-      breakpoints = drupalSettings.omega_breakpoints.layouts;;
+      breakpoints = drupalSettings.omega_breakpoints;
+      //console.log(breakpoints);
       breakpointMatch = false;
       //console.log(breakpoints);
       
       // Handle the intial load
-      $(window).on('ready', function() {
+      $(window).on('load', function() {
+        //console.log(breakpoints);
         $.each(breakpoints, function() {
         	if (window.matchMedia(this.query).matches) {
             breakpointMatch = true;
@@ -59,7 +47,7 @@
       
       // handle resize events
       $(window).on('resize', function(){
-        
+        //console.log(breakpoints);
         $.each(breakpoints, function() {
         	
         	if (window.matchMedia(this.query).matches) {
@@ -146,7 +134,7 @@
       var screenWidth;
       var breakpointText;
       
-      $(window).on('ready resize', function(){
+      $(window).on('load resize', function(){
         screenWidth = $(this).width();
         
         //console.log(browser);
@@ -158,7 +146,7 @@
         //oScreen.find('.screen-browser .data').html(bName);  
       });
       
-      breakpoints = drupalSettings.omega_breakpoints.layouts;;
+      //breakpoints = drupalSettings.omega_breakpoints.layouts;
       
       // if a breakpiont has been added or removed, change the text
       $(window).on('breakpointAdded breakpointRemoved', function(e, b){

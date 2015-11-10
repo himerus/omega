@@ -17,6 +17,11 @@ use Drupal\Core\Config\Config;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\Entity\ConfigStorageController;
 
+use Drupal\Core\Url;
+
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Render\FormattableMarkup;
+
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Theme\ThemeSettings;
@@ -30,240 +35,179 @@ use Drupal\image\Entity\ImageStyle;
 function omega_theme() {
   return array(
     'omega_indicator' => array(
-      //'render element' => 'elements',
       'variables' => array(
         'logo' => NULL,
       ),
       'template' => 'omega-indicator',
     ),
   );
-}
+} // END omega_theme
 
 function omega_preprocess_omega_indicator(&$vars) {
-  //dsm($vars);
   
-  $logo_image = '<img src="' . drupal_get_path('theme', 'omega') . '/logo.png" />';
-  
-  $vars['logo'] = l($logo_image, 'http://drupal.org/project/omega', array(
+  $img = drupal_get_path('theme', 'omega') . '/logo.png';
+  $logo_image = SafeMarkup::format('<img src=":image" />', array(':image' => $img));
+  $omega_url = Url::fromUri('http://drupal.org/project/omega', array(
     'attributes' => array(
-      //'target' => '_blank',
       'id' => 'indicator-toggle',
       'class' => array(
         'indicator-open'
       ),
-    ),
-    'html' => true,
+    )
   ));
   
-  //dsm($vars);
-}
+  $omega_link = \Drupal::l($logo_image, $omega_url);
+  $vars['logo'] = $omega_link;
+  
+} // END omega_preprocess_omega_indicator
 
+
+/**
+ * Implements hook_preprocess().
+ */
 function omega_preprocess(&$variables, $hook) {
-  //dsm($hook);
-}
+  
+} // END omega_preprocess
 
-function omega_page_alter (&$page) {
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function omega_page_attachments_alter (&$attachments) {
   
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  // require omega.js library
+  $attachments['#attached']['library'][] = 'omega/omega';
   
-  $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
-  
-  // make sure omega.js is attached
-  $page['#attached']['library'][] = 'omega/omega';
-  
-  //dsm($page);
-  $toggleCSS = _omega_optional_css($theme);
-  //$activeStyles = theme_get_setting('styles', $theme);
-  //dsm($activeStyles);
-  
-  foreach ($toggleCSS as $style => $data) {
-    //dsm($data);
-    
-    $stylePath = drupal_get_path('theme', 'omega') . '/style/css/' . $data['file'];
-    //dsm($stylePath);
-    // check it is active
-    if ($data['status']) {
-      $page['#attached']['css'][$stylePath] = array (
-        'every_page' => TRUE,
-        'group' => CSS_AGGREGATE_THEME,
-        'weight' => CSS_THEME,
-        
-        
-      );
-    }
-    
-  }
-  
-  //dsm($page['#attached']);
-  $regionDemo = theme_get_setting('block_demo_mode', $theme);
   $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
-  //dsm($theme);
   
   if ($screenDemo) {
-    //dsm($page);
-    if (isset($page['page_top'])) {      
-      $page['page_top']['themedemoblock'] = array(
-        '#theme' => 'omega_indicator',
-        '#weight' => -9999
-      );
-    }
-    else {
-      $page['page_top'] = array(
-        '#region' => 'page_top',
-        'themedemoblock' => array(
-          '#theme' => 'omega_indicator',
-          '#weight' => -9999
-        ),
-      );
-    }
-    
-  }
-  
-  
-  if ($regionDemo) {
-    //dsm($page);
-    drupal_set_message(t('Region Demonstration mode is on. This can be turned off in theme settings.'), 'warning');
-    // get a list of themes
-    $themes = \Drupal::service('theme_handler')->listInfo();
-    // get the default theme
-    //$config = \Drupal::config('system.theme');
-    //$default_theme = $config->get('default');
-    // get the regions for the default theme
-    $theme_regions = $themes[$theme]->info['regions'];
-    //dsm($regions);
-    
-    $regionSkip = theme_get_setting('block_demo_excluded_regions', $theme);
-    foreach($theme_regions as $region => $region_name) {
-      if (!in_array($region, $regionSkip)) {
-        // here we want to add a simple block that we can use to demonstrate region placements for ALL regions in the theme(s)
-        if (isset($page[$region])) {
-          
-          $themedemoblock = array(
-            'themedemoblock' => array(
-              '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
-              '#weight' => -9999  
-            ),
-          );
-          // for some reason something changed between alpha10 and 11 that made the weight in the commented out code below not work anymore.
-          $page[$region] = $themedemoblock + $page[$region];
-          /*
-          $page[$region]['themedemoblock'] = array(
-            '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
-            '#weight' => -9999
-          );
-          */
-        }
-        else {
-          // no region was already present, so we'll need to insert it
-          $page[$region] = array(
-            '#region' => $region,
-            'themedemoblock' => array(
-              //'#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"><p>This sample content is provided to demonstrate the display of all regions.</p></div></div>',
-              '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block inactive-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
-              '#weight' => -9999
-            ),
-          );
-        }
-      }
-      else {
-        // works for not displaying page top and bottom or other omitted regions.
-      }
-    }
-    //krumo($page);
-  }
-}
+    // get the default Breakpoints
+    $breakpoints = _omega_getActiveBreakpoints($theme);
 
+    $layouts = array();    
+    foreach($breakpoints as $breakpoint) {
+      $idtrim = str_replace('.', "-", $breakpoint->getBaseId());
+      $layouts[$breakpoint->getBaseId()] = array(
+        'query' => $breakpoint->getMediaQuery(),
+        'name' => $breakpoint->getLabel()
+      );
+    }
+    // add all the current (possible) breakpoints to the omega_breakpoints variable for use in omega.js
+    $attachments['#attached']['drupalSettings']['omega_breakpoints'] = $layouts;
+  }
+  
+  // Functionality to attach selected css/js from omega theme settings
+  $toggleCSS = _omega_optional_css($theme);  
+  foreach ($toggleCSS as $style => $data) {
+    // check it is actively enabled
+    if ($data['status']) {
+      // attach libraries as required
+      $attachments['#attached']['library'][] = $data['library'];
+    }
+  }
+  
+  //krumo($attachments);
+
+} // END omega_page_attachments_alter
+
+/**
+ * Implements hook_page_top().
+ */
+function omega_page_top (array &$page_top) {
+  // Evidently HOOK_page_top doesn't fire for themes. Must move this somehwere else.
+  /*
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
+  krumo($page_top);
+  if ($screenDemo) {
+    $page_top['themedemoblock'] = array(
+      '#theme' => 'omega_indicator',
+      '#weight' => -9999
+    );
+  }
+  dsm($page_top);
+  */
+} // END omega_page_top
+
+/**
+ * Implements hook_page_bottom().
+ */
+function omega_page_bottom(&$page_bottom) {
+  
+} // END omega_page_bottom
 
 function omega_preprocess_html(&$vars) {
   
-}
+} // END omega_preprocess_html
 
-function omega_css_alter(&$css) {
-  $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
+function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  
+  
+  
+  // need to test
+  
   $ogsLayout = theme_get_setting('enable_omegags_layout', $theme);
   $layout = isset($ogsLayout) ? $ogsLayout : TRUE;
-  
   // turn off Omega.gs generated layout styles if user has turned off the awesome.
   if (!$layout && isset($css['omega-layout.css'])) {
     unset($css['omega-layout.css']);
   }
-}
+} // END omega_css_alter
+
+
 /**
  * Implements hook_js_alter().
  */
-function omega_js_alter(&$javascript) {
-  // If >=1 JavaScript asset has declared a dependency on drupalSettings, the
-  // 'settings' key will exist. Thus when that key does not exist, return early.
-  if (!isset($javascript['settings'])) {
-    return;
-  }
-  
-  $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
-  $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
-  
-  
-  
-  
-  if ($screenDemo) {
-    // get the default BreakpointGroupID
-    $breakpointGroupId = _omega_getBreakpointId($theme);
-    // Load the BreakpointGroup and it's Breakpoints
-    $breakpointGroup = entity_load('breakpoint_group', $breakpointGroupId);
-    $breakpoints = $breakpointGroup->getBreakpoints();
-    $layouts = array();
+function omega_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
 
-    //$javascript['settings']['data']['omega_breakpoints'] = array();
-    
-    foreach($breakpoints as $breakpoint) {
-      $bid = $breakpoint->id;
-      
-      $layouts[$breakpoint->name] = array(
-        'query' => $breakpoint->mediaQuery,
-        'name' => $breakpoint->name
-      );
-    }
-    
-    $javascript['settings']['data'][] = array(
-      'omega_breakpoints' => array(
-        'layouts' => $layouts
-      )
-    );
-  }
-}
+} // END omega_js_alter
 
 /**
  * Implements hook_preprocess_HOOK() for page templates.
  *
  */
 function omega_preprocess_page(&$vars) {
-  //dsm($vars);
-  //$regions = element_children($vars['page']);
   
+  $page = $vars['page'];
+  //krumo($page);
   
-  
-  $exlude = theme_get_setting('block_demo_excluded_regions');
-  $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : 'omega';
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
   $themes = \Drupal::service('theme_handler')->listInfo();
   $defaultLayout = theme_get_setting('default_layout');
   $themeSettings = $themes[$theme];
-  //dsm($themeSettings);
+
+  $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
+  // Enable the helper div with info on screen size, breakpoints active, etc.
+  if ($screenDemo) {
+    if (count($vars['page']['content']) >= 1) {
+      $vars['page']['content']['themeinfoblock'] = array(
+        '#theme' => 'omega_indicator',
+        '#weight' => -9999
+      );
+    }
+    else {
+      $vars['page']['content'] = array(
+        '#region' => 'content',
+        '#theme_wrappers' => array(
+          'region'
+        ),
+        'themeinfoblock' => array(
+          '#theme' => 'omega_indicator',
+          '#weight' => -9999
+        ),
+      );
+    }
+  }
   
   
-  //$layouts = $themeSettings->info['settings']['layouts'];
-  //$layouts = theme_get_setting('layouts', $theme);
-  //dsm($layouts[$defaultLayout]);
   
   
-  //dsm($layouts[$defaultLayout]);
-  
-  //$breakpoints = \Drupal::breakpoint();
-  //dsm($breakpoints);
-  //dsm($exlude);
-  //$regionGroups = $layouts[$defaultLayout]['region_groups']['wide'];
-  //$region_classes = _omega_region_classes($regions);
-  //$vars['rg'] = $regionGroups;
-  
+  // Entire section needs to be updated to d7 model where regions are assigned per region group container
+/*
   // create an array to define the with-sidebar_first without-sidebar_first classes
   $theme_regions = $themeSettings->info['regions'];
+  //dsm($theme_regions);
   $region_classes = array();
   foreach($theme_regions as $region_id => $region) {
     if (isset($vars['page'][$region_id]['#region'])) {
@@ -275,9 +219,9 @@ function omega_preprocess_page(&$vars) {
   }
   // assign classes to #page in page.html.twig  
   $vars['region_classes'] = implode(" ", $region_classes);
+  dsm($vars['region_classes']);
   
-  /*
-foreach ($regionGroups as $rgId => $rgInfo) {
+  foreach ($regionGroups as $rgId => $rgInfo) {
     foreach($rgInfo['regions'] as $regionId => $cols) {
       if (isset($vars['page'][$regionId]['#region'])) {
         //dsm('Active Region: ' . $regionId . '; Grid Columns: ' . $cols);
@@ -285,8 +229,45 @@ foreach ($regionGroups as $rgId => $rgInfo) {
     }
   }
 */
-  //dsm($vars);
-}
+
+  $regionDemo = theme_get_setting('block_demo_mode', $theme);
+  
+  if ($regionDemo) {
+    //dsm($page);
+    drupal_set_message(t('Region Demonstration mode is on. This can be turned off in theme settings.'), 'warning');
+    $theme_regions = $themeSettings->info['regions'];
+    $regionSkip = theme_get_setting('block_demo_excluded_regions', $theme);
+    
+    foreach($theme_regions as $region => $region_name) {
+      // skip the regions listed in block_demo_excluded_regions, primarily page_top & page_bottom
+      if (!in_array($region, $regionSkip)) {
+        // here we want to add a simple block that we can use to demonstrate region placements for ALL regions in the theme(s)
+        if (isset($page[$region])) {
+          $regiondemoblock = array(
+            'regiondemoblock' => array(
+              '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
+              '#weight' => -9999  
+            ),
+          );
+          $vars['page'][$region] = $regiondemoblock + $page[$region];
+        }
+        else {
+          // no region was already present, so we'll need to insert it
+          $vars['page'][$region] = array(
+            '#region' => $region,
+            'regiondemoblock' => array(
+              '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block inactive-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
+              '#weight' => -9999
+            ),
+          );
+        }
+      }
+      else {
+        // works for not displaying page top and bottom or other omitted regions.
+      }
+    }
+  }
+} // END omega_preprocess_page
 
 /**
  * Implements hook_preprocess_HOOK() for region templates.
@@ -294,7 +275,7 @@ foreach ($regionGroups as $rgId => $rgInfo) {
  */
 function omega_preprocess_region(&$vars) {
   //dsm($vars);
-}
+} // END omega_preprocess_region
 
 /**
  * Implements hook_preprocess_HOOK() for node templates.
@@ -302,20 +283,19 @@ function omega_preprocess_region(&$vars) {
  */
 function omega_preprocess_node(&$vars) {
   
-}
+} // END omega_preprocess_node
 
 /**
  * Implements hook_preprocess_HOOK() for block templates.
  */
 function omega_preprocess_block(&$vars) {
   
-}
+} // END omega_preprocess_block
 
 /**
  * hook_html_head_alter()
  */
 function omega_html_head_alter(&$head_elements) {
-  global $theme;
   // cleartype
   $head_elements['omega_meta_clear_type'] = array(
     '#type' => 'html_tag',
@@ -336,4 +316,4 @@ function omega_html_head_alter(&$head_elements) {
     ),
     '#weight' => -997,
   );
-}
+} // END omega_html_head_alter
