@@ -1,23 +1,13 @@
 <?php
 require_once('omega-functions.php');
 
-use Drupal\Core\Config\Config;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Form\FormBase;
-use Drupal\Core\Form\FormState;
+//use Drupal\Core\Config\Config;
 
 // Include Breakpoint Functionality
-use Drupal\breakpoint;
-
-use Drupal\Core\Form\FormBuilderInterface;
-use Drupal\system\Form\ThemeSettingsForm;
-use Drupal\omega\savelayout\SaveLayout;
-
-//use Drupal\responsive_image\Entity\ResponsiveImageMapping;
+//use Drupal\breakpoint;
 
 use Drupal\omega\phpsass\SassParser;
 use Drupal\omega\phpsass\SassFile;
-
 
 /**
  * Implementation of hook_form_system_theme_settings_alter()
@@ -29,8 +19,12 @@ use Drupal\omega\phpsass\SassFile;
  *   A keyed array containing the current state of the form.
  */
 function omega_form_system_theme_settings_alter(&$form, &$form_state) {
-  global $base_path;
   
+  //dsm($form);
+  //dsm($form_state);
+  
+  // currently edited in root .htaccess :( very bad. need a solution for this
+  //krumo(ini_get('max_input_vars'));
   $build_info = $form_state->getBuildInfo();
   
   // Get the theme name we are editing
@@ -40,18 +34,22 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   // get the default settings for the current theme
   $themeSettings = $themes[$theme];
   
-  $defaultLayout = theme_get_setting('default_layout', $theme);
+  
+  // check for ajax update of default layout, or use default theme setting
+  $defaultLayout = isset($form_state->values['default_layout']) ? $form_state->values['default_layout'] : theme_get_setting('default_layout', $theme);
+  $edit_this_layout = isset($form_state->values['edit_this_layout']) ? $form_state->values['edit_this_layout'] : theme_get_setting('default_layout', $theme);
+  //$defaultLayout = theme_get_setting('default_layout', $theme);
   
   $breakpoints = _omega_getActiveBreakpoints($theme);
-  
-  $layouts = theme_get_setting('layouts', $theme);
 
+  $layouts = omega_return_layouts($theme);
+  //krumo($layouts);
   // pull an array of "region groups" based on the "all" media query that should always be present
   $region_groups = $layouts[$defaultLayout]['region_groups']['all'];
   //dsm($region_groups);
   $theme_regions = $themeSettings->info['regions'];
   
-  // add in custom JS for Omega administration
+  // add in custom CSS/JS for Omega administration
   $form['#attached']['library'][] = 'omega/omega_admin';  
   
   // include the introduction message(s)
@@ -71,7 +69,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   // include the adjustments to core system theme settings
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/general-settings.php');
   
-  // include the ability to enable/disable custom Omega stylesheets
+  // include the ability to enable/disable custom Omega stylesheets/javascripts
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/style-settings.php');
   
   // include the ability to customize various scss variables to provide basic style adjustments
@@ -80,22 +78,11 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   // include the ability to debug various theme development elements
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/debug-settings.php');
   
+  // include the layout configuration options
+  include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-config.php');
   
-  // include the layout manager interface
+  // include the layout builder interface
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-settings.php');
-  
-  
-  
-  //dsm($breakpointGroupId);
-  //dsm($breakpointGroup);
-  //dsm($breakpoints);
-  //dsm($form);
-  
-  
-  
-  
-  
-  
   
   // Change the text for default submit button
   $form['actions']['submit']['#value'] = t('Save Settings');
@@ -106,17 +93,32 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     ),
   );
   
+  // add appropriate validate & submit hooks
+  $form['#validate'][] = 'omega_theme_settings_validate';
+  $form['#submit'][] = 'omega_theme_settings_submit';
+  
+  //dsm($form['#submit']);
+  
   // gather the default submit callback so we can add it to our custom one
   $defaultSubmit = $build_info['callback_object'];
+  
+  //dsm($build_info);
   // copy the default submit button/handler
   $form['actions']['submit_layout'] = $form['actions']['submit'];
   // update the text for the new button
   $form['actions']['submit_layout']['#value'] = t('Save Settings & Layout');
   // update the submit handlers
-  $form['actions']['submit_layout']['#submit'][] = array($defaultSubmit, 'submitForm');
-  // add in custom submit handler
-  $form['actions']['submit_layout']['#submit'][] = 'omega_theme_settings_submit';
   
+  
+  
+  
+  
+  // add in the default Omega submit handler that handles the layout data
+  //$form['actions']['submit_layout']['#submit'][] = 'omega_theme_settings_submit';
+  // add in the layout generation handler that actually creates/updates the SCSS/CSS files
+  $form['actions']['submit_layout']['#submit'][] = 'omega_theme_layout_build_submit';
+  // add in default submit handler
+  $form['actions']['submit_layout']['#submit'][] = '::submitForm';
   // define the visibility of the custom submit button
   // only when enable Omega.gs layout is enabled 
   // AND
@@ -160,24 +162,75 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
   
 }
+
+/**
+ * @todo
+ * Function to check machine name for generated theme to ensure it is available
+ */
 function omega_theme_exists($machine) {
   return true;
 }
 
 function omega_theme_settings_validate(&$form, &$form_state) {
-  //dsm($form);
-  //dsm($form_state);
-  dsm('omega_form_system_theme_settings_validate');
-
-  //return false;
+  //drupal_set_message(t('Running <strong>omega_theme_settings_validate()</strong>'));
 }
 
 function omega_theme_settings_submit(&$form, &$form_state) {
+  //drupal_set_message(t('Running <strong>omega_theme_settings_submit()</strong>'));
+  //dsm($form['#submit']);
+  //dsm($form_state->getSubmitHandlers());
+  $build_info = $form_state->getBuildInfo();
   // Get the theme name.
-  $theme = $form_state->build_info['args'][0];
-  $values = $form_state->values;
-  $layout = $values['layouts'];
+  $theme = $build_info['args'][0];
+  // get all the values of the submitted form
+  $values = $form_state->getValues();
   //dsm($values);
+  
+  // grab the value of layouts so we can update the $theme.layout.$layout_name
+  $layouts = $values['layouts'];
+  
+  // unset the layout variable so it's not stored in $theme.settings
+  // instead an empty array will replace the value in $theme.settings
+  $form_state->setValue('layouts', array());
+
+  // FOREACH $layouts we need to run some operations that will hopefully accomplish the following:
+  // 1.) Check to see if there are differences in the layout stored and layout submitted
+  // 2.) Write the changes to $theme.layout.$layout in the config table
+  // 3.) Write the changes to SCSS and generate CSS.
+  // 4.) Ensure this will work with multiple layouts passed (current) OR
+  //     when individual layouts are passed (hopefully) via ajax
+ 
+  foreach ($layouts AS $layout_id => $layout) {
+    
+    // Save $layout to the database
+    _omega_save_database_layout($layout, $layout_id, $theme);
+  }
+}
+
+function omega_theme_layout_build_validate(&$form, &$form_state) {
+  //drupal_set_message(t('Running <strong>omega_theme_layout_build_validate()</strong>'));
+  $build_info = $form_state->getBuildInfo();
+  // Get the theme name.
+  $theme = $build_info['args'][0];
+  // get all the values of the submitted form
+  $values = $form_state->getValues();
+}
+function omega_theme_layout_build_submit(&$form, &$form_state) {
+  //drupal_set_message(t('Running <strong>omega_theme_layout_build_submit()</strong>'));
+  //dsm($form_state->getSubmitHandlers());
+  $build_info = $form_state->getBuildInfo();
+  // Get the theme name.
+  $theme = $build_info['args'][0];
+  // get all the values of the submitted form
+  $values = $form_state->getValues();
+  
+  // grab the value of layouts so we can update the $theme.layout.$layout_name
+  $layouts = $values['layouts'];
+  
+  // unset the layout variable so it's not stored in $theme.settings
+  // instead an empty array will replace the value in $theme.settings
+  $form_state->setValue('layouts', array());
+  
   // Options for phpsass compiler. Defaults in SassParser.php
   $options = array(
     'style' => 'nested',
@@ -185,33 +238,39 @@ function omega_theme_settings_submit(&$form, &$form_state) {
     'syntax' => 'scss',
     'debug' => TRUE,
   );
+
+  // FOREACH $layouts we need to run some operations that will hopefully accomplish the following:
+  // 1.) @todo Check to see if there are differences in the layout stored and layout submitted
+  // 2.) @todone Write the changes to $theme.layout.$layout in the config table
+  // 3.) @todone Write the changes to SCSS and generate CSS.
+  // 4.) @todone Ensure this will work with multiple layouts passed (current) OR
+  //     when individual layouts are passed (hopefully) via ajax
  
-  // Execute the compiler.
-  $parser = new SassParser($options);
-  // create CSS from SCSS
-  $scss = _omega_compile_layout_sass($layout, $theme, $options);
-
-  $css = _omega_compile_layout_css($scss, $options);
-  //dsm($css);
-  
-  _omega_save_layout_files($scss, $css, $theme);
-  
-  
-  // Save all the things to database
-  // used in D7, may want to break out the layout settings from 
-  // omega.settings.yml
-  //$db = _omega_save_database_layouts($layout, $layoutName, $theme);
-  //dsm($form_state['values']);
+  foreach ($layouts AS $layout_id => $layout) {
+    // Save $layout to the database
+    _omega_save_database_layout($layout, $layout_id, $theme);
+    // generate the SCSS from the layout data
+    $scss = _omega_compile_layout_sass($layout, $layout_id, $theme, $options);
+    // generate the CSS from the SCSS created above
+    $css = _omega_compile_layout_css($scss, $options);
+    // save the SCSS and CSS files to the theme's filesystem
+    _omega_save_layout_files($scss, $css, $theme, $layout_id);
+  }
 }
-
 
 function omega_theme_generate_validate(&$form, &$form_state) {
-  dsm('function omega_theme_generate_validate() {}');
-  //dsm($form);
-  //dsm($form_state['values']);
+  drupal_set_message(t('Running <strong>omega_theme_generate_validate()</strong>'));
+  $build_info = $form_state->getBuildInfo();
+  // Get the theme name.
+  $theme = $build_info['args'][0];
+  // get all the values of the submitted form
+  $values = $form_state->getValues();
 }
 function omega_theme_generate_submit(&$form, &$form_state) {
-  dsm('function omega_theme_generate_submit() {}');
-  //dsm($form);
-  //dsm($form_state['values']);
+  drupal_set_message(t('Running <strong>omega_theme_generate_submit()</strong>'));
+  $build_info = $form_state->getBuildInfo();
+  // Get the theme name.
+  $theme = $build_info['args'][0];
+  // get all the values of the submitted form
+  $values = $form_state->getValues();
 }

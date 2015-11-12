@@ -45,7 +45,7 @@ function omega_theme() {
 
 function omega_preprocess_omega_indicator(&$vars) {
   
-  $img = drupal_get_path('theme', 'omega') . '/logo.png';
+  $img = base_path() . drupal_get_path('theme', 'omega') . '/logo.png';
   $logo_image = SafeMarkup::format('<img src=":image" />', array(':image' => $img));
   $omega_url = Url::fromUri('http://drupal.org/project/omega', array(
     'attributes' => array(
@@ -206,7 +206,7 @@ function omega_preprocess_page(&$vars) {
   $regionDemo = theme_get_setting('block_demo_mode', $theme);
   
   if ($regionDemo) {
-    //dsm($page);
+    //dsm($vars['page']);
     drupal_set_message(t('Region Demonstration mode is on. This can be turned off in theme settings.'), 'warning');
     $theme_regions = $themeSettings->info['regions'];
     $regionSkip = theme_get_setting('block_demo_excluded_regions', $theme);
@@ -227,6 +227,9 @@ function omega_preprocess_page(&$vars) {
         else {
           // no region was already present, so we'll need to insert it
           $vars['page'][$region] = array(
+            '#theme_wrappers' => array(
+              'region'
+            ),
             '#region' => $region,
             'regiondemoblock' => array(
               '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block inactive-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
@@ -239,20 +242,24 @@ function omega_preprocess_page(&$vars) {
         // works for not displaying page top and bottom or other omitted regions.
       }
     }
+    //dsm($vars['page']);
   }
   
   // create an array to define the with-sidebar_first without-sidebar_first classes
   $region_classes = array();
   $pass_classes = array();
   $layout = omega_return_active_layout();
-  $layouts = theme_get_setting('layouts', $theme);
+  $layouts = omega_return_layouts($theme);
   $region_groups = $layouts[$layout]['region_groups']['all'];
   //krumo($region_groups);
   foreach($region_groups as $group_id => $group_info) {
     $groupRegions = $region_groups[$group_id]['regions'];
+    // duplciate the #id into a class for better use with Omega.gs
+    $altered_group_id = str_replace("_", "-", $group_id);
+    $region_classes[$group_id][] = $altered_group_id . '-layout';
     foreach($groupRegions as $region_id => $region_info) {
       $altered_region_id = str_replace("_", "-", $region_id);
-    
+      
       if (isset($vars['page'][$region_id]['#region'])) {
         $region_classes[$group_id][] = 'with--' . $altered_region_id;
       }
@@ -284,6 +291,9 @@ function omega_preprocess_page(&$vars) {
  *
  */
 function omega_preprocess_region(&$vars) {
+  // add a region class in the format region--REGION-NAME
+  $altered_region_id = str_replace("_", "-", $vars['region']);
+  $vars['attributes']['class'][] = 'region--' . $altered_region_id;
   //dsm($vars);
 } // END omega_preprocess_region
 
