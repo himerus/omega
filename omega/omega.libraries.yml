@@ -6,7 +6,7 @@ omega:
     theme:
       style/css/base.css: {}
     layout: 
-      style/css/omega-layout.css: {}
+      style/css/layout/omega_default-layout.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
