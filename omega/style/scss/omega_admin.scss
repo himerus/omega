@@ -393,14 +393,15 @@ $twidth: 100%;
   box-sizing: border-box;
   padding: 20px;
   
+  @include clearfix();
   
-  div.form-type-select[class*=-row] {
-    display: inline-block;
-    margin-right: 10px;
-    padding-right: 10px;
-    margin-top: 0;
-    margin-bottom: 0;
+  div.form-type-select[class*=-row],
+  div.form-type-select[class*=-primary-region] {
+    display: block;
+    float: left;
     border-right: 1px solid #CCC;
+    margin: 0;
+    padding: 0 10px;
     
     label {
       font-size: 11px;
@@ -409,17 +410,26 @@ $twidth: 100%;
       width: 50px;
     }
   }
+  div.form-type-select[class*=-primary-region] {
+    select {
+      width: auto;
+    }
+  }
   
   .omega-layout-controls {
-    display: inline-block;
-    margin-right: 10px;
-    padding-right: 10px;
-    margin-top: 0;
-    margin-bottom: 0;
+    display: block;
+    float: left;
     border-right: 1px solid #CCC;
     font-size: 11px;
+    margin: 0;
+    padding: 0 10px;
     
     label {
+      font-size: 11px;
+    }
+    
+    .control-label {
+      font-weight: bold;
       font-size: 11px;
     }
     div {
@@ -428,9 +438,10 @@ $twidth: 100%;
   }
   
   div.form-type-textfield[class*=-maxwidth] {
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 0;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0 10px;
     
     label {
       font-size: 11px;
@@ -441,20 +452,27 @@ $twidth: 100%;
     }
   }
   
-  .row-max-width-type {
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 0;
+  fieldset.form-item[class*=-maxwidth-type],
+  fieldset.form-item[class*=-collapsed] {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0 10px;
+    border-right: 1px solid #CCC;
     
+    legend {
+      font-size: 11px;
+    }
     .form-type-radio {
       display: inline-block;
       margin-right: 0.25em;
       font-size: 10px;
+      padding: 0;
     }
-    
-    legend {
-      display: none;
-    }
+  }
+  
+  fieldset.form-item[class*=-collapsed] {
+    border-right: none;
   }
   
   

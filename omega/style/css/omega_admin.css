@@ -384,47 +384,68 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 20px; }
-  .region-group-layout-settings div.form-type-select[class*=-row] {
-    display: inline-block;
-    margin-right: 10px;
-    padding-right: 10px;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-right: 1px solid #CCC; }
-    .region-group-layout-settings div.form-type-select[class*=-row] label {
-      font-size: 11px; }
-    .region-group-layout-settings div.form-type-select[class*=-row] select {
-      width: 50px; }
-  .region-group-layout-settings .omega-layout-controls {
-    display: inline-block;
-    margin-right: 10px;
-    padding-right: 10px;
-    margin-top: 0;
-    margin-bottom: 0;
+  padding: 20px;
+  *zoom: 1; }
+  .region-group-layout-settings:before, .region-group-layout-settings:after {
+    content: "";
+    display: table; }
+  .region-group-layout-settings:after {
+    clear: both; }
+  .region-group-layout-settings div.form-type-select[class*=-row],
+  .region-group-layout-settings div.form-type-select[class*=-primary-region] {
+    display: block;
+    float: left;
     border-right: 1px solid #CCC;
-    font-size: 11px; }
+    margin: 0;
+    padding: 0 10px; }
+    .region-group-layout-settings div.form-type-select[class*=-row] label,
+    .region-group-layout-settings div.form-type-select[class*=-primary-region] label {
+      font-size: 11px; }
+    .region-group-layout-settings div.form-type-select[class*=-row] select,
+    .region-group-layout-settings div.form-type-select[class*=-primary-region] select {
+      width: 50px; }
+  .region-group-layout-settings div.form-type-select[class*=-primary-region] select {
+    width: auto; }
+  .region-group-layout-settings .omega-layout-controls {
+    display: block;
+    float: left;
+    border-right: 1px solid #CCC;
+    font-size: 11px;
+    margin: 0;
+    padding: 0 10px; }
     .region-group-layout-settings .omega-layout-controls label {
       font-size: 11px; }
+    .region-group-layout-settings .omega-layout-controls .control-label {
+      font-weight: bold;
+      font-size: 11px; }
   .region-group-layout-settings div.form-type-textfield[class*=-maxwidth] {
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 0; }
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0 10px; }
     .region-group-layout-settings div.form-type-textfield[class*=-maxwidth] label {
       font-size: 11px; }
     .region-group-layout-settings div.form-type-textfield[class*=-maxwidth] input {
       text-align: right;
       width: 70px; }
-  .region-group-layout-settings .row-max-width-type {
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 0; }
-    .region-group-layout-settings .row-max-width-type .form-type-radio {
+  .region-group-layout-settings fieldset.form-item[class*=-maxwidth-type],
+  .region-group-layout-settings fieldset.form-item[class*=-collapsed] {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0 10px;
+    border-right: 1px solid #CCC; }
+    .region-group-layout-settings fieldset.form-item[class*=-maxwidth-type] legend,
+    .region-group-layout-settings fieldset.form-item[class*=-collapsed] legend {
+      font-size: 11px; }
+    .region-group-layout-settings fieldset.form-item[class*=-maxwidth-type] .form-type-radio,
+    .region-group-layout-settings fieldset.form-item[class*=-collapsed] .form-type-radio {
       display: inline-block;
       margin-right: 0.25em;
-      font-size: 10px; }
-    .region-group-layout-settings .row-max-width-type legend {
-      display: none; }
+      font-size: 10px;
+      padding: 0; }
+  .region-group-layout-settings fieldset.form-item[class*=-collapsed] {
+    border-right: none; }
 
 .region-controls {
   height: 16px;
