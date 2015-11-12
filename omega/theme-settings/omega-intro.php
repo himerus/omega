@@ -13,7 +13,7 @@ $form['welcome'] = array(
   '#tree' => FALSE,
 );
 
-$screenshot = $base_path . drupal_get_path('theme', 'omega') . '/screenshot.png';
+$screenshot = base_path() . drupal_get_path('theme', 'omega') . '/screenshot.png';
 
 $form['welcome']['omega5'] = array(
   '#prefix' => '<div class="omega-welcome clearfix">',
