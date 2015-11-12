@@ -97,9 +97,7 @@ body {
 @mixin column($x, $realcols:$cols, $margin: 'normal') {
 	display: block;
 	position: relative;
-	//left: 0;
-	//right: 0;
-	
+  clear: none;
   // default width & margin values
   $colwidth: (gwidth($x) - $gutter) * calcwidth();
   $colmargin: ($gutter / 2) * calcwidth();
@@ -113,7 +111,7 @@ body {
 	$leftmargin: $colmargin;
 	
 	width: $colwidth;
-	//margin: 0 $rightmargin 0 $leftmargin;
+	
 	margin-right: $rightmargin;
 	margin-left: $leftmargin;
 	
@@ -187,4 +185,14 @@ body {
 	@if $dir == 'RTL' {
 	  margin-left: ((($gutter + $cwidth) * $x) + $gutter / 2) * calcwidth();
 	}
+}
+
+@mixin column-reset() {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  left: auto;
+  right: auto;
+  float: none;
+  clear: both;
 }
