@@ -147,17 +147,32 @@ function _omega_getActiveBreakpoints($theme) {
 function _omega_save_database_layout($layout, $layout_id, $theme) {
   // Grab the editable configuration object
   $layoutConfig = \Drupal::service('config.factory')->getEditable($theme . '.layout.' . $layout_id);
-  // Set the value to $layout
-  $layoutConfig->setData($layout);
-  // Save it
-  $saved = $layoutConfig->save();
-  // check for errors
-  if ($saved) {
-    drupal_set_message(t('Layout configuration saved: <strong>'.$theme . '.layout.' . $layout_id.'</strong>'));
+  
+  // Check for differences in the $layoutConfig (current stored DB version) and the $layout (passed form values)
+  // If and only if there are differences will we continue with saving the layout, otherwise, we'll skip it
+  
+  if ($layoutConfig->getOriginal() == $layout) {
+    // no updates, throw message (to be removed likely)
+    drupal_set_message(t('The layout <strong>' . $layout_id . '</strong> matches the version already stored at <strong>' . $theme . '.layout.' . $layout_id . '</strong>. No save on this layout was performed.'));
   }
   else {
-    drupal_set_message(t('WTF002: Layout configuration error... : function _omega_save_database_layout()'), 'error');
+    // updates found, proceed
+    
+    // Set the value to $layout
+    $layoutConfig->setData($layout);
+    
+    // Save it
+    $saved = $layoutConfig->save();
+    
+    // check for errors
+    if ($saved) {
+      drupal_set_message(t('The layout <strong>' . $layout_id . '</strong> updated: <strong>'.$theme . '.layout.' . $layout_id.'</strong> saved.'));
+    }
+    else {
+      drupal_set_message(t('WTF002: Layout configuration error... : function _omega_save_database_layout()'), 'error');
+    }
   }
+  
 }
 
 function _omega_compile_layout_css($scss, $options) {
