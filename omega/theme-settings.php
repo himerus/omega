@@ -85,7 +85,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-settings.php');
   
   // Change the text for default submit button
-  $form['actions']['submit']['#value'] = t('Save Settings');
+  $form['actions']['submit']['#value'] = t('Save');
   // Hide the default submit button if 'export new subtheme' option is enabled
   $form['actions']['submit']['#states'] = array(
     'invisible' => array(
@@ -106,7 +106,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   // copy the default submit button/handler
   $form['actions']['submit_layout'] = $form['actions']['submit'];
   // update the text for the new button
-  $form['actions']['submit_layout']['#value'] = t('Save Settings & Layout');
+  $form['actions']['submit_layout']['#value'] = t('Save & Generate Layout');
   // update the submit handlers
   
   
@@ -201,7 +201,6 @@ function omega_theme_settings_submit(&$form, &$form_state) {
   //     when individual layouts are passed (hopefully) via ajax
  
   foreach ($layouts AS $layout_id => $layout) {
-    
     // Save $layout to the database
     _omega_save_database_layout($layout, $layout_id, $theme);
   }
