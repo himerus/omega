@@ -5,6 +5,10 @@ use Drupal\omega\phpsass\SassFile;
 // Include Breakpoint Functionality
 use Drupal\breakpoint;
 
+/**
+ * Function returns the trimmed name of the breakpoint id
+ * converting omega.standard.all to simply 'all'
+ */
 function omega_return_clean_breakpoint_id($breakpoint) {
   return str_replace($breakpoint->getGroup() . '.', "", $breakpoint->getBaseId());
 }
@@ -25,6 +29,7 @@ function omega_return_layouts($theme) {
   }
   return $layouts;
 }
+
 // returns select field options for the available layouts
 function _omega_layout_select_options($layouts) {
   $options = array();
@@ -41,13 +46,18 @@ function _omega_layout_select_options($layouts) {
  */
 function omega_return_active_layout() {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
-  
-  //$front = drupal_is_front_page();
+  $front = \Drupal::service('path.matcher')->isFrontPage();
   //$node = menu_get_object();
 
   // setup default layout
   $defaultLayout = theme_get_setting('default_layout', $theme);
   $layout = $defaultLayout;
+  
+  // if it is the front page, check for an alternate layout
+  if ($front) {
+    $homeLayout = theme_get_setting('home_layout', $theme);
+    $layout = $homeLayout ? $homeLayout : $defaultLayout;
+  }
   
   /*
   // if it is a node, check for an alternate layout
@@ -56,11 +66,7 @@ function omega_return_active_layout() {
     $nodeLayout = theme_get_setting($type . '_layout', $theme);
     $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
   }
-  // if it is the front page, check for an alternate layout
-  if ($front) {
-    $homeLayout = theme_get_setting('home_layout', $theme);
-    $layout = $homeLayout ? $homeLayout : $defaultLayout;
-  }
+  
   */
   
   return $layout;

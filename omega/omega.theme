@@ -145,16 +145,27 @@ function omega_preprocess_html(&$vars) {
 function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   
-  
-  
-  // need to test
+  // appears we need a cache rebuild after editing options invoked here
+  // so if omega.gs is turned on/off, layout options are changed, etc.
   
   $ogsLayout = theme_get_setting('enable_omegags_layout', $theme);
-  $layout = isset($ogsLayout) ? $ogsLayout : TRUE;
+  $hasLayout = isset($ogsLayout) ? $ogsLayout : TRUE;
+  
+  // setup default layout
+  $defaultOmegaLayout = drupal_get_path('theme', 'omega') . '/style/css/layout/omega_default-layout.css';
+  $defaultLayout = omega_return_active_layout();
+  $activeLayoutCSS = drupal_get_path('theme', $theme) . '/style/css/layout/'.$defaultLayout.'-layout.css';
+  
   // turn off Omega.gs generated layout styles if user has turned off the awesome.
-  if (!$layout && isset($css['omega-layout.css'])) {
-    unset($css['omega-layout.css']);
+  if (!$hasLayout && isset($css[$defaultOmegaLayout])) {
+    unset($css[$defaultOmegaLayout]);
   }
+  
+  // alter the CSS loaded based on the $activeLayoutCSS
+  if (isset($css[$defaultOmegaLayout]) && $defaultOmegaLayout != $activeLayoutCSS){
+    $css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
+  }
+  
 } // END omega_css_alter
 
 
