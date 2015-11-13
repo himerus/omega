@@ -1,13 +1,6 @@
 <?php
 require_once('omega-functions.php');
-
-//use Drupal\Core\Config\Config;
-
-// Include Breakpoint Functionality
-//use Drupal\breakpoint;
-
-use Drupal\omega\phpsass\SassParser;
-use Drupal\omega\phpsass\SassFile;
+require_once('omega-functions--admin.php');
 
 /**
  * Implementation of hook_form_system_theme_settings_alter()
@@ -175,16 +168,25 @@ function omega_theme_settings_validate(&$form, &$form_state) {
   //drupal_set_message(t('Running <strong>omega_theme_settings_validate()</strong>'));
 }
 
+/**
+ * Default Omega theme settings submit handler.
+ * Currently performs the following operations:
+ *  - Saves default theme configurations
+ *  - Saves updates to the layouts in the database:
+ *    - This is handled by calling _omega_save_database_layout for each layout
+ *  - Removes $layouts from the default theme settings config to avoid storing
+ *    it all in one massive variable at $theme.settings, and instead relies on 
+ *    $theme.layout.$layout_id to contain individual layouts.
+ */
 function omega_theme_settings_submit(&$form, &$form_state) {
-  //drupal_set_message(t('Running <strong>omega_theme_settings_submit()</strong>'));
-  //dsm($form['#submit']);
-  //dsm($form_state->getSubmitHandlers());
+  // get the build info for the form
   $build_info = $form_state->getBuildInfo();
+  
   // Get the theme name.
   $theme = $build_info['args'][0];
+  
   // get all the values of the submitted form
   $values = $form_state->getValues();
-  //dsm($values);
   
   // grab the value of layouts so we can update the $theme.layout.$layout_name
   $layouts = $values['layouts'];
@@ -194,10 +196,9 @@ function omega_theme_settings_submit(&$form, &$form_state) {
   $form_state->setValue('layouts', array());
 
   // FOREACH $layouts we need to run some operations that will hopefully accomplish the following:
-  // 1.) Check to see if there are differences in the layout stored and layout submitted
-  // 2.) Write the changes to $theme.layout.$layout in the config table
-  // 3.) Write the changes to SCSS and generate CSS.
-  // 4.) Ensure this will work with multiple layouts passed (current) OR
+  // 1.) @todone Check to see if there are differences in the layout stored and layout submitted
+  // 2.) @todone Write the changes to $theme.layout.$layout in the config table
+  // 3.) @todone Ensure this will work with multiple layouts passed (current) OR
   //     when individual layouts are passed (hopefully) via ajax
  
   foreach ($layouts AS $layout_id => $layout) {
@@ -214,9 +215,23 @@ function omega_theme_layout_build_validate(&$form, &$form_state) {
   // get all the values of the submitted form
   $values = $form_state->getValues();
 }
+
+/**
+ * Custom Omega theme settings submit handler for full layout generation (SCSS/CSS files).
+ * Currently performs the following operations:
+ *  - Saves default theme configurations
+ *  - Saves updates to the layouts in the database:
+ *    - This is handled by calling _omega_save_database_layout for each layout
+ *  - Removes $layouts from the default theme settings config to avoid storing
+ *    it all in one massive variable at $theme.settings, and instead relies on 
+ *    $theme.layout.$layout_id to contain individual layouts.
+ *  - Passes $layout to _omega_compile_layout_sass to generate the appropriate SCSS
+ *    based on settings provided
+ *  - Passes returned SCSS to _omega_compile_layout_css to generate the appropriate CSS
+ *  - Passes returned SCSS and CSS to _omega_save_layout_files to generate new SCSS and CSS files
+ */
 function omega_theme_layout_build_submit(&$form, &$form_state) {
-  //drupal_set_message(t('Running <strong>omega_theme_layout_build_submit()</strong>'));
-  //dsm($form_state->getSubmitHandlers());
+  // get the build info for the form
   $build_info = $form_state->getBuildInfo();
   // Get the theme name.
   $theme = $build_info['args'][0];
@@ -239,10 +254,12 @@ function omega_theme_layout_build_submit(&$form, &$form_state) {
   );
 
   // FOREACH $layouts we need to run some operations that will hopefully accomplish the following:
-  // 1.) @todo Check to see if there are differences in the layout stored and layout submitted
+  // 1.) @todone Check to see if there are differences in the layout stored and layout submitted
   // 2.) @todone Write the changes to $theme.layout.$layout in the config table
-  // 3.) @todone Write the changes to SCSS and generate CSS.
-  // 4.) @todone Ensure this will work with multiple layouts passed (current) OR
+  // 3.) @todo See if $theme.layout.$layout.generated exists and matches submitted values
+  //     This will allow us to skip file generation as well for unchanged values
+  // 4.) @todone Write the changes to SCSS and generate CSS.
+  // 5.) @todone Ensure this will work with multiple layouts passed (current) OR
   //     when individual layouts are passed (hopefully) via ajax
  
   foreach ($layouts AS $layout_id => $layout) {
