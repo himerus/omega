@@ -99,7 +99,7 @@ function omega_page_attachments_alter (&$attachments) {
   }
   
   // Functionality to attach selected css/js from omega theme settings
-  $toggleCSS = _omega_optional_css($theme);  
+  $toggleCSS = _omega_optional_libraries($theme);  
   foreach ($toggleCSS as $style => $data) {
     // check it is actively enabled
     if ($data['status']) {

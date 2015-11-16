@@ -17,7 +17,7 @@ $form['styles']['styles_info'] = array(
 );
 
 $form['styles']['styles_info']['#markup'] .= '<p>By selecting or unselecting styles in this section, you can greatly alter the visual appearance of your site.</p>';
-$toggleCSS = _omega_optional_css($theme);
+$toggleCSS = _omega_optional_libraries($theme);
 
 $form['styles']['styles_toggle'] = array(
   //'#prefix' => '<div class="messages messages--warning omega-styles-info">',

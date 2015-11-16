@@ -77,7 +77,7 @@ function _omega_getActiveBreakpoints($theme) {
  *  Returns array of optional Libraries that can be enabled/disabled in theme settings
  *  for Omega, and Omega sub-themes. The listings here are tied to entries in omega.libraries.yml.
  */
-function _omega_optional_css($theme) {
+function _omega_optional_libraries($theme) {
   $status = theme_get_setting('styles', $theme);
   
   return array(
