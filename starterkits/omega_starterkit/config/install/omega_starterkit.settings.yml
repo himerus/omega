@@ -1,0 +1,28 @@
+features:
+  node_user_picture: true
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+logo:
+  use_default: true
+  path: ''
+favicon:
+  use_default: true
+  path: ''
+omega_toggle_intro: 0
+enable_backups: 0
+force_subtheme_creation: 0
+styles:
+  scss_html_elements: 1
+  scss_branding: 1
+  scss_breadcrumbs: 1
+  scss_main_menus: 1
+  scss_messages: 1
+  scss_pagers: 1
+  scss_tabs: 1
+block_demo_mode: 1
+screen_demo_indicator: 1
+default_layout: primary
+home_layout: front
+enable_omegags_layout: 1
+layouts: {  }
