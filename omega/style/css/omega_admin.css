@@ -578,8 +578,13 @@ body {
 #layout-editor-select .form-type-radio {
   display: inline-block;
   margin-right: 20px;
-  font-size: 16px; }
-  #layout-editor-select .form-type-radio label {
-    font-weight: bold; }
+  font-size: 16px;
+  font-weight: normal; }
+#layout-editor-select .form-type-radio input:checked + label {
+  font-weight: bold; }
 #layout-editor-select .description {
   clear: both; }
+
+.inline-documentation-image {
+  max-width: 80%;
+  height: auto; }

@@ -606,12 +606,17 @@ $twidth: 100%;
     display: inline-block;
     margin-right: 20px;
     font-size: 16px;
-    
-    label {
-      font-weight: bold;
-    }
+    font-weight: normal;
+  }
+  .form-type-radio input:checked + label {
+    font-weight: bold;
   }
   .description {
     clear: both;
   }
+}
+
+.inline-documentation-image {
+  max-width: 80%;
+  height: auto;
 }
