@@ -34,27 +34,25 @@ function omega_return_layouts($theme) {
 function omega_return_active_layout() {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   $front = \Drupal::service('path.matcher')->isFrontPage();
-  //$node = menu_get_object();
-
+  $node = \Drupal::routeMatch()->getParameter('node');
+  
   // setup default layout
   $defaultLayout = theme_get_setting('default_layout', $theme);
   $layout = $defaultLayout;
   
-  // if it is the front page, check for an alternate layout
-  if ($front) {
-    $homeLayout = theme_get_setting('home_layout', $theme);
-    $layout = $homeLayout ? $homeLayout : $defaultLayout;
-  }
-  
-  /*
   // if it is a node, check for an alternate layout
   if ($node) {
-    $type = $node->type;
+    $type = $node->getType();
     $nodeLayout = theme_get_setting($type . '_layout', $theme);
     $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
   }
   
-  */
+  // if it is the front page, check for an alternate layout
+  // this should come AFTER all other adjustments
+  if ($front) {
+    $homeLayout = theme_get_setting('home_layout', $theme);
+    $layout = $homeLayout ? $homeLayout : $defaultLayout;
+  }
   
   return $layout;
 }

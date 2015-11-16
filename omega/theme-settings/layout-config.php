@@ -89,12 +89,11 @@ $form['layout-config']['home_layout'] = array(
 // Show a select menu for each node type, allowing the selection
 // of an alternate layout per node type.
 
-/*
 $types = node_type_get_types();
-
 foreach ($types AS $ctype => $ctypeData) {
+
   $layout_name = $ctype . '_layout';
-  $ctypeLayout = isset($form_state['values'][$layout_name]) ? $form_state['values'][$layout_name] : theme_get_setting($layout_name, $theme);
+  $ctypeLayout = theme_get_setting($layout_name, $theme);
   
   $form['layout-config'][$layout_name] = array(
     '#prefix' => '<div class="' . $ctype . '-layout-select">',
@@ -106,7 +105,8 @@ foreach ($types AS $ctype => $ctypeData) {
         'clearfix'
       ),
     ),
-    '#title' => $ctypeData->name . ': Select Layout',
+    '#title' => $ctypeData->label() . ': Select Layout',
+    '#description' => '<p class="description">The <strong>'. $ctypeData->label() .'</strong> Layout is used only on pages rendering a full node page of the type "<strong>'.$ctypeData->id().'</strong>" using the <strong>' . $theme . '</strong> theme.</p>',
     '#options' => $availableLayouts,
     '#default_value' => isset($ctypeLayout) ? $ctypeLayout : theme_get_setting('default_layout', $theme),
     '#tree' => FALSE,
@@ -114,4 +114,3 @@ foreach ($types AS $ctype => $ctypeData) {
     // attempting possible jQuery intervention rather than ajax 
   );  
 }
-*/
