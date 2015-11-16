@@ -17,7 +17,7 @@ $form['layouts'] = array(
 $form['layouts']['edit_this_layout'] = array(
   '#prefix' => '<div id="layout-editor-select">',
   '#suffix' => '</div>',
-  '#type' => 'select',
+  '#type' => 'radios',
   '#attributes' => array(
     'class' => array(
       'layout-select', 
@@ -25,6 +25,7 @@ $form['layouts']['edit_this_layout'] = array(
     ),
   ),
   '#title' => 'Select Layout to Edit',
+  '#description' => t('<p class="description">You are able to edit only one layout at a time.</p><p class="description"> The amount of configurations passed through the form requires limiting this ability until Drupal core issue <a href="https://www.drupal.org/node/1565704" target="_blank"><strong>#1565704</strong></a> can be resolved. </p>'),
   '#options' => $availableLayouts,
   '#default_value' => isset($edit_this_layout) ? $edit_this_layout : theme_get_setting('default_layout', $theme),
   '#tree' => FALSE,

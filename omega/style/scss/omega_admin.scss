@@ -336,7 +336,6 @@ $twidth: 100%;
   }  
 }
 
-
 .form-type-checkbox {
   label {
     font-weight: bold;
@@ -589,5 +588,30 @@ $twidth: 100%;
     summary {
       padding-left: 0;
     }
+  }
+}
+
+#layout-editor-select {
+  legend {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  .form-radios {
+    display: block;
+    padding: 10px;
+    background: #EEE;
+    border: 1px solid #CCC;
+  }
+  .form-type-radio {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 16px;
+    
+    label {
+      font-weight: bold;
+    }
+  }
+  .description {
+    clear: both;
   }
 }

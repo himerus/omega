@@ -12,7 +12,7 @@ require_once('omega-functions--admin.php');
  *   A keyed array containing the current state of the form.
  */
 function omega_form_system_theme_settings_alter(&$form, &$form_state) {
-  
+  //dsm(ini_get('max_input_vars'));
   //dsm($form);
   //dsm($form_state);
   

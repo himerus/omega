@@ -375,4 +375,37 @@
     }
   };
   
+  Drupal.behaviors.trimLayoutForm = {
+    attach: function (context) {
+      // Add in a layer of protection on the form, allowing only a single $layout to be sent through the form
+      // The php.ini default for max_input_vars is 1000, and Drupal core hasn't addressed the issue.
+      // This will try to stay under that limit, by not submitting ALL the layouts present on the settings page
+      // but will only send the portion specified by the "Select layout to edit" select option.
+      
+      $('#system-theme-settings').on('submit', function(){
+        var editLayout = $('#edit-edit-this-layout .layout-select');
+        //console.log(editLayout);
+        // cycle each of the available layouts to edit
+        editLayout.each(function(){
+          //console.log(this);
+          var lname = $(this).attr('value');
+          if ($(this).prop('checked')) {
+            //console.log(lname + " selected.");
+          }
+          else {
+            //console.log(lname + " NOT selected.");
+            var lpattern = "#layout-" + lname + "-config";
+            //console.log(lpattern);
+            $(lpattern).remove();
+          }
+          
+        });
+        //.attr("disabled", "disabled");
+        //return false;
+      });
+      
+      
+    }
+  };
+  
 })(jQuery, Drupal, drupalSettings);

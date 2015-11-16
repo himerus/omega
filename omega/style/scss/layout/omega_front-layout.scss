@@ -953,25 +953,25 @@ body {
 
   // Breakpoint: Wide; Region Group: preface; Region: preface_first;
   .region--preface-first { 
-    @include column(3, 12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: preface; Region: preface_second;
   .region--preface-second { 
-    @include column(3, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: preface; Region: preface_third;
   .region--preface-third { 
-    @include column(3, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: preface; Region: preface_fourth;
   .region--preface-fourth { 
-    @include column(3, 12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
