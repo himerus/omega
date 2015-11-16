@@ -12,7 +12,7 @@ $header: Georgia, Times, serif;
 
   
 
-$regionSpacing: 25px;
+$regionSpacing: 0;
 
 $mobile: 0px !default;
 
@@ -1060,25 +1060,25 @@ body {
 
   // Breakpoint: Wide; Region Group: postscript; Region: postscript_first;
   .region--postscript-first { 
-    @include column(4, 12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: postscript; Region: postscript_second;
   .region--postscript-second { 
-    @include column(8, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: postscript; Region: postscript_third;
   .region--postscript-third { 
-    @include column(8, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: postscript; Region: postscript_fourth;
   .region--postscript-fourth { 
-    @include column(4, 12); 
+    @include column(12, 12); 
     margin-bottom: $regionSpacing;
   } 
 

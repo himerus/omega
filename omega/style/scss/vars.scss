@@ -27,7 +27,7 @@ $header: Georgia, Times, serif;
 // @media screen and (min-width: $tablet) and (max-width: $desktop)
 // Used to target ONLY screens between the two breakpoints so styles will not apply to $desktop and beyond in this example.
 
-$regionSpacing: 25px;
+$regionSpacing: 0; // will place a bottom border on layout regions
 
 $mobile: 0px !default;
 
