@@ -3,34 +3,31 @@
 use Drupal\omega\phpsass\SassParser;
 use Drupal\omega\phpsass\SassFile;
 
-// returns select field options for the available layouts
-function _omega_layout_select_options($layouts) {
-  $options = array();
-  foreach($layouts as $id => $info) {
-    //$options[$id] = $info['theme'] . '--' . $info['name'];
-    $options[$id] = $id;
-  }
-  //dsm($options);
-  return $options;
-}
-
-
 /**
  * Custom function to save the layout changes to appropriate config variables
  * Currently performs the following operations:
  *  - Compares layout submitted to function with the original in database
  *  - If they do not match, performs save() with updated values sent from function call
+ *  - Check if $generated flag was passed as TRUE and save updated data to $theme.layout.$layout_id.generated
+ *    which signifies that the layout variables HAVE been converted to SCSS/CSS
+ *
+ *  Difference between $theme.layout.$layout_id and $theme.layout.$layout_id.generated
+ *  - $theme.layout.$layout_id = latest layout configuration changes saved to database
+ *    - saved to 'config' table on theme install through $theme.layout.$layout_id.yml
+ *  - $theme.layout.$layout_id.generated = latest layout configuration changes to be generated into SCSS/CSS
+ *    - saved/updated to 'config' table after "Save & Generate Layout" is called
  */
-function _omega_save_database_layout($layout, $layout_id, $theme) {
-  // Grab the editable configuration object
+function _omega_save_database_layout($layout, $layout_id, $theme, $generate = FALSE) {
+  // Grab the editable configuration objects
   $layoutConfig = \Drupal::service('config.factory')->getEditable($theme . '.layout.' . $layout_id);
+  $layoutConfigGenerated = \Drupal::service('config.factory')->getEditable($theme . '.layout.' . $layout_id . '.generated');
   
   // Check for differences in the $layoutConfig (current stored DB version) and the $layout (passed form values)
   // If and only if there are differences will we continue with saving the layout, otherwise, we'll skip it
   
   if ($layoutConfig->getOriginal() == $layout) {
     // no updates, throw message (to be removed likely)
-    drupal_set_message(t('The layout <strong>' . $layout_id . '</strong> matches the version already stored at <strong>' . $theme . '.layout.' . $layout_id . '</strong>. No save on this layout was performed.'));
+    // drupal_set_message(t('The layout <strong>' . $layout_id . '</strong> matches the version already stored at <strong>' . $theme . '.layout.' . $layout_id . '</strong>. No save on this layout was performed.'));
   }
   else {
     // updates found, proceed
@@ -43,15 +40,50 @@ function _omega_save_database_layout($layout, $layout_id, $theme) {
     
     // check for errors
     if ($saved) {
-      drupal_set_message(t('The layout <strong>' . $layout_id . '</strong> updated: <strong>'.$theme . '.layout.' . $layout_id.'</strong> saved.'));
+      drupal_set_message(t('Layout <em>' . $layout_id . '</em> updated: <strong>'.$theme . '.layout.' . $layout_id.'</strong>'));
     }
     else {
       drupal_set_message(t('WTF002: Layout configuration error... : function _omega_save_database_layout()'), 'error');
     }
   }
   
+  // $theme.layout.$layout_id.generated - We should save current values to .generated
+  if ($generate) {
+    if ($layoutConfigGenerated->getOriginal() != $layout) {
+      $layoutConfigGenerated->setData($layout);
+      $saved = $layoutConfigGenerated->save();
+      
+      if ($saved) {
+        drupal_set_message(t('Layout <em>' . $layout_id . '</em> updated: <strong>'.$theme . '.layout.' . $layout_id.'.generated</strong>'));
+      }
+      else {
+        drupal_set_message(t('WTF003: Layout configuration error... : function _omega_save_database_layout()'), 'error');
+      }
+      return true;
+    }
+    else {
+      //drupal_set_message(t('The layout <strong>' . $layout_id . '</strong> matches the version already stored at <strong>' . $theme . '.layout.' . $layout_id . '.generated</strong>. No save on this layout was performed.'));
+      return false;
+    }
+  }
 }
 
+
+function _omega_compile_layout($layout, $layout_id, $theme) {
+  // Options for phpsass compiler. Defaults in SassParser.php
+  $options = array(
+    'style' => 'nested',
+    'cache' => FALSE,
+    'syntax' => 'scss',
+    'debug' => TRUE,
+  );
+  
+  $scss = _omega_compile_layout_sass($layout, $layout_id, $theme, $options);
+  // generate the CSS from the SCSS created above
+  $css = _omega_compile_layout_css($scss, $options);
+  // save the SCSS and CSS files to the theme's filesystem
+  _omega_save_layout_files($scss, $css, $theme, $layout_id);
+}
 /**
  * Custom function to generate layout CSS from SCSS
  * Currently performs the following operations:
@@ -557,4 +589,15 @@ function _omega_layout_generation_adjust($main, $empty_regions = array(), $cols)
     'push' => $push,
     'pull' => $pull,
   );
+}
+
+// returns select field options for the available layouts
+function _omega_layout_select_options($layouts) {
+  $options = array();
+  foreach($layouts as $id => $info) {
+    //$options[$id] = $info['theme'] . '--' . $info['name'];
+    $options[$id] = $id;
+  }
+  //dsm($options);
+  return $options;
 }

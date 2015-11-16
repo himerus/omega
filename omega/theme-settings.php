@@ -203,7 +203,7 @@ function omega_theme_settings_submit(&$form, &$form_state) {
  
   foreach ($layouts AS $layout_id => $layout) {
     // Save $layout to the database
-    _omega_save_database_layout($layout, $layout_id, $theme);
+    _omega_save_database_layout($layout, $layout_id, $theme, FALSE);
   }
 }
 
@@ -244,14 +244,6 @@ function omega_theme_layout_build_submit(&$form, &$form_state) {
   // unset the layout variable so it's not stored in $theme.settings
   // instead an empty array will replace the value in $theme.settings
   $form_state->setValue('layouts', array());
-  
-  // Options for phpsass compiler. Defaults in SassParser.php
-  $options = array(
-    'style' => 'nested',
-    'cache' => FALSE,
-    'syntax' => 'scss',
-    'debug' => TRUE,
-  );
 
   // FOREACH $layouts we need to run some operations that will hopefully accomplish the following:
   // 1.) @todone Check to see if there are differences in the layout stored and layout submitted
@@ -263,14 +255,16 @@ function omega_theme_layout_build_submit(&$form, &$form_state) {
   //     when individual layouts are passed (hopefully) via ajax
  
   foreach ($layouts AS $layout_id => $layout) {
-    // Save $layout to the database
-    _omega_save_database_layout($layout, $layout_id, $theme);
-    // generate the SCSS from the layout data
-    $scss = _omega_compile_layout_sass($layout, $layout_id, $theme, $options);
-    // generate the CSS from the SCSS created above
-    $css = _omega_compile_layout_css($scss, $options);
-    // save the SCSS and CSS files to the theme's filesystem
-    _omega_save_layout_files($scss, $css, $theme, $layout_id);
+    // Save $layout to the database and see if we need to regenerate the files
+    $generated = _omega_save_database_layout($layout, $layout_id, $theme, TRUE);
+    
+    // we return either true or false from the _omega_save_database_layout function
+    // that tells us that the last value in $theme.layout.$layout_id.generated didn't 
+    // match, so we need to rewrite the SCSS/CSS files
+    if ($generated) {
+      // generate the SCSS from the layout data
+      _omega_compile_layout($layout, $layout_id, $theme);
+    }  
   }
 }
 
