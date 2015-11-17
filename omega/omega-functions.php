@@ -69,11 +69,16 @@ function _omega_getAvailableBreakpoints($theme) {
     // get all the breakpoint groups
     $all_breakpoint_groups = \Drupal::service('breakpoint.manager')->getGroups();
     //dsm($all_breakpoint_groups);
-    // get all the base themes of this theme
+    // get all the base themes of this theme    
     $baseThemes = \Drupal::theme()->getActiveTheme()->getBaseThemes();
+    
+    $theme_ids = array(
+      $theme => \Drupal::theme()->getActiveTheme()->getExtension()->info['name']
+    );
     foreach($baseThemes AS $theme_key => $data) {
       // create/add to array with base themes as values
-      $base_theme_ids[] = $theme_key;
+      $clean_theme_name = $data->getExtension()->info['name'];
+      $theme_ids[$theme_key] = $clean_theme_name;
     }
     
     // cycle all the breakpoint groups and see if they are a part of this theme or its base theme(s)
@@ -82,18 +87,19 @@ function _omega_getAvailableBreakpoints($theme) {
       $breakpoint_theme = \Drupal::service('breakpoint.manager')->getGroupProviders($group_key);
       // see if the theme providing the breakpoint group is part of our base theme structure
       $breakpoint_theme_name = key($breakpoint_theme);
-      if (in_array($breakpoint_theme_name, $base_theme_ids) || $theme == $breakpoint_theme_name) {
+      if (array_key_exists($breakpoint_theme_name, $theme_ids)) {
         $breakpoint_groups[$group_key] = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($group_key);
       }
     }
-    //dsm($breakpoint_groups);
+    
     foreach($breakpoint_groups as $group => $breakpoint_values)  {
       if ($breakpoint_values !== array()) {
         // get the theme name that provides this breakpoint group
         $breakpoint_theme = \Drupal::service('breakpoint.manager')->getGroupProviders($group);
         // see if the theme providing the breakpoint group is part of our base theme structure
-        $breakpoint_theme_name = key($breakpoint_theme);
-        $breakpoint_options[$group] = $breakpoint_theme_name . ' - ' . $group;
+        $breakpoint_theme_id = key($breakpoint_theme);
+        $breakpoint_theme_name = $theme_ids[$breakpoint_theme_id];
+        $breakpoint_options[$breakpoint_theme_name][$group] = $group;
       }
     }
   }
