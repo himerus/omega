@@ -284,37 +284,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .header-layout:before,
   .header-layout:after {
     content: "";
     display: table; }
   .header-layout:after {
     clear: both; }
-    .header-layout .region--header {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .header-layout .region--menus {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .preface-layout {
     display: block;
@@ -322,61 +298,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .preface-layout:before,
   .preface-layout:after {
     content: "";
     display: table; }
   .preface-layout:after {
     clear: both; }
-    .preface-layout .region--preface-first {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .preface-layout .region--preface-second {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .preface-layout .region--preface-third {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .preface-layout .region--preface-fourth {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .core-layout {
     display: block;
@@ -384,25 +312,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .core-layout:before,
   .core-layout:after {
     content: "";
     display: table; }
   .core-layout:after {
     clear: both; }
-    .core-layout .region--highlighted {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .main-layout {
     display: block;
@@ -410,49 +326,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .main-layout:before,
   .main-layout:after {
     content: "";
     display: table; }
   .main-layout:after {
     clear: both; }
-    .main-layout .region--content {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .main-layout .region--sidebar-first {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .main-layout .region--sidebar-second {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .postscript-layout {
     display: block;
@@ -460,61 +340,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .postscript-layout:before,
   .postscript-layout:after {
     content: "";
     display: table; }
   .postscript-layout:after {
     clear: both; }
-    .postscript-layout .region--postscript-first {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .postscript-layout .region--postscript-second {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .postscript-layout .region--postscript-third {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .postscript-layout .region--postscript-fourth {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .footer-layout {
     display: block;
@@ -522,25 +354,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .footer-layout:before,
   .footer-layout:after {
     content: "";
     display: table; }
   .footer-layout:after {
-    clear: both; }
-    .footer-layout .region--footer {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; } }
+    clear: both; } }
 
 @media all and (min-width: 480px) and (max-width: 767px) {
   .header-layout {
@@ -549,37 +369,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .header-layout:before,
   .header-layout:after {
     content: "";
     display: table; }
   .header-layout:after {
     clear: both; }
-    .header-layout .region--header {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .header-layout .region--menus {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .preface-layout {
     display: block;
@@ -587,61 +383,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .preface-layout:before,
   .preface-layout:after {
     content: "";
     display: table; }
   .preface-layout:after {
     clear: both; }
-    .preface-layout .region--preface-first {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .preface-layout .region--preface-second {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .preface-layout .region--preface-third {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .preface-layout .region--preface-fourth {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .core-layout {
     display: block;
@@ -649,25 +397,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .core-layout:before,
   .core-layout:after {
     content: "";
     display: table; }
   .core-layout:after {
     clear: both; }
-    .core-layout .region--highlighted {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .main-layout {
     display: block;
@@ -675,49 +411,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .main-layout:before,
   .main-layout:after {
     content: "";
     display: table; }
   .main-layout:after {
     clear: both; }
-    .main-layout .region--content {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .main-layout .region--sidebar-first {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .main-layout .region--sidebar-second {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 47.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 47.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .postscript-layout {
     display: block;
@@ -725,61 +425,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .postscript-layout:before,
   .postscript-layout:after {
     content: "";
     display: table; }
   .postscript-layout:after {
     clear: both; }
-    .postscript-layout .region--postscript-first {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .postscript-layout .region--postscript-second {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .postscript-layout .region--postscript-third {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
-    .postscript-layout .region--postscript-fourth {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; }
 
   .footer-layout {
     display: block;
@@ -787,25 +439,13 @@ body {
     width: 100%;
     *width: 99.896%;
     *zoom: 1;
-    max-width: 100%; }
+    max-width:  %; }
   .footer-layout:before,
   .footer-layout:after {
     content: "";
     display: table; }
   .footer-layout:after {
-    clear: both; }
-    .footer-layout .region--footer {
-      display: block;
-      position: relative;
-      clear: none;
-      width: 97.917%;
-      margin-right: 1.042%;
-      margin-left: 1.042%;
-      *width: 97.813%;
-      *margin-right: 0.938%;
-      *margin-left: 0.938%;
-      float: left;
-      margin-bottom: 0; } }
+    clear: both; } }
 
 @media all and (min-width: 768px) and (max-width: 1023px) {
   .header-layout {
@@ -1665,10 +1305,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 31.25%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 31.146%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1677,10 +1317,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 47.917%;
+      width: 64.583%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 47.813%;
+      *width: 64.479%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1689,10 +1329,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 47.917%;
+      width: 64.583%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 47.813%;
+      *width: 64.479%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
@@ -1701,10 +1341,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 31.25%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 31.146%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;

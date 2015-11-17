@@ -5,7 +5,7 @@ $form['layouts'] = array(
   '#type' => 'details',
   '#attributes' => array('class' => array('debug')),
   '#title' => t('Layout Builder'),
-  '#description' => t('<p class="description">You are able to configure your layout based on the breakpoints defined in <strong>(' . $theme . '.breakpoints.yml)</strong></p>'),
+  '#description' => t('<p class="description">You are able to configure your layouts based on any breakpoint defined in your Omega subtheme, or any base theme that the theme uses. Each layout is assigned to a single breakpoint, and then will be able to be used in Layout Configuration when choosing a layout to use for default or particular page types.</p>'),
   '#weight' => -799,
   '#group' => 'omega',
   //'#open' => TRUE,
@@ -33,6 +33,8 @@ $form['layouts']['edit_this_layout'] = array(
   // attempting possible jQuery intervention rather than ajax 
 );
 
+//dsm($layouts);
+
 //kint($layouts);
 foreach ($layouts as $lid => $ldata) {
   
@@ -54,6 +56,21 @@ foreach ($layouts as $lid => $ldata) {
     ),
   );
   
+  $active_breakpoint_group = theme_get_setting('breakpoint_group_' . $lid, $theme);
+  //dsm($active_breakpoint_group);
+  $current_breakpoint_group = isset($active_breakpoint_group) ? $active_breakpoint_group : 'omega.standard';
+  $form['layouts'][$lid]['breakpoint_group_' . $lid] = array(
+    '#type' => 'select',
+    '#options' => $breakpoint_options,
+    '#title' => t('Breakpoint group'),
+    '#description' => t('<p class="description">This breakpoint group will apply to this layout any time it is used. This allows you to use a different breakpoint group for different layouts.</p>'),
+    '#default_value' => $current_breakpoint_group,
+    '#tree' => FALSE,
+    '#states' => $omegaGSon,
+  );
+  
+  $breakpoints = _omega_getActiveBreakpoints($lid, $theme);
+  
   // foreach breakpoint we have, we will create a form element group and appropriate settings for region layouts per breakpoint.
   foreach($breakpoints as $breakpoint) {
     
@@ -68,7 +85,14 @@ foreach ($layouts as $lid => $ldata) {
       '#title' => $breakpoint->getLabel() . ' -- ' . $breakpoint->getMediaQuery() . '',
       '#weight' => $breakpoint->getWeight(),
       '#group' => 'layout',
-      '#states' => $omegaGSon,
+      '#states' => array(
+        'invisible' => array(
+          ':input[name="enable_omegags_layout"]' => array('checked' => FALSE),
+        ),
+        'visible' => array(
+          ':input[name="breakpoint_group_' . $lid . '"]' => array('value' => $current_breakpoint_group),
+        ),
+      ),
       //'#open' => TRUE,
     );
     //dsm($breakpoints);
@@ -104,10 +128,10 @@ foreach ($layouts as $lid => $ldata) {
       }
       
       $regions = array('0' => '-- None');
-      foreach($info['regions'] as $region_id => $region_info) {
+      foreach($layouts[$lid]['region_groups'][$idtrim][$gid]['regions'] as $region_id => $region_info) {
         $regions[$region_id] = isset($theme_regions[$region_id]) ? $theme_regions[$region_id] : $region_id;;
       }
-      $rcount = count($info['regions']);
+      $rcount = count($layouts[$lid]['region_groups'][$idtrim][$gid]);
       if ($rcount > 3 || $rcount <= 1) {
         $primary_access = FALSE;
       }
@@ -209,52 +233,19 @@ foreach ($layouts as $lid => $ldata) {
       
       // get columns for this region group
       $available_cols = array();
-      for ($i = 0; $i <= $info['row']; $i++) {
+      for ($i = 0; $i <= $layouts[$lid]['region_groups'][$idtrim][$gid]['row']; $i++) {
         $available_cols[$i] = $i . '';
       }
       
       
-            //dsm($gid);
-            //dsm($info);
-      foreach($info['regions'] as $rid => $data) {
-         
-         // $data contains defaults from omega.info.yml
-         //dsm($gid);
-         //dsm($rid);
-         // w/underscores
-         //$pattern = 'layouts_' . $defaultLayout . '_region_groups_' . $breakpoint->name . '_' . $gid . '_regions_' . $rid . '_';
-         // w/periods
-         
-         
-  
-         $pattern = 'layouts.' . $lid . '.region_groups.' . $idtrim . '.' . $gid . '.regions.' . $rid . '.';
-         //kint($pattern);
-         $pattern_push = $pattern . 'push';
-         $pattern_prefix = $pattern . 'prefix';
-         $pattern_width = $pattern . 'width';
-         $pattern_suffix = $pattern . 'suffix';
-         $pattern_pull = $pattern . 'pull';
-         //kint($pattern);
-/*
-         $current_push = theme_get_setting($pattern_push, $theme) ? theme_get_setting($pattern_push, $theme) : $data['push'];
-         $current_prefix = theme_get_setting($pattern_prefix, $theme) ? theme_get_setting($pattern_prefix, $theme) : $data['prefix'];
-         $current_width = theme_get_setting($pattern_width, $theme) ? theme_get_setting($pattern_width, $theme) : $data['width'];
-         $current_suffix = theme_get_setting($pattern_suffix, $theme) ? theme_get_setting($pattern_suffix, $theme) : $data['suffix'];
-         $current_pull = theme_get_setting($pattern_pull, $theme) ? theme_get_setting($pattern_pull, $theme) : $data['pull'];
-*/
-         
+      //dsm($layouts[$lid]['region_groups'][$idtrim][$gid]['regions']);
+      foreach($layouts[$lid]['region_groups'][$idtrim][$gid]['regions'] as $rid => $data) {
          
          $current_push = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['push'];
          $current_prefix = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['prefix'];
          $current_width = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['width'];
          $current_suffix = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['suffix'];
          $current_pull = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['pull'];
-         
-         //dsm($breakpoint->name);
-         //dsm(theme_get_setting($pattern_width));
-         //dsm(theme_get_setting('layouts.' . $defaultLayout . '.region_groups.' . $breakpoint->name));
-         //dsm($pattern_width);
-         //dsm(theme_get_setting($pattern_width, $theme));
          
          $regionTitle = isset($theme_regions[$rid]) ? $theme_regions[$rid] : $rid;
          
@@ -279,8 +270,6 @@ foreach ($layouts as $lid => $ldata) {
             '#open' => TRUE,
             //'#group' => $gid . '-wrapper',
          );
-         
-         
          
          // push (in columns)
          $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['push'] = array(

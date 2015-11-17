@@ -21,7 +21,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $build_info = $form_state->getBuildInfo();
   
   // Get the theme name we are editing
-  $theme = $build_info['args'][0];
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
   // get a list of themes
   $themes = \Drupal::service('theme_handler')->listInfo();
   // get the default settings for the current theme
@@ -33,12 +33,15 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $edit_this_layout = isset($form_state->values['edit_this_layout']) ? $form_state->values['edit_this_layout'] : theme_get_setting('default_layout', $theme);
   //$defaultLayout = theme_get_setting('default_layout', $theme);
   
-  $breakpoints = _omega_getActiveBreakpoints($theme);
-
+  $breakpoint_options = _omega_getAvailableBreakpoints($theme);
+  
+  //$breakpoints = _omega_getActiveBreakpoints($theme);
+  
   $layouts = omega_return_layouts($theme);
-  //krumo($layouts);
-  // pull an array of "region groups" based on the "all" media query that should always be present
-  $region_groups = $layouts[$defaultLayout]['region_groups']['all'];
+  //dsm($layouts);
+  // pull the configuration object for this theme that defines the region groups represented in page.html.twig
+  $region_groups = \Drupal::config($theme . '.region_groups')->get();
+  
   //dsm($region_groups);
   $theme_regions = $themeSettings->info['regions'];
   

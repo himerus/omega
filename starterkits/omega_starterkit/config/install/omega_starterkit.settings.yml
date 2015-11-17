@@ -26,3 +26,5 @@ default_layout: primary
 home_layout: front
 enable_omegags_layout: 1
 layouts: {  }
+breakpoint_group_primary: starterkit.default
+breakpoint_group_front: starterkit.default

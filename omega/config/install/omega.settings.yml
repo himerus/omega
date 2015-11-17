@@ -44,3 +44,6 @@ layout-config:
   non_omegags_info: ''
 home_layout: omega_default
 edit_this_layout: omega_default
+breakpoint_group_omega_default: omega.standard
+breakpoint_group_omega_front: omega.standard
+breakpoint_group_omega_node: omega.standard

@@ -82,7 +82,8 @@ function omega_page_attachments_alter (&$attachments) {
   
   if ($screenDemo) {
     // get the default Breakpoints
-    $breakpoints = _omega_getActiveBreakpoints($theme);
+    $layout = omega_return_active_layout();
+    $breakpoints = _omega_getActiveBreakpoints($layout, $theme);
 
     $layouts = array();    
     foreach($breakpoints as $breakpoint) {
