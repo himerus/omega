@@ -69,6 +69,18 @@ foreach ($layouts as $lid => $ldata) {
     '#states' => $omegaGSon,
   );
   
+  $form['layouts'][$lid]['breakpoint_group_updated'] = array(
+    '#type' => 'item',
+    '#prefix' => '',
+    '#markup' => '<div class="messages messages--warning omega-styles-info"><p>By changing the breakpoint group for the  "<strong>' . $lid . '</strong>" layout, You will need to save the form in order to then configure the theme regions based on the new breakpoint group.</p></div>',
+    '#suffix' => '',
+    '#states' => array(
+      'invisible' => array(
+        ':input[name="breakpoint_group_' . $lid . '"]' => array('value' => $current_breakpoint_group),
+      ),
+    ),
+);
+  
   $breakpoints = _omega_getActiveBreakpoints($lid, $theme);
   
   // foreach breakpoint we have, we will create a form element group and appropriate settings for region layouts per breakpoint.
