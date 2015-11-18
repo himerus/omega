@@ -172,8 +172,38 @@ foreach ($vocabs AS $vocab_id) {
 
 $form['layout-config']['views-layouts'] = array(
   '#type' => 'details',
+  '#description' => '<div class="messages messages--warning omega-styles-info">Currently, views layout switches are not available. This is a feature yet to be developed</div>',
   '#attributes' => array('class' => array('layout-selection')),
   '#title' => 'Views Page Layouts',
   '#group' => 'layout-config',
   '#states' => $omegaGSon,
 );
+
+/*
+$view = \Drupal::routeMatch()->getParameter('view_id');
+$viewData = Views::getView($view);
+
+$allRouteViews = Views::getApplicableViews('uses_route');
+dsm($allRouteViews);
+
+$result = array();
+$entity_ids = \Drupal::service('entity.query')->get('view')
+    ->condition('status', TRUE)
+    ->condition("display.*.display_plugin", array('page' => 'page'), 'IN')
+    ->execute();
+//dsm($entity_ids);
+foreach (\Drupal::entityManager()->getStorage('view')->loadMultiple($entity_ids) as $view) {
+  foreach ($view->get('display') as $id => $display) {
+    //dsm($view);
+    //dsm($id);
+    //dsm($display);
+    
+    $enabled = !empty($display['display_options']['enabled']) || !array_key_exists('enabled', $display['display_options']);
+
+    if ($enabled && in_array($display['display_plugin'], array('page'))) {
+      $result[] = [$view->id(), $id];
+    }
+  }
+}   
+dsm($result);
+*/

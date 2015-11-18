@@ -2,6 +2,7 @@
 
 // Include Breakpoint Functionality
 use Drupal\breakpoint;
+//use Drupal\views\Views;
 
 /**
  * Function returns the trimmed name of the breakpoint id
@@ -36,6 +37,7 @@ function omega_return_active_layout() {
   $front = \Drupal::service('path.matcher')->isFrontPage();
   $node = \Drupal::routeMatch()->getParameter('node');
   $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
+  //$view = \Drupal::routeMatch()->getParameter('view_id');
   
   // setup default layout
   $defaultLayout = theme_get_setting('default_layout', $theme);
@@ -47,6 +49,16 @@ function omega_return_active_layout() {
     $nodeLayout = theme_get_setting('node_type_' . $type . '_layout', $theme);
     $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
   }
+  
+  // if it is a views page, check for and assign alternate layout 
+/*
+  if ($view) {
+    $viewData = Views::getView($view);
+    //dsm($viewData);
+    //$viewLayout = theme_get_setting('view_' . $view . '_layout');
+    //$layout = $viewLayout ? $viewLayout : $defaultLayout;
+  }
+*/
   
   // if it is a term page, check for and assign alternate layout 
   if ($term) {

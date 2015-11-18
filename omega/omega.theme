@@ -28,6 +28,8 @@ use Drupal\Core\Theme\ThemeSettings;
 
 use Drupal\image\Entity\ImageStyle;
 
+//use Drupal\views\Views;
+
 
 /**
  * Implements hook_theme().
@@ -184,7 +186,6 @@ function omega_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface
 function omega_preprocess_page(&$vars) {
   
   $page = $vars['page'];
-  //krumo($page);
   
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   $themes = \Drupal::service('theme_handler')->listInfo();

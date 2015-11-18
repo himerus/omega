@@ -24,8 +24,9 @@ $form['welcome']['omega5'] = array(
 
 $form['welcome']['omega5']['#markup'] .= t('<h3>Omega Five <small>(8.x-5.x)</small></h3>');
 $form['welcome']['omega5']['#markup'] .= t('<p><strong>Project Page</strong> - <a href="http://drupal.org/project/omega" target="_blank">drupal.org/project/omega</a>');
-$form['welcome']['omega5']['#markup'] .= t('<p>Omega Five will change the way you build subthemes, and use a consistent theme structure behind all your projects for an intuitive, innovative spin on responsive layouts, design, and SASS compiling on the fly.</p>');
-$form['welcome']['omega5']['#markup'] .= t('<p>Most settings in the <strong>Omega Subtheme Generator</strong> are well documented inline. For additional information and links, visit the project page listed above.</p>');
+$form['welcome']['omega5']['#markup'] .= t('<p><strong>Issue Queue</strong> - <a href="http://drupal.org/project/issues/omega" target="_blank">drupal.org/project/issues/omega</a>');
+$form['welcome']['omega5']['#markup'] .= t('<p>Omega Five brings back the simplicity in layout management that was found in Omega 3.x and vastly popular among theme builders of all abilities. </p>');
+$form['welcome']['omega5']['#markup'] .= t('<p>Most settings in the <strong>Omega Configuration Interface</strong> are well documented inline. For additional information and links, visit the project page listed above.</p>');
 
 $form['omega_toggle_intro'] = array(
   '#type' => 'checkbox',

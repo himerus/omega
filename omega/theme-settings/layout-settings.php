@@ -70,7 +70,7 @@ foreach ($layouts as $lid => $ldata) {
   $form['layouts'][$lid]['breakpoint_group_updated'] = array(
     '#type' => 'item',
     '#prefix' => '',
-    '#markup' => '<div class="messages messages--warning omega-styles-info"><p>By changing the breakpoint group for the  "<strong>' . $lid . '</strong>" layout, You will need to save the form in order to then configure the theme regions based on the new breakpoint group.</p></div>',
+    '#markup' => '<div class="messages messages--warning omega-styles-info">By changing the breakpoint group for the  "<strong>' . $lid . '</strong>" layout, You will need to save the form in order to then configure the theme regions based on the new breakpoint group.</div>',
     '#suffix' => '',
     '#states' => array(
       'invisible' => array(
