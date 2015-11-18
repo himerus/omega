@@ -12,33 +12,21 @@ require_once('omega-functions--admin.php');
  *   A keyed array containing the current state of the form.
  */
 function omega_form_system_theme_settings_alter(&$form, &$form_state) {
-  //dsm(ini_get('max_input_vars'));
-  //dsm($form);
-  //dsm($form_state);
-  
-  // currently edited in root .htaccess :( very bad. need a solution for this
-  //krumo(ini_get('max_input_vars'));
+  // Get the build info for the form
   $build_info = $form_state->getBuildInfo();
-  
   // Get the theme name we are editing
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   // get a list of themes
   $themes = \Drupal::service('theme_handler')->listInfo();
   // get the default settings for the current theme
   $themeSettings = $themes[$theme];
-  
-  
+
   // check for ajax update of default layout, or use default theme setting
   $defaultLayout = isset($form_state->values['default_layout']) ? $form_state->values['default_layout'] : theme_get_setting('default_layout', $theme);
   $edit_this_layout = isset($form_state->values['edit_this_layout']) ? $form_state->values['edit_this_layout'] : theme_get_setting('default_layout', $theme);
-  //$defaultLayout = theme_get_setting('default_layout', $theme);
   
-  $breakpoint_options = _omega_getAvailableBreakpoints($theme);
-  
-  //$breakpoints = _omega_getActiveBreakpoints($theme);
-  
+  // get the layouts available to edit in this theme
   $layouts = omega_return_layouts($theme);
-  //dsm($layouts);
   // pull the configuration object for this theme that defines the region groups represented in page.html.twig
   $region_groups = \Drupal::config($theme . '.region_groups')->get();
   
@@ -62,7 +50,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     '#default_tab' => 'edit-layouts',
   );
   
-  // include the adjustments to core system theme settings
+  // include the default omega settings
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/general-settings.php');
   
   // include the ability to enable/disable custom Omega stylesheets/javascripts

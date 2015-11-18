@@ -22,9 +22,12 @@ function _omega_save_database_layout($layout, $layout_id, $theme, $generate = FA
   $layoutConfig = \Drupal::service('config.factory')->getEditable($theme . '.layout.' . $layout_id);
   $layoutConfigGenerated = \Drupal::service('config.factory')->getEditable($theme . '.layout.' . $layout_id . '.generated');
   
+  // unset some junk that was passed in the form's $layout array
+  // this includes some informational messages, etc.
+  unset($layout['breakpoint_group_updated']);
+  
   // Check for differences in the $layoutConfig (current stored DB version) and the $layout (passed form values)
   // If and only if there are differences will we continue with saving the layout, otherwise, we'll skip it
-  
   if ($layoutConfig->getOriginal() == $layout) {
     // no updates, throw message (to be removed likely)
     // drupal_set_message(t('The layout <strong>' . $layout_id . '</strong> matches the version already stored at <strong>' . $theme . '.layout.' . $layout_id . '</strong>. No save on this layout was performed.'));

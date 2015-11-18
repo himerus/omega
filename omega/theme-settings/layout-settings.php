@@ -33,9 +33,8 @@ $form['layouts']['edit_this_layout'] = array(
   // attempting possible jQuery intervention rather than ajax 
 );
 
-//dsm($layouts);
+$breakpoint_options = _omega_getAvailableBreakpoints($theme);
 
-//kint($layouts);
 foreach ($layouts as $lid => $ldata) {
   
   $form['layouts'][$lid] = array(
