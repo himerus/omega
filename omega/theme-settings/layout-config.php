@@ -47,7 +47,15 @@ $form['layout-config']['non_omegags_info'] = array(
 
 $availableLayouts = _omega_layout_select_options($layouts);
 
-$form['layout-config']['default_layout'] = array(
+$form['layout-config']['default-layouts'] = array(
+  '#type' => 'details',
+  '#attributes' => array('class' => array('layout-selection')),
+  '#title' => 'Default Layouts',
+  '#group' => 'layout-config',
+  '#states' => $omegaGSon,
+);
+
+$form['layout-config']['default-layouts']['default_layout'] = array(
   '#prefix' => '<div class="default-layout-select">',
   '#suffix' => '</div>',
   '#description' => '<p class="description">The Default Layout is used on any/every page rendered by the <strong>' . $theme . '</strong> theme. Additional layouts can be used for other pages/sections as defined in the additional select options below.</p>',
@@ -67,7 +75,7 @@ $form['layout-config']['default_layout'] = array(
 );
 
 $homeLayout = isset($form_state->values['home_layout']) ? $form_state->values['home_layout'] : theme_get_setting('home_layout', $theme);
-$form['layout-config']['home_layout'] = array(
+$form['layout-config']['default-layouts']['home_layout'] = array(
   '#prefix' => '<div class="home-layout-select">',
   '#suffix' => '</div>',
   '#description' => '<p class="description">The Homepage Layout is used only on the home page rendered by the <strong>' . $theme . '</strong> theme.</p>',
@@ -88,14 +96,21 @@ $form['layout-config']['home_layout'] = array(
 
 // Show a select menu for each node type, allowing the selection
 // of an alternate layout per node type.
+$form['layout-config']['node-layouts'] = array(
+  '#type' => 'details',
+  '#attributes' => array('class' => array('layout-selection')),
+  '#title' => 'Node Type Layouts',
+  '#group' => 'layout-config',
+  '#states' => $omegaGSon,
+);
 
 $types = node_type_get_types();
 foreach ($types AS $ctype => $ctypeData) {
 
-  $layout_name = $ctype . '_layout';
+  $layout_name = 'node_type_' . $ctype . '_layout';
   $ctypeLayout = theme_get_setting($layout_name, $theme);
   
-  $form['layout-config'][$layout_name] = array(
+  $form['layout-config']['node-layouts'][$layout_name] = array(
     '#prefix' => '<div class="' . $ctype . '-layout-select">',
     '#suffix' => '</div>',
     '#type' => 'select',
@@ -114,3 +129,51 @@ foreach ($types AS $ctype => $ctypeData) {
     // attempting possible jQuery intervention rather than ajax 
   );  
 }
+
+// create layout switching options for taxonomy term pages
+$form['layout-config']['taxonomy-layouts'] = array(
+  '#type' => 'details',
+  '#attributes' => array('class' => array('layout-selection')),
+  '#title' => 'Taxonomy Term Page Layouts',
+  '#group' => 'layout-config',
+  '#states' => $omegaGSon,
+);
+
+$vocabs = taxonomy_vocabulary_get_names();
+
+foreach ($vocabs AS $vocab_id) {
+  $vocab = taxonomy_vocabulary_load($vocab_id);
+  //dsm($vocab->get('name'));
+  
+  $layout_name = 'taxonomy_' . $vocab_id . '_layout';
+  $ttypeLayout = theme_get_setting($layout_name, $theme);
+  
+  $form['layout-config']['taxonomy-layouts'][$layout_name] = array(
+    '#prefix' => '<div class="' . $ttype . '-layout-select">',
+    '#suffix' => '</div>',
+    '#type' => 'select',
+    '#attributes' => array(
+      'class' => array(
+        'layout-select', 
+        'clearfix'
+      ),
+    ),
+    '#title' => $vocab->get('name') . ' Vocabulary: Select Layout',
+    '#description' => '<p class="description">The <strong>'. $vocab->get('name') .'</strong> Layout is used only on pages rendering a full taxonomy term listing page of the type "<strong>'.$vocab_id.'</strong>" using the <strong>' . $theme . '</strong> theme.</p>',
+    '#options' => $availableLayouts,
+    '#default_value' => isset($ttypeLayout) ? $ttypeLayout : theme_get_setting('default_layout', $theme),
+    '#tree' => FALSE,
+    '#states' => $omegaGSon,
+  ); 
+}
+
+
+
+
+$form['layout-config']['views-layouts'] = array(
+  '#type' => 'details',
+  '#attributes' => array('class' => array('layout-selection')),
+  '#title' => 'Views Page Layouts',
+  '#group' => 'layout-config',
+  '#states' => $omegaGSon,
+);

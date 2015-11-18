@@ -44,7 +44,6 @@ foreach ($layouts as $lid => $ldata) {
     '#suffix' => '</div>',
     //'#weight' => $breakpoint->weight,
     '#group' => 'layouts',
-    '#states' => $omegaGSon,
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
     '#tree' => TRUE,

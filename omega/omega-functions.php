@@ -35,20 +35,30 @@ function omega_return_active_layout() {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   $front = \Drupal::service('path.matcher')->isFrontPage();
   $node = \Drupal::routeMatch()->getParameter('node');
+  $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
   
   // setup default layout
   $defaultLayout = theme_get_setting('default_layout', $theme);
   $layout = $defaultLayout;
   
-  // if it is a node, check for an alternate layout
+  // if it is a node, check for and assign alternate layout
   if ($node) {
     $type = $node->getType();
-    $nodeLayout = theme_get_setting($type . '_layout', $theme);
+    $nodeLayout = theme_get_setting('node_type_' . $type . '_layout', $theme);
     $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
+  }
+  
+  // if it is a term page, check for and assign alternate layout 
+  if ($term) {
+    $vocab = $term->getVocabularyId();
+    $vocabLayout = theme_get_setting('taxonomy_' . $vocab . '_layout');
+    $layout = $vocabLayout ? $vocabLayout : $defaultLayout;
   }
   
   // if it is the front page, check for an alternate layout
   // this should come AFTER all other adjustments
+  // This ensures if someone has set an individual node page, term page, etc. 
+  // as the front page, the front page setting has more priority
   if ($front) {
     $homeLayout = theme_get_setting('home_layout', $theme);
     $layout = $homeLayout ? $homeLayout : $defaultLayout;
