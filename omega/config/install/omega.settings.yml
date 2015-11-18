@@ -21,13 +21,13 @@ screen_demo_indicator: 1
 enable_omegags_layout: 1
 omega_toggle_intro: 1
 enable_advanced_layout_controls: 1
-enable_backups: 1
+enable_backups: 0
 force_subtheme_creation: 0
 enable_omega_badge: 1
 block_demo_excluded_regions:
   - page_top
   - page_bottom
-default_layout: omega_default
+
 layouts: {  }
 features:
   node_user_picture: true
@@ -40,10 +40,13 @@ logo:
 favicon:
   use_default: true
   path: ''
-layout-config:
-  non_omegags_info: ''
-home_layout: omega_default
 edit_this_layout: omega_default
+default_layout: omega_default
+home_layout: omega_front
+node_type_article_layout: omega_node
+node_type_page_layout: omega_node
+taxonomy_category_layout: omega_default
+taxonomy_tags_layout: omega_default
 breakpoint_group_omega_default: omega.standard
 breakpoint_group_omega_front: omega.standard
 breakpoint_group_omega_node: omega.standard

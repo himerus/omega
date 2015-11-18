@@ -9,7 +9,7 @@ logo:
 favicon:
   use_default: true
   path: ''
-omega_toggle_intro: 0
+omega_toggle_intro: 1
 enable_backups: 0
 force_subtheme_creation: 0
 styles:
@@ -28,3 +28,7 @@ enable_omegags_layout: 1
 layouts: {  }
 breakpoint_group_primary: starterkit.default
 breakpoint_group_front: starterkit.default
+edit_this_layout: front
+node_type_article_layout: primary
+node_type_page_layout: primary
+taxonomy_tags_layout: primary
