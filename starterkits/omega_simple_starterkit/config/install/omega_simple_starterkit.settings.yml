@@ -1,0 +1,34 @@
+features:
+  node_user_picture: 1
+  comment_user_picture: 1
+  comment_user_verification: 1
+  favicon: 1
+logo:
+  use_default: 1
+  path: ''
+favicon:
+  use_default: 1
+  path: ''
+omega_toggle_intro: 1
+enable_backups: 0
+force_subtheme_creation: 0
+styles:
+  scss_html_elements: 1
+  scss_branding: 1
+  scss_breadcrumbs: 1
+  scss_main_menus: 1
+  scss_messages: 1
+  scss_pagers: 1
+  scss_tabs: 1
+block_demo_mode: 1
+screen_demo_indicator: 1
+default_layout: primary
+home_layout: primary
+enable_omegags_layout: 1
+layouts: {  }
+breakpoint_group_primary: starterkit.default
+node_type_article_layout: primary
+node_type_page_layout: primary
+taxonomy_category_layout: primary
+taxonomy_tags_layout: primary
+edit_this_layout: primary

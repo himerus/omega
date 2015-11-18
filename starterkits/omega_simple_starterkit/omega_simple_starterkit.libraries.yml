@@ -1,0 +1,16 @@
+omega_simple_starterkit:
+  version: VERSION
+  js:
+    # Custom Javascript file for your own JS modifications.
+    # Examples of behaviors in JS file.
+    js/omega_simple_starterkit.js: {}
+    
+  css:
+    theme:
+      # Custom CSS file to be loaded in all media circumstances
+      style/css/omega_simple_starterkit.css: {}
+  dependencies:
+#     - core/modernizr
+#     - core/jquery
+#     - core/drupal
+#     - core/drupalSettings

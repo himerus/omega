@@ -1,0 +1,5 @@
+# Schema for the configuration files of the Omega theme.
+
+omega_starterkit.settings:
+  type: theme_settings
+  label: 'Omega Five Settings'

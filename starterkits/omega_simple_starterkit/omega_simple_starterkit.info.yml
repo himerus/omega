@@ -1,0 +1,28 @@
+name: Omega Simple Starterkit
+type: theme
+description: 'A slimmed down Omega Five subtheme with minimal regions, breakpoints and layouts.'
+package: Core
+version: VERSION
+base theme: omega
+core: 8.x
+libraries:
+  - omega_simple_starterkit/omega_simple_starterkit
+regions:
+  header: Header
+  page_top: 'Page Top'
+  highlighted: Highlighted
+  content: Content
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  footer: 'Footer'
+  page_bottom: 'Page Bottom'
+features:
+  logo: true
+  name: true
+  slogan: true
+  node_user_picture: true
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  main_menu: true
+  secondary_menu: true
