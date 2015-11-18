@@ -653,13 +653,15 @@ body {
 
   // Breakpoint: Normal; Region Group: main; Region: content;
   .region--content { 
-    @include column(6, 12); 
+    @include column(6, 12);   
+    @include push(3); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Normal; Region Group: main; Region: sidebar_first;
   .region--sidebar-first { 
-    @include column(3, 12); 
+    @include column(3, 12);   
+    @include pull(6); 
     margin-bottom: $regionSpacing;
   } 
 
@@ -686,6 +688,12 @@ body {
     .region--content {
       @include column-reset();
       @include column(9, 12);
+      @include push(3);
+    }
+    .region--sidebar-first {
+      @include column-reset();
+      @include column(3, 12);
+      @include pull(9);
     }
   }
 
@@ -773,25 +781,25 @@ body {
 
   // Breakpoint: Wide; Region Group: preface; Region: preface_first;
   .region--preface-first { 
-    @include column(3, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: preface; Region: preface_second;
   .region--preface-second { 
-    @include column(3, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: preface; Region: preface_third;
   .region--preface-third { 
-    @include column(3, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: preface; Region: preface_fourth;
   .region--preface-fourth { 
-    @include column(3, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
@@ -880,25 +888,25 @@ body {
 
   // Breakpoint: Wide; Region Group: postscript; Region: postscript_first;
   .region--postscript-first { 
-    @include column(4, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: postscript; Region: postscript_second;
   .region--postscript-second { 
-    @include column(8, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: postscript; Region: postscript_third;
   .region--postscript-third { 
-    @include column(8, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
   // Breakpoint: Wide; Region Group: postscript; Region: postscript_fourth;
   .region--postscript-fourth { 
-    @include column(4, 12); 
+    @include column(6, 12); 
     margin-bottom: $regionSpacing;
   } 
 
