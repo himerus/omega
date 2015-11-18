@@ -579,10 +579,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -591,10 +591,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -603,10 +603,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -615,10 +615,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -714,10 +714,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -726,10 +726,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -738,10 +738,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -750,10 +750,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -1188,6 +1188,8 @@ body {
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
+      left: 25%;
+      right: auto;
       margin-bottom: 0; }
     .main-layout .region--sidebar-first {
       display: block;
@@ -1200,6 +1202,8 @@ body {
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
+      right: 50%;
+      left: auto;
       margin-bottom: 0; }
     .main-layout .region--sidebar-second {
       display: block;
@@ -1248,7 +1252,29 @@ body {
       *width: 72.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
-      float: left; }
+      float: left;
+      left: 25%;
+      right: auto; }
+    .main-layout.with--content.without--sidebar-second .region--sidebar-first {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      left: auto;
+      right: auto;
+      float: none;
+      clear: both;
+      display: block;
+      position: relative;
+      clear: none;
+      width: 22.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 22.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left;
+      right: 75%;
+      left: auto; }
     .main-layout.with--content.without--sidebar-first.without--sidebar-second .region--content {
       width: 100%;
       margin-left: 0;
@@ -1407,10 +1433,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -1443,10 +1469,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -1500,6 +1526,8 @@ body {
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
+      left: 25%;
+      right: auto;
       margin-bottom: 0; }
     .main-layout .region--sidebar-first {
       display: block;
@@ -1512,6 +1540,8 @@ body {
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
+      right: 50%;
+      left: auto;
       margin-bottom: 0; }
     .main-layout .region--sidebar-second {
       display: block;
@@ -1560,7 +1590,29 @@ body {
       *width: 72.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
-      float: left; }
+      float: left;
+      left: 25%;
+      right: auto; }
+    .main-layout.with--content.without--sidebar-second .region--sidebar-first {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      left: auto;
+      right: auto;
+      float: none;
+      clear: both;
+      display: block;
+      position: relative;
+      clear: none;
+      width: 22.91667%;
+      margin-right: 1.04167%;
+      margin-left: 1.04167%;
+      *width: 22.8125%;
+      *margin-right: 0.9375%;
+      *margin-left: 0.9375%;
+      float: left;
+      right: 75%;
+      left: auto; }
     .main-layout.with--content.without--sidebar-first.without--sidebar-second .region--content {
       width: 100%;
       margin-left: 0;
@@ -1596,10 +1648,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;
@@ -1632,10 +1684,10 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.91667%;
+      width: 47.91667%;
       margin-right: 1.04167%;
       margin-left: 1.04167%;
-      *width: 97.8125%;
+      *width: 47.8125%;
       *margin-right: 0.9375%;
       *margin-left: 0.9375%;
       float: left;

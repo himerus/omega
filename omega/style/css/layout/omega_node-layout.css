@@ -37,7 +37,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .header-layout .region--menus {
       display: block;
       position: relative;
@@ -49,7 +49,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .preface-layout {
     display: block;
@@ -75,7 +75,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-second {
       display: block;
       position: relative;
@@ -87,7 +87,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-third {
       display: block;
       position: relative;
@@ -99,7 +99,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
@@ -111,7 +111,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .core-layout {
     display: block;
@@ -137,7 +137,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .main-layout {
     display: block;
@@ -163,7 +163,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-first {
       display: block;
       position: relative;
@@ -175,7 +175,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-second {
       display: block;
       position: relative;
@@ -187,7 +187,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .postscript-layout {
     display: block;
@@ -213,7 +213,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
@@ -225,7 +225,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
@@ -237,7 +237,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
@@ -249,7 +249,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .footer-layout {
     display: block;
@@ -275,7 +275,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; } }
+      margin-bottom: 0; } }
 
 @media all and (max-width: 479px) {
   .header-layout {
@@ -302,7 +302,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .header-layout .region--menus {
       display: block;
       position: relative;
@@ -314,7 +314,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .preface-layout {
     display: block;
@@ -340,7 +340,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-second {
       display: block;
       position: relative;
@@ -352,7 +352,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-third {
       display: block;
       position: relative;
@@ -364,7 +364,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
@@ -376,7 +376,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .core-layout {
     display: block;
@@ -402,7 +402,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .main-layout {
     display: block;
@@ -428,7 +428,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-first {
       display: block;
       position: relative;
@@ -440,7 +440,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-second {
       display: block;
       position: relative;
@@ -452,7 +452,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .postscript-layout {
     display: block;
@@ -478,7 +478,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
@@ -490,7 +490,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
@@ -502,7 +502,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
@@ -514,7 +514,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .footer-layout {
     display: block;
@@ -540,7 +540,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; } }
+      margin-bottom: 0; } }
 
 @media all and (min-width: 480px) and (max-width: 767px) {
   .header-layout {
@@ -567,7 +567,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .header-layout .region--menus {
       display: block;
       position: relative;
@@ -579,7 +579,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .preface-layout {
     display: block;
@@ -598,50 +598,50 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-second {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-third {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .core-layout {
     display: block;
@@ -667,7 +667,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .main-layout {
     display: block;
@@ -693,7 +693,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-first {
       display: block;
       position: relative;
@@ -705,7 +705,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-second {
       display: block;
       position: relative;
@@ -717,7 +717,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .postscript-layout {
     display: block;
@@ -736,50 +736,50 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
       clear: none;
-      width: 97.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 97.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .footer-layout {
     display: block;
@@ -805,7 +805,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; } }
+      margin-bottom: 0; } }
 
 @media all and (min-width: 768px) and (max-width: 1023px) {
   .header-layout {
@@ -832,7 +832,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .header-layout .region--menus {
       display: block;
       position: relative;
@@ -844,7 +844,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .preface-layout {
     display: block;
@@ -870,7 +870,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-second {
       display: block;
       position: relative;
@@ -882,7 +882,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-third {
       display: block;
       position: relative;
@@ -894,7 +894,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
@@ -906,7 +906,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .core-layout {
     display: block;
@@ -932,7 +932,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .main-layout {
     display: block;
@@ -958,7 +958,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-first {
       display: block;
       position: relative;
@@ -970,7 +970,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-second {
       display: block;
       position: relative;
@@ -982,7 +982,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .postscript-layout {
     display: block;
@@ -1008,7 +1008,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
@@ -1020,7 +1020,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
@@ -1032,7 +1032,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
@@ -1044,7 +1044,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .footer-layout {
     display: block;
@@ -1070,7 +1070,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; } }
+      margin-bottom: 0; } }
 
 @media all and (min-width: 1024px) and (max-width: 1219px) {
   .header-layout {
@@ -1097,7 +1097,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .header-layout .region--menus {
       display: block;
       position: relative;
@@ -1109,7 +1109,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .preface-layout {
     display: block;
@@ -1135,7 +1135,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-second {
       display: block;
       position: relative;
@@ -1147,7 +1147,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-third {
       display: block;
       position: relative;
@@ -1159,7 +1159,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
@@ -1171,7 +1171,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .core-layout {
     display: block;
@@ -1197,7 +1197,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .main-layout {
     display: block;
@@ -1223,7 +1223,9 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      left: 25%;
+      right: auto;
+      margin-bottom: 0; }
     .main-layout .region--sidebar-first {
       display: block;
       position: relative;
@@ -1235,7 +1237,9 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      right: 50%;
+      left: auto;
+      margin-bottom: 0; }
     .main-layout .region--sidebar-second {
       display: block;
       position: relative;
@@ -1247,7 +1251,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
       .main-layout.with--content.without--sidebar-first .region--content {
         width: 100%;
         margin-left: 0;
@@ -1283,7 +1287,29 @@ body {
         *width: 72.813%;
         *margin-right: 0.938%;
         *margin-left: 0.938%;
-        float: left; }
+        float: left;
+        left: 25%;
+        right: auto; }
+      .main-layout.with--content.without--sidebar-second .region--sidebar-first {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        left: auto;
+        right: auto;
+        float: none;
+        clear: both;
+        display: block;
+        position: relative;
+        clear: none;
+        width: 22.917%;
+        margin-right: 1.042%;
+        margin-left: 1.042%;
+        *width: 22.813%;
+        *margin-right: 0.938%;
+        *margin-left: 0.938%;
+        float: left;
+        right: 75%;
+        left: auto; }
       .main-layout.with--content.without--sidebar-first.without--sidebar-second .region--content {
         width: 100%;
         margin-left: 0;
@@ -1327,7 +1353,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
@@ -1339,7 +1365,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
@@ -1351,7 +1377,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
@@ -1363,7 +1389,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .footer-layout {
     display: block;
@@ -1389,7 +1415,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; } }
+      margin-bottom: 0; } }
 
 @media all and (min-width: 1220px) {
   .header-layout {
@@ -1416,7 +1442,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .header-layout .region--menus {
       display: block;
       position: relative;
@@ -1428,7 +1454,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .preface-layout {
     display: block;
@@ -1447,50 +1473,50 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 22.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 22.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-second {
       display: block;
       position: relative;
       clear: none;
-      width: 22.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 22.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-third {
       display: block;
       position: relative;
       clear: none;
-      width: 22.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 22.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .preface-layout .region--preface-fourth {
       display: block;
       position: relative;
       clear: none;
-      width: 22.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 22.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .core-layout {
     display: block;
@@ -1516,7 +1542,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .main-layout {
     display: block;
@@ -1544,7 +1570,7 @@ body {
       float: left;
       left: 25%;
       right: auto;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-first {
       display: block;
       position: relative;
@@ -1558,7 +1584,7 @@ body {
       float: left;
       right: 50%;
       left: auto;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .main-layout .region--sidebar-second {
       display: block;
       position: relative;
@@ -1570,7 +1596,7 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
       .main-layout.with--content.without--sidebar-first .region--content {
         width: 100%;
         margin-left: 0;
@@ -1665,50 +1691,50 @@ body {
       display: block;
       position: relative;
       clear: none;
-      width: 22.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 22.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-second {
       display: block;
       position: relative;
       clear: none;
-      width: 22.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 22.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-third {
       display: block;
       position: relative;
       clear: none;
-      width: 22.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 22.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
     .postscript-layout .region--postscript-fourth {
       display: block;
       position: relative;
       clear: none;
-      width: 22.917%;
+      width: 47.917%;
       margin-right: 1.042%;
       margin-left: 1.042%;
-      *width: 22.813%;
+      *width: 47.813%;
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; }
+      margin-bottom: 0; }
 
   .footer-layout {
     display: block;
@@ -1734,5 +1760,5 @@ body {
       *margin-right: 0.938%;
       *margin-left: 0.938%;
       float: left;
-      margin-bottom: 25px; } }
+      margin-bottom: 0; } }
 

@@ -763,25 +763,25 @@ region_groups:
         postscript_first:
           push: '0'
           prefix: '0'
-          width: '3'
+          width: '6'
           suffix: '0'
           pull: '0'
         postscript_second:
           push: '0'
           prefix: '0'
-          width: '3'
+          width: '6'
           suffix: '0'
           pull: '0'
         postscript_third:
           push: '0'
           prefix: '0'
-          width: '3'
+          width: '6'
           suffix: '0'
           pull: '0'
         postscript_fourth:
           push: '0'
           prefix: '0'
-          width: '3'
+          width: '6'
           suffix: '0'
           pull: '0'
     footer:
