@@ -248,7 +248,9 @@ foreach ($layouts as $lid => $ldata) {
       }
       
       
-      //dsm($layouts[$lid]['region_groups'][$idtrim][$gid]['regions']);
+      // This should be changed in order to not pull the regions from the layout data
+      // This would ensure that a new theme being configured potentially even with an empty
+      // $theme.layout.$layout.yml would still be configurable.
       foreach($layouts[$lid]['region_groups'][$idtrim][$gid]['regions'] as $rid => $data) {
          
          $current_push = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['push'];
