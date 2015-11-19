@@ -3,7 +3,7 @@ omega:
   js:
     js/omega.js: {}
   css:
-    theme:
+    component:
       style/css/base.css: {}
     layout: 
       style/css/layout/omega_default-layout.css: {}
@@ -43,7 +43,7 @@ omega_admin:
 omega_html_elements:
   version: VERSION
   css: 
-    theme:
+    component:
       style/css/html-elements.css: {}
   dependencies:
     - omega/omega
@@ -51,7 +51,7 @@ omega_html_elements:
 omega_branding:
   version: VERSION
   css: 
-    theme:
+    component:
       style/css/site-branding.css: {}
   dependencies:
     - omega/omega
@@ -59,7 +59,7 @@ omega_branding:
 omega_breadcrumbs:
   version: VERSION
   css: 
-    theme:
+    component:
       style/css/breadcrumbs.css: {}
   dependencies:
     - omega/omega
@@ -67,7 +67,7 @@ omega_breadcrumbs:
 omega_main_menus:
   version: VERSION
   css: 
-    theme:
+    component:
       style/css/main-menus.css: {}
   dependencies:
     - omega/omega
@@ -75,7 +75,7 @@ omega_main_menus:
 omega_messages:
   version: VERSION
   css: 
-    theme:
+    component:
       style/css/messages.css: {}
   dependencies:
     - omega/omega
@@ -83,7 +83,7 @@ omega_messages:
 omega_pagers:
   version: VERSION
   css: 
-    theme:
+    component:
       style/css/pagers.css: {}
   dependencies:
     - omega/omega
@@ -91,7 +91,7 @@ omega_pagers:
 omega_tabs:
   version: VERSION
   css: 
-    theme:
+    component:
       style/css/tabs.css: {}
   dependencies:
     - omega/omega
