@@ -1,0 +1,33 @@
+/* Fonts */
+.field--taxonomy-terms {
+  padding: 5px 0px;
+  margin: 5px 0;
+  border: 1px solid #CCC;
+  border-left-width: 0;
+  border-right-width: 0; }
+  .field--taxonomy-terms .field__label {
+    font-size: 14px;
+    font-weight: normal;
+    font-variant: small-caps; }
+  .field--taxonomy-terms .field-item--taxonomy-term {
+    display: block;
+    float: left; }
+  .field--taxonomy-terms .taxonomy-term {
+    display: block; }
+  .field--taxonomy-terms .taxonomy-term {
+    font-size: 11px;
+    padding: 3px 5px;
+    text-decoration: none;
+    margin: 0.25em;
+    background: #174666;
+    border: 1px solid #0b6194;
+    color: white;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px; }
+    .field--taxonomy-terms .taxonomy-term:hover {
+      background: #008aba;
+      border: 1px solid #0b6194;
+      color: #eeeeee; }
+    .field--taxonomy-terms .taxonomy-term:after {
+      font-size: 0; }

@@ -60,6 +60,16 @@ $siteTitleColor: rgba($primaryColor1, 1);
 $siteTitleHoverColor: rgba($primaryColor1, 0.85);
 $siteSloganColor: #777;
 
+$taxonomy-term--background: $primaryColor3;
+$taxonomy-term--font-color: #FFF;
+$taxonomy-term--border: 1px solid $primaryColor1;
+
+$taxonomy-term--hover--background: $primaryColor2;
+$taxonomy-term--hover--font-color: #EEE;
+$taxonomy-term--hover--border: 1px solid $primaryColor1;
+
+
+
 $menuitemBg: $primaryColor1 !default;
 $menuitemColor: $primaryColor2 !default;
 

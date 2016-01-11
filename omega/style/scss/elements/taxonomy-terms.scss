@@ -1,0 +1,47 @@
+@import "../vars.scss";
+
+// Default style for Taxonomy terms in Omega Five
+.field--taxonomy-terms {
+  padding: 5px 0px;
+  margin: 5px 0;
+  border: 1px solid #CCC;
+  border-left-width: 0;
+  border-right-width: 0;
+  
+  .field__label {
+    font-size: 14px;
+    font-weight: normal;
+    font-variant: small-caps;
+  }
+  
+  .field-item--taxonomy-term {
+    display: block;
+    float: left;
+  }
+  .taxonomy-term {
+    display: block;
+  }
+  
+  .taxonomy-term {
+    font-size: 11px;
+    padding: 3px 5px;
+    text-decoration: none;
+    margin: 0.25em;
+    background: $taxonomy-term--background;
+    border: $taxonomy-term--border;
+    color: $taxonomy-term--font-color;
+    
+    @include omegaCorners(2px);
+    
+    &:hover {
+      background: $taxonomy-term--hover--background;
+      border: $taxonomy-term--hover--border;
+      color: $taxonomy-term--hover--font-color;
+    }
+    
+    &:after {
+      font-size: 0;
+    }
+  }
+  
+}
