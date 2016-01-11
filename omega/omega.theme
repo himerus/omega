@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Functions to support theming in the Bartik theme.
+ * Functions to support theming in the Omega theme.
  */
 
 require_once('omega-functions.php');
@@ -315,6 +315,7 @@ function omega_preprocess_region(&$vars) {
  *
  */
 function omega_preprocess_node(&$vars) {
+  //krumo($vars);
   
 } // END omega_preprocess_node
 
@@ -323,6 +324,27 @@ function omega_preprocess_node(&$vars) {
  */
 function omega_preprocess_block(&$vars) {
   
+} // END omega_preprocess_block
+
+/**
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function omega_preprocess_field(&$vars) {
+  $field_type = $vars['field_type'];
+  
+  if ($field_type == 'entity_reference') {
+    foreach($vars['items'] AS $k => $field) {
+      if ($field['content']['#options']['entity_type'] == 'taxonomy_term') {
+        // add a class to the <a>
+        $vars['items'][$k]['content']['#options']['attributes']['class'] = array('taxonomy-term');
+        // add a class to the field item wrapper
+        $vars['items'][$k]['attributes']->addClass('field-item--taxonomy-term');
+        // add a class to the outer field wrapper
+        $vars['attributes']['class'][] = 'field--taxonomy-terms';
+        $vars['attributes']['class'][] = 'clearfix';
+      }
+    }
+  }
 } // END omega_preprocess_block
 
 /**
