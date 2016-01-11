@@ -403,9 +403,28 @@
         //.attr("disabled", "disabled");
         //return false;
       });
-      
-      
     }
   };
+  
+/*
+  Drupal.behaviors.omegaSubthemeGenerationForce = {
+    attach: function (context) {
+      // Ensure that the "Export" checkbox is checked when the "Force Subtheme Creation" option is on
+      // Drupal #states don't quite do the trick on this portion
+      $('input[name="force_subtheme_creation"]').on('ready change', function(){
+        var forceSubtheme = $(this).prop('checked');
+        // the "force subtheme" option is selected, either by default, or by user action
+        if (forceSubtheme) {
+          var createSubtheme = $('input[name="export[export_new_subtheme]"]').prop('checked');
+          if (!createSubtheme) {
+            // The create subtheme option is unchecked, likely by an odd set of clicks to trick the form
+            // We will force a click to ensure everything is fired through states as it should be.
+            $('input[name="export[export_new_subtheme]"]').click();
+          }
+        }
+      });
+    }
+  };
+*/
   
 })(jQuery, Drupal, drupalSettings);
