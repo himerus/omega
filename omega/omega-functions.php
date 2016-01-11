@@ -199,6 +199,12 @@ function _omega_optional_libraries($theme) {
       'library' => 'omega/omega_tabs',
       'status' => $status['scss_tabs'],
     ),
+    'scss_taxonomy_terms' => array(
+      'title' => 'Taxonomy Terms',
+      'description' => 'Custom styles for Drupal taxonomy listings on nodes.',
+      'library' => 'omega/omega_taxonomy_terms',
+      'status' => $status['scss_taxonomy_terms'],
+    ),
   );
 }
 

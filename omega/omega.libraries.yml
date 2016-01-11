@@ -35,7 +35,6 @@ omega_admin:
     - core/matchmedia
     - core/jquery.once
     - core/drupal.displace
-    #- core/drupal.form
     - core/jquery.ui
     - core/jquery.ui.slider
     - core/jquery.ui.resizable
@@ -93,5 +92,13 @@ omega_tabs:
   css: 
     component:
       style/css/tabs.css: {}
+  dependencies:
+    - omega/omega
+    
+omega_taxonomy_terms:
+  version: VERSION
+  css: 
+    component:
+      style/css/taxonomy-terms.css: {}
   dependencies:
     - omega/omega
