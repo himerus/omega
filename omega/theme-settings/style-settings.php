@@ -10,9 +10,10 @@ $form['styles'] = array(
   '#tree' => TRUE,
 );
 $form['styles']['styles_info'] = array(
-  '#markup' => '<div class="messages messages--warning omega-styles-info">By enabling libraries in this section, you can greatly alter the visual appearance of your site. Many libraries contain simple CSS enhancements, while others include both CSS and JavaScript to alter/enhance your theme. If you are building a highly customized subtheme of Omega, you will likely turn most of these off. However, if you are creating a theme with minimal customization, leaving them enabled will provide a decent set of core styles and behaviors.</div>',
+  '#markup' => '<div class="messages messages--status omega-styles-info">Please note that while the ability to enable/disable these libraries is functional that until a stable Drupal 8.x version of Omega is released, the CSS/JS provided by these libraries will be greatly altered. This is an effort to provide some absolutely solid, clean default styles for a large variety of default site elements.</div>',
   '#weight' => -9999,
 );
+$form['styles']['styles_info']['#markup'] .= '<div class="messages messages--warning omega-styles-info">By enabling libraries in this section, you can greatly alter the visual appearance of your site. Many libraries contain simple CSS enhancements, while others include both CSS and JavaScript to alter/enhance your theme. If you are building a highly customized subtheme of Omega, you will likely turn most of these off. However, if you are creating a theme with minimal customization, leaving them enabled will provide a decent set of core styles and behaviors.</div>';
 
 $toggleCSS = _omega_optional_libraries($theme);
 

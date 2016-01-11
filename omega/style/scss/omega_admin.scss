@@ -671,3 +671,7 @@ $twidth: 100%;
   max-width: 80%;
   height: auto;
 }
+
+.entity-meta details[open] {
+  background-image: none;
+}
