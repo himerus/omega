@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Contains theme level customizations for the OMEGA_SUBTHEME theme
+ */
+
+/**
+ * Implements hook_js_alter().
+ */
+function OMEGA_SUBTHEME_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+
+} // END OMEGA_SUBTHEME_js_alter
+
+/**
+ * Implements hook_css_alter().
+ */
+function OMEGA_SUBTHEME_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+  
+} // END OMEGA_SUBTHEME_css_alter 
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function OMEGA_SUBTHEME_page_attachments_alter (&$attachments) {
+  
+} // END OMEGA_SUBTHEME_page_attachments_alter
+
+/**
+ * Implements hook_preprocess().
+ */
+function OMEGA_SUBTHEME_preprocess(&$variables, $hook) {
+  
+} // END OMEGA_SUBTHEME_preprocess
+
+/**
+ * Implements hook_preprocess_HOOK() for html templates.
+ */
+function OMEGA_SUBTHEME_preprocess_html(&$variables) {
+  
+} // END OMEGA_SUBTHEME_preprocess_html
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ */
+function OMEGA_SUBTHEME_preprocess_page(&$variables) {
+  
+} // END OMEGA_SUBTHEME_preprocess_page
+
+/**
+ * Implements hook_preprocess_HOOK() for region templates.
+ */
+function OMEGA_SUBTHEME_preprocess_region(&$variables) {
+  
+} // END OMEGA_SUBTHEME_preprocess_region
+
+/**
+ * Implements hook_preprocess_HOOK() for node templates.
+ */
+function OMEGA_SUBTHEME_preprocess_node(&$variables) {
+  
+} // END OMEGA_SUBTHEME_preprocess_node
+
+/**
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function OMEGA_SUBTHEME_preprocess_block(&$variables) {
+  
+} // END OMEGA_SUBTHEME_preprocess_block
+
+/**
+ * Implements hook_preprocess_HOOK() for field templates.
+ */
+function OMEGA_SUBTHEME_preprocess_field(&$vars) {
+  
+} // END OMEGA_SUBTHEME_preprocess_field
+
+/**
+ * Implements hook_html_head_alter()
+ */
+function OMEGA_SUBTHEME_html_head_alter(&$head_elements) {
+  
+} // END OMEGA_SUBTHEME_html_head_alter

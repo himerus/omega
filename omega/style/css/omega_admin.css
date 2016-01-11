@@ -367,6 +367,9 @@ body {
   font-weight: bold; }
 .form-type-checkbox .description {
   font-size: 0.9em; }
+.form-type-checkbox p.description {
+  font-size: 1em;
+  margin: 2px 0 5px 0; }
 
 #edit-actions .button,
 #edit-actions .button:first-child {
@@ -584,6 +587,43 @@ body {
   font-weight: bold; }
 #layout-editor-select .description {
   clear: both; }
+
+#export-type-select {
+  padding: 10px 20px;
+  background: #EEE;
+  border: 1px solid #DDD;
+  *zoom: 1; }
+  #export-type-select:before, #export-type-select:after {
+    content: "";
+    display: table; }
+  #export-type-select:after {
+    clear: both; }
+  #export-type-select .form-item {
+    display: inline-block;
+    margin-right: 0.5em; }
+  #export-type-select fieldset {
+    margin-top: 0;
+    margin-bottom: 0;
+    float: left; }
+    #export-type-select fieldset legend {
+      margin-right: 1em; }
+    #export-type-select fieldset legend,
+    #export-type-select fieldset .fieldset-wrapper {
+      float: left; }
+  #export-type-select .form-type-select {
+    float: left;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 0.9em; }
+    #export-type-select .form-type-select label {
+      display: none; }
+  #export-type-select .form-type-radio {
+    margin-top: 0;
+    margin-bottom: 0; }
+  #export-type-select span.separator {
+    float: left;
+    font-weight: bold;
+    margin-right: 1em; }
 
 .inline-documentation-image {
   max-width: 80%;

@@ -28,14 +28,7 @@ $form['enable_backups'] = array(
   '#default_value' => isset($enable_backups) ? $enable_backups : TRUE,
   '#group' => 'options',
 );
-$force_subtheme_creation = theme_get_setting('force_subtheme_creation', $theme);
-$form['force_subtheme_creation'] = array(
-  '#type' => 'checkbox',
-  '#title' => t('Force Subtheme Creation (NON-Functional)'),
-  '#description' => t('Enabling this feature will "lock" this form from being saved and force the user to download a subtheme instead. The idea here is that essentially everything besides the layout options/changes should still be saved. Things like options on this section, or debugging options should still be saved and edited as expected. The layout changes are the portion that should be forced to another subtheme by this feature. (This seems like a good idea, but I dunno)'),
-  '#default_value' => isset($force_subtheme_creation) ? $force_subtheme_creation : FALSE,
-  '#group' => 'options',
-);
+
 
 /*
 $enable_omega_badge = theme_get_setting('enable_omega_badge', $theme);

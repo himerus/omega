@@ -1,0 +1,14 @@
+OMEGA_SUBTHEME:
+  version: VERSION
+  js:
+    js/OMEGA_SUBTHEME.js: {}
+  css:
+    theme:
+      style/css/OMEGA_SUBTHEME.css: {}
+    layout: 
+      #style/css/layout/some-layout-file.css: {}
+    component:
+      #style/css/components/some-component.css: {}
+  dependencies:
+    - core/jquery
+    

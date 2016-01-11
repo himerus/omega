@@ -1,7 +1,16 @@
 <?php
-require_once('omega-functions.php');
-require_once('omega-functions--admin.php');
 
+use Drupal\omega\Theme\OmegaInfo;
+use Drupal\omega\Theme\OmegaSettingsInfo;
+  
+use Drupal\Core\Extension\Extension;
+use Drupal\Core\Extension\ExtensionDiscovery;
+use Drupal\system\Controller\ThemeController;
+use Symfony\Component\HttpFoundation\Request;
+  
+require_once(drupal_get_path('theme', 'omega') . '/omega-functions.php');
+require_once(drupal_get_path('theme', 'omega') . '/omega-functions--admin.php');
+require_once(drupal_get_path('theme', 'omega') . '/theme-settings/theme-settings--export-handlers.php');
 /**
  * Implementation of hook_form_system_theme_settings_alter()
  *
@@ -12,15 +21,46 @@ require_once('omega-functions--admin.php');
  *   A keyed array containing the current state of the form.
  */
 function omega_form_system_theme_settings_alter(&$form, &$form_state) {
+  
+  //////////////////////////////////////////////////////
+/*
+  $request = new Request(array('theme' => 'another_sooper_custom_theme'));
+  $themeController = new ThemeController();
+  $themeController->create($request);
+  dpm($themeController);
+  $listing = new ExtensionDiscovery(\Drupal::root());
+  $themes = $listing->scan('theme');
+  uasort($themes, 'system_sort_modules_by_info_name');
+  dpm($themes);
+  ddebug_backtrace();
+*/
+  
+  
+  
+  //////////////////////////////////////////////////////
+  
   // Get the build info for the form
   $build_info = $form_state->getBuildInfo();
   // Get the theme name we are editing
   $theme = \Drupal::theme()->getActiveTheme()->getName();
+  // Create Omega Settings Object
+  $omegaSettings = new OmegaSettingsInfo($theme);
   // get a list of themes
-  $themes = \Drupal::service('theme_handler')->listInfo();
+  $themes = $omegaSettings->themes;
+  //dsm($themes);
   // get the default settings for the current theme
-  $themeSettings = $themes[$theme];
-
+  //$themeSettings = $themes[$theme];
+  $themeSettings = $omegaSettings->getThemeInfo();
+  //dsm($themeSettings);
+  
+  $force_theme_export = $themeSettings->info['force_export'];
+  
+  
+  //dsm($force_theme_export);
+  // get all the values of the submitted form
+  $values = $form_state->getValues();
+  //dsm($values);
+  
   // check for ajax update of default layout, or use default theme setting
   $defaultLayout = isset($form_state->values['default_layout']) ? $form_state->values['default_layout'] : theme_get_setting('default_layout', $theme);
   $edit_this_layout = isset($form_state->values['edit_this_layout']) ? $form_state->values['edit_this_layout'] : theme_get_setting('default_layout', $theme);
@@ -38,121 +78,145 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
   // include the introduction message(s)
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/omega-intro.php');
-  
   // include the adjustments to core system theme settings
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/core-settings.php');
   
-  // Custom settings in Vertical Tabs container
-  $form['omega'] = array(
-    '#type' => 'vertical_tabs',
-    '#attributes' => array('class' => array('entity-meta')),
-    '#weight' => -999,
-    '#default_tab' => 'edit-layouts',
-  );
+  if (!$force_theme_export) {
+    // Custom settings in Vertical Tabs container
+    $form['omega'] = array(
+      '#type' => 'vertical_tabs',
+      '#attributes' => array('class' => array('entity-meta')),
+      '#weight' => -999,
+      '#default_tab' => 'edit-export',
+      '#states' => array(
+        'invisible' => array(
+         ':input[name="force_subtheme_creation"]' => array('checked' => TRUE),
+        ),
+      ),
+    );
+    
+    // include the default omega settings
+    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/general-settings.php');
+    
+    // include the ability to enable/disable custom Omega stylesheets/javascripts
+    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/style-settings.php');
+    
+    // include the ability to customize various scss variables to provide basic style adjustments
+    // include_once(drupal_get_path('theme', 'omega') . '/theme-settings/scss-settings.php');
+    
+    // include the ability to debug various theme development elements
+    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/debug-settings.php');
+    
+    // include the layout configuration options
+    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-config.php');
+    
+    // include the layout builder interface
+    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-settings.php');
+    
+    // Change the text for default submit button
+    $form['actions']['submit']['#value'] = t('Save');
+    // Hide the default submit button if 'export new subtheme' option is enabled
+    $form['actions']['submit']['#states'] = array(
+      'disabled' => array(
+        ':input[name="export[export_new_subtheme]"]' => array('checked' => TRUE),
+      ),
+    );
+    
+    // add appropriate validate & submit hooks
+    $form['#validate'][] = 'omega_theme_settings_validate';
+    $form['#submit'][] = 'omega_theme_settings_submit';
+    
+    //dsm($form['#submit']);
+    
+    // gather the default submit callback so we can add it to our custom one
+    $defaultSubmit = $build_info['callback_object'];
+    
+    //dsm($build_info);
+    // copy the default submit button/handler
+    $form['actions']['submit_layout'] = $form['actions']['submit'];
+    // update the text for the new button
+    $form['actions']['submit_layout']['#value'] = t('Save & Generate Layout');
+    // update the submit handlers
+    
+    
+    
+    
+    
+    // add in the default Omega submit handler that handles the layout data
+    //$form['actions']['submit_layout']['#submit'][] = 'omega_theme_settings_submit';
+    // add in the layout generation handler that actually creates/updates the SCSS/CSS files
+    $form['actions']['submit_layout']['#submit'][] = 'omega_theme_layout_build_submit';
+    // add in default submit handler
+    $form['actions']['submit_layout']['#submit'][] = '::submitForm';
+    // define the visibility of the custom submit button
+    // only when enable Omega.gs layout is enabled 
+    // AND
+    // only when export new subtheme is disabled
+    $form['actions']['submit_layout']['#states'] = array(
+      'visible' => array(
+        ':input[name="enable_omegags_layout"]' => array('checked' => TRUE),
+        // once export ability is included, will need to enable/test this again
+      ),
+      'disabled' => array(
+        ':input[name="export[export_new_subtheme]"]' => array('checked' => TRUE),
+      ),
+    );
+  } // END !$force_theme_export
+  else {
+    // We are forced to export/create a new subtheme. DO IT
+    // include the ability to export changes made in the Omega settings form to a new
+    // subtheme, rather than saving the current settings
+    
+    // Make sure Machine Name functionality is attached 
+    $form['#attached']['library'][] = 'core/drupal.machine-name';
+    // Include the form data for export/subtheme creation
+    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/export-settings.php');
+    
   
-  // include the default omega settings
-  include_once(drupal_get_path('theme', 'omega') . '/theme-settings/general-settings.php');
-  
-  // include the ability to enable/disable custom Omega stylesheets/javascripts
-  include_once(drupal_get_path('theme', 'omega') . '/theme-settings/style-settings.php');
-  
-  // include the ability to customize various scss variables to provide basic style adjustments
-  // include_once(drupal_get_path('theme', 'omega') . '/theme-settings/scss-settings.php');
-  
-  // include the ability to debug various theme development elements
-  include_once(drupal_get_path('theme', 'omega') . '/theme-settings/debug-settings.php');
-  
-  // include the layout configuration options
-  include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-config.php');
-  
-  // include the layout builder interface
-  include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-settings.php');
-  
-  // Change the text for default submit button
-  $form['actions']['submit']['#value'] = t('Save');
-  // Hide the default submit button if 'export new subtheme' option is enabled
-  $form['actions']['submit']['#states'] = array(
-    'invisible' => array(
-     ':input[name="export_new_subtheme"]' => array('checked' => TRUE),
-    ),
-  );
-  
-  // add appropriate validate & submit hooks
-  $form['#validate'][] = 'omega_theme_settings_validate';
-  $form['#submit'][] = 'omega_theme_settings_submit';
-  
-  //dsm($form['#submit']);
-  
-  // gather the default submit callback so we can add it to our custom one
-  $defaultSubmit = $build_info['callback_object'];
-  
-  //dsm($build_info);
-  // copy the default submit button/handler
-  $form['actions']['submit_layout'] = $form['actions']['submit'];
-  // update the text for the new button
-  $form['actions']['submit_layout']['#value'] = t('Save & Generate Layout');
-  // update the submit handlers
+    $form['actions']['generate_subtheme'] = $form['actions']['submit'];
+    $form['actions']['generate_subtheme']['#value'] = t('Export Subtheme');
+    $form['actions']['generate_subtheme']['#validate'] = array('omega_theme_generate_validate');
+    $form['actions']['generate_subtheme']['#submit'] = array('omega_theme_generate_submit');
+    
+    
+    // Change the text for default submit button
+    $form['actions']['submit']['#value'] = t('Save');
+    // disable the default submit button
+    $form['actions']['submit']['#disabled'] = TRUE;
+    // hide it
+    $form['actions']['submit']['#access'] = FALSE;
+    
+  }
   
   
   
   
   
-  // add in the default Omega submit handler that handles the layout data
-  //$form['actions']['submit_layout']['#submit'][] = 'omega_theme_settings_submit';
-  // add in the layout generation handler that actually creates/updates the SCSS/CSS files
-  $form['actions']['submit_layout']['#submit'][] = 'omega_theme_layout_build_submit';
-  // add in default submit handler
-  $form['actions']['submit_layout']['#submit'][] = '::submitForm';
-  // define the visibility of the custom submit button
-  // only when enable Omega.gs layout is enabled 
-  // AND
-  // only when export new subtheme is disabled
-  $form['actions']['submit_layout']['#states'] = array(
-    'visible' => array(
-     ':input[name="enable_omegags_layout"]' => array('checked' => TRUE),
-     // once export ability is included, will need to enable/test this again
-     //':input[name="export_new_subtheme"]' => array('checked' => FALSE),     
-    ),
-  );
   
   
-  // include the ability to export changes made in the Omega settings form to a new
-  // subtheme, rather than saving the current settings
-  // include_once(drupal_get_path('theme', 'omega') . '/theme-settings/export-settings.php');
   
-/*
-  $form['actions']['generate_subtheme'] = $form['actions']['submit'];
-  $form['actions']['generate_subtheme']['#value'] = t('Export as Subtheme');
   
-  $form['actions']['generate_subtheme']['#submit'] = array('omega_theme_generate_submit');
-  $form['actions']['generate_subtheme']['#validate'] = array('omega_theme_generate_validate');
   
-  // show export only when appropriate
-  $form['actions']['generate_subtheme']['#states'] = array(
-    // Hide the submit buttons appropriately
-    'invisible' => array(
-     ':input[name="export_new_subtheme"]' => array('checked' => FALSE),
-    ),
-  );
-*/
+  
+  
   
   //dsm($form);
   //dsm($form_state);
-  
-  
-  
-  
-  
-  
-  
 }
 
 /**
  * @todo
  * Function to check machine name for generated theme to ensure it is available
  */
-function omega_theme_exists($machine) {
-  return true;
+function omega_theme_exists($machine_name) {
+  //dsm($machine_name);
+  drupal_set_message('function <strong>omega_theme_exists</strong> called...');
+  $themes = \Drupal::service('theme_handler')->rebuildThemeData();
+  $result = FALSE;
+  if (array_key_exists($machine_name, $themes)) {
+    $result = TRUE;
+  }
+  return $result;
 }
 
 function omega_theme_settings_validate(&$form, &$form_state) {
@@ -259,19 +323,3 @@ function omega_theme_layout_build_submit(&$form, &$form_state) {
   }
 }
 
-function omega_theme_generate_validate(&$form, &$form_state) {
-  drupal_set_message(t('Running <strong>omega_theme_generate_validate()</strong>'));
-  $build_info = $form_state->getBuildInfo();
-  // Get the theme name.
-  $theme = $build_info['args'][0];
-  // get all the values of the submitted form
-  $values = $form_state->getValues();
-}
-function omega_theme_generate_submit(&$form, &$form_state) {
-  drupal_set_message(t('Running <strong>omega_theme_generate_submit()</strong>'));
-  $build_info = $form_state->getBuildInfo();
-  // Get the theme name.
-  $theme = $build_info['args'][0];
-  // get all the values of the submitted form
-  $values = $form_state->getValues();
-}

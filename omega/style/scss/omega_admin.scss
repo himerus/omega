@@ -343,6 +343,10 @@ $twidth: 100%;
   .description {
     font-size: 0.9em;
   }
+  p.description {
+    font-size: 1em;
+    margin: 2px 0 5px 0;
+  }
 }
 
 
@@ -613,6 +617,53 @@ $twidth: 100%;
   }
   .description {
     clear: both;
+  }
+}
+
+#export-type-select {
+  
+  padding: 10px 20px;
+  background: #EEE;
+  border: 1px solid #DDD;
+  @include clearfix();
+  
+  .form-item {
+    display: inline-block;
+    margin-right: 0.5em;
+  }
+  fieldset {
+    margin-top: 0;
+    margin-bottom: 0;
+    float: left;
+    .form-item {
+      //margin-right: 0;
+    }
+    legend {
+      margin-right: 1em;
+    }
+    legend,
+    .fieldset-wrapper {
+      float: left;
+    }
+  }
+  .form-type-select {
+    float: left;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 0.9em;
+    
+    label {
+      display: none;
+    }
+  }
+  .form-type-radio {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  span.separator {
+    float: left;
+    font-weight: bold;
+    margin-right: 1em;
   }
 }
 

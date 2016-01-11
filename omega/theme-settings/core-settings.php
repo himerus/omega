@@ -15,8 +15,9 @@ $form['theme_settings']['#open'] = FALSE;
 $form['logo']['#open'] = FALSE;
 $form['favicon']['#open'] = FALSE;
 
-if ($theme == 'omega') {
-  // on Omega core we completely disable access to the settings
+// disable the default theme settings for both Omega
+// and a theme where "force export" is turned on.
+if ($theme == 'omega' || $force_theme_export) {
   $form['core']['#access'] = FALSE;
   $form['theme_settings']['#access'] = FALSE;
   $form['logo']['#access'] = FALSE;

@@ -1,5 +1,7 @@
 <?php
-  
+
+
+
 $toggle_omega_intro = theme_get_setting('omega_toggle_intro', $theme);
 $welcome_status = $toggle_omega_intro ? $toggle_omega_intro : FALSE;
 
