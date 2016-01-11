@@ -628,3 +628,6 @@ body {
 .inline-documentation-image {
   max-width: 80%;
   height: auto; }
+
+.entity-meta details[open] {
+  background-image: none; }
