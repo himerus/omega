@@ -49,3 +49,8 @@
     }
   }
 }
+
+// hide the 'default' block demo blocks on the block demo page under structure/blocks/demo/theme
+.theme-demo-block ~ .block-region.demo-block {
+  display: none;
+}

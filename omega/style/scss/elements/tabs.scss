@@ -1,16 +1,17 @@
 @import "../vars.scss";
 
-nav.tabs {
-  ul.tabs {
-    li {
-      
-      a {
-        
-      }
-            
-      &.active {
-        
-      }
-    }
+.tabs a {
+  background-color: $primaryColor3;
+  text-decoration: none;
+  font-size: 0.9em;
+  color: $primaryColor2;
+  
+  &:hover {
+    background-color: darken($primaryColor3, 10%);
   }
+}
+.tabs a.is-active {
+  background-color: $primaryColor1;
+  border: 1px solid $primaryColor3;
+  color: $primaryColor3;
 }

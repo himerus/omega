@@ -54,6 +54,9 @@
   .theme-demo-block .demo-block-content p {
     margin: 0; }
 
+.theme-demo-block ~ .block-region.demo-block {
+  display: none; }
+
 /* Fonts */
 /* Apply a natural box layout model to all elements http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
 #omega-screen--indicator, #omega-screen--indicator *, #omega-screen--indicator *:before, #omega-screen--indicator *:after {
@@ -103,4 +106,5 @@
 @media all and (min-width: 1024px) {
   #omega-screen--indicator {
     left: auto;
-    width: 350px; } }
+    min-width: 350px;
+    word-wrap: none; } }

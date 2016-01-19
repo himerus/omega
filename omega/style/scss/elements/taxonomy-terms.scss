@@ -9,9 +9,8 @@
   border-right-width: 0;
   
   .field__label {
-    font-size: 14px;
+    font-size: 1.1em;
     font-weight: normal;
-    font-variant: small-caps;
   }
   
   .field-item--taxonomy-term {
@@ -23,14 +22,16 @@
   }
   
   .taxonomy-term {
-    font-size: 11px;
-    padding: 3px 5px;
+    font-size: 0.75em;
+    padding: 5px 8px;
     text-decoration: none;
     margin: 0.25em;
+    
     background: $taxonomy-term--background;
     border: $taxonomy-term--border;
     color: $taxonomy-term--font-color;
     
+    @include omegaTransition(all, 0.25s, ease-in-out);
     @include omegaCorners(2px);
     
     &:hover {

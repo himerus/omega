@@ -21,15 +21,15 @@
     font-weight: bold;
     letter-spacing: -0.075em;
     font-family: "Helvetica Neue", Arial, Helvetica;
-    color: #0b6194; }
+    color: #047aab; }
     #site-branding .site-name a {
       transition: all 0.25s ease-in-out;
       -moz-transition: all 0.25s ease-in-out;
       -webkit-transition: all 0.25s ease-in-out;
       text-decoration: none;
-      color: #0b6194; }
+      color: #047aab; }
       #site-branding .site-name a:hover {
-        color: rgba(11, 97, 148, 0.85); }
+        color: rgba(4, 122, 171, 0.85); }
   #site-branding .site-slogan {
     color: #777777;
     font-variant: small-caps; }

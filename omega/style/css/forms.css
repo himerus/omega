@@ -1,0 +1,96 @@
+/* Fonts */
+.form-type-textfield label,
+.field--type-entity-reference label,
+.form-type-textarea label {
+  display: block;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0.25em; }
+.form-type-textfield input,
+.field--type-entity-reference input,
+.form-type-textarea input {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.35em 0.5em;
+  font-size: 1.2em;
+  font-weight: normal;
+  border: 2px solid #fafafa;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5); }
+  .form-type-textfield input:focus,
+  .field--type-entity-reference input:focus,
+  .form-type-textarea input:focus {
+    border: 2px solid #047aab; }
+.form-type-textfield textarea,
+.field--type-entity-reference textarea,
+.form-type-textarea textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.35em 0.25em;
+  font-size: 1.2em;
+  font-weight: normal;
+  border: 2px solid #fafafa;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5); }
+  .form-type-textfield textarea:focus,
+  .field--type-entity-reference textarea:focus,
+  .form-type-textarea textarea:focus {
+    border: 2px solid #047aab; }
+.form-type-textfield .description,
+.field--type-entity-reference .description,
+.form-type-textarea .description {
+  margin-top: 0.5em;
+  color: #8d8d8d; }
+
+.field--type-created h4.label {
+  display: block;
+  margin-bottom: 0.25em; }
+.field--type-created .form-type-date input {
+  padding: 0.35em 0.25em;
+  font-size: 1.2em;
+  font-weight: normal;
+  border: 2px solid #fafafa;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5); }
+  .field--type-created .form-type-date input:focus {
+    border: 2px solid #047aab; }
+.field--type-created .description {
+  margin-top: 0.5em;
+  color: #8d8d8d; }
+
+.vertical-tabs .vertical-tabs__menu-item-summary {
+  font-size: 0.75em; }
+
+a.button,
+input.button {
+  text-decoration: none;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0.5em;
+  background: none;
+  border: none;
+  background: #fafafa;
+  border: 2px solid #1a1a1a;
+  font-size: 1em;
+  color: #5a5a5a;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5); }
+  a.button:hover, a.button:focus,
+  input.button:hover,
+  input.button:focus {
+    background: #e1e1e1; }

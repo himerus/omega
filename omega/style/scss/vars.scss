@@ -49,24 +49,24 @@ $below_desktop: 1023px !default;
 $desktopWide: 1220px !default;
 $below_desktopWide: 1219px !default;
 
-$primaryColor1: #0b6194 !default; // good blue
-$primaryColor2: #008ABA !default; // lighter blue
-$primaryColor3: #174666 !default; // lighter blue
-$primaryColor4: #3A3A3A !default; // lighter blue
-$primaryColor5: #9A9A9A !default; // lighter blue
+$primaryColor1: #047AAB !default; // good blue
+$primaryColor2: #1E415F !default; // darker blue
+$primaryColor3: #FAFAFA !default; // almost white
+$primaryColor4: #1A1A1A !default; // almost black
+$primaryColor5: #5A5A5A !default; // nice gray
 
 
 $siteTitleColor: rgba($primaryColor1, 1);
 $siteTitleHoverColor: rgba($primaryColor1, 0.85);
 $siteSloganColor: #777;
 
-$taxonomy-term--background: $primaryColor3;
-$taxonomy-term--font-color: #FFF;
-$taxonomy-term--border: 1px solid $primaryColor1;
+$taxonomy-term--background: $primaryColor1;
+$taxonomy-term--font-color: $primaryColor3;
+$taxonomy-term--border: 1px solid darken($primaryColor1, 35%);
 
-$taxonomy-term--hover--background: $primaryColor2;
-$taxonomy-term--hover--font-color: #EEE;
-$taxonomy-term--hover--border: 1px solid $primaryColor1;
+$taxonomy-term--hover--background: darken($primaryColor1, 10%);
+$taxonomy-term--hover--font-color: $primaryColor3;
+$taxonomy-term--hover--border: 1px solid darken($primaryColor1, 50%);
 
 
 
@@ -83,4 +83,9 @@ $menuitemColor: $primaryColor2 !default;
   -webkit-border-radius: $rad;
   -moz-border-radius: $rad;
   border-radius: $rad;
+}
+@mixin omegaShadow() {
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
 }

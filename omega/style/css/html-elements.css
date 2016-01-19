@@ -17,13 +17,13 @@ body.toolbar-tray-open.toolbar-vertical.toolbar-fixed {
 
 a {
   text-decoration: none;
-  color: #0b6194;
+  color: #047aab;
   transition: opacity 0.25s ease-in-out;
   -moz-transition: opacity 0.25s ease-in-out;
   -webkit-transition: opacity 0.25s ease-in-out; }
   a:hover {
     text-decoration: underline;
-    color: rgba(11, 97, 148, 0.85); }
+    color: rgba(4, 122, 171, 0.85); }
 
 details {
   border: none; }

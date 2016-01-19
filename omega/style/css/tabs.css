@@ -1,1 +1,13 @@
 /* Fonts */
+.tabs a {
+  background-color: #fafafa;
+  text-decoration: none;
+  font-size: 0.9em;
+  color: #1e415f; }
+  .tabs a:hover {
+    background-color: #e1e1e1; }
+
+.tabs a.is-active {
+  background-color: #047aab;
+  border: 1px solid #fafafa;
+  color: #fafafa; }
