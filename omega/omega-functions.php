@@ -26,7 +26,9 @@ function omega_return_layouts($theme) {
     $layout_config_object = \Drupal::config($theme . '.layout.' . $layout);
     // assign the values to our array
     $layouts[$layout] = $layout_config_object->get();
+    unset($layouts[$layout]['_core']); // where did this come from??
   }
+  unset($layouts['_core']); // where did this come from??
   return $layouts;
 }
 
