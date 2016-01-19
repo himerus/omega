@@ -1,4 +1,4 @@
-starterkit.default.all:
+omega_starterkit.default.all:
   label: All
   mediaQuery: 'all and (min-width: 0px)'
   weight: 0
@@ -6,8 +6,8 @@ starterkit.default.all:
     - 1x
   status: true
   langcode: en
-  group: starterkit.default
-starterkit.default.narrow:
+  group: omega_starterkit.default
+omega_starterkit.default.narrow:
   label: Narrow
   mediaQuery: 'all and (min-width: 768px) and (max-width: 1023px)'
   weight: 3
@@ -15,8 +15,8 @@ starterkit.default.narrow:
     - 1x
   status: true
   langcode: en
-  group: starterkit.default
-starterkit.default.normal:
+  group: omega_starterkit.default
+omega_starterkit.default.normal:
   label: Normal
   mediaQuery: 'all and (min-width: 1024px) and (max-width: 1219px)'
   weight: 4
@@ -24,8 +24,8 @@ starterkit.default.normal:
     - 1x
   status: true
   langcode: en
-  group: starterkit.default
-starterkit.default.wide:
+  group: omega_starterkit.default
+omega_starterkit.default.wide:
   label: Wide
   mediaQuery: 'all and (min-width: 1220px)'
   weight: 5
@@ -33,4 +33,4 @@ starterkit.default.wide:
     - 1x
   status: true
   langcode: en
-  group: starterkit.default
+  group: omega_starterkit.default

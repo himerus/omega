@@ -11,6 +11,23 @@ use Symfony\Component\HttpFoundation\Request;
 require_once(drupal_get_path('theme', 'omega') . '/omega-functions.php');
 require_once(drupal_get_path('theme', 'omega') . '/omega-functions--admin.php');
 require_once(drupal_get_path('theme', 'omega') . '/theme-settings/theme-settings--export-handlers.php');
+
+/**
+ * hook_system_themes_page_alter()
+ */
+function omega_system_themes_page_alter(&$theme_groups) {
+  foreach ($theme_groups as $state => &$group) {
+    foreach ($theme_groups[$state] as &$theme) {
+      // Add a foo link to each list of theme operations.
+      $theme->operations[] = array(
+        'title' => t('Foo'),
+        'url' => Url::fromRoute('system.themes_page'),
+        'query' => array('theme' => $theme->getName())
+      );
+    }
+  }
+} // END omega_system_themes_page_alter
+
 /**
  * Implementation of hook_form_system_theme_settings_alter()
  *
@@ -22,23 +39,8 @@ require_once(drupal_get_path('theme', 'omega') . '/theme-settings/theme-settings
  */
 function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   
-  //////////////////////////////////////////////////////
-/*
-  $request = new Request(array('theme' => 'another_sooper_custom_theme'));
-  $themeController = new ThemeController();
-  $themeController->create($request);
-  dpm($themeController);
-  $listing = new ExtensionDiscovery(\Drupal::root());
-  $themes = $listing->scan('theme');
-  uasort($themes, 'system_sort_modules_by_info_name');
-  dpm($themes);
-  ddebug_backtrace();
-*/
-  
-  
-  
-  //////////////////////////////////////////////////////
-  
+  // add in custom CSS/JS for Omega administration
+  $form['#attached']['library'][] = 'omega/omega_admin';  
   // Get the build info for the form
   $build_info = $form_state->getBuildInfo();
   // Get the theme name we are editing
@@ -47,47 +49,40 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $omegaSettings = new OmegaSettingsInfo($theme);
   // get a list of themes
   $themes = $omegaSettings->themes;
-  //dsm($themes);
   // get the default settings for the current theme
-  //$themeSettings = $themes[$theme];
   $themeSettings = $omegaSettings->getThemeInfo();
-  //dsm($themeSettings);
-  
+  // get the value of 'force_export' from THEME.info.yml
   $force_theme_export = $themeSettings->info['force_export'];
-  
-  
-  //dsm($force_theme_export);
+  // get the value of 'inherit_layout' from THEME.info.yml
+  $inherit_layout = $themeSettings->info['inherit_layout'];
   // get all the values of the submitted form
   $values = $form_state->getValues();
-  //dsm($values);
-  
-  // check for ajax update of default layout, or use default theme setting
-  $defaultLayout = isset($form_state->values['default_layout']) ? $form_state->values['default_layout'] : theme_get_setting('default_layout', $theme);
-  $edit_this_layout = isset($form_state->values['edit_this_layout']) ? $form_state->values['edit_this_layout'] : theme_get_setting('default_layout', $theme);
-  
-  // get the layouts available to edit in this theme
-  $layouts = omega_return_layouts($theme);
-  // pull the configuration object for this theme that defines the region groups represented in page.html.twig
-  $region_groups = \Drupal::config($theme . '.region_groups')->get();
-  
-  //dsm($region_groups);
-  $theme_regions = $themeSettings->info['regions'];
-  
-  // add in custom CSS/JS for Omega administration
-  $form['#attached']['library'][] = 'omega/omega_admin';  
-  
   // include the introduction message(s)
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/omega-intro.php');
   // include the adjustments to core system theme settings
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/core-settings.php');
   
   if (!$force_theme_export) {
+    
+    // if we are inheriting the layout, throw a message
+    if ($inherit_layout) {
+      $form['inherited_layout'] = array(
+        '#prefix' => '<div class="messages messages--warning omega-variables-info">',
+        '#markup' => '',
+        '#suffix' => '</div>',
+        '#weight' => -999,
+      );
+      $layoutProvider = omega_find_layout_provider($theme);
+      // update the message value
+      $form['inherited_layout']['#markup'] = '<p>This theme is currently inheriting the layout(s) from <strong>' . $layoutProvider . '</strong>, so layout configuration options are not available here. <em>Any changes made to the applicable layouts in the parent theme will be used by this theme.</em> You can edit the layout settings for <strong>' . $layoutProvider . '</strong> <a href="/admin/appearance/settings/' . $layoutProvider . '">here</a>.</p>';
+    }
+    
     // Custom settings in Vertical Tabs container
     $form['omega'] = array(
       '#type' => 'vertical_tabs',
       '#attributes' => array('class' => array('entity-meta')),
       '#weight' => -999,
-      '#default_tab' => 'edit-export',
+      '#default_tab' => 'edit-variables',
       '#states' => array(
         'invisible' => array(
          ':input[name="force_subtheme_creation"]' => array('checked' => TRUE),
@@ -102,17 +97,31 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     include_once(drupal_get_path('theme', 'omega') . '/theme-settings/style-settings.php');
     
     // include the ability to customize various scss variables to provide basic style adjustments
-    // include_once(drupal_get_path('theme', 'omega') . '/theme-settings/scss-settings.php');
+    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/scss-settings.php');
     
     // include the ability to debug various theme development elements
     include_once(drupal_get_path('theme', 'omega') . '/theme-settings/debug-settings.php');
     
-    // include the layout configuration options
-    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-config.php');
-    
-    // include the layout builder interface
-    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-settings.php');
-    
+    // if we aren't inheriting the layout, then add the layout config and builder to the form
+    if (!$inherit_layout) {
+      
+      // check for ajax update of default layout, or use default theme setting
+      $defaultLayout = isset($form_state->values['default_layout']) ? $form_state->values['default_layout'] : theme_get_setting('default_layout', $theme);
+      $edit_this_layout = isset($form_state->values['edit_this_layout']) ? $form_state->values['edit_this_layout'] : theme_get_setting('default_layout', $theme);
+      
+      // pull the configuration object for this theme that defines the region groups represented in page.html.twig
+      $region_groups = \Drupal::config($theme . '.region_groups')->get();
+      $theme_regions = $themeSettings->info['regions'];
+      
+      // get the layouts available to edit in this theme
+      $layouts = omega_return_layouts($theme);
+      
+      // include the layout configuration options
+      include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-config.php');
+      
+      // include the layout builder interface
+      include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-settings.php');
+    }
     // Change the text for default submit button
     $form['actions']['submit']['#value'] = t('Save');
     // Hide the default submit button if 'export new subtheme' option is enabled
@@ -187,21 +196,6 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     $form['actions']['submit']['#access'] = FALSE;
     
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  //dsm($form);
-  //dsm($form_state);
 }
 
 /**

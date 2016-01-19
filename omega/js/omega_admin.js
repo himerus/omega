@@ -115,7 +115,7 @@
         $(this)
           .closest('.form-item') // find the parent form item
           .addClass('color-slider-controller')
-          .prepend('<div class="controls"><a href="#" class="reset">undo</a></div>')
+          .prepend('<div class="controls"><a href="#" class="reset">reset</a></div>')
           .append('<div class="color-slider clearfix"><div class="red rgb-slider"><input type="text" class="rgb" maxlength="3" /></div><div class="green rgb-slider"><input type="text" class="rgb" maxlength="3" /></div><div class="blue rgb-slider"><input type="text" class="rgb" maxlength="3" /></div><div class="swatch"></div>');
           
         //$(this).find('.red, .green, .blue');
@@ -159,10 +159,10 @@
         refreshRGBSlider(elem, rgbValues, hexValue);
       });
       
-      $(window).on('ready', function(){
-        
+      $(window).on('load', function(){
         $('input.color-slider').each(function(){
           var elem = $(this);
+          console.log(elem);
           var hexValue = elem.val();
           var rgbValues = hexToRGB(hexValue);
           refreshRGBSlider(elem, rgbValues, hexValue);  
@@ -171,11 +171,6 @@
         
         
       });
-      
-      // will be able to remove these once I have default values loading.
-      //$( ".red" ).slider( "value", 50 );
-      //$( ".green" ).slider( "value", 50 );
-      //$( ".blue" ).slider( "value", 50 );
     }
   };
   
@@ -230,12 +225,12 @@
     attach: function(context) {
       $('a.toggle-styles-on').on('click', function(){
         var element = $(this).parents('#edit-styles');
-        element.find(':checkbox').prop('checked', true);
+        element.find(':checkbox:not(:disabled)').prop('checked', true);
         return false;
       });
       $('a.toggle-styles-off').on('click', function(){
         var element = $(this).parents('#edit-styles');
-        element.find(':checkbox').prop('checked', false);
+        element.find(':checkbox:not(:disabled)').prop('checked', false);
         return false;
       });
     }

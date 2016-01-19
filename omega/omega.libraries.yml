@@ -1,4 +1,9 @@
 omega:
+  omega:
+    allow_clone_for_subtheme: false
+    allow_enable_disable: false
+    title: 'Core Omega styles and jQuery behaviors.'
+    description: 'Primary Omega CSS & Javascript/jQuery. This file should not ever be disabled on a functioning Omega subtheme.'
   version: VERSION
   js:
     js/omega.js: {}
@@ -18,7 +23,12 @@ omega:
     - core/jquery.once
     - core/drupal.displace
 
-omega_admin:
+omega_admin:  
+  omega:
+    allow_clone_for_subtheme: false
+    allow_enable_disable: false
+    title: 'Omega theme administration enhancements.'
+    description: 'Primary Omega CSS & Javascript/jQuery updates for the administrative theme settings page. These updates allow the enhancements to the theme settings form to work properly. This file should not ever be disabled on a functioning Omega subtheme.'
   version: VERSION
   js: 
     js/omega_admin.js: {}
@@ -40,6 +50,11 @@ omega_admin:
     - core/jquery.ui.resizable
     
 omega_html_elements:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Basic HTML elements'
+    description: 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.'
   version: VERSION
   css: 
     component:
@@ -48,6 +63,11 @@ omega_html_elements:
     - omega/omega
     
 omega_branding:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Branding area styles and enhancements'
+    description: 'Provides basic layout and styling for logo area.'
   version: VERSION
   css: 
     component:
@@ -56,6 +76,11 @@ omega_branding:
     - omega/omega
     
 omega_breadcrumbs:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Breadcrumb styling'
+    description: 'Basic breadcrumb styling.'
   version: VERSION
   css: 
     component:
@@ -64,6 +89,11 @@ omega_breadcrumbs:
     - omega/omega
     
 omega_main_menus:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Main Menu styling'
+    description: 'Basic layout and styling for main menu elements.'
   version: VERSION
   css: 
     component:
@@ -72,6 +102,11 @@ omega_main_menus:
     - omega/omega
     
 omega_messages:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Status message styles and enhancements'
+    description: 'Custom styles for Drupal system messages.'
   version: VERSION
   css: 
     component:
@@ -80,6 +115,11 @@ omega_messages:
     - omega/omega
     
 omega_pagers:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Pager styles'
+    description: 'Custom styles for Drupal pagers.'
   version: VERSION
   css: 
     component:
@@ -88,6 +128,11 @@ omega_pagers:
     - omega/omega
     
 omega_tabs:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Administrative tab styles'
+    description: 'Custom styles for Drupal tabs.'
   version: VERSION
   css: 
     component:
@@ -96,9 +141,27 @@ omega_tabs:
     - omega/omega
     
 omega_taxonomy_terms:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Taxonomy Term styles'
+    description: 'Custom styles for Drupal taxonomy listings on nodes.'
   version: VERSION
   css: 
     component:
       style/css/taxonomy-terms.css: {}
+  dependencies:
+    - omega/omega
+
+omega_forms:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Clean form styling and behaviors'
+    description: 'Clean, usable form styles to use as a default. Prevents common issues like form field overflowing containers, etc. Enabling this library will make all form types usable enough to use your theme as the content add/edit theme.'
+  version: VERSION
+  css: 
+    component:
+      style/css/forms.css: {}
   dependencies:
     - omega/omega

@@ -2,6 +2,7 @@
 
 // Include Breakpoint Functionality
 use Drupal\breakpoint;
+use Drupal\omega\Theme\OmegaSettingsInfo;
 //use Drupal\views\Views;
 
 /**
@@ -19,7 +20,7 @@ function omega_return_layouts($theme) {
   
   // grab the defined layouts in config/install/$theme.layouts.yml
   $layouts = \Drupal::config($theme . '.layouts')->get();
-  
+  //dpm($layouts);
   foreach ($layouts AS $layout => $null) {
     // grab the configuration for the requested layout
     $layout_config_object = \Drupal::config($theme . '.layout.' . $layout);
@@ -27,6 +28,53 @@ function omega_return_layouts($theme) {
     $layouts[$layout] = $layout_config_object->get();
   }
   return $layouts;
+}
+
+/**
+ * Custom function to return the theme that is providing a layout
+ * This is either the theme itself ($theme) or a parent theme
+ */
+function omega_find_layout_provider($theme) {
+  // Create Omega Settings Object
+  $omegaSettings = new OmegaSettingsInfo($theme);
+  
+  // get the default settings for the current theme
+  $themeSettings = $omegaSettings->getThemeInfo();
+  
+  // get the value of 'inherit_layout' from THEME.info.yml
+  $inherit_layout = $themeSettings->info['inherit_layout'];
+  
+  // we have encountered a theme that inherits layout from a base theme
+  // now we will scan the array of applicable base themes looking for the 
+  // closest parent providing layout and not inheriting it
+  if ($inherit_layout) {
+    // grab the base themes
+    $baseThemes = $themeSettings->base_themes;
+    // remove the core themes from the list
+    unset($baseThemes['stable'], $baseThemes['classy']);
+    // put the base themes in the proper order to traverse for layouts
+    $baseThemes = array_reverse($baseThemes);
+    
+    foreach ($baseThemes AS $baseKey => $baseName) {
+      //dpm($baseKey);
+      $baseThemeSettings = $omegaSettings->getThemeInfo($baseKey);
+      $base_inherit_layout = $baseThemeSettings->info['inherit_layout'];
+      //dpm($baseThemeSettings);
+      
+      if (!$base_inherit_layout) {
+        // we've found the first base theme in the chain that does provide its own layout
+        // so we will return the key of that theme to use.
+        return $baseKey;
+      }
+    }
+    
+  }
+  // this theme provides its own layout, so just return the appropriate theme name
+  else {
+    return $theme;
+  }
+  
+  //$provider = theme_get_setting($layout, $theme);
 }
 
 /**
@@ -39,14 +87,16 @@ function omega_return_active_layout() {
   $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
   //$view = \Drupal::routeMatch()->getParameter('view_id');
   
+  $layoutProvider = omega_find_layout_provider($theme);
+  //dpm($layoutProvider);
   // setup default layout
-  $defaultLayout = theme_get_setting('default_layout', $theme);
+  $defaultLayout = theme_get_setting('default_layout', $layoutProvider);
   $layout = $defaultLayout;
   
   // if it is a node, check for and assign alternate layout
   if ($node) {
     $type = $node->getType();
-    $nodeLayout = theme_get_setting('node_type_' . $type . '_layout', $theme);
+    $nodeLayout = theme_get_setting('node_type_' . $type . '_layout', $layoutProvider);
     $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
   }
   
@@ -72,11 +122,14 @@ function omega_return_active_layout() {
   // This ensures if someone has set an individual node page, term page, etc. 
   // as the front page, the front page setting has more priority
   if ($front) {
-    $homeLayout = theme_get_setting('home_layout', $theme);
+    $homeLayout = theme_get_setting('home_layout', $layoutProvider);
     $layout = $homeLayout ? $homeLayout : $defaultLayout;
   }
   
-  return $layout;
+  return array(
+    'theme' => $layoutProvider,
+    'layout' => $layout,
+  );
 }
 
 /**
@@ -88,12 +141,11 @@ function _omega_getAvailableBreakpoints($theme) {
   $breakpoints_module = \Drupal::moduleHandler()->moduleExists('breakpoint');
   
   if ($breakpoints_module == TRUE) {
-    // get all the breakpoint groups
+    // get all the breakpoint groups available to Drupal
     $all_breakpoint_groups = \Drupal::service('breakpoint.manager')->getGroups();
-    //dsm($all_breakpoint_groups);
     // get all the base themes of this theme    
     $baseThemes = \Drupal::theme()->getActiveTheme()->getBaseThemes();
-    
+    //dpm($baseThemes);
     $theme_ids = array(
       $theme => \Drupal::theme()->getActiveTheme()->getExtension()->info['name']
     );
@@ -102,6 +154,8 @@ function _omega_getAvailableBreakpoints($theme) {
       $clean_theme_name = $data->getExtension()->info['name'];
       $theme_ids[$theme_key] = $clean_theme_name;
     }
+    
+    //dpm($theme_ids);
     
     // cycle all the breakpoint groups and see if they are a part of this theme or its base theme(s)
     foreach ($all_breakpoint_groups as $group_key => $group_values) {
@@ -113,6 +167,8 @@ function _omega_getAvailableBreakpoints($theme) {
         $breakpoint_groups[$group_key] = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($group_key);
       }
     }
+    
+    //dpm($breakpoint_groups);
     
     foreach($breakpoint_groups as $group => $breakpoint_values)  {
       if ($breakpoint_values !== array()) {
@@ -128,6 +184,7 @@ function _omega_getAvailableBreakpoints($theme) {
   else {
     drupal_set_message(t('Omega requires the <b>Breakpoint module</b>. Open the <a href="@extendpage" target="_blank">Extend</a> page and enable Breakpoint.', array('@extendpage' => base_path() . 'admin/modules')), 'warning');
   }
+  //dpm($breakpoint_options);
   return $breakpoint_options;
 }
 
@@ -150,9 +207,83 @@ function _omega_getActiveBreakpoints($layout, $theme) {
  *  Returns array of optional Libraries that can be enabled/disabled in theme settings
  *  for Omega, and Omega sub-themes. The listings here are tied to entries in omega.libraries.yml.
  */
+//use Drupal\Core\Theme\ActiveTheme;
+
 function _omega_optional_libraries($theme) {
+  //dpm($theme);
   $status = theme_get_setting('styles', $theme);
+  //dpm($status);
+  $themeHandler = \Drupal::service('theme_handler');
+  $library_discovery = \Drupal::service('library.discovery');
+  //dpm($library_discovery);
+  $themes = $themeHandler->rebuildThemeData();
+  $activeTheme = \Drupal::theme()->getActiveTheme();
+  $themeObject = $themes[$theme];
   
+  //dsm($themeLibraries);
+  
+  $baseThemes = $activeTheme->getBaseThemes();
+  
+  $ignore_libraries = array(
+    'omega/omega_admin', // removed as it is only used for theme admin page(s) and is required
+  );
+  // create a variable to hold the full library data
+  $allLibraries = array();
+  // create a variable to combine all the libraries we can select/desect in our form
+  $returnLibraries = array();
+  // the libraries for the primary theme
+  $themeLibraries = $library_discovery->getLibrariesByExtension($theme);
+  
+  
+  foreach ($themeLibraries as $libraryKey => $themeLibrary) {
+    if (!in_array($theme . '/' . $libraryKey, $ignore_libraries)) {
+      $allLibraries[$libraryKey] = $themeLibrary;
+      $returnLibraries[$theme . '/' . $libraryKey] = array(
+        'title' => isset($themeLibrary['omega']['title']) ? $themeLibrary['omega']['title'] : $theme . '/' . $libraryKey,
+        'description' => isset($themeLibrary['omega']['description']) ? $themeLibrary['omega']['description'] : 'No Description Available. :(',
+        'library' => $theme . '/' . $libraryKey,
+        'status' => isset($status[$theme . '/' . $libraryKey]) ? $status[$theme . '/' . $libraryKey] : TRUE,
+        'allow_disable' => isset($themeLibrary['omega']['allow_enable_disable']) ? $themeLibrary['omega']['allow_enable_disable'] : TRUE,
+        'allow_clone' => isset($themeLibrary['omega']['allow_clone_for_subtheme']) ? $themeLibrary['omega']['allow_clone_for_subtheme'] : TRUE,
+      );
+    }
+  }
+  
+  
+  // setup some themes to skip. 
+  // Essentially trimming this down to only Omega and any Omega subthemes.
+  $ignore_base_themes = array(
+    'stable', 
+    'classy'
+  );
+  
+  // the libraries for any parent theme
+  foreach ($baseThemes as $baseKey => $baseTheme) {
+    if (!in_array($baseKey, $ignore_base_themes)) {
+      foreach ($library_discovery->getLibrariesByExtension($baseKey) as $libraryKey => $themeLibrary) {
+        //dpm($themeLibrary);
+        if (!in_array($baseKey . '/' . $libraryKey, $ignore_libraries)) {
+          $allLibraries[$libraryKey] = $themeLibrary;
+          $returnLibraries[$baseKey . '/' . $libraryKey] = array(
+            'title' => isset($themeLibrary['omega']['title']) ? $themeLibrary['omega']['title'] : $baseKey . '/' . $libraryKey,
+            'description' => isset($themeLibrary['omega']['description']) ? $themeLibrary['omega']['description'] : 'No Description Available. :(',
+            'library' => $baseKey . '/' . $libraryKey,
+            'status' => isset($status[$baseKey . '/' . $libraryKey]) ? $status[$baseKey . '/' . $libraryKey] : TRUE,
+            'allow_disable' => isset($themeLibrary['omega']['allow_enable_disable']) ? $themeLibrary['omega']['allow_enable_disable'] : TRUE,
+            'allow_clone' => isset($themeLibrary['omega']['allow_clone_for_subtheme']) ? $themeLibrary['omega']['allow_clone_for_subtheme'] : TRUE,
+          );
+        }
+      }
+    }  
+  }
+  //dpm($themeLibraries);
+  //dpm($allLibraries);
+  return $returnLibraries;
+  
+  
+  
+  
+/*
   return array(
     'scss_html_elements' => array(
       'title' => 'Generic HTML Elements',
@@ -205,7 +336,14 @@ function _omega_optional_libraries($theme) {
       'library' => 'omega/omega_taxonomy_terms',
       'status' => $status['scss_taxonomy_terms'],
     ),
+    'scss_forms' => array(
+      'title' => 'Basic Form Styles',
+      'description' => 'Clean, usable form styles to use as a default. Prevents common issues like form field overflowing containers, etc. Enabling this library will make all form types usable enough to use your theme as the content add/edit theme.',
+      'library' => 'omega/omega_forms',
+      'status' => $status['scss_forms'],
+    ),
   );
+*/
 }
 
 

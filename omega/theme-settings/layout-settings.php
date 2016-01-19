@@ -5,12 +5,15 @@ $form['layouts'] = array(
   '#type' => 'details',
   '#attributes' => array('class' => array('debug')),
   '#title' => t('Layout Builder'),
-  '#description' => t('<p class="description">You are able to configure your layouts based on any breakpoint defined in your Omega subtheme, or any base theme that the theme uses. Each layout is assigned to a single breakpoint, and then will be able to be used in Layout Configuration when choosing a layout to use for default or particular page types.</p>'),
+  '#description' => t(''),
   '#weight' => -799,
   '#group' => 'omega',
   //'#open' => TRUE,
   '#tree' => TRUE,
 );
+
+$form['layouts']['#description'] .= '<p class="description">You are able to configure your layouts based on any breakpoint defined in your Omega subtheme, or any base theme that the theme uses. Each layout is assigned to a single breakpoint, and then will be able to be used in Layout Configuration when choosing a layout to use for default or particular page types.</p>';
+$form['layouts']['#description'] .= '<p class="description">This works great in scenarios where a simple set of breakpoints will work well throughout 95% of your site, but the homepage and landing pages, or even image gallery pages requiring a more complex set of responsive adjustments.</p>';
 
 // the active layout we are editing.
 // this var will be unset during submit

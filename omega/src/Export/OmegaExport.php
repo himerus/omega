@@ -101,6 +101,8 @@ class OmegaExport implements OmegaExportInterface {
       'theme_theme_samples' => $this->getOptions('export_include_themefile_samples') ? TRUE : FALSE,
       // If templates should be copied over to the new theme.
       'theme_theme_templates' => $this->getOptions('export_include_templates') ? TRUE : FALSE,
+      // If the layout should be inherited only, or customizable in the new theme.
+      'theme_inherit_layout' => $this->getOptions('export_inherit_layout') ? TRUE : FALSE,
     );
 
     return $this->build;
@@ -169,7 +171,7 @@ class OmegaExport implements OmegaExportInterface {
         // Update the force export value to false so we can edit this new theme regardless of what the other theme was set to
         $info['force_export'] = false;
         //dsm($info);
-        
+        $info['inherit_layout'] = $this->build['theme_inherit_layout'];
         
         
         // We will copy over and replace any .theme file since this is going to be a subtheme rather than a clone

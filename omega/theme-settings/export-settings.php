@@ -160,9 +160,17 @@ $form['export']['export_options']['export_install_default'] = array(
 $form['export']['export_options']['export_include_block_positions'] = array(
   '#access' => FALSE,
   '#type' => 'checkbox',
-  '#title' => t('Export block placements'),
+  '#title' => t('Export block placements (still @todo/@tofix/@toinvesigate)'),
   '#description' => t('<p>This feature will copy all block placements from the base theme to ensure core blocks are placed properly by default.</p><p>This should not normally be needed if the theme you are using as your base theme has been installed and the new subtheme will inherit the same regions. This export feature, however will copy the latest block location placements to help ensure blocks appear in the correct regions.</p>'),
   '#default_value' => 1,
+  '#states' => $subtheme_state,
+);
+
+$form['export']['export_options']['export_inherit_layout'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Inherit Layout from parent theme (still @todo/@tofix/@toinvesigate)'),
+  '#description' => t('<p>When this option is unchecked, a copy of any layouts in the parent theme will be copied to the new subtheme, allowing each theme to have different layouts. When this option IS checked, all layout settings/css will be inherited from the parent theme. You would likely want this option checked if you are creating a very slim subtheme that will only have a few color changes made to it from the defaults copied/inherited from the parent theme and the layouts between the two themes will always remain consistent.</p><p><em>This also assumes that the regions between the subtheme and parent theme MUST match. If they do not match, unintended consequences are likely</em>.</p>'),
+  '#default_value' => 0,
   '#states' => $subtheme_state,
 );
 
@@ -197,3 +205,4 @@ $form['export']['export_options']['export_include_templates'] = array(
   '#default_value' => 0,
   '#states' => $subtheme_state,
 );
+

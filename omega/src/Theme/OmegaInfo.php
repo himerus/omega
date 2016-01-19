@@ -63,7 +63,7 @@ class OmegaInfo {
       return $this->themes[$this->theme];
     }
     else {
-      return isset($this->themes[$this->theme]->$key) ? $this->themes[$this->theme]->$key : NULL;
+      return isset($this->themes[$key]) ? $this->themes[$key] : NULL;
     }
   }
   /**

@@ -27,6 +27,7 @@ $form['enable_backups'] = array(
   '#description' => t('Since this form has the ability to regenerate SCSS and CSS files on the fly, turning on this backup feature will create a copy of layout.scss, layout.css, and THEME.settings.yml file before overwriting any data. These backups will be stored in the default files directory under <em>public://omega/layout/backups</em>.'),
   '#default_value' => isset($enable_backups) ? $enable_backups : TRUE,
   '#group' => 'options',
+  '#disabled' => TRUE,
 );
 
 
