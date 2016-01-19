@@ -13,22 +13,6 @@ require_once(drupal_get_path('theme', 'omega') . '/omega-functions--admin.php');
 require_once(drupal_get_path('theme', 'omega') . '/theme-settings/theme-settings--export-handlers.php');
 
 /**
- * hook_system_themes_page_alter()
- */
-function omega_system_themes_page_alter(&$theme_groups) {
-  foreach ($theme_groups as $state => &$group) {
-    foreach ($theme_groups[$state] as &$theme) {
-      // Add a foo link to each list of theme operations.
-      $theme->operations[] = array(
-        'title' => t('Foo'),
-        'url' => Url::fromRoute('system.themes_page'),
-        'query' => array('theme' => $theme->getName())
-      );
-    }
-  }
-} // END omega_system_themes_page_alter
-
-/**
  * Implementation of hook_form_system_theme_settings_alter()
  *
  * @param $form
@@ -115,7 +99,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       
       // get the layouts available to edit in this theme
       $layouts = omega_return_layouts($theme);
-      
+      dpm($layouts);
       // include the layout configuration options
       include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-config.php');
       

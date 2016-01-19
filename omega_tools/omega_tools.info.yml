@@ -1,0 +1,5 @@
+type: module
+name: Omega Tools
+description: 'Omega helper functions only available to the module layer.'
+package: Theme Enhancements
+core: 8.x

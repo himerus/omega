@@ -1,0 +1,42 @@
+<?php
+use Drupal\Core\Url;
+
+/**
+ * hook_system_themes_page_alter()
+ * 
+ * This is required in module form since Omega is likely (almost always) not set as admin theme
+ * So that we can manipulate the theme listing page a bit.
+ */
+function omega_tools_system_themes_page_alter(&$theme_groups) {
+  foreach ($theme_groups as $state => &$group) {
+    foreach ($theme_groups[$state] as &$theme) {
+      
+      $themeName = $theme->getName();
+      // if we have forced export through .info.yml settings, let's alter the Settings link
+      if ($theme->info['force_export']) {
+        foreach($theme->operations as $k => $operation) {
+          if ($operation['title']->render() == 'Settings') {
+            // Let's completely reset the 'Settings' link as this omega subtheme has no settings,
+            // but only displays the export/subtheme functionality
+            $theme->operations[$k] = array(
+              'title' => t('Create Subtheme'),
+              'url' => Url::fromRoute('system.theme_settings_theme', ['theme' => $theme->getName()]),
+              'attributes' => array('title' => t('Create a new subtheme of the @theme theme', array('@theme' => $theme->info['name']))),
+            );
+          }
+        }
+        
+        /*
+        // sample operations link
+        // Add a foo link to each list of theme operations.
+        $theme->operations[] = array(
+          'title' => t('Foo'),
+          'url' => Url::fromRoute('system.themes_page'),
+          'query' => array('theme' => $theme->getName())
+        );
+        */
+      }
+      
+    }
+  }
+} // END omega_tools_system_themes_page_alter
