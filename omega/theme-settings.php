@@ -99,7 +99,6 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
       
       // get the layouts available to edit in this theme
       $layouts = omega_return_layouts($theme);
-      dpm($layouts);
       // include the layout configuration options
       include_once(drupal_get_path('theme', 'omega') . '/theme-settings/layout-config.php');
       
