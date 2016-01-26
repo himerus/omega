@@ -245,7 +245,9 @@ function omega_preprocess_page(&$vars) {
     drupal_set_message(t('Region Demonstration mode is on. This can be turned off in theme settings.'), 'warning');
     $theme_regions = $themeSettings->info['regions'];
     $regionSkip = theme_get_setting('block_demo_excluded_regions', $theme);
-    
+    if (!is_array($regionSkip)) {
+      $regionSkip = array();
+    }
     foreach($theme_regions as $region => $region_name) {
       // skip the regions listed in block_demo_excluded_regions, primarily page_top & page_bottom
       if (!in_array($region, $regionSkip)) {
