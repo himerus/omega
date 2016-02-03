@@ -28,7 +28,7 @@ $form['variables']['variables_info'] = array(
 );
 
 $form['variables']['variables_info']['#markup'] .= '<p><strong>The variables represented here are SCSS variables</strong>. When values are changed, and the form is saved, your <strong>style/scss/style-vars.scss</strong> will be rewritten, and the theme will be recompiled and any appropriate SCSS and CSS files overwritten accordingly with updated values.</p>';
-$form['variables']['variables_info']['#markup'] .= '<p class="description">For a SCSS file in your theme to use the variables represented here, the line <em><strong>@import "../style-vars.scss";</strong></em> must be at the top of the SCSS file.</p>';
+$form['variables']['variables_info']['#markup'] .= '<p class="description">For a SCSS file in your theme to use the variables represented here, the line <em><strong>@import "style-vars.scss";</strong></em> must be at the top of the SCSS file.</p>';
 
 $form['variables']['colors'] = array(
   '#type' => 'details',
@@ -37,6 +37,7 @@ $form['variables']['colors'] = array(
   '#weight' => -999,
   //'#group' => 'omega',
   '#open' => FALSE,
+  '#tree' => TRUE,
   '#description' => '<p>When the Omega SCSS system is enabled, the configurations here are translated to SCSS variables that help generate custom CSS styles for your theme. The color variables here can be used in any SCSS file that is in your subtheme.</p>',
 );
 
@@ -48,6 +49,7 @@ $form['variables']['colors']['primary'] = array(
   '#title' => 'Primary Colors',
   '#description' => 'Default colors available for SCSS usage site-wide.',
   '#open' => FALSE,
+  '#tree' => FALSE,
 );
 
 //dpm($variables);
@@ -67,8 +69,9 @@ $form['variables']['colors']['primary']['primaryColor1'] = array(
   ),
   '#title' => t('Primary Color 1'),
   '#default_value' => $primaryColor1,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor1'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
+  '#tree' => TRUE,
 );
 $form['variables']['colors']['primary']['primaryColor1']['#suffix'] .= '<li><em>background-color: <strong>$primaryColor1</strong>;</em></li>';
 $form['variables']['colors']['primary']['primaryColor1']['#suffix'] .= '<li><em>border: 1px solid <strong>$primaryColor1</strong>;</em></li>';
@@ -91,8 +94,9 @@ $form['variables']['colors']['primary']['primaryColor2'] = array(
   ),
   '#title' => t('Primary Color 2'),
   '#default_value' => $primaryColor2,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor2'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
+  '#tree' => TRUE,
 );
 $form['variables']['colors']['primary']['primaryColor2']['#suffix'] .= '<li><em>background-color: <strong>$primaryColor2</strong>;</em></li>';
 $form['variables']['colors']['primary']['primaryColor2']['#suffix'] .= '<li><em>border: 1px solid <strong>$primaryColor2</strong>;</em></li>';
@@ -115,8 +119,9 @@ $form['variables']['colors']['primary']['primaryColor3'] = array(
   ),
   '#title' => t('Primary Color 3'),
   '#default_value' => $primaryColor3,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor3'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
+  '#tree' => TRUE,
 );
 $form['variables']['colors']['primary']['primaryColor3']['#suffix'] .= '<li><em>background-color: <strong>$primaryColor3</strong>;</em></li>';
 $form['variables']['colors']['primary']['primaryColor3']['#suffix'] .= '<li><em>border: 1px solid <strong>$primaryColor3</strong>;</em></li>';
@@ -139,8 +144,9 @@ $form['variables']['colors']['primary']['primaryColor4'] = array(
   ),
   '#title' => t('Primary Color 4'),
   '#default_value' => $primaryColor4,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor4'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
+  '#tree' => TRUE,
 );
 $form['variables']['colors']['primary']['primaryColor4']['#suffix'] .= '<li><em>background-color: <strong>$primaryColor4</strong>;</em></li>';
 $form['variables']['colors']['primary']['primaryColor4']['#suffix'] .= '<li><em>border: 1px solid <strong>$primaryColor4</strong>;</em></li>';
@@ -163,8 +169,9 @@ $form['variables']['colors']['primary']['primaryColor5'] = array(
   ),
   '#title' => t('Primary Color 5'),
   '#default_value' => $primaryColor5,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor5'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
+  '#tree' => TRUE,
 );
 $form['variables']['colors']['primary']['primaryColor5']['#suffix'] .= '<li><em>background-color: <strong>$primaryColor5</strong>;</em></li>';
 $form['variables']['colors']['primary']['primaryColor5']['#suffix'] .= '<li><em>border: 1px solid <strong>$primaryColor5</strong>;</em></li>';
@@ -177,6 +184,7 @@ $form['variables']['colors']['menu'] = array(
   '#title' => 'Main Menu Styling',
   '#description' => 'Configurations here will alter the appearance of the primary menu.',
   '#open' => FALSE,
+  '#tree' => FALSE,
 );
 
 $mainMenuBgColor = isset($variables['colors']['mainMenuBgColor']) ? $variables['colors']['mainMenuBgColor'] : '9a9a9a';
@@ -195,7 +203,7 @@ $form['variables']['colors']['menu']['mainMenuBgColor'] = array(
   ),
   '#title' => t('Main Menu Background Color'),
   '#default_value' => $mainMenuBgColor,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'mainMenuBgColor'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['menu']['mainMenuBgColor']['#suffix'] .= '<li><em>background-color: <strong>$mainMenuBgColor</strong>;</em></li>';
@@ -219,7 +227,7 @@ $form['variables']['colors']['menu']['mainMenuFontColor'] = array(
   ),
   '#title' => t('Main Menu Font Color'),
   '#default_value' => $mainMenuFontColor,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'mainMenuFontColor'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['menu']['mainMenuFontColor']['#suffix'] .= '<li><em>background-color: <strong>$mainMenuFontColor</strong>;</em></li>';
@@ -243,7 +251,7 @@ $form['variables']['colors']['menu']['mainMenuBorderColor'] = array(
   ),
   '#title' => t('Main Menu Border Color'),
   '#default_value' => $mainMenuBorderColor,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'mainMenuBorderColor'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['menu']['mainMenuBorderColor']['#suffix'] .= '<li><em>background-color: <strong>$mainMenuBorderColor</strong>;</em></li>';
@@ -260,6 +268,7 @@ $form['variables']['colors']['button'] = array(
   '#title' => 'Default button styling',
   '#description' => 'Configurations here will alter the appearance buttons sitewide. These include standard form buttons, and other elements like taxonomy terms on node listing pages.',
   '#open' => FALSE,
+  '#tree' => FALSE,
 );
 
 $buttonBgColor = isset($variables['colors']['buttonBgColor']) ? $variables['colors']['buttonBgColor'] : '9a9a9a';
@@ -278,7 +287,7 @@ $form['variables']['colors']['button']['buttonBgColor'] = array(
   ),
   '#title' => t('Button Background Color'),
   '#default_value' => $buttonBgColor,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'buttonBgColor'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['button']['buttonBgColor']['#suffix'] .= '<li><em>background-color: <strong>$buttonBgColor</strong>;</em></li>';
@@ -302,7 +311,7 @@ $form['variables']['colors']['button']['buttonFontColor'] = array(
   ),
   '#title' => t('Button Font Color'),
   '#default_value' => $buttonFontColor,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'buttonFontColor'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['button']['buttonFontColor']['#suffix'] .= '<li><em>background-color: <strong>$buttonFontColor</strong>;</em></li>';
@@ -326,7 +335,7 @@ $form['variables']['colors']['button']['buttonBorderColor'] = array(
   ),
   '#title' => t('Button Border Color'),
   '#default_value' => $buttonBorderColor,
-  '#parents' => array('variables', 'colors'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'buttonBorderColor'), // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['button']['buttonBorderColor']['#suffix'] .= '<li><em>background-color: <strong>$buttonBorderColor</strong>;</em></li>';
@@ -370,6 +379,7 @@ $form['variables']['fonts'] = array(
   '#weight' => -899,
   //'#group' => 'omega',
   '#open' => FALSE,
+  '#tree' => FALSE,
 );
 
 $form['variables']['fonts']['fontParagraph'] = array(
@@ -428,6 +438,7 @@ $form['variables']['fonts']['defaultHeaderFont'] = array(
   '#title' => 'Default Header Font',
   '#options' => $fontStyles,
   '#default_value' => $defaultHeaderFont,
+  '#parents' => array('variables', 'fonts', 'defaultHeaderFont'), // don't nest the variables in the resulting array
 );
 
 $defaultBodyFont = isset($variables['fonts']['defaultBodyFont']) ? $variables['fonts']['defaultBodyFont'] : 'helvetica';
@@ -442,6 +453,7 @@ $form['variables']['fonts']['defaultBodyFont'] = array(
   '#title' => 'Default Body Font',
   '#options' => $fontStyles,
   '#default_value' => $defaultBodyFont,
+  '#parents' => array('variables', 'fonts', 'defaultBodyFont'), // don't nest the variables in the resulting array
 );
 
 $form['variables']['breakpoints'] = array(

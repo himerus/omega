@@ -4,6 +4,8 @@ omega_simple_starterkit:
     allow_enable_disable: true
     title: 'Default library for omega_simple_starterkit.'
     description: 'Default Omega subtheme library description. Please provide a more meaningful description (and title) for this library by editing the omega_simple_starterkit.libraries.yml file.'
+    scss: 
+      style/css/omega_simple_starterkit.css: 'style/scss/omega_simple_starterkit.scss'
   version: VERSION
   js:
     # Custom Javascript file for your own JS modifications.

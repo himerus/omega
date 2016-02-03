@@ -16,7 +16,9 @@ namespace Drupal\omega\Export;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 
 use Drupal\Component\Serialization\Yaml;
+use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
 use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * OmegaExport declares methods used to build a new subtheme
@@ -82,7 +84,7 @@ class OmegaExport implements OmegaExportInterface {
       'parent_path' => $this->getParentPath(), 
       // type of export (clone, subtheme)
       'type' => $this->getExportType(), 
-      // Parent theme for the new theme
+      // Parent theme for the new theme, either the base theme or the theme being cloned
       'parent' => $this->getOptions('export_theme_base'), 
       // If the new theme should be installed by default
       'install' => $this->getOptions('export_install_auto') ? TRUE : FALSE, 
@@ -103,6 +105,8 @@ class OmegaExport implements OmegaExportInterface {
       'theme_theme_templates' => $this->getOptions('export_include_templates') ? TRUE : FALSE,
       // If the layout should be inherited only, or customizable in the new theme.
       'theme_inherit_layout' => $this->getOptions('export_inherit_layout') ? TRUE : FALSE,
+      // If the layout should be inherited only, or customizable in the new theme.
+      'theme_scss_support' => $this->getOptions('export_enable_scss_support') ? TRUE : FALSE,
     );
 
     return $this->build;
@@ -131,19 +135,19 @@ class OmegaExport implements OmegaExportInterface {
         $info['version'] = $this->build['version'];
         // Update the Version
         $info['force_export'] = false;
+        $info['scss_support'] = $this->build['theme_scss_support'];
+
+        if ($this->build['theme_scss_support']) {
+          // Let's find all the CSS files available to us from our parent themes. 
+          $library_overrides = $this->processStyleOverrides($this->build['parent']);
+          // assign the overrides to the .info array
+          // @todo - what happens if a subtheme manually created overrides? 
+          $info['libraries-override'] = $library_overrides;
+        }
+        
         //dsm($info);
         $new_info = $this->yamlEncode($info);
         $infoUpdated = file_put_contents($info_file, $new_info);
-        // Now we check to see if we've opted to install or install and set as default theme and redirect accordingly
-        // @todo - make this work. :/
-        if ($this->build['install_default']) {
-          // we should install the theme and set it as the default theme and enable any dependencies
-          //$form_state->setRedirect('system.theme_set_default', array('query' => array('theme' => $this->build['machine'],'token' => '')));
-        } 
-        elseif ($this->build['install']) {
-          // we should just install the theme and any dependencies          
-          //$form_state->setRedirect('system.theme_install', array('query' => array('theme' => $this->build['machine'],'token' => '')));
-        }
       break;
       case "subtheme":
         // The first thing we are doing when creating a subtheme is STILL making a full copy
@@ -170,9 +174,8 @@ class OmegaExport implements OmegaExportInterface {
         $info['base theme'] = $this->build['parent'];
         // Update the force export value to false so we can edit this new theme regardless of what the other theme was set to
         $info['force_export'] = false;
-        //dsm($info);
         $info['inherit_layout'] = $this->build['theme_inherit_layout'];
-        
+        $info['scss_support'] = $this->build['theme_scss_support'];
         
         // We will copy over and replace any .theme file since this is going to be a subtheme rather than a clone
         // In a subtheme, you wouldn't want the same logic running again.
@@ -238,6 +241,28 @@ class OmegaExport implements OmegaExportInterface {
           $this->directoryPurgeFileType($this->build['destination_path'] . '/templates', 'twig');
         }
         
+        
+        // @TODO move to function so can be called on clones as well
+        
+        // We have selected to allow this theme to customize the SCSS variables.
+        // This means that for all the available CSS files with corresponding SCSS,
+        // we should create a copy of those files to this new theme, and implement them as
+        // a library-override in the .info file.
+        // This will also create the style-vars.scss file that will be configurable via the 
+        // interface under SCSS Varaibles. 
+        // Anytime in the future when saving theme settings, assuming the "Compile SCSS Directly"
+        // under General Options is enabled, the individual SCSS files will be recompiled after
+        // the style-vars.scss is saved. If you are handling the SCSS compiling yourself, then only
+        // the variable file would be changed, and your compass watch would handle any of the related files
+        // that need to be rewritten.
+        if ($this->build['theme_scss_support']) {
+          // Let's find all the CSS files available to us from our parent themes. 
+          $library_overrides = $this->processStyleOverrides($this->build['parent']);
+          // assign the overrides to the .info array
+          // @todo - what happens if a subtheme manually created overrides? 
+          $info['libraries-override'] = $library_overrides;
+        }
+        
         // lastly, setup the info file for a final write including latest information.
         $new_info = $this->yamlEncode($info);
         $infoUpdated = file_put_contents($info_file, $new_info);
@@ -246,10 +271,309 @@ class OmegaExport implements OmegaExportInterface {
       break;
     } 
     
+    // Now we check to see if we've opted to install or install and set as default theme and redirect accordingly
+    // @todo - make this work. :/
+    /*
+    $form_state->setRedirect(
+      'block.admin_display_theme',
+      array(
+        'theme' => $form_state->getValue('theme'),
+      ),
+      array('query' => array('block-placement' => Html::getClass($this->entity->id())))
+    );
+    */
+    if ($this->build['install_default']) {
+      // we should install the theme and set it as the default theme and enable any dependencies
+      //$form_state->setRedirect('system.theme_set_default', array('query' => array('theme' => $this->build['machine'],'token' => '')));
+    } 
+    elseif ($this->build['install']) {
+      // Still failing this based on the token or the system not thinking the theme exists yet
+      // we should just install the theme and any dependencies          
+      $form_state->setRedirect(
+        'system.theme_install', 
+        array(),
+        array(
+          'query' => array(
+            'theme' => $this->build['machine'],
+          )));
+    }
+    else {
+      
+    }
+
     // Redirect to the main appearance listing page after creating a new theme.
     // Currently this is needed, as a proper installation and redirect TO the new theme
     // attempted above has been difficult to accomplish.
     $form_state->setRedirect('system.themes_page');
+  }
+  
+  
+  /**
+   * Function to hanlde the discovery and copying of any css/scss files that should
+   * be overridden for a particular theme being created
+   * @return array of libraries-override to be injected into .info.yml.
+   * @todo - This needs to somehow ALSO look to see if a parent theme between
+   * the theme being created and Omega has overridden the styles, and they should 
+   * likely be copied from THAT source, and not from Omega directly. 
+   *
+   * This has an issue when multiple chained sub-themes attempt to apply/provide
+   * overrides of the 'same' file. 
+   * @see https://www.drupal.org/node/2642122
+   * @see http://cgit.drupalcode.org/drupal/tree/core/modules/system/tests/themes/test_theme/test_theme.info.yml
+   * Once a subtheme of Omega has opted to override/clone the library CSS files
+   * Then the path/key to that library asset is a full path
+   * We need a discovery of any library overrides already in place in parent themes
+   * of the theme we are creating to ensure the libraries-override array is keyed properly
+   * for drupal to understand which one we want to use
+   * 
+   * Let's assume the following theme structure:
+   * Omega (primary base theme controller)
+   * Omega Subtheme (direct subtheme of Omega, potentially a base theme for user/site) 
+   * Omega Subtheme Subtheme (subtheme of the subtheme, a subtheme of the 'base' for site) 
+   * 
+   * Assume now that both the subtheme and subtheme's subtheme BOTH implement the SCSS
+   * overrides. "Omega Subtheme" has copies of all the CSS that Omega provides with the option
+   * to override those styles. Now when we create "Omega Subtheme Subtheme" we must properly 
+   * be overriding the override and not the original in Omega. #confusing.
+   * 
+   * The following must be how the $librarysOverride array is contructed:
+   * 
+   * libraries-override:
+   *   omega/omega_html_elements:
+   *     css:
+   *       component:
+   *         /themes/THEME_THAT_PROVIDED_LAST_OVERRIDE/style/css/html-elements.css: style/css/html-elements.css
+   *                ^                                                                 ^
+   *                absolute path to original overriding theme                        realtive path to new override
+   */
+  
+  protected function processStyleOverrides($theme) {
+    
+    $themeObject = $this->themes[$theme];
+    
+    // The library sources start as the base themes of the theme submitted
+    $librarySources = $themeObject->base_themes;
+    
+    // if this is a clone (not subtheme) then we wouldn't include the 'parent'
+    // as an override since it is copied by the clone operation
+    if ($this->build['type'] == 'subtheme') {
+      // Now add in the current theme to the librarySources since we will pass the 
+      // parent theme during operation, and not the current/newly created theme
+      $librarySources[$theme] = $themeObject->info['name'];
+    }
+    
+    //dpm(array('$librarySources' => $librarySources));
+    // setup some themes to skip. 
+    // Essentially trimming this down to only Omega and any Omega subthemes.
+    $ignore_base_themes = array(
+      'stable', 
+      'classy'
+    );
+  
+    $libraries = array();
+    $declaredOverrides = array();
+    // cycle our sources, and load up data
+    foreach ($librarySources as $themeKey => $themeName) {
+      if (!in_array($themeKey, $ignore_base_themes)) {
+        // path to theme 
+        $sourcePath = DRUPAL_ROOT . '/' .drupal_get_path('theme', $themeKey);
+        // path to libraries.yml file for theme
+        $library_file = $sourcePath . '/' . $themeKey . '.libraries.yml';
+        if (file_exists($library_file)) {
+          try {
+            $libraries[$themeKey] = Yaml::decode(file_get_contents($library_file));
+          }
+          catch (InvalidDataTypeException $e) {
+            // Rethrow a more helpful exception to provide context.
+            throw new InvalidLibraryFileException(sprintf('Invalid library definition in %s: %s', $library_file, $e->getMessage()), 0, $e);
+          }
+        }
+        
+        // grab the .info data for the current theme
+        $themeInfo = $this->themes[$themeKey]->info;
+        // assign any declared overrides via libraries-override
+        $declaredOverrides[$themeKey] = isset($themeInfo['libraries-override']) ? $themeInfo['libraries-override'] : FALSE;
+      }
+    }
+    // we now have the libraries for all the relevant parent themes keyed by theme name
+    // as well as all the declared overrides for any libraries keyed by theme name
+    // now we should cycle those libraries to create an array with appropriate data
+    // so that we can define the libraries-override in the .info.yml file for the theme 
+    // we are creating. This is going to do like 4 billion foreach loops. 
+    $librariesOverride = array();
+    foreach ($libraries AS $libraryTheme => $themeLibraries) {
+      // now cycle the libraries available for that theme
+      foreach($themeLibraries as $libraryKey => $libraryData) {
+        
+        $libraryName = $libraryTheme . '/' . $libraryKey;
+        //dpm($libraryName);
+        // make sure we are 'allowed' to clone this library's css
+        if ($libraryData['omega']['allow_clone_for_subtheme']) {
+          
+          // We need to check here before cycling the CSS array if another theme
+          // has overridden this library. If the $libraryName key exists in any of 
+          // the themes in $declaredOverrides, we should use THAT theme's version
+          // of the file when performing the copy operation as well as providing the 
+          // proper path (now absolute rather than relative) to declare it in the overrides
+          // for this new theme. 
+          // @see https://www.drupal.org/node/2642122
+          
+          // now we will cycle the potential groups of CSS files
+          foreach($libraryData['css'] AS $cssGroup => $cssFiles) {
+            // now we will cycle any files listed in the group
+            foreach($cssFiles AS $cssFile => $null) {
+              
+              
+              
+              $previousOverrideProvider = FALSE;
+              // run a loop through the declared overrides and look for a duplicate
+              // or previously overridden version of this css file. 
+              foreach ($declaredOverrides AS $overridingTheme => $overridingLibraries) {
+
+                // Let's check to see if this file has previously been overridden.
+                // Problem is that if this is the SECOND (or subsequent) time an asset is being 
+                // overridden, then the path used as the key is not the same as the relative path from the 
+                // original. 
+                
+                // @TODO - The order of the if/elseif/else should likely be reversed so the changes
+                // cascade appropriately. 
+                
+                // FEELS LIKE HERE I MAY NEED TO FOREACH AGAIN IN ORDER TO DETERMINE THE FOLLOWING:
+                // $overridingTheme isn't the same as the theme path in the library override, but instead
+                // the path for a parent theme (not necessarily the base theme of this theme) but could be
+                // any of the themes in the base themes
+                // ANOTHER FOREACH THOUGH SEEMS WRONG, THERE HAS TO BE A WAY TO DETERMINE THIS WITHOUT CYCLING
+                // THROUGH THE $overridingLibraries.
+                
+                // THIS MAY NEED TO BE EXTRAPOLATED TO A FUNCTION CALL SO THAT IT CAN LOOP AS MANY TIMES
+                // AS NEEDED TO FIND A MATCH.
+                
+                
+                // this path would represent an absolute pathed override meaning an override of an override
+                $previouslyOverriddenFilePath = '/' . drupal_get_path('theme', $previousOverrideProvider) . '/' . $cssFile;
+                // A CSS file that has been overriden multiple times
+                if (isset($declaredOverrides[$overridingTheme][$libraryName]['css'][$cssGroup][$previouslyOverriddenFilePath])) {
+                  // this means this theme HAS overrides. 
+                  // Let's store that theme name for use in next iteration
+                  $previousOverrideProvider = $overridingTheme;
+                  // path to overriding theme location of library asset
+                  $providerPath = DRUPAL_ROOT . '/' . drupal_get_path('theme', $previousOverrideProvider);
+                  // full system path to previously overriden CSS file
+                  $cssSource = $providerPath . '/' . $declaredOverrides[$overridingTheme][$libraryName]['css'][$cssGroup][$previouslyOverriddenFilePath];
+                  // provide an absolute path from drupal root to the file that has already been overridden.
+                  $cssFilePath = '/' . drupal_get_path('theme', $previousOverrideProvider) . '/' . $cssFile;
+                }
+                // A CSS file that has been overridden for the FIRST time because the key is still the relative path
+                elseif (isset($declaredOverrides[$overridingTheme][$libraryName]['css'][$cssGroup][$cssFile])) {
+                  // we've found an original (first) override of the primary library's assets
+                  // this shares the same relative path as the key as the original.
+                  
+                  // this means this theme HAS overrides. 
+                  // Let's store that theme name for use in next iteration
+                  $previousOverrideProvider = $overridingTheme;
+                  // path to overriding theme location of library asset
+                  $providerPath = DRUPAL_ROOT . '/' . drupal_get_path('theme', $overridingTheme);
+                  // full system path to previously overriden CSS file
+                  $cssSource = $providerPath . '/' . $declaredOverrides[$overridingTheme][$libraryName]['css'][$cssGroup][$cssFile];
+                  // provide an absolute path from drupal root to the file that has already been overridden.
+                  $cssFilePath = '/' . drupal_get_path('theme', $overridingTheme) . '/' . $cssFile;
+                }
+                // a CSS file that has never been overridden.
+                else {
+                  // no previous overrides found for this library asset
+                  // path to original theme location of library asset
+                  $providerPath = DRUPAL_ROOT . '/' . drupal_get_path('theme', $libraryTheme);
+                  // full system path to original CSS file
+                  $cssSource = $providerPath . '/' . $cssFile;
+                  // provide the default relative path for the first override
+                  $cssFilePath = $cssFile;
+                }
+              }
+              // DESTINATION AND COPY CALL SHOULDN'T CHANGE
+              // full system path to destination CSS file
+              $cssDestination = $this->build['destination_path'] . '/' . $cssFile;
+              // copy the CSS file to the new location
+              $this->styleCopy($cssSource, $cssDestination);
+              
+              
+              
+              // also handle the SCSS copy too if it exists
+              // We will need to look for an alternate version of this scss file
+              // if a parent theme had already overridden it. 
+              if (isset($libraryData['omega']['scss'][$cssFile])) {                
+                // the scss file is the original path declared by the defining library
+                $scssFile = $libraryData['omega']['scss'][$cssFile];
+                // full system path to SCSS file
+                // this could be either from the original theme, OR the overriding theme
+                // depeinding on the value of $providerPath defined/discovered during the 
+                // copying of the CSS asset related to this item.
+                // This means that essentially this may not need further adjustment once 
+                // the CSS copying/overriding method is perfected.
+                $scssSource = $providerPath . '/' . $scssFile;
+                // full system path to destination SCSS file
+                $scssDestination = $this->build['destination_path'] . '/' . $scssFile;
+                // copy the CSS file to the new location
+                $this->styleCopy($scssSource, $scssDestination);
+              }
+              else {
+
+              }
+              
+              
+              // assign the appropriate data to the returned array
+              // NEEDS TO BE ALTERED IN CASE IT NEEDS ABSOLUTE PATH
+              $librariesOverride[$libraryName]['css'][$cssGroup][$cssFilePath] = $cssFile;
+            }
+          }
+        }
+      }
+    }
+    // at this point $librariesOverride is the exact array we need to use for the 
+    // libraries-override section in the new .info.yml. 
+    // Now this function should be passed back to OmegaExport
+    //dpm(array('$librariesOverride' => $librariesOverride));
+/*
+    dpm(
+      array(
+        '$librarySources' => $librarySources,
+        '$libraries' => $libraries,
+        '$declaredOverrides' => $declaredOverrides,
+        '$librariesOverride' => $librariesOverride,
+      )
+    );
+*/
+    //dpm($declaredOverrides);
+    return $librariesOverride;
+  }
+  
+  /**
+   * Function to act as a wrapper for copy() that ensures a target destination
+   * directory exists before performing the copy
+   * This function should negate the need for $this->createStyleDirectories()
+   */
+  protected function styleCopy($source, $destination) {
+    //dpm($source . ' -> ' . $destination);
+    if (file_exists($source)) {    
+      $destinationRoot = $this->build['destination_path'] . '/';
+      // first, strip out the core theme path from the destination file
+      // so that we are left with only the relative path to the file in the theme
+      $absoluteDestinationDir = pathinfo($destination, PATHINFO_DIRNAME);
+      $relativeDestination = str_replace($destinationRoot, '', $absoluteDestinationDir);
+      
+      $subDirectories = explode('/', $relativeDestination);
+      //dpm($relativeDestination);
+      //dpm($subDirectories);
+      foreach ($subDirectories AS $directory) {
+        if (!is_dir($destinationRoot . $directory)) {
+          mkdir($destinationRoot . $directory);
+        }
+        // add the newly created (or previously existing) directory to the $destinationRoot
+        // so that the next loop in the foreach checks the right place
+        $destinationRoot .= $directory . '/';
+      }
+      // now we should be sure that the full path exists in order to copy file.
+      copy($source, $destination);
+    }
   }
   
    /**
@@ -258,6 +582,10 @@ class OmegaExport implements OmegaExportInterface {
   protected function destroyLibraries() {
     // clear out all css files
     $this->directoryPurgeFileType($this->build['destination_path'] . '/js', 'js', '/^(\.(\.)?|CVS|\.sass-cache|\.svn|\.git|\.DS_Store)$/');
+    
+    // @todo
+    // We need to adjust here if the layout was inherited and also clear out the layout folder and layout CSS/SCSS
+    
     // clear out all css files
     $this->directoryPurgeFileType($this->build['destination_path'] . '/style/css', 'css', '/^(\.(\.)?|CVS|\.sass-cache|.*layout.*.css|\.svn|\.git|\.DS_Store)$/');
     // clear out all scss files
@@ -269,6 +597,20 @@ class OmegaExport implements OmegaExportInterface {
     }
   }
   
+  protected function createStyleDirectories() {
+    // let's make sure our base style folder exists
+    if (!is_dir($this->build['destination_path'] . '/style')) {
+      mkdir($this->build['destination_path'] . '/style/');
+    }
+    // let's make sure our base css folder exists
+    if (!is_dir($this->build['destination_path'] . '/style/css')) {
+      mkdir($this->build['destination_path'] . '/style/css');
+    }
+    // let's make sure our base scss folder exists
+    if (!is_dir($this->build['destination_path'] . '/style/scss')) {
+      mkdir($this->build['destination_path'] . '/style/scss');
+    }
+  }
   /**
    * {@inheritdoc}
    */

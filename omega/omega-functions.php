@@ -209,34 +209,26 @@ function _omega_getActiveBreakpoints($layout, $theme) {
  *  Returns array of optional Libraries that can be enabled/disabled in theme settings
  *  for Omega, and Omega sub-themes. The listings here are tied to entries in omega.libraries.yml.
  */
-//use Drupal\Core\Theme\ActiveTheme;
 
 function _omega_optional_libraries($theme) {
-  //dpm($theme);
   $status = theme_get_setting('styles', $theme);
-  //dpm($status);
   $themeHandler = \Drupal::service('theme_handler');
   $library_discovery = \Drupal::service('library.discovery');
-  //dpm($library_discovery);
   $themes = $themeHandler->rebuildThemeData();
-  $activeTheme = \Drupal::theme()->getActiveTheme();
   $themeObject = $themes[$theme];
-  
-  //dsm($themeLibraries);
-  
-  $baseThemes = $activeTheme->getBaseThemes();
+  $baseThemes = $themeObject->base_themes;
   
   $ignore_libraries = array(
     'omega/omega_admin', // removed as it is only used for theme admin page(s) and is required
   );
+  
   // create a variable to hold the full library data
   $allLibraries = array();
   // create a variable to combine all the libraries we can select/desect in our form
   $returnLibraries = array();
   // the libraries for the primary theme
   $themeLibraries = $library_discovery->getLibrariesByExtension($theme);
-  
-  
+  //dpm($themeLibraries);
   foreach ($themeLibraries as $libraryKey => $themeLibrary) {
     if (!in_array($theme . '/' . $libraryKey, $ignore_libraries)) {
       $allLibraries[$libraryKey] = $themeLibrary;
@@ -250,7 +242,6 @@ function _omega_optional_libraries($theme) {
       );
     }
   }
-  
   
   // setup some themes to skip. 
   // Essentially trimming this down to only Omega and any Omega subthemes.
@@ -278,74 +269,8 @@ function _omega_optional_libraries($theme) {
       }
     }  
   }
-  //dpm($themeLibraries);
-  //dpm($allLibraries);
-  return $returnLibraries;
-  
-  
-  
-  
-/*
-  return array(
-    'scss_html_elements' => array(
-      'title' => 'Generic HTML Elements',
-      'description' => 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.',
-      'library' => 'omega/omega_html_elements',
-      'status' => $status['scss_html_elements'],
-    ),
-    
-    'scss_branding' => array(
-      'title' => 'Branding Styles',
-      'description' => 'Provides basic layout and styling for logo area.',
-      'library' => 'omega/omega_branding',
-      'status' => $status['scss_branding'],
-    ),
-    
-    'scss_breadcrumbs' => array(
-      'title' => 'Breadcrumbs',
-      'description' => 'Basic breadcrumb styling.',
-      'library' => 'omega/omega_breadcrumbs',
-      'status' => $status['scss_breadcrumbs'],
-    ),
-    
-    'scss_main_menus' => array(
-      'title' => 'Main Menu Styling',
-      'description' => 'Basic layout and styling for main menu elements.',
-      'library' => 'omega/omega_main_menus',
-      'status' => $status['scss_main_menus'],
-    ),
-    'scss_messages' => array(
-      'title' => 'Messages',
-      'description' => 'Custom styles for Drupal system messages.',
-      'library' => 'omega/omega_messages',
-      'status' => $status['scss_messages'],
-    ),
-    'scss_pagers' => array(
-      'title' => 'Pagers',
-      'description' => 'Custom styles for Drupal pagers.',
-      'library' => 'omega/omega_pagers',
-      'status' => $status['scss_pagers'],
-    ),
-    'scss_tabs' => array(
-      'title' => 'Local Task Tabs',
-      'description' => 'Custom styles for Drupal tabs.',
-      'library' => 'omega/omega_tabs',
-      'status' => $status['scss_tabs'],
-    ),
-    'scss_taxonomy_terms' => array(
-      'title' => 'Taxonomy Terms',
-      'description' => 'Custom styles for Drupal taxonomy listings on nodes.',
-      'library' => 'omega/omega_taxonomy_terms',
-      'status' => $status['scss_taxonomy_terms'],
-    ),
-    'scss_forms' => array(
-      'title' => 'Basic Form Styles',
-      'description' => 'Clean, usable form styles to use as a default. Prevents common issues like form field overflowing containers, etc. Enabling this library will make all form types usable enough to use your theme as the content add/edit theme.',
-      'library' => 'omega/omega_forms',
-      'status' => $status['scss_forms'],
-    ),
-  );
-*/
+  //dpm($returnLibraries);
+  return $returnLibraries;  
 }
 
 

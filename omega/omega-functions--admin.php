@@ -3,6 +3,139 @@
 use Drupal\omega\phpsass\SassParser;
 use Drupal\omega\phpsass\SassFile;
 
+use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
+use Drupal\Component\Serialization\Yaml;
+
+
+
+
+function _omega_update_style_scss($styles, $theme, $generate = FALSE) {
+  // get a list of themes
+  $themes = \Drupal::service('theme_handler')->listInfo();
+  // get the current settings/info for the theme
+  $themeSettings = $themes[$theme];
+  
+  
+  //$styleVariables = new SassFile;
+  // create full paths to the scss and css files we will be rendering.
+  $styleFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/style-vars.scss';
+  
+  $styleData = '
+// Basic Color Variables 
+';
+  
+  foreach($styles['colors'] AS $variableName => $colorValue) {
+    $styleData .= "$$variableName: #$colorValue;
+";
+  }
+  
+  // these are copied from the form api in scss-settings.php. needs to be pulled out 
+  // to a reusable variable that can be edited in one place
+  $fontStyleValues = array(
+    'georgia' => 'Georgia, serif',
+    'times' => '"Times New Roman", Times, serif',
+    'palatino' => '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+    'arial' => 'Arial, Helvetica, sans-serif',
+    'helvetica' => '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    'arialBlack' => '"Arial Black", Gadget, sans-serif',
+    'comicSans' => '"Comic Sans MS", cursive, sans-serif',
+    'impact' => 'Impact, Charcoal, sans-serif',
+    'lucidaSans' => '"Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    'tahoma' => 'Tahoma, Geneva, sans-serif',
+    'trebuchet' => '"Trebuchet MS", Helvetica, sans-serif',
+    'verdana' => 'Verdana, Geneva, sans-serif',
+    'courier' => '"Courier New", Courier, monospace',
+    'lucidaConsole' => '"Lucida Console", Monaco, monospace',
+  );
+  
+  $styleData .= '
+// Basic Font Variables
+';
+  foreach($styles['fonts'] AS $variableName => $fontValue) {
+    $styleData .= "$$variableName: ". $fontStyleValues[$fontValue] . ";
+";
+  }
+  
+  // save the scss file
+  $stylefile = file_unmanaged_save_data($styleData, $styleFile, FILE_EXISTS_REPLACE);
+  // check for errors
+  if ($stylefile) {
+    drupal_set_message(t('SCSS file saved: <strong>'. str_replace(realpath(".") . base_path(), "", $styleFile) .'</strong>'));
+  }
+  else {
+    drupal_set_message(t('WTF004: SCSS save error... : function _omega_update_style_scss()'), 'error');
+  }
+  
+  // If compile is turned off, we'll only be writing the new variables file above.
+  // Compass could also handle this process once the variables file is updated.
+  // we will only convert them to css should we have the "Compile SCSS" enabled.
+  $compile_scss = theme_get_setting('compile_scss', $theme);
+  $compile = isset($compile_scss) ? $compile_scss : FALSE;
+  if ($compile) {
+    // find all our scss files and open/save them as they should include the style-vars.scss that we've already updated
+    $source = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss';
+    scssDirectoryScan($source, $theme, 'scss');
+    
+  }
+}
+
+function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.(\.)?|CVS|style-vars\.scss|layout|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
+  $dir = opendir($source);
+  
+  while($file = readdir($dir)) {
+    if (!preg_match($ignore, $file)) {
+      // directory found, call function again on this directory to scan deeper
+      if (is_dir($source . '/' . $file)) {
+        scssDirectoryScan($source . '/' . $file, $theme, $filetype, $ignore);
+      }
+      else {
+        if (pathinfo($file, PATHINFO_EXTENSION) == $filetype) {
+          
+          
+          // Options for phpsass compiler. Defaults in SassParser.php
+          $options = array(
+            'style' => 'nested',
+            'cache' => FALSE,
+            'syntax' => 'scss',
+            'debug' => TRUE,
+          );
+          //$parser = new SassParser($options);
+          //$scssStyleUpdate = new SassFile;
+          //$gsscss = $scssStyleUpdate->get_file_contents($file, $parser);
+          //dpm($file);
+          $omegaMixins = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/mixins.scss';
+          $omegaVars = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/vars.scss';
+          $styleVars = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/style-vars.scss';
+          $fileLocation = $source . '/' . $file;
+          $variableFile = new SassFile;
+          $variableScss = $variableFile->get_file_contents($omegaMixins, $parser);
+          $variableScss .= $variableFile->get_file_contents($styleVars, $parser);
+          $variableScss .= $variableFile->get_file_contents($omegaVars, $parser);
+          $variableScss .= $variableFile->get_file_contents($fileLocation, $parser);
+          $css = _omega_compile_css($variableScss, $options);
+          
+          // path to CSS file we're overriding
+          $newCssFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/css/' . str_replace('scss', 'css', $file);
+          //dpm($newCssFile);
+          // save the css file
+          $cssfile = file_unmanaged_save_data($css, $newCssFile, FILE_EXISTS_REPLACE);
+          
+          // check for errors
+          if ($cssfile) {
+            drupal_set_message(t('CSS file saved: <strong>'.str_replace(realpath(".") . base_path(), "", $cssfile).'</strong>'));
+          }
+          else {
+            drupal_set_message(t('WTF005: CSS save error... : function scssDirectoryScan()'), 'error');
+          }
+          //dpm($variableScss);
+          //dpm($css);
+        }
+      }
+    }
+  }
+  closedir($dir);
+}
+
 /**
  * Custom function to save the layout changes to appropriate config variables
  * Currently performs the following operations:
@@ -83,7 +216,7 @@ function _omega_compile_layout($layout, $layout_id, $theme) {
   
   $scss = _omega_compile_layout_sass($layout, $layout_id, $theme, $options);
   // generate the CSS from the SCSS created above
-  $css = _omega_compile_layout_css($scss, $options);
+  $css = _omega_compile_css($scss, $options);
   // save the SCSS and CSS files to the theme's filesystem
   _omega_save_layout_files($scss, $css, $theme, $layout_id);
 }
@@ -92,7 +225,7 @@ function _omega_compile_layout($layout, $layout_id, $theme) {
  * Currently performs the following operations:
  *  - Takes SCSS generated from _omega_compile_layout_sass and returns CSS
  */
-function _omega_compile_layout_css($scss, $options) {
+function _omega_compile_css($scss, $options) {
   $parser = new SassParser($options);
   // create CSS from SCSS
   $css = $parser->toCss($scss, false);
@@ -106,7 +239,7 @@ function _omega_compile_layout_css($scss, $options) {
  *  - Cycles a breakpoint for region groups
  *  - Cycles a region group for regions
  *  - Cycles a region for various settings to apply to the region
- *  - Returns SCSS designed to be passed to _omega_compile_layout_css
+ *  - Returns SCSS designed to be passed to _omega_compile_css
  */
 function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $options) {
   //dsm($layout);

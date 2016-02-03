@@ -1,3 +1,4 @@
+@import "mixins";
 
 /* Fonts */
 $light: "Helvetica Neue", Arial, Helvetica !default;
@@ -72,20 +73,3 @@ $taxonomy-term--hover--border: 1px solid darken($primaryColor1, 50%);
 
 $menuitemBg: $primaryColor1 !default;
 $menuitemColor: $primaryColor2 !default;
-
-@mixin omegaTransition($type:all, $speed:0.25s, $transition: ease-in-out) {
-  transition: $type $speed $transition;
-   -moz-transition: $type $speed $transition;
-   -webkit-transition: $type $speed $transition;
-}
-
-@mixin omegaCorners($rad: 5px) {
-  -webkit-border-radius: $rad;
-  -moz-border-radius: $rad;
-  border-radius: $rad;
-}
-@mixin omegaShadow() {
-  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
-  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
-  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
-}

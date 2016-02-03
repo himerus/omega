@@ -30,14 +30,21 @@ $form['enable_backups'] = array(
   '#disabled' => TRUE,
 );
 
+$compile_scss = theme_get_setting('compile_scss', $theme);
+$form['compile_scss'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Compile SCSS Directly'),
+  '#description' => t('Omega Five has the ability to create SCSS on the fly based on the layout configuration, and also the optional SCSS variables that control other visual appearances of your theme. When this option is disabled, Omega will not write the final CSS file, and instead rely on Compass or another similar SCSS compiler to write the final CSS files. The SCSS will still be written by Omega since it is required in order to translate the variable changes for layout/colors/etc. <strong>If you are unsure, leave this option enabled.</strong>'),
+  '#default_value' => isset($compile_scss) ? $compile_scss : TRUE,
+  '#group' => 'options',
+);
 
-/*
+
 $enable_omega_badge = theme_get_setting('enable_omega_badge', $theme);
 $form['enable_omega_badge'] = array(
   '#type' => 'checkbox',
   '#title' => t('Enable the "I Heart Omega 5" link'),
-  '#description' => t('This feature will add an awesome little link that proudly shows your support for <a href="http://drupal.org/project/omega">Omega</a> and links to the project page. It will look for common locations like "Footer Links" or the "Powered by Drupal" block to place a link/graphic.'),
+  '#description' => t('This feature will add an awesome little link that proudly shows your support for <a href="http://drupal.org/project/omega">Omega</a> and links to the project page. It will look for common locations like "Footer Links" or the "Powered by Drupal" block to place a link/graphic. Currently only alters the default Powered By block. <em>Caches must be cleared after this setting is changed to alter the block layout.</em>'),
   '#default_value' => isset($enable_omega_badge) ? $enable_omega_badge : TRUE,
   '#group' => 'options',
 );
-*/

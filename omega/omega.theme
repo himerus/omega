@@ -124,6 +124,7 @@ function omega_page_attachments_alter (&$attachments) {
     }
   }
   //dpm($attachments['#attached']['library']);
+  //dpm($attachments);
 } // END omega_page_attachments_alter
 
 /**
@@ -349,7 +350,17 @@ function omega_preprocess_node(&$vars) {
  * Implements hook_preprocess_HOOK() for block templates.
  */
 function omega_preprocess_block(&$vars) {
-  
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  switch ($vars['base_plugin_id']) {
+    case 'system_powered_by_block':
+      $enable_omega_badge = theme_get_setting('enable_omega_badge', $theme);
+      $add_omega_link = isset($enable_omega_badge) ? $enable_omega_badge : TRUE;
+      
+      if ($add_omega_link) {
+        $vars['content']['#markup'] = '<span>' . t('Powered by <a href=":poweredby">Drupal</a> and <a href=":omega">Omega Five</a>', array(':poweredby' => 'https://www.drupal.org', ':omega' => 'https://drupal.org/project/omega')) . '</span>';
+      }
+      break;
+  }
 } // END omega_preprocess_block
 
 /**

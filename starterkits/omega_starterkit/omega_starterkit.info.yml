@@ -6,6 +6,8 @@ version: VERSION
 base theme: omega
 core: 8.x
 force_export: false
+inherit_layout: false
+scss_support: false
 libraries:
   - omega_starterkit/omega_starterkit
 regions:

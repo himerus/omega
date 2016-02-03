@@ -4,6 +4,9 @@ omega:
     allow_enable_disable: false
     title: 'Core Omega styles and jQuery behaviors.'
     description: 'Primary Omega CSS & Javascript/jQuery. This file should not ever be disabled on a functioning Omega subtheme.'
+    scss: 
+      style/css/base.css: 'style/scss/base.scss'
+      style/css/layout/omega_default-layout.css: 'style/scss/layout/omega_default-layout.scss'
   version: VERSION
   js:
     js/omega.js: {}
@@ -29,6 +32,8 @@ omega_admin:
     allow_enable_disable: false
     title: 'Omega theme administration enhancements.'
     description: 'Primary Omega CSS & Javascript/jQuery updates for the administrative theme settings page. These updates allow the enhancements to the theme settings form to work properly. This file should not ever be disabled on a functioning Omega subtheme.'
+    scss: 
+      style/css/omega_admin.css: 'style/scss/omega_admin.scss'
   version: VERSION
   js: 
     js/omega_admin.js: {}
@@ -55,6 +60,8 @@ omega_html_elements:
     allow_enable_disable: true
     title: 'Basic HTML elements'
     description: 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.'
+    scss: 
+      style/css/html-elements.css: 'style/scss/elements/html-elements.scss'
   version: VERSION
   css: 
     component:
@@ -68,6 +75,8 @@ omega_branding:
     allow_enable_disable: true
     title: 'Branding area styles and enhancements'
     description: 'Provides basic layout and styling for logo area.'
+    scss: 
+      style/css/site-branding.css: 'style/scss/elements/site-branding.scss'
   version: VERSION
   css: 
     component:
@@ -81,6 +90,8 @@ omega_breadcrumbs:
     allow_enable_disable: true
     title: 'Breadcrumb styling'
     description: 'Basic breadcrumb styling.'
+    scss: 
+      style/css/breadcrumbs.css: 'style/scss/elements/breadcrumbs.scss'
   version: VERSION
   css: 
     component:
@@ -94,6 +105,8 @@ omega_main_menus:
     allow_enable_disable: true
     title: 'Main Menu styling'
     description: 'Basic layout and styling for main menu elements.'
+    scss: 
+      style/css/main-menus.css: 'style/scss/elements/main-menus.scss'
   version: VERSION
   css: 
     component:
@@ -107,6 +120,8 @@ omega_messages:
     allow_enable_disable: true
     title: 'Status message styles and enhancements'
     description: 'Custom styles for Drupal system messages.'
+    scss: 
+      style/css/messages.css: 'style/scss/elements/messages.scss'
   version: VERSION
   css: 
     component:
@@ -120,6 +135,8 @@ omega_pagers:
     allow_enable_disable: true
     title: 'Pager styles'
     description: 'Custom styles for Drupal pagers.'
+    scss: 
+      style/css/pagers.css: 'style/scss/elements/pagers.scss'
   version: VERSION
   css: 
     component:
@@ -133,6 +150,8 @@ omega_tabs:
     allow_enable_disable: true
     title: 'Administrative tab styles'
     description: 'Custom styles for Drupal tabs.'
+    scss: 
+      style/css/tabs.css: 'style/scss/elements/tabs.scss'
   version: VERSION
   css: 
     component:
@@ -146,6 +165,8 @@ omega_taxonomy_terms:
     allow_enable_disable: true
     title: 'Taxonomy Term styles'
     description: 'Custom styles for Drupal taxonomy listings on nodes.'
+    scss: 
+      style/css/taxonomy-terms.css: 'style/scss/elements/taxonomy-terms.scss'
   version: VERSION
   css: 
     component:
@@ -159,6 +180,8 @@ omega_forms:
     allow_enable_disable: true
     title: 'Clean form styling and behaviors'
     description: 'Clean, usable form styles to use as a default. Prevents common issues like form field overflowing containers, etc. Enabling this library will make all form types usable enough to use your theme as the content add/edit theme.'
+    scss: 
+      style/css/forms.css: 'style/scss/elements/forms.scss'
   version: VERSION
   css: 
     component:

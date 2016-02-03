@@ -5,7 +5,9 @@ use Drupal\omega\Theme\OmegaSettingsInfo;
   
 use Drupal\Core\Extension\Extension;
 use Drupal\Core\Extension\ExtensionDiscovery;
+
 use Drupal\system\Controller\ThemeController;
+use Drupal\Core\Theme\ThemeManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
   
 require_once(drupal_get_path('theme', 'omega') . '/omega-functions.php');
@@ -39,12 +41,30 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
   $force_theme_export = $themeSettings->info['force_export'];
   // get the value of 'inherit_layout' from THEME.info.yml
   $inherit_layout = $themeSettings->info['inherit_layout'];
+  // get the value of 'scss_support' from THEME.info.yml
+  $scss_support = $themeSettings->info['scss_support'];
   // get all the values of the submitted form
   $values = $form_state->getValues();
   // include the introduction message(s)
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/omega-intro.php');
   // include the adjustments to core system theme settings
   include_once(drupal_get_path('theme', 'omega') . '/theme-settings/core-settings.php');
+  
+  
+  //$test = \Drupal::theme()->getActiveTheme()->getLibrariesOverride();
+  //dpm($test);
+  //$variables = theme_get_setting('variables', $theme);
+  //dpm($variables);
+/*
+  $library_discovery = \Drupal::service('library.discovery');  
+  $testLibrary = $library_discovery->getLibraryByName('omega', 'omega_html_elements');
+  // only has original data
+  dpm($testLibrary);
+  
+  $library_discovery_parser = \Drupal::service('library.discovery.parser');  
+  $themeLibraries = $library_discovery_parser->buildByExtension('omega');
+  dpm($themeLibraries);
+*/
   
   if (!$force_theme_export) {
     
@@ -80,9 +100,10 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     // include the ability to enable/disable custom Omega stylesheets/javascripts
     include_once(drupal_get_path('theme', 'omega') . '/theme-settings/style-settings.php');
     
-    // include the ability to customize various scss variables to provide basic style adjustments
-    include_once(drupal_get_path('theme', 'omega') . '/theme-settings/scss-settings.php');
-    
+    if ($scss_support) {
+      // include the ability to customize various scss variables to provide basic style adjustments
+      include_once(drupal_get_path('theme', 'omega') . '/theme-settings/scss-settings.php');
+    }
     // include the ability to debug various theme development elements
     include_once(drupal_get_path('theme', 'omega') . '/theme-settings/debug-settings.php');
     
@@ -127,7 +148,7 @@ function omega_form_system_theme_settings_alter(&$form, &$form_state) {
     // copy the default submit button/handler
     $form['actions']['submit_layout'] = $form['actions']['submit'];
     // update the text for the new button
-    $form['actions']['submit_layout']['#value'] = t('Save & Generate Layout');
+    $form['actions']['submit_layout']['#value'] = t('Save & Update Styles');
     // update the submit handlers
     
     
@@ -237,6 +258,8 @@ function omega_theme_settings_submit(&$form, &$form_state) {
     // Save $layout to the database
     _omega_save_database_layout($layout, $layout_id, $theme, FALSE);
   }
+  
+  
 }
 
 function omega_theme_layout_build_validate(&$form, &$form_state) {
@@ -259,7 +282,7 @@ function omega_theme_layout_build_validate(&$form, &$form_state) {
  *    $theme.layout.$layout_id to contain individual layouts.
  *  - Passes $layout to _omega_compile_layout_sass to generate the appropriate SCSS
  *    based on settings provided
- *  - Passes returned SCSS to _omega_compile_layout_css to generate the appropriate CSS
+ *  - Passes returned SCSS to _omega_compile_css to generate the appropriate CSS
  *  - Passes returned SCSS and CSS to _omega_save_layout_files to generate new SCSS and CSS files
  */
 function omega_theme_layout_build_submit(&$form, &$form_state) {
@@ -298,5 +321,10 @@ function omega_theme_layout_build_submit(&$form, &$form_state) {
       _omega_compile_layout($layout, $layout_id, $theme);
     }  
   }
+  
+  // grab the value of layouts so we can update the $theme.layout.$layout_name
+  $styles = $values['variables'];
+  // run function to compile the style-vars.scss file with any updates.
+  _omega_update_style_scss($styles, $theme, FALSE);
 }
 

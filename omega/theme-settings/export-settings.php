@@ -99,30 +99,33 @@ $form['export']['export_options']['export_type'] = array(
 $omegaSubThemes = $omegaSettings->omegaSubthemesOptionsList();
 
 $form['export']['export_options']['export_theme_base'] = array(
-    '#type' => 'select',
-    '#options' => $omegaSubThemes,
-    '#title' => t('Omega Sub-Theme'),
-    // set $theme as default so if we are using the generator inside a subtheme, it will 
-    // auto select the current theme as the new base of a clone/kit.
-    '#default_value' => $theme,
-    '#suffix' => '</div>',
-  );
+  '#type' => 'select',
+  '#options' => $omegaSubThemes,
+  '#title' => t('Omega Sub-Theme'),
+  // set $theme as default so if we are using the generator inside a subtheme, it will 
+  // auto select the current theme as the new base of a clone/kit.
+  '#default_value' => $theme,
+  '#suffix' => '</div>',
+);
 
+// variable to represent state to apply to clone themes only
 $clone_state = array(
   'visible' => array(
     ':input[name="export[export_options][export_type]"]' => array('value' => 'clone'),
   ),
 );
+
+// variable to represent state to apply to sub-themes only
 $subtheme_state = array(
   'visible' => array(
-      ':input[name="export[export_options][export_type]"]' => array('value' => 'subtheme'),
-    ),
+    ':input[name="export[export_options][export_type]"]' => array('value' => 'subtheme'),
+  ),
 );
 
 $form['export']['export_options']['export_options_clone'] = array(
   '#type' => 'item',
   '#prefix' => '<div class="description omega-export-options">',
-  '#markup' => '<p>Creating a clone of a sub-theme will create a direct clone with no options for customization. The process will clone the entire directory, and search and replace machine names where appropriate to create a newly named theme identical in every way to the previous theme. This provides great potential for quick testing of a theme patch on your installation without risking any adverse effects on the primary theme.</p>',
+  '#markup' => '<p>Creating a clone of a sub-theme will create a direct clone with minimal options for customization. The process will clone the entire directory, and search and replace machine names where appropriate to create a newly named theme identical in every way to the previous theme. This provides great potential for quick testing of a theme patch on your installation without risking any adverse effects on the primary theme.</p>',
   '#suffix' => '</div>',
   '#states' => $clone_state,
 );
@@ -130,7 +133,7 @@ $form['export']['export_options']['export_options_clone'] = array(
 $form['export']['export_options']['export_options_kit'] = array(
   '#type' => 'item',
   '#prefix' => '<div class="description omega-export-options">',
-  '#markup' => '<p>Creating a sub-theme kit will present more options to enable/disable when customizing your new theme.</p>',
+  '#markup' => '<p>Creating a sub-theme will allow you to create a highly customized new theme based on another theme. The options available here will allow you to customize items like layout inheritance, template overrides, SCSS support and more. Each option includes a detailed description that should clarify exactly what will happen when selecting/deselecting an option.</p>',
   '#suffix' => '</div>',
   '#states' => $subtheme_state,
 );
@@ -158,7 +161,7 @@ $form['export']['export_options']['export_install_default'] = array(
 );
 
 $form['export']['export_options']['export_include_block_positions'] = array(
-  '#access' => FALSE,
+  '#access' => FALSE, // currently not implemented/working
   '#type' => 'checkbox',
   '#title' => t('Export block placements (still @todo/@tofix/@toinvesigate)'),
   '#description' => t('<p>This feature will copy all block placements from the base theme to ensure core blocks are placed properly by default.</p><p>This should not normally be needed if the theme you are using as your base theme has been installed and the new subtheme will inherit the same regions. This export feature, however will copy the latest block location placements to help ensure blocks appear in the correct regions.</p>'),
@@ -168,18 +171,25 @@ $form['export']['export_options']['export_include_block_positions'] = array(
 
 $form['export']['export_options']['export_inherit_layout'] = array(
   '#type' => 'checkbox',
-  '#title' => t('Inherit Layout from parent theme (still @todo/@tofix/@toinvesigate)'),
+  '#title' => t('Inherit Layout from parent theme'),
   '#description' => t('<p>When this option is unchecked, a copy of any layouts in the parent theme will be copied to the new subtheme, allowing each theme to have different layouts. When this option IS checked, all layout settings/css will be inherited from the parent theme. You would likely want this option checked if you are creating a very slim subtheme that will only have a few color changes made to it from the defaults copied/inherited from the parent theme and the layouts between the two themes will always remain consistent.</p><p><em>This also assumes that the regions between the subtheme and parent theme MUST match. If they do not match, unintended consequences are likely</em>.</p>'),
   '#default_value' => 0,
   '#states' => $subtheme_state,
 );
 
-$form['export']['export_options']['export_include_theme_settings_php'] = array(
+$form['export']['export_options']['export_include_templates'] = array(
   '#type' => 'checkbox',
-  '#title' => t('Include theme-settings.php'),
-  '#description' => t('This will create a blank theme-settings.php file in your new theme, and include basic hook information and usage.'),
+  '#title' => t('Include templates from parent theme.'),
+  '#description' => t('This will copy all files from the template folder of the parent theme to the subtheme. This will allow for detailed template customization for a subtheme without having to copy templates one by one for override. However, any template updates that are made to a parent theme would need to be then updated here. Use this with caution. Otherwise, the template folder will be empty by default and ready for selective copying of any needed overrides.'),
   '#default_value' => 0,
   '#states' => $subtheme_state,
+);
+
+$form['export']['export_options']['export_enable_scss_support'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Enable SCSS Customizations'),
+  '#description' => t('Enabling SCSS Customizations will enable the <strong>SCSS Variables</strong> tab in your new theme. This will allow you to alter colors, fonts, etc. from the interface. When a new theme is created with this option enabled, copies of all SCSS/CSS files from all parent themes will be copied to the new theme.'),
+  '#default_value' => 0,
 );
 
 $form['export']['export_options']['export_include_blank_library'] = array(
@@ -198,11 +208,10 @@ $form['export']['export_options']['export_include_themefile_samples'] = array(
   '#states' => $subtheme_state,
 );
 
-$form['export']['export_options']['export_include_templates'] = array(
+$form['export']['export_options']['export_include_theme_settings_php'] = array(
   '#type' => 'checkbox',
-  '#title' => t('Include templates from parent theme.'),
-  '#description' => t('This will copy all files from the template folder of the parent theme to the subtheme. This will allow for detailed template customization for a subtheme without having to copy templates one by one for override. However, any template updates that are made to a parent theme would need to be then updated here. Use this with caution. Otherwise, the template folder will be empty by default and ready for selective copying of any needed overrides.'),
+  '#title' => t('Include theme-settings.php'),
+  '#description' => t('This will create a blank theme-settings.php file in your new theme, and include basic hook information and usage.'),
   '#default_value' => 0,
   '#states' => $subtheme_state,
 );
-
