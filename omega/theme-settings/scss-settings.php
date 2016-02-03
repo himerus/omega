@@ -53,7 +53,7 @@ $form['variables']['colors']['primary'] = array(
 );
 
 //dpm($variables);
-$primaryColor1 = isset($variables['colors']['primary']['primaryColor1']) ? $variables['colors']['primaryColor1'] : '3a3a3a';
+$primaryColor1 = isset($variables['colors']['primaryColor1']) ? $variables['colors']['primaryColor1'] : '3a3a3a';
 $form['variables']['colors']['primary']['primaryColor1'] = array(
   '#type' => 'textfield',
   '#size' => 5, 
