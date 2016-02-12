@@ -1,4 +1,4 @@
-@import "mixins";
+@import "omega_mixins";
 
 /* Fonts */
 $light: "Helvetica Neue", Arial, Helvetica !default;
@@ -61,13 +61,13 @@ $siteTitleColor: rgba($primaryColor1, 1);
 $siteTitleHoverColor: rgba($primaryColor1, 0.85);
 $siteSloganColor: #777;
 
-$taxonomy-term--background: $primaryColor1;
-$taxonomy-term--font-color: $primaryColor3;
-$taxonomy-term--border: 1px solid darken($primaryColor1, 35%);
+$taxonomy-term--background: $primaryColor1 !default;
+$taxonomy-term--font-color: $primaryColor3 !default;
+$taxonomy-term--border: 1px solid darken($primaryColor1, 35%) !default;
 
-$taxonomy-term--hover--background: darken($primaryColor1, 10%);
-$taxonomy-term--hover--font-color: $primaryColor3;
-$taxonomy-term--hover--border: 1px solid darken($primaryColor1, 50%);
+$taxonomy-term--hover--background: darken($primaryColor1, 10%) !default;
+$taxonomy-term--hover--font-color: $primaryColor3 !default;
+$taxonomy-term--hover--border: 1px solid darken($primaryColor1, 50%) !default;
 
 
 

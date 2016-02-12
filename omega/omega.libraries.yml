@@ -61,11 +61,11 @@ omega_html_elements:
     title: 'Basic HTML elements'
     description: 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.'
     scss: 
-      style/css/html-elements.css: 'style/scss/elements/html-elements.scss'
+      style/css/elements/html-elements.css: 'style/scss/elements/html-elements.scss'
   version: VERSION
   css: 
     component:
-      style/css/html-elements.css: {}
+      style/css/elements/html-elements.css: {}
   dependencies:
     - omega/omega
     
@@ -76,11 +76,11 @@ omega_branding:
     title: 'Branding area styles and enhancements'
     description: 'Provides basic layout and styling for logo area.'
     scss: 
-      style/css/site-branding.css: 'style/scss/elements/site-branding.scss'
+      style/css/elements/site-branding.css: 'style/scss/elements/site-branding.scss'
   version: VERSION
   css: 
     component:
-      style/css/site-branding.css: {}
+      style/css/elements/site-branding.css: {}
   dependencies:
     - omega/omega
     
@@ -91,11 +91,11 @@ omega_breadcrumbs:
     title: 'Breadcrumb styling'
     description: 'Basic breadcrumb styling.'
     scss: 
-      style/css/breadcrumbs.css: 'style/scss/elements/breadcrumbs.scss'
+      style/css/elements/breadcrumbs.css: 'style/scss/elements/breadcrumbs.scss'
   version: VERSION
   css: 
     component:
-      style/css/breadcrumbs.css: {}
+      style/css/elements/breadcrumbs.css: {}
   dependencies:
     - omega/omega
     
@@ -106,11 +106,11 @@ omega_main_menus:
     title: 'Main Menu styling'
     description: 'Basic layout and styling for main menu elements.'
     scss: 
-      style/css/main-menus.css: 'style/scss/elements/main-menus.scss'
+      style/css/elements/main-menus.css: 'style/scss/elements/main-menus.scss'
   version: VERSION
   css: 
     component:
-      style/css/main-menus.css: {}
+      style/css/elements/main-menus.css: {}
   dependencies:
     - omega/omega
     
@@ -121,11 +121,11 @@ omega_messages:
     title: 'Status message styles and enhancements'
     description: 'Custom styles for Drupal system messages.'
     scss: 
-      style/css/messages.css: 'style/scss/elements/messages.scss'
+      style/css/elements/messages.css: 'style/scss/elements/messages.scss'
   version: VERSION
   css: 
     component:
-      style/css/messages.css: {}
+      style/css/elements/messages.css: {}
   dependencies:
     - omega/omega
     
@@ -136,11 +136,11 @@ omega_pagers:
     title: 'Pager styles'
     description: 'Custom styles for Drupal pagers.'
     scss: 
-      style/css/pagers.css: 'style/scss/elements/pagers.scss'
+      style/css/elements/pagers.css: 'style/scss/elements/pagers.scss'
   version: VERSION
   css: 
     component:
-      style/css/pagers.css: {}
+      style/css/elements/pagers.css: {}
   dependencies:
     - omega/omega
     
@@ -151,11 +151,11 @@ omega_tabs:
     title: 'Administrative tab styles'
     description: 'Custom styles for Drupal tabs.'
     scss: 
-      style/css/tabs.css: 'style/scss/elements/tabs.scss'
+      style/css/elements/tabs.css: 'style/scss/elements/tabs.scss'
   version: VERSION
   css: 
     component:
-      style/css/tabs.css: {}
+      style/css/elements/tabs.css: {}
   dependencies:
     - omega/omega
     
@@ -166,11 +166,11 @@ omega_taxonomy_terms:
     title: 'Taxonomy Term styles'
     description: 'Custom styles for Drupal taxonomy listings on nodes.'
     scss: 
-      style/css/taxonomy-terms.css: 'style/scss/elements/taxonomy-terms.scss'
+      style/css/elements/taxonomy-terms.css: 'style/scss/elements/taxonomy-terms.scss'
   version: VERSION
   css: 
     component:
-      style/css/taxonomy-terms.css: {}
+      style/css/elements/taxonomy-terms.css: {}
   dependencies:
     - omega/omega
 
@@ -181,10 +181,10 @@ omega_forms:
     title: 'Clean form styling and behaviors'
     description: 'Clean, usable form styles to use as a default. Prevents common issues like form field overflowing containers, etc. Enabling this library will make all form types usable enough to use your theme as the content add/edit theme.'
     scss: 
-      style/css/forms.css: 'style/scss/elements/forms.scss'
+      style/css/elements/forms.css: 'style/scss/elements/forms.scss'
   version: VERSION
   css: 
     component:
-      style/css/forms.css: {}
+      style/css/elements/forms.css: {}
   dependencies:
     - omega/omega

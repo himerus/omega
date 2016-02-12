@@ -20,7 +20,8 @@ function _omega_update_style_scss($styles, $theme, $generate = FALSE) {
   // create full paths to the scss and css files we will be rendering.
   $styleFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/style-vars.scss';
   
-  $styleData = '
+  $styleData = '@import "omega_mixins";
+  
 // Basic Color Variables 
 ';
   
@@ -91,31 +92,49 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
       else {
         if (pathinfo($file, PATHINFO_EXTENSION) == $filetype) {
           
-          
+          $omegaPath = realpath(".") . base_path() . drupal_get_path('theme', 'omega');
+          $themePath = realpath(".") . base_path() . drupal_get_path('theme', $theme);
           // Options for phpsass compiler. Defaults in SassParser.php
           $options = array(
             'style' => 'nested',
             'cache' => FALSE,
+            'load_paths' => array(
+              $themePath . '/style/scss',
+              $omegaPath . '/style/scss',
+            ),
             'syntax' => 'scss',
             'debug' => TRUE,
           );
-          //$parser = new SassParser($options);
+          //dpm($options);
+          $parser = new SassParser($options);
           //$scssStyleUpdate = new SassFile;
           //$gsscss = $scssStyleUpdate->get_file_contents($file, $parser);
           //dpm($file);
-          $omegaMixins = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/mixins.scss';
-          $omegaVars = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/vars.scss';
-          $styleVars = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/style-vars.scss';
+          
+          $omegaMixins = $omegaPath . '/style/scss/mixins.scss';
+          $omegaVars = $omegaPath . '/style/scss/vars.scss';
+          $styleVars = $themePath . '/style/scss/style-vars.scss';
           $fileLocation = $source . '/' . $file;
           $variableFile = new SassFile;
-          $variableScss = $variableFile->get_file_contents($omegaMixins, $parser);
-          $variableScss .= $variableFile->get_file_contents($styleVars, $parser);
-          $variableScss .= $variableFile->get_file_contents($omegaVars, $parser);
+          //dpm($variableFile);
+          $variableScss = '';
+ 
+ 
+          //$variableScss .= $variableFile->get_file_contents($omegaMixins, $parser);
+
+          //$variableScss .= $variableFile->get_file_contents($omegaVars, $parser);
+          
+          //$variableScss .= $variableFile->get_file_contents($styleVars, $parser);
           $variableScss .= $variableFile->get_file_contents($fileLocation, $parser);
+          
+          
+          
           $css = _omega_compile_css($variableScss, $options);
           
           // path to CSS file we're overriding
-          $newCssFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/css/' . str_replace('scss', 'css', $file);
+          //$newCssFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/css/' . str_replace('scss', 'css', $file);
+          
+          $newCssFile = str_replace('scss', 'css', $fileLocation);
           //dpm($newCssFile);
           // save the css file
           $cssfile = file_unmanaged_save_data($css, $newCssFile, FILE_EXISTS_REPLACE);
@@ -228,7 +247,7 @@ function _omega_compile_layout($layout, $layout_id, $theme) {
 function _omega_compile_css($scss, $options) {
   $parser = new SassParser($options);
   // create CSS from SCSS
-  $css = $parser->toCss($scss, false);
+  $css = $parser->toCss($scss, true);
   return $css;
 }
 
