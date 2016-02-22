@@ -1,7 +1,5 @@
 <?php
-
-namespace Drupal\omega\phpsass;
-
+/* SVN FILE: $Id: SassDebugNode.php 49 2010-04-04 10:51:24Z chris.l.yates $ */
 /**
  * SassDebugNode class file.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -39,12 +37,12 @@ class SassDebugNode extends SassNode
 
   /**
    * SassDebugNode.
-   * @param object source token
+   * @param object $token source token
    * @param mixed string: an internally generated warning message about the
    * source
    * boolean: the source token is a @debug or @warn directive containing the
    * message; True if this is a @warn directive
-   * @param array parameters for the message
+   * @param array $message parameters for the message
    * @return SassDebugNode
    */
   public function __construct($token, $message = false)
@@ -85,8 +83,8 @@ class SassDebugNode extends SassNode
 
   /**
    * Error handler for degug and warning statements.
-   * @param int Error number
-   * @param string Message
+   * @param int $errno Error number
+   * @param string $message Message
    */
   public function errorHandler($errno, $message)
   {

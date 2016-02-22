@@ -1,7 +1,7 @@
 <?php
 
-use Drupal\omega\phpsass\SassParser;
-use Drupal\omega\phpsass\SassFile;
+require_once(drupal_get_path('theme', 'omega') . '/src/phpsass/SassParser.php');
+require_once(drupal_get_path('theme', 'omega') . '/src/phpsass/SassFile.php');
 
 use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
 use Drupal\Component\Serialization\Yaml;
@@ -96,12 +96,13 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
           $themePath = realpath(".") . base_path() . drupal_get_path('theme', $theme);
           // Options for phpsass compiler. Defaults in SassParser.php
           $options = array(
-            'style' => 'nested',
+            'style' => 'expanded',
             'cache' => FALSE,
             'load_paths' => array(
               $themePath . '/style/scss',
               $omegaPath . '/style/scss',
             ),
+            //'extensions'     =>  array('compass'=>array()),
             'syntax' => 'scss',
             'debug' => TRUE,
           );
@@ -247,7 +248,7 @@ function _omega_compile_layout($layout, $layout_id, $theme) {
 function _omega_compile_css($scss, $options) {
   $parser = new SassParser($options);
   // create CSS from SCSS
-  $css = $parser->toCss($scss, true);
+  $css = $parser->toCss($scss);
   return $css;
 }
 

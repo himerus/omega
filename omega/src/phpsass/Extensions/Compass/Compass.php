@@ -135,25 +135,7 @@ class Compass implements ExtensionInterface
      */
     public static function compassResolvePath($file)
     {
-        if ($file{0} == '/') {
-            return $file;
-        }
-        if (!$path = realpath($file)) {
-            $path = SassScriptFunction::$context->node->token->filename;
-            $path = substr($path, 0, strrpos($path, '/')) . '/';
-            $path = $path . $file;
-            $last = '';
-            while ($path != $last) {
-                $last = $path;
-                $path = preg_replace('`(^|/)(?!\.\./)([^/]+)/\.\./`', '$1', $path);
-            }
-            $path = realpath($path);
-        }
-        if ($path) {
-            return $path;
-        }
-        
-        return false;
+        return ($path = SassFile::get_file($file, SassParser::$instance, false))?$path[0]:false;
     }
 
     public static function compassImageWidth($file)
@@ -594,6 +576,7 @@ class Compass implements ExtensionInterface
         if ($only_path) {
             return new SassString($path);
         }
+        $path = str_replace(DIRECTORY_SEPARATOR, "/", $path);
 
         return new SassString("url('$path')");
     }

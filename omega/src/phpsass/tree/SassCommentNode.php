@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\omega\phpsass;
+
 /**
  * SassCommentNode class file.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -25,8 +25,7 @@ class SassCommentNode extends SassNode
 
   /**
    * SassCommentNode constructor.
-   * @param object source token
-   * @return CommentNode
+   * @param object $token source token
    */
   public function __construct($token)
   {
@@ -42,6 +41,7 @@ class SassCommentNode extends SassNode
 
   /**
    * Parse this node.
+   * @param mixed $context
    * @return array the parsed node - an empty array
    */
   public function parse($context)
@@ -60,7 +60,7 @@ class SassCommentNode extends SassNode
 
   /**
    * Returns a value indicating if the token represents this type of node.
-   * @param object token
+   * @param object $token token
    * @return boolean true if the token represents this type of node, false if not
    */
   public static function isa($token)

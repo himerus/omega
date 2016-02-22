@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\omega\phpsass;
+
 /**
  * SassNode exception classes.
  * @author      Chris Yates <chris.l.yates@gmail.com>

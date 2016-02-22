@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\omega\phpsass;
+
 /**
  * Sass literal exception classes.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -31,6 +31,13 @@ class SassBooleanException extends SassLiteralException {}
  * @subpackage  Sass.script.literals
  */
 class SassColourException extends SassLiteralException {}
+
+/**
+ * SassListException class.
+ * @package      PHamlP
+ * @subpackage  Sass.script.literals
+ */
+class SassListException extends SassLiteralException {}
 
 /**
  * SassNumberException class.

@@ -5,7 +5,7 @@ function loadCallback($file, $parser)
     foreach ($parser->extensions as $extensionName) {
         $namespace = ucwords(preg_replace('/[^0-9a-z]+/', '_', strtolower($extensionName)));
         $extensionPath = realpath(__DIR__.'/../' . $namespace . '/' . $namespace . '.php');
-        if (file_exists($extensionPath)) {
+        if (is_file($extensionPath)) {
             require_once($extensionPath);
             $hook = $namespace . '::resolveExtensionPath';
             $returnPath = call_user_func($hook, $file, $parser);

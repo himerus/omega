@@ -5,7 +5,7 @@ function loadCallback($file, $parser)
     foreach ($parser->extensions as $extensionName) {
         $namespace = ucwords(preg_replace('/[^0-9a-z]+/', '_', strtolower($extensionName)));
         $extensionPath = './' . $namespace . '/' . $namespace . '.php';
-        if (file_exists($extensionPath)) {
+        if (is_file($extensionPath)) {
             require_once($extensionPath);
             $hook = $namespace . '::resolveExtensionPath';
             $returnPath = call_user_func($hook, $file, $parser);
@@ -27,7 +27,7 @@ function getFunctions($extensions)
             $name = explode('/', $extension, 2);
             $namespace = ucwords(preg_replace('/[^0-9a-z]+/', '_', strtolower(array_shift($name))));
             $extensionPath = './' . $namespace . '/' . $namespace . '.php';
-            if (file_exists(
+            if (is_file(
                 $extensionPath
             )
             ) {
@@ -46,7 +46,7 @@ $file = 'example.scss';
 $path = '../';
 $library = $path . '/SassParser.php';
 
-if ($path && file_exists($library)) {
+if ($path && is_file($library)) {
 
     try {
         require_once ($library);

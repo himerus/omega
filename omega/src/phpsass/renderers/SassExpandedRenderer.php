@@ -1,7 +1,5 @@
 <?php
 
-namespace Drupal\omega\phpsass;
-
 /**
  * SassExpandedRenderer class file.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -43,7 +41,7 @@ class SassExpandedRenderer extends SassCompactRenderer
 
   /**
    * Renders a comment.
-   * @param SassNode the node being rendered
+   * @param SassNode $node the node being rendered
    * @return string the rendered commnt
    */
   public function renderComment($node)
@@ -59,7 +57,8 @@ class SassExpandedRenderer extends SassCompactRenderer
 
   /**
    * Renders properties.
-   * @param array properties to render
+   * @param mixed $node
+   * @param array $properties properties to render
    * @return string the rendered properties
    */
   public function renderProperties($node, $properties)

@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\omega\phpsass;
+
 /**
  * SassScriptLexer class file.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -52,8 +52,8 @@ class SassScriptLexer
 
   /**
    * Lex an expression into SassScript tokens.
-   * @param string expression to lex
-   * @param SassContext the context in which the expression is lexed
+   * @param string $string expression to lex
+   * @param SassContext $context the context in which the expression is lexed
    * @return array tokens
    */
   public function lex($string, $context)
@@ -65,6 +65,7 @@ class SassScriptLexer
     if (is_array($string)) {
       return $string;
     }
+	$tokens = array();
     // whilst the string is not empty, split it into it's tokens.
     while ($string !== false) {
       if (($match = $this->isWhitespace($string)) !== false) {
@@ -125,7 +126,7 @@ class SassScriptLexer
   /**
    * Returns a value indicating if a token of this type can be matched at
    * the start of the subject string.
-   * @param string the subject string
+   * @param string $subject the subject string
    * @return mixed match at the start of the string or false if no match
    */
   public function isWhitespace($subject)

@@ -1,6 +1,4 @@
 <?php
-namespace Drupal\omega\phpsass;
-use Exception;
 
 /**
  * SassReturnNode class file.
@@ -25,13 +23,13 @@ class SassReturnNode extends SassNode
   const STATEMENT = 2;
 
   /**
-   * @var statement to execute and return
+   * @var mixed statement to execute and return
    */
   private $statement;
 
   /**
    * SassReturnNode constructor.
-   * @param object source token
+   * @param object $token source token
    * @return SassReturnNode
    */
   public function __construct($token)
@@ -50,7 +48,8 @@ class SassReturnNode extends SassNode
    * Parse this node.
    * Set passed arguments and any optional arguments not passed to their
    * defaults, then render the children of the return definition.
-   * @param SassContext the context in which this node is parsed
+   * @param SassContext $pcontext the context in which this node is parsed
+   * @throws SassReturn
    * @return array the parsed node
    */
   public function parse($pcontext)
@@ -70,7 +69,7 @@ class SassReturnNode extends SassNode
 
   /**
    * Returns a value indicating if the token represents this type of node.
-   * @param object token
+   * @param object $token token
    * @return boolean true if the token represents this type of node, false if not
    */
   public static function isa($token)

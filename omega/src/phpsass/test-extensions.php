@@ -23,7 +23,7 @@
      *  Testing is eased by stripping out all whitespace, which may
      *  introduce bugs of their own.
      */
-    include 'SassParser.php';
+    require 'SassParser.php';
 
     $test_dir = './tests/extensions';
     $extensions_dir = new DirectoryIterator('./Extensions');
@@ -58,6 +58,7 @@
     }
 
     function test_files($files, $dir = '.') {
+	  $result = null;
       sort($files);
       foreach ($files as $i => $file) {
         $name = explode('.', $file);
@@ -74,7 +75,7 @@
         }
       }
       
-      $diff = exec('diff -ibwB /tmp/scss_test_0 /tmp/scss_test_1', $out);
+      exec('diff -ibwB /tmp/scss_test_0 /tmp/scss_test_1', $out);
       if (count($out)) {
         if (isset($_GET['full'])) {
           $out[] = "\n\n\n" . $result;
@@ -101,8 +102,8 @@
     	foreach ($extensions_dir as $item) {
     		if ($item->isDir() && !$item->isDot()) {
     			$extensionTest = $item->getRealPath().'/test.php';
-    			if (file_exists($extensionTest)) {
-    				$result =  include $extensionTest;
+    			if (is_file($extensionTest)) {
+    				$result =  require $extensionTest;
     				return $result;
     			}
     		}

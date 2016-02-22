@@ -38,7 +38,7 @@ class PHPSass_TestCase extends PHPUnit_Framework_TestCase
 
     }
     // Try to use libraries first.
-    elseif (($library_path = dirname(__FILE__) . '/..') && file_exists($library_path . '/SassParser.php')) {
+    elseif (($library_path = dirname(__FILE__) . '/..') && is_file($library_path . '/SassParser.php')) {
       $this->phpsass_library_path = $library_path;
     }
 

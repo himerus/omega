@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\omega\phpsass;
+
 /**
  * SassFunctionDefinitionNode class file.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -37,7 +37,7 @@ class SassFunctionDefinitionNode extends SassNode
 
   /**
    * SassFunctionDefinitionNode constructor.
-   * @param object source token
+   * @param object $token source token
    * @return SassFunctionDefinitionNode
    */
   public function __construct($token)
@@ -65,7 +65,7 @@ class SassFunctionDefinitionNode extends SassNode
   /**
    * Parse this node.
    * Add this function to  the current context.
-   * @param SassContext the context in which this node is parsed
+   * @param SassContext $context the context in which this node is parsed
    * @return array the parsed node - an empty array
    */
   public function parse($context)
@@ -86,7 +86,7 @@ class SassFunctionDefinitionNode extends SassNode
 
   /**
    * Returns a value indicating if the token represents this type of node.
-   * @param object token
+   * @param object $token token
    * @return boolean true if the token represents this type of node, false if not
    */
   public static function isa($token)
@@ -105,8 +105,6 @@ class SassFunctionDefinitionNode extends SassNode
   {
     list($arguments, $context) = SassScriptFunction::fill_parameters($this->args, $provided, $pcontext, $this);
     $context->setVariables($arguments);
-
-    $parser = $this->parent->parser;
 
     $children = array();
     try {

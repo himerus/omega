@@ -1,7 +1,5 @@
 <?php
-
-namespace Drupal\omega\phpsass;
-
+/* SVN FILE: $Id: SassIfNode.php 49 2010-04-04 10:51:24Z chris.l.yates $ */
 /**
  * SassElseNode class file.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -22,7 +20,7 @@ class SassElseNode extends SassIfNode
 {
   /**
    * SassElseNode constructor.
-   * @param object source token
+   * @param object $token source token
    * @return SassElseNode
    */
   public function __construct($token)

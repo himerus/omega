@@ -1,7 +1,5 @@
 <?php
-
-namespace Drupal\omega\phpsass;
-
+/* SVN FILE: $Id: SassMediaNode.php 49 2010-04-04 10:51:24Z chris.l.yates $ */
 /**
  * SassMediaNode class file.
  * @author      Richard Lyon
@@ -20,7 +18,7 @@ namespace Drupal\omega\phpsass;
 class SassMediaNode extends SassNode
 {
   const IDENTIFIER = '@';
-  const MATCH = '/^@(media)\s+(.+?)\s*;?$/';
+  const MATCH = '/^@(media|supports)\s+(.+?)\s*;?$/';
   const MEDIA = 1;
 
   public $token;
@@ -41,12 +39,11 @@ class SassMediaNode extends SassNode
 
   /**
    * SassMediaNode.
-   * @param object source token
+   * @param object $token source token
    * @param mixed string: an internally generated warning message about the
    * source
    * boolean: the source token is a @Media or @warn directive containing the
    * message; True if this is a @warn directive
-   * @param array parameters for the message
    * @return SassMediaNode
    */
   public function __construct($token)

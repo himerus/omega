@@ -1,7 +1,5 @@
 <?php
 
-namespace Drupal\omega\phpsass;
-
 /**
  * SassCompactRenderer class file.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -48,7 +46,7 @@ class SassCompactRenderer extends SassCompressedRenderer
    * Renders a comment.
    * Comments preceeding a rule are on their own line.
    * Comments within a rule are on the same line as the rule.
-   * @param SassNode the node being rendered
+   * @param SassNode $node the node being rendered
    * @return string the rendered commnt
    */
   public function renderComment($node)
@@ -60,8 +58,8 @@ class SassCompactRenderer extends SassCompressedRenderer
 
   /**
    * Renders a directive.
-   * @param SassNode the node being rendered
-   * @param array properties of the directive
+   * @param SassNode $node the node being rendered
+   * @param array $properties properties of the directive
    * @return string the rendered directive
    */
   public function renderDirective($node, $properties)
@@ -72,8 +70,8 @@ class SassCompactRenderer extends SassCompressedRenderer
 
   /**
    * Renders properties.
-   * @param SassNode the node being rendered
-   * @param array properties to render
+   * @param SassNode $node the node being rendered
+   * @param array $properties properties to render
    * @return string the rendered properties
    */
   public function renderProperties($node, $properties)
@@ -83,7 +81,7 @@ class SassCompactRenderer extends SassCompressedRenderer
 
   /**
    * Renders a property.
-   * @param SassNode the node being rendered
+   * @param SassNode $node the node being rendered
    * @return string the rendered property
    */
   public function renderProperty($node)
@@ -95,9 +93,9 @@ class SassCompactRenderer extends SassCompressedRenderer
 
   /**
    * Renders a rule.
-   * @param SassNode the node being rendered
-   * @param array rule properties
-   * @param string rendered rules
+   * @param SassNode $node the node being rendered
+   * @param array $properties rule properties
+   * @param string $rules rendered rules
    * @return string the rendered rule
    */
   public function renderRule($node, $properties, $rules)
@@ -113,7 +111,7 @@ class SassCompactRenderer extends SassCompressedRenderer
    * {@link https://addons.mozilla.org/en-US/firefox/addon/103988/ FireSass}.
    * Else if the node has the line_numbers option set true the line number and
    * filename are rendered in a comment.
-   * @param SassNode the node being rendered
+   * @param SassNode $node the node being rendered
    * @return string the debug information
    */
   protected function renderDebug($node)
@@ -121,13 +119,12 @@ class SassCompactRenderer extends SassCompressedRenderer
     $indent = $this->getIndent($node);
     $debug = '';
 
-    if ($node->debug_info) {
-
-      $debug  = $indent . self::DEBUG_INFO_RULE . '{';
+    if ($node->getDebug_info()) {
+      $debug .= $indent . self::DEBUG_INFO_RULE . '{';
       $debug .= 'filename{' . self::DEBUG_INFO_PROPERTY . ':' . preg_replace('/([^-\w])/', '\\\\\1', "file://{$node->filename}") . ';}';
       $debug .= 'line{' . self::DEBUG_INFO_PROPERTY . ":'{$node->line}';}";
       $debug .= "}\n";
-    } elseif ($node->line_numbers) {
+    } elseif ($node->getLine_numbers()) {
       $debug .= "$indent/* line {$node->line} {$node->filename} */\n";
     }
 
@@ -136,11 +133,18 @@ class SassCompactRenderer extends SassCompressedRenderer
 
   /**
    * Renders rule selectors.
-   * @param SassNode the node being rendered
+   * @param SassNode $node the node being rendered
    * @return string the rendered selectors
    */
-  protected function renderSelectors($node)
-  {
-    return join(', ', $node->selectors);
-  }
+    protected function renderSelectors($node)
+    {
+      $selectors = array();
+      foreach ($node->selectors as $selector) {
+        if (!$node->isPlaceholder($selector)) {
+          $selectors[] = $selector;
+        }
+      }
+
+      return join(', ', $selectors);
+    }
 }

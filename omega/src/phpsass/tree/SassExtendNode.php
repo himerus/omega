@@ -1,7 +1,5 @@
 <?php
-
-namespace Drupal\omega\phpsass;
-
+/* SVN FILE: $Id: SassExtendNode.php 49 2010-04-04 10:51:24Z chris.l.yates $ */
 /**
  * SassExtendNode class file.
  * @author      Chris Yates <chris.l.yates@gmail.com>
@@ -30,7 +28,7 @@ class SassExtendNode extends SassNode
 
   /**
    * SassExtendNode.
-   * @param object source token
+   * @param object $token source token
    * @return SassExtendNode
    */
   public function __construct($token)

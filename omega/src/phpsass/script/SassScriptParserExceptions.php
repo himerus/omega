@@ -1,6 +1,4 @@
 <?php
-namespace Drupal\omega\phpsass;
-use Exception;
 
 /**
  * SassScript Parser exception class file.
