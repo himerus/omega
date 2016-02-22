@@ -94,17 +94,28 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
           
           $omegaPath = realpath(".") . base_path() . drupal_get_path('theme', 'omega');
           $themePath = realpath(".") . base_path() . drupal_get_path('theme', $theme);
+          
+          
+          $relativeSource = str_replace(realpath(".") . base_path() . drupal_get_path('theme', $theme), '', $source);
+          
+          
           // Options for phpsass compiler. Defaults in SassParser.php
           $options = array(
             'style' => 'expanded',
             'cache' => FALSE,
+            'debug' => FALSE,
+            'filename' => array(
+              'dirname' => $relativeSource, 
+              'basename' => $file
+            ),
+            'debug_info' => FALSE,
+            'line_numbers' => TRUE,
             'load_paths' => array(
               $themePath . '/style/scss',
               $omegaPath . '/style/scss',
             ),
             //'extensions'     =>  array('compass'=>array()),
             'syntax' => 'scss',
-            'debug' => TRUE,
           );
           //dpm($options);
           $parser = new SassParser($options);
