@@ -1,0 +1,23 @@
+{
+  "name": "drupal/omega",
+  "type": "drupal-theme",
+  "description": "Omega Five base theme for Drupal 8.",
+  "keywords": ["theme", "base theme", "drupal", "omega"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/omega",
+  "minimum-stability": "8.*",
+  "support": {
+    "issues": "http://drupal.org/project/issues/omega",
+    "source": "https://www.drupal.org/project/omega"
+  },
+  "authors": [
+    {
+      "name": "Jake Strawn",
+      "homepage": "http://drupal.org/u/himerus",
+      "role": "Maintainer"
+    }
+  ],
+  "require": {
+    /*"drupal/MODULE": "8.*",*/
+  }
+}
