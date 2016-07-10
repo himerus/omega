@@ -3,18 +3,21 @@
 // Include Breakpoint Functionality
 use Drupal\breakpoint;
 use Drupal\omega\Theme\OmegaSettingsInfo;
-//use Drupal\views\Views;
 
 /**
  * Function returns the trimmed name of the breakpoint id
  * converting omega.standard.all to simply 'all'
+ * @param \Drupal\breakpoint\Breakpoint $breakpoint
+ * @return mixed
  */
-function omega_return_clean_breakpoint_id($breakpoint) {
+function omega_return_clean_breakpoint_id(\Drupal\breakpoint\Breakpoint $breakpoint) {
   return str_replace($breakpoint->getGroup() . '.', "", $breakpoint->getBaseId());
 }
 
 /**
  * Custom function to return the available layouts (and config) for a given Omega theme/subtheme
+ * @param $theme
+ * @return array|mixed|null
  */
 function omega_return_layouts($theme) {
   
@@ -35,6 +38,8 @@ function omega_return_layouts($theme) {
 /**
  * Custom function to return the theme that is providing a layout
  * This is either the theme itself ($theme) or a parent theme
+ * @param $theme
+ * @return int|string
  */
 function omega_find_layout_provider($theme) {
   // Create Omega Settings Object
@@ -61,8 +66,7 @@ function omega_find_layout_provider($theme) {
       //dpm($baseKey);
       $baseThemeSettings = $omegaSettings->getThemeInfo($baseKey);
       $base_inherit_layout = $baseThemeSettings->info['inherit_layout'];
-      //dpm($baseThemeSettings);
-      
+
       if (!$base_inherit_layout) {
         // we've found the first base theme in the chain that does provide its own layout
         // so we will return the key of that theme to use.
@@ -75,8 +79,8 @@ function omega_find_layout_provider($theme) {
   else {
     return $theme;
   }
-  
   //$provider = theme_get_setting($layout, $theme);
+  return FALSE;
 }
 
 /**
@@ -87,7 +91,7 @@ function omega_return_active_layout() {
   $front = \Drupal::service('path.matcher')->isFrontPage();
   $node = \Drupal::routeMatch()->getParameter('node');
   $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
-  //$view = \Drupal::routeMatch()->getParameter('view_id');
+  /*$view = \Drupal::routeMatch()->getParameter('view_id');*/
   
   $layoutProvider = omega_find_layout_provider($theme);
   //dpm($layoutProvider);
@@ -137,17 +141,22 @@ function omega_return_active_layout() {
 /**
  *  Takes $theme as argument, and returns ALL breakpoint groups available to this theme
  *  which includes breakpoints defined by the theme itself or any base theme of this theme
+ * @param $theme
+ * @return mixed
  */
 function _omega_getAvailableBreakpoints($theme) {
   // Check for breakpoints module and set a warning and a flag to disable much of the theme settings if its not available
   $breakpoints_module = \Drupal::moduleHandler()->moduleExists('breakpoint');
-  
+  $breakpoint_groups = array();
+  $breakpoint_options = array();
   if ($breakpoints_module == TRUE) {
     // get all the breakpoint groups available to Drupal
     $all_breakpoint_groups = \Drupal::service('breakpoint.manager')->getGroups();
     // get all the base themes of this theme    
     $baseThemes = \Drupal::theme()->getActiveTheme()->getBaseThemes();
     //dpm($baseThemes);
+    $debug = \Drupal::theme()->getActiveTheme()->getExtension();
+
     $theme_ids = array(
       $theme => \Drupal::theme()->getActiveTheme()->getExtension()->info['name']
     );
@@ -158,7 +167,6 @@ function _omega_getAvailableBreakpoints($theme) {
     }
     
     //dpm($theme_ids);
-    
     // cycle all the breakpoint groups and see if they are a part of this theme or its base theme(s)
     foreach ($all_breakpoint_groups as $group_key => $group_values) {
       // get the theme name that provides this breakpoint group
@@ -169,8 +177,6 @@ function _omega_getAvailableBreakpoints($theme) {
         $breakpoint_groups[$group_key] = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($group_key);
       }
     }
-    
-    //dpm($breakpoint_groups);
     
     foreach($breakpoint_groups as $group => $breakpoint_values)  {
       if ($breakpoint_values !== array()) {
@@ -205,9 +211,11 @@ function _omega_getActiveBreakpoints($layout, $theme) {
   }
 }
 
-/** 
+/**
  *  Returns array of optional Libraries that can be enabled/disabled in theme settings
  *  for Omega, and Omega sub-themes. The listings here are tied to entries in omega.libraries.yml.
+ * @param $theme
+ * @return array
  */
 
 function _omega_optional_libraries($theme) {

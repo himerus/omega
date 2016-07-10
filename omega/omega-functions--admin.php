@@ -1,13 +1,12 @@
 <?php
 
-require_once(drupal_get_path('theme', 'omega') . '/src/phpsass/SassParser.php');
-require_once(drupal_get_path('theme', 'omega') . '/src/phpsass/SassFile.php');
+/**
+ * @file
+ * Functions to support administrative actions in the Omega theme.
+ */
 
-use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
-use Drupal\Component\Serialization\Yaml;
-
-
-
+require_once('src/phpsass/SassParser.php');
+require_once('src/phpsass/SassFile.php');
 
 function _omega_update_style_scss($styles, $theme, $generate = FALSE) {
   // get a list of themes
@@ -117,40 +116,22 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
             //'extensions'     =>  array('compass'=>array()),
             'syntax' => 'scss',
           );
-          //dpm($options);
+
           $parser = new SassParser($options);
-          //$scssStyleUpdate = new SassFile;
-          //$gsscss = $scssStyleUpdate->get_file_contents($file, $parser);
-          //dpm($file);
-          
+
           $omegaMixins = $omegaPath . '/style/scss/mixins.scss';
           $omegaVars = $omegaPath . '/style/scss/vars.scss';
           $styleVars = $themePath . '/style/scss/style-vars.scss';
           $fileLocation = $source . '/' . $file;
           $variableFile = new SassFile;
-          //dpm($variableFile);
           $variableScss = '';
- 
- 
-          //$variableScss .= $variableFile->get_file_contents($omegaMixins, $parser);
-
-          //$variableScss .= $variableFile->get_file_contents($omegaVars, $parser);
-          
-          //$variableScss .= $variableFile->get_file_contents($styleVars, $parser);
           $variableScss .= $variableFile->get_file_contents($fileLocation, $parser);
-          
-          
-          
           $css = _omega_compile_css($variableScss, $options);
           
           // path to CSS file we're overriding
-          //$newCssFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/css/' . str_replace('scss', 'css', $file);
-          
           $newCssFile = str_replace('scss', 'css', $fileLocation);
-          //dpm($newCssFile);
           // save the css file
           $cssfile = file_unmanaged_save_data($css, $newCssFile, FILE_EXISTS_REPLACE);
-          
           // check for errors
           if ($cssfile) {
             drupal_set_message(t('CSS file saved: <strong>'.str_replace(realpath(".") . base_path(), "", $cssfile).'</strong>'));
@@ -158,8 +139,6 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
           else {
             drupal_set_message(t('WTF005: CSS save error... : function scssDirectoryScan()'), 'error');
           }
-          //dpm($variableScss);
-          //dpm($css);
         }
       }
     }
@@ -180,6 +159,11 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
  *    - saved to 'config' table on theme install through $theme.layout.$layout_id.yml
  *  - $theme.layout.$layout_id.generated = latest layout configuration changes to be generated into SCSS/CSS
  *    - saved/updated to 'config' table after "Save & Generate Layout" is called
+ * @param $layout
+ * @param $layout_id
+ * @param $theme
+ * @param bool $generate
+ * @return bool
  */
 function _omega_save_database_layout($layout, $layout_id, $theme, $generate = FALSE) {
   // Grab the editable configuration objects
@@ -197,7 +181,7 @@ function _omega_save_database_layout($layout, $layout_id, $theme, $generate = FA
     // drupal_set_message(t('The layout <strong>' . $layout_id . '</strong> matches the version already stored at <strong>' . $theme . '.layout.' . $layout_id . '</strong>. No save on this layout was performed.'));
   }
   else {
-    // updates found, proceed
+    /* updates found, proceed */
     
     // Set the value to $layout
     $layoutConfig->setData($layout);
@@ -317,12 +301,8 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
     
     // loop over the region groups
     foreach ($region_groups as $gid => $info ) {
-      // add row mixin
-
-
-
+      /* add row mixin */
       // @todo change $layout['region_groups'][$idtrim][$gid] to $info
-
       $rowname = str_replace("_", "-", $gid) . '-layout';
       $rowval = $layout['region_groups'][$idtrim][$gid]['row'];
       $primary_region = $layout['region_groups'][$idtrim][$gid]['primary_region'];
@@ -335,18 +315,18 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
         $unit = '%';
       }
       
-// FORMATTED INTENTIONALLY
+/* FORMATTED INTENTIONALLY */
       $breakpoint_scss .= '
 // Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . ';
 .' . $rowname . ' { 
   @include row(' . $rowval . ');
   max-width: '. $maxwidth . $unit .';
 ';
-// END FORMATTED INTENTIONALLY
+/* END FORMATTED INTENTIONALLY */
       // loop over regions for basic responsive configuration
       foreach($layout['region_groups'][$idtrim][$gid]['regions'] as $rid => $data) {
         $regionname = str_replace("_", "-", $rid);
-// FORMATTED INTENTIONALLY        
+/* FORMATTED INTENTIONALLY */        
         $breakpoint_scss .= '
   // Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . '; Region: ' . $rid . ';
   .region--' . $regionname . ' { 
@@ -376,11 +356,11 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
     margin-bottom: $regionSpacing;
   } 
 '; // end of initial region configuration
-// END FORMATTED INTENTIONALLY        
+/* END FORMATTED INTENTIONALLY */        
       }
       // check to see if primary region is set
       if ($primary_region && $total_regions <= 3) {
-// FORMATTED INTENTIONALLY        
+/* FORMATTED INTENTIONALLY */        
         $breakpoint_scss .= '
   // A primary region exists for the '. $gid .' region group.
   // so we are going to iterate over combinations of available/missing
@@ -388,7 +368,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   
   // 1 missing region
 ';
-// END FORMATTED INTENTIONALLY
+/* END FORMATTED INTENTIONALLY */
         // loop over the regions that are not the primary one again
         $mainRegion = $layout['region_groups'][$idtrim][$gid]['regions'][$primary_region];
         $otherRegions = $layout['region_groups'][$idtrim][$gid]['regions'];
@@ -408,143 +388,115 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
           $classCreate[] = '.without--' . $regionname;
           $regionname = str_replace("_", "-", $orid);
           // combine the region widths
-          
-          
-          
           $adjust = _omega_layout_generation_adjust($mainRegion, array($otherRegions[$orid]), $cols);
           
-          
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
           $breakpoint_scss .= '
   &.with--'. $primary_region . '.without--' . $regionname .' {
     .region--' . $primary_region . ' {
       @include column-reset();
       @include column(' . $adjust['width'] . ', ' . $cols . ');';
-// END FORMATTED INTENTIONALLY          
-          
+/* END FORMATTED INTENTIONALLY */
       // @todo need to adjust for push/pull here
-      
-      
       // ACK!!! .sidebar-first would need push/pull adjusted if 
       // the sidebar-second is gone
       // this might be IMPOSSIBLE
-      
       $pushPullAltered = FALSE;
       
       if ($adjust['pull'] >= 1) {
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
           $pushPullAltered = TRUE;
           $breakpoint_scss .= '
       @include pull(' . $adjust['pull'] . ');';
-// END FORMATTED INTENTIONALLY        
+/* END FORMATTED INTENTIONALLY */        
       }
       
       if ($adjust['push'] >= 1) {
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
           $pushPullAltered = TRUE;
           $breakpoint_scss .= '
       @include push(' . $adjust['push'] . ');';
-// END FORMATTED INTENTIONALLY        
+/* END FORMATTED INTENTIONALLY */        
       }
       
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
           $breakpoint_scss .= '
     }'; // end of iteration of condition missing one region
-// END FORMATTED INTENTIONALLY
+/* END FORMATTED INTENTIONALLY */
         
         
           // now what if we adjusted the push/pull of the main region, or the 
           // remaining region had a push/pull, we need to re-evaluate the layout for that region
-          
           if ($pushPullAltered) {
             // find that other remaining region.
-            
             $region_other = $otherRegions;
             unset($region_other[$orid]);
             $region_other_keys = array_keys($region_other);
             $region_other_id = $region_other_keys[0];
             $regionname_other = str_replace("_", "-", $region_other_id);
             $otherRegionWidth = $region_other[$region_other_id]['width'];
-            
-            
             $breakpoint_scss .= '
     .region--' . $regionname_other . ' {
       @include column-reset();
       @include column(' . $region_other[$region_other_id]['width'] . ', ' . $cols . ');';
-// END FORMATTED INTENTIONALLY
-            
-            
-            
-            
+/* END FORMATTED INTENTIONALLY */
+
             // APPEARS to position the remaining (not primary) region
             // BUT the primary region is positioned wrong with push/pull
-            
-            
-            
             // if there is a pull on the primary region, we adjust the push on the remaining one
             if ($adjust['pull'] >= 1) {
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
               $pushPullAltered = TRUE;
               $breakpoint_scss .= '
       @include push(' . $adjust['width'] . ');';
-// END FORMATTED INTENTIONALLY        
+/* END FORMATTED INTENTIONALLY */        
             }
             // if there is a push on the primary region, we adjust the pull on the remaining one
             if ($adjust['push'] >= 1) {
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
               $pushPullAltered = TRUE;
               $breakpoint_scss .= '
       @include pull(' . $adjust['width'] . ');';
-// END FORMATTED INTENTIONALLY        
+/* END FORMATTED INTENTIONALLY */        
             }
             
             
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
           $breakpoint_scss .= '
     }'; // end of iteration of condition missing one region
-// END FORMATTED INTENTIONALLY
+/* END FORMATTED INTENTIONALLY */
           }
           
         
-// FORMATTED INTENTIONALLY
+/* FORMATTED INTENTIONALLY */
         $breakpoint_scss .= '
   }
 '; // end of intial loop of regions to assign individual cases of missing regions first in the scss/css
-// END FORMATTED INTENTIONALLY
+/* END FORMATTED INTENTIONALLY */
         
         
         
-        } // end foreach loop
+        } /* end foreach loop*/ 
         
-// FORMATTED INTENTIONALLY
+/* FORMATTED INTENTIONALLY */
         // throw a comment in the scss
         $breakpoint_scss .= '
   // 2 missing regions
 ';
-// END FORMATTED INTENTIONALLY
-
-
-
-
+/* END FORMATTED INTENTIONALLY */
 
           // here we are beginning to loop again, assuming more than just 
           // one region might be missing and to assign to the primary_region accordingly
-          
           $classMatch = array();
-          //$classCreate = array();
           
           // loop the "other" regions that aren't the primary one again
           foreach($otherRegions as $orid => $odata) {
             $regionname = str_replace("_", "-", $orid);
             
-            //$classCreate[] = '.with--'. $primary_region . '.without--' . $regionname;
-            
             // now that we are looping, we will loop again to then create
-            // .without--sidebar-first.without--sidebar-second.without--sidebar-second
             foreach($otherRegions as $orid2 => $odata2) {
               $regionname2 = str_replace("_", "-", $orid2);
               $notYetMatched = TRUE;
-              
               
               if ($regionname != $regionname2) {
                 $attemptedTest = array(
@@ -555,20 +507,15 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
                 asort($attemptedTest);
                 //dsm($attemptedTest);
                 $attemptedMatch = implode('', $attemptedTest);
-                //asort()
                 
                 if (in_array($attemptedMatch, $classMatch)) {
                   $notYetMatched = FALSE;  
                 }
                 
-                
-                
-                
                 $adjust = _omega_layout_generation_adjust($mainRegion, array($otherRegions[$orid], $otherRegions[$orid2]), $cols);
                 
                 if ($notYetMatched) {
                   $classCreate = '.with--'. $primary_region . '.without--' . $regionname . '.without--' . $regionname2;
-                  
                   
                   $classMatch[] = $attemptedMatch;
                   
@@ -577,47 +524,36 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
                   }
 
             
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
                   $breakpoint_scss .= '
   &' . $classCreate . ' {
     .region--' . $primary_region . ' {
       @include column-reset();
       @include column(' . $adjust['width'] . ', ' . $cols . ');
 ';
-// END FORMATTED INTENTIONALLY          
+/* END FORMATTED INTENTIONALLY */          
           
       // @todo need to adjust for push/pull here
-
-// FORMATTED INTENTIONALLY          
+/* FORMATTED INTENTIONALLY */          
           $breakpoint_scss .= '
     }'; 
-// END FORMATTED INTENTIONALLY
+/* END FORMATTED INTENTIONALLY */
 
-// FORMATTED INTENTIONALLY
+/* FORMATTED INTENTIONALLY */
               $breakpoint_scss .= '
   }
 '; 
-// END FORMATTED INTENTIONALLY
+/* END FORMATTED INTENTIONALLY */
                 } // end if ($notYetMatched)
               } // end if ($regionname != $regionname2)
-            
-            
-              
-              
-            
-            
-            
             } // end foreach $otherRegions (2nd loop)
           }  // end foreach $otherRegions (1st loop)
-          
-          
-          
         }  // end if($primary_region)
-// FORMATTED INTENTIONALLY      
+/* FORMATTED INTENTIONALLY */      
       $breakpoint_scss .= '
 }
 '; // end of region group
-// END FORMATTED INTENTIONALLY
+/* END FORMATTED INTENTIONALLY */
       
     }
     
@@ -745,8 +681,6 @@ function _omega_layout_generation_adjust($main, $empty_regions = array(), $cols)
     /* Calculate the prefix/suffix */
     // we don't actually need to do this as the prefix/suffix is added to the actual 
     // width of the primary region rather than adding/subtracting additional margings.
-    
-    
   }
   
   return array(

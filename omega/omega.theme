@@ -3,36 +3,20 @@
 /**
  * @file
  * Functions to support theming in the Omega theme.
+ *
+ * Primary hooks for Omega Five that relate to theme development and configuration
  */
 
-require_once('omega-functions.php');
-
-use Drupal\Core\Template\RenderWrapper;
-
-// Include Breakpoint Functionality
-use Drupal\breakpoint\Entity\Breakpoint;
-use Drupal\breakpoint\Entity\BreakpointGroup;
-
-use Drupal\Core\Config\Config;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Config\Entity\ConfigStorageController;
+require_once 'omega-functions.php';
 
 use Drupal\Core\Url;
-
-use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Render\FormattableMarkup;
-
-use Drupal\Core\Template\Attribute;
-use Drupal\Core\Language\Language;
-use Drupal\Core\Theme\ThemeSettings;
-
-use Drupal\image\Entity\ImageStyle;
-
-//use Drupal\views\Views;
 
 
 /**
  * Implements hook_theme().
+ * 
+ * @return array
  */
 function omega_theme() {
   return array(
@@ -43,12 +27,12 @@ function omega_theme() {
       'template' => 'omega-indicator',
     ),
   );
-} // END omega_theme
+} /* END omega_theme */
 
 function omega_preprocess_omega_indicator(&$vars) {
   
   $img = base_path() . drupal_get_path('theme', 'omega') . '/logo.png';
-  $logo_image = SafeMarkup::format('<img src=":image" />', array(':image' => $img));
+  $logo_image = new FormattableMarkup('<img src=":image" />', array(':image' => $img));
   $omega_url = Url::fromUri('http://drupal.org/project/omega', array(
     'attributes' => array(
       'id' => 'indicator-toggle',
@@ -57,11 +41,10 @@ function omega_preprocess_omega_indicator(&$vars) {
       ),
     )
   ));
-  
-  $omega_link = \Drupal::l($logo_image, $omega_url);
+  $omega_link = \Drupal::service('link_generator')->generate($logo_image, $omega_url);
   $vars['logo'] = $omega_link;
   
-} // END omega_preprocess_omega_indicator
+} /* END omega_preprocess_omega_indicator */
 
 
 /**
@@ -69,7 +52,7 @@ function omega_preprocess_omega_indicator(&$vars) {
  */
 function omega_preprocess(&$variables, $hook) {
   
-} // END omega_preprocess
+} /* END omega_preprocess */
 
 /**
  * Implements hook_page_attachments_alter().
@@ -89,7 +72,6 @@ function omega_page_attachments_alter (&$attachments) {
 
     $layouts = array();    
     foreach($breakpoints as $breakpoint) {
-      $idtrim = str_replace('.', "-", $breakpoint->getBaseId());
       $layouts[$breakpoint->getBaseId()] = array(
         'query' => $breakpoint->getMediaQuery(),
         'name' => $breakpoint->getLabel()
@@ -125,7 +107,7 @@ function omega_page_attachments_alter (&$attachments) {
   }
   //dpm($attachments['#attached']['library']);
   //dpm($attachments);
-} // END omega_page_attachments_alter
+} /* END omega_page_attachments_alter */
 
 /**
  * Implements hook_page_top().
@@ -144,18 +126,18 @@ function omega_page_top (array &$page_top) {
   }
   dsm($page_top);
   */
-} // END omega_page_top
+} /* END omega_page_top */
 
 /**
  * Implements hook_page_bottom().
  */
 function omega_page_bottom(&$page_bottom) {
   
-} // END omega_page_bottom
+} /* END omega_page_bottom */
 
 function omega_preprocess_html(&$vars) {
   
-} // END omega_preprocess_html
+} /* END omega_preprocess_html */
 
 function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
@@ -171,13 +153,14 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
   // setup default layout for active theme
   $defaultLayout = omega_return_active_layout();
   
-  // @todo
-  // Currently, this assumes that a subtheme MUST have its own layout rather than the ability
-  // to possibly inherit the layout from a parent theme. The need should arise where a subtheme
-  // wants a 100% mirror in terms of layout, but ONLY to alter some visual styles, so the ability
-  // for a subtheme to 'turn off' a custom layout, and just use whatever the parent theme implies
-  // seems crucial.
-  
+  // @todo -- Layout Logic
+  /*
+    Currently, this assumes that a subtheme MUST have its own layout rather than the ability
+    to possibly inherit the layout from a parent theme. The need should arise where a subtheme
+    wants a 100% mirror in terms of layout, but ONLY to alter some visual styles, so the ability
+    for a subtheme to 'turn off' a custom layout, and just use whatever the parent theme implies
+    seems crucial.
+  */
   // provide a path to the new CSS file we want to use instead of $defaultOmegaLayout
   $activeLayoutCSS = drupal_get_path('theme', $defaultLayout['theme']) . '/style/css/layout/' . $defaultLayout['layout'] . '-layout.css';
   
@@ -191,7 +174,7 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
     $css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
   }
   
-} // END omega_css_alter
+} /* END omega_css_alter */
 
 
 /**
@@ -199,7 +182,7 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
  */
 function omega_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
 
-} // END omega_js_alter
+} /* END omega_js_alter */
 
 /**
  * Implements hook_preprocess_HOOK() for page templates.
@@ -207,12 +190,11 @@ function omega_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface
  */
 function omega_preprocess_page(&$vars) {
   
-  $page = $vars['page'];
-  
+  //$page = $vars['page'];
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   
   $themes = \Drupal::service('theme_handler')->listInfo();
-  $defaultLayout = theme_get_setting('default_layout');
+  //$defaultLayout = theme_get_setting('default_layout');
   $themeSettings = $themes[$theme];
   //dpm($themeSettings->info['regions']);
   $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
@@ -324,7 +306,7 @@ function omega_preprocess_page(&$vars) {
     unset($vars['page']['highlighted']);
   }
 */
-} // END omega_preprocess_page
+} /* END omega_preprocess_page */
 
 /**
  * Implements hook_preprocess_HOOK() for region templates.
@@ -335,16 +317,15 @@ function omega_preprocess_region(&$vars) {
   $altered_region_id = str_replace("_", "-", $vars['region']);
   $vars['attributes']['class'][] = 'region--' . $altered_region_id;
   //dsm($vars);
-} // END omega_preprocess_region
+} /* END omega_preprocess_region */
 
 /**
  * Implements hook_preprocess_HOOK() for node templates.
  *
  */
 function omega_preprocess_node(&$vars) {
-  //krumo($vars);
   
-} // END omega_preprocess_node
+} /* END omega_preprocess_node */
 
 /**
  * Implements hook_preprocess_HOOK() for block templates.
@@ -361,7 +342,7 @@ function omega_preprocess_block(&$vars) {
       }
       break;
   }
-} // END omega_preprocess_block
+} /* END omega_preprocess_block */
 
 /**
  * Implements hook_preprocess_HOOK() for block templates.
@@ -382,7 +363,7 @@ function omega_preprocess_field(&$vars) {
       }
     }
   }
-} // END omega_preprocess_block
+} /* END omega_preprocess_block */
 
 /**
  * hook_html_head_alter()
@@ -408,5 +389,5 @@ function omega_html_head_alter(&$head_elements) {
     ),
     '#weight' => -997,
   );
-} // END omega_html_head_alter
+} /* END omega_html_head_alter */
 

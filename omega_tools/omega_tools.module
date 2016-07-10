@@ -3,9 +3,10 @@ use Drupal\Core\Url;
 
 /**
  * hook_system_themes_page_alter()
- * 
+ *
  * This is required in module form since Omega is likely (almost always) not set as admin theme
  * So that we can manipulate the theme listing page a bit.
+ * @param $theme_groups
  */
 function omega_tools_system_themes_page_alter(&$theme_groups) {
   foreach ($theme_groups as $state => &$group) {
