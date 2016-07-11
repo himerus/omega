@@ -108,7 +108,6 @@ foreach ($layouts as $lid => $ldata) {
       //'#open' => TRUE,
     );
     if (isset($region_groups['_core'])) {
-      drupal_set_message("\$gid set equal to '_core'...");
       unset($region_groups['_core']);
     }
     foreach ($region_groups as $gid => $info ) {
