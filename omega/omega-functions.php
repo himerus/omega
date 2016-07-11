@@ -49,7 +49,7 @@ function omega_find_layout_provider($theme) {
   $themeSettings = $omegaSettings->getThemeInfo();
   
   // get the value of 'inherit_layout' from THEME.info.yml
-  $inherit_layout = $themeSettings->info['inherit_layout'];
+  $inherit_layout = isset($themeSettings->info['inherit_layout']) ? $themeSettings->info['inherit_layout'] : FALSE;
   
   // we have encountered a theme that inherits layout from a base theme
   // now we will scan the array of applicable base themes looking for the 
