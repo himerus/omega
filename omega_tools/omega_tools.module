@@ -11,10 +11,9 @@ use Drupal\Core\Url;
 function omega_tools_system_themes_page_alter(&$theme_groups) {
   foreach ($theme_groups as $state => &$group) {
     foreach ($theme_groups[$state] as &$theme) {
-      
-      $themeName = $theme->getName();
+      $forceExport = isset($theme->info['force_export']) ? $theme->info['force_export'] : FALSE;
       // if we have forced export through .info.yml settings, let's alter the Settings link
-      if ($theme->info['force_export']) {
+      if ($forceExport) {
         foreach($theme->operations as $k => $operation) {
           if ($operation['title']->render() == 'Settings') {
             // Let's completely reset the 'Settings' link as this omega subtheme has no settings,
