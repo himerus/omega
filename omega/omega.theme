@@ -98,7 +98,7 @@ function omega_page_attachments_alter (&$attachments) {
     // !$data['status'] means the checkbox on the omega settings page is unticked
     // in_array($libraryID, $attachments['#attached']['library'] means it is already in the $attachments array
     // $data['allow_disable'] ensures that omega['allow_enable_disable'] was not set to false, meaning it should not be allowed to be disabled.
-    elseif(!$data['status'] && in_array($libraryID, $attachments['#attached']['library'] && $data['allow_disable'])) {
+    elseif(!$data['status'] && in_array($libraryID, $attachments['#attached']['library']) && $data['allow_disable']) {
       // here we have a library that was declared via THEME.info.yml as active,
       // yet was disabled via Omega settings, so we need to remove it now.
       $libraryArrayKey = array_search($libraryID, $attachments['#attached']['library']);
