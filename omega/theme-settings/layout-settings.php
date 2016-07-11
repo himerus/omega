@@ -83,7 +83,6 @@ foreach ($layouts as $lid => $ldata) {
 );
   
   $breakpoints = _omega_getActiveBreakpoints($lid, $theme);
-  
   // foreach breakpoint we have, we will create a form element group and appropriate settings for region layouts per breakpoint.
   foreach($breakpoints as $breakpoint) {
     
@@ -108,12 +107,11 @@ foreach ($layouts as $lid => $ldata) {
       ),
       //'#open' => TRUE,
     );
-    //dsm($breakpoints);
+    if (isset($region_groups['_core'])) {
+      drupal_set_message("\$gid set equal to '_core'...");
+      unset($region_groups['_core']);
+    }
     foreach ($region_groups as $gid => $info ) {
-      // return the loop if this auto generated key comes through to avoid errors
-      if ($gid != '_core') {
-        return;
-      }
       // determine if configuration says region group should be collapsed or not    
       $open = TRUE;
       $collapseVal = $layouts[$lid]['region_groups'][$idtrim][$gid]['collapsed'];
