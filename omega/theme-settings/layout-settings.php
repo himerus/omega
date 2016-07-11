@@ -110,22 +110,22 @@ foreach ($layouts as $lid => $ldata) {
     );
     //dsm($breakpoints);
     foreach ($region_groups as $gid => $info ) {
-      
+      // return the loop if this auto generated key comes through to avoid errors
+      if ($gid != '_core') {
+        return;
+      }
       // determine if configuration says region group should be collapsed or not    
       $open = TRUE;
       $collapseVal = $layouts[$lid]['region_groups'][$idtrim][$gid]['collapsed'];
-      //krumo($info);
       if (isset($collapseVal) && $collapseVal == 'TRUE') {
         $open = FALSE;
       }
       if (isset($collapseVal) && $collapseVal == 'FALSE') {
         $open = TRUE;
       }
-      
       $form['layouts'][$lid]['region_groups'][$idtrim][$gid] = array(
         '#type' => 'details',
-        '#attributes' => array(
-          'class' => array(
+        '#attributes' => array(          'class' => array(
             'layout-breakpoint-regions', 
             'clearfix'
           ),

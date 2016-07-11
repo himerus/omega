@@ -33,7 +33,7 @@ class OmegaInfo {
    * @param string $theme
    *  The theme name
    */
-  public function __construct($theme) {
+  public function __construct($theme = 'omega') {
     $this->theme = $theme;
     $this->themes = \Drupal::service('theme_handler')->listInfo();
   }
@@ -74,8 +74,7 @@ class OmegaInfo {
   public function omegaSubthemesOptionsList() {
     $omegaSubThemes = array();
     foreach ($this->themes as $theme) {
-      if (array_key_exists('omega', $theme->base_themes)) {
-        //dsm($theme->getName());
+      if (isset($theme->base_themes) && array_key_exists('omega', $theme->base_themes)) {
         $theme_id = $theme->getName();
         $theme_name = $theme->info['name'];
         $omegaSubThemes[$theme_id] = $theme_name;

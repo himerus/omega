@@ -31,11 +31,11 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
     // get the default settings for the current theme
     $themeSettings = $omegaSettings->getThemeInfo();
     // get the value of 'force_export' from THEME.info.yml
-    $force_theme_export = $themeSettings->info['force_export'];
+    $force_theme_export = isset($themeSettings->info['force_export']) ? $themeSettings->info['force_export'] : FALSE;
     // get the value of 'inherit_layout' from THEME.info.yml
-    $inherit_layout = $themeSettings->info['inherit_layout'];
+    $inherit_layout = isset($themeSettings->info['inherit_layout']) ? $themeSettings->info['inherit_layout']: FALSE;
     // get the value of 'scss_support' from THEME.info.yml
-    $scss_support = $themeSettings->info['scss_support'];
+    $scss_support = isset($themeSettings->info['scss_support']) ? $themeSettings->info['scss_support'] : FALSE;
     // get all the values of the submitted form
     $values = $form_state->getValues();
     // include the introduction message(s)
