@@ -290,10 +290,13 @@ function omega_theme_layout_build_submit(&$form, \Drupal\Core\Form\FormStateInte
             _omega_compile_layout($layout, $layout_id, $theme);
         }  
     }
-  
-    // grab the value of layouts so we can update the $theme.layout.$layout_name
-    $styles = $values['variables'];
-    // run function to compile the style-vars.scss file with any updates.
-    _omega_update_style_scss($styles, $theme, false);
+
+    if (isset($values['variables'])) {
+        // if this is true, we can assume that SCSS color/variable support was turned on.
+        // grab the value of color/config variables so we can update the style-vars.scss
+        $styles = $values['variables'];
+        // run function to compile the style-vars.scss file with any updates.
+        _omega_update_style_scss($styles, $theme, false);
+    }
 }
 
