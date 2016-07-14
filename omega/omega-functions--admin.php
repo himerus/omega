@@ -265,7 +265,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   // get the default layout/breakpoint group
   $defaultLayout = $layoutName;
   // get all the active breakpoints we'll be editing
-  $breakpoints = _omega_getActiveBreakpoints($theme);
+  $breakpoints = _omega_getActiveBreakpoints($layoutName, $theme);
   // get the stored layout data
   // $layouts = theme_get_setting('layouts', $theme);
   // pull an array of "region groups" based on the "all" media query that should always be present
