@@ -22,8 +22,7 @@ function omega_return_clean_breakpoint_id(\Drupal\breakpoint\Breakpoint $breakpo
 function omega_return_layouts($theme) {
   
   // grab the defined layouts in config/install/$theme.layouts.yml
-  $layouts = \Drupal::config($theme . '.layouts')->get();
-  //dpm($layouts);
+  $layouts = \Drupal::config($theme . '.omega-layouts')->get();
   foreach ($layouts AS $layout => $null) {
     // grab the configuration for the requested layout
     $layout_config_object = \Drupal::config($theme . '.layout.' . $layout);
