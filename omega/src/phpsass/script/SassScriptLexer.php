@@ -118,6 +118,9 @@ class SassScriptLexer
         $tokens[] = new SassString($match);
       }
       $string = substr($string, strlen($match));
+      if ($string === '') {
+        $string = false;
+      }
     }
 
     return $tokens;
