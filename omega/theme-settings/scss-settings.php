@@ -27,8 +27,8 @@ $form['variables']['variables_info'] = array(
   '#weight' => -9999,
 );
 
-$form['variables']['variables_info']['#markup'] .= '<p><strong>The variables represented here are SCSS variables</strong>. When values are changed, and the form is saved, your <strong>style/scss/style-vars.scss</strong> will be rewritten, and the theme will be recompiled and any appropriate SCSS and CSS files overwritten accordingly with updated values.</p>';
-$form['variables']['variables_info']['#markup'] .= '<p class="description">For a SCSS file in your theme to use the variables represented here, the line <em><strong>@import "style-vars.scss";</strong></em> must be at the top of the SCSS file.</p>';
+$form['variables']['variables_info']['#markup'] .= '<p><strong>The variables represented here are SCSS variables</strong>. When values are changed, and the form is saved, your <strong>style/scss/_style-vars.scss</strong> will be rewritten, and the theme will be recompiled and any appropriate SCSS and CSS files overwritten accordingly with updated values.</p>';
+$form['variables']['variables_info']['#markup'] .= '<p class="description">For a SCSS file in your theme to use the variables represented here, the line <em><strong>@import "_style-vars.scss";</strong></em> must be at the top of the SCSS file.</p>';
 
 $form['variables']['colors'] = array(
   '#type' => 'details',

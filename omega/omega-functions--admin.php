@@ -17,7 +17,7 @@ function _omega_update_style_scss($styles, $theme, $generate = FALSE) {
   
   //$styleVariables = new SassFile;
   // create full paths to the scss and css files we will be rendering.
-  $styleFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/style-vars.scss';
+  $styleFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/_style-vars.scss';
   
   $styleData = '@import "omega_mixins";
   
@@ -72,14 +72,14 @@ function _omega_update_style_scss($styles, $theme, $generate = FALSE) {
   $compile_scss = theme_get_setting('compile_scss', $theme);
   $compile = isset($compile_scss) ? $compile_scss : FALSE;
   if ($compile) {
-    // find all our scss files and open/save them as they should include the style-vars.scss that we've already updated
+    // find all our scss files and open/save them as they should include the _style-vars.scss that we've already updated
     $source = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss';
     scssDirectoryScan($source, $theme, 'scss');
     
   }
 }
 
-function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.(\.)?|CVS|style-vars\.scss|layout|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
+function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.(\.)?|CVS|_style-vars\.scss|layout|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
   $dir = opendir($source);
   
   while($file = readdir($dir)) {
@@ -121,7 +121,7 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
 
           $omegaMixins = $omegaPath . '/style/scss/mixins.scss';
           $omegaVars = $omegaPath . '/style/scss/vars.scss';
-          $styleVars = $themePath . '/style/scss/style-vars.scss';
+          $styleVars = $themePath . '/style/scss/_style-vars.scss';
           $fileLocation = $source . '/' . $file;
           $variableFile = new SassFile;
           $variableScss = '';
@@ -266,6 +266,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   $defaultLayout = $layoutName;
   // get all the active breakpoints we'll be editing
   $breakpoints = _omega_getActiveBreakpoints($layoutName, $theme);
+  //kint($breakpoints);
   // get the stored layout data
   // $layouts = theme_get_setting('layouts', $theme);
   // pull an array of "region groups" based on the "all" media query that should always be present
@@ -314,7 +315,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
       else {
         $unit = '%';
       }
-      
+      if ($maxwidth && $rowval) {
 /* FORMATTED INTENTIONALLY */
       $breakpoint_scss .= '
 // Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . ';
@@ -323,6 +324,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   max-width: '. $maxwidth . $unit .';
 ';
 /* END FORMATTED INTENTIONALLY */
+      }
       // loop over regions for basic responsive configuration
       foreach($layout['region_groups'][$idtrim][$gid]['regions'] as $rid => $data) {
         $regionname = str_replace("_", "-", $rid);

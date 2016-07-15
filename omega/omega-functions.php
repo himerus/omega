@@ -206,6 +206,7 @@ function _omega_getActiveBreakpoints($layout, $theme) {
   }
   else {
     // default omega breakpoints
+    drupal_set_message('warning', 'The breakpoint group for your theme could not be found. Using default Omega version instead.');
     return \Drupal::service('breakpoint.manager')->getBreakpointsByGroup('omega.standard');
   }
 }

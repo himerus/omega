@@ -248,11 +248,11 @@ class OmegaExport implements OmegaExportInterface {
         // This means that for all the available CSS files with corresponding SCSS,
         // we should create a copy of those files to this new theme, and implement them as
         // a library-override in the .info file.
-        // This will also create the style-vars.scss file that will be configurable via the 
+        // This will also create the _style-vars.scss file that will be configurable via the
         // interface under SCSS Varaibles. 
         // Anytime in the future when saving theme settings, assuming the "Compile SCSS Directly"
         // under General Options is enabled, the individual SCSS files will be recompiled after
-        // the style-vars.scss is saved. If you are handling the SCSS compiling yourself, then only
+        // the _style-vars.scss is saved. If you are handling the SCSS compiling yourself, then only
         // the variable file would be changed, and your compass watch would handle any of the related files
         // that need to be rewritten.
         if ($this->build['theme_scss_support']) {
