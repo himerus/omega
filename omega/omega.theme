@@ -357,7 +357,7 @@ function omega_preprocess_field(&$vars) {
   
   if ($field_type == 'entity_reference') {
     foreach($vars['items'] AS $k => $field) {
-      if ($field['content']['#options']['entity_type'] == 'taxonomy_term') {
+      if (!empty($field['content']['#options']['entity_type']) && $field['content']['#options']['entity_type'] == 'taxonomy_term') {
         // add a class to the <a>
         $vars['items'][$k]['content']['#options']['attributes']['class'] = array('taxonomy-term');
         // add a class to the field item wrapper
