@@ -592,16 +592,24 @@ function _omega_save_layout_files($scss, $css, $theme, $layout_id) {
   else {
     drupal_set_message(t('WTF001: SCSS save error... : function _omega_save_layout_files()'), 'error');
   }
-  
-  // save the css file
-  $cssfile = file_unmanaged_save_data($css, $layoutcss, FILE_EXISTS_REPLACE);
-  // check for errors
-  if ($cssfile) {
-    drupal_set_message(t('CSS file saved: <strong>'.str_replace(realpath(".") . base_path(), "", $cssfile).'</strong>'));
+
+  // if the Compile SCSS option is enabled, continue
+  if (theme_get_setting('compile_scss', $theme)) {
+    // save the css file
+    $cssfile = file_unmanaged_save_data($css, $layoutcss, FILE_EXISTS_REPLACE);
+    // check for errors
+    if ($cssfile) {
+      drupal_set_message(t('CSS file saved: <strong>'.str_replace(realpath(".") . base_path(), "", $cssfile).'</strong>'));
+    }
+    else {
+      drupal_set_message(t('WTF002: CSS save error... : function _omega_save_layout_files()'), 'error');
+    }
   }
-  else {
-    drupal_set_message(t('WTF002: CSS save error... : function _omega_save_layout_files()'), 'error');
+  // else throw a warning/reminder that it IS disabled and they should be using compass or alternative compiler.
+  elseif (theme_get_setting('show_compile_warning', $theme)) {
+    drupal_set_message(t("Since <strong>Compile SCSS Directly</strong> is disabled, please ensure Compass or an alternative SCSS compiler is set to watch for these saved changes. You can disable this warning under <strong>Default Options</strong>."), "warning");
   }
+
 }
 
 

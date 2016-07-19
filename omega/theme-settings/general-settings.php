@@ -39,6 +39,15 @@ $form['compile_scss'] = array(
   '#group' => 'options',
 );
 
+$show_compile_warning = theme_get_setting('show_compile_warning', $theme);
+$form['show_compile_warning'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Show SCSS Compile Warning'),
+  '#description' => t('If you have selected to disable the above <strong>Compile SCSS Directly</strong> option, a warning will be showed when you <strong>Save & Update Styles</strong>. Unchecking this option will turn off that warning.</strong>'),
+  '#default_value' => isset($show_compile_warning) ? $show_compile_warning : TRUE,
+  '#group' => 'options',
+);
+
 
 $enable_omega_badge = theme_get_setting('enable_omega_badge', $theme);
 $form['enable_omega_badge'] = array(
