@@ -298,66 +298,7 @@ body {
 }
 
 }
-@media all and (max-width: 479px) { 
-// Breakpoint: Mobile Portrait; Region Group: header;
-.header-layout { 
-  @include row();
-  max-width: %;
 
-}
-
-// Breakpoint: Mobile Portrait; Region Group: core;
-.core-layout { 
-  @include row();
-  max-width: %;
-
-}
-
-// Breakpoint: Mobile Portrait; Region Group: main;
-.main-layout { 
-  @include row();
-  max-width: %;
-
-}
-
-// Breakpoint: Mobile Portrait; Region Group: footer;
-.footer-layout { 
-  @include row();
-  max-width: %;
-
-}
-
-}
-@media all and (min-width: 480px) and (max-width: 767px) { 
-// Breakpoint: Mobile Landscape; Region Group: header;
-.header-layout { 
-  @include row();
-  max-width: %;
-
-}
-
-// Breakpoint: Mobile Landscape; Region Group: core;
-.core-layout { 
-  @include row();
-  max-width: %;
-
-}
-
-// Breakpoint: Mobile Landscape; Region Group: main;
-.main-layout { 
-  @include row();
-  max-width: %;
-
-}
-
-// Breakpoint: Mobile Landscape; Region Group: footer;
-.footer-layout { 
-  @include row();
-  max-width: %;
-
-}
-
-}
 @media all and (min-width: 768px) and (max-width: 1023px) { 
 // Breakpoint: Narrow; Region Group: header;
 .header-layout { 
