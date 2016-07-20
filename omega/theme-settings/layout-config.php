@@ -142,14 +142,12 @@ $form['layout-config']['taxonomy-layouts'] = array(
 $vocabs = taxonomy_vocabulary_get_names();
 
 foreach ($vocabs AS $vocab_id) {
-  $vocab = taxonomy_vocabulary_load($vocab_id);
-  //dsm($vocab->get('name'));
-  
+  $vocab = \Drupal\taxonomy\Entity\Vocabulary::load($vocab_id);
   $layout_name = 'taxonomy_' . $vocab_id . '_layout';
   $ttypeLayout = theme_get_setting($layout_name, $theme);
   
   $form['layout-config']['taxonomy-layouts'][$layout_name] = array(
-    '#prefix' => '<div class="' . $ttype . '-layout-select">',
+    '#prefix' => '<div class="' . $layout_name . '-select">',
     '#suffix' => '</div>',
     '#type' => 'select',
     '#attributes' => array(
