@@ -297,7 +297,9 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
     $scss = $varscss . $gsscss;
   }
   else {
-    $scss = '@import "omega_mixins", "omega-style-vars", "omega-default-style-vars", "omegags";
+    $scss = '$twidth: 100%; 
+    @import "omega_mixins", "omega-style-vars", "omega-default-style-vars", "omegags";
+
 ';
   }
   
