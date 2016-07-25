@@ -192,6 +192,22 @@ $form['export']['export_options']['export_enable_scss_support'] = array(
   '#default_value' => 0,
 );
 
+$form['export']['export_options']['export_enable_configrb'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Include config.rb'),
+  '#description' => t('Creating a config.rb in your subtheme will allow you to use Compass to compile your SCSS rather than Omega. <strong>If you are unsure what config.rb is, leave this option unchecked.</strong> For more information on config.rb options, visit <a href="http://compass-style.org/help/documentation/configuration-reference/" target="_blank">compass-style.org</a>'),
+  '#default_value' => 0,
+  '#states' => $subtheme_state,
+);
+
+$form['export']['export_options']['export_enable_gemfile'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Include Gemfile'),
+  '#description' => t('Creating a Gemfile will help install ruby gem dependencies needed using Bundler. <strong>If you are unsure what a Gemfile is, leave this option unchecked.</strong> For more information on Gemfile options, visit <a href="http://bundler.io/gemfile.html" target="_blank">bundler.io</a></a>'),
+  '#default_value' => 0,
+  '#states' => $subtheme_state,
+);
+
 $form['export']['export_options']['export_include_blank_library'] = array(
   '#type' => 'checkbox',
   '#title' => t('Include customizable library with CSS/JS'),
