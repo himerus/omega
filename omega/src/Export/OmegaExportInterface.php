@@ -7,6 +7,7 @@
 
 namespace Drupal\omega\Export;
 
+use Drupal\Core\Form\FormStateInterface;
 /**
  * Defines an interface for serialization formats.
  */
@@ -26,7 +27,7 @@ interface OmegaExportInterface {
    * @return array
    *   Array of information regarding the newly created theme
    */
-  public function saveExport($form_state);
+  public function saveExport(FormStateInterface $form_state);
   
   /**
    * Returns the information array on the export
