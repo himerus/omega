@@ -15,7 +15,7 @@ sourcemap = false
 
 # Location of the theme's resources.
 
-
+environment = :production
 css_dir = "style/css"
 sass_dir = "style/scss"
 additional_import_paths = ["../../omega/style/scss", "../../omega/style/scss/grids"]
@@ -43,4 +43,4 @@ relative_assets = true
 line_comments = (environment == :production) ? false : true
 
 # Output debugging info in development mode. (Set to true to enable, false to disable)
-# sass_options = (environment == :production) ? {} : {:debug_info => true}
+sass_options = (environment == :production) ? {} : {:debug_info => true}

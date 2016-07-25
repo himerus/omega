@@ -11,10 +11,11 @@ else
   environment = saved
 end
 
+environment = :development
 # Location of the theme's resources.
 css_dir = "style/css"
 sass_dir = "style/scss"
-additional_import_paths = ["OMEGA_SCSS_PATH"]
+additional_import_paths = ["OMEGA_SCSS_PATH", "OMEGA_SCSS_PATH/grids"]
 images_dir = "images"
 generated_images_dir = images_dir + "/generated"
 javascripts_dir = "js"
