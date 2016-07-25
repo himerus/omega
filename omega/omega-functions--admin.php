@@ -229,10 +229,8 @@ function _omega_compile_layout($layout, $layout_id, $theme) {
   );
   
   $scss = _omega_compile_layout_sass($layout, $layout_id, $theme, $options);
-  // generate the CSS from the SCSS created above
-  $css = _omega_compile_css($scss, $options);
   // save the SCSS and CSS files to the theme's filesystem
-  _omega_save_layout_files($scss, $css, $theme, $layout_id);
+  _omega_save_layout_files($scss, $theme, $layout_id);
 }
 /**
  * Custom function to generate layout CSS from SCSS
@@ -278,19 +276,30 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   $scss = '';
  
   $parser = new SassParser($options);
-  
-  // get the variables for the theme
-  $vars = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/_omega-default-style-vars.scss';
-  $omegavars = new SassFile;
-  $varscss = $omegavars->get_file_contents($vars, $parser);
-  // set the grid to fluid
-  $varscss .= '$twidth: 100%;';
 
-  // get the SCSS for the grid system
-  $gs = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/grids/_omegags.scss';
-  $omegags = new SassFile;
-  $gsscss = $omegags->get_file_contents($gs, $parser);
-  $scss = $varscss . $gsscss;  
+  // If we are set to compile scss, we include it directly,
+  // Otherwise, we use @import for compass.
+  // @todo - This may change when switching scss php compilers soon
+  $compile_scss = theme_get_setting('compile_scss', $theme);
+  $compile = isset($compile_scss) ? $compile_scss : FALSE;
+  if ($compile) {
+    // get the variables for the theme
+    $vars = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/_omega-default-style-vars.scss';
+    $omegavars = new SassFile;
+    $varscss = $omegavars->get_file_contents($vars, $parser);
+    // set the grid to fluid
+    $varscss .= '$twidth: 100%;';
+
+    // get the SCSS for the grid system
+    $gs = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/grids/_omegags.scss';
+    $omegags = new SassFile;
+    $gsscss = $omegags->get_file_contents($gs, $parser);
+    $scss = $varscss . $gsscss;
+  }
+  else {
+    $scss = '@import "omega_mixins", "omega-style-vars", "omega-default-style-vars", "omegags";
+';
+  }
   
 
   // loop over the media queries
@@ -577,7 +586,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
  * Function to take SCSS/CSS data and save to appropriate files
  */ 
 
-function _omega_save_layout_files($scss, $css, $theme, $layout_id) {
+function _omega_save_layout_files($scss, $theme, $layout_id) {
   // create full paths to the scss and css files we will be rendering.
   $layoutscss = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/layout/' . $layout_id . '-layout.scss';
   $layoutcss = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/css/layout/' . $layout_id . '-layout.css';
@@ -593,7 +602,12 @@ function _omega_save_layout_files($scss, $css, $theme, $layout_id) {
   }
 
   // if the Compile SCSS option is enabled, continue
-  if (theme_get_setting('compile_scss', $theme)) {
+  $compile_scss = theme_get_setting('compile_scss', $theme);
+  $compile = isset($compile_scss) ? $compile_scss : FALSE;
+  if ($compile) {
+
+    // generate the CSS from the SCSS created above
+    $css = _omega_compile_css($scss, $options);
     // save the css file
     $cssfile = file_unmanaged_save_data($css, $layoutcss, FILE_EXISTS_REPLACE);
     // check for errors
