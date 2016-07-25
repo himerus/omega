@@ -8,7 +8,7 @@
 require_once('src/phpsass/SassParser.php');
 require_once('src/phpsass/SassFile.php');
 
-function _omega_update_style_scss($styles, $theme, $generate = FALSE) {
+function _omega_update_style_scss($styles, $theme) {
   // get a list of themes
   $themes = \Drupal::service('theme_handler')->listInfo();
   // get the current settings/info for the theme
@@ -17,8 +17,7 @@ function _omega_update_style_scss($styles, $theme, $generate = FALSE) {
   
   //$styleVariables = new SassFile;
   // create full paths to the scss and css files we will be rendering.
-  $styleFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/_style-vars.scss';
-  
+  $styleFile = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss/_omega-style-vars.scss';
   $styleData = '@import "omega_mixins";
   
 // Basic Color Variables 
@@ -72,14 +71,14 @@ function _omega_update_style_scss($styles, $theme, $generate = FALSE) {
   $compile_scss = theme_get_setting('compile_scss', $theme);
   $compile = isset($compile_scss) ? $compile_scss : FALSE;
   if ($compile) {
-    // find all our scss files and open/save them as they should include the _style-vars.scss that we've already updated
+    // find all our scss files and open/save them as they should include the _omega-style-vars.scss that we've already updated
     $source = realpath(".") . base_path() . drupal_get_path('theme', $theme) . '/style/scss';
     scssDirectoryScan($source, $theme, 'scss');
     
   }
 }
 
-function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.(\.)?|CVS|_style-vars\.scss|layout|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
+function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.(\.)?|CVS|_omega-style-vars\.scss|layout|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
   $dir = opendir($source);
   
   while($file = readdir($dir)) {
@@ -120,8 +119,8 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
           $parser = new SassParser($options);
 
           $omegaMixins = $omegaPath . '/style/scss/mixins.scss';
-          $omegaVars = $omegaPath . '/style/scss/vars.scss';
-          $styleVars = $themePath . '/style/scss/_style-vars.scss';
+          $omegaVars = $omegaPath . '/style/scss/_omega-default-style-vars.scss';
+          $styleVars = $themePath . '/style/scss/_omega-style-vars.scss';
           $fileLocation = $source . '/' . $file;
           $variableFile = new SassFile;
           $variableScss = '';
@@ -281,14 +280,14 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   $parser = new SassParser($options);
   
   // get the variables for the theme
-  $vars = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/vars.scss';
+  $vars = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/_omega-default-style-vars.scss';
   $omegavars = new SassFile;
   $varscss = $omegavars->get_file_contents($vars, $parser);
   // set the grid to fluid
   $varscss .= '$twidth: 100%;';
-  
+
   // get the SCSS for the grid system
-  $gs = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/grids/omega.scss';
+  $gs = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/grids/omegags.scss';
   $omegags = new SassFile;
   $gsscss = $omegags->get_file_contents($gs, $parser);
   $scss = $varscss . $gsscss;  

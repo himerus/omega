@@ -236,7 +236,6 @@ function _omega_optional_libraries($theme) {
   $returnLibraries = array();
   // the libraries for the primary theme
   $themeLibraries = $library_discovery->getLibrariesByExtension($theme);
-  //dpm($themeLibraries);
   foreach ($themeLibraries as $libraryKey => $themeLibrary) {
     if (!in_array($theme . '/' . $libraryKey, $ignore_libraries)) {
       $allLibraries[$libraryKey] = $themeLibrary;
@@ -277,8 +276,7 @@ function _omega_optional_libraries($theme) {
       }
     }  
   }
-  //dpm($returnLibraries);
-  return $returnLibraries;  
+  return $returnLibraries;
 }
 
 

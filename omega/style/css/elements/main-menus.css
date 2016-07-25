@@ -1,15 +1,19 @@
 /* Fonts */
+/* line 10, ../../scss/elements/main-menus.scss */
 nav.navigation ul {
   margin: 0;
   padding: 0; }
+  /* line 14, ../../scss/elements/main-menus.scss */
   nav.navigation ul li {
     margin: 3px 5px;
     padding: 0;
     list-style-type: none;
     list-style-image: none;
     display: inline-block; }
+    /* line 21, ../../scss/elements/main-menus.scss */
     nav.navigation ul li:first-child {
       margin-left: 0; }
+    /* line 24, ../../scss/elements/main-menus.scss */
     nav.navigation ul li:last-child {
       margin-right: 0; }
 

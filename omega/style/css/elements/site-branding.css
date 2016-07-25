@@ -1,9 +1,12 @@
 /* Fonts */
+/* line 13, ../../scss/elements/site-branding.scss */
 #site-branding {
   position: relative;
   margin-top: 20px; }
+  /* line 21, ../../scss/elements/site-branding.scss */
   #site-branding .site-name-slogan {
     padding-top: 0; }
+  /* line 27, ../../scss/elements/site-branding.scss */
   #site-branding #logo {
     float: left;
     max-width: 90px;
@@ -12,24 +15,30 @@
     transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -webkit-transition: all 0.25s ease-in-out; }
+    /* line 42, ../../scss/elements/site-branding.scss */
     #site-branding #logo a {
       display: block; }
+    /* line 46, ../../scss/elements/site-branding.scss */
     #site-branding #logo img {
       display: block; }
+  /* line 62, ../../scss/elements/site-branding.scss */
   #site-branding .site-name {
     font-size: 48px;
     font-weight: bold;
     letter-spacing: -0.075em;
     font-family: "Helvetica Neue", Arial, Helvetica;
     color: #047aab; }
+    /* line 70, ../../scss/elements/site-branding.scss */
     #site-branding .site-name a {
       transition: all 0.25s ease-in-out;
       -moz-transition: all 0.25s ease-in-out;
       -webkit-transition: all 0.25s ease-in-out;
       text-decoration: none;
       color: #047aab; }
+      /* line 76, ../../scss/elements/site-branding.scss */
       #site-branding .site-name a:hover {
         color: rgba(4, 122, 171, 0.85); }
+  /* line 82, ../../scss/elements/site-branding.scss */
   #site-branding .site-slogan {
-    color: #777777;
+    color: #777;
     font-variant: small-caps; }

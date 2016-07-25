@@ -1,35 +1,42 @@
 /* Fonts */
+/* line 4, ../../scss/elements/taxonomy-terms.scss */
 .field--taxonomy-terms {
   padding: 5px 0px;
   margin: 5px 0;
   border: 1px solid #CCC;
   border-left-width: 0;
   border-right-width: 0; }
+  /* line 11, ../../scss/elements/taxonomy-terms.scss */
   .field--taxonomy-terms .field__label {
     font-size: 1.1em;
     font-weight: normal; }
+  /* line 16, ../../scss/elements/taxonomy-terms.scss */
   .field--taxonomy-terms .field-item--taxonomy-term {
     display: block;
     float: left; }
+  /* line 20, ../../scss/elements/taxonomy-terms.scss */
   .field--taxonomy-terms .taxonomy-term {
     display: block; }
+  /* line 24, ../../scss/elements/taxonomy-terms.scss */
   .field--taxonomy-terms .taxonomy-term {
     font-size: 0.75em;
     padding: 5px 8px;
     text-decoration: none;
     margin: 0.25em;
-    background: #047aab;
+    background: #047AAB;
     border: 1px solid black;
-    color: #fafafa;
+    color: #FAFAFA;
     transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -webkit-transition: all 0.25s ease-in-out;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px; }
+    /* line 37, ../../scss/elements/taxonomy-terms.scss */
     .field--taxonomy-terms .taxonomy-term:hover {
       background: #035679;
       border: 1px solid black;
-      color: #fafafa; }
+      color: #FAFAFA; }
+    /* line 43, ../../scss/elements/taxonomy-terms.scss */
     .field--taxonomy-terms .taxonomy-term:after {
       font-size: 0; }

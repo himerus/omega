@@ -4,7 +4,7 @@
 // @media all and (min-width: $desktop) and (max-width: $below_desktopWide)
 // @media all and (min-width: $desktopWide)
 
-@import "../vars.scss";
+@import "omega-style-vars", "omega-default-style-vars";
 
 nav.navigation {
   ul {

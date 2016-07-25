@@ -9,14 +9,14 @@ $bodyFont: "Helvetica Neue", Arial, Helvetica !default;
 $header: Georgia, Times, serif;
 
 // Media Queries
-  
+
 // @media all and (min-width: $mobile)
 // @media all and (min-width: $mobileLandscape)
 // Would only be used for enhancements to mobile-first or to target more specific mobile screen resolutions
-  
+
 // @media all and (max-width: $mobile-only)
 // Used to target ONLY resolutions less than tablet, so mobile only. This would prevent the need to remove/override styles that were not needed on tablet/desktop resolutions.
-// 
+//
 // @media all and (min-width: $mobilePortrait) and (max-width: $below_mobileLandscape)
 // @media all and (min-width: $mobileLandscape) and (max-width: $below_tablet)
 // @media all and (min-width: $tablet) and (max-width: $below_desktop)
@@ -24,7 +24,7 @@ $header: Georgia, Times, serif;
 // @media all and (min-width: $desktopWide)
 
 // Used to target the specified breakpoint and anything that appears above it
-  
+
 // @media screen and (min-width: $tablet) and (max-width: $desktop)
 // Used to target ONLY screens between the two breakpoints so styles will not apply to $desktop and beyond in this example.
 
@@ -42,9 +42,9 @@ $mobile-only: 767px !default; // should be 1px less than $tablet
 
 
 $tablet: 768px !default;
-$below_tablet: 767px !default; 
- 
-$desktop: 1024px !default; 
+$below_tablet: 767px !default;
+
+$desktop: 1024px !default;
 $below_desktop: 1023px !default;
 
 $desktopWide: 1220px !default;
@@ -57,9 +57,9 @@ $primaryColor4: #1A1A1A !default; // almost black
 $primaryColor5: #5A5A5A !default; // nice gray
 
 
-$siteTitleColor: rgba($primaryColor1, 1);
-$siteTitleHoverColor: rgba($primaryColor1, 0.85);
-$siteSloganColor: #777;
+$siteTitleColor: rgba($primaryColor1, 1) !default;
+$siteTitleHoverColor: rgba($primaryColor1, 0.85) !default;
+$siteSloganColor: #777 !default;
 
 $taxonomy-term--background: $primaryColor1 !default;
 $taxonomy-term--font-color: $primaryColor3 !default;

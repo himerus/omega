@@ -109,32 +109,6 @@ function omega_page_attachments_alter (&$attachments) {
   //dpm($attachments);
 } /* END omega_page_attachments_alter */
 
-/**
- * Implements hook_page_top().
- */
-function omega_page_top (array &$page_top) {
-  // Evidently HOOK_page_top doesn't fire for themes. Must move this somehwere else.
-  /*
-  $theme = \Drupal::theme()->getActiveTheme()->getName();
-  $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
-  krumo($page_top);
-  if ($screenDemo) {
-    $page_top['themedemoblock'] = array(
-      '#theme' => 'omega_indicator',
-      '#weight' => -9999
-    );
-  }
-  dsm($page_top);
-  */
-} /* END omega_page_top */
-
-/**
- * Implements hook_page_bottom().
- */
-function omega_page_bottom(&$page_bottom) {
-  
-} /* END omega_page_bottom */
-
 function omega_preprocess_html(&$vars) {
   
 } /* END omega_preprocess_html */
@@ -326,7 +300,7 @@ function omega_preprocess_region(&$vars) {
 
 /**
  * Implements hook_preprocess_HOOK() for node templates.
- *
+ * @param array $vars
  */
 function omega_preprocess_node(&$vars) {
   
@@ -334,6 +308,7 @@ function omega_preprocess_node(&$vars) {
 
 /**
  * Implements hook_preprocess_HOOK() for block templates.
+ * @param array $vars
  */
 function omega_preprocess_block(&$vars) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
@@ -351,6 +326,7 @@ function omega_preprocess_block(&$vars) {
 
 /**
  * Implements hook_preprocess_HOOK() for block templates.
+ * @param array $vars
  */
 function omega_preprocess_field(&$vars) {
   $field_type = $vars['field_type'];
@@ -372,6 +348,7 @@ function omega_preprocess_field(&$vars) {
 
 /**
  * hook_html_head_alter()
+ * @param $head_elements
  */
 function omega_html_head_alter(&$head_elements) {
   // cleartype

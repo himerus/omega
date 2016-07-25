@@ -8,10 +8,10 @@
  *
  * @usage
  * @media all and (min-width: $tablet) {
- *   // styles here will apply to tablet mode and above defined in vars.scss
+ *   // styles here will apply to tablet mode and above defined in _omega-style-vars.scss
  * }
  * @media all and (min-width: $desktop) {
- *   // styles here will apply to desktop mode and above defined in vars.scss
+ *   // styles here will apply to desktop mode and above defined in _omega-style-vars.scss
  * }
  * @media all and (min-width: $tablet) and (max-width: $desktop) {
  *   // styles here will apply to tablet mode ONLY and not for desktop mode.
@@ -19,7 +19,7 @@
  */
 
 // Default Variable Import
-@import "vars.scss";
+@import "omega-default-style-vars";
 
 
 

@@ -293,10 +293,10 @@ function omega_theme_layout_build_submit(&$form, \Drupal\Core\Form\FormStateInte
 
     if (isset($values['variables'])) {
         // if this is true, we can assume that SCSS color/variable support was turned on.
-        // grab the value of color/config variables so we can update the _style-vars.scss
+        // grab the value of color/config variables so we can update the _omega-style-vars.scss
         $styles = $values['variables'];
-        // run function to compile the _style-vars.scss file with any updates.
-        _omega_update_style_scss($styles, $theme, false);
+        // run function to compile the _omega-style-vars.scss file with any updates.
+        _omega_update_style_scss($styles, $theme);
     }
 }
 
