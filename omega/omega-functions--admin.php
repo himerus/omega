@@ -287,7 +287,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   $varscss .= '$twidth: 100%;';
 
   // get the SCSS for the grid system
-  $gs = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/grids/omegags.scss';
+  $gs = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/grids/_omegags.scss';
   $omegags = new SassFile;
   $gsscss = $omegags->get_file_contents($gs, $parser);
   $scss = $varscss . $gsscss;  
