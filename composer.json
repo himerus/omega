@@ -4,6 +4,7 @@
   "description": "Omega Five base theme for Drupal 8.",
   "keywords": ["theme", "base theme", "drupal", "omega"],
   "license": "GPL-2.0+",
+  "minimum-stability": "dev",
   "homepage": "https://www.drupal.org/project/omega",
   "support": {
     "issues": "http://drupal.org/project/issues/omega",
