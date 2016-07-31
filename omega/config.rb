@@ -18,6 +18,7 @@ sourcemap = false
 environment = :production
 css_dir = "style/css"
 sass_dir = "style/scss"
+additional_import_paths = ["style/scss/grids"]
 images_dir = "images"
 generated_images_dir = images_dir + "/generated"
 javascripts_dir = "js"

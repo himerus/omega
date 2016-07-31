@@ -1,16 +1,16 @@
 /* Fonts */
-/* line 3, ../../scss/elements/tabs.scss */
 .tabs a {
   background-color: #FAFAFA;
   text-decoration: none;
   font-size: 0.9em;
-  color: #1E415F; }
-  /* line 9, ../../scss/elements/tabs.scss */
-  .tabs a:hover {
-    background-color: #e1e1e1; }
+  color: #1E415F;
+}
+.tabs a:hover {
+  background-color: #e1e1e1;
+}
 
-/* line 13, ../../scss/elements/tabs.scss */
 .tabs a.is-active {
   background-color: #047AAB;
   border: 1px solid #FAFAFA;
-  color: #FAFAFA; }
+  color: #FAFAFA;
+}

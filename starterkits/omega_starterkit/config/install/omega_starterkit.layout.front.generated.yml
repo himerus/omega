@@ -13,12 +13,6 @@ region_groups:
           width: '12'
           suffix: '0'
           pull: '0'
-        menus:
-          push: '0'
-          prefix: '0'
-          width: '12'
-          suffix: '0'
-          pull: '0'
     preface:
       row: '12'
       primary_region: ''
@@ -141,12 +135,6 @@ region_groups:
       collapsed: 'TRUE'
       regions:
         header:
-          push: '0'
-          prefix: '0'
-          width: '12'
-          suffix: '0'
-          pull: '0'
-        menus:
           push: '0'
           prefix: '0'
           width: '12'
@@ -279,12 +267,6 @@ region_groups:
           width: '12'
           suffix: '0'
           pull: '0'
-        menus:
-          push: '0'
-          prefix: '0'
-          width: '12'
-          suffix: '0'
-          pull: '0'
     preface:
       row: '12'
       primary_region: ''
@@ -407,12 +389,6 @@ region_groups:
       collapsed: 'TRUE'
       regions:
         header:
-          push: '0'
-          prefix: '0'
-          width: '12'
-          suffix: '0'
-          pull: '0'
-        menus:
           push: '0'
           prefix: '0'
           width: '12'

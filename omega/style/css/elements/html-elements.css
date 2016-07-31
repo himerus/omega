@@ -1,40 +1,40 @@
 /* Fonts */
 /* Apply a natural box layout model to all elements http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
-/* line 4, ../../scss/elements/html-elements.scss */
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
-/* line 14, ../../scss/elements/html-elements.scss */
 body {
   font-family: "Helvetica Neue", Arial, Helvetica;
   font-size: 100%;
   max-width: 100%;
-  -webkit-text-size-adjust: none; }
+  -webkit-text-size-adjust: none;
+}
 
-/* line 21, ../../scss/elements/html-elements.scss */
 body.toolbar-tray-open.toolbar-vertical.toolbar-fixed {
   margin-left: 0;
-  padding-left: 15rem; }
+  padding-left: 15rem;
+}
 
-/* line 26, ../../scss/elements/html-elements.scss */
 a {
   text-decoration: none;
   color: #047aab;
   transition: opacity 0.25s ease-in-out;
   -moz-transition: opacity 0.25s ease-in-out;
-  -webkit-transition: opacity 0.25s ease-in-out; }
-  /* line 30, ../../scss/elements/html-elements.scss */
-  a:hover {
-    text-decoration: underline;
-    color: rgba(4, 122, 171, 0.85); }
+  -webkit-transition: opacity 0.25s ease-in-out;
+}
+a:hover {
+  text-decoration: underline;
+  color: rgba(4, 122, 171, 0.85);
+}
 
-/* line 37, ../../scss/elements/html-elements.scss */
 details {
-  border: none; }
+  border: none;
+}
 
-/* line 41, ../../scss/elements/html-elements.scss */
 img {
   max-width: 100%;
-  height: auto; }
+  height: auto;
+}
