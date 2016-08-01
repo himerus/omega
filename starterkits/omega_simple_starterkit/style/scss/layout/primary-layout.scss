@@ -1,4 +1,7 @@
-@import 'omega_mixins', 'omega-style-vars', 'omega-default-style-vars', 'omegags';
+@import 'omega_mixins';
+@import 'omega-default-style-vars';
+@import 'omega-style-vars';
+@import 'omegags';
 
 @media all and (min-width: 0px) {
 
@@ -9,11 +12,6 @@
 
     // Breakpoint: All; Region Group: header; Region: header;
     .region--header {
-      @include column(12, 12);
-    }
-
-    // Breakpoint: All; Region Group: header; Region: menus;
-    .region--menus {
       @include column(12, 12);
     }
   }
@@ -62,7 +60,6 @@
   }
 }
 
-
 @media all and (min-width: 768px) and (max-width: 1023px) {
 
   // Breakpoint: Narrow; Region Group: header;
@@ -72,11 +69,6 @@
 
     // Breakpoint: Narrow; Region Group: header; Region: header;
     .region--header {
-      @include column(12, 12);
-    }
-
-    // Breakpoint: Narrow; Region Group: header; Region: menus;
-    .region--menus {
       @include column(12, 12);
     }
   }
@@ -125,7 +117,6 @@
   }
 }
 
-
 @media all and (min-width: 1024px) and (max-width: 1219px) {
 
   // Breakpoint: Normal; Region Group: header;
@@ -135,11 +126,6 @@
 
     // Breakpoint: Normal; Region Group: header; Region: header;
     .region--header {
-      @include column(12, 12);
-    }
-
-    // Breakpoint: Normal; Region Group: header; Region: menus;
-    .region--menus {
       @include column(12, 12);
     }
   }
@@ -226,7 +212,6 @@
   }
 }
 
-
 @media all and (min-width: 1220px) {
 
   // Breakpoint: Wide; Region Group: header;
@@ -236,11 +221,6 @@
 
     // Breakpoint: Wide; Region Group: header; Region: header;
     .region--header {
-      @include column(11, 12);
-    }
-
-    // Breakpoint: Wide; Region Group: header; Region: menus;
-    .region--menus {
       @include column(12, 12);
     }
   }
