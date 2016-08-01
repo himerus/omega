@@ -8,7 +8,7 @@
 require_once('src/phpsass/SassParser.php');
 require_once('src/phpsass/SassFile.php');
 
-use Leafo\ScssPhp\Compiler;
+//use Leafo\ScssPhp\Compiler;
 
 function _omega_update_style_scss($styles, $theme) {
   // get a list of themes
