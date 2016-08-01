@@ -8,6 +8,8 @@
 require_once('src/phpsass/SassParser.php');
 require_once('src/phpsass/SassFile.php');
 
+use Leafo\ScssPhp\Compiler;
+
 function _omega_update_style_scss($styles, $theme) {
   // get a list of themes
   $themes = \Drupal::service('theme_handler')->listInfo();
@@ -78,6 +80,13 @@ function _omega_update_style_scss($styles, $theme) {
   }
 }
 
+/**
+ * @param $source
+ * @param $theme
+ * @param string $filetype
+ * @param string $ignore
+ * @todo Update this to leafo/scssphp
+ */
 function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.(\.)?|CVS|_omega-style-vars\.scss|layout|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
   $dir = opendir($source);
 
@@ -90,42 +99,22 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
       else {
         if (pathinfo($file, PATHINFO_EXTENSION) == $filetype) {
 
-          $omegaPath = realpath(".") . base_path() . drupal_get_path('theme', 'omega');
-          $themePath = realpath(".") . base_path() . drupal_get_path('theme', $theme);
+
 
 
           $relativeSource = str_replace(realpath(".") . base_path() . drupal_get_path('theme', $theme), '', $source);
 
 
-          // Options for phpsass compiler. Defaults in SassParser.php
-          $options = array(
-            'style' => 'expanded',
-            'cache' => FALSE,
-            'debug' => FALSE,
-            'filename' => array(
-              'dirname' => $relativeSource,
-              'basename' => $file
-            ),
-            'debug_info' => FALSE,
-            'line_numbers' => TRUE,
-            'load_paths' => array(
-              $themePath . '/style/scss',
-              $omegaPath . '/style/scss',
-            ),
-            //'extensions'     =>  array('compass'=>array()),
-            'syntax' => 'scss',
-          );
+          $options = _omega_return_scss_options($relativeSource, $file, $theme);
 
           $parser = new SassParser($options);
 
-          $omegaMixins = $omegaPath . '/style/scss/mixins.scss';
-          $omegaVars = $omegaPath . '/style/scss/_omega-default-style-vars.scss';
-          $styleVars = $themePath . '/style/scss/_omega-style-vars.scss';
+
           $fileLocation = $source . '/' . $file;
           $variableFile = new SassFile;
           $variableScss = '';
           $variableScss .= $variableFile->get_file_contents($fileLocation, $parser);
-          $css = _omega_compile_css($variableScss, $options);
+          $css = _omega_compile_css($variableScss, $theme, $options);
 
           // path to CSS file we're overriding
           $newCssFile = str_replace('scss', 'css', $fileLocation);
@@ -221,6 +210,7 @@ function _omega_save_database_layout($layout, $layout_id, $theme, $generate = FA
 
 function _omega_compile_layout($layout, $layout_id, $theme) {
   // Options for phpsass compiler. Defaults in SassParser.php
+
   $options = array(
     'style' => 'nested',
     'cache' => FALSE,
@@ -237,13 +227,41 @@ function _omega_compile_layout($layout, $layout_id, $theme) {
  * Currently performs the following operations:
  *  - Takes SCSS generated from _omega_compile_layout_sass and returns CSS
  */
-function _omega_compile_css($scss, $options) {
+
+function _omega_compile_css($scss, $theme, $options) {
+  // Using richthegeek/phpsass
   $parser = new SassParser($options);
   // create CSS from SCSS
   $css = $parser->toCss($scss);
+
+//  Attempting use of leafo/scssphp
+//  $compiler = new Compiler();
+//  $compiler->setImportPaths(_omega_add_scss_import_paths($theme));
+//  $compiler->setFormatter('Leafo\ScssPhp\Formatter\Expanded');
+//
+//  $css = $compiler->compile($scss);
+
   return $css;
 }
 
+/**
+ * Function to be used by _omega_compile_css to gather the appropriate
+ * @import paths to use for generating CSS in a theme.
+ * @param $compiler
+ * @return array $scss_paths
+ * @todo - Ensure ALL parent theme paths are present to scan
+ */
+function _omega_add_scss_import_paths($theme) {
+
+  $omega_path = drupal_get_path('theme', 'omega');
+  $theme_path = drupal_get_path('theme', $theme);
+  $scss_paths = array(
+    $omega_path . '/style/scss',
+    $omega_path . '/style/scss/grids',
+    $theme_path . '/style/scss',
+  );
+  return $scss_paths;
+}
 /**
  * Custom function to generate layout SCSS from layout variables
  * Currently performs the following operations:
@@ -277,32 +295,19 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
   // create variable to hold all SCSS we need
   $scss = '';
 
-  $parser = new SassParser($options);
+  //$parser = new SassParser($options);
 
   // If we are set to compile scss, we include it directly,
   // Otherwise, we use @import for compass.
   // @todo - This may change when switching scss php compilers soon
-  $compile_scss = theme_get_setting('compile_scss', $theme);
-  $compile = isset($compile_scss) ? $compile_scss : FALSE;
+  //$compile_scss = theme_get_setting('compile_scss', $theme);
+  //$compile = isset($compile_scss) ? $compile_scss : FALSE;
   //$compile = FALSE;
 
-  if ($compile) {
-    // get the variables for the theme
-    $vars = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/_omega-default-style-vars.scss';
-    $omegavars = new SassFile;
-    $varscss = $omegavars->get_file_contents($vars);
-    // set the grid to fluid
-    $varscss .= '$twidth: 100%;';
-
-    // get the SCSS for the grid system
-    $gs = realpath(".") . base_path() . drupal_get_path('theme', 'omega') . '/style/scss/grids/_omegags.scss';
-    $omegags = new SassFile;
-    $gsscss = $omegags->get_file_contents($gs);
-    $scss = $varscss . $gsscss;
-  }
-  else {
-    $scss = "@import 'omega_mixins', 'omega-style-vars', 'omega-default-style-vars', 'omegags';";
-  }
+  $scss = "@import 'omega_mixins';\n";
+  $scss .= "@import 'omega-default-style-vars';\n";
+  $scss .= "@import 'omega-style-vars';\n";
+  $scss .= "@import 'omegags';\n";
 
   // loop over the media queries
   foreach($breakpoints as $breakpoint) {
@@ -499,7 +504,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
       // if not the defualt media query that should apply to all screens
       // we will wrap the scss we've generated in the appropriate media query.
       if ($breakpoint->getLabel() != 'all') {
-        $breakpoint_scss = "\n\n" . '@media ' . $breakpoint->getMediaQuery() . ' {' . $breakpoint_scss . "\n" . '}';
+        $breakpoint_scss = "\n" . '@media ' . $breakpoint->getMediaQuery() . ' {' . $breakpoint_scss . "\n" . '}';
     }
     // add in the SCSS from this breakpoint and add to our SCSS
     $scss .= $breakpoint_scss . "\n"; // add newline at eof
@@ -535,8 +540,10 @@ function _omega_save_layout_files($scss, $theme, $layout_id, $options) {
   $compile = isset($compile_scss) ? $compile_scss : FALSE;
   if ($compile) {
 
+    $relativeSource = str_replace(realpath(".") . base_path() . drupal_get_path('theme', $theme), '', $scssfile);
+    $options = _omega_return_scss_options($relativeSource, $scssfile, $theme);
     // generate the CSS from the SCSS created above
-    $css = _omega_compile_css($scss, $options);
+    $css = _omega_compile_css($scss, $theme, $options);
     // save the css file
     $cssfile = file_unmanaged_save_data($css, $layoutcss, FILE_EXISTS_REPLACE);
     // check for errors
@@ -653,4 +660,28 @@ function _omega_layout_select_options($layouts) {
   }
   //dsm($options);
   return $options;
+}
+
+function _omega_return_scss_options($relativeSource, $file, $theme) {
+  $omegaPath = realpath(".") . base_path() . drupal_get_path('theme', 'omega');
+  $themePath = realpath(".") . base_path() . drupal_get_path('theme', $theme);
+  // default options for richthegeek/phpsass
+  return array(
+      'style' => 'expanded',
+      'cache' => FALSE,
+      'debug' => FALSE,
+      'filename' => array(
+        'dirname' => $relativeSource,
+        'basename' => $file
+      ),
+      'debug_info' => FALSE,
+      'line_numbers' => TRUE,
+      'load_paths' => array(
+        $themePath . '/style/scss',
+        $omegaPath . '/style/scss',
+        $omegaPath . '/style/scss/grids',
+      ),
+      //'extensions'     =>  array('compass'=>array()),
+      'syntax' => 'scss',
+    );
 }
