@@ -7,7 +7,7 @@
   "minimum-stability": "dev",
   "homepage": "https://www.drupal.org/project/omega",
   "support": {
-    "issues": "http://drupal.org/project/issues/omega",
+    "issues": "https://drupal.org/project/issues/omega",
     "source": "https://www.drupal.org/project/omega"
   },
   "authors": [
