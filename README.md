@@ -1,53 +1,71 @@
-# Omega Five
+[logo]: readme/assets/logo-24.png "Omega Five Logo"
 
-### Description
-The Omega Five theme is the most powerful and flexible base theme available for Drupal 8. Omega includes HTML5, CSS3 responsive layouts, customizable grids based on Omega.gs, advanced preprocess functionality, and a vastly enhanced performance profile from Omega 3.x. In Omega Five all the processing of layout data/vars is handled by the backend, and SCSS/CSS is generated when theme settings/layouts have been updated. This means all that is loaded on the front end is valid CSS that handles the layout.
+## ![alt text][logo] Omega Five 
 
+#### Description
+The `Omega Five` theme is a powerful and flexible base theme for Drupal 8. 
+If you are searching for a base theme for your next Drupal project, look no further. 
+Omega has always been built for the average user to have control over the visual appearance and layout though an intuitive interface. 
 
-### Resources
-* Project Page: [drupal.org/project/omega](http://drupal.org/project/omega)
-* Issue Queue: [drupal.org/project/issues/omega](http://drupal.org/project/issues/omega)
-* Usage Stats: [drupal.org/project/usage/omega](http://drupal.org/project/usage/omega)
+#### Features
+* **Subtheme Generation** - Create _subthemes_ and _clone_ themes on the fly that inherit or override various theme features of the parent.
+* **Responsive Layout Interface** - Fully Responsive layout(s) and a _highly configurable interface_ presentation of that layout in each responsive breakpoint to make editing your layouts a breeze.
+* **Layout Inheritance** - Allows you can create a base theme for your project that controls layout and base styles. This allows subthemes to inherit ALL layout configurations from the parent.
+* **Layout Override** - Allows a custom subtheme to override all layout settings, and provide a unique layout unlike its parent theme.
+* **Layout Selection** - Ability for single or multiple layout configurations. You can then select which layout to use on the homepage, individual node types, and for taxonomy vocabularies.
+* **Advanced Themer Friendly** - Features for advanced themers like adding a config.rb or Gemfile to generated subthemes.
+* **Starterkit Samples** - Multiple starterkits to choose from when creating a starting point for your subtheme.
+* **SCSS for Everyone** - Advanced themers have the ability to control your SCSS <small>(via Compass, etc.)</small>, or allow Omega to handle it for you for those just wanting to keep it simple.
+* **Custom SCSS Colors & Variables** - A custom interface <small>(when enabled)</small> for colors, fonts and other styles that allows you to manipulate SCSS variables on the fly used to represent your look & feel.   
+
+#### Online Resources
+* [Omega Project Page](http://drupal.org/project/omega)
+* [Omega Issue Queue](http://drupal.org/project/issues/omega)
+* [Omega Usage Statistics](http://drupal.org/project/usage/omega)
 * Maintainer(s):
   * Jake Strawn
-	* [drupal.org/user/159141](http://drupal.org/user/159141)
-	* [twitter.com/himerus](http://twitter.com/himerus)
+	* [Jake on Drupal.org](https://www.drupal.org/u/himerus)
+	* [Jake on Twitter](http://twitter.com/himerus)
 
-### Creating your Omega Sub Theme (Manually)
+#### Downloading & Installing Omega Five
 
-* Copy the appropriate starterkit from omega/starterkits
-  * move copy to /themes
-* Rename the folder
-  * Rename the copied folder to **YOUR_THEME**
-* Renaming the appropriate files
-  -- Any instance below of *STARTERKIT* below could be *omega_starterkit*, *omega_simple_starterkit*, etc.
-  -- Any instance of **YOUR_THEME** should be the new machine name of your theme
-  * Rename the *STARTERKIT*.info.yml file to **YOUR_THEME**.info.yml
-  * Rename the *STARTERKIT*.breakpoints.yml to **YOUR_THEME**.breakpoints.yml
-  * Rename the *STARTERKIT*.libraries.yml to **YOUR_THEME**.libraries.yml
-  * Rename the *STARTERKIT*.theme to **YOUR_THEME**.theme
-  * Rename the *STARTERKIT*.schema.yml to **YOUR_THEME**.schema.yml in the config/schema folder
-  * Rename the *STARTERKIT*.settings.yml to **YOUR_THEME**.settings.yml in the config/install folder
-  * Rename the *STARTERKIT*.region_groups.yml to **YOUR_THEME**.region_groups.yml in the config/install folder
-  * Rename the *STARTERKIT*.layouts.yml to **YOUR_THEME**.layouts.yml in the config/install folder
-  * Rename ALL *STARTERKIT*.layout.LAYOUT_ID.yml to **YOUR_THEME**.layout.LAYOUT_ID.yml in the config/install folder
-  * Rename ALL *STARTERKIT*.layout.LAYOUT_ID.generated.yml to **YOUR_THEME**.layout.LAYOUT_ID.generated.yml in the config/install folder
-  * Rename the *STARTERKIT*.js to **YOUR_THEME**.js in the js folder
-  * Rename the *STARTERKIT*.css to YOURTHEME.css in the style/css folder
-* Edit **YOUR_THEME**.info.yml
-  * Change the following lines to suit your needs
-    * name = My Custom Theme
-    * description = My own custom Omega Five subtheme
-    * libraries 
-      * Rename STARTERKIT/STARTERKIT to **YOUR_THEME**/**YOUR_THEME**
-* Edit **YOUR_THEME**.libraries.yml
-  * Change the following
-    * Replace all instances of STARTERKIT with **YOUR_THEME** (there should be 3)
-* More details to follow
-* More details to follow
-* More details to follow
-* More details to follow
-* Turn on your subtheme
-  * visit /admin/appearance
-  * Click “Install and set default” on the appropriate subtheme you’ve created.
-  * Profit.
+##### Downloading Omega Five via Composer
+You can download Omega using [Composer](https://getcomposer.org/) by running the command `composer require drupal/omega`. 
+This command should be ran from the appropriate root of your project.
+This will usually be the root Drupal directory.
+However, if you are using a custom Composer setup that calls for drupal/drupal as a requirement, you'd run the command from the appropriate root of your project.
+
+##### Downloading Omega via Tarball
+From the [Omega Project Page](http://drupal.org/project/omega), download the appropriate `8.x-5.*` tarball and extract in into your `/themes` folder, or optionally `/themes/contrib` 
+
+##### Installing Omega
+Once you have Omega downloaded properly via one of the above methods, visit `admin/appearance` while logged in as an Administrator. 
+Under the `Uninstalled Themes` section, you can now find Omega, and select either `Install` or `Install and set as default`.
+
+#### Creating your Omega Sub Theme
+
+##### Subtheme Generator <small>(Easy Way)</small>
+Omega Five includes a powerful subtheme generator. 
+It will allow you to make a clone of any Omega subtheme, 
+or will allow you to create a subtheme based upon any subtheme.
+
+If you have followed the steps under Installing Omega (above), when you visit `/admin/appearance`, find Omega and click the link for `Settings`. 
+If you have the **Omega Tools** module enabled, this link will instead read `Create Subtheme`.
+
+Once on the Subtheme Generator page, you can fill out the following fields:
+
+* Theme Name
+* Description
+* Version
+* other things
+
+##### Manually <small>(Hard Way)</small>
+As a matter of last resort, you can create a subtheme manually for Omega Five. 
+Attempting to create a subtheme manually is likely to result in an error or oversight, 
+leaving your new theme unusable without major debugging. 
+
+It is much easier to create a subtheme through the interface. 
+But, should you choose to try the manual method, here you go:
+
+* [./readme/creating-subthemes--manually.md](./readme/creating-subthemes--manually.md)
+
