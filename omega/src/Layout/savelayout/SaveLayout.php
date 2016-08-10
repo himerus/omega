@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views\Form\ViewsForm.
- */
-
 namespace Drupal\omega\savelayout;
 
 /**

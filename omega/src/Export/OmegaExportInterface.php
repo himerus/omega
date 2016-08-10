@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\omega\Theme\OmegaExportInterface
- */
-
 namespace Drupal\omega\Export;
 
 use Drupal\Core\Form\FormStateInterface;

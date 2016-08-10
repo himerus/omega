@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\omega\Theme\OmegaExport
- */
-
 namespace Drupal\omega\Export;
 
 use Drupal\Core\Extension\ThemeHandlerInterface;

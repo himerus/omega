@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\omega\Theme\OmegaSettingsInfo.
- */
-
 namespace Drupal\omega\Theme;
 
 /**
