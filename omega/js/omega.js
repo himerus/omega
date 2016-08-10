@@ -15,17 +15,11 @@
       if (!window.matchMedia('only screen').matches) {
         return;
       }
-
-      //console.log(drupalSettings.omega);
-
       breakpoints = drupalSettings.omega_breakpoints;
-      //console.log(breakpoints);
       breakpointMatch = false;
-      //console.log(breakpoints);
 
       // Handle the intial load
       $(window).on('load', function() {
-        //console.log(breakpoints);
         $.each(breakpoints, function() {
         	if (window.matchMedia(this.query).matches) {
             breakpointMatch = true;
@@ -42,9 +36,7 @@
 
       // handle resize events
       $(window).on('resize', function(){
-        //console.log(breakpoints);
         $.each(breakpoints, function() {
-
         	if (window.matchMedia(this.query).matches) {
         	  breakpointMatch = true;
             // if it wasn't already active
@@ -59,7 +51,6 @@
               drupalSettings.omega.currentBreakpoints[this.name] = false;
               $.event.trigger('breakpointRemoved', {name: this.name, query: this.query});
             }
-
           }
         });
 
@@ -69,45 +60,25 @@
           drupalSettings.omega.currentBreakpoints['all'] = true;
         }
       });
-
-
-
     }
   };
 
-
-  // Drupal.behaviors attach: is NOT working in IOS under any circumstance I can find.
-  // the behaviors are ONLY not working if a user is anonymous. WTH
-  Drupal.behaviors.iostest = {
-    attach: function (context, settings) {
-      //alert('hello!!!!!');
-      //$('body').html('<h1>WTF</h1>');
-    }
-  };
-
-  // need to use some LocalStorage to keep the indicator open/closed based on last setting.
-
+  // @todo - need to use some LocalStorage to keep the indicator open/closed based on last setting.
   Drupal.behaviors.indicatorToggle = {
     attach: function (context, settings) {
 
       $('#indicator-toggle').on('click', function() {
         if ($(this).hasClass('indicator-open')) {
           $(this).removeClass('indicator-open').addClass('indicator-closed');
-          //$('#omega-screen--indicator').css('right', '-280px');
-
           $('#omega-screen--indicator').animate({
             opacity: 0.25,
-            right: '-280',
-            //height: "toggle"
+            right: '-280'
           }, 500, function() {
             // Animation complete.
           });
-
         }
         else {
           $(this).removeClass('indicator-closed').addClass('indicator-open');
-          //$('#omega-screen--indicator').css('right', '0');
-
           $('#omega-screen--indicator').animate({
             opacity: 1,
             right: '0',
