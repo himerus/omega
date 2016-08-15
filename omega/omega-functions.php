@@ -88,7 +88,7 @@ function omega_find_layout_provider($theme) {
 function omega_return_active_layout() {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   $front = \Drupal::service('path.matcher')->isFrontPage();
-  $node = \Drupal::routeMatch()->getParameter('node');
+  $nid = \Drupal::routeMatch()->getRawParameter('node');
   $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
   /*$view = \Drupal::routeMatch()->getParameter('view_id');*/
   
@@ -99,7 +99,8 @@ function omega_return_active_layout() {
   $layout = $defaultLayout;
   
   // if it is a node, check for and assign alternate layout
-  if ($node) {
+  if ($nid) {
+    $node = \Drupal\node\Entity\Node::load($nid);
     $type = $node->getType();
     $nodeLayout = theme_get_setting('node_type_' . $type . '_layout', $layoutProvider);
     $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
