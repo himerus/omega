@@ -1,0 +1,4 @@
+omega_tools.layouts_page:
+  route_name: omega_tools.layouts_page
+  title: 'Layouts'
+  base_route: system.themes_page

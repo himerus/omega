@@ -103,6 +103,12 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
             // include the layout builder interface
             include_once 'theme-settings/layout-settings.php';
         }
+
+        // Include layout plugin configuration options
+        if (\Drupal::moduleHandler()->moduleExists('layout_plugin')) {
+          include_once 'theme-settings/layout-plugin-configuration.php';
+        }
+
         // Change the text for default submit button
         $form['actions']['submit']['#value'] = t('Save');
         // Hide the default submit button if 'export new subtheme' option is enabled

@@ -1,0 +1,7 @@
+omega_tools.layouts_page:
+  path: '/admin/appearance/layouts'
+  defaults:
+    _title: 'Layout Management'
+    _controller: '\Drupal\omega_tools\Layout\LayoutController::themesPage'
+  requirements:
+    _permission: 'administer layouts'
