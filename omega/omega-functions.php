@@ -86,18 +86,24 @@ function omega_find_layout_provider($theme) {
  * Custom function to return the active layout to be used for the active page.
  */
 function omega_return_active_layout() {
+  // The active theme being used
   $theme = \Drupal::theme()->getActiveTheme()->getName();
-  $front = \Drupal::service('path.matcher')->isFrontPage();
-  $nid = \Drupal::routeMatch()->getRawParameter('node');
-  $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
-  /*$view = \Drupal::routeMatch()->getParameter('view_id');*/
-  
+  // Is this page the front page?
+  $front = \Drupal::service('path.matcher')->isFrontPage() ? \Drupal::service('path.matcher')->isFrontPage() : false;
+  // Is this page a node?
+  $nid = \Drupal::routeMatch()->getRawParameter('node') ? \Drupal::routeMatch()->getRawParameter('node') : false;
+  // Is this page a taxonomy term?
+  $term = \Drupal::routeMatch()->getParameter('taxonomy_term') ? \Drupal::routeMatch()->getParameter('taxonomy_term') : false;
+  // Is this page a view?
+  $view_id = \Drupal::routeMatch()->getParameter('view_id') ? \Drupal::routeMatch()->getParameter('view_id') : false;
+  // All parameters for the page
+  $params = \Drupal::routeMatch()->getParameters();
+
   $layoutProvider = omega_find_layout_provider($theme);
-  //dpm($layoutProvider);
   // setup default layout
   $defaultLayout = theme_get_setting('default_layout', $layoutProvider);
   $layout = $defaultLayout;
-  
+
   // if it is a node, check for and assign alternate layout
   if ($nid) {
     $node = \Drupal\node\Entity\Node::load($nid);
@@ -105,33 +111,35 @@ function omega_return_active_layout() {
     $nodeLayout = theme_get_setting('node_type_' . $type . '_layout', $layoutProvider);
     $layout = $nodeLayout ? $nodeLayout : $defaultLayout;
   }
-  
-  // if it is a views page, check for and assign alternate layout 
-/*
-  if ($view) {
-    $viewData = Views::getView($view);
-    //dsm($viewData);
-    //$viewLayout = theme_get_setting('view_' . $view . '_layout');
-    //$layout = $viewLayout ? $viewLayout : $defaultLayout;
+
+  // if it is a views page, check for and assign alternate layout
+
+  if ($view_id) {
+    // @todo: Ensure this views integration is flexible.
+    // Grab the string value of the display_id parameter
+    $view_display_id = \Drupal::routeMatch()->getParameter('display_id');
+    $view_layout_id = 'views_view_' . $view_id . '_' . $view_display_id . '_layout';
+    $viewLayout = theme_get_setting($view_layout_id);
+    $layout = $viewLayout ? $viewLayout : $defaultLayout;
   }
-*/
-  
-  // if it is a term page, check for and assign alternate layout 
+
+  // if it is a term page, check for and assign alternate layout
+  // @todo: Since this view is more specific than the VIEW taxonomy_term_page_1, we should remove that view from the options in the theme settings.
   if ($term) {
     $vocab = $term->getVocabularyId();
     $vocabLayout = theme_get_setting('taxonomy_' . $vocab . '_layout');
     $layout = $vocabLayout ? $vocabLayout : $defaultLayout;
   }
-  
+
   // if it is the front page, check for an alternate layout
   // this should come AFTER all other adjustments
-  // This ensures if someone has set an individual node page, term page, etc. 
+  // This ensures if someone has set an individual node page, term page, etc.
   // as the front page, the front page setting has more priority
   if ($front) {
     $homeLayout = theme_get_setting('home_layout', $layoutProvider);
     $layout = $homeLayout ? $homeLayout : $defaultLayout;
   }
-  
+
   return array(
     'theme' => $layoutProvider,
     'layout' => $layout,

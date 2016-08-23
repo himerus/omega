@@ -51,6 +51,7 @@ $form['layout-config']['default-layouts'] = array(
   '#type' => 'details',
   '#attributes' => array('class' => array('layout-selection')),
   '#title' => 'Default Layouts',
+  '#description' => '<div class="messages messages--status omega-styles-info">The following section allows you to customize the layout used for various default pages like the homepage.</div>',
   '#group' => 'layout-config',
   '#states' => $omegaGSon,
 );
@@ -100,23 +101,24 @@ $form['layout-config']['node-layouts'] = array(
   '#type' => 'details',
   '#attributes' => array('class' => array('layout-selection')),
   '#title' => 'Node Type Layouts',
+  '#description' => '<div class="messages messages--status omega-styles-info">The following section allows you to customize the layout used for a specific node type.</div>',
   '#group' => 'layout-config',
   '#states' => $omegaGSon,
 );
 
-$types = node_type_get_types();
+$types = \Drupal\node\Entity\NodeType::loadMultiple();
 foreach ($types AS $ctype => $ctypeData) {
 
   $layout_name = 'node_type_' . $ctype . '_layout';
   $ctypeLayout = theme_get_setting($layout_name, $theme);
-  
+
   $form['layout-config']['node-layouts'][$layout_name] = array(
     '#prefix' => '<div class="' . $ctype . '-layout-select">',
     '#suffix' => '</div>',
     '#type' => 'select',
     '#attributes' => array(
       'class' => array(
-        'layout-select', 
+        'layout-select',
         'clearfix'
       ),
     ),
@@ -135,6 +137,7 @@ $form['layout-config']['taxonomy-layouts'] = array(
   '#type' => 'details',
   '#attributes' => array('class' => array('layout-selection')),
   '#title' => 'Taxonomy Term Page Layouts',
+  '#description' => '<div class="messages messages--status omega-styles-info">The following section allows you to customize the layout used for a Taxonomy Term page.</div>',
   '#group' => 'layout-config',
   '#states' => $omegaGSon,
 );
@@ -162,46 +165,80 @@ foreach ($vocabs AS $vocab_id) {
     '#default_value' => isset($ttypeLayout) ? $ttypeLayout : theme_get_setting('default_layout', $theme),
     '#tree' => FALSE,
     '#states' => $omegaGSon,
-  ); 
+  );
 }
-
-
-
 
 $form['layout-config']['views-layouts'] = array(
   '#type' => 'details',
-  '#description' => '<div class="messages messages--warning omega-styles-info">Currently, views layout switches are not available. This is a feature yet to be developed</div>',
+  '#description' => '<div class="messages messages--status omega-styles-info">The following section allows you to customize the layout used for a Views page.</div>',
   '#attributes' => array('class' => array('layout-selection')),
   '#title' => 'Views Page Layouts',
   '#group' => 'layout-config',
   '#states' => $omegaGSon,
 );
 
-/*
-$view = \Drupal::routeMatch()->getParameter('view_id');
-$viewData = Views::getView($view);
-
-$allRouteViews = Views::getApplicableViews('uses_route');
-dsm($allRouteViews);
-
-$result = array();
+// $result attempts to get only page views.
+$results = [];
 $entity_ids = \Drupal::service('entity.query')->get('view')
     ->condition('status', TRUE)
     ->condition("display.*.display_plugin", array('page' => 'page'), 'IN')
     ->execute();
-//dsm($entity_ids);
-foreach (\Drupal::entityManager()->getStorage('view')->loadMultiple($entity_ids) as $view) {
+foreach (\Drupal::entityTypeManager()->getStorage('view')->loadMultiple($entity_ids) as $view) {
+
   foreach ($view->get('display') as $id => $display) {
-    //dsm($view);
-    //dsm($id);
-    //dsm($display);
-    
+
     $enabled = !empty($display['display_options']['enabled']) || !array_key_exists('enabled', $display['display_options']);
 
     if ($enabled && in_array($display['display_plugin'], array('page'))) {
-      $result[] = [$view->id(), $id];
+
+      // We haven't come across the view id we are looking at yet.
+      if (empty ($results[$view->id()])) {
+        $results[$view->id()] = [
+          'view_id' => $view->id(),
+          'displays' => [$id],
+        ];
+      }
+      // $result[$view-id()] already exists, so just add the display to it.
+      else {
+        $results[$view->id()][displays][] = $id;
+      }
     }
   }
-}   
-dsm($result);
-*/
+}
+
+foreach ($results as $result) {
+  $view_id = $result['view_id'];
+  // Create a container for each view
+  $form['layout-config']['views-layouts'][$view_id] = array(
+    '#type' => 'details',
+    '#description' => '',
+    '#attributes' => array('class' => array('views-display-group')),
+    '#title' => 'View Name: ' . $view_id,
+    '#group' => 'views-layouts',
+    '#states' => $omegaGSon,
+  );
+
+  // Create a form element for each display
+  foreach ($result['displays'] AS $display) {
+    $layout_name = 'views_view_' . $view_id . '_' . $display . '_layout';
+    $vtypeLayout = theme_get_setting($layout_name, $theme);
+
+    $form['layout-config']['views-layouts'][$view_id][$layout_name] = array(
+      '#prefix' => '<div class="' . $layout_name . '-select">',
+      '#suffix' => '</div>',
+      '#type' => 'select',
+      '#attributes' => array(
+        'class' => array(
+          'layout-select',
+          'clearfix'
+        ),
+      ),
+      '#title' => 'Display: ' . $display . ' Select Layout: ',
+      '#description' => '<p class="description">The <strong>'. $view_id .'</strong> Layout is used only on the X page on the Y display using the <strong>' . $theme . '</strong> theme.</p>',
+      '#options' => $availableLayouts,
+      '#default_value' => isset($vtypeLayout) ? $vtypeLayout : theme_get_setting('default_layout', $theme),
+      '#tree' => FALSE,
+      '#states' => $omegaGSon,
+    );
+  }
+}
