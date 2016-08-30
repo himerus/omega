@@ -1,0 +1,22 @@
+uuid: d26f8df2-e067-4622-98d8-d0d1b22133e4
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - omega
+_core:
+  default_config_hash: gL72g_hnGhyTW0nAnvi6QHqRaTv6oXsYIIrbPjSYWoE
+id: omega_content
+theme: omega
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

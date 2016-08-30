@@ -1,0 +1,22 @@
+uuid: 43d6077e-d5db-4f8f-adb5-256b57981064
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - omega
+_core:
+  default_config_hash: htd6L8aPXhqy2F38bbZBMr5ArSlNf3eVbUXUSlltjaA
+id: omega_breadcrumbs
+theme: omega
+region: highighted
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

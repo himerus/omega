@@ -1,0 +1,22 @@
+uuid: 603baccc-ebe1-4565-a859-d969bed2ed02
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - omega
+_core:
+  default_config_hash: dAXJT8g13hb-VFdOPJtvmBRGHK69bjEMa6BP5AR56MY
+id: omega_search
+theme: omega
+region: header
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: '0'
+visibility: {  }

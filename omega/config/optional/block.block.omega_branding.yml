@@ -1,0 +1,25 @@
+uuid: 9830cfa5-7a9b-4479-9dfc-07b14c814d0a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - omega
+_core:
+  default_config_hash: Fyz83tDisDIFBSOOGkL1NogD99kuVNp3vZ4u164lpVg
+id: omega_branding
+theme: omega
+region: header
+weight: -8
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

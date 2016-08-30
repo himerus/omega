@@ -1,0 +1,26 @@
+uuid: 7fb51300-7ce2-46f1-af28-629aab4936d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - omega
+_core:
+  default_config_hash: mjSdtlypfkFfenqx3T0Z139aUtKZKTEhPJ3XQO_FyPY
+id: omega_footer
+theme: omega
+region: footer
+weight: 0
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: 'Footer menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

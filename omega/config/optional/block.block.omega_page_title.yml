@@ -1,0 +1,20 @@
+uuid: 4a32bfd4-132c-459e-bf54-48c0d1543a27
+langcode: en
+status: true
+dependencies:
+  theme:
+    - omega
+_core:
+  default_config_hash: aZaqEe2LEYvkDO__lv5IJDhOqSjjWrmPkpSIdGJzaWE
+id: omega_page_title
+theme: omega
+region: content
+weight: -8
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

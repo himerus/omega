@@ -1,0 +1,22 @@
+uuid: 81f3ced7-17ae-4975-89bf-aa0934a73d7d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - omega
+_core:
+  default_config_hash: IAv74J05od_SfwvUY-oL4qU7baSnM5gbwNk1tsxAPqY
+id: omega_powered
+theme: omega
+region: footer
+weight: -8
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  provider: system
+  label_display: '0'
+visibility: {  }

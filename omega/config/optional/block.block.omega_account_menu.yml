@@ -1,0 +1,26 @@
+uuid: c97ce4f1-8740-4406-a308-7cef07f582df
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - omega
+_core:
+  default_config_hash: uMl8pjlwHBcV-bE-D0YMrOlnfZYIRhujmfMb7dcturI
+id: omega_account_menu
+theme: omega
+region: header
+weight: -8
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 1
+visibility: {  }
