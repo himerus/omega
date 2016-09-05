@@ -57,7 +57,7 @@ $form['export']['export_details']['theme_machine_name'] = array(
     'replace_pattern' => '[^a-z_]+',
     'replace' => '_',
   ),
-);  
+);
 
 $form['export']['export_details']['export_description'] = array(
   '#type' => 'textfield',
@@ -102,9 +102,32 @@ $form['export']['export_options']['export_theme_base'] = array(
   '#type' => 'select',
   '#options' => $omegaSubThemes,
   '#title' => t('Omega Sub-Theme'),
-  // set $theme as default so if we are using the generator inside a subtheme, it will 
+  // set $theme as default so if we are using the generator inside a subtheme, it will
   // auto select the current theme as the new base of a clone/kit.
   '#default_value' => $theme,
+  '#suffix' => '<span class="separator">in</span>',
+);
+
+
+// @todo: This should potentially be factored a bit better.
+$exportPaths = array(
+  'Recommended Locations' => array(
+    'themes/custom' => 'themes/custom',
+  ),
+  'Other Locations' => array(
+    'themes' => 'themes',
+    'themes/contrib' => 'themes/contrib',
+    'core/themes' => 'core/themes',
+  ),
+);
+
+$form['export']['export_options']['export_destination_path'] = array(
+  '#type' => 'select',
+  '#options' => $exportPaths,
+  '#title' => t('Export Location'),
+  // set $theme as default so if we are using the generator inside a subtheme, it will
+  // auto select the current theme as the new base of a clone/kit.
+  '#default_value' => 'themes/custom',
   '#suffix' => '</div>',
 );
 
