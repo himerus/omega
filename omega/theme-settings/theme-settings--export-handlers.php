@@ -2,17 +2,30 @@
 
 use Drupal\omega\Export\OmegaExport;
 
-function omega_theme_generate_validate(&$form, &$form_state) {
+/**
+ * Custom validation function for generating subthemes.
+ *
+ * @param $form
+ *   Nested array of form elements that comprise the form.
+ *
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function omega_theme_generate_validate(&$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+  // Grab the Drupal theme handler service.
   $themeHandler = \Drupal::service('theme_handler');
+  // Grab the Drupal file handler service.
   $fileHandler = \Drupal::service('file_system');
-  // get all the values of the submitted form
+  // Get all the values of the submitted form.
   $values = $form_state->getValues();
-  // create a variable for the export fields
+  // Create a variable for the export fields.
   $exportValues = $values['export'];
-  // remove some variables we don't need
+  // Remove some variables we don't need.
   unset($exportValues['export_options_clone']);
   unset($exportValues['export_options_kit']);
+  // Setup export.
   $export = new OmegaExport($themeHandler, $fileHandler);
+  // Build export.
   $build = $export->buildExport($exportValues);
   $target_path = $build['destination_path'];
 
@@ -27,17 +40,31 @@ function omega_theme_generate_validate(&$form, &$form_state) {
   }
 }
 
-function omega_theme_generate_submit(&$form, &$form_state) {
+/**
+ * Custom validation function for generating subthemes.
+ *
+ * @param $form
+ *   Nested array of form elements that comprise the form.
+ *
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function omega_theme_generate_submit(&$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+  // Grab the Drupal theme handler service.
   $themeHandler = \Drupal::service('theme_handler');
+  // Grab the Drupal file handler service.
   $fileHandler = \Drupal::service('file_system');
-  // get all the values of the submitted form
+  // Get all the values of the submitted form.
   $values = $form_state->getValues();
-  // create a variable for the export fields
+  // Create a variable for the export fields.
   $exportValues = $values['export'];
-  // remove some variables we don't need
+  // Remove some variables we don't need.
   unset($exportValues['export_options_clone']);
   unset($exportValues['export_options_kit']);
+  // Setup export.
   $export = new OmegaExport($themeHandler, $fileHandler);
+  // Build export.
   $export->buildExport($exportValues);
+  // Save export.
   $export->saveExport($form_state);
 }
