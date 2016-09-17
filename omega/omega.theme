@@ -103,8 +103,6 @@ function omega_page_attachments_alter(&$attachments) {
       unset($attachments['#attached']['library'][$libraryArrayKey]);
     }
   }
-  //dpm($attachments['#attached']['library']);
-  //dpm($attachments);
 } /* END omega_page_attachments_alter */
 
 function omega_preprocess_html(&$vars) {
@@ -178,13 +176,10 @@ function omega_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface
  */
 function omega_preprocess_page(&$vars) {
 
-  //$page = $vars['page'];
   $theme = \Drupal::theme()->getActiveTheme()->getName();
 
   $themes = \Drupal::service('theme_handler')->listInfo();
-  //$defaultLayout = theme_get_setting('default_layout');
   $themeSettings = $themes[$theme];
-  //dpm($themeSettings->info['regions']);
   $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
   // Enable the helper div with info on screen size, breakpoints active, etc.
   if ($screenDemo) {
@@ -212,7 +207,6 @@ function omega_preprocess_page(&$vars) {
   $regionDemo = theme_get_setting('block_demo_mode', $theme);
 
   if ($regionDemo) {
-    //dsm($vars['page']);
     drupal_set_message(t('Region Demonstration mode is on. This can be turned off in theme settings.'), 'warning');
     $theme_regions = $themeSettings->info['regions'];
     $regionSkip = theme_get_setting('block_demo_excluded_regions', $theme);
@@ -250,7 +244,6 @@ function omega_preprocess_page(&$vars) {
         // works for not displaying page top and bottom or other omitted regions.
       }
     }
-    //dsm($vars['page']);
   }
 
   // create an array to define the with-sidebar_first without-sidebar_first classes
@@ -288,17 +281,6 @@ function omega_preprocess_page(&$vars) {
   $vars['region_classes'] = $pass_region_classes;
   $vars['page_classes'] = $pass_page_classes;
 
-
-  /*
-    // attempting to 'hide' empty highlighted region
-    // appears help and messages blocks render arrays even when empty
-    krumo($vars['page']['highlighted']);
-    // removing highlighted region if it is empty.
-    $highlightsize = isset($vars['page']['highlighted']) ? count($vars['page']['highlighted']) : 0;
-    if (isset($vars['page']['highlighted']) && $highlightsize == 0) {
-      unset($vars['page']['highlighted']);
-    }
-  */
 } /* END omega_preprocess_page */
 
 /**
@@ -318,7 +300,6 @@ function omega_preprocess_region(&$vars) {
   // add a region class in the format region--REGION-NAME
   $altered_region_id = str_replace("_", "-", $vars['region']);
   $vars['attributes']['class'][] = 'region--' . $altered_region_id;
-  //dsm($vars);
 } /* END omega_preprocess_region */
 
 /**

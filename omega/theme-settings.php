@@ -114,11 +114,6 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
     // add appropriate validate & submit hooks
     $form['#validate'][] = 'omega_theme_settings_validate';
     $form['#submit'][] = 'omega_theme_settings_submit';
-
-    // gather the default submit callback so we can add it to our custom one
-    $defaultSubmit = $build_info['callback_object'];
-
-    //dsm($build_info);
     // copy the default submit button/handler
     $form['actions']['submit_layout'] = $form['actions']['submit'];
     // update the text for the new button
@@ -174,7 +169,6 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
  * @return bool
  */
 function omega_theme_exists($machine_name) {
-  //dsm($machine_name);
   drupal_set_message(t('function <strong>omega_theme_exists</strong> called...'));
   $themes = \Drupal::service('theme_handler')->rebuildThemeData();
   $result = FALSE;

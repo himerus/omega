@@ -62,7 +62,6 @@ function omega_find_layout_provider($theme) {
     $baseThemes = array_reverse($baseThemes);
 
     foreach ($baseThemes AS $baseKey => $baseName) {
-      //dpm($baseKey);
       $baseThemeSettings = $omegaSettings->getThemeInfo($baseKey);
       $base_inherit_layout = $baseThemeSettings->info['inherit_layout'];
 
@@ -170,8 +169,6 @@ function _omega_getAvailableBreakpoints($theme) {
       ->getGroups();
     // get all the base themes of this theme
     $baseThemes = \Drupal::theme()->getActiveTheme()->getBaseThemes();
-    //dpm($baseThemes);
-    $debug = \Drupal::theme()->getActiveTheme()->getExtension();
 
     $theme_ids = array(
       $theme => \Drupal::theme()->getActiveTheme()->getExtension()->info['name']
@@ -182,7 +179,6 @@ function _omega_getAvailableBreakpoints($theme) {
       $theme_ids[$theme_key] = $clean_theme_name;
     }
 
-    //dpm($theme_ids);
     // cycle all the breakpoint groups and see if they are a part of this theme or its base theme(s)
     foreach ($all_breakpoint_groups as $group_key => $group_values) {
       // get the theme name that provides this breakpoint group
@@ -211,14 +207,12 @@ function _omega_getAvailableBreakpoints($theme) {
   else {
     drupal_set_message(t('Omega requires the <b>Breakpoint module</b>. Open the <a href="@extendpage" target="_blank">Extend</a> page and enable Breakpoint.', array('@extendpage' => base_path() . 'admin/modules')), 'warning');
   }
-  //dpm($breakpoint_options);
   return $breakpoint_options;
 }
 
 function _omega_getActiveBreakpoints($layout, $theme) {
   // get the default layout and convert to name for breakpoint group
   $breakpointGroupId = theme_get_setting('breakpoint_group_' . $layout, $theme);
-  //dsm($breakpointGroupId);
   $breakpointGroup = \Drupal::service('breakpoint.manager')
     ->getBreakpointsByGroup($breakpointGroupId);
   if ($breakpointGroup) {
@@ -284,7 +278,6 @@ function _omega_optional_libraries($theme) {
   foreach ($baseThemes as $baseKey => $baseTheme) {
     if (!in_array($baseKey, $ignore_base_themes)) {
       foreach ($library_discovery->getLibrariesByExtension($baseKey) as $libraryKey => $themeLibrary) {
-        //dpm($themeLibrary);
         if (!in_array($baseKey . '/' . $libraryKey, $ignore_libraries)) {
           $allLibraries[$libraryKey] = $themeLibrary;
           $returnLibraries[$baseKey . '/' . $libraryKey] = array(

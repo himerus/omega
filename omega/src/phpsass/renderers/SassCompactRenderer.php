@@ -119,7 +119,6 @@ class SassCompactRenderer extends SassCompressedRenderer
     $indent = $this->getIndent($node);
     $debug = '';
     $filename = implode('/', $node->filename);
-    //kint($node);
     if ($node->getDebug_info()) {
       $debug .= $indent . self::DEBUG_INFO_RULE . '{';
       $debug .= 'filename{' . self::DEBUG_INFO_PROPERTY . ':' . preg_replace('/([^-\w])/', '\\\\\1', "file://{$filename}") . ';}';

@@ -52,7 +52,6 @@ $form['variables']['colors']['primary'] = array(
   '#tree' => FALSE,
 );
 
-//dpm($variables);
 $primaryColor1 = isset($variables['colors']['primaryColor1']) ? $variables['colors']['primaryColor1'] : '3a3a3a';
 $form['variables']['colors']['primary']['primaryColor1'] = array(
   '#type' => 'textfield',

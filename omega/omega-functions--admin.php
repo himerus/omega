@@ -489,7 +489,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
                 $classMatch[] = $attemptedMatch;
 
                 if (count($classMatch) >= 1) {
-                  //dsm($classMatch);
+
                 }
 
                 $breakpoint_scss .= "\n    " . '&' . $classCreate . ' {';
@@ -659,10 +659,8 @@ function _omega_layout_generation_adjust($main, $empty_regions = array(), $cols)
 function _omega_layout_select_options($layouts) {
   $options = array();
   foreach ($layouts as $id => $info) {
-    //$options[$id] = $info['theme'] . '--' . $info['name'];
     $options[$id] = $id;
   }
-  //dsm($options);
   return $options;
 }
 

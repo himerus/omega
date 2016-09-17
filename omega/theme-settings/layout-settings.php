@@ -58,7 +58,6 @@ foreach ($layouts as $lid => $ldata) {
   );
 
   $active_breakpoint_group = theme_get_setting('breakpoint_group_' . $lid, $theme);
-  //dsm($active_breakpoint_group);
   $current_breakpoint_group = isset($active_breakpoint_group) ? $active_breakpoint_group : 'omega.standard';
   $form['layouts'][$lid]['breakpoint_group_' . $lid] = array(
     '#type' => 'select',
@@ -85,9 +84,7 @@ foreach ($layouts as $lid => $ldata) {
   $breakpoints = _omega_getActiveBreakpoints($lid, $theme);
   // foreach breakpoint we have, we will create a form element group and appropriate settings for region layouts per breakpoint.
   foreach ($breakpoints as $breakpoint) {
-
-    //kint($breakpoint->getBaseId());
-
+    
     // create a 'clean' version of the id to use to match what we want in our yml structure
     $idtrim = omega_return_clean_breakpoint_id($breakpoint);
 
@@ -150,8 +147,6 @@ foreach ($layouts as $lid => $ldata) {
         $primary_access = TRUE;
       }
 
-
-      //dsm($info);
       $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['row'] = array(
         '#prefix' => '<div class="region-group-layout-settings">',
         '#type' => 'select',

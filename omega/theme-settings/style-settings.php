@@ -23,12 +23,10 @@ $form['styles']['styles_toggle'] = array(
   //'#suffix' => '</div>',
   '#weight' => -999,
 );
-//dpm($form['styles']);
 foreach ($toggleLibraries as $id => $data) {
   // let's organize all the libraries a bit
   $libraryParts = explode('/', $id);
   $themeProvidingLibrary = $libraryParts[0];
-  //dpm($themeProvidingLibrary);
 
   // let's create a wrapper for this theme's libraries if it hasn't been made in a previous loop
   // this creates a collapsible element for each theme/parent theme to make the form more usable
