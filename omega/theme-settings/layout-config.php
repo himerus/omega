@@ -202,7 +202,7 @@ foreach (\Drupal::entityTypeManager()
       }
       // $result[$view-id()] already exists, so just add the display to it.
       else {
-        $results[$view->id()][displays][] = $id;
+        $results[$view->id()]['displays'][] = $id;
       }
     }
   }
