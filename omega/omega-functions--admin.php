@@ -113,7 +113,7 @@ function scssDirectoryScan($source, $theme, $filetype = 'scss', $ignore = '/^(\.
           $fileLocation = $source . '/' . $file;
           $variableFile = new SassFile;
           $variableScss = '';
-          $variableScss .= $variableFile->get_file_contents($fileLocation, $parser);
+          $variableScss .= $variableFile->get_file_contents($fileLocation);
           $css = _omega_compile_css($variableScss, $theme, $options);
 
           // path to CSS file we're overriding
@@ -234,12 +234,12 @@ function _omega_compile_css($scss, $theme, $options) {
   // create CSS from SCSS
   $css = $parser->toCss($scss);
 
-//  Attempting use of leafo/scssphp
-//  $compiler = new Compiler();
-//  $compiler->setImportPaths(_omega_add_scss_import_paths($theme));
-//  $compiler->setFormatter('Leafo\ScssPhp\Formatter\Expanded');
-//
-//  $css = $compiler->compile($scss);
+  //  Attempting use of leafo/scssphp
+  //  $compiler = new Compiler();
+  //  $compiler->setImportPaths(_omega_add_scss_import_paths($theme));
+  //  $compiler->setFormatter('Leafo\ScssPhp\Formatter\Expanded');
+  //
+  //  $css = $compiler->compile($scss);
 
   return $css;
 }
@@ -311,6 +311,7 @@ function _omega_compile_layout_sass($layout, $layoutName, $theme = 'omega', $opt
 
   // loop over the media queries
   foreach($breakpoints as $breakpoint) {
+    /** @var \Drupal\breakpoint\Breakpoint $breakpoint */
     // create a clean var for the scss for this breakpoint
     $breakpoint_scss = '';
     $idtrim = omega_return_clean_breakpoint_id($breakpoint);

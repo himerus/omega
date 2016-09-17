@@ -20,7 +20,7 @@ function omega_return_clean_breakpoint_id(\Drupal\breakpoint\Breakpoint $breakpo
  * @return array|mixed|null
  */
 function omega_return_layouts($theme) {
-  
+
   // grab the defined layouts in config/install/$theme.layouts.yml
   $layouts = \Drupal::config($theme . '.omega-layouts')->get();
   foreach ($layouts AS $layout => $null) {
@@ -43,15 +43,15 @@ function omega_return_layouts($theme) {
 function omega_find_layout_provider($theme) {
   // Create Omega Settings Object
   $omegaSettings = new OmegaSettingsInfo($theme);
-  
+
   // get the default settings for the current theme
   $themeSettings = $omegaSettings->getThemeInfo();
-  
+
   // get the value of 'inherit_layout' from THEME.info.yml
   $inherit_layout = isset($themeSettings->info['inherit_layout']) ? $themeSettings->info['inherit_layout'] : FALSE;
-  
+
   // we have encountered a theme that inherits layout from a base theme
-  // now we will scan the array of applicable base themes looking for the 
+  // now we will scan the array of applicable base themes looking for the
   // closest parent providing layout and not inheriting it
   if ($inherit_layout) {
     // grab the base themes
@@ -60,7 +60,7 @@ function omega_find_layout_provider($theme) {
     unset($baseThemes['stable'], $baseThemes['classy']);
     // put the base themes in the proper order to traverse for layouts
     $baseThemes = array_reverse($baseThemes);
-    
+
     foreach ($baseThemes AS $baseKey => $baseName) {
       //dpm($baseKey);
       $baseThemeSettings = $omegaSettings->getThemeInfo($baseKey);
@@ -72,7 +72,7 @@ function omega_find_layout_provider($theme) {
         return $baseKey;
       }
     }
-    
+
   }
   // this theme provides its own layout, so just return the appropriate theme name
   else {
@@ -106,6 +106,7 @@ function omega_return_active_layout() {
 
   // if it is a node, check for and assign alternate layout
   if ($nid) {
+    /** @var \Drupal\node\Entity\Node $node */
     $node = \Drupal\node\Entity\Node::load($nid);
     $type = $node->getType();
     $nodeLayout = theme_get_setting('node_type_' . $type . '_layout', $layoutProvider);
@@ -160,7 +161,7 @@ function _omega_getAvailableBreakpoints($theme) {
   if ($breakpoints_module == TRUE) {
     // get all the breakpoint groups available to Drupal
     $all_breakpoint_groups = \Drupal::service('breakpoint.manager')->getGroups();
-    // get all the base themes of this theme    
+    // get all the base themes of this theme
     $baseThemes = \Drupal::theme()->getActiveTheme()->getBaseThemes();
     //dpm($baseThemes);
     $debug = \Drupal::theme()->getActiveTheme()->getExtension();
@@ -173,7 +174,7 @@ function _omega_getAvailableBreakpoints($theme) {
       $clean_theme_name = $data->getExtension()->info['name'];
       $theme_ids[$theme_key] = $clean_theme_name;
     }
-    
+
     //dpm($theme_ids);
     // cycle all the breakpoint groups and see if they are a part of this theme or its base theme(s)
     foreach ($all_breakpoint_groups as $group_key => $group_values) {
@@ -185,7 +186,7 @@ function _omega_getAvailableBreakpoints($theme) {
         $breakpoint_groups[$group_key] = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($group_key);
       }
     }
-    
+
     foreach($breakpoint_groups as $group => $breakpoint_values)  {
       if ($breakpoint_values !== array()) {
         // get the theme name that provides this breakpoint group
@@ -234,11 +235,11 @@ function _omega_optional_libraries($theme) {
   $themes = $themeHandler->rebuildThemeData();
   $themeObject = $themes[$theme];
   $baseThemes = $themeObject->base_themes;
-  
+
   $ignore_libraries = array(
     'omega/omega_admin', // removed as it is only used for theme admin page(s) and is required
   );
-  
+
   // create a variable to hold the full library data
   $allLibraries = array();
   // create a variable to combine all the libraries we can select/desect in our form
@@ -258,14 +259,14 @@ function _omega_optional_libraries($theme) {
       );
     }
   }
-  
-  // setup some themes to skip. 
+
+  // setup some themes to skip.
   // Essentially trimming this down to only Omega and any Omega subthemes.
   $ignore_base_themes = array(
-    'stable', 
+    'stable',
     'classy'
   );
-  
+
   // the libraries for any parent theme
   foreach ($baseThemes as $baseKey => $baseTheme) {
     if (!in_array($baseKey, $ignore_base_themes)) {
@@ -283,7 +284,7 @@ function _omega_optional_libraries($theme) {
           );
         }
       }
-    }  
+    }
   }
   return $returnLibraries;
 }

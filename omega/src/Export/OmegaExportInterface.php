@@ -25,6 +25,12 @@ interface OmegaExportInterface {
   public function saveExport(FormStateInterface $form_state);
 
   /**
+   * Returns the path of a .kit directory to use when generating subtheme.
+   *
+   * @return string Path to directory.
+   */
+  public function getKitPath();
+  /**
    * Returns the information array on the export
    *
    * @return array

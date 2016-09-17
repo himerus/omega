@@ -69,6 +69,7 @@ function omega_page_attachments_alter (&$attachments) {
 
   $layouts = array();
   foreach($breakpoints as $breakpoint) {
+    /** @var \Drupal\breakpoint\Breakpoint $breakpoint */
     $layouts[$breakpoint->getBaseId()] = array(
       'query' => $breakpoint->getMediaQuery(),
       'name' => $breakpoint->getLabel()
@@ -149,14 +150,30 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
 
 /**
  * Implements hook_js_alter().
+ *
+ * Perform necessary alterations to the JavaScript before it is presented on
+ * the page.
+ *
+ * @param $javascript
+ *   An array of all JavaScript being presented on the page.
+ * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
+ *   The assets attached to the current response.
+ *
+ * @see drupal_js_defaults()
+ * @see \Drupal\Core\Asset\AssetResolver
  */
 function omega_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
 
 } /* END omega_js_alter */
 
 /**
- * Implements hook_preprocess_HOOK() for page templates.
+ * Implements template_preprocess_HOOK() for page templates.
  *
+ * Prepares variables for the page template.
+ *
+ * Default template: page.html.twig.
+ *
+ * See the page.html.twig template for the list of variables.
  */
 function omega_preprocess_page(&$vars) {
 
@@ -286,6 +303,15 @@ function omega_preprocess_page(&$vars) {
 /**
  * Implements hook_preprocess_HOOK() for region templates.
  *
+ * Default template: region.html.twig.
+ *
+ * Prepares the values passed to the theme_region function to be passed into a
+ * pluggable template engine. Uses the region name to generate a template file
+ * suggestions.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing properties of the region.
  */
 function omega_preprocess_region(&$vars) {
   // add a region class in the format region--REGION-NAME
@@ -321,7 +347,7 @@ function omega_preprocess_block(&$vars) {
 } /* END omega_preprocess_block */
 
 /**
- * Implements hook_preprocess_HOOK() for block templates.
+ * Implements hook_preprocess_HOOK() for field templates.
  * @param array $vars
  */
 function omega_preprocess_field(&$vars) {
