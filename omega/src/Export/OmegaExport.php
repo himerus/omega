@@ -193,7 +193,7 @@ class OmegaExport implements OmegaExportInterface {
         // Update the Base theme
         $info['base theme'] = $this->build['parent'];
         //$this->generateThemeFile();
-        //$this->generateThemeSettingsFile();
+        $this->generateThemeSettingsFile();
         //$this->destroyLibraries();
         $this->generateBlankLibrary();
         $this->generateTemplateFiles();
@@ -881,10 +881,9 @@ class OmegaExport implements OmegaExportInterface {
     // Since this file was originally copied fully from the parent theme (assuming the parent theme had one)
     // We either need to create the default theme-settings.php with basic examples, OR remove the file since
     // any theme settings from the parent theme will already be present for this new subtheme
-    if ($this->build['theme_settings_php']) {
+    $destination = $this->build['destination_path'] . '/theme-settings.php';
+    if ($this->build['theme_settings_php'] && !file_exists($destination)) {
       $source = $this->getKitPath() . '/theme-settings.php';
-      $destination = $this->build['destination_path'] . '/theme-settings.php';
-
       // copy the theme settings file
       $themeSettingsFile = $this->fileCopy($source, $destination);
       if ($themeSettingsFile) {
@@ -893,7 +892,6 @@ class OmegaExport implements OmegaExportInterface {
       }
     }
     else {
-      $destination = $this->build['destination_path'] . '/theme-settings.php';
       $this->fileRemove($destination);
     }
   }
@@ -911,7 +909,7 @@ class OmegaExport implements OmegaExportInterface {
     // copy the theme settings file
     $themeFile = $this->fileCopy($source, $destination);
     if ($themeFile) {
-      // make it usable by injecting the correct theme name for the functions
+      // Make it usable by injecting the correct theme name for the functions.
       $this->fileStrReplace($destination, 'OMEGA_SUBTHEME', $this->build['machine']);
     }
     else {

@@ -82,7 +82,6 @@ $form['export']['export_options'] = array(
   '#open' => TRUE,
 );
 
-
 $form['export']['export_options']['export_type'] = array(
   '#type' => 'radios',
   '#title' => t('Create a:'),
@@ -107,7 +106,6 @@ $form['export']['export_options']['export_theme_base'] = array(
   '#suffix' => '<span class="separator">in</span>',
 );
 
-
 // @todo: This should potentially be factored a bit better.
 $exportPaths = array(
   'Recommended Locations' => array(
@@ -129,7 +127,6 @@ $form['export']['export_options']['export_destination_path'] = array(
   '#default_value' => 'themes/custom',
   '#suffix' => '</div>',
 );
-
 
 // STATES VARIABLES
 $omega_state__type_clone = array(':input[name="export[export_options][export_type]"]' => array('value' => 'clone'));
@@ -233,7 +230,7 @@ $form['export']['export_options']['export_enable_scss_support'] = array(
 $form['export']['export_options']['export_enable_configrb'] = array(
   '#type' => 'checkbox',
   '#title' => t('Include config.rb'),
-  '#description' => t('Creating a config.rb in your subtheme will allow you to use Compass to compile your SCSS rather than Omega. <strong>If you are unsure what config.rb is, leave this option unchecked.</strong> For more information on config.rb options, visit <a href="http://compass-style.org/help/documentation/configuration-reference/" target="_blank">compass-style.org</a>'),
+  '#description' => t('Creating a config.rb in your subtheme will allow you to use Compass to compile your SCSS rather than Omega. <strong>If you are unsure what config.rb is, leave this option unchecked.</strong> For more information on config.rb options, visit <a href="http://compass-style.org/help/documentation/configuration-reference/" target="_blank">compass-style.org</a>.'),
   '#default_value' => 0,
   '#states' => $subtheme_state,
 );
@@ -241,7 +238,7 @@ $form['export']['export_options']['export_enable_configrb'] = array(
 $form['export']['export_options']['export_enable_gemfile'] = array(
   '#type' => 'checkbox',
   '#title' => t('Include Gemfile'),
-  '#description' => t('Creating a Gemfile will help install ruby gem dependencies needed using Bundler. <strong>If you are unsure what a Gemfile is, leave this option unchecked.</strong> For more information on Gemfile options, visit <a href="http://bundler.io/gemfile.html" target="_blank">bundler.io</a>'),
+  '#description' => t('Creating a Gemfile will help install ruby gem dependencies needed using Bundler. <strong>If you are unsure what a Gemfile is, leave this option unchecked.</strong> For more information on Gemfile options, visit <a href="http://bundler.io/gemfile.html" target="_blank">bundler.io</a>.'),
   '#default_value' => 0,
   '#states' => $subtheme_state,
 );
@@ -249,7 +246,7 @@ $form['export']['export_options']['export_enable_gemfile'] = array(
 $form['export']['export_options']['export_enable_gruntfile'] = array(
   '#type' => 'checkbox',
   '#title' => t('Include Gruntfile.js'),
-  '#description' => t('<a href="http://gruntjs.com/" target="_blank">Grunt</a> is a JavaScript Task Runner. The less work you have to do when performing repetitive tasks like minification, compilation, unit testing, linting, etc, the easier your job becomes.'),
+  '#description' => t('Grunt is a JavaScript Task Runner. It will allow you to streamline repetitive tasks like minification, compilation, unit testing, linting, etc. <strong>If you are unsure what Grunt is, leave this option unchecked.</strong> For more information on Gruntfile.js options, visit <a href="http://gruntjs.com/getting-started" target="_blank">gruntjs.com</a>.'),
   '#default_value' => 0,
   '#states' => $subtheme_state,
 );
