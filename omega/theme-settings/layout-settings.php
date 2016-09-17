@@ -84,7 +84,7 @@ foreach ($layouts as $lid => $ldata) {
   $breakpoints = _omega_getActiveBreakpoints($lid, $theme);
   // foreach breakpoint we have, we will create a form element group and appropriate settings for region layouts per breakpoint.
   foreach ($breakpoints as $breakpoint) {
-    
+
     // create a 'clean' version of the id to use to match what we want in our yml structure
     $idtrim = omega_return_clean_breakpoint_id($breakpoint);
 

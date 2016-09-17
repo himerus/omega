@@ -1,5 +1,5 @@
 
-(function ($, Drupal, drupalSettings) {
+(function ($, Drupal, drupalSettings, Backbone, Modernizr) {
 
     "use strict";
 
@@ -35,4 +35,4 @@
         }
     };
 
-})(jQuery, Drupal, drupalSettings);
+})(jQuery, Drupal, drupalSettings, Backbone, Modernizr);

@@ -12,10 +12,6 @@ OMEGA_SUBTHEME:
   css:
     theme:
       style/css/OMEGA_SUBTHEME.css: {}
-    layout:
-      #style/css/layout/some-layout-file.css: {}
-    component:
-      #style/css/components/some-component.css: {}
   dependencies:
     - core/modernizr
     - core/jquery

@@ -36,4 +36,41 @@ Where possible, and as a continuing effort, code for [**Omega Five**](https://dr
 
 ## Installing `OMEGA_SUBTHEME` 
 Assuming the installation was not automated, on the `admin/appearance` page, scroll to the bottom for **Uninstalled themes**.
-You will find links to **Install** and **Install and set as default** listed with `OMEGA_SUBTHEME`
+You will find links to **Install** and **Install and set as default** listed with `OMEGA_SUBTHEME`.
+
+## Customizing Libraries in `OMEGA_SUBTHEME`
+Omega provides a few options to add functionality to the libraries you define in your subtheme(s).
+
+```
+OMEGA_SUBTHEME:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Default library for the OMEGA_SUBTHEME theme'
+    description: 'Default Omega subtheme library description. Please provide a more meaningful description (and title) for this library by editing the OMEGA_SUBTHEME.libraries.yml file.'
+    scss:
+      style/css/OMEGA_SUBTHEME.css: 'style/scss/OMEGA_SUBTHEME.scss'
+  version: VERSION
+  js:
+    js/OMEGA_SUBTHEME.js: {}
+  css:
+    theme:
+      style/css/OMEGA_SUBTHEME.css: {}
+  dependencies:
+    - core/modernizr
+    - core/jquery
+    ...
+    ...
+
+```
+
+Above, you will see the library defined as: `OMEGA_SUBTHEME/OMEGA_SUBTHEME`. 
+The `omega` section of the array is the portion we can customize for various Omega functionality.
+
+### Available Options
+* `omega`
+  * `allow_clone_for_subtheme` - A boolean TRUE/FALSE that determines if the library should be cloned into a new theme. 
+  * `allow_enable_disable` - A boolean TRUE/FALSE that determines if the library can be enabled/disabled through the Omega theme settings interface.
+  * `title` - A descriptive title for your library.
+  * `description` - A longer description for your library.
+  * `scss` - An array of values that map CSS files to SCSS files for any clone/subtheme operation. This enables Omega to properly copy BOTH the relevant CSS and SCSS when cloning a library. 

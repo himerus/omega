@@ -241,7 +241,15 @@ $form['export']['export_options']['export_enable_configrb'] = array(
 $form['export']['export_options']['export_enable_gemfile'] = array(
   '#type' => 'checkbox',
   '#title' => t('Include Gemfile'),
-  '#description' => t('Creating a Gemfile will help install ruby gem dependencies needed using Bundler. <strong>If you are unsure what a Gemfile is, leave this option unchecked.</strong> For more information on Gemfile options, visit <a href="http://bundler.io/gemfile.html" target="_blank">bundler.io</a></a>'),
+  '#description' => t('Creating a Gemfile will help install ruby gem dependencies needed using Bundler. <strong>If you are unsure what a Gemfile is, leave this option unchecked.</strong> For more information on Gemfile options, visit <a href="http://bundler.io/gemfile.html" target="_blank">bundler.io</a>'),
+  '#default_value' => 0,
+  '#states' => $subtheme_state,
+);
+
+$form['export']['export_options']['export_enable_gruntfile'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Include Gruntfile.js'),
+  '#description' => t('<a href="http://gruntjs.com/" target="_blank">Grunt</a> is a JavaScript Task Runner. The less work you have to do when performing repetitive tasks like minification, compilation, unit testing, linting, etc, the easier your job becomes.'),
   '#default_value' => 0,
   '#states' => $subtheme_state,
 );
@@ -251,14 +259,6 @@ $form['export']['export_options']['export_include_blank_library'] = array(
   '#title' => t('Include customizable library with CSS/JS'),
   '#description' => t('This will create a libraries.yml file for your theme, defining a custom CSS and JS include for your theme, with basic usage examples.'),
   '#default_value' => 1,
-  '#states' => $subtheme_state,
-);
-
-$form['export']['export_options']['export_include_themefile_samples'] = array(
-  '#type' => 'checkbox',
-  '#title' => t('Include samples in your .theme file'),
-  '#description' => t('This will place some basic preprocess functions and hook samples in the .theme file of the theme you are creating. Unselecting this option will include a blank .theme file.'),
-  '#default_value' => 0,
   '#states' => $subtheme_state,
 );
 

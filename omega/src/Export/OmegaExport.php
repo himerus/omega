@@ -142,8 +142,6 @@ class OmegaExport implements OmegaExportInterface {
       'blank_library' => $this->getOptions('export_include_blank_library') ? TRUE : FALSE,
       // If a 'blank' theme-settings.php file should be included.
       'theme_settings_php' => $this->getOptions('export_include_theme_settings_php') ? TRUE : FALSE,
-      // If sample functions should be created in .theme or not.
-      'theme_theme_samples' => $this->getOptions('export_include_themefile_samples') ? TRUE : FALSE,
       // If templates should be copied over to the new theme.
       'theme_theme_templates' => $this->getOptions('export_include_templates') ? TRUE : FALSE,
       // If the layout should be inherited only, or customizable in the new theme.
@@ -154,6 +152,8 @@ class OmegaExport implements OmegaExportInterface {
       'theme_configrb_create' => $this->getOptions('export_enable_configrb') ? TRUE : FALSE,
       // If Gemfile support should be included.
       'theme_gemfile_create' => $this->getOptions('export_enable_gemfile') ? TRUE : FALSE,
+      // If Gruntfile.js support should be included.
+      'theme_gruntfile_create' => $this->getOptions('export_enable_gruntfile') ? TRUE : FALSE,
     );
     $this->kitData = [
       'clone_directory' => DRUPAL_ROOT . '/' . drupal_get_path('theme', $this->build['parent']),
@@ -199,6 +199,7 @@ class OmegaExport implements OmegaExportInterface {
         $this->generateTemplateFiles();
         $this->generateConfigrb();
         $this->generateGemfile();
+        $this->generateGruntfile();
         break;
     }
 
@@ -374,7 +375,7 @@ class OmegaExport implements OmegaExportInterface {
                 // overridden, then the path used as the key is not the same as the relative path from the
                 // original.
 
-                // @TODO - The order of the if/elseif/else should likely be reversed so the changes cascade appropriately.
+                // @todo - The order of the if/elseif/else should likely be reversed so the changes cascade appropriately.
 
                 // FEELS LIKE HERE I MAY NEED TO FOREACH AGAIN IN ORDER TO DETERMINE THE FOLLOWING:
                 // $overridingTheme isn't the same as the theme path in the library override, but instead
@@ -881,7 +882,7 @@ class OmegaExport implements OmegaExportInterface {
     // We either need to create the default theme-settings.php with basic examples, OR remove the file since
     // any theme settings from the parent theme will already be present for this new subtheme
     if ($this->build['theme_settings_php']) {
-      $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/theme-settings.php';
+      $source = $this->getKitPath() . '/theme-settings.php';
       $destination = $this->build['destination_path'] . '/theme-settings.php';
 
       // copy the theme settings file
@@ -904,13 +905,7 @@ class OmegaExport implements OmegaExportInterface {
     // We will copy over and replace any .theme file since this is going to be a subtheme rather than a clone
     // In a subtheme, you wouldn't want the same logic running again.
     // This setup determines if to include default samples, or basically just make the .theme file empty
-    // @todo: remove this feature. Just force the examples being in the .theme file.
-    if ($this->build['theme_theme_samples']) {
-      $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/OMEGA_SUBTHEME.theme';
-    }
-    else {
-      $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/OMEGA_SUBTHEME.theme';
-    }
+    $source = $this->getKitPath() . '/OMEGA_SUBTHEME.theme';
 
     $destination = $this->build['destination_path'] . '/' . $this->build['machine'] . '.theme';
     // copy the theme settings file
@@ -987,7 +982,7 @@ class OmegaExport implements OmegaExportInterface {
     $destination = $this->build['destination_path'] . '/config.rb';
     if ($this->build['theme_configrb_create']) {
       // source of the config.rb file
-      $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/config.rb';
+      $source = $this->getKitPath() . '/config.rb';
 
       // copy the config.rb
       $configRbFile = $this->fileCopy($source, $destination);
@@ -1013,7 +1008,7 @@ class OmegaExport implements OmegaExportInterface {
   protected function generateGemfile() {
     $destination = $this->build['destination_path'] . '/Gemfile';
     if ($this->build['theme_gemfile_create']) {
-      $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/Gemfile';
+      $source = $this->getKitPath() . '/Gemfile';
       // copy the Gemfile
       $Gemfile = $this->fileCopy($source, $destination);
       if (!$Gemfile) {
@@ -1023,9 +1018,29 @@ class OmegaExport implements OmegaExportInterface {
     else {
       // remove the default Gemfile if it exists
       $this->fileRemove($destination);
-      // update the desination var to Gemfile.lock
+      // update the destination var to Gemfile.lock
       $destination = $this->build['destination_path'] . '/Gemfile.lock';
       // remove the default Gemfile.lock if it exists
+      $this->fileRemove($destination);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   * @todo: generateConfigrb(), generateGemfile() and generateGruntfile() could/should be combined to a single method.
+   */
+  protected function generateGruntfile() {
+    $destination = $this->build['destination_path'] . '/Gruntfile.js';
+    if ($this->build['theme_gruntfile_create']) {
+      $source = $this->getKitPath() . '/Gruntfile.js';
+      // copy the Gruntfile
+      $Gruntfile = $this->fileCopy($source, $destination);
+      if (!$Gruntfile) {
+        drupal_set_message("Error saving Gruntfile.", "error");
+      }
+    }
+    else {
+      // remove the default Gemfile if it exists
       $this->fileRemove($destination);
     }
   }
