@@ -63,7 +63,7 @@ $form['layout-config']['default-layouts']['default_layout'] = array(
   '#type' => 'select',
   '#attributes' => array(
     'class' => array(
-      'layout-select', 
+      'layout-select',
       'clearfix'
     ),
   ),
@@ -72,7 +72,7 @@ $form['layout-config']['default-layouts']['default_layout'] = array(
   '#default_value' => isset($defaultLayout) ? $defaultLayout : theme_get_setting('default_layout', $theme),
   '#tree' => FALSE,
   '#states' => $omegaGSon,
-  // attempting possible jQuery intervention rather than ajax 
+  // attempting possible jQuery intervention rather than ajax
 );
 
 $homeLayout = isset($form_state->values['home_layout']) ? $form_state->values['home_layout'] : theme_get_setting('home_layout', $theme);
@@ -83,7 +83,7 @@ $form['layout-config']['default-layouts']['home_layout'] = array(
   '#type' => 'select',
   '#attributes' => array(
     'class' => array(
-      'layout-select', 
+      'layout-select',
       'clearfix'
     ),
   ),
@@ -92,7 +92,7 @@ $form['layout-config']['default-layouts']['home_layout'] = array(
   '#default_value' => isset($homeLayout) ? $homeLayout : theme_get_setting('default_layout', $theme),
   '#tree' => FALSE,
   '#states' => $omegaGSon,
-  // attempting possible jQuery intervention rather than ajax 
+  // attempting possible jQuery intervention rather than ajax
 );
 
 // Show a select menu for each node type, allowing the selection
@@ -123,13 +123,13 @@ foreach ($types AS $ctype => $ctypeData) {
       ),
     ),
     '#title' => $ctypeData->label() . ': Select Layout',
-    '#description' => '<p class="description">The <strong>'. $ctypeData->label() .'</strong> Layout is used only on pages rendering a full node page of the type "<strong>'.$ctypeData->id().'</strong>" using the <strong>' . $theme . '</strong> theme.</p>',
+    '#description' => '<p class="description">The <strong>' . $ctypeData->label() . '</strong> Layout is used only on pages rendering a full node page of the type "<strong>' . $ctypeData->id() . '</strong>" using the <strong>' . $theme . '</strong> theme.</p>',
     '#options' => $availableLayouts,
     '#default_value' => isset($ctypeLayout) ? $ctypeLayout : theme_get_setting('default_layout', $theme),
     '#tree' => FALSE,
     '#states' => $omegaGSon,
-    // attempting possible jQuery intervention rather than ajax 
-  );  
+    // attempting possible jQuery intervention rather than ajax
+  );
 }
 
 // create layout switching options for taxonomy term pages
@@ -148,19 +148,19 @@ foreach ($vocabs AS $vocab_id) {
   $vocab = \Drupal\taxonomy\Entity\Vocabulary::load($vocab_id);
   $layout_name = 'taxonomy_' . $vocab_id . '_layout';
   $ttypeLayout = theme_get_setting($layout_name, $theme);
-  
+
   $form['layout-config']['taxonomy-layouts'][$layout_name] = array(
     '#prefix' => '<div class="' . $layout_name . '-select">',
     '#suffix' => '</div>',
     '#type' => 'select',
     '#attributes' => array(
       'class' => array(
-        'layout-select', 
+        'layout-select',
         'clearfix'
       ),
     ),
     '#title' => $vocab->get('name') . ' Vocabulary: Select Layout',
-    '#description' => '<p class="description">The <strong>'. $vocab->get('name') .'</strong> Layout is used only on pages rendering a full taxonomy term listing page of the type "<strong>'.$vocab_id.'</strong>" using the <strong>' . $theme . '</strong> theme.</p>',
+    '#description' => '<p class="description">The <strong>' . $vocab->get('name') . '</strong> Layout is used only on pages rendering a full taxonomy term listing page of the type "<strong>' . $vocab_id . '</strong>" using the <strong>' . $theme . '</strong> theme.</p>',
     '#options' => $availableLayouts,
     '#default_value' => isset($ttypeLayout) ? $ttypeLayout : theme_get_setting('default_layout', $theme),
     '#tree' => FALSE,
@@ -180,10 +180,12 @@ $form['layout-config']['views-layouts'] = array(
 // $result attempts to get only page views.
 $results = [];
 $entity_ids = \Drupal::service('entity.query')->get('view')
-    ->condition('status', TRUE)
-    ->condition("display.*.display_plugin", array('page' => 'page'), 'IN')
-    ->execute();
-foreach (\Drupal::entityTypeManager()->getStorage('view')->loadMultiple($entity_ids) as $view) {
+  ->condition('status', TRUE)
+  ->condition("display.*.display_plugin", array('page' => 'page'), 'IN')
+  ->execute();
+foreach (\Drupal::entityTypeManager()
+           ->getStorage('view')
+           ->loadMultiple($entity_ids) as $view) {
 
   foreach ($view->get('display') as $id => $display) {
 
@@ -234,7 +236,7 @@ foreach ($results as $result) {
         ),
       ),
       '#title' => 'Display: ' . $display . ' Select Layout: ',
-      '#description' => '<p class="description">The <strong>'. $view_id .'</strong> Layout is used only on the X page on the Y display using the <strong>' . $theme . '</strong> theme.</p>',
+      '#description' => '<p class="description">The <strong>' . $view_id . '</strong> Layout is used only on the X page on the Y display using the <strong>' . $theme . '</strong> theme.</p>',
       '#options' => $availableLayouts,
       '#default_value' => isset($vtypeLayout) ? $vtypeLayout : theme_get_setting('default_layout', $theme),
       '#tree' => FALSE,

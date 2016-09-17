@@ -1,10 +1,7 @@
 <?php
 
-
-
 $toggle_omega_intro = theme_get_setting('omega_toggle_intro', $theme);
 $welcome_status = $toggle_omega_intro ? $toggle_omega_intro : FALSE;
-
 
 $form['welcome'] = array(
   '#type' => 'details',
@@ -19,7 +16,7 @@ $screenshot = base_path() . drupal_get_path('theme', 'omega') . '/screenshot.png
 
 $form['welcome']['omega5'] = array(
   '#prefix' => '<div class="omega-welcome clearfix">',
-  '#markup' => '<img class="screeny" src="'. $screenshot .'" />',
+  '#markup' => '<img class="screeny" src="' . $screenshot . '" />',
   '#suffix' => '</div>',
   '#weight' => -9999,
 );

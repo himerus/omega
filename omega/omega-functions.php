@@ -89,13 +89,19 @@ function omega_return_active_layout() {
   // The active theme being used
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   // Is this page the front page?
-  $front = \Drupal::service('path.matcher')->isFrontPage() ? \Drupal::service('path.matcher')->isFrontPage() : false;
+  $front = \Drupal::service('path.matcher')
+    ->isFrontPage() ? \Drupal::service('path.matcher')->isFrontPage() : FALSE;
   // Is this page a node?
-  $nid = \Drupal::routeMatch()->getRawParameter('node') ? \Drupal::routeMatch()->getRawParameter('node') : false;
+  $nid = \Drupal::routeMatch()->getRawParameter('node') ? \Drupal::routeMatch()
+    ->getRawParameter('node') : FALSE;
   // Is this page a taxonomy term?
-  $term = \Drupal::routeMatch()->getParameter('taxonomy_term') ? \Drupal::routeMatch()->getParameter('taxonomy_term') : false;
+  $term = \Drupal::routeMatch()
+    ->getParameter('taxonomy_term') ? \Drupal::routeMatch()
+    ->getParameter('taxonomy_term') : FALSE;
   // Is this page a view?
-  $view_id = \Drupal::routeMatch()->getParameter('view_id') ? \Drupal::routeMatch()->getParameter('view_id') : false;
+  $view_id = \Drupal::routeMatch()
+    ->getParameter('view_id') ? \Drupal::routeMatch()
+    ->getParameter('view_id') : FALSE;
   // All parameters for the page
   $params = \Drupal::routeMatch()->getParameters();
 
@@ -160,7 +166,8 @@ function _omega_getAvailableBreakpoints($theme) {
   $breakpoint_options = array();
   if ($breakpoints_module == TRUE) {
     // get all the breakpoint groups available to Drupal
-    $all_breakpoint_groups = \Drupal::service('breakpoint.manager')->getGroups();
+    $all_breakpoint_groups = \Drupal::service('breakpoint.manager')
+      ->getGroups();
     // get all the base themes of this theme
     $baseThemes = \Drupal::theme()->getActiveTheme()->getBaseThemes();
     //dpm($baseThemes);
@@ -169,7 +176,7 @@ function _omega_getAvailableBreakpoints($theme) {
     $theme_ids = array(
       $theme => \Drupal::theme()->getActiveTheme()->getExtension()->info['name']
     );
-    foreach($baseThemes AS $theme_key => $data) {
+    foreach ($baseThemes AS $theme_key => $data) {
       // create/add to array with base themes as values
       $clean_theme_name = $data->getExtension()->info['name'];
       $theme_ids[$theme_key] = $clean_theme_name;
@@ -179,18 +186,21 @@ function _omega_getAvailableBreakpoints($theme) {
     // cycle all the breakpoint groups and see if they are a part of this theme or its base theme(s)
     foreach ($all_breakpoint_groups as $group_key => $group_values) {
       // get the theme name that provides this breakpoint group
-      $breakpoint_theme = \Drupal::service('breakpoint.manager')->getGroupProviders($group_key);
+      $breakpoint_theme = \Drupal::service('breakpoint.manager')
+        ->getGroupProviders($group_key);
       // see if the theme providing the breakpoint group is part of our base theme structure
       $breakpoint_theme_name = key($breakpoint_theme);
       if (array_key_exists($breakpoint_theme_name, $theme_ids)) {
-        $breakpoint_groups[$group_key] = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($group_key);
+        $breakpoint_groups[$group_key] = \Drupal::service('breakpoint.manager')
+          ->getBreakpointsByGroup($group_key);
       }
     }
 
-    foreach($breakpoint_groups as $group => $breakpoint_values)  {
+    foreach ($breakpoint_groups as $group => $breakpoint_values) {
       if ($breakpoint_values !== array()) {
         // get the theme name that provides this breakpoint group
-        $breakpoint_theme = \Drupal::service('breakpoint.manager')->getGroupProviders($group);
+        $breakpoint_theme = \Drupal::service('breakpoint.manager')
+          ->getGroupProviders($group);
         // see if the theme providing the breakpoint group is part of our base theme structure
         $breakpoint_theme_id = key($breakpoint_theme);
         $breakpoint_theme_name = $theme_ids[$breakpoint_theme_id];
@@ -209,7 +219,8 @@ function _omega_getActiveBreakpoints($layout, $theme) {
   // get the default layout and convert to name for breakpoint group
   $breakpointGroupId = theme_get_setting('breakpoint_group_' . $layout, $theme);
   //dsm($breakpointGroupId);
-  $breakpointGroup = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($breakpointGroupId);
+  $breakpointGroup = \Drupal::service('breakpoint.manager')
+    ->getBreakpointsByGroup($breakpointGroupId);
   if ($breakpointGroup) {
     // custom theme breakpoints
     return $breakpointGroup;
@@ -217,7 +228,8 @@ function _omega_getActiveBreakpoints($layout, $theme) {
   else {
     // default omega breakpoints
     drupal_set_message('The breakpoint group for your theme could not be found. Using default Omega version instead.', 'warning');
-    return \Drupal::service('breakpoint.manager')->getBreakpointsByGroup('omega.standard');
+    return \Drupal::service('breakpoint.manager')
+      ->getBreakpointsByGroup('omega.standard');
   }
 }
 
@@ -237,7 +249,8 @@ function _omega_optional_libraries($theme) {
   $baseThemes = $themeObject->base_themes;
 
   $ignore_libraries = array(
-    'omega/omega_admin', // removed as it is only used for theme admin page(s) and is required
+    'omega/omega_admin',
+    // removed as it is only used for theme admin page(s) and is required
   );
 
   // create a variable to hold the full library data

@@ -56,7 +56,7 @@ $form['variables']['colors']['primary'] = array(
 $primaryColor1 = isset($variables['colors']['primaryColor1']) ? $variables['colors']['primaryColor1'] : '3a3a3a';
 $form['variables']['colors']['primary']['primaryColor1'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -69,7 +69,8 @@ $form['variables']['colors']['primary']['primaryColor1'] = array(
   ),
   '#title' => t('Primary Color 1'),
   '#default_value' => $primaryColor1,
-  '#parents' => array('variables', 'colors', 'primaryColor1'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor1'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
   '#tree' => TRUE,
 );
@@ -81,7 +82,7 @@ $form['variables']['colors']['primary']['primaryColor1']['#suffix'] .= '</ul></d
 $primaryColor2 = isset($variables['colors']['primaryColor2']) ? $variables['colors']['primaryColor2'] : '5a5a5a';
 $form['variables']['colors']['primary']['primaryColor2'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -94,7 +95,8 @@ $form['variables']['colors']['primary']['primaryColor2'] = array(
   ),
   '#title' => t('Primary Color 2'),
   '#default_value' => $primaryColor2,
-  '#parents' => array('variables', 'colors', 'primaryColor2'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor2'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
   '#tree' => TRUE,
 );
@@ -106,7 +108,7 @@ $form['variables']['colors']['primary']['primaryColor2']['#suffix'] .= '</ul></d
 $primaryColor3 = isset($variables['colors']['primaryColor3']) ? $variables['colors']['primaryColor3'] : 'CCCCCC';
 $form['variables']['colors']['primary']['primaryColor3'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -119,7 +121,8 @@ $form['variables']['colors']['primary']['primaryColor3'] = array(
   ),
   '#title' => t('Primary Color 3'),
   '#default_value' => $primaryColor3,
-  '#parents' => array('variables', 'colors', 'primaryColor3'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor3'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
   '#tree' => TRUE,
 );
@@ -131,7 +134,7 @@ $form['variables']['colors']['primary']['primaryColor3']['#suffix'] .= '</ul></d
 $primaryColor4 = isset($variables['colors']['primaryColor4']) ? $variables['colors']['primaryColor4'] : '1a1a1a';
 $form['variables']['colors']['primary']['primaryColor4'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -144,7 +147,8 @@ $form['variables']['colors']['primary']['primaryColor4'] = array(
   ),
   '#title' => t('Primary Color 4'),
   '#default_value' => $primaryColor4,
-  '#parents' => array('variables', 'colors', 'primaryColor4'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor4'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
   '#tree' => TRUE,
 );
@@ -156,7 +160,7 @@ $form['variables']['colors']['primary']['primaryColor4']['#suffix'] .= '</ul></d
 $primaryColor5 = isset($variables['colors']['primaryColor5']) ? $variables['colors']['primaryColor5'] : '9a9a9a';
 $form['variables']['colors']['primary']['primaryColor5'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -169,7 +173,8 @@ $form['variables']['colors']['primary']['primaryColor5'] = array(
   ),
   '#title' => t('Primary Color 5'),
   '#default_value' => $primaryColor5,
-  '#parents' => array('variables', 'colors', 'primaryColor5'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'primaryColor5'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
   '#tree' => TRUE,
 );
@@ -190,7 +195,7 @@ $form['variables']['colors']['menu'] = array(
 $mainMenuBgColor = isset($variables['colors']['mainMenuBgColor']) ? $variables['colors']['mainMenuBgColor'] : '9a9a9a';
 $form['variables']['colors']['menu']['mainMenuBgColor'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -203,7 +208,8 @@ $form['variables']['colors']['menu']['mainMenuBgColor'] = array(
   ),
   '#title' => t('Main Menu Background Color'),
   '#default_value' => $mainMenuBgColor,
-  '#parents' => array('variables', 'colors', 'mainMenuBgColor'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'mainMenuBgColor'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['menu']['mainMenuBgColor']['#suffix'] .= '<li><em>background-color: <strong>$mainMenuBgColor</strong>;</em></li>';
@@ -214,7 +220,7 @@ $form['variables']['colors']['menu']['mainMenuBgColor']['#suffix'] .= '</ul></di
 $mainMenuFontColor = isset($variables['colors']['mainMenuFontColor']) ? $variables['colors']['mainMenuFontColor'] : '1a1a1a';
 $form['variables']['colors']['menu']['mainMenuFontColor'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -227,7 +233,8 @@ $form['variables']['colors']['menu']['mainMenuFontColor'] = array(
   ),
   '#title' => t('Main Menu Font Color'),
   '#default_value' => $mainMenuFontColor,
-  '#parents' => array('variables', 'colors', 'mainMenuFontColor'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'mainMenuFontColor'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['menu']['mainMenuFontColor']['#suffix'] .= '<li><em>background-color: <strong>$mainMenuFontColor</strong>;</em></li>';
@@ -238,7 +245,7 @@ $form['variables']['colors']['menu']['mainMenuFontColor']['#suffix'] .= '</ul></
 $mainMenuBorderColor = isset($variables['colors']['mainMenuBorderColor']) ? $variables['colors']['mainMenuBorderColor'] : '1a1a1a';
 $form['variables']['colors']['menu']['mainMenuBorderColor'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -251,15 +258,14 @@ $form['variables']['colors']['menu']['mainMenuBorderColor'] = array(
   ),
   '#title' => t('Main Menu Border Color'),
   '#default_value' => $mainMenuBorderColor,
-  '#parents' => array('variables', 'colors', 'mainMenuBorderColor'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'mainMenuBorderColor'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['menu']['mainMenuBorderColor']['#suffix'] .= '<li><em>background-color: <strong>$mainMenuBorderColor</strong>;</em></li>';
 $form['variables']['colors']['menu']['mainMenuBorderColor']['#suffix'] .= '<li><em>border: 1px solid <strong>$mainMenuBorderColor</strong>;</em></li>';
 $form['variables']['colors']['menu']['mainMenuBorderColor']['#suffix'] .= '<li><em>color: lighten(<strong>$mainMenuBorderColor</strong>, 20%);</em></li>';
 $form['variables']['colors']['menu']['mainMenuBorderColor']['#suffix'] .= '</ul></div>';
-
-
 
 
 $form['variables']['colors']['button'] = array(
@@ -274,7 +280,7 @@ $form['variables']['colors']['button'] = array(
 $buttonBgColor = isset($variables['colors']['buttonBgColor']) ? $variables['colors']['buttonBgColor'] : '9a9a9a';
 $form['variables']['colors']['button']['buttonBgColor'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -287,7 +293,8 @@ $form['variables']['colors']['button']['buttonBgColor'] = array(
   ),
   '#title' => t('Button Background Color'),
   '#default_value' => $buttonBgColor,
-  '#parents' => array('variables', 'colors', 'buttonBgColor'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'buttonBgColor'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['button']['buttonBgColor']['#suffix'] .= '<li><em>background-color: <strong>$buttonBgColor</strong>;</em></li>';
@@ -298,7 +305,7 @@ $form['variables']['colors']['button']['buttonBgColor']['#suffix'] .= '</ul></di
 $buttonFontColor = isset($variables['colors']['buttonFontColor']) ? $variables['colors']['buttonFontColor'] : '1a1a1a';
 $form['variables']['colors']['button']['buttonFontColor'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -311,7 +318,8 @@ $form['variables']['colors']['button']['buttonFontColor'] = array(
   ),
   '#title' => t('Button Font Color'),
   '#default_value' => $buttonFontColor,
-  '#parents' => array('variables', 'colors', 'buttonFontColor'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'buttonFontColor'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['button']['buttonFontColor']['#suffix'] .= '<li><em>background-color: <strong>$buttonFontColor</strong>;</em></li>';
@@ -322,7 +330,7 @@ $form['variables']['colors']['button']['buttonFontColor']['#suffix'] .= '</ul></
 $buttonBorderColor = isset($variables['colors']['buttonBorderColor']) ? $variables['colors']['buttonBorderColor'] : '1a1a1a';
 $form['variables']['colors']['button']['buttonBorderColor'] = array(
   '#type' => 'textfield',
-  '#size' => 5, 
+  '#size' => 5,
   '#maxlength' => 6,
   '#attributes' => array(
     'class' => array(
@@ -335,37 +343,14 @@ $form['variables']['colors']['button']['buttonBorderColor'] = array(
   ),
   '#title' => t('Button Border Color'),
   '#default_value' => $buttonBorderColor,
-  '#parents' => array('variables', 'colors', 'buttonBorderColor'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'colors', 'buttonBorderColor'),
+  // don't nest the variables in the resulting array
   '#suffix' => '<div class="scss-examples"><strong>SCSS Usage Examples:</strong><ul>',
 );
 $form['variables']['colors']['button']['buttonBorderColor']['#suffix'] .= '<li><em>background-color: <strong>$buttonBorderColor</strong>;</em></li>';
 $form['variables']['colors']['button']['buttonBorderColor']['#suffix'] .= '<li><em>border: 1px solid <strong>$buttonBorderColor</strong>;</em></li>';
 $form['variables']['colors']['button']['buttonBorderColor']['#suffix'] .= '<li><em>color: lighten(<strong>$buttonBorderColor</strong>, 20%);</em></li>';
 $form['variables']['colors']['button']['buttonBorderColor']['#suffix'] .= '</ul></div>';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -431,14 +416,15 @@ $form['variables']['fonts']['defaultHeaderFont'] = array(
   '#type' => 'select',
   '#attributes' => array(
     'class' => array(
-      'font-variable', 
+      'font-variable',
       'clearfix'
     ),
   ),
   '#title' => 'Default Header Font',
   '#options' => $fontStyles,
   '#default_value' => $defaultHeaderFont,
-  '#parents' => array('variables', 'fonts', 'defaultHeaderFont'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'fonts', 'defaultHeaderFont'),
+  // don't nest the variables in the resulting array
 );
 
 $defaultBodyFont = isset($variables['fonts']['defaultBodyFont']) ? $variables['fonts']['defaultBodyFont'] : 'helvetica';
@@ -446,14 +432,15 @@ $form['variables']['fonts']['defaultBodyFont'] = array(
   '#type' => 'select',
   '#attributes' => array(
     'class' => array(
-      'font-variable', 
+      'font-variable',
       'clearfix'
     ),
   ),
   '#title' => 'Default Body Font',
   '#options' => $fontStyles,
   '#default_value' => $defaultBodyFont,
-  '#parents' => array('variables', 'fonts', 'defaultBodyFont'), // don't nest the variables in the resulting array
+  '#parents' => array('variables', 'fonts', 'defaultBodyFont'),
+  // don't nest the variables in the resulting array
 );
 
 $form['variables']['breakpoints'] = array(

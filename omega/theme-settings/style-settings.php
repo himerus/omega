@@ -24,12 +24,12 @@ $form['styles']['styles_toggle'] = array(
   '#weight' => -999,
 );
 //dpm($form['styles']);
-foreach($toggleLibraries as $id => $data) {
+foreach ($toggleLibraries as $id => $data) {
   // let's organize all the libraries a bit
   $libraryParts = explode('/', $id);
   $themeProvidingLibrary = $libraryParts[0];
   //dpm($themeProvidingLibrary);
-  
+
   // let's create a wrapper for this theme's libraries if it hasn't been made in a previous loop
   // this creates a collapsible element for each theme/parent theme to make the form more usable
   // for themes with sub-sub, sub-sub-sub or further subtheming needs.
@@ -43,9 +43,8 @@ foreach($toggleLibraries as $id => $data) {
       //'#tree' => FALSE,
     );
   }
-  
-  
-  
+
+
   // Let's create the checkbox that will enable/disable the library
   $form['styles'][$themeProvidingLibrary][$id] = array(
     '#type' => 'checkbox',
@@ -56,8 +55,8 @@ foreach($toggleLibraries as $id => $data) {
     '#tree' => TRUE,
     '#parents' => array('styles', $id),
   );
-  
-  if($data['allow_disable'] === FALSE) {
+
+  if ($data['allow_disable'] === FALSE) {
     // this library has been set to NOT be allowed to be disabled by any subthemes.
     // set some things accordingly.
     $form['styles'][$themeProvidingLibrary][$id]['#default_value'] = 1;

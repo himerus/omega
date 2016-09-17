@@ -9,7 +9,7 @@ $form['debug'] = array(
 );
 
 $form['block_demo_mode'] = array(
-  
+
   '#type' => 'checkbox',
   '#title' => t('Enable region demo mode <small>(global setting)</small>'),
   '#description' => t('Display demonstration blocks in each theme region to aid in theme development and configuration. When this setting is enabled, ALL site visitors will see the demo blocks. <br /><strong>This should never be enabled on a live site.</strong>'),
@@ -19,7 +19,7 @@ $form['block_demo_mode'] = array(
 );
 
 $form['screen_demo_indicator'] = array(
-  
+
   '#type' => 'checkbox',
   '#title' => t('Enable screen size indicator <small>(global setting)</small>'),
   '#description' => t('Display data about the screen size, current media query, etc. When this setting is enabled, ALL site visitors will see the overlay data. <br /><strong>This should never be enabled on a live site.</strong>'),

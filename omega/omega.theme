@@ -41,7 +41,8 @@ function omega_preprocess_omega_indicator(&$vars) {
       ),
     )
   ));
-  $omega_link = \Drupal::service('link_generator')->generate($logo_image, $omega_url);
+  $omega_link = \Drupal::service('link_generator')
+    ->generate($logo_image, $omega_url);
   $vars['logo'] = $omega_link;
 
 } /* END omega_preprocess_omega_indicator */
@@ -57,7 +58,7 @@ function omega_preprocess(&$variables, $hook) {
 /**
  * Implements hook_page_attachments_alter().
  */
-function omega_page_attachments_alter (&$attachments) {
+function omega_page_attachments_alter(&$attachments) {
 
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   // require omega.js library
@@ -68,7 +69,7 @@ function omega_page_attachments_alter (&$attachments) {
   $breakpoints = _omega_getActiveBreakpoints($layout['layout'], $layout['theme']);
 
   $layouts = array();
-  foreach($breakpoints as $breakpoint) {
+  foreach ($breakpoints as $breakpoint) {
     /** @var \Drupal\breakpoint\Breakpoint $breakpoint */
     $layouts[$breakpoint->getBaseId()] = array(
       'query' => $breakpoint->getMediaQuery(),
@@ -95,7 +96,7 @@ function omega_page_attachments_alter (&$attachments) {
     // !$data['status'] means the checkbox on the omega settings page is unticked
     // in_array($libraryID, $attachments['#attached']['library'] means it is already in the $attachments array
     // $data['allow_disable'] ensures that omega['allow_enable_disable'] was not set to false, meaning it should not be allowed to be disabled.
-    elseif(!$data['status'] && in_array($libraryID, $attachments['#attached']['library']) && $data['allow_disable']) {
+    elseif (!$data['status'] && in_array($libraryID, $attachments['#attached']['library']) && $data['allow_disable']) {
       // here we have a library that was declared via THEME.info.yml as active,
       // yet was disabled via Omega settings, so we need to remove it now.
       $libraryArrayKey = array_search($libraryID, $attachments['#attached']['library']);
@@ -141,7 +142,7 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
   }
 
   // alter the CSS loaded based on the $activeLayoutCSS
-  if (isset($css[$defaultOmegaLayout]) && $defaultOmegaLayout != $activeLayoutCSS){
+  if (isset($css[$defaultOmegaLayout]) && $defaultOmegaLayout != $activeLayoutCSS) {
     $css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
   }
 
@@ -218,14 +219,14 @@ function omega_preprocess_page(&$vars) {
     if (!is_array($regionSkip)) {
       $regionSkip = array();
     }
-    foreach($theme_regions as $region => $region_name) {
+    foreach ($theme_regions as $region => $region_name) {
       // skip the regions listed in block_demo_excluded_regions, primarily page_top & page_bottom
       if (!in_array($region, $regionSkip)) {
         // here we want to add a simple block that we can use to demonstrate region placements for ALL regions in the theme(s)
         if (isset($vars['page'][$region]['#region'])) {
           $regiondemoblock = array(
             'regiondemoblock' => array(
-              '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
+              '#markup' => '<div id="theme-demo-block--' . $region . '" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
               '#weight' => -9999
             ),
           );
@@ -239,7 +240,7 @@ function omega_preprocess_page(&$vars) {
             ),
             '#region' => $region,
             'regiondemoblock' => array(
-              '#markup' => '<div id="theme-demo-block--'. $region .'" class="theme-demo-block inactive-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
+              '#markup' => '<div id="theme-demo-block--' . $region . '" class="theme-demo-block inactive-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>',
               '#weight' => -9999
             ),
           );
@@ -262,12 +263,12 @@ function omega_preprocess_page(&$vars) {
   $layoutLayout = $layout['layout'];
   $layouts = omega_return_layouts($layoutTheme);
   $region_groups = $layouts[$layoutLayout]['region_groups']['all'];
-  foreach($region_groups as $group_id => $group_info) {
+  foreach ($region_groups as $group_id => $group_info) {
     $groupRegions = $region_groups[$group_id]['regions'];
     // duplciate the #id into a class for better use with Omega.gs
     $altered_group_id = str_replace("_", "-", $group_id);
     $region_classes[$group_id][] = $altered_group_id . '-layout';
-    foreach($groupRegions as $region_id => $region_info) {
+    foreach ($groupRegions as $region_id => $region_info) {
       $altered_region_id = str_replace("_", "-", $region_id);
 
       if (isset($vars['page'][$region_id]['#region'])) {
@@ -288,16 +289,16 @@ function omega_preprocess_page(&$vars) {
   $vars['page_classes'] = $pass_page_classes;
 
 
-/*
-  // attempting to 'hide' empty highlighted region
-  // appears help and messages blocks render arrays even when empty
-  krumo($vars['page']['highlighted']);
-  // removing highlighted region if it is empty.
-  $highlightsize = isset($vars['page']['highlighted']) ? count($vars['page']['highlighted']) : 0;
-  if (isset($vars['page']['highlighted']) && $highlightsize == 0) {
-    unset($vars['page']['highlighted']);
-  }
-*/
+  /*
+    // attempting to 'hide' empty highlighted region
+    // appears help and messages blocks render arrays even when empty
+    krumo($vars['page']['highlighted']);
+    // removing highlighted region if it is empty.
+    $highlightsize = isset($vars['page']['highlighted']) ? count($vars['page']['highlighted']) : 0;
+    if (isset($vars['page']['highlighted']) && $highlightsize == 0) {
+      unset($vars['page']['highlighted']);
+    }
+  */
 } /* END omega_preprocess_page */
 
 /**
@@ -340,7 +341,10 @@ function omega_preprocess_block(&$vars) {
       $add_omega_link = isset($enable_omega_badge) ? $enable_omega_badge : TRUE;
 
       if ($add_omega_link) {
-        $vars['content']['#markup'] = '<span>' . t('Powered by <a href=":poweredby">Drupal</a> and <a href=":omega">Omega Five</a>', array(':poweredby' => 'https://www.drupal.org', ':omega' => 'https://drupal.org/project/omega')) . '</span>';
+        $vars['content']['#markup'] = '<span>' . t('Powered by <a href=":poweredby">Drupal</a> and <a href=":omega">Omega Five</a>', array(
+            ':poweredby' => 'https://www.drupal.org',
+            ':omega' => 'https://drupal.org/project/omega'
+          )) . '</span>';
       }
       break;
   }
@@ -354,7 +358,7 @@ function omega_preprocess_field(&$vars) {
   $field_type = $vars['field_type'];
 
   if ($field_type == 'entity_reference') {
-    foreach($vars['items'] AS $k => $field) {
+    foreach ($vars['items'] AS $k => $field) {
       if (!empty($field['content']['#options']['entity_type']) && $field['content']['#options']['entity_type'] == 'taxonomy_term') {
         // add a class to the <a>
         $vars['items'][$k]['content']['#options']['attributes']['class'] = array('taxonomy-term');

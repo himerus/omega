@@ -83,7 +83,6 @@ $form['export']['export_options'] = array(
 );
 
 
-
 $form['export']['export_options']['export_type'] = array(
   '#type' => 'radios',
   '#title' => t('Create a:'),
@@ -130,7 +129,6 @@ $form['export']['export_options']['export_destination_path'] = array(
   '#default_value' => 'themes/custom',
   '#suffix' => '</div>',
 );
-
 
 
 // STATES VARIABLES
@@ -185,7 +183,7 @@ $form['export']['export_options']['export_install_default'] = array(
   '#disabled' => TRUE,
   '#states' => array(
     'enabled' => array(
-      ':input[name="export[export_options][export_install_auto]"]' => array('checked' => true),
+      ':input[name="export[export_options][export_install_auto]"]' => array('checked' => TRUE),
     ),
   ),
 );
@@ -211,9 +209,9 @@ $form['export']['export_options']['export_inherit_layout'] = array(
   '#description' => t('<p>When this option is unchecked, a copy of any layouts in the parent theme will be copied to the new subtheme, allowing each theme to have different layouts. When this option IS checked, all layout settings/css will be inherited from the parent theme. You would likely want this option checked if you are creating a very slim subtheme that will only have a few color changes made to it from the defaults copied/inherited from the parent theme and the layouts between the two themes will always remain consistent.</p><p><em>This also assumes that the regions between the subtheme and parent theme MUST match. If they do not match, unintended consequences are likely</em>.</p>'),
   '#default_value' => 0,
   '#states' => array(
-      'invisible' => array(
-        $omega_state__base_omega,
-      ),
+    'invisible' => array(
+      $omega_state__base_omega,
+    ),
   ),
 );
 
