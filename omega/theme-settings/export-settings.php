@@ -91,12 +91,12 @@ $form['export']['export_options']['export_type'] = array(
     'clone' => 'Clone',
     'subtheme' => 'Sub-Theme',
   ),
-  '#default_value' => 'clone',
+  '#default_value' => 'subtheme',
   '#prefix' => '<div id="export-type-select">',
   '#suffix' => '<span class="separator">of</span>',
 );
 
-$omegaSubThemes = $omegaSettings->omegaSubthemesOptionsList();
+$omegaSubThemes = array('omega' => 'Omega') + $omegaSettings->omegaSubthemesOptionsList();
 
 $form['export']['export_options']['export_theme_base'] = array(
   '#type' => 'select',
@@ -130,6 +130,13 @@ $form['export']['export_options']['export_destination_path'] = array(
   '#default_value' => 'themes/custom',
   '#suffix' => '</div>',
 );
+
+
+
+// STATES VARIABLES
+$omega_state__type_clone = array(':input[name="export[export_options][export_type]"]' => array('value' => 'clone'));
+$omega_state__type_subtheme = array(':input[name="export[export_options][export_type]"]' => array('value' => 'subtheme'));
+$omega_state__base_omega = array(':input[name="export[export_options][export_theme_base]"]' => array('value' => 'omega'));
 
 // variable to represent state to apply to clone themes only
 $clone_state = array(
@@ -192,12 +199,22 @@ $form['export']['export_options']['export_include_block_positions'] = array(
   '#states' => $subtheme_state,
 );
 
+
+// This is set to be invisible when Omega is selected as the theme to create a
+// subtheme of. Even if we are starting a 'bare' Omega subtheme, we would NEVER
+// want to use layout provided by Omega as it can't be edited and could be
+// overwritten by updates.
+// @todo: Ensure functionality matches this behavior to NOT inherit layout from Omega.
 $form['export']['export_options']['export_inherit_layout'] = array(
   '#type' => 'checkbox',
   '#title' => t('Inherit Layout from parent theme'),
   '#description' => t('<p>When this option is unchecked, a copy of any layouts in the parent theme will be copied to the new subtheme, allowing each theme to have different layouts. When this option IS checked, all layout settings/css will be inherited from the parent theme. You would likely want this option checked if you are creating a very slim subtheme that will only have a few color changes made to it from the defaults copied/inherited from the parent theme and the layouts between the two themes will always remain consistent.</p><p><em>This also assumes that the regions between the subtheme and parent theme MUST match. If they do not match, unintended consequences are likely</em>.</p>'),
   '#default_value' => 0,
-  '#states' => $subtheme_state,
+  '#states' => array(
+      'invisible' => array(
+        $omega_state__base_omega,
+      ),
+  ),
 );
 
 $form['export']['export_options']['export_include_templates'] = array(

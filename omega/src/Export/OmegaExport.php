@@ -57,6 +57,20 @@ class OmegaExport implements OmegaExportInterface {
    * @var array
    */
   public $themeDirectories;
+
+  /**
+   * @var array of options including
+   * - kit_directory: full path to kit directory
+   * - kitName:
+   */
+  public $kitData;
+  /**
+   * An array of files/directories that would be excluded when generating
+   * a subtheme.
+   *
+   * @var array
+   */
+  public $omegaExcludedThemeFiles;
   /**
    * Constructs an export object.
    *
@@ -72,6 +86,13 @@ class OmegaExport implements OmegaExportInterface {
       'themes/custom',
       'themes/contrib',
       'core/themes',
+    ];
+    $this->omegaExcludedThemeFiles = [
+      'export-exclude', // administrative templates
+      'theme-settings', // theme-settings directory in omega
+      //'', // custom template files for theme generation
+      'images', // any top level images directory
+      'src', // primary classes from Omega (or any source)
     ];
   }
 
@@ -99,6 +120,14 @@ class OmegaExport implements OmegaExportInterface {
       'type' => $this->getExportType(),
       // Parent theme for the new theme, either the base theme or the theme being cloned
       'parent' => $this->getOptions('export_theme_base'),
+      // An array of items to search/replace when creating a subtheme
+      // @todo: Refine 'replace' options array to actually do things.
+      'replace' => array(
+        // The system_name could be either OMEGA_SUBTHEME if we are creating a subtheme
+        // with the .kit functionality, or the parent theme's system name if we're creating a clone
+        'system_name' => $this->getExportType() == 'subtheme' ? 'OMEGA_SUBTHEME' : $this->getOptions('export_theme_base'),
+        'friendly_name' => '',
+      ),
       // If the new theme should be installed by default
       'install' => $this->getOptions('export_install_auto') ? TRUE : FALSE,
       // If the new theme should be set as default theme upon installation
@@ -125,7 +154,10 @@ class OmegaExport implements OmegaExportInterface {
       // Gemfile suport
       'theme_gemfile_create' => $this->getOptions('export_enable_gemfile') ? TRUE : FALSE,
     );
-
+    $this->kitData = [
+      'clone_directory' => DRUPAL_ROOT . '/' . drupal_get_path('theme', $this->build['parent']),
+      'kit_directory' => DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit',
+    ];
     return $this->build;
   }
 
@@ -133,8 +165,7 @@ class OmegaExport implements OmegaExportInterface {
    * {@inheritdoc}
    */
   public function saveExport( FormStateInterface $form_state) {
-
-    // prepare the directory for operations
+    // Prepare the directory for operations and create copy
     $this->directoryPrepare($this->build['destination_path']);
     /// Grab the info file data
     $info = $this->retrieveInfoFile();
@@ -160,9 +191,9 @@ class OmegaExport implements OmegaExportInterface {
       case "subtheme":
         // Update the Base theme
         $info['base theme'] = $this->build['parent'];
-        $this->generateThemeFile();
-        $this->generateThemeSettingsFile();
-        $this->destroyLibraries();
+        //$this->generateThemeFile();
+        //$this->generateThemeSettingsFile();
+        //$this->destroyLibraries();
         $this->generateBlankLibrary();
         $this->generateTemplateFiles();
         $this->generateConfigrb();
@@ -447,7 +478,6 @@ class OmegaExport implements OmegaExportInterface {
    * @param string $destination Full path to destination theme
    */
   protected function styleCopy($source, $destination) {
-    //dpm($source . ' -> ' . $destination);
     if (file_exists($source)) {
       $destinationRoot = $this->build['destination_path'] . '/';
       // first, strip out the core theme path from the destination file
@@ -456,8 +486,7 @@ class OmegaExport implements OmegaExportInterface {
       $relativeDestination = str_replace($destinationRoot, '', $absoluteDestinationDir);
 
       $subDirectories = explode('/', $relativeDestination);
-      //dpm($relativeDestination);
-      //dpm($subDirectories);
+
       foreach ($subDirectories AS $directory) {
         if (!is_dir($destinationRoot . $directory)) {
           mkdir($destinationRoot . $directory);
@@ -492,27 +521,13 @@ class OmegaExport implements OmegaExportInterface {
     }
   }
 
-  protected function createStyleDirectories() {
-    // let's make sure our base style folder exists
-    if (!is_dir($this->build['destination_path'] . '/style')) {
-      mkdir($this->build['destination_path'] . '/style/');
-    }
-    // let's make sure our base css folder exists
-    if (!is_dir($this->build['destination_path'] . '/style/css')) {
-      mkdir($this->build['destination_path'] . '/style/css');
-    }
-    // let's make sure our base scss folder exists
-    if (!is_dir($this->build['destination_path'] . '/style/scss')) {
-      mkdir($this->build['destination_path'] . '/style/scss');
-    }
-  }
   /**
    * {@inheritdoc}
    */
   public function createLibrary() {
 
     // Process the CSS file for the new library
-    $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/subtheme-samples/OMEGA_SUBTHEME.css';
+    $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/style/css/OMEGA_SUBTHEME.css';
     $destination = $this->build['destination_path'] . '/style/css/' . $this->build['machine'] . '.css';
     // copy the default file
     $cssFile = $this->fileCopy($source, $destination);
@@ -527,7 +542,7 @@ class OmegaExport implements OmegaExportInterface {
     }
 
     // Process the SCSS file for the new library
-    $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/subtheme-samples/OMEGA_SUBTHEME.scss';
+    $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/style/scss/OMEGA_SUBTHEME.scss';
     $destination = $this->build['destination_path'] . '/style/scss/' . $this->build['machine'] . '.scss';
     // copy the default file
     $scssFile = $this->fileCopy($source, $destination);
@@ -541,7 +556,7 @@ class OmegaExport implements OmegaExportInterface {
     }
 
     // Process the JS file for the new library
-    $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/subtheme-samples/OMEGA_SUBTHEME.js';
+    $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/js/OMEGA_SUBTHEME.js';
     $destination = $this->build['destination_path'] . '/js/' . $this->build['machine'] . '.js';
     // copy the default file
     $jsFile = $this->fileCopy($source, $destination);
@@ -555,7 +570,7 @@ class OmegaExport implements OmegaExportInterface {
     }
 
     // Process the library file for the new library
-    $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/subtheme-samples/OMEGA_SUBTHEME.libraries.yml';
+    $source = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega') . '/../.kit/OMEGA_SUBTHEME.libraries.yml';
     $destination = $this->build['destination_path'] . '/' . $this->build['machine'] . '.libraries.yml';
     // copy the default file
     $libraryFile = $this->fileCopy($source, $destination);
@@ -582,7 +597,16 @@ class OmegaExport implements OmegaExportInterface {
    * {@inheritdoc}
    */
   public function getParentPath() {
-    return DRUPAL_ROOT . '/' . drupal_get_path('theme', $this->getOptions('export_theme_base'));
+    switch ($this->build['type']) {
+      case "clone":
+        // copy the parent theme to new theme's location
+        return $this->kitData['clone_directory'];
+        break;
+      case "subtheme":
+        // copy the parent theme to new theme's location
+        return $this->kitData['kit_directory'];
+        break;
+    }
   }
 
   /**
@@ -649,7 +673,7 @@ class OmegaExport implements OmegaExportInterface {
   }
 
 
-  public function directoryPurgeFileType($directory, $filetype, $ignore = '/^(\.(\.)?|CVS|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
+  public function directoryPurgeFileType($directory, $filetype, $ignore = '/^(\.(\.)?|.*OMEGA_SUBTHEME.*|CVS|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
     $dir = opendir($directory);
     while($file = readdir($dir)) {
       if (!preg_match($ignore, $file)) {
@@ -677,14 +701,14 @@ class OmegaExport implements OmegaExportInterface {
   /**
    * {@inheritdoc}
    */
-  public function directoryCloneCopy($source, $target, $ignore = '/^(\.(\.)?|CVS|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
+  public function omegaThemeClone($source, $target, $ignore = '/^(\.(\.)?|CVS|\.node-modules|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
     $dir = opendir($source);
     $this->fileHandler->mkdir($target);
     while($file = readdir($dir)) {
-      if (!preg_match($ignore, $file)) {
+      if (!preg_match($ignore, $file) && !in_array($file, $this->omegaExcludedThemeFiles)) {
         // directory found, call function again on this directory to scan deeper
         if (is_dir($source . '/' . $file)) {
-          $this->directoryCloneCopy($source . '/' . $file, $target . '/' . $file, $ignore);
+          $this->omegaThemeClone($source . '/' . $file, $target . '/' . $file, $ignore);
         }
         else {
           // copy the file to new location
@@ -693,13 +717,13 @@ class OmegaExport implements OmegaExportInterface {
 
           // if the file name itself has the machine name of the original theme
           // let's rename it to the new machine name
-          if (strpos($file, $this->build['parent']) !== FALSE) {
-            $fileLocation = $target . '/' . str_replace($this->build['parent'], $this->build['machine'], $file);
+          if (strpos($file, $this->build['replace']['system_name']) !== FALSE) {
+            $fileLocation = $target . '/' . str_replace($this->build['replace']['system_name'], $this->build['machine'], $file);
             rename($target . '/' . $file, $fileLocation);
           }
 
           // open any files and search for things to replace
-          $this->fileStrReplace($fileLocation, $this->build['parent'], $this->build['machine']);
+          $this->fileStrReplace($fileLocation, $this->build['replace']['system_name'], $this->build['machine']);
         }
       }
     }
@@ -732,12 +756,22 @@ class OmegaExport implements OmegaExportInterface {
 
   /**
    * Prepare and create a subtheme.
+   *
+   * @todo: Need to refactor the omegaThemeClone for clones/subthemes
    */
   public function directoryPrepare() {
     // Ensure any directories we might need exist.
     $this->themeDirectoryPrepare();
-    // copy the parent theme to new theme's location
-    $this->directoryCloneCopy($this->build['parent_path'], $this->build['destination_path']);
+    switch ($this->build['type']) {
+      case "clone":
+        // copy the parent theme to new theme's location
+        $this->omegaThemeClone($this->kitData['clone_directory'], $this->build['destination_path']);
+        break;
+      case "subtheme":
+        // copy the parent theme to new theme's location
+        $this->omegaThemeClone($this->kitData['kit_directory'], $this->build['destination_path']);
+        break;
+    }
   }
 
   /**
@@ -832,7 +866,7 @@ class OmegaExport implements OmegaExportInterface {
    * {@inheritdoc}
    */
   protected function generateTemplateFiles() {
-
+    // @todo: This needs to change with update for subtheme kit/clones
     if ($this->build['theme_theme_templates']) {
       // leave template folder as is since we already copied it
       // we may however need to do some search and replace operations?
@@ -847,19 +881,20 @@ class OmegaExport implements OmegaExportInterface {
    * {@inheritdoc}
    */
   protected function generateThemeSettingsFile() {
+    // @todo, the logic should change to remove it if it's NOT enabled since it is in the .kit by default
     // If a theme-settings.php file was requested, let's create a default
     // Since this file was originally copied fully from the parent theme (assuming the parent theme had one)
     // We either need to create the default theme-settings.php with basic examples, OR remove the file since
     // any theme settings from the parent theme will already be present for this new subtheme
     if ($this->build['theme_settings_php']) {
-      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/subtheme-samples/OMEGA_SUBTHEME.theme-settings.php';
+      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/../.kit/theme-settings.php';
       $destination = $this->build['destination_path'] . '/theme-settings.php';
 
       // copy the theme settings file
       $themeSettingsFile = $this->fileCopy($source, $destination);
       if ($themeSettingsFile) {
         // make it usable by injecting the correct theme name for the functions
-        $this->fileStrReplace($destination, 'OMEGA_SUBTHEME', $this->build['machine']);
+        $this->fileStrReplace($destination, $this->build['replace']['system_name'], $this->build['machine']);
       }
     }
     else {
@@ -875,11 +910,12 @@ class OmegaExport implements OmegaExportInterface {
     // We will copy over and replace any .theme file since this is going to be a subtheme rather than a clone
     // In a subtheme, you wouldn't want the same logic running again.
     // This setup determines if to include default samples, or basically just make the .theme file empty
+    // @todo: remove this feature. Just force the examples being in the .theme file.
     if ($this->build['theme_theme_samples']) {
-      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/subtheme-samples/OMEGA_SUBTHEME.theme';
+      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/../.kit/OMEGA_SUBTHEME.theme';
     }
     else {
-      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/subtheme-samples/OMEGA_SUBTHEME.theme.blank';
+      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/../.kit/OMEGA_SUBTHEME.theme';
     }
 
     $destination = $this->build['destination_path'] . '/' . $this->build['machine'] . '.theme';
@@ -957,7 +993,7 @@ class OmegaExport implements OmegaExportInterface {
     $destination = $this->build['destination_path'] . '/config.rb';
     if ($this->build['theme_configrb_create']) {
       // source of the config.rb file
-      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/subtheme-samples/config.rb.SAMPLE';
+      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/../.kit/config.rb';
 
       // copy the config.rb
       $configRbFile = $this->fileCopy($source, $destination);
@@ -983,7 +1019,7 @@ class OmegaExport implements OmegaExportInterface {
   protected function generateGemfile() {
     $destination = $this->build['destination_path'] . '/Gemfile';
     if ($this->build['theme_gemfile_create']) {
-      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/subtheme-samples/Gemfile.SAMPLE';
+      $source = DRUPAL_ROOT . '/' .drupal_get_path('theme', 'omega') . '/../.kit/Gemfile';
       // copy the Gemfile
       $Gemfile = $this->fileCopy($source, $destination);
       if (!$Gemfile) {

@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * @file
+ * Contains theme level customizations for the OMEGA_SUBTHEME theme
+ */
+
+/**
+ * Implements hook_js_alter().
+ *
+ * Perform necessary alterations to the JavaScript before it is presented on
+ * the page.
+ *
+ * @param $javascript
+ *   An array of all JavaScript being presented on the page.
+ * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
+ *   The assets attached to the current response.
+ *
+ * @see drupal_js_defaults()
+ * @see \Drupal\Core\Asset\AssetResolver
+ */
+function OMEGA_SUBTHEME_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+
+} // END OMEGA_SUBTHEME_js_alter
+
+/**
+ * Implements hook_css_alter().
+ *
+ * Alter CSS files before they are output on the page.
+ *
+ * @param $css
+ *   An array of all CSS items (files and inline CSS) being requested on the page.
+ * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
+ *   The assets attached to the current response.
+ *
+ * @see Drupal\Core\Asset\LibraryResolverInterface::getCssAssets()
+ */
+function OMEGA_SUBTHEME_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+
+} // END OMEGA_SUBTHEME_css_alter
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Alter attachments (typically assets) to a page before it is rendered.
+ *
+ * Use this hook when you want to remove or alter attachments on the page, or
+ * add attachments to the page that depend on another module's attachments (this
+ * hook runs after hook_page_attachments().
+ *
+ * If you try to add anything but #attached and #cache to the array, an
+ * exception is thrown.
+ *
+ * @param array &$attachments
+ *   Array of all attachments provided by hook_page_attachments() implementations.
+ *
+ * @see hook_page_attachments()
+ */
+function OMEGA_SUBTHEME_page_attachments_alter (&$attachments) {
+
+} // END OMEGA_SUBTHEME_page_attachments_alter
+
+/**
+ * Implements hook_preprocess().
+ *
+ * This hook allows modules to preprocess theme variables for theme templates.
+ * It is called for all theme hooks implemented as templates, but not for theme
+ * hooks implemented as functions. hook_preprocess_HOOK() can be used to
+ * preprocess variables for a specific theme hook, whether implemented as a
+ * template or function.
+ *
+ * For more detailed information, see the
+ * @link themeable Theme system overview topic @endlink.
+ *
+ * @param $variables
+ *   The variables array (modify in place).
+ * @param $hook
+ *   The name of the theme hook.
+ */
+function OMEGA_SUBTHEME_preprocess(&$variables, $hook) {
+
+} // END OMEGA_SUBTHEME_preprocess
+
+/**
+ * Implements hook_preprocess_HOOK() for html templates.
+ *
+ * @param $variables
+ *   The variables array (modify in place).
+ */
+function OMEGA_SUBTHEME_preprocess_html(&$variables) {
+
+} // END OMEGA_SUBTHEME_preprocess_html
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ *
+ * @param $variables
+ *   The variables array (modify in place).
+ */
+function OMEGA_SUBTHEME_preprocess_page(&$variables) {
+
+} // END OMEGA_SUBTHEME_preprocess_page
+
+/**
+ * Implements hook_preprocess_HOOK() for region templates.
+ *
+ * @param $variables
+ *   The variables array (modify in place).
+ */
+function OMEGA_SUBTHEME_preprocess_region(&$variables) {
+
+} // END OMEGA_SUBTHEME_preprocess_region
+
+/**
+ * Implements hook_preprocess_HOOK() for node templates.
+ *
+ * @param $variables
+ *   The variables array (modify in place).
+ */
+function OMEGA_SUBTHEME_preprocess_node(&$variables) {
+
+} // END OMEGA_SUBTHEME_preprocess_node
+
+/**
+ * Implements hook_preprocess_HOOK() for block templates.
+ *
+ * @param $variables
+ *   The variables array (modify in place).
+ */
+function OMEGA_SUBTHEME_preprocess_block(&$variables) {
+
+} // END OMEGA_SUBTHEME_preprocess_block
+
+/**
+ * Implements hook_preprocess_HOOK() for field templates.
+ *
+ * @param $variables
+ *   The variables array (modify in place).
+ */
+function OMEGA_SUBTHEME_preprocess_field(&$vars) {
+
+} // END OMEGA_SUBTHEME_preprocess_field
