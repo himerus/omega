@@ -915,6 +915,13 @@ class OmegaExport implements OmegaExportInterface {
   }
 
   /**
+   * Do it.
+   */
+  protected function generateSubthemeSCSS() {
+    // generate the SCSS from the layout data
+    //_omega_compile_layout($layout, $layout_id, $theme);
+  }
+  /**
    * {@inheritdoc}
    * @todo The default config.rb needs to be adjusted, and setup to include the possibility for multiple additional_import_paths for both Omega and ALl parent themes?
    */

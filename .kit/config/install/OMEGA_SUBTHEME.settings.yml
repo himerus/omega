@@ -1,0 +1,51 @@
+variables:
+  colors:
+    primaryColor1: 3A3A3A
+    primaryColor2: 5A5A5A
+    primaryColor3: CCCCCC
+    primaryColor4: 1A1A1A
+    primaryColor5: 9A9A9A
+  fonts:
+    defaultHeaderFont: georgia
+    defaultBodyFont: helvetica
+styles:
+  scss_html_elements: 1
+  scss_branding: 1
+  scss_breadcrumbs: 1
+  scss_main_menus: 1
+  scss_messages: 1
+  scss_pagers: 1
+  scss_tabs: 1
+block_demo_mode: 1
+screen_demo_indicator: 1
+enable_omegags_layout: 1
+omega_toggle_intro: 1
+enable_advanced_layout_controls: 1
+enable_backups: 0
+force_subtheme_creation: 0
+enable_omega_badge: 1
+block_demo_excluded_regions:
+  - page_top
+  - page_bottom
+
+layouts: {  }
+features:
+  node_user_picture: true
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+logo:
+  use_default: true
+  path: ''
+favicon:
+  use_default: true
+  path: ''
+edit_this_layout: primary
+default_layout: primary
+home_layout: front
+node_type_article_layout: primary
+node_type_page_layout: primary
+taxonomy_category_layout: primary
+taxonomy_tags_layout: primary
+breakpoint_group_primary: OMEGA_SUBTHEME.default
+breakpoint_group_front: OMEGA_SUBTHEME.default
