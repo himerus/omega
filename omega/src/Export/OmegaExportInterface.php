@@ -4,7 +4,7 @@ namespace Drupal\omega\Export;
 
 use Drupal\Core\Form\FormStateInterface;
 /**
- * Defines an interface for serialization formats.
+ * Defines an interface for creating an Omega subtheme.
  */
 interface OmegaExportInterface {
 

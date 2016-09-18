@@ -994,7 +994,6 @@ class OmegaExport implements OmegaExportInterface {
   }
 
   /**
-   *
    * Find the relative file system path between two file system paths
    *
    * @param  string $frompath Path to start from
