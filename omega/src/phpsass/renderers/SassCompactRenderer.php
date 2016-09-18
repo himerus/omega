@@ -108,7 +108,7 @@ class SassCompactRenderer extends SassCompressedRenderer
    * Renders debug information.
    * If the node has the debug_info options set true the line number and filename
    * are rendered in a format compatible with
-   * {@link https://addons.mozilla.org/en-US/firefox/addon/103988/ FireSass}.
+   * {@link https://addons.mozilla.org/en-US/firefox/addon/firecompass-for-firebug/ FireCompass}.
    * Else if the node has the line_numbers option set true the line number and
    * filename are rendered in a comment.
    * @param SassNode $node the node being rendered
@@ -118,14 +118,8 @@ class SassCompactRenderer extends SassCompressedRenderer
   {
     $indent = $this->getIndent($node);
     $debug = '';
-    $filename = implode('/', $node->filename);
-    if ($node->getDebug_info()) {
-      $debug .= $indent . self::DEBUG_INFO_RULE . '{';
-      $debug .= 'filename{' . self::DEBUG_INFO_PROPERTY . ':' . preg_replace('/([^-\w])/', '\\\\\1', "file://{$filename}") . ';}';
-      $debug .= 'line{' . self::DEBUG_INFO_PROPERTY . ":'{$node->line}';}";
-      $debug .= "}\n";
-    } elseif ($node->getLine_numbers()) {
-      $debug .= "$indent/* line {$node->line}, {$filename} */\n";
+    if ($node->getDebug_info() || $node->getLine_numbers()) {
+      $debug .= "$indent/* line {$node->line}, {$node->filename} */\n";
     }
 
     return $debug;

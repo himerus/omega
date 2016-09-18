@@ -677,7 +677,7 @@ function _omega_return_scss_options($relativeSource, $file, $theme) {
       'basename' => $file
     ),
     'debug_info' => FALSE,
-    'line_numbers' => TRUE,
+    'line_numbers' => FALSE,
     'load_paths' => array(
       $themePath . '/style/scss',
       $omegaPath . '/style/scss',

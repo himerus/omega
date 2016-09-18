@@ -371,6 +371,33 @@ class SassNumber extends SassLiteral
 
     $coercionFactor = 1;
     foreach ($fromUnits as $i=>$from) {
+      if (!isset($toUnits[$i])) {
+        //workaround for php changes introduced in 5.4, 5.5, 5.6, in php 5.3 the following condition and assignment was not necessary
+       if (isset($toUnits[$i+1])) {
+         $toUnits[$i] = $toUnits[$i+1];
+       }
+      }
+/********************* Debug code for those that may want to figure out why this is different in 5.3 vs the others 5.4, 5.5, 5.6
+      print (" <br> ");
+      print ("ROW1 i: ");
+      print_r($i);
+      print (" : count(fromUnits): " . count($fromUnits) . ":=fromUnits count " );
+      print (" ");
+      print (" <br> ");
+      print ("ROW2 from: ");
+      print (print_r($from));
+      print (" ");
+      print (" <br> ");
+      print ("ROW3 : ");
+      print_r($toUnits);
+      print (" :(toUnits)");
+      print_r($toUnits[$i]);
+      print (" :(toUnits[i]) ");
+      print_r(self::$unitConversion[$from]);
+      print (" :self::unitConversion[$from]");
+      print (" ");
+      print (" <br> ");
+********************* Debug code for those that may want to figure out why this is different in 5.3 vs the others 5.4, 5.5, 5.6 *******/
       if (array_key_exists($i, $toUnits) && array_key_exists($toUnits[$i], self::$unitConversion)) {
         $coercionFactor *= self::$unitConversion[$toUnits[$i]] / self::$unitConversion[$from];
       } else {

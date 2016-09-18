@@ -47,7 +47,7 @@ class OmegaExport implements OmegaExportInterface {
   protected $build;
 
   /**
-   * The build info for the theme.
+   * An array of Drupal themes, each an array of information about that theme.
    *
    * @var array
    */
@@ -62,8 +62,8 @@ class OmegaExport implements OmegaExportInterface {
 
   /**
    * @var array of options including
+   * - clone_directory: full path to clone directory
    * - kit_directory: full path to kit directory
-   * - kitName:
    */
   public $kitData;
   /**
@@ -489,7 +489,7 @@ class OmegaExport implements OmegaExportInterface {
 
       foreach ($subDirectories AS $directory) {
         if (!is_dir($destinationRoot . $directory)) {
-          mkdir($destinationRoot . $directory);
+          $this->fileHandler->mkdir($destinationRoot . $directory);
         }
         // add the newly created (or previously existing) directory to the $destinationRoot
         // so that the next loop in the foreach checks the right place
@@ -522,62 +522,24 @@ class OmegaExport implements OmegaExportInterface {
    * {@inheritdoc}
    */
   public function createLibrary() {
+    // Array of source => destination mappings to create a new Library.
+    $libraryFiles = [
+      $this->getKitPath() . '/style/css/OMEGA_SUBTHEME.css' => $this->build['destination_path'] . '/style/css/' . $this->build['machine'] . '.css',
+      $this->getKitPath() . '/style/scss/OMEGA_SUBTHEME.scss' => $this->build['destination_path'] . '/style/scss/' . $this->build['machine'] . '.scss',
+      $this->getKitPath() . '/js/OMEGA_SUBTHEME.js' => $this->build['destination_path'] . '/js/' . $this->build['machine'] . '.js',
+      $this->getKitPath() . '/OMEGA_SUBTHEME.libraries.yml' => $this->build['destination_path'] . '/js/' . $this->build['machine'] . '.js',
+    ];
 
-    // Process the CSS file for the new library
-    $source = $this->getKitPath() . '/style/css/OMEGA_SUBTHEME.css';
-    $destination = $this->build['destination_path'] . '/style/css/' . $this->build['machine'] . '.css';
-    // copy the default file
-    $cssFile = $this->fileCopy($source, $destination);
-
-    if ($cssFile) {
-      // make it usable by injecting the correct theme name for the functions
-      $this->fileStrReplace($destination, 'OMEGA_SUBTHEME', $this->build['machine']);
-      //drupal_set_message('CSS sample file created successfully...', 'status');
-    }
-    else {
-      //drupal_set_message(t('Error copying CSS File... <strong><small>'. $destination . '</small></strong>'), 'error');
-    }
-
-    // Process the SCSS file for the new library
-    $source = $this->getKitPath() . '/style/scss/OMEGA_SUBTHEME.scss';
-    $destination = $this->build['destination_path'] . '/style/scss/' . $this->build['machine'] . '.scss';
-    // copy the default file
-    $scssFile = $this->fileCopy($source, $destination);
-    if ($scssFile) {
-      // make it usable by injecting the correct theme name for the functions
-      $this->fileStrReplace($destination, 'OMEGA_SUBTHEME', $this->build['machine']);
-      //drupal_set_message('SCSS sample file created successfully...', 'status');
-    }
-    else {
-      //drupal_set_message(t('Error copying SCSS File... <strong><small>'. $destination . '</small></strong>'), 'error');
-    }
-
-    // Process the JS file for the new library
-    $source = $this->getKitPath() . '/js/OMEGA_SUBTHEME.js';
-    $destination = $this->build['destination_path'] . '/js/' . $this->build['machine'] . '.js';
-    // copy the default file
-    $jsFile = $this->fileCopy($source, $destination);
-    if ($jsFile) {
-      // make it usable by injecting the correct theme name for the functions
-      $this->fileStrReplace($destination, 'OMEGA_SUBTHEME', $this->build['machine']);
-      //drupal_set_message('JS sample file created successfully...', 'status');
-    }
-    else {
-      //drupal_set_message(t('Error copying JS File... <strong><small>'. $destination . '</small></strong>'), 'error');
-    }
-
-    // Process the library file for the new library
-    $source = $this->getKitPath() . '/OMEGA_SUBTHEME.libraries.yml';
-    $destination = $this->build['destination_path'] . '/' . $this->build['machine'] . '.libraries.yml';
-    // copy the default file
-    $libraryFile = $this->fileCopy($source, $destination);
-    if ($libraryFile) {
-      // make it usable by injecting the correct theme name for the functions
-      $this->fileStrReplace($destination, 'OMEGA_SUBTHEME', $this->build['machine']);
-      //drupal_set_message('Library file created successfully...', 'status');
-    }
-    else {
-      //drupal_set_message(t('Error copying Library File... <strong><small>'. $destination . '</small></strong>'), 'error');
+    // Cycle the array and create files as needed.
+    foreach ($libraryFiles as $source => $destination) {
+      $file = $this->fileCopy($source, $destination);
+      if ($file) {
+        // Make it usable by injecting the correct theme name for the functions.
+        $this->fileStrReplace($destination, 'OMEGA_SUBTHEME', $this->build['machine']);
+      }
+      else {
+        drupal_set_message(t('Error copying file: <strong><small>'. $destination . '</small></strong>'), 'error');
+      }
     }
   }
 
@@ -876,11 +838,7 @@ class OmegaExport implements OmegaExportInterface {
    * {@inheritdoc}
    */
   protected function generateThemeSettingsFile() {
-    // @todo, the logic should change to remove it if it's NOT enabled since it is in the .kit by default
-    // If a theme-settings.php file was requested, let's create a default
-    // Since this file was originally copied fully from the parent theme (assuming the parent theme had one)
-    // We either need to create the default theme-settings.php with basic examples, OR remove the file since
-    // any theme settings from the parent theme will already be present for this new subtheme
+    // Provide an empty (with samples) theme-settings.php
     $destination = $this->build['destination_path'] . '/theme-settings.php';
     if ($this->build['theme_settings_php'] && !file_exists($destination)) {
       $source = $this->getKitPath() . '/theme-settings.php';
@@ -891,7 +849,7 @@ class OmegaExport implements OmegaExportInterface {
         $this->fileStrReplace($destination, $this->build['replace']['system_name'], $this->build['machine']);
       }
     }
-    else {
+    elseif (!$this->build['theme_settings_php'] && file_exists($destination)) {
       $this->fileRemove($destination);
     }
   }
@@ -900,11 +858,8 @@ class OmegaExport implements OmegaExportInterface {
    * {@inheritdoc}
    */
   protected function generateThemeFile() {
-    // We will copy over and replace any .theme file since this is going to be a subtheme rather than a clone
-    // In a subtheme, you wouldn't want the same logic running again.
-    // This setup determines if to include default samples, or basically just make the .theme file empty
+    // @todo: generateThemeFile() should ONLY be used for clones to replace any current .theme file. Otherwise, the .kit provides it by default.
     $source = $this->getKitPath() . '/OMEGA_SUBTHEME.theme';
-
     $destination = $this->build['destination_path'] . '/' . $this->build['machine'] . '.theme';
     // copy the theme settings file
     $themeFile = $this->fileCopy($source, $destination);
@@ -912,10 +867,6 @@ class OmegaExport implements OmegaExportInterface {
       // Make it usable by injecting the correct theme name for the functions.
       $this->fileStrReplace($destination, 'OMEGA_SUBTHEME', $this->build['machine']);
     }
-    else {
-      drupal_set_message("Could not save " . $this->build['machine'] . ".theme file", "error");
-    }
-
   }
 
   /**
@@ -933,13 +884,14 @@ class OmegaExport implements OmegaExportInterface {
    */
   protected function generateScssSupport() {
     if ($this->build['theme_scss_support']) {
-      // open info file
+      // Open info file.
       $info = $this->retrieveInfoFile();
       // Let's find all the CSS files available to us from our parent themes.
       $library_overrides = $this->processStyleOverrides($this->build['parent']);
       // assign the overrides to the .info array
       // @todo - what happens if a subtheme manually created overrides? Need some merge here.
       $info['libraries-override'] = $library_overrides;
+      // Save .info file.
       $this->updateInfoFile($info);
     }
   }
@@ -948,26 +900,17 @@ class OmegaExport implements OmegaExportInterface {
    * {@inheritdoc}
    */
   protected function generateBlankLibrary() {
-    // Declare some important files
-    $info_file = $this->getInfoFile();
-    // open info file
-    $info = $this->yamlDecode(file_get_contents($info_file));
     if ($this->build['blank_library']) {
-
+      // Open info file.
+      $info = $this->retrieveInfoFile();
       // then we will build an empty library/js/css include if requested during build
       $this->createLibrary();
-
       // add the empty library to the .info.yml array
       $info['libraries'] = array(
         $this->build['machine'] . '/' . $this->build['machine'],
       );
-      // encode the info array to yaml
-      $new_info = $this->yamlEncode($info);
-      // save the new yaml to file
-      $infoUpdated = file_put_contents($info_file, $new_info);
-      if (!$infoUpdated) {
-        drupal_set_message("Could not save " . $this->build['machine'] . ".info.yml", "error");
-      }
+      // Save .info file.
+      $this->updateInfoFile($info);
     }
   }
 

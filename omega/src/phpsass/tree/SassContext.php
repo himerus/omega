@@ -112,7 +112,7 @@ class SassContext
   {
     $this->functions[$name] = $function;
     if (!empty($this->parent)) {
-      $this->parent->addFunction($name);
+      $this->parent->addFunction($name, $function);
     }
 
     return $this;

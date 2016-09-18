@@ -165,6 +165,7 @@ class SassColour extends SassLiteral
     'plum'                  => '#dda0dd',
     'powderblue'            => '#b0e0e6',
     'purple'                => '#800080',
+    'rebeccapurple'         => '#663399',
     'red'                    => '#ff0000',
     'rosybrown'              => '#bc8f8f',
     'royalblue'              => '#4169e1',
@@ -804,9 +805,7 @@ class SassColour extends SassLiteral
       }
     }
 
-    if ($rgba[3] == 0) {
-      return 'transparent';
-    } elseif ($rgba[3] < 1) {
+    if ($rgba[3] < 1) {
       $rgba[3] = str_replace(',','.',round($rgba[3], 2));
 
       return sprintf('rgba(%d, %d, %d, %s)', $rgba[0], $rgba[1], $rgba[2], $rgba[3]);

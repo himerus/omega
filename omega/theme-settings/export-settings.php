@@ -1,7 +1,5 @@
 <?php
 
-use Drupal\omega\Theme\OmegaSettingsInfo;
-
 // Custom settings in Vertical Tabs container
 $form['subtheme-generator'] = array(
   '#type' => 'vertical_tabs',
@@ -262,7 +260,12 @@ $form['export']['export_options']['export_include_blank_library'] = array(
 $form['export']['export_options']['export_include_theme_settings_php'] = array(
   '#type' => 'checkbox',
   '#title' => t('Include theme-settings.php'),
-  '#description' => t('This will create a blank theme-settings.php file in your new theme, and include basic hook information and usage.'),
+  '#description' => t('This will create a <strong>theme-settings.php</strong> file in your new theme, and include basic hook information and usage.'),
   '#default_value' => 0,
-  '#states' => $subtheme_state,
+  '#states' => array(
+    'visible' => array(
+      $omega_state__type_subtheme,
+      $omega_state__type_clone
+    ),
+  ),
 );

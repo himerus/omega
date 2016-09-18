@@ -51,7 +51,7 @@ $form['show_compile_warning'] = array(
 $form['force_scss_compile'] = array(
   '#type' => 'checkbox',
   '#title' => t('Force SCSS Compile'),
-  '#description' => t('By default, if you have not update the layout grid variables, Omega does a check between omega.layout.YOUR-LAYOUT.yml and omega.layout.YOUR-LAYOUT.generated.yml. If the values have not been updated since the last time the SCSS was generated, it will skip generation. This setting allows you to force the compile. Most useful when updates to Omega change the default SCSS formatting of the layout files.'),
+  '#description' => t('By default, if you have not updated the layout grid variables, Omega does a check between omega.layout.YOUR-LAYOUT.yml and omega.layout.YOUR-LAYOUT.generated.yml. If the values have not been updated since the last time the SCSS was generated, it will skip generation. This setting allows you to force the compile. Most useful when updates to Omega change the default SCSS formatting of the layout files.'),
   '#default_value' => FALSE,
   '#group' => 'options',
 );
