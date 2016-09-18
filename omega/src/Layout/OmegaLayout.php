@@ -87,7 +87,42 @@ class OmegaLayout implements OmegaLayoutInterface {
   /**
    * @inheritdoc
    */
+  public function getAvailableLayouts() {
+    // TODO: Implement getAvailableLayouts() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function getActiveLayout() {
+    // TODO: Implement getActiveLayout() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function getAvailableBreakpoints() {
+    // TODO: Implement getAvailableBreakpoints() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
   public function getActiveBreakpoints() {
     // TODO: Implement getActiveBreakpoints() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function layoutAdjust() {
+    // TODO: Implement layoutAdjust() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function cleanBreakpointId(\Drupal\breakpoint\Breakpoint $breakpoint) {
+    return str_replace($breakpoint->getGroup() . '.', "", $breakpoint->getBaseId());
   }
 }

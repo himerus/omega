@@ -38,6 +38,27 @@ interface OmegaLayoutInterface {
   public function compileLayoutCss();
 
   /**
+   * Method to return the available layouts (and config) for a given Omega theme/subtheme.
+   */
+  public function getAvailableLayouts();
+
+  /**
+   * Method to return the active layout to be used for the active page.
+   */
+  public function getActiveLayout();
+
+  /**
+   * Method to return the theme that is providing a layout.
+   * This is either the theme itself ($theme) or a parent theme.
+   */
+  public function getLayoutProvider();
+
+  /**
+   * Method to get all available breakpoints.
+   */
+  public function getAvailableBreakpoints();
+
+  /**
    * Method to get active breakpoints.
    */
   public function getActiveBreakpoints();
@@ -49,4 +70,12 @@ interface OmegaLayoutInterface {
    * $cols is the total number of columns assigned using row(); for the region group
    */
   public function layoutAdjust();
+
+  /**
+   * Function returns the trimmed name of the breakpoint id
+   * converting omega.standard.all to simply 'all'
+   * @param \Drupal\breakpoint\Breakpoint $breakpoint
+   * @return string
+   */
+  public function cleanBreakpointId(\Drupal\breakpoint\Breakpoint $breakpoint);
 }
