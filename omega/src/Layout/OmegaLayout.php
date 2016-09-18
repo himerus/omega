@@ -2,6 +2,7 @@
 
 namespace Drupal\omega\Layout;
 
+use Drupal\omega\Style\OmegaStyle;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -39,5 +40,54 @@ class OmegaLayout implements OmegaLayoutInterface {
     $this->themeHandler = $theme_handler;
     $this->fileHandler = $file_handler;
     $this->themes = $this->themeHandler->rebuildThemeData();
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function saveLayoutData() {
+    // TODO: Implement saveLayout() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function exportLayout() {
+    // TODO: Implement exportLayout() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function compileLayout() {
+    // TODO: Implement compileLayout() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function compileLayoutScss() {
+    // TODO: Implement compileLayoutScss() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function compileLayoutCss() {
+    // TODO: Implement compileLayoutCss() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function generateLayout() {
+    // TODO: Implement generateLayout() method.
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function getActiveBreakpoints() {
+    // TODO: Implement getActiveBreakpoints() method.
   }
 }
