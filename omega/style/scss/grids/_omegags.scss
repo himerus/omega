@@ -1,23 +1,10 @@
-// SAMPLE GRID SIZES ###########################
-// Use these, or your own calculations for a fixed width grid.
-// 1200px Grid =========
-// $cwidth: 80; $gutter: 20; $cols: 12;
-// $cwidth: 55; $gutter: 20; $cols: 16;
-// 
-// 960px Grid =========
-// $cwidth: 60; $gutter: 20; $cols: 12;
-// $cwidth: 40; $gutter: 20; $cols: 16;
-// Fluid Grid =========
-// $cwidth: 60; $gutter: 20; $cols: 12;
-// $cwidth: 40; $gutter: 20; $cols: 16;
-
 // Default grid sizing (960px)
 $cwidth: 60px !default; // column width
 $gutter: 20px !default; // gutter width
 $cols: 12 !default; // total # of cols
 $dir: 'LTR' !default; // Values should be LTR or RTL
 
-// Utility Width Variable — you should never need to modify these
+// Utility Width Variable - you should never need to modify these
 @function gwidth($c:$cols) {
   @return ($cwidth * $c) + ($gutter * $c); // grid width
 }
@@ -25,18 +12,18 @@ $dir: 'LTR' !default; // Values should be LTR or RTL
 // Set $twidth to 100% for a fluid layout
 $twidth: gwidth($cols) !default; // total width
 
-// Utility function to simplify math used in mixins 
+// Utility function to simplify math used in mixins
 // Will convert (when needed) widths to a percentage
 @function calcwidth() {
   @return $twidth / gwidth($cols);
 }
 
-// Uncomment these two lines and the star-hack width/margin lines below to enable sub-pixel fix for IE6 & 7. 
-// See http://tylertate.com/blog/2012/01/05/subpixel-rounding.html 
+// Uncomment these two lines and the star-hack width/margin lines below to enable sub-pixel fix for IE6 & 7.
+// See http://tylertate.com/blog/2012/01/05/subpixel-rounding.html
 $min-width: 480;
 $correction: 0.5 / $min-width * 100;
 
-// The micro clearfix 
+// The micro clearfix
 // http://nicolasgallagher.com/micro-clearfix-hack/
 @mixin clearfix() {
   *zoom: 1;
@@ -53,7 +40,7 @@ $correction: 0.5 / $min-width * 100;
 
 body {
   width: 100%;
-  // The min-width is needed so items outside the grid stay the correct width if horizontal scroll 
+  // The min-width is needed so items outside the grid stay the correct width if horizontal scroll
   // is active so they don't scale to the browser while grid items overflow
   min-width: $twidth;
   @include clearfix();
@@ -82,8 +69,8 @@ body {
 // in the full layout.
 // This only becomes apparent in fluid and nested layouts
 
-// While in a standard, fixed-width grid, it's easy to remove margins for nested grids, in a fluid layout it 
-// poses a small problem when determining the full width of the elements. 
+// While in a standard, fixed-width grid, it's easy to remove margins for nested grids, in a fluid layout it
+// poses a small problem when determining the full width of the elements.
 // For now, we assume that we should take that margin we are removing and put it on the other margin
 // This could however, be added to the width of the element instead, but that could cause "quirks" as well depending
 // on design.
@@ -128,7 +115,7 @@ body {
     @if $twidth == 100% {
       $leftmargin: $leftmargin * 2;
     }
-    //margin: 0 0 0 $leftmargin;	
+    //margin: 0 0 0 $leftmargin;
     margin-left: $leftmargin;
   }
 
