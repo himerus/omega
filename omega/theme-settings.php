@@ -218,7 +218,7 @@ function omega_theme_settings_submit(&$form, \Drupal\Core\Form\FormStateInterfac
   //     when individual layouts are passed (hopefully) via ajax
   foreach ($layouts AS $layout_id => $layout) {
     // Save $layout to the database
-    _omega_save_database_layout($layout, $layout_id, $theme, FALSE);
+    OmegaLayout::saveLayoutData($layout, $layout_id, $theme, FALSE);
   }
 }
 
@@ -270,7 +270,7 @@ function omega_theme_layout_build_submit(&$form, \Drupal\Core\Form\FormStateInte
   //     when individual layouts are passed (hopefully) via ajax
   foreach ($layouts AS $layout_id => $layout) {
     // Save $layout to the database and see if we need to regenerate the files
-    $generated = _omega_save_database_layout($layout, $layout_id, $theme, TRUE);
+    $generated = OmegaLayout::saveLayoutData($layout, $layout_id, $theme, TRUE);
     // determine if SCSS should be forced to compile or not.
     $compile_now = isset($values['force_scss_compile']) ? TRUE : FALSE;
     // we return either true or false from the _omega_save_database_layout function
@@ -279,7 +279,7 @@ function omega_theme_layout_build_submit(&$form, \Drupal\Core\Form\FormStateInte
     // also check to see if we've actually forced the SCSS/CSS to recompile
     if ($generated || $compile_now) {
       // generate the SCSS from the layout data
-      _omega_compile_layout($layout, $layout_id, $theme);
+      OmegaLayout::compileLayout($layout, $layout_id, $theme);
     }
   }
 
@@ -288,7 +288,7 @@ function omega_theme_layout_build_submit(&$form, \Drupal\Core\Form\FormStateInte
     // grab the value of color/config variables so we can update the _omega-style-vars.scss
     $styles = $values['variables'];
     // run function to compile the _omega-style-vars.scss file with any updates.
-    _omega_update_style_scss($styles, $theme);
+    OmegaStyle::scssVariablesUpdate($styles, $theme);
   }
 }
 

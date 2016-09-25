@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\omega\Layout\OmegaLayout;
+
 // create the container for settings
 $form['layout-config'] = array(
   '#type' => 'details',
@@ -45,7 +47,7 @@ $form['layout-config']['non_omegags_info'] = array(
   '#states' => $omegaGSoff,
 );
 
-$availableLayouts = _omega_layout_select_options($layouts);
+$availableLayouts = OmegaLayout::getAvailableLayoutFormOptions($layouts);
 
 $form['layout-config']['default-layouts'] = array(
   '#type' => 'details',

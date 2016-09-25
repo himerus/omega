@@ -122,7 +122,7 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
   // layout from the active theme being used for page display.
   $defaultOmegaLayout = drupal_get_path('theme', 'omega') . '/style/css/layout/omega_default-layout.css';
   // setup default layout for active theme
-  $defaultLayout = omega_return_active_layout();
+  $defaultLayout = OmegaLayout::getActiveLayout();
 
   // @todo -- Layout Logic
   /*
