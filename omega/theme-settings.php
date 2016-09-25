@@ -1,6 +1,8 @@
 <?php
 
 use Drupal\omega\Theme\OmegaSettingsInfo;
+use Drupal\omega\Layout\OmegaLayout;
+use Drupal\omega\Style\OmegaStyle;
 
 require_once 'omega-functions.php';
 require_once 'omega-functions--admin.php';
@@ -95,7 +97,7 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
       $theme_regions = $themeSettings->info['regions'];
 
       // get the layouts available to edit in this theme
-      $layouts = omega_return_layouts($theme);
+      $layouts = OmegaLayout::getAvailableLayouts($theme);
       // include the layout configuration options
       include_once 'theme-settings/layout-config.php';
 

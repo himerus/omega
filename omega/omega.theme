@@ -11,7 +11,8 @@ require_once 'omega-functions.php';
 
 use Drupal\Core\Url;
 use Drupal\Component\Render\FormattableMarkup;
-
+use Drupal\omega\Layout\OmegaLayout;
+use Drupal\omega\Style\OmegaStyle;
 
 /**
  * Implements hook_theme().
@@ -65,7 +66,7 @@ function omega_page_attachments_alter(&$attachments) {
   $attachments['#attached']['library'][] = 'omega/omega';
 
   // get the default Breakpoints
-  $layout = omega_return_active_layout();
+  $layout = OmegaLayout::getActiveLayout();
   $breakpoints = _omega_getActiveBreakpoints($layout['layout'], $layout['theme']);
 
   $layouts = array();
@@ -86,7 +87,7 @@ function omega_page_attachments_alter(&$attachments) {
   $attachments['#attached']['drupalSettings']['omega']['activeTheme'] = $theme;
 
   // Functionality to attach selected css/js from omega theme settings
-  $toggleCSS = _omega_optional_libraries($theme);
+  $toggleCSS = OmegaStyle::getOptionalLibraries($theme);
   foreach ($toggleCSS as $libraryID => $data) {
     // check it is actively enabled via Omega configurations and ensure it isn't already included
     if ($data['status'] && !in_array($libraryID, $attachments['#attached']['library'])) {
@@ -251,10 +252,10 @@ function omega_preprocess_page(&$vars) {
   $page_classes = array();
   $pass_region_classes = array();
   $pass_page_classes = array();
-  $layout = omega_return_active_layout();
+  $layout = OmegaLayout::getActiveLayout();
   $layoutTheme = $layout['theme'];
   $layoutLayout = $layout['layout'];
-  $layouts = omega_return_layouts($layoutTheme);
+  $layouts = OmegaLayout::getAvailableLayouts($layoutTheme);
   $region_groups = $layouts[$layoutLayout]['region_groups']['all'];
   foreach ($region_groups as $group_id => $group_info) {
     $groupRegions = $region_groups[$group_id]['regions'];

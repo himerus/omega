@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\omega\Layout\OmegaLayout;
+
 // create the container for settings
 $form['layouts'] = array(
   '#type' => 'details',
@@ -36,7 +38,7 @@ $form['layouts']['edit_this_layout'] = array(
   // attempting possible jQuery intervention rather than ajax
 );
 
-$breakpoint_options = _omega_getAvailableBreakpoints($theme);
+$breakpoint_options = OmegaLayout::getAvailableBreakpoints($theme);
 
 foreach ($layouts as $lid => $ldata) {
 
@@ -86,7 +88,7 @@ foreach ($layouts as $lid => $ldata) {
   foreach ($breakpoints as $breakpoint) {
 
     // create a 'clean' version of the id to use to match what we want in our yml structure
-    $idtrim = omega_return_clean_breakpoint_id($breakpoint);
+    $idtrim = OmegaLayout::cleanBreakpointId($breakpoint);
 
     $form['layouts'][$lid]['region_groups'][$idtrim] = array(
       '#type' => 'details',

@@ -10,58 +10,67 @@ interface OmegaLayoutInterface {
   /**
    * Method to save layout to database.
    */
-  public function saveLayoutData();
+  public static function saveLayoutData();
 
   /**
    * Method to save layout to filesystem.
    */
-  public function saveLayoutFiles();
+  public static function saveLayoutFiles();
 
   /**
    * Method to export layout to .yml.
    */
-  public function exportLayout();
+  public static function exportLayout();
 
   /**
    * Method to compile layout to SCSS.
    */
-  public function compileLayout();
+  public static function compileLayout();
 
   /**
    * Method to generate SCSS from array of variables.
    */
-  public function compileLayoutScss();
+  public static function compileLayoutScss();
 
   /**
    * Method to generate CSS from SCSS.
    */
-  public function compileLayoutCss();
+  public static function compileLayoutCss();
 
   /**
    * Method to return the available layouts (and config) for a given Omega theme/subtheme.
+   * @param $theme
+   * @return
    */
-  public function getAvailableLayouts();
+  public static function getAvailableLayouts($theme);
 
   /**
    * Method to return the active layout to be used for the active page.
    */
-  public function getActiveLayout();
+  public static function getActiveLayout();
 
   /**
    * Method to return the theme that is providing a layout.
    * This is either the theme itself ($theme) or a parent theme.
+   * @param $theme
+   * @return
    */
-  public function getLayoutProvider();
+  public static function getLayoutProvider($theme);
 
   /**
    * Method to get all available breakpoints.
+   * @param $theme
+   * @return
    */
-  public function getAvailableBreakpoints();
+  public static function getAvailableBreakpoints($theme);
 
   /**
    * Method to get active breakpoints.
+   * @param $layout
+   * @param $theme
+   * @return
    */
-  public function getActiveBreakpoints();
+  public static function getActiveBreakpoints($layout, $theme);
 
   /**
    * Helper function to calculate the new width/push/pull/prefix/suffix of a primary region
@@ -69,13 +78,14 @@ interface OmegaLayoutInterface {
    * $empty_regions is an array of region data for regions that would be empty
    * $cols is the total number of columns assigned using row(); for the region group
    */
-  public function layoutAdjust();
+  public static function layoutAdjust();
 
   /**
    * Function returns the trimmed name of the breakpoint id
    * converting omega.standard.all to simply 'all'
+   *
    * @param \Drupal\breakpoint\Breakpoint $breakpoint
    * @return string
    */
-  public function cleanBreakpointId(\Drupal\breakpoint\Breakpoint $breakpoint);
+  public static function cleanBreakpointId(\Drupal\breakpoint\Breakpoint $breakpoint);
 }
