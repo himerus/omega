@@ -5,6 +5,16 @@ namespace Drupal\omega\Style;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 
+/**
+ * Class OmegaStyle
+ *
+ * The OmegaStyle class offers a transition between original procedural
+ * functions provided via including omega-functions.php, etc. and static
+ * methods available in OmegaStyle.
+ *
+ * @todo: Eventually, the methods defined here should be refactored.
+ * @package Drupal\omega\Style
+ */
 class OmegaStyle implements OmegaStyleInterface {
 
   /**
@@ -41,8 +51,9 @@ class OmegaStyle implements OmegaStyleInterface {
      * @todo: Avoid using require_once for phpsass.
      * @todo: Replace phpsass with either composer version or leafo/scssphp.
      */
-    require_once('../phpsass/SassParser.php');
-    require_once('../phpsass/SassFile.php');
+    //$omegaRoot = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega');
+    //require_once($omegaRoot . '/src/phpsass/SassParser.php');
+    //require_once($omegaRoot . '/src/phpsass/SassFile.php');
 
     $dir = opendir($source);
 
@@ -67,7 +78,7 @@ class OmegaStyle implements OmegaStyleInterface {
             $variableFile = new SassFile;
             $variableScss = '';
             $variableScss .= $variableFile->get_file_contents($fileLocation);
-            $css = OmegaStyle::compileCss($variableScss, $theme, $options);
+            $css = _omega_compile_css($variableScss, $options);
 
             // path to CSS file we're overriding
             $newCssFile = str_replace('scss', 'css', $fileLocation);
@@ -169,25 +180,7 @@ class OmegaStyle implements OmegaStyleInterface {
    * @inheritdoc
    */
   public static function compileCss($scss, $options) {
-    /**
-     * Require the phpsass library manually.
-     * @todo: Avoid using require_once for phpsass.
-     * @todo: Replace phpsass with either composer version or leafo/scssphp.
-     */
-    require_once('../phpsass/SassParser.php');
-    require_once('../phpsass/SassFile.php');
-
-    // Using richthegeek/phpsass
-    $parser = new SassParser($options);
-    // create CSS from SCSS
-    $css = $parser->toCss($scss);
-
-    //  Attempting use of leafo/scssphp
-    //  $compiler = new Compiler();
-    //  $compiler->setImportPaths(_omega_add_scss_import_paths($theme));
-    //  $compiler->setFormatter('Leafo\ScssPhp\Formatter\Expanded');
-    //  $css = $compiler->compile($scss);
-
+    $css = _omega_compile_css($scss, $options);
     return $css;
   }
 

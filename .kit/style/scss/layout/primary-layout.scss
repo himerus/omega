@@ -1,0 +1,726 @@
+@import 'omega_mixins';
+@import 'omega-default-style-vars';
+@import 'omega-style-vars';
+@import 'omegags';
+
+@media all and (min-width: 0px) {
+
+  // Breakpoint: All; Region Group: header;
+  .header-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: header; Region: header;
+    .region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: All; Region Group: preface;
+  .preface-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: preface; Region: preface_first;
+    .region--preface-first {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: All; Region Group: preface; Region: preface_second;
+    .region--preface-second {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: All; Region Group: preface; Region: preface_third;
+    .region--preface-third {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: All; Region Group: preface; Region: preface_fourth;
+    .region--preface-fourth {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: All; Region Group: core;
+  .core-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: core; Region: highlighted;
+    .region--highlighted {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: All; Region Group: main;
+  .main-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: main; Region: content;
+    .region--content {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: All; Region Group: main; Region: sidebar_first;
+    .region--sidebar-first {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: All; Region Group: main; Region: sidebar_second;
+    .region--sidebar-second {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: All; Region Group: postscript;
+  .postscript-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: postscript; Region: postscript_first;
+    .region--postscript-first {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: All; Region Group: postscript; Region: postscript_second;
+    .region--postscript-second {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: All; Region Group: postscript; Region: postscript_third;
+    .region--postscript-third {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: All; Region Group: postscript; Region: postscript_fourth;
+    .region--postscript-fourth {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: All; Region Group: footer;
+  .footer-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: footer; Region: footer;
+    .region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (max-width: 479px) {
+
+  // Breakpoint: Mobile Portrait; Region Group: header;
+  .header-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: header; Region: header;
+    .region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Portrait; Region Group: preface;
+  .preface-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: preface; Region: preface_first;
+    .region--preface-first {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Portrait; Region Group: preface; Region: preface_second;
+    .region--preface-second {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Portrait; Region Group: preface; Region: preface_third;
+    .region--preface-third {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Portrait; Region Group: preface; Region: preface_fourth;
+    .region--preface-fourth {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Portrait; Region Group: core;
+  .core-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: core; Region: highlighted;
+    .region--highlighted {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Portrait; Region Group: main;
+  .main-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: main; Region: content;
+    .region--content {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Portrait; Region Group: main; Region: sidebar_first;
+    .region--sidebar-first {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Portrait; Region Group: main; Region: sidebar_second;
+    .region--sidebar-second {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Portrait; Region Group: postscript;
+  .postscript-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: postscript; Region: postscript_first;
+    .region--postscript-first {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Portrait; Region Group: postscript; Region: postscript_second;
+    .region--postscript-second {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Portrait; Region Group: postscript; Region: postscript_third;
+    .region--postscript-third {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Portrait; Region Group: postscript; Region: postscript_fourth;
+    .region--postscript-fourth {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Portrait; Region Group: footer;
+  .footer-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: footer; Region: footer;
+    .region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (min-width: 480px) and (max-width: 767px) {
+
+  // Breakpoint: Mobile Landscape; Region Group: header;
+  .header-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: header; Region: header;
+    .region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Landscape; Region Group: preface;
+  .preface-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: preface; Region: preface_first;
+    .region--preface-first {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Landscape; Region Group: preface; Region: preface_second;
+    .region--preface-second {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Landscape; Region Group: preface; Region: preface_third;
+    .region--preface-third {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Landscape; Region Group: preface; Region: preface_fourth;
+    .region--preface-fourth {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Landscape; Region Group: core;
+  .core-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: core; Region: highlighted;
+    .region--highlighted {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Landscape; Region Group: main;
+  .main-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: main; Region: content;
+    .region--content {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Landscape; Region Group: main; Region: sidebar_first;
+    .region--sidebar-first {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Mobile Landscape; Region Group: main; Region: sidebar_second;
+    .region--sidebar-second {
+      @include column(6, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Landscape; Region Group: postscript;
+  .postscript-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: postscript; Region: postscript_first;
+    .region--postscript-first {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Landscape; Region Group: postscript; Region: postscript_second;
+    .region--postscript-second {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Landscape; Region Group: postscript; Region: postscript_third;
+    .region--postscript-third {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Mobile Landscape; Region Group: postscript; Region: postscript_fourth;
+    .region--postscript-fourth {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Landscape; Region Group: footer;
+  .footer-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: footer; Region: footer;
+    .region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+
+  // Breakpoint: Narrow; Region Group: header;
+  .header-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: header; Region: header;
+    .region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Narrow; Region Group: preface;
+  .preface-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: preface; Region: preface_first;
+    .region--preface-first {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Narrow; Region Group: preface; Region: preface_second;
+    .region--preface-second {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Narrow; Region Group: preface; Region: preface_third;
+    .region--preface-third {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Narrow; Region Group: preface; Region: preface_fourth;
+    .region--preface-fourth {
+      @include column(6, 12);
+    }
+  }
+
+  // Breakpoint: Narrow; Region Group: core;
+  .core-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: core; Region: highlighted;
+    .region--highlighted {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Narrow; Region Group: main;
+  .main-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: main; Region: content;
+    .region--content {
+      @include column(12, 12);
+    }
+
+    // Breakpoint: Narrow; Region Group: main; Region: sidebar_first;
+    .region--sidebar-first {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Narrow; Region Group: main; Region: sidebar_second;
+    .region--sidebar-second {
+      @include column(6, 12);
+    }
+  }
+
+  // Breakpoint: Narrow; Region Group: postscript;
+  .postscript-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: postscript; Region: postscript_first;
+    .region--postscript-first {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Narrow; Region Group: postscript; Region: postscript_second;
+    .region--postscript-second {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Narrow; Region Group: postscript; Region: postscript_third;
+    .region--postscript-third {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Narrow; Region Group: postscript; Region: postscript_fourth;
+    .region--postscript-fourth {
+      @include column(6, 12);
+    }
+  }
+
+  // Breakpoint: Narrow; Region Group: footer;
+  .footer-layout {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: footer; Region: footer;
+    .region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (min-width: 1024px) and (max-width: 1219px) {
+
+  // Breakpoint: Normal; Region Group: header;
+  .header-layout {
+    @include row(12);
+    max-width: 1100px;
+
+    // Breakpoint: Normal; Region Group: header; Region: header;
+    .region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Normal; Region Group: preface;
+  .preface-layout {
+    @include row(12);
+    max-width: 1100px;
+
+    // Breakpoint: Normal; Region Group: preface; Region: preface_first;
+    .region--preface-first {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Normal; Region Group: preface; Region: preface_second;
+    .region--preface-second {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Normal; Region Group: preface; Region: preface_third;
+    .region--preface-third {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Normal; Region Group: preface; Region: preface_fourth;
+    .region--preface-fourth {
+      @include column(6, 12);
+    }
+  }
+
+  // Breakpoint: Normal; Region Group: core;
+  .core-layout {
+    @include row(12);
+    max-width: 1100px;
+
+    // Breakpoint: Normal; Region Group: core; Region: highlighted;
+    .region--highlighted {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Normal; Region Group: main;
+  .main-layout {
+    @include row(12);
+    max-width: 1100px;
+
+    // Breakpoint: Normal; Region Group: main; Region: content;
+    .region--content {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Normal; Region Group: main; Region: sidebar_first;
+    .region--sidebar-first {
+      @include column(3, 12);
+    }
+
+    // Breakpoint: Normal; Region Group: main; Region: sidebar_second;
+    .region--sidebar-second {
+      @include column(3, 12);
+    }
+
+    // A primary region exists for the main region group.
+    // so we are going to iterate over combinations of available/missing
+    // regions to change the layout for this group based on those scenarios.
+
+    // 1 missing region
+
+    &.with--content.without--sidebar-first {
+      .region--content {
+        @include column-reset();
+        @include column(9, 12);
+      }
+
+    }
+
+    &.with--content.without--sidebar-second {
+      .region--content {
+        @include column-reset();
+        @include column(9, 12);
+      }
+
+    }
+
+    // 2 missing regions
+    &.with--content.without--sidebar-first.without--sidebar-second {
+      .region--content {
+        @include column-reset();
+        @include column(12, 12);
+      }
+    }
+  }
+
+  // Breakpoint: Normal; Region Group: postscript;
+  .postscript-layout {
+    @include row(12);
+    max-width: 1100px;
+
+    // Breakpoint: Normal; Region Group: postscript; Region: postscript_first;
+    .region--postscript-first {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Normal; Region Group: postscript; Region: postscript_second;
+    .region--postscript-second {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Normal; Region Group: postscript; Region: postscript_third;
+    .region--postscript-third {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Normal; Region Group: postscript; Region: postscript_fourth;
+    .region--postscript-fourth {
+      @include column(6, 12);
+    }
+  }
+
+  // Breakpoint: Normal; Region Group: footer;
+  .footer-layout {
+    @include row(12);
+    max-width: 1100px;
+
+    // Breakpoint: Normal; Region Group: footer; Region: footer;
+    .region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (min-width: 1220px) {
+
+  // Breakpoint: Wide; Region Group: header;
+  .header-layout {
+    @include row(12);
+    max-width: 1400px;
+
+    // Breakpoint: Wide; Region Group: header; Region: header;
+    .region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Wide; Region Group: preface;
+  .preface-layout {
+    @include row(12);
+    max-width: 1400px;
+
+    // Breakpoint: Wide; Region Group: preface; Region: preface_first;
+    .region--preface-first {
+      @include column(3, 12);
+    }
+
+    // Breakpoint: Wide; Region Group: preface; Region: preface_second;
+    .region--preface-second {
+      @include column(3, 12);
+    }
+
+    // Breakpoint: Wide; Region Group: preface; Region: preface_third;
+    .region--preface-third {
+      @include column(3, 12);
+    }
+
+    // Breakpoint: Wide; Region Group: preface; Region: preface_fourth;
+    .region--preface-fourth {
+      @include column(3, 12);
+    }
+  }
+
+  // Breakpoint: Wide; Region Group: core;
+  .core-layout {
+    @include row(12);
+    max-width: 1400px;
+
+    // Breakpoint: Wide; Region Group: core; Region: highlighted;
+    .region--highlighted {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Wide; Region Group: main;
+  .main-layout {
+    @include row(12);
+    max-width: 1400px;
+
+    // Breakpoint: Wide; Region Group: main; Region: content;
+    .region--content {
+      @include column(6, 12);
+      @include push(3);
+    }
+
+    // Breakpoint: Wide; Region Group: main; Region: sidebar_first;
+    .region--sidebar-first {
+      @include column(3, 12);
+      @include pull(6);
+    }
+
+    // Breakpoint: Wide; Region Group: main; Region: sidebar_second;
+    .region--sidebar-second {
+      @include column(3, 12);
+    }
+
+    // A primary region exists for the main region group.
+    // so we are going to iterate over combinations of available/missing
+    // regions to change the layout for this group based on those scenarios.
+
+    // 1 missing region
+
+    &.with--content.without--sidebar-first {
+      .region--content {
+        @include column-reset();
+        @include column(9, 12);
+      }
+
+    }
+
+    &.with--content.without--sidebar-second {
+      .region--content {
+        @include column-reset();
+        @include column(9, 12);
+        @include push(3);
+      }
+
+      .region--sidebar-first {
+        @include column-reset();
+        @include column(3, 12);
+        @include pull(9);
+      }
+    }
+
+    // 2 missing regions
+    &.with--content.without--sidebar-first.without--sidebar-second {
+      .region--content {
+        @include column-reset();
+        @include column(12, 12);
+      }
+    }
+  }
+
+  // Breakpoint: Wide; Region Group: postscript;
+  .postscript-layout {
+    @include row(12);
+    max-width: 1400px;
+
+    // Breakpoint: Wide; Region Group: postscript; Region: postscript_first;
+    .region--postscript-first {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Wide; Region Group: postscript; Region: postscript_second;
+    .region--postscript-second {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Wide; Region Group: postscript; Region: postscript_third;
+    .region--postscript-third {
+      @include column(6, 12);
+    }
+
+    // Breakpoint: Wide; Region Group: postscript; Region: postscript_fourth;
+    .region--postscript-fourth {
+      @include column(6, 12);
+    }
+  }
+
+  // Breakpoint: Wide; Region Group: footer;
+  .footer-layout {
+    @include row(12);
+    max-width: 1400px;
+
+    // Breakpoint: Wide; Region Group: footer; Region: footer;
+    .region--footer {
+      @include column(12, 12);
+    }
+  }
+}

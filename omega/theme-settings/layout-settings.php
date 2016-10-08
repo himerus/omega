@@ -1,6 +1,9 @@
 <?php
 
 use Drupal\omega\Layout\OmegaLayout;
+// Get the theme name we are editing
+$theme = \Drupal::theme()->getActiveTheme()->getName();
+$layouts = OmegaLayout::getAvailableLayouts($theme);
 
 // create the container for settings
 $form['layouts'] = array(
@@ -31,10 +34,14 @@ $form['layouts']['edit_this_layout'] = array(
   ),
   '#title' => 'Select Layout to Edit',
   '#description' => t('<p class="description">You are able to edit only one layout at a time.</p><p class="description"> The amount of configurations passed through the form requires limiting this ability until Drupal core issue <a href="https://www.drupal.org/node/1565704" target="_blank"><strong>#1565704</strong></a> can be resolved. </p>'),
-  '#options' => $availableLayouts,
+  '#options' => OmegaLayout::getAvailableLayoutFormOptions($layouts),
   '#default_value' => isset($edit_this_layout) ? $edit_this_layout : theme_get_setting('default_layout', $theme),
   '#tree' => FALSE,
-  '#states' => $omegaGSon,
+  '#states' => array(
+    'invisible' => array(
+      OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+    ),
+  ),
   // attempting possible jQuery intervention rather than ajax
 );
 
@@ -68,7 +75,11 @@ foreach ($layouts as $lid => $ldata) {
     '#description' => t('<p class="description">This breakpoint group will apply to this layout any time it is used. This allows you to use a different breakpoint group for different layouts.</p>'),
     '#default_value' => $current_breakpoint_group,
     '#tree' => FALSE,
-    '#states' => $omegaGSon,
+    '#states' => array(
+      'invisible' => array(
+        OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+      ),
+    ),
   );
 
   $form['layouts'][$lid]['breakpoint_group_updated'] = array(
@@ -83,10 +94,11 @@ foreach ($layouts as $lid => $ldata) {
     ),
   );
 
-  $breakpoints = _omega_getActiveBreakpoints($lid, $theme);
-  // foreach breakpoint we have, we will create a form element group and appropriate settings for region layouts per breakpoint.
+  $breakpoints = OmegaLayout::getActiveBreakpoints($lid, $theme);
+  // foreach breakpoint we have, we will create a form element group and
+  // appropriate settings for region layouts per breakpoint.
+  /** @var Drupal\breakpoint\Breakpoint $breakpoint */
   foreach ($breakpoints as $breakpoint) {
-
     // create a 'clean' version of the id to use to match what we want in our yml structure
     $idtrim = OmegaLayout::cleanBreakpointId($breakpoint);
 

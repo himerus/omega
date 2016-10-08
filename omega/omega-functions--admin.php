@@ -4,6 +4,15 @@ use Drupal\omega\Layout\OmegaLayout;
 use Drupal\omega\Style\OmegaStyle;
 
 /**
+ * Require the phpsass library manually.
+ * @todo: Avoid using require_once for phpsass.
+ * @todo: Replace phpsass with either composer version or leafo/scssphp.
+ */
+$omegaRoot = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'omega');
+require_once($omegaRoot . '/src/phpsass/SassParser.php');
+require_once($omegaRoot . '/src/phpsass/SassFile.php');
+
+/**
  * Function to take an array of style variables and create the appropriate
  * SCSS based on those variables.
  * Use: Drupal\omega\Layout\OmegaStyle::scssVariablesUpdate();
@@ -63,12 +72,23 @@ function _omega_compile_layout($layout, $layout_id, $theme) {
  * Currently performs the following operations:
  *  - Takes SCSS generated from _omega_compile_layout_sass and returns CSS
  * Use: Drupal\omega\Layout\OmegaStyle::compileCss($scss, $options);
+ * @todo: This can currently be included via class because of limitations with phpsass.
  *
  * @deprecated
  */
 
-function _omega_compile_css($scss, $theme, $options) {
-  return OmegaStyle::compileCss($scss, $options);
+function _omega_compile_css($scss, $options) {
+  // Using richthegeek/phpsass
+  $parser = new SassParser($options);
+  // create CSS from SCSS
+  $css = $parser->toCss($scss);
+
+  //  Attempting use of leafo/scssphp
+  //  $compiler = new Compiler();
+  //  $compiler->setImportPaths(_omega_add_scss_import_paths($theme));
+  //  $compiler->setFormatter('Leafo\ScssPhp\Formatter\Expanded');
+  //  $css = $compiler->compile($scss);
+  return $css;
 }
 
 /**

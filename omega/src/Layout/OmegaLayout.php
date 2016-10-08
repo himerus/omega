@@ -2,12 +2,23 @@
 
 namespace Drupal\omega\Layout;
 
+use Drupal\breakpoint\Breakpoint;
 use Drupal\omega\Theme\OmegaSettingsInfo;
 use Drupal\omega\Style\OmegaStyle;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Class OmegaLayout
+ *
+ * The OmegaLayout class offers a transition between original procedural
+ * functions provided via including omega-functions.php, etc. and static
+ * methods available in OmegaLayout.
+ *
+ * @todo: Eventually, the methods defined here should be refactored.
+ * @package Drupal\omega\Layout
+ */
 class OmegaLayout implements OmegaLayoutInterface {
 
   /**
@@ -32,6 +43,24 @@ class OmegaLayout implements OmegaLayoutInterface {
   public $themes;
 
   /**
+   * @var array
+   */
+  public static $omegaGsDisabled = array(
+    ':input[name="enable_omegags_layout"]' => array(
+      'checked' => FALSE
+    )
+  );
+
+  /**
+   * @var array
+   */
+  public static $omegaGsEnabled = array(
+    ':input[name="enable_omegags_layout"]' => array(
+      'checked' => TRUE
+    )
+  );
+
+  /**
    * Constructs a layout object.
    *
    * @param ThemeHandlerInterface $theme_handler
@@ -49,10 +78,10 @@ class OmegaLayout implements OmegaLayoutInterface {
    */
   public static function saveLayoutData($layout, $layout_id, $theme, $generate = FALSE) {
     // Grab the editable configuration objects
-    $layoutConfig = \Drupal::service('config.factory')
-      ->getEditable($theme . '.layout.' . $layout_id);
-    $layoutConfigGenerated = \Drupal::service('config.factory')
-      ->getEditable($theme . '.layout.' . $layout_id . '.generated');
+    /** @var \Drupal\Core\Config\ConfigFactory $configFactory */
+    $configFactory = \Drupal::service('config.factory');
+    $layoutConfig = $configFactory->getEditable($theme . '.layout.' . $layout_id);
+    $layoutConfigGenerated = $configFactory->getEditable($theme . '.layout.' . $layout_id . '.generated');
 
     // unset some junk that was passed in the form's $layout array
     // this includes some informational messages, etc.
@@ -129,7 +158,7 @@ class OmegaLayout implements OmegaLayoutInterface {
       $relativeSource = str_replace(realpath(".") . base_path() . drupal_get_path('theme', $theme), '', $scssfile);
       $options = OmegaStyle::getScssOptions($relativeSource, $scssfile, $theme);
       // generate the CSS from the SCSS created above
-      $css = OmegaStyle::compileCss($scss, $theme, $options);
+      $css = _omega_compile_css($scss, $options);
       // save the css file
       $cssfile = file_unmanaged_save_data($css, $layoutcss, FILE_EXISTS_REPLACE);
       // check for errors
@@ -145,6 +174,7 @@ class OmegaLayout implements OmegaLayoutInterface {
       drupal_set_message(t("Since <strong>Compile SCSS Directly</strong> is disabled, please ensure Compass or an alternative SCSS compiler is set to watch for these saved changes. You can disable this warning under <strong>Default Options</strong>."), "warning");
     }
   }
+
   /**
    * @inheritdoc
    */
@@ -181,7 +211,7 @@ class OmegaLayout implements OmegaLayoutInterface {
     // get the default layout/breakpoint group
     $defaultLayout = $layoutName;
     // get all the active breakpoints we'll be editing
-    $breakpoints = _omega_getActiveBreakpoints($layoutName, $theme);
+    $breakpoints = OmegaLayout::getActiveBreakpoints($layoutName, $theme);
     // get the stored layout data
     // $layouts = theme_get_setting('layouts', $theme);
     // pull an array of "region groups" based on the "all" media query that should always be present
@@ -190,7 +220,7 @@ class OmegaLayout implements OmegaLayoutInterface {
 
     $theme_regions = $themeSettings->info['regions'];
     // create variable to hold all SCSS we need
-    $scss  = '';
+    $scss = '';
     $scss .= "@import 'omega_mixins';\n";
     $scss .= "@import 'omega-default-style-vars';\n";
     $scss .= "@import 'omega-style-vars';\n";
@@ -201,7 +231,7 @@ class OmegaLayout implements OmegaLayoutInterface {
       /** @var \Drupal\breakpoint\Breakpoint $breakpoint */
       // create a clean var for the scss for this breakpoint
       $breakpoint_scss = '';
-      $idtrim = omega_return_clean_breakpoint_id($breakpoint);
+      $idtrim = OmegaLayout::cleanBreakpointId($breakpoint);
 
       // loop over the region groups
       foreach ($region_groups as $gid => $info) {
@@ -452,22 +482,15 @@ class OmegaLayout implements OmegaLayoutInterface {
     // The active theme being used
     $theme = \Drupal::theme()->getActiveTheme()->getName();
     // Is this page the front page?
-    $front = \Drupal::service('path.matcher')
-      ->isFrontPage() ? \Drupal::service('path.matcher')->isFrontPage() : FALSE;
+    $front = \Drupal::service('path.matcher')->isFrontPage() ? \Drupal::service('path.matcher')->isFrontPage() : FALSE;
     // Is this page a node?
-    $nid = \Drupal::routeMatch()->getRawParameter('node') ? \Drupal::routeMatch()
-      ->getRawParameter('node') : FALSE;
+    $nid = \Drupal::routeMatch()->getRawParameter('node') ? \Drupal::routeMatch()->getRawParameter('node') : FALSE;
     // Is this page a taxonomy term?
-    $term = \Drupal::routeMatch()
-      ->getParameter('taxonomy_term') ? \Drupal::routeMatch()
-      ->getParameter('taxonomy_term') : FALSE;
+    $term = \Drupal::routeMatch()->getParameter('taxonomy_term') ? \Drupal::routeMatch()->getParameter('taxonomy_term') : FALSE;
     // Is this page a view?
-    $view_id = \Drupal::routeMatch()
-      ->getParameter('view_id') ? \Drupal::routeMatch()
-      ->getParameter('view_id') : FALSE;
+    $view_id = \Drupal::routeMatch()->getParameter('view_id') ? \Drupal::routeMatch()->getParameter('view_id') : FALSE;
     // All parameters for the page
     $params = \Drupal::routeMatch()->getParameters();
-
     $layoutProvider = OmegaLayout::getLayoutProvider($theme);
     // setup default layout
     $defaultLayout = theme_get_setting('default_layout', $layoutProvider);
@@ -569,8 +592,7 @@ class OmegaLayout implements OmegaLayoutInterface {
     $breakpoint_options = array();
     if ($breakpoints_module == TRUE) {
       // get all the breakpoint groups available to Drupal
-      $all_breakpoint_groups = \Drupal::service('breakpoint.manager')
-        ->getGroups();
+      $all_breakpoint_groups = \Drupal::service('breakpoint.manager')->getGroups();
       // get all the base themes of this theme
       $baseThemes = \Drupal::theme()->getActiveTheme()->getBaseThemes();
 
@@ -586,21 +608,18 @@ class OmegaLayout implements OmegaLayoutInterface {
       // cycle all the breakpoint groups and see if they are a part of this theme or its base theme(s)
       foreach ($all_breakpoint_groups as $group_key => $group_values) {
         // get the theme name that provides this breakpoint group
-        $breakpoint_theme = \Drupal::service('breakpoint.manager')
-          ->getGroupProviders($group_key);
+        $breakpoint_theme = \Drupal::service('breakpoint.manager')->getGroupProviders($group_key);
         // see if the theme providing the breakpoint group is part of our base theme structure
         $breakpoint_theme_name = key($breakpoint_theme);
         if (array_key_exists($breakpoint_theme_name, $theme_ids)) {
-          $breakpoint_groups[$group_key] = \Drupal::service('breakpoint.manager')
-            ->getBreakpointsByGroup($group_key);
+          $breakpoint_groups[$group_key] = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($group_key);
         }
       }
 
       foreach ($breakpoint_groups as $group => $breakpoint_values) {
         if ($breakpoint_values !== array()) {
           // get the theme name that provides this breakpoint group
-          $breakpoint_theme = \Drupal::service('breakpoint.manager')
-            ->getGroupProviders($group);
+          $breakpoint_theme = \Drupal::service('breakpoint.manager')->getGroupProviders($group);
           // see if the theme providing the breakpoint group is part of our base theme structure
           $breakpoint_theme_id = key($breakpoint_theme);
           $breakpoint_theme_name = $theme_ids[$breakpoint_theme_id];
@@ -620,8 +639,7 @@ class OmegaLayout implements OmegaLayoutInterface {
   public static function getActiveBreakpoints($layout, $theme) {
     // get the default layout and convert to name for breakpoint group
     $breakpointGroupId = theme_get_setting('breakpoint_group_' . $layout, $theme);
-    $breakpointGroup = \Drupal::service('breakpoint.manager')
-      ->getBreakpointsByGroup($breakpointGroupId);
+    $breakpointGroup = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($breakpointGroupId);
     if ($breakpointGroup) {
       // custom theme breakpoints
       return $breakpointGroup;
@@ -629,8 +647,7 @@ class OmegaLayout implements OmegaLayoutInterface {
     else {
       // default omega breakpoints
       drupal_set_message('The breakpoint group for your theme could not be found. Using default Omega version instead.', 'warning');
-      return \Drupal::service('breakpoint.manager')
-        ->getBreakpointsByGroup('omega.standard');
+      return \Drupal::service('breakpoint.manager')->getBreakpointsByGroup('omega.standard');
     }
   }
 
@@ -715,7 +732,7 @@ class OmegaLayout implements OmegaLayoutInterface {
   /**
    * @inheritdoc
    */
-  public static function cleanBreakpointId(\Drupal\breakpoint\Breakpoint $breakpoint) {
+  public static function cleanBreakpointId(Breakpoint $breakpoint) {
     return str_replace($breakpoint->getGroup() . '.', "", $breakpoint->getBaseId());
   }
 }

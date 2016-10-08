@@ -73,7 +73,11 @@ $form['layout-config']['default-layouts']['default_layout'] = array(
   '#options' => $availableLayouts,
   '#default_value' => isset($defaultLayout) ? $defaultLayout : theme_get_setting('default_layout', $theme),
   '#tree' => FALSE,
-  '#states' => $omegaGSon,
+  '#states' => array(
+    'invisible' => array(
+      OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+    ),
+  ),
   // attempting possible jQuery intervention rather than ajax
 );
 
@@ -93,7 +97,11 @@ $form['layout-config']['default-layouts']['home_layout'] = array(
   '#options' => $availableLayouts,
   '#default_value' => isset($homeLayout) ? $homeLayout : theme_get_setting('default_layout', $theme),
   '#tree' => FALSE,
-  '#states' => $omegaGSon,
+  '#states' => array(
+    'invisible' => array(
+      OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+    ),
+  ),
   // attempting possible jQuery intervention rather than ajax
 );
 
@@ -105,7 +113,11 @@ $form['layout-config']['node-layouts'] = array(
   '#title' => 'Node Type Layouts',
   '#description' => '<div class="messages messages--status omega-styles-info">The following section allows you to customize the layout used for a specific node type.</div>',
   '#group' => 'layout-config',
-  '#states' => $omegaGSon,
+  '#states' => array(
+    'invisible' => array(
+      OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+    ),
+  ),
 );
 
 $types = \Drupal\node\Entity\NodeType::loadMultiple();
@@ -129,7 +141,11 @@ foreach ($types AS $ctype => $ctypeData) {
     '#options' => $availableLayouts,
     '#default_value' => isset($ctypeLayout) ? $ctypeLayout : theme_get_setting('default_layout', $theme),
     '#tree' => FALSE,
-    '#states' => $omegaGSon,
+    '#states' => array(
+      'invisible' => array(
+        OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+      ),
+    ),
     // attempting possible jQuery intervention rather than ajax
   );
 }
@@ -141,7 +157,11 @@ $form['layout-config']['taxonomy-layouts'] = array(
   '#title' => 'Taxonomy Term Page Layouts',
   '#description' => '<div class="messages messages--status omega-styles-info">The following section allows you to customize the layout used for a Taxonomy Term page.</div>',
   '#group' => 'layout-config',
-  '#states' => $omegaGSon,
+  '#states' => array(
+    'invisible' => array(
+      OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+    ),
+  ),
 );
 
 $vocabs = taxonomy_vocabulary_get_names();
@@ -166,7 +186,11 @@ foreach ($vocabs AS $vocab_id) {
     '#options' => $availableLayouts,
     '#default_value' => isset($ttypeLayout) ? $ttypeLayout : theme_get_setting('default_layout', $theme),
     '#tree' => FALSE,
-    '#states' => $omegaGSon,
+    '#states' => array(
+      'invisible' => array(
+        OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+      ),
+    ),
   );
 }
 
@@ -176,7 +200,11 @@ $form['layout-config']['views-layouts'] = array(
   '#attributes' => array('class' => array('layout-selection')),
   '#title' => 'Views Page Layouts',
   '#group' => 'layout-config',
-  '#states' => $omegaGSon,
+  '#states' => array(
+    'invisible' => array(
+      OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+    ),
+  ),
 );
 
 // $result attempts to get only page views.
@@ -219,7 +247,11 @@ foreach ($results as $result) {
     '#attributes' => array('class' => array('views-display-group')),
     '#title' => 'View Name: ' . $view_id,
     '#group' => 'views-layouts',
-    '#states' => $omegaGSon,
+    '#states' => array(
+      'invisible' => array(
+        OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+      ),
+    ),
   );
 
   // Create a form element for each display
@@ -242,7 +274,11 @@ foreach ($results as $result) {
       '#options' => $availableLayouts,
       '#default_value' => isset($vtypeLayout) ? $vtypeLayout : theme_get_setting('default_layout', $theme),
       '#tree' => FALSE,
-      '#states' => $omegaGSon,
+      '#states' => array(
+        'invisible' => array(
+          OmegaLayout::$omegaGsDisabled, // Hidden when Omega.gs is turned off.
+        ),
+      ),
     );
   }
 }

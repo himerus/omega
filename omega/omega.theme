@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @file
  * Functions to support theming in the Omega theme.
  *
- * Primary hooks for Omega Five that relate to theme development and configuration
+ * Primary hooks for Omega Five that relate to theme development
+ * and configuration.
  */
 
 require_once 'omega-functions.php';
@@ -67,7 +67,7 @@ function omega_page_attachments_alter(&$attachments) {
 
   // get the default Breakpoints
   $layout = OmegaLayout::getActiveLayout();
-  $breakpoints = _omega_getActiveBreakpoints($layout['layout'], $layout['theme']);
+  $breakpoints = OmegaLayout::getActiveBreakpoints($layout['layout'], $layout['theme']);
 
   $layouts = array();
   foreach ($breakpoints as $breakpoint) {
@@ -247,7 +247,7 @@ function omega_preprocess_page(&$vars) {
     }
   }
 
-  // create an array to define the with-sidebar_first without-sidebar_first classes
+  // Create an array to define the with-sidebar_first without-sidebar_first classes.
   $region_classes = array();
   $page_classes = array();
   $pass_region_classes = array();

@@ -54,7 +54,7 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
         '#suffix' => '</div>',
         '#weight' => -999,
       );
-      $layoutProvider = omega_find_layout_provider($theme);
+      $layoutProvider = OmegaLayout::getLayoutProvider($theme);
       // update the message value
       $form['inherited_layout']['#markup'] = '<p>This theme is currently inheriting the layout(s) from <strong>' . $layoutProvider . '</strong>, so layout configuration options are not available here. <em>Any changes made to the applicable layouts in the parent theme will be used by this theme.</em> You can edit the layout settings for <strong>' . $layoutProvider . '</strong> <a href="/admin/appearance/settings/' . $layoutProvider . '">here</a>.</p>';
     }
@@ -165,7 +165,7 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
 }
 
 /**
- * @todo -- Currently unused, but needed function
+ * @todo -- Currently unused, but needed function. Move to OmegaInfo class.
  * Function to check machine name for generated theme to ensure it is available
  * @param $machine_name
  * @return bool
