@@ -137,8 +137,8 @@ class OmegaLayout implements OmegaLayoutInterface {
    */
   public static function saveLayoutFiles($scss, $theme, $layout_id, $options) {
     // create full paths to the scss and css files we will be rendering.
-    $layoutscss = realpath(".") .  drupal_get_path('theme', $theme) . '/style/scss/layout/' . $layout_id . '-layout.scss';
-    $layoutcss = realpath(".") .  drupal_get_path('theme', $theme) . '/style/css/layout/' . $layout_id . '-layout.css';
+    $layoutscss = realpath(".") . '/' . drupal_get_path('theme', $theme) . '/style/scss/layout/' . $layout_id . '-layout.scss';
+    $layoutcss = realpath(".") .  '/' . drupal_get_path('theme', $theme) . '/style/css/layout/' . $layout_id . '-layout.css';
 
     // save the scss file
     $scssfile = file_unmanaged_save_data($scss, $layoutscss, FILE_EXISTS_REPLACE);
@@ -155,7 +155,7 @@ class OmegaLayout implements OmegaLayoutInterface {
     $compile = isset($compile_scss) ? $compile_scss : FALSE;
     if ($compile) {
 
-      $relativeSource = str_replace(realpath(".") .  drupal_get_path('theme', $theme), '', $scssfile);
+      $relativeSource = str_replace(realpath(".") . '/' .  drupal_get_path('theme', $theme), '', $scssfile);
       $options = OmegaStyle::getScssOptions($relativeSource, $scssfile, $theme);
       // generate the CSS from the SCSS created above
       $css = _omega_compile_css($scss, $options);

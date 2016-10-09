@@ -67,7 +67,7 @@ class OmegaStyle implements OmegaStyleInterface {
           if (pathinfo($file, PATHINFO_EXTENSION) == $filetype) {
 
 
-            $relativeSource = str_replace(realpath(".") .  drupal_get_path('theme', $theme), '', $source);
+            $relativeSource = str_replace(realpath(".") . '/' .  drupal_get_path('theme', $theme), '', $source);
 
 
             $options = OmegaStyle::getScssOptions($relativeSource, $file, $theme);
@@ -109,7 +109,7 @@ class OmegaStyle implements OmegaStyleInterface {
 
     //$styleVariables = new SassFile;
     // create full paths to the scss and css files we will be rendering.
-    $styleFile = realpath(".") .  drupal_get_path('theme', $theme) . '/style/scss/_omega-style-vars.scss';
+    $styleFile = realpath(".") . '/' .  drupal_get_path('theme', $theme) . '/style/scss/_omega-style-vars.scss';
     $styleData = '@import "omega_mixins";
   
 // Basic Color Variables 
@@ -164,7 +164,7 @@ class OmegaStyle implements OmegaStyleInterface {
     $compile = isset($compile_scss) ? $compile_scss : FALSE;
     if ($compile) {
       // find all our scss files and open/save them as they should include the _omega-style-vars.scss that we've already updated
-      $source = realpath(".") .  drupal_get_path('theme', $theme) . '/style/scss';
+      $source = realpath(".") . '/' . drupal_get_path('theme', $theme) . '/style/scss';
       OmegaStyle::themeStylesUpdate($source, $theme, 'scss');
     }
   }
@@ -211,8 +211,8 @@ class OmegaStyle implements OmegaStyleInterface {
    * @inheritdoc
    */
   public static function getScssOptions($relativeSource, $file, $theme) {
-    $omegaPath = realpath(".") .  drupal_get_path('theme', 'omega');
-    $themePath = realpath(".") .  drupal_get_path('theme', $theme);
+    $omegaPath = realpath(".") . '/' . drupal_get_path('theme', 'omega');
+    $themePath = realpath(".") . '/' . drupal_get_path('theme', $theme);
     // default options for richthegeek/phpsass
     return array(
       'style' => 'expanded',

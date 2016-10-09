@@ -28,16 +28,6 @@ function omega_tools_system_themes_page_alter(&$theme_groups) {
             );
           }
         }
-
-        /*
-        // sample operations link
-        // Add a foo link to each list of theme operations.
-        $theme->operations[] = array(
-          'title' => t('Foo'),
-          'url' => Url::fromRoute('system.themes_page'),
-          'query' => array('theme' => $theme->getName())
-        );
-        */
       }
 
       /**
@@ -56,6 +46,26 @@ function omega_tools_system_themes_page_alter(&$theme_groups) {
       if (in_array($theme->getName(), $hidden_themes)) {
         // Remove it from the array of items before rendering page.
         unset($theme_groups[$state][$k]);
+      }
+
+      /**
+       * Let's add some useful links just for the Omega theme.
+       */
+      if ($theme->getName() == 'omega') {
+        // Link to Project Page.
+        $theme->operations[] = array(
+          'title' => t('Project Page'),
+          'url' => Url::fromUri('https://drupal.org/project/omega', array(
+            'attributes' => array('target' => '_blank'),
+          )),
+        );
+        // Link to Issue Queue.
+        $theme->operations[] = array(
+          'title' => t('Issue Queue'),
+          'url' => Url::fromUri('https://drupal.org/project/issues/omega', array(
+            'attributes' => array('target' => '_blank'),
+          )),
+        );
       }
     }
   }
