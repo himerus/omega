@@ -144,7 +144,7 @@ class OmegaLayout implements OmegaLayoutInterface {
     $scssfile = file_unmanaged_save_data($scss, $layoutscss, FILE_EXISTS_REPLACE);
     // check for errors
     if ($scssfile) {
-      drupal_set_message(t('SCSS file saved: <strong>' . str_replace(realpath(".") . base_path(), "", $scssfile) . '</strong>'));
+      drupal_set_message(t('SCSS file saved: <strong>' . str_replace(realpath("."), '', $scssfile) . '</strong>'));
     }
     else {
       drupal_set_message(t('WTF001: SCSS save error... : function _omega_save_layout_files()'), 'error');
@@ -163,7 +163,7 @@ class OmegaLayout implements OmegaLayoutInterface {
       $cssfile = file_unmanaged_save_data($css, $layoutcss, FILE_EXISTS_REPLACE);
       // check for errors
       if ($cssfile) {
-        drupal_set_message(t('CSS file saved: <strong>' . str_replace(realpath(".") . base_path(), "", $cssfile) . '</strong>'));
+        drupal_set_message(t('CSS file saved: <strong>' . str_replace(realpath("."), '', $cssfile) . '</strong>'));
       }
       else {
         drupal_set_message(t('WTF002: CSS save error... : function _omega_save_layout_files()'), 'error');

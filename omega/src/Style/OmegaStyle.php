@@ -86,7 +86,7 @@ class OmegaStyle implements OmegaStyleInterface {
             $cssfile = file_unmanaged_save_data($css, $newCssFile, FILE_EXISTS_REPLACE);
             // check for errors
             if ($cssfile) {
-              drupal_set_message(t('CSS file saved: <strong>' . str_replace(realpath(".") . base_path(), "", $cssfile) . '</strong>'));
+              drupal_set_message(t('CSS file saved: <strong>' . str_replace(realpath("."), '', $cssfile) . '</strong>'));
             }
             else {
               drupal_set_message(t('WTF005: CSS save error... : function scssDirectoryScan()'), 'error');
@@ -151,7 +151,7 @@ class OmegaStyle implements OmegaStyleInterface {
     $stylefile = file_unmanaged_save_data($styleData, $styleFile, FILE_EXISTS_REPLACE);
     // check for errors
     if ($stylefile) {
-      drupal_set_message(t('SCSS file saved: <strong>' . str_replace(realpath(".") . base_path(), "", $styleFile) . '</strong>'));
+      drupal_set_message(t('SCSS file saved: <strong>' . str_replace(realpath("."), '', $styleFile) . '</strong>'));
     }
     else {
       drupal_set_message(t('WTF004: SCSS save error... : function _omega_update_style_scss()'), 'error');
