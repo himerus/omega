@@ -80,19 +80,34 @@ $form['export']['export_options'] = array(
   '#open' => TRUE,
 );
 
+/**
+ * We will only show the "clone" option if there has been a subtheme of Omega
+ * already created or referenced in the system. This will prevent the confusion
+ * that you might be able to clone Omega.
+ */
+$clone_options = [
+  'clone' => 'Clone',
+  'subtheme' => 'Sub-Theme',
+];
+
+// Get the array of options for the subtheme dropdown.
+$omega_subthemes = $omegaSettings->omegaSubthemesOptionsList();
+
+// If there's not any options, remove the clone option.
+if (sizeof($omega_subthemes) == 0) {
+  unset($clone_options['clone']);
+}
+
 $form['export']['export_options']['export_type'] = array(
   '#type' => 'radios',
   '#title' => t('Create a:'),
-  '#options' => array(
-    'clone' => 'Clone',
-    'subtheme' => 'Sub-Theme',
-  ),
+  '#options' => $clone_options,
   '#default_value' => 'subtheme',
   '#prefix' => '<div id="export-type-select">',
   '#suffix' => '<span class="separator">of</span>',
 );
 
-$omegaSubThemes = array('omega' => 'Omega') + $omegaSettings->omegaSubthemesOptionsList();
+$omegaSubThemes = array('omega' => 'Omega') + $omega_subthemes;
 
 $form['export']['export_options']['export_theme_base'] = array(
   '#type' => 'select',
