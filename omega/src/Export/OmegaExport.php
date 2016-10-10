@@ -659,6 +659,42 @@ class OmegaExport implements OmegaExportInterface {
   }
 
   /**
+   * Function to copy a set of files with a specific extension from one
+   * directory to another.
+   *
+   * @param string $source Path to source directory.
+   * @param string $target Path to target directory.
+   * @param string $filetype File extension to copy.
+   * @param string $ignore
+   */
+  public function directoryCopyFileType($source, $target, $filetype, $ignore = '/^(\.(\.)?|.*OMEGA_SUBTHEME.*|CVS|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
+    $dir = opendir($source);
+    while ($file = readdir($dir)) {
+      if (!preg_match($ignore, $file)) {
+        // Directory found.
+        if (is_dir($source . '/' . $file)) {
+          // Ensure target directory path exists.
+          if (!is_dir($target . '/' . $file)) {
+            // Create target directory.
+            $this->fileHandler->mkdir($target . '/' . $file);
+          }
+          // Call directoryCopyFileType() function again on this directory to scan deeper.
+          $this->directoryCopyFileType($source . '/' . $file, $target . '/' . $file, $filetype, $ignore);
+        }
+        else {
+          // Get the file extension.
+          $extension = substr(strrchr($file, "."), 1);
+          // See if it matches the types of files we want to create.
+          if ($extension == $filetype) {
+            // Copy file.
+            $this->fileCopy($source . '/' . $file, $target . '/' . $file);
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function omegaThemeClone($source, $target, $ignore = '/^(\.(\.)?|CVS|\.node-modules|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
@@ -824,13 +860,22 @@ class OmegaExport implements OmegaExportInterface {
   protected function generateTemplateFiles() {
     // @todo: This needs to change with update for subtheme kit/clones
     if ($this->build['theme_theme_templates']) {
-      // leave template folder as is since we already copied it
-      // we may however need to do some search and replace operations?
+      /**
+       * Now that we've switched to the .kit setup for initial subtheme
+       * creation, we need to determine the templates to copy. Initially,
+       * that would be by copying ALL the templates from Omega.
+       *
+       * However, if we're creating a subtheme of a subtheme, then we will need
+       * to assume different logic:
+       * Scan all parent themes and find most recent parent with overrides,
+       * or Omega as default.
+       */
+      $this->directoryCopyFileType($this->kitData['clone_directory'] . '/templates', $this->build['destination_path'] . '/templates', 'twig');
     }
     else {
       // we should remove all the template files in the template folder
       // since we want this to be a subtheme and have template inheritance from the parent theme
-      $this->directoryPurgeFileType($this->build['destination_path'] . '/templates', 'twig');
+      // $this->directoryPurgeFileType($this->build['destination_path'] . '/templates', 'twig');
     }
   }
 
