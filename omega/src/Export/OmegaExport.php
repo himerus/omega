@@ -527,7 +527,7 @@ class OmegaExport implements OmegaExportInterface {
       $this->getKitPath() . '/style/css/OMEGA_SUBTHEME.css' => $this->build['destination_path'] . '/style/css/' . $this->build['machine'] . '.css',
       $this->getKitPath() . '/style/scss/OMEGA_SUBTHEME.scss' => $this->build['destination_path'] . '/style/scss/' . $this->build['machine'] . '.scss',
       $this->getKitPath() . '/js/OMEGA_SUBTHEME.js' => $this->build['destination_path'] . '/js/' . $this->build['machine'] . '.js',
-      $this->getKitPath() . '/OMEGA_SUBTHEME.libraries.yml' => $this->build['destination_path'] . '/js/' . $this->build['machine'] . '.js',
+      $this->getKitPath() . '/OMEGA_SUBTHEME.libraries.yml' => $this->build['destination_path'] . '/' . $this->build['machine'] . '.libraries.yml',
     ];
 
     // Cycle the array and create files as needed.
