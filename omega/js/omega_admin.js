@@ -197,16 +197,19 @@
     Drupal.behaviors.addZindexButtons = {
         attach: function (context) {
 
+            // Create both Send to Front & Back buttons.
             $('.region-settings > .details-wrapper').each(function () {
                 $(this).prepend('<div class="region-controls clearfix"><a href="#" title="Send to Back" class="send-to-back"></a><a href="#" title="Send to Front" class="send-to-front"></a></div>');
             });
 
-
+            // Click functionality for Send to Back button.
             $('.send-to-back').on('click', function () {
                 var element = $(this).closest('.region-settings');
                 element.css('z-index', 0);
                 return false;
             });
+
+            // Click functionality for Send to Front button.
             $('.send-to-front').on('click', function () {
                 var element = $(this).closest('.region-settings');
                 element.css('z-index', 1000);
@@ -217,11 +220,13 @@
 
     Drupal.behaviors.addToggleStyles = {
         attach: function (context) {
+
             $('a.toggle-styles-on').on('click', function () {
                 var element = $(this).parents('#edit-styles');
                 element.find(':checkbox:not(:disabled)').prop('checked', true);
                 return false;
             });
+
             $('a.toggle-styles-off').on('click', function () {
                 var element = $(this).parents('#edit-styles');
                 element.find(':checkbox:not(:disabled)').prop('checked', false);
@@ -232,7 +237,6 @@
 
     Drupal.behaviors.alternateSelectSliders = {
         attach: function (context) {
-
 
             // SORTA WORKING SLIDER INTERFACE
             $('.width-controller, .push-controller, .prefix-controller, .suffix-controller, .pull-controller').each(function () {

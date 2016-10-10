@@ -1,5 +1,6 @@
 .idea
 *.css.map
 node_modules
+.sass-cache
 vendor
 Gemfile.lock

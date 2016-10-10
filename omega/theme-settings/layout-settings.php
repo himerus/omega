@@ -23,7 +23,7 @@ $form['layouts']['#description'] .= '<p class="description">This works great in 
 // the active layout we are editing.
 // this var will be unset during submit
 $form['layouts']['edit_this_layout'] = array(
-  '#prefix' => '<div id="layout-editor-select">',
+  '#prefix' => '<div id="layout-editor-select" class="layout-editor-select">',
   '#suffix' => '</div>',
   '#type' => 'radios',
   '#attributes' => array(

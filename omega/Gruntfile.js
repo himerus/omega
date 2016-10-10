@@ -9,7 +9,7 @@ module.exports = function(grunt) {
                     sourcemap: true,
                     config: 'config.rb',
                     basePath: './',
-                    bundleExec: true
+                    bundleExec: false
                 }
             }
         },
