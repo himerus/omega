@@ -1,0 +1,29 @@
+@import "defaults", "mixins";
+
+.block-search {
+
+  padding-right: 40px;
+
+
+  .form-type-search {
+    display: inline-block;
+
+    input {
+      @include input(
+      $width: 160px,
+      $max-width: 100%
+      );
+    }
+  }
+
+  .form-submit {
+    //display: none;
+    @include button();
+    box-shadow: none;
+  }
+
+  .icon--search {
+    @include button();
+
+  }
+}

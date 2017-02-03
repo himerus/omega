@@ -12,8 +12,8 @@ _core:
   default_config_hash: uMl8pjlwHBcV-bE-D0YMrOlnfZYIRhujmfMb7dcturI
 id: omega_account_menu
 theme: omega
-region: header
-weight: -8
+region: user
+weight: -7
 provider: null
 plugin: 'system_menu_block:account'
 settings:

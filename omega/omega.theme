@@ -9,6 +9,7 @@
 
 require_once 'omega-functions.php';
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\omega\Layout\OmegaLayout;
@@ -333,6 +334,21 @@ function omega_preprocess_block(&$vars) {
 } /* END omega_preprocess_block */
 
 /**
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function omega_preprocess_block__system_branding_block(&$variables) {
+  // Setup logic to handle embedding an SVG logo directly, rather than via the
+  // <img> tag, so that it can be styled via CSS more easily.
+  $image_uri = isset($variables['content']['site_logo']['#uri']) ? $variables['content']['site_logo']['#uri'] : FALSE;
+  if ($image_uri) {
+    $image_uri_info = pathinfo($image_uri);
+    if ($image_uri_info['extension'] == 'svg') {
+      $variables['svglogo'] = TRUE;
+    }
+  }
+} // END omega_preprocess_block__system_branding_block
+
+/**
  * Implements hook_preprocess_HOOK() for field templates.
  * @param array $vars
  */
@@ -381,3 +397,18 @@ function omega_html_head_alter(&$head_elements) {
   );
 } /* END omega_html_head_alter */
 
+/**
+ * Implements hook_form_FORM_ID_alter() for search form block.
+ */
+function omega_form_search_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Add in an element to act as icon for search.
+  $form['actions']['search-icon'] = [
+    '#markup' => '<div class="icon--search"></div>',
+  ];
+
+  // Add in a placeholder value to the search block form field.
+  if (isset($form['keys']['#attributes'])) {
+    $form['keys']['#attributes']['placeholder'] = t('Search Keywords...');
+  }
+}

@@ -65,7 +65,7 @@
  *
  * Omega utility variables
  * - region_classes.REGION_CONTAINERID - region_classes.main will render classes like with--sidebar-first on container
- * 
+ *
  * @see template_preprocess_page()
  * @see omega_preprocess_page()
  * @see html.html.twig
@@ -77,11 +77,17 @@
   <div id="page" class="clearfix {{ page_classes }}">
 
     <header id="header-outer-wrapper" class="outer-wrapper clearfix {{ secondary_menu ? 'with-secondary-menu' : 'without-secondary-menu' }}" role="banner">
+      {% if page.user %}
+        <div id="user-bar-layout"
+             class="{{ region_classes.preface }} user--bar--layout inner-wrapper clearfix">
+            {{ page.user }}
+        </div><!-- /#user-bar-layout -->
+      {% endif %}
       <div id="header-layout" class="{{ region_classes.header }} inner-wrapper clearfix">
         {{ page.header }}
       </div>
     </header> <!-- /.section, /#header-->
-  
+
     <section id="core-outer-wrapper" class="outer-wrapper clearfix">
       <div id="core-layout" class="{{ region_classes.core }} inner-wrapper clearfix">
         {% if page.highlighted %}
@@ -89,73 +95,73 @@
         {% endif %}
       </div>
     </section>
-    
+
     {% if page.preface_first or page.preface_second or page.preface_third or page.preface_fourth %}
     <section id="preface-outer-wrapper" class="outer-wrapper clearfix">
       <div id="preface-layout" class="{{ region_classes.preface }} inner-wrapper clearfix">
-        
+
         {% if page.preface_first %}
           {{ page.preface_first }}
         {% endif %}
-        
+
         {% if page.preface_second %}
           {{ page.preface_second }}
         {% endif %}
-        
+
         {% if page.preface_third %}
           {{ page.preface_third }}
         {% endif %}
-        
+
         {% if page.preface_fourth %}
           {{ page.preface_fourth }}
         {% endif %}
-        
+
       </div><!-- /#preface-layout -->
     </section> <!-- /#preface-wrapper -->
     {% endif %}
 
     <section id="content-outer-wrapper" class="outer-wrapper clearfix">
       <div id="main-layout" class="{{ region_classes.main }} inner-wrapper clearfix">
-        
+
         {% if page.content %}
           {{ page.content }}
-        {% endif %}  
-    
+        {% endif %}
+
         {% if page.sidebar_first %}
           {{ page.sidebar_first }}
         {% endif %}
-    
+
         {% if page.sidebar_second %}
           {{ page.sidebar_second }}
         {% endif %}
-    
+
       </div><!-- /#main -->
     </section><!-- /#main-outer-wrapper -->
-  
+
     {% if page.postscript_first or page.postscript_second or page.postscript_third or page.postscript_fourth %}
     <section id="postscript-outer-wrapper" class="outer-wrapper clearfix">
       <div id="postscript-layout" class="{{ region_classes.postscript }} inner-wrapper clearfix">
-        
+
         {% if page.postscript_first %}
           {{ page.postscript_first }}
         {% endif %}
-        
+
         {% if page.postscript_second %}
           {{ page.postscript_second }}
         {% endif %}
-        
+
         {% if page.postscript_third %}
           {{ page.postscript_third }}
         {% endif %}
-        
+
         {% if page.postscript_fourth %}
           {{ page.postscript_fourth }}
         {% endif %}
-        
+
       </div><!-- /#postscript-layout -->
     </section> <!-- /#postscript-outer-wrapper -->
     {% endif %}
-    
+
     {% if page.footer %}
     <footer id="footer-outer-wrapper" class="outer-wrapper clearfix">
       <div id="footer-layout" role="contentinfo" class="{{ region_classes.footer }} inner-wrapper clearfix">

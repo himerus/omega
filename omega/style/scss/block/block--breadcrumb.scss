@@ -1,0 +1,27 @@
+@import "defaults", "mixins";
+
+.breadcrumb {
+  padding: $breadcrumb--padding;
+  background: $breadcrumb--background;
+  margin: $breadcrumb--margin;
+  font-size: $breadcrumb--font-size;
+
+  ol,
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+
+  }
+
+  a {
+    color: $breaadcrumb--item--color;
+    text-decoration: $breadcrumb--item--text-decoration;
+
+    &:hover {
+      text-decoration: $breadcrumb--item--text-decoration--hover;
+    }
+  }
+}

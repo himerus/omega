@@ -1,0 +1,13 @@
+@import 'defaults', 'mixins';
+
+.tabs a {
+  @include button();
+}
+.tabs a.is-active {
+  @include button(
+    $bg-color: lighten($button--bg-color, 15%),
+    $font-color: $button--font-color,
+    $bg-color--hover: lighten($button--bg-color, 15%),
+    $font-color--hover: $button--font-color
+  );
+}

@@ -1,0 +1,412 @@
+{
+  "items": [
+    {
+      "name": "$font--primary-body",
+      "value": "\"Helvetica Neue\", Arial, Helvetica",
+      "comment": ""
+    },
+    {
+      "name": "$font--primary-header",
+      "value": "Georgia, Times, serif",
+      "comment": ""
+    },
+    {
+      "name": "$bp--mobile",
+      "value": "0",
+      "comment": ""
+    },
+    {
+      "name": "$bp--mobile-landscape",
+      "value": "320px",
+      "comment": ""
+    },
+    {
+      "name": "$bp--small",
+      "value": "600px",
+      "comment": ""
+    },
+    {
+      "name": "$bp--normal",
+      "value": "960px",
+      "comment": ""
+    },
+    {
+      "name": "$bp--wide",
+      "value": "1440px",
+      "comment": ""
+    },
+    {
+      "name": "$bp--extra-wide",
+      "value": "1440px",
+      "comment": ""
+    },
+    {
+      "name": "$color--primary-1",
+      "value": "#1A1A1A",
+      "comment": "Primary color #1 (one)."
+    },
+    {
+      "name": "$color--primary-2",
+      "value": "#5A5A5A",
+      "comment": "Primary color #2 (two)."
+    },
+    {
+      "name": "$color--primary-3",
+      "value": "#CCCCCC",
+      "comment": "Primary color #3 (three)."
+    },
+    {
+      "name": "$color--primary-4",
+      "value": "#3A3A3A",
+      "comment": "Primary color #4 (four)."
+    },
+    {
+      "name": "$color--primary-5",
+      "value": "#9A9A9A",
+      "comment": "Primary color #5 (five)."
+    },
+    {
+      "name": "$color--secondary-1",
+      "value": "#7A7A7A",
+      "comment": "Secondary color #1 (one)"
+    },
+    {
+      "name": "$color--secondary-2",
+      "value": "#9A9A9A",
+      "comment": "Secondary color #2 (two)"
+    },
+    {
+      "name": "$color--secondary-3",
+      "value": "#EFEFEF",
+      "comment": "Secondary color #3 (three)"
+    },
+    {
+      "name": "$color--accent-1",
+      "value": "blue",
+      "comment": "Accent color #1 (one)"
+    },
+    {
+      "name": "$color--accent-2",
+      "value": "red",
+      "comment": "Accent color #2 (two)"
+    },
+    {
+      "name": "$color--white",
+      "value": "#FFF",
+      "comment": ""
+    },
+    {
+      "name": "$color--black",
+      "value": "#000",
+      "comment": ""
+    },
+    {
+      "name": "$color--red",
+      "value": "#FF0000",
+      "comment": ""
+    },
+    {
+      "name": "$button--bg-color",
+      "value": "$color--secondary-3",
+      "comment": ""
+    },
+    {
+      "name": "$button--font-color",
+      "value": "$color--primary-1",
+      "comment": ""
+    },
+    {
+      "name": "$button--bg-color--hover",
+      "value": "darken($color--secondary-3, 15%)",
+      "comment": ""
+    },
+    {
+      "name": "$button--font-color--hover",
+      "value": "darken($color--primary-1, 15%)",
+      "comment": ""
+    },
+    {
+      "name": "$button--border",
+      "value": "1px solid $color--secondary-1",
+      "comment": ""
+    },
+    {
+      "name": "$button--border-radius",
+      "value": "4px",
+      "comment": ""
+    },
+    {
+      "name": "$button--font--weight",
+      "value": "normal",
+      "comment": ""
+    },
+    {
+      "name": "$button--text--transform",
+      "value": "none",
+      "comment": ""
+    },
+    {
+      "name": "$button--text--variant",
+      "value": "none",
+      "comment": ""
+    },
+    {
+      "name": "$button--font--size",
+      "value": "12px",
+      "comment": ""
+    },
+    {
+      "name": "$button--padding",
+      "value": ".5em .75em",
+      "comment": ""
+    },
+    {
+      "name": "$button--line-height",
+      "value": "1em",
+      "comment": ""
+    },
+    {
+      "name": "$logo--color",
+      "value": "$color--primary-2",
+      "comment": ""
+    },
+    {
+      "name": "$logo--color--hover",
+      "value": "$color--primary-1",
+      "comment": ""
+    },
+    {
+      "name": "$user-bar--padding",
+      "value": "3px 10px",
+      "comment": ""
+    },
+    {
+      "name": "$user-bar--background",
+      "value": "$color--primary-4",
+      "comment": ""
+    },
+    {
+      "name": "$user-bar--font-color",
+      "value": "$color--secondary-2",
+      "comment": ""
+    },
+    {
+      "name": "$user-bar--link-color",
+      "value": "$color--secondary-1",
+      "comment": ""
+    },
+    {
+      "name": "$user-bar--link-color--hover",
+      "value": "lighten($color--secondary-1, 20%)",
+      "comment": ""
+    },
+    {
+      "name": "$user-bar--search-float",
+      "value": "right",
+      "comment": ""
+    },
+    {
+      "name": "$user-bar--login-float",
+      "value": "right",
+      "comment": ""
+    },
+    {
+      "name": "$user-bar--menu-float",
+      "value": "left",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--width",
+      "value": "100%",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--max-width",
+      "value": "100%",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--bg",
+      "value": "$color--white",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--border",
+      "value": "1px solid $color--primary-1",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--border--active",
+      "value": "1px solid $color--primary-1",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--border--focus",
+      "value": "1px solid $color--primary-1",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--padding",
+      "value": "0.35em 0.5em",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--font-size",
+      "value": "0.8em",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--font-weight",
+      "value": "normal",
+      "comment": ""
+    },
+    {
+      "name": "$form--input--border-radius",
+      "value": "3px",
+      "comment": ""
+    },
+    {
+      "name": "$menu--background",
+      "value": "transparent",
+      "comment": ""
+    },
+    {
+      "name": "$menu--margin",
+      "value": "0",
+      "comment": ""
+    },
+    {
+      "name": "$menu--padding",
+      "value": "0",
+      "comment": ""
+    },
+    {
+      "name": "$menu--border",
+      "value": "none",
+      "comment": ""
+    },
+    {
+      "name": "$menu--alignment",
+      "value": "left",
+      "comment": "Options"
+    },
+    {
+      "name": "$menu--item--background",
+      "value": "$color--secondary-3",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--background--hover",
+      "value": "darken($menu--item--background, 5%)",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--background--active",
+      "value": "darken($menu--item--background, 10%)",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--margin",
+      "value": "1px 1px 0 0",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--padding",
+      "value": "1em 2em",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--font-size",
+      "value": "18px",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--font-weight",
+      "value": "bold",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--border-color",
+      "value": "transparent",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--border-style",
+      "value": "none",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--border-width--top",
+      "value": "0",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--border-width--left",
+      "value": "0",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--border-width--bottom",
+      "value": "0",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--border-width--right",
+      "value": "0",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--submenu--background",
+      "value": "transparent",
+      "comment": ""
+    },
+    {
+      "name": "$menu--item--submenu--border",
+      "value": "none",
+      "comment": ""
+    },
+    {
+      "name": "$breadcrumb--background",
+      "value": "$color--secondary-3",
+      "comment": ""
+    },
+    {
+      "name": "$breadcrumb--padding",
+      "value": "5px 20px",
+      "comment": ""
+    },
+    {
+      "name": "$breadcrumb--margin",
+      "value": "5px 0",
+      "comment": ""
+    },
+    {
+      "name": "$breadcrumb--font-size",
+      "value": "11px",
+      "comment": ""
+    },
+    {
+      "name": "$breaadcrumb--item--color",
+      "value": "$color--primary-1",
+      "comment": ""
+    },
+    {
+      "name": "$breaadcrumb--item--color--hover",
+      "value": "lighten($color--primary-1, 10%)",
+      "comment": ""
+    },
+    {
+      "name": "$breadcrumb--item--text-decoration",
+      "value": "none",
+      "comment": ""
+    },
+    {
+      "name": "$breadcrumb--item--text-decoration--hover",
+      "value": "underline",
+      "comment": ""
+    }
+  ],
+  "meta": {
+    "description": "To add to these items, use Sass variables that start with <code>$</code> in <code>style/scss/_defaults.scss</code>"
+  }
+}

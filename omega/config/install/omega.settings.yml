@@ -16,7 +16,7 @@ styles:
   scss_messages: 1
   scss_pagers: 1
   scss_tabs: 1
-block_demo_mode: 1
+block_demo_mode: 0
 screen_demo_indicator: 1
 enable_omegags_layout: 1
 omega_toggle_intro: 1

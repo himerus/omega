@@ -1,0 +1,19 @@
+@import "defaults", "mixins";
+
+.node--links {
+
+  margin: 10px 0;
+
+  ul {
+    margin: 0;
+
+    li {
+      padding: 0;
+    }
+  }
+
+  a {
+    @include button();
+    margin-right: 0.25em;
+  }
+}

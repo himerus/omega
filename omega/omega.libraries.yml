@@ -1,20 +1,21 @@
+# Core Omega Libraries (Required)
 omega:
   omega:
     allow_clone_for_subtheme: false
     allow_enable_disable: false
     title: 'Core Omega styles and jQuery behaviors.'
     description: 'Primary Omega CSS & Javascript/jQuery. This file should not ever be disabled on a functioning Omega subtheme.'
-    scss: 
-      style/css/base.css: 'style/scss/base.scss'
-      style/css/layout/omega_default-layout.css: 'style/scss/layout/omega_default-layout.scss'
+    scss:
+      public/css/base.css: 'style/scss/base.scss'
+      public/css/omega_default-layout.css: 'style/scss/layout/omega_default-layout.scss'
   version: VERSION
   js:
     js/omega.js: {}
   css:
     component:
-      style/css/base.css: {}
-    layout: 
-      style/css/layout/omega_default-layout.css: {}
+      public/css/base.css: {}
+    layout:
+      public/css/omega_default-layout.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
@@ -25,21 +26,20 @@ omega:
     - core/matchmedia
     - core/jquery.once
     - core/drupal.displace
-
-omega_admin:  
+omega_admin:
   omega:
     allow_clone_for_subtheme: false
     allow_enable_disable: false
     title: 'Omega theme administration enhancements.'
     description: 'Primary Omega CSS & Javascript/jQuery updates for the administrative theme settings page. These updates allow the enhancements to the theme settings form to work properly. This file should not ever be disabled on a functioning Omega subtheme.'
-    scss: 
-      style/css/omega_admin.css: 'style/scss/omega_admin.scss'
+    scss:
+      public/css/omega_admin.css: 'style/scss/omega_admin.scss'
   version: VERSION
-  js: 
+  js:
     js/omega_admin.js: {}
   css:
     theme:
-      style/css/omega_admin.css: {}
+      public/css/omega_admin.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
@@ -53,138 +53,205 @@ omega_admin:
     - core/jquery.ui
     - core/jquery.ui.slider
     - core/jquery.ui.resizable
-    
-omega_html_elements:
-  omega:
-    allow_clone_for_subtheme: true
-    allow_enable_disable: true
-    title: 'Basic HTML elements'
-    description: 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.'
-    scss: 
-      style/css/elements/html-elements.css: 'style/scss/elements/html-elements.scss'
-  version: VERSION
-  css: 
-    component:
-      style/css/elements/html-elements.css: {}
-  dependencies:
-    - omega/omega
-    
-omega_branding:
-  omega:
-    allow_clone_for_subtheme: true
-    allow_enable_disable: true
-    title: 'Branding area styles and enhancements'
-    description: 'Provides basic layout and styling for logo area.'
-    scss: 
-      style/css/elements/site-branding.css: 'style/scss/elements/site-branding.scss'
-  version: VERSION
-  css: 
-    component:
-      style/css/elements/site-branding.css: {}
-  dependencies:
-    - omega/omega
-    
-omega_breadcrumbs:
-  omega:
-    allow_clone_for_subtheme: true
-    allow_enable_disable: true
-    title: 'Breadcrumb styling'
-    description: 'Basic breadcrumb styling.'
-    scss: 
-      style/css/elements/breadcrumbs.css: 'style/scss/elements/breadcrumbs.scss'
-  version: VERSION
-  css: 
-    component:
-      style/css/elements/breadcrumbs.css: {}
-  dependencies:
-    - omega/omega
-    
-omega_main_menus:
+
+## Component Libraries (Optional through interface/config)
+
+### Blocks
+omega__block__main_menu:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
     title: 'Main Menu styling'
     description: 'Basic layout and styling for main menu elements.'
-    scss: 
-      style/css/elements/main-menus.css: 'style/scss/elements/main-menus.scss'
+    scss:
+      public/css/block--main_menu.css: 'style/scss/block/block--main_menu.scss'
   version: VERSION
-  css: 
+  css:
     component:
-      style/css/elements/main-menus.css: {}
+      public/css/block--main_menu.css: {}
   dependencies:
     - omega/omega
-    
-omega_messages:
+omega__block__branding:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Branding area styles and enhancements'
+    description: 'Provides basic layout and styling for logo area.'
+    scss:
+      public/css/block--site-branding.css: 'style/scss/block/block--site-branding.scss'
+  version: VERSION
+  css:
+    component:
+      public/css/block--site-branding.css: {}
+  dependencies:
+    - omega/omega
+omega__block__breadcrumb:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Breadcrumb styling'
+    description: 'Basic breadcrumb styling.'
+    scss:
+      public/css/block--breadcrumb.css: 'style/scss/block/block--breadcrumb.scss'
+  version: VERSION
+  css:
+    component:
+      public/css/block--breadcrumb.css: {}
+  dependencies:
+    - omega/omega
+omega__block__messages:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
     title: 'Status message styles and enhancements'
     description: 'Custom styles for Drupal system messages.'
-    scss: 
-      style/css/elements/messages.css: 'style/scss/elements/messages.scss'
+    scss:
+      public/css/block--messages.css: 'style/scss/block/block--messages.scss'
   version: VERSION
-  css: 
+  css:
     component:
-      style/css/elements/messages.css: {}
+      public/css/block--messages.css: {}
   dependencies:
     - omega/omega
-    
-omega_pagers:
+
+### Components
+omega__component__user_bar:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'User Bar styling'
+    description: 'Basic layout and styling for user bar components like search, login, user account menu, etc..'
+    scss:
+      public/css/block--search.css: 'style/scss/block/block--search.scss'
+      public/css/block--login.css: 'style/scss/block/block--login.scss'
+      public/css/component--search.css: 'style/scss/component/component--search.scss'
+  version: VERSION
+  css:
+    component:
+      public/css/block--search.css: {}
+      public/css/block--login.css: {}
+      public/css/component--user_bar.css: {}
+  dependencies:
+    - omega/omega
+omega__component__pagers:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
     title: 'Pager styles'
     description: 'Custom styles for Drupal pagers.'
-    scss: 
-      style/css/elements/pagers.css: 'style/scss/elements/pagers.scss'
+    scss:
+      public/css/component--pagers.css: 'style/scss/components/component--pagers.scss'
   version: VERSION
-  css: 
+  css:
     component:
-      style/css/elements/pagers.css: {}
+      public/css/component--pagers.css: {}
   dependencies:
     - omega/omega
-    
-omega_tabs:
+
+### Elements
+omega__elements__html:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Basic HTML elements'
+    description: 'Provides basic styles for generic tags like &lt;a&gt;, &lt;p&gt;, &lt;h2&gt;, etc.'
+    scss:
+      public/css/element--html.css: 'style/scss/elements/elements--html.scss'
+  version: VERSION
+  css:
+    component:
+      public/css/element--html.css: {}
+  dependencies:
+    - omega/omega
+omega__element__tabs:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
     title: 'Administrative tab styles'
     description: 'Custom styles for Drupal tabs.'
-    scss: 
-      style/css/elements/tabs.css: 'style/scss/elements/tabs.scss'
+    scss:
+      public/css/tabs.css: 'style/scss/elements/element--tabs.scss'
   version: VERSION
-  css: 
+  css:
     component:
-      style/css/elements/tabs.css: {}
+      public/css/element--tabs.css: {}
   dependencies:
     - omega/omega
-    
-omega_taxonomy_terms:
+omega__element__taxonomy_terms:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
     title: 'Taxonomy Term styles'
     description: 'Custom styles for Drupal taxonomy listings on nodes.'
-    scss: 
-      style/css/elements/taxonomy-terms.css: 'style/scss/elements/taxonomy-terms.scss'
+    scss:
+      public/css/element--taxonomy-terms.css: 'style/scss/elements/element--taxonomy-terms.scss'
   version: VERSION
-  css: 
+  css:
     component:
-      style/css/elements/taxonomy-terms.css: {}
+      public/css/element--taxonomy-terms.css: {}
   dependencies:
     - omega/omega
-
-omega_forms:
+omega__element__forms:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
     title: 'Clean form styling and behaviors'
     description: 'Clean, usable form styles to use as a default. Prevents common issues like form field overflowing containers, etc. Enabling this library will make all form types usable enough to use your theme as the content add/edit theme.'
-    scss: 
-      style/css/elements/forms.css: 'style/scss/elements/forms.scss'
+    scss:
+      public/css/element--forms.css: 'style/scss/elements/element--forms.scss'
   version: VERSION
-  css: 
+  css:
     component:
-      style/css/elements/forms.css: {}
+      public/css/element--forms.css: {}
+  dependencies:
+    - omega/omega
+omega__component__icons:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Default Icons'
+    description: 'Clean, svg icons for a variety of situations and features.'
+    scss:
+      public/css/component--icons.css: 'style/scss/components/component--icons.scss'
+      public/css/omega-icons.css: 'fonts/omega-icons/omega-icons.scss'
+  version: VERSION
+  css:
+    component:
+      public/css/component--icons.css: {}
+      public/css/omega-icons.css: {}
+  dependencies:
+    - omega/omega
+omega__component__skip_link:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Skip Link (Accessibility)'
+    description: 'Customized skip link feature and styling.'
+    scss:
+      public/css/component--skip_link.css: 'style/scss/components/component--skip_link.scss'
+  version: VERSION
+  css:
+    component:
+      public/css/component--skip_link.css: {}
+  dependencies:
+    - omega/omega
+
+### Content styling libraries.
+omega__content__node:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Node Styles'
+    description: 'Various node styling defaults'
+    scss:
+      public/css/content--node--links.css: 'style/scss/content/content--node--links.scss'
+      public/css/content--node--terms.css: 'style/scss/content/content--node--terms.scss'
+      public/css/content--node--submitted.css: 'style/scss/content/content--node--submitted.scss'
+  version: VERSION
+  css:
+    component:
+      public/css/content--node--links.css: {}
+      public/css/content--node--terms.css: {}
+      public/css/content--node--submitted.css: {}
   dependencies:
     - omega/omega

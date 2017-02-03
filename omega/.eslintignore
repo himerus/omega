@@ -1,0 +1,3 @@
+# Ignore any path/file using .gitignore syntax, ie:
+node_modules
+bower_components

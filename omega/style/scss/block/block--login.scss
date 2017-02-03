@@ -1,0 +1,19 @@
+@import "defaults", "mixins";
+
+.user--bar--layout {
+
+  // Hide the primary login box by default.
+  .login-box--flyout {
+    display: none;
+  }
+  // Instead, show a trigger element.
+  .login-box--trigger {
+    display: block;
+  }
+}
+
+.login-box--trigger {
+  .icon--user {
+    @include button();
+  }
+}

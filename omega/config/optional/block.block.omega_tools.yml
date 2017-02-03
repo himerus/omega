@@ -1,6 +1,6 @@
 uuid: ca4ed911-c6ba-4dca-9395-37ec6443f9c5
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.tools
@@ -12,8 +12,8 @@ _core:
   default_config_hash: euD_Uu5bHfUsU7kaOkbqXe_CotT5xU2cEaj6JjVgi4o
 id: omega_tools
 theme: omega
-region: sidebar_first
-weight: 0
+region: '-1'
+weight: -7
 provider: null
 plugin: 'system_menu_block:tools'
 settings:

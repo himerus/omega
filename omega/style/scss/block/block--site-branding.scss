@@ -1,0 +1,83 @@
+@import "defaults", "mixins";
+
+.site--branding-area {
+  position: relative;
+  margin-top: 20px;
+
+  .site--logo {
+
+  }
+
+  .site--name {
+    padding-top: 0;
+  }
+
+  .site--logo {
+    float: left;
+    max-width: 90px;
+    height: auto;
+    margin-right: 25px;
+
+    &:hover {
+
+    }
+
+    a {
+      display: block;
+      color: $color--accent-1;
+    }
+
+    svg {
+      max-width: 100%;
+      height: auto;
+
+      path {
+        @include transition(fill, 0.25s, ease-in-out);
+        fill: $logo--color;
+      }
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .site--branding--name {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: -0.075em;
+    font-family: $font--primary-body;
+    color: $logo--color;
+
+    a {
+      @include transition(all, 0.25s, ease-in-out);
+      //opacity: .5;
+      text-decoration: none;
+      color: $logo--color;
+
+      &:hover {
+        //opacity: 1;
+        //color: $siteTitleHoverColor;
+      }
+    }
+  }
+  .site--branding--slogan {
+    color: $logo--color;
+    font-variant: small-caps;
+  }
+
+  // Hover state for entire .site-branding-area.
+  &:hover {
+    .site--logo {
+      svg path {
+        fill: $logo--color--hover;
+      }
+    }
+    .site--branding--name a {
+      color: $logo--color--hover;
+    }
+
+  }
+}

@@ -1,9 +1,9 @@
-@import "omega-style-vars", "omega-default-style-vars";
+@import 'defaults', 'mixins';
 
 /* Apply a natural box layout model to all elements http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
 #omega-screen--indicator, #omega-screen--indicator *, #omega-screen--indicator *:before, #omega-screen--indicator *:after {
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -17,30 +17,30 @@
   right: 0;
   left: 0;
   z-index: 999;
-  
+
   padding: 8px;
   color: #FFF;
-  
+
   padding-left: 70px;
   height: 70px;
   //min-height: 150px;
-  
+
   font-size: 11px;
-  
+
   .indicator-data {
     position: relative;
     padding-left: 10px;
   }
-  
+
   .ologo {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     width: 70px;
-    
-    
-    
+
+
+
     a {
       display: block;
       //background: rgba($primaryColor2, 1);
@@ -54,7 +54,7 @@
       max-height: 100%;
       max-width: 100%;
       width: auto;
-      
+
     }
   }
   h5 {
@@ -68,11 +68,11 @@
   .data {
     font-weight: bold;
   }
-  
-  
+
+
 }
 
-@media all and (min-width: $desktop) {
+@media all and (min-width: $bp--normal) {
   #omega-screen--indicator {
     left: auto;
     min-width: 350px;

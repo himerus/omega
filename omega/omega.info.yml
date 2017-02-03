@@ -6,10 +6,11 @@ version: VERSION
 base theme: classy
 hidden: false
 core: 8.x
-force_export: true
+force_export: false
 regions:
-  header: Header
   page_top: 'Page Top'
+  user: 'User Control Bar'
+  header: Header
   highlighted: Highlighted
   preface_first: 'Preface First'
   preface_second: 'Preface Second'

@@ -1,0 +1,20 @@
+@import "omega-style-vars", "omega-default-style-vars";
+@import "../mixins";
+
+.form-item, .form-actions {
+  margin: 0;
+}
+
+.form-type-textfield, // normal text fields
+.form-type-password,
+.field--type-entity-reference, // autocomplete fields
+.form-type-textarea,
+.form-type-search {
+
+}
+
+.form-submit {
+  @include button(
+    $font--weight: bold
+  );
+}

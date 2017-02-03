@@ -11,7 +11,7 @@ _core:
 id: omega_help
 theme: omega
 region: highlighted
-weight: -5
+weight: -6
 provider: null
 plugin: help_block
 settings:

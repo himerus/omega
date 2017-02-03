@@ -1,0 +1,19 @@
+@import 'defaults', 'mixins';
+
+// Default style for Taxonomy terms in Omega Five
+.field--taxonomy-terms {
+
+  .field-item--taxonomy-term {
+    display: block;
+    float: left;
+  }
+  .taxonomy-term {
+    display: block;
+  }
+
+  .taxonomy-term {
+
+    @include button($font--size: 11px);
+  }
+
+}

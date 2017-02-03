@@ -7,11 +7,11 @@ dependencies:
   theme:
     - omega
 _core:
-  default_config_hash: htd6L8aPXhqy2F38bbZBMr5ArSlNf3eVbUXUSlltjaA
+  default_config_hash: oAdnCIkvjhphfxXin0k7ku2FeA9i-W_4evRSCkR7PWY
 id: omega_breadcrumbs
 theme: omega
-region: highlighted
-weight: 0
+region: header
+weight: -5
 provider: null
 plugin: system_breadcrumb_block
 settings:

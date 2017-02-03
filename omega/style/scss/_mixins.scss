@@ -1,0 +1,103 @@
+@mixin transition($type: all, $speed: 0.25s, $transition: ease-in-out) {
+  transition: $type $speed $transition;
+  -moz-transition: $type $speed $transition;
+  -webkit-transition: $type $speed $transition;
+}
+
+@mixin corners($rad: 5px) {
+  -webkit-border-radius: $rad;
+  -moz-border-radius: $rad;
+  border-radius: $rad;
+}
+
+@mixin shadow() {
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+@mixin border-radius-simple($r) {
+  -webkit-border-radius: $r;
+  -moz-border-radius: $r;
+  border-radius: $r;
+}
+
+/**
+ * Mixin for styling form input elements.
+ * Primarily for items like text, search, password, etc.
+ */
+@mixin input(
+  $width: $form--input--width,
+  $max-width: $form--input--width,
+  $background: $form--input--bg,
+  $border: $form--input--border,
+  $border-active: $form--input--border--active,
+  $border-focus: $form--input--border--focus,
+  $padding: $form--input--padding,
+  $font-size: $form--input--font-size,
+  $font-weight: $form--input--font-weight,
+  $border-radius: $form--input--border-radius
+) {
+
+  @include transition(all, 0.25s, ease-in-out);
+
+  background: $background;
+  width: $width;
+  max-width: $max-width;
+  padding: $padding;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  border: $border;
+
+  @include border-radius-simple($border-radius);
+
+  &:active {
+    border: $border-active;
+  }
+
+  &:focus {
+    border: $border;
+  }
+}
+
+/**
+ * Mixin for styling form button elements.
+ * Primarily for items like <a> <span> <button> <input type="submit">.
+ */
+@mixin button(
+  $text--transform: $button--text--transform,
+  $text--variant: $button--text--variant,
+  $bg-color: $button--bg-color,
+  $bg-color--hover: $button--bg-color--hover,
+  $font-color: $button--font-color,
+  $font-color--hover: $button--font-color--hover,
+  $font--size: $button--font--size,
+  $font--weight: $button--font--weight,
+  $border: $button--border,
+  $border-radius: $button--border-radius,
+  $padding: $button--padding,
+  $line-height: $button--line-height
+) {
+
+  @include border-radius-simple($border-radius);
+  @include transition(all, 0.15s, ease-in-out);
+
+  text-transform: $text--transform;
+  font-variant: $text--variant;
+  background: $bg-color;
+  color: $font-color;
+  font-size: $font--size;
+  font-weight: $font--weight;
+  border: $border;
+  cursor: pointer;
+  display: inline-block;
+  line-height: $line-height;
+  padding: $padding;
+  text-decoration: none;
+
+  &:hover,
+  &:active {
+    background: $bg-color--hover;
+    color: $font-color--hover;
+  }
+}

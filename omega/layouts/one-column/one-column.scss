@@ -1,0 +1,17 @@
+@import 'omegags';
+@import '../default-layout-vars';
+
+.layout-wrapper {
+  margin: 0;
+  padding: 0;
+  width: 100%; // full width container
+}
+
+.layout--one-column {
+  @include row(12);
+  max-width: 100%;
+
+  .layout-region--main {
+    @include column(12, 12);
+  }
+}

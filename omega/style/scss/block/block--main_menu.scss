@@ -1,0 +1,79 @@
+@import "defaults", "mixins";
+
+.block--menu--main {
+  ul {
+    margin: $menu--margin;
+    padding: $menu--padding;
+    clear: both;
+    font-size: 0;
+    background: $menu--background;
+    border: $menu--border;
+    text-align: $menu--alignment;
+
+    li {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+
+      a {
+        @include transition(all, 0.15s, ease-in-out);
+
+        display: block;
+        text-decoration: none;
+        margin: $menu--item--margin;
+        padding: $menu--item--padding;
+        font-weight: $menu--item--font-weight;
+        font-size: $menu--item--font-size;
+        background: $menu--item--background;
+
+        border-color: $menu--item--border-color;
+        border-style: $menu--item--border-style;
+        border-bottom-width: $menu--item--border-width--bottom;
+        border-top-width: $menu--item--border-width--top;
+        border-left-width: $menu--item--border-width--left;
+        border-right-width: $menu--item--border-width--right;
+
+        &:hover {
+          background: $menu--item--background--hover;
+        }
+
+        &.is-active {
+          background: $menu--item--background--active;
+
+          &:hover {
+            background: $menu--item--background--active;
+          }
+        }
+      }
+    }
+
+    // Hide sub menus by default.
+    .menu-item--expanded {
+
+      ul {
+        display: none;
+      }
+
+      &:hover {
+        > ul {
+          //@include transition(all, 2.5s, ease-in-out);
+
+          position: absolute;
+          display: block;
+          z-index: 10;
+
+
+          li {
+            display: block;
+          }
+
+          a {
+            text-align: left;
+            font-size: 14px;
+            min-width: 240px;
+          }
+        }
+      }
+    }
+  }
+}

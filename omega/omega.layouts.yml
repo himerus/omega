@@ -1,0 +1,47 @@
+# Omega Custom Layouts
+#
+# For more on creating custom layouts:
+# @see https://www.drupal.org/node/2578731
+one_column:
+  # The human-readable name of the layout.
+  label: One Column
+  # The human-readable category to which the layout belongs.
+  category: Omega
+  # Defines how the layout will be used in a page. Can be one of:
+  # - full: The layout is used for an entire page, not just the
+  #   main content.
+  # - page (default): The layout is used for just the main page response
+  #   (i.e., whatever is returned by the controller).
+  # - partial: A partial layout that can be used for sub-regions --
+  #   roughly analogous to Mini Panels in Drupal 7.
+  type: page
+  # If specified, the template to use to render the layout, relative to the
+  # given path, without the .html.twig extension. If given, the template will be
+  # automagically registered with the theme system. If you use this key, you
+  # cannot use theme.
+  template: layouts/one-column/one-column
+  # If given, a CSS file to attach when rendering this layout, relative to the
+  # given path. If you use this key, you cannot use library.
+  css: public/css/one-column.css
+  # The screenshot/preview icon for this layout, relative to the given path.
+  icon: layouts/one-column/one-column.png
+  # Array of regions in the layout. The keys are the regions' machine names
+  # and the values are sub-arrays containing the following elements:
+  # - label (required): The human-readable name of the region.
+  regions:
+    main:
+      label: Main content
+one_column_stacked:
+  label: One Column (w/Header & Footer)
+  category: Omega
+  type: page
+  template: layouts/one-column-stacked/one-column-stacked
+  css: public/css/one-column-stacked.css
+  icon: layouts/one-column-stacked/one-column-stacked.png
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main content
+    footer:
+      label: Footer

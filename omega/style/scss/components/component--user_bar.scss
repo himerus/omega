@@ -1,0 +1,50 @@
+@import "defaults", "mixins";
+
+// Provide default styling to the user bar itself.
+.user--bar--layout {
+  background: $user-bar--background;
+  color: $user-bar--font-color;
+  padding: $user-bar--padding;
+}
+
+.region--user {
+  // Give all links in the user bar a default style.
+  a {
+    color: $user-bar--link-color;
+
+
+    &:hover {
+      color: $user-bar--link-color--hover;
+    }
+  }
+
+  // Position the search block.
+  .block-search {
+    float: $user-bar--search-float;
+  }
+
+  // Position the login block.
+  .block-user-login-block {
+    float: $user-bar--login-float;
+  }
+
+  // Position any menu blocks.
+  .block-menu {
+    float: $user-bar--menu-float;
+
+    font-size: 0.65em;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 2em;
+    text-decoration: none;
+
+    ul {
+      margin: 0;
+    }
+
+    li {
+      display: inline-block;
+      margin-right: 4px;
+    }
+  }
+}
