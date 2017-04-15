@@ -1,10 +1,10 @@
 @import "defaults", "mixins";
 
 .breadcrumb {
-  padding: $breadcrumb--padding;
-  background: $breadcrumb--background;
-  margin: $breadcrumb--margin;
-  font-size: $breadcrumb--font-size;
+  padding: $bc--padding;
+  background: $bc--background;
+  margin: $bc--margin;
+  font-size: $bc--font-size;
 
   ol,
   ul {
@@ -17,11 +17,12 @@
   }
 
   a {
-    color: $breaadcrumb--item--color;
-    text-decoration: $breadcrumb--item--text-decoration;
+    color: $bc--item--color;
+    text-decoration: $bc--item--text-decoration;
 
     &:hover {
-      text-decoration: $breadcrumb--item--text-decoration--hover;
+      color: $bc--item--color--hover;
+      text-decoration: $bc--item--text-decoration--hover;
     }
   }
 }

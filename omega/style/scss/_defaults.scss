@@ -3,12 +3,12 @@ $font--primary-body: "Helvetica Neue", Arial, Helvetica !default;
 $font--primary-header: Georgia, Times, serif !default;
 
 // Breakpoint variables
-$bp--mobile:                               0 !default;
-$bp--mobile-landscape:                     320px !default;
-$bp--small:                                600px !default;
-$bp--normal:                               960px !default;
-$bp--wide:                                 1440px !default;
-$bp--extra-wide:                           1440px !default;
+$bp--mobile:                          0px    !default; // Mobile Breakpoint.
+$bp--mobile-landscape:                320px  !default; // Mobile Landscape Breakpoint.
+$bp--small:                           600px  !default; // Small Breakpoint, mainly tablets in a portrait mode.
+$bp--normal:                          960px  !default; // Normal desktop browsers, and tablets in landscape mode.
+$bp--wide:                            1200px !default; // Wide mode, primarily for desktop browsers.
+$bp--extra-wide:                      1440px !default; // Really wide mode, primarily for desktop browsers.
 
 // Primary Color Palette. (Dark Colors)
 $color--primary-1:                    #1A1A1A !default; // Primary color #1 (one).
@@ -18,13 +18,13 @@ $color--primary-4:                    #3A3A3A !default; // Primary color #4 (fou
 $color--primary-5:                    #9A9A9A !default; // Primary color #5 (five).
 
 // Secondary Color Palette. (Light Colors)
-$color--secondary-1:                  #7A7A7A !default; // Secondary color #1 (one)
-$color--secondary-2:                  #9A9A9A !default; // Secondary color #2 (two)
-$color--secondary-3:                  #EFEFEF !default; // Secondary color #3 (three)
+$color--secondary-1:                  #7A7A7A !default; // Secondary color #1 (one).
+$color--secondary-2:                  #9A9A9A !default; // Secondary color #2 (two).
+$color--secondary-3:                  #EFEFEF !default; // Secondary color #3 (three).
 
 // Accent Color Palette.
-$color--accent-1:                     blue !default; // Accent color #1 (one)
-$color--accent-2:                     red !default; // Accent color #2 (two)
+$color--accent-1:                     blue !default; // Accent color #1 (one).
+$color--accent-2:                     red !default; // Accent color #2 (two).
 
 // Primary Colors
 $color--white:                        #FFF !default;
@@ -32,78 +32,79 @@ $color--black:                        #000 !default;
 $color--red:                          #FF0000 !default;
 
 // Basic Button Styling.
-$button--bg-color: $color--secondary-3 !default;
-$button--font-color: $color--primary-1 !default;
-$button--bg-color--hover: darken($color--secondary-3, 15%) !default;
-$button--font-color--hover: darken($color--primary-1, 15%) !default;
-$button--border: 1px solid $color--secondary-1 !default;
-$button--border-radius: 4px !default;
-$button--font--weight: normal !default;
-$button--text--transform: none !default;
-$button--text--variant: none !default;
-$button--font--size: 12px !default;
-$button--padding: .5em .75em !default;
-$button--line-height: 1em !default;
+$button--bg-color:                    $color--secondary-3 !default;
+$button--font-color:                  $color--primary-1 !default;
+$button--bg-color--hover:             darken($color--secondary-3, 15%) !default;
+$button--font-color--hover:           darken($color--primary-1, 15%) !default;
+$button--border:                      1px solid $color--secondary-1 !default;
+$button--border-radius:               4px !default;
+$button--font--weight:                normal !default;
+$button--text--transform:             none !default;
+$button--text--variant:               none !default;
+$button--font--size:                  12px !default;
+$button--padding:                     .5em .75em !default;
+$button--line-height:                 1em !default;
 
 // Basic SVG Logo Styling.
-$logo--color: $color--primary-2 !default;
-$logo--color--hover: $color--primary-1 !default;
+$logo--color:                         $color--primary-2 !default;
+$logo--color--hover:                  $color--primary-1 !default;
 
 // User Bar.
-$user-bar--padding: 3px 10px !default;
-$user-bar--background: $color--primary-4 !default;
-$user-bar--font-color: $color--secondary-2 !default;
-$user-bar--link-color: $color--secondary-1 !default;
-$user-bar--link-color--hover: lighten($color--secondary-1, 20%) !default;
+$user-bar--padding:                   3px 10px !default;
+$user-bar--background:                $color--primary-4 !default;
+$user-bar--font-color:                $color--secondary-2 !default;
+$user-bar--link-color:                $color--secondary-1 !default;
+$user-bar--link-color--hover:         lighten($color--secondary-1, 20%) !default;
+
 // Positioning for blocks inside user bar.
-$user-bar--search-float: right !default;
-$user-bar--login-float: right !default;;
-$user-bar--menu-float: left !default;
+$user-bar--search-float:              right !default;
+$user-bar--login-float:               right !default;;
+$user-bar--menu-float:                left !default;
 
 // Form styling
 // See: @mixin input()
-$form--input--width: 100% !default;
-$form--input--max-width: 100% !default;
-$form--input--bg: $color--white !default;
-$form--input--border: 1px solid $color--primary-1 !default;
-$form--input--border--active: 1px solid $color--primary-1 !default;
-$form--input--border--focus: 1px solid $color--primary-1 !default;
-$form--input--padding: 0.35em 0.5em !default;
-$form--input--font-size: 0.8em !default;
-$form--input--font-weight: normal !default;
-$form--input--border-radius: 3px !default;
+$form--input--width:                  100% !default;
+$form--input--max-width:              100% !default;
+$form--input--bg:                     $color--white !default;
+$form--input--border:                 1px solid $color--primary-1 !default;
+$form--input--border--active:         1px solid $color--primary-1 !default;
+$form--input--border--focus:          1px solid $color--primary-1 !default;
+$form--input--padding:                0.35em 0.5em !default;
+$form--input--font-size:              0.8em !default;
+$form--input--font-weight:            normal !default;
+$form--input--border-radius:          3px !default;
 
 // Main Menu Styling
-$menu--background: transparent !default;
-$menu--margin: 0 !default;
-$menu--padding: 0 !default;
-$menu--border: none !default;
-$menu--alignment: left !default; // Options: left/right/center.
+$menu--background:                    transparent !default;
+$menu--margin:                        0 !default;
+$menu--padding:                       0 !default;
+$menu--border:                        none !default;
+$menu--alignment:                     left !default; // Options: left/right/center.
 
 // Main Menu Menu Item Styling
-$menu--item--background: $color--secondary-3 !default;
-$menu--item--background--hover: darken($menu--item--background, 5%) !default;
-$menu--item--background--active: darken($menu--item--background, 10%) !default;
-$menu--item--margin: 1px 1px 0 0 !default;
-$menu--item--padding: 1em 2em !default;
-$menu--item--font-size: 18px !default;
-$menu--item--font-weight: bold !default;
-$menu--item--border-color: transparent !default;
-$menu--item--border-style: none !default;
-$menu--item--border-width--top: 0 !default;
-$menu--item--border-width--left: 0 !default;
-$menu--item--border-width--bottom: 0 !default;
-$menu--item--border-width--right: 0 !default;
-$menu--item--submenu--background: transparent !default;
-$menu--item--submenu--border: none !default;
+$menu--item--background:              $color--secondary-3 !default;
+$menu--item--background--hover:       darken($menu--item--background, 5%) !default;
+$menu--item--background--active:      darken($menu--item--background, 10%) !default;
+$menu--item--margin:                  1px 1px 0 0 !default;
+$menu--item--padding:                 1em 2em !default;
+$menu--item--font-size:               18px !default;
+$menu--item--font-weight:             bold !default;
+$menu--item--border-color:            transparent !default;
+$menu--item--border-style:            none !default;
+$menu--item--border-width--top:       0 !default;
+$menu--item--border-width--left:      0 !default;
+$menu--item--border-width--bottom:    0 !default;
+$menu--item--border-width--right:     0 !default;
+$menu--item--submenu--background:     transparent !default;
+$menu--item--submenu--border:         none !default;
 
 // Breadcrumb Styling
-$breadcrumb--background: $color--secondary-3 !default;
-$breadcrumb--padding: 5px 20px !default;
-$breadcrumb--margin: 5px 0 !default;
-$breadcrumb--font-size: 11px !default;
-$breaadcrumb--item--color: $color--primary-1 !default;
-$breaadcrumb--item--color--hover: lighten($color--primary-1, 10%) !default;
-$breadcrumb--item--text-decoration: none !default;
-$breadcrumb--item--text-decoration--hover: underline !default;
+$bc--background:                      $color--secondary-3 !default;
+$bc--padding:                         5px 20px !default;
+$bc--margin:                          5px 0 !default;
+$bc--font-size:                       11px !default;
+$bc--item--color:                     $color--primary-1 !default;
+$bc--item--color--hover:              lighten($color--primary-1, 10%) !default;
+$bc--item--text-decoration:           none !default;
+$bc--item--text-decoration--hover:    underline !default;
 

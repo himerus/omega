@@ -78,10 +78,12 @@
 
     <header id="header-outer-wrapper" class="outer-wrapper clearfix {{ secondary_menu ? 'with-secondary-menu' : 'without-secondary-menu' }}" role="banner">
       {% if page.user %}
-        <div id="user-bar-layout"
-             class="{{ region_classes.preface }} user--bar--layout inner-wrapper clearfix">
-            {{ page.user }}
-        </div><!-- /#user-bar-layout -->
+        <div class="full-width-wrapper user-bar--wrapper">
+          <div id="user-bar-layout"
+               class="{{ region_classes.preface }} user--bar--layout inner-wrapper clearfix">
+              {{ page.user }}
+          </div><!-- /#user-bar-layout -->
+        </div>
       {% endif %}
       <div id="header-layout" class="{{ region_classes.header }} inner-wrapper clearfix">
         {{ page.header }}

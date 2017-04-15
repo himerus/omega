@@ -15,10 +15,18 @@ module.exports = {
             // in addition to linting `css.src`, this is added.
             extraSrc: [],
         },
-        scssToJson: [
+        // scssToJson: [
+        //     {
+        //         src: 'style/scss/_defaults.scss',
+        //         dest: 'style/scss/_defaults.json',
+        //         lineStartsWith: '$',
+        //         allowVarValues: true,
+        //     }
+        // ],
+        scssToYaml: [
             {
                 src: 'style/scss/_defaults.scss',
-                dest: 'style/scss/_defaults.json',
+                dest: 'style/scss/_defaults.yml',
                 lineStartsWith: '$',
                 allowVarValues: true,
             }

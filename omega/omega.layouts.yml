@@ -2,11 +2,11 @@
 #
 # For more on creating custom layouts:
 # @see https://www.drupal.org/node/2578731
-one_column:
+omega_one_column:
   # The human-readable name of the layout.
-  label: One Column
+  label: One Column (Page)
   # The human-readable category to which the layout belongs.
-  category: Omega
+  category: omega
   # Defines how the layout will be used in a page. Can be one of:
   # - full: The layout is used for an entire page, not just the
   #   main content.
@@ -14,7 +14,7 @@ one_column:
   #   (i.e., whatever is returned by the controller).
   # - partial: A partial layout that can be used for sub-regions --
   #   roughly analogous to Mini Panels in Drupal 7.
-  type: page
+  type: full
   # If specified, the template to use to render the layout, relative to the
   # given path, without the .html.twig extension. If given, the template will be
   # automagically registered with the theme system. If you use this key, you
@@ -23,25 +23,123 @@ one_column:
   # If given, a CSS file to attach when rendering this layout, relative to the
   # given path. If you use this key, you cannot use library.
   css: public/css/one-column.css
+  # If given, a SCSS file to be written/managed by Omega
+  scss: layouts/one-column/one-column.scss
   # The screenshot/preview icon for this layout, relative to the given path.
   icon: layouts/one-column/one-column.png
   # Array of regions in the layout. The keys are the regions' machine names
   # and the values are sub-arrays containing the following elements:
   # - label (required): The human-readable name of the region.
   regions:
-    main:
+    content:
       label: Main content
-one_column_stacked:
-  label: One Column (w/Header & Footer)
-  category: Omega
-  type: page
+  # Omega Customizations
+  # Array of Region 'Groups'. In stylistic terms, this is the row when
+  # the regions are the columns. You can put multiple regions in a group for a
+  # wide variety of configurations and enhancements.
+  groups:
+    main:
+      label: Main Group
+      collapsed: FALSE
+      regions:
+        - content
+omega_one_column_stacked:
+  label: One Column (w/Header & Footer) (Page)
+  category: omega
+  type: full
   template: layouts/one-column-stacked/one-column-stacked
   css: public/css/one-column-stacked.css
+  scss: layouts/one-column-stacked/one-column-stacked.scss
   icon: layouts/one-column-stacked/one-column-stacked.png
   regions:
     header:
       label: Header
-    main:
+    content:
       label: Main content
     footer:
       label: Footer
+  groups:
+    header:
+      label: Header Group
+      collapsed: FALSE
+      regions:
+        - header
+    main:
+      label: Main Group
+      collapsed: FALSE
+      regions:
+        - content
+    footer:
+      label: Footer Group
+      collapsed: FALSE
+      regions:
+        - footer
+omega_traditional:
+  label: Multi-Column Advanced (Traditonal) (Page)
+  category: omega
+  type: full
+  template: layouts/traditional/traditional
+  css: public/css/traditional.css
+  scss: layouts/traditional/traditional.scss
+  icon: layouts/traditional/traaditional.png
+  regions:
+    header:
+      label: Header
+    preface_first:
+      label: Preface First
+    preface_second:
+      label: Preface Second
+    preface_third:
+      label: Preface Third
+    preface_fourth:
+      label: Preface Fourth
+    content:
+      label: Main content
+    sidebar_first:
+      label: Sidebar First
+    sidebar_second:
+      label: Sidebar Second
+    postscript_first:
+      label: Postscript First
+    postscript_second:
+      label: Postscript Second
+    postscript_third:
+      label: Postscript Third
+    postscript_fourth:
+      label: Postscript Fourth
+    footer:
+      label: Footer
+  groups:
+    header:
+      label: Header Group
+      collapsed: FALSE
+      regions:
+        - header
+    preface:
+      label: Preface Group
+      collapsed: FALSE
+      regions:
+        - preface_first
+        - preface_second
+        - preface_third
+        - preface_fourth
+    main:
+      label: Main Group
+      collapsed: FALSE
+      regions:
+        - content
+        - sidebar_first
+        - sidebar_second
+    postscript:
+      label: Postscript Group
+      collapsed: FALSE
+      regions:
+        - postscript_first
+        - postscript_second
+        - postscript_third
+        - postscript_fourth
+    footer:
+      label: Footer Group
+      collapsed: FALSE
+      regions:
+        - footer

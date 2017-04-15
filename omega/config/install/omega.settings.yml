@@ -41,12 +41,14 @@ favicon:
   use_default: true
   path: ''
 edit_this_layout: omega_default
-default_layout: omega_default
-home_layout: omega_front
-node_type_article_layout: omega_node
-node_type_page_layout: omega_node
-taxonomy_category_layout: omega_default
-taxonomy_tags_layout: omega_default
+default_layout: omega_one_column_stacked
+home_layout: omega_one_column_stacked
+
+
+# Breakpoint Groups
 breakpoint_group_omega_default: omega.standard
+breakpoint_group_omega_omega_one_column_stacked: omega.standard
+breakpoint_group_omega_omega_one_column: omega.standard
+## To be deprecated
 breakpoint_group_omega_front: omega.standard
 breakpoint_group_omega_node: omega.standard

@@ -47,7 +47,7 @@ $form['layout-config']['non_omegags_info'] = array(
   '#states' => $omegaGSoff,
 );
 
-$availableLayouts = OmegaLayout::getAvailableLayoutFormOptions($layouts);
+$availableLayouts = OmegaLayout::getAvailableLayoutPluginFormOptions();
 
 $form['layout-config']['default-layouts'] = array(
   '#type' => 'details',

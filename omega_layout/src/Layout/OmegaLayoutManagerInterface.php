@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\omega\LayoutManagerInterface;
+namespace Drupal\omega_layout\Layout;
 
 /**
  * Defines an interface for managing an Omega layout.

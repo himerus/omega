@@ -257,7 +257,10 @@ function omega_preprocess_page(&$vars) {
   $layoutTheme = $layout['theme'];
   $layoutLayout = $layout['layout'];
   $layouts = OmegaLayout::getAvailableLayouts($layoutTheme);
-  $region_groups = $layouts[$layoutLayout]['region_groups']['all'];
+
+  // @todo: Complete refactor of class/region/layout attachment...
+  // @todo: Region Groups might disappear all together.
+  $region_groups = isset($layouts[$layoutLayout]['region_groups']['all']) ? $layouts[$layoutLayout]['region_groups']['all'] : [];
   foreach ($region_groups as $group_id => $group_info) {
     $groupRegions = $region_groups[$group_id]['regions'];
     // duplciate the #id into a class for better use with Omega.gs

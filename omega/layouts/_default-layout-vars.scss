@@ -1,12 +1,13 @@
-// Override the column width only when not using $twidth: 100% for Full width.
+/* Override the column width only when not using $twidth: 100% for Full width. */
 // $cwidth: 60px;
-// Gutter between two columns.
+/* Gutter between two columns. */
 $gutter: 0px;
-// Total number of columns.
+/* Total number of columns. */
 // $cols: 12;
-// Direction.
+/* Direction. */
 // $dir: 'LTR';
-// Total width of the grid.
-// - Remove $twidth to use a fixed grid and $cwidth.
-// - 100% changes grid to fluid.
+/* Total width of the grid.
+ * - Remove $twidth to use a fixed grid and $cwidth.
+ * - 100% changes grid to fluid.
+ */
 $twidth: 100%;

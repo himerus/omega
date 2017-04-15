@@ -1,9 +1,11 @@
 @import "defaults", "mixins";
 
 // Provide default styling to the user bar itself.
-.user--bar--layout {
+.user-bar--wrapper {
   background: $user-bar--background;
   color: $user-bar--font-color;
+}
+.user--bar--layout {
   padding: $user-bar--padding;
 }
 

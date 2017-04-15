@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\omega\Theme;
+use Drupal\Core\Serialization\Yaml;
 
 /**
  * omegaInfo declares methods used to return theme info
@@ -78,4 +79,20 @@ class OmegaInfo {
     return $omegaSubThemes;
   }
 
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function yamlEncode(array $php) {
+    $yaml = Yaml::encode($php);
+    return $yaml;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function yamlDecode($yaml) {
+    $php = Yaml::decode($yaml);
+    return $php;
+  }
 }

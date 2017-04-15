@@ -2,6 +2,7 @@
 const _ = require('lodash');
 const fs = require('fs');
 const sassJson = require('gulp-sass-json');
+const YAML = require('yamljs');
 const sassGlob = require('gulp-sass-glob');
 const sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-sass');
@@ -69,6 +70,7 @@ module.exports = (gulp, config, tasks) => {
     function scssToJson(done) {
         config.css.scssToJson.forEach((pair) => {
             const scssVarList = _.filter(fs.readFileSync(pair.src, 'utf8').split('\n'), item => _.startsWith(item, pair.lineStartsWith));
+            console.log(' -- JSON: Updating ' + pair.dest + ' with latest values from ' + pair.src + '...');
             // console.log(scssVarList, item.src);
             let varsAndValues = _.map(scssVarList, (item) => {
                 // assuming `item` is `$color-gray: hsl(0, 0%, 50%); // main gray color`
@@ -97,13 +99,52 @@ module.exports = (gulp, config, tasks) => {
 
     if (config.css.scssToJson) {
         gulp.task('css:scss-to-json', scssToJson);
-        //plFullDependencies.push('pl:scss-to-json');
-
         gulp.task('watch:css:scss-to-json', () => {
             const files = config.css.scssToJson.map(file => file.src);
             gulp.watch(files, scssToJson);
         });
         tasks.watch.push('watch:css:scss-to-json');
+    }
+
+    // Turns SCSS variable files into yaml files.
+    function scssToYaml(done) {
+        config.css.scssToYaml.forEach((pair) => {
+            const scssVarList = _.filter(fs.readFileSync(pair.src, 'utf8').split('\n'), item => _.startsWith(item, pair.lineStartsWith));
+            console.log(' -- YAML: Updating ' + pair.dest + ' with latest values from ' + pair.src + '...');
+            //console.log('');
+            //console.log(scssVarList);
+            //console.log('');
+            let yml = {};
+            let varsAndValues = _.map(scssVarList, (item) => {
+                // assuming `item` is `$color-gray: hsl(0, 0%, 50%); // main gray color`
+                const x = item.split(':');
+                const y = x[1].split(';');
+                let cleanName = x[0].trim().replace('$', ''); // Remove the $ sign.
+                let rule = {
+                    name: x[0].trim(), // i.e. $color-gray
+                    value: y[0].replace(/!.*/, '').trim(), // i.e. hsl(0, 0%, 50%) after removing `!default`
+                    comment: y[1].replace('//', '').trim(), // any inline comment coming after, i.e. `// main gray color`
+                };
+
+                yml[cleanName] = rule;
+            });
+
+            if (!pair.allowVarValues) {
+                yml = _.filter(yml, item => !_.startsWith(item.value, '$'));
+            }
+
+            fs.writeFileSync(pair.dest, YAML.stringify(yml, 10, 2));
+        });
+        done();
+    }
+
+    if (config.css.scssToYaml) {
+        gulp.task('css:scss-to-yaml', scssToYaml);
+        gulp.task('watch:css:scss-to-yaml', () => {
+            const files = config.css.scssToYaml.map(file => file.src);
+            gulp.watch(files, scssToYaml);
+        });
+        tasks.watch.push('watch:css:scss-to-yaml');
     }
 
     function validateCss(errorShouldExit) {
@@ -146,6 +187,10 @@ module.exports = (gulp, config, tasks) => {
 
     if (config.css.scssToJson) {
         tasks.compile.push('css:scss-to-json');
+    }
+
+    if (config.css.scssToYaml) {
+        tasks.compile.push('css:scss-to-yaml');
     }
 
     if (config.css.lint.enabled) {

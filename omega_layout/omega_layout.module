@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Implements hook_system_themes_page_alter().
+ */
+function omega_layout_system_themes_page_alter(&$theme_groups) {
+
+} // END omega_layout_system_themes_page_alter

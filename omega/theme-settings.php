@@ -97,7 +97,7 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
       $theme_regions = $themeSettings->info['regions'];
 
       // get the layouts available to edit in this theme
-      $layouts = OmegaLayout::getAvailableLayouts($theme);
+      $layouts = OmegaLayout::getAvaliableLayoutPluginLayouts([$theme]);
       // include the layout configuration options
       include_once 'theme-settings/layout-config.php';
 

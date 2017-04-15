@@ -1,0 +1,5 @@
+services:
+  # Defines a simple service of which requires no parameter for its constructor.
+  omega_layout.layout:
+    class: Drupal\omega_layout\Layout\OmegaLayoutManager
+    arguments: ['@config.factory', '@theme_handler']

@@ -1,9 +1,15 @@
 <?php
 
 use Drupal\omega\Layout\OmegaLayout;
+
 // Get the theme name we are editing
 $theme = \Drupal::theme()->getActiveTheme()->getName();
-$layouts = OmegaLayout::getAvailableLayouts($theme);
+$layouts = OmegaLayout::getAvaliableLayoutPluginLayouts([$theme], ['full']);
+$themeLayouts = OmegaLayout::loadThemeLayouts($theme);
+$breakpoint_options = OmegaLayout::getAvailableBreakpoints($theme);
+
+$layoutService = \Drupal::service('omega_layout.layout');
+$something = '';
 
 // create the container for settings
 $form['layouts'] = array(
@@ -34,7 +40,7 @@ $form['layouts']['edit_this_layout'] = array(
   ),
   '#title' => 'Select Layout to Edit',
   '#description' => t('<p class="description">You are able to edit only one layout at a time.</p><p class="description"> The amount of configurations passed through the form requires limiting this ability until Drupal core issue <a href="https://www.drupal.org/node/1565704" target="_blank"><strong>#1565704</strong></a> can be resolved. </p>'),
-  '#options' => OmegaLayout::getAvailableLayoutFormOptions($layouts),
+  '#options' => OmegaLayout::getAvailableLayoutFormOptions($themeLayouts),
   '#default_value' => isset($edit_this_layout) ? $edit_this_layout : theme_get_setting('default_layout', $theme),
   '#tree' => FALSE,
   '#states' => array(
@@ -45,13 +51,16 @@ $form['layouts']['edit_this_layout'] = array(
   // attempting possible jQuery intervention rather than ajax
 );
 
-$breakpoint_options = OmegaLayout::getAvailableBreakpoints($theme);
 
-foreach ($layouts as $lid => $ldata) {
+foreach ($themeLayouts as $lid => $info) {
+
+  // grab the configuration for the requested layout
+  $layout_config_object = \Drupal::config($theme . '.layout.' . $lid);
+  $layoutData = $layout_config_object->get();
 
   $form['layouts'][$lid] = array(
     '#type' => 'fieldset',
-    '#title' => $lid,
+    '#title' => $info['label'],
     '#prefix' => '<div id="layout-' . $lid . '-config">',
     '#suffix' => '</div>',
     //'#weight' => $breakpoint->weight,
@@ -68,6 +77,19 @@ foreach ($layouts as $lid => $ldata) {
 
   $active_breakpoint_group = theme_get_setting('breakpoint_group_' . $lid, $theme);
   $current_breakpoint_group = isset($active_breakpoint_group) ? $active_breakpoint_group : 'omega.standard';
+
+  $form['layouts'][$lid]['breakpoint_group_updated'] = array(
+    '#type' => 'item',
+    '#prefix' => '',
+    '#markup' => '<div class="messages messages--warning omega-styles-info">By changing the breakpoint group for the  "<strong>' . $lid . '</strong>" layout, You will need to save the form in order to then configure the theme regions based on the new breakpoint group.</div>',
+    '#suffix' => '',
+    '#states' => array(
+      'invisible' => array(
+        ':input[name="breakpoint_group_' . $lid . '"]' => array('value' => $current_breakpoint_group),
+      ),
+    ),
+  );
+
   $form['layouts'][$lid]['breakpoint_group_' . $lid] = array(
     '#type' => 'select',
     '#options' => $breakpoint_options,
@@ -82,27 +104,61 @@ foreach ($layouts as $lid => $ldata) {
     ),
   );
 
-  $form['layouts'][$lid]['breakpoint_group_updated'] = array(
-    '#type' => 'item',
-    '#prefix' => '',
-    '#markup' => '<div class="messages messages--warning omega-styles-info">By changing the breakpoint group for the  "<strong>' . $lid . '</strong>" layout, You will need to save the form in order to then configure the theme regions based on the new breakpoint group.</div>',
-    '#suffix' => '',
+  $form['layouts'][$lid]['region_assignment'] = array(
+    '#type' => 'details',
+    '#attributes' => array('class' => array('layout-breakpoint')),
+    '#title' => t('Region Assignment'),
+    '#group' => 'layout',
     '#states' => array(
       'invisible' => array(
-        ':input[name="breakpoint_group_' . $lid . '"]' => array('value' => $current_breakpoint_group),
+        ':input[name="enable_omegags_layout"]' => array('checked' => FALSE),
       ),
     ),
+    //'#open' => TRUE,
   );
+  $form['layouts'][$lid]['region_assignment']['region_assignment_info'] = array(
+    '#type' => 'item',
+    '#prefix' => '',
+    '#markup' => '<div class="messages messages--status omega-styles-info">The <strong>Region Assignment</strong> section allows you to configure the theme regions provided in <em>' . $theme . '.info.yml</em> and mapping those to the regions in the <em>' . $lid . '</em> layout.</div>',
+    '#suffix' => '',
+    '#group' => 'region_assignment',
+  );
+  // @todo: Cycle theme regions, and allow them to be assigned to a layout region.
+
+  $themeRegions = OmegaLayout::getThemeRegions($theme);
+
+  foreach ($themeRegions as $themeRegion => $themeRegionLabel) {
+    $options = [];
+    foreach ($info['regions'] as $layoutRegionId => $layoutRegionInfo) {
+      $options[$layoutRegionId] = $layoutRegionInfo['label'];
+    }
+
+
+    $form['layouts'][$lid]['region_assignment'][$themeRegion] = array(
+      '#type' => 'select',
+      '#attributes' => array(
+        'class' => array(
+          'region-assignment'
+        ),
+      ),
+      '#title' => $themeRegionLabel,
+      '#options' => $options,
+      '#default_value' => '',
+      '#group' => '',
+    );
+    // @todo: Create form element for the region and allow it to be assigned to one of the layout regions
+  }
 
   $breakpoints = OmegaLayout::getActiveBreakpoints($lid, $theme);
   // foreach breakpoint we have, we will create a form element group and
   // appropriate settings for region layouts per breakpoint.
   /** @var Drupal\breakpoint\Breakpoint $breakpoint */
   foreach ($breakpoints as $breakpoint) {
+
     // create a 'clean' version of the id to use to match what we want in our yml structure
     $idtrim = OmegaLayout::cleanBreakpointId($breakpoint);
 
-    $form['layouts'][$lid]['region_groups'][$idtrim] = array(
+    $form['layouts'][$lid]['groups'][$idtrim] = array(
       '#type' => 'details',
       '#attributes' => array('class' => array('layout-breakpoint')),
       '#title' => $breakpoint->getLabel() . ' -- ' . $breakpoint->getMediaQuery() . '',
@@ -118,20 +174,19 @@ foreach ($layouts as $lid => $ldata) {
       ),
       //'#open' => TRUE,
     );
-    if (isset($region_groups['_core'])) {
-      unset($region_groups['_core']);
-    }
-    foreach ($region_groups as $gid => $info) {
+
+    foreach ($info['groups'] as $gid => $groupInfo) {
+
       // determine if configuration says region group should be collapsed or not
       $open = TRUE;
-      $collapseVal = $layouts[$lid]['region_groups'][$idtrim][$gid]['collapsed'];
+      $collapseVal = $groupInfo['collapsed'];
       if (isset($collapseVal) && $collapseVal == 'TRUE') {
         $open = FALSE;
       }
       if (isset($collapseVal) && $collapseVal == 'FALSE') {
         $open = TRUE;
       }
-      $form['layouts'][$lid]['region_groups'][$idtrim][$gid] = array(
+      $form['layouts'][$lid]['groups'][$idtrim][$gid] = array(
         '#type' => 'details',
         '#attributes' => array(
           'class' => array(
@@ -139,7 +194,7 @@ foreach ($layouts as $lid => $ldata) {
             'clearfix'
           ),
         ),
-        '#title' => 'Region Group: ' . $gid,
+        '#title' => 'Region Group: ' . $groupInfo['label'],
         '#open' => $open,
       );
 
@@ -150,10 +205,12 @@ foreach ($layouts as $lid => $ldata) {
       }
 
       $regions = array('0' => '-- None');
-      foreach ($layouts[$lid]['region_groups'][$idtrim][$gid]['regions'] as $region_id => $region_info) {
+      foreach ($info['regions'] as $region_id => $region_info) {
         $regions[$region_id] = isset($theme_regions[$region_id]) ? $theme_regions[$region_id] : $region_id;;
       }
-      $rcount = count($layouts[$lid]['region_groups'][$idtrim][$gid]);
+
+      // @todo: Fix $rcount.
+      $rcount = count($layoutData['groups'][$idtrim][$gid]['regions']);
       if ($rcount > 3 || $rcount <= 1) {
         $primary_access = FALSE;
       }
@@ -161,7 +218,7 @@ foreach ($layouts as $lid => $ldata) {
         $primary_access = TRUE;
       }
 
-      $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['row'] = array(
+      $form['layouts'][$lid]['groups'][$idtrim][$gid]['row'] = array(
         '#prefix' => '<div class="region-group-layout-settings">',
         '#type' => 'select',
         '#attributes' => array(
@@ -172,11 +229,11 @@ foreach ($layouts as $lid => $ldata) {
         ),
         '#title' => 'Columns',
         '#options' => $possible_cols,
-        '#default_value' => isset($layouts[$lid]['region_groups'][$idtrim][$gid]['row']) ? $layouts[$lid]['region_groups'][$idtrim][$gid]['row'] : '12',
+        '#default_value' => isset($layoutData['groups'][$idtrim][$gid]['row']) ? $layoutData['groups'][$idtrim][$gid]['row'] : '12',
         '#group' => '',
       );
 
-      $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['primary_region'] = array(
+      $form['layouts'][$lid]['groups'][$idtrim][$gid]['primary_region'] = array(
         '#type' => 'select',
         '#attributes' => array(
           'class' => array(
@@ -186,18 +243,18 @@ foreach ($layouts as $lid => $ldata) {
         ),
         '#title' => 'Primary Region',
         '#options' => $regions,
-        '#default_value' => isset($layouts[$lid]['region_groups'][$idtrim][$gid]['primary_region']) ? $layouts[$lid]['region_groups'][$idtrim][$gid]['primary_region'] : '',
+        '#default_value' => isset($layoutData['groups'][$idtrim][$gid]['primary_region']) ? $layoutData['groups'][$idtrim][$gid]['primary_region'] : '',
         '#group' => '',
         '#access' => $primary_access,
       );
 
-      $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['visual_controls'] = array(
+      $form['layouts'][$lid]['groups'][$idtrim][$gid]['visual_controls'] = array(
         '#prefix' => '<div class="omega-layout-controls form-item">',
         '#markup' => '<div class="control-label">Show/Hide: </div><div class="clearfix"><a class="push-pull-toggle" href="#">Push/Pull</a> | <a class="prefix-suffix-toggle" href="#">Prefix/Suffix</a></div>',
         '#suffix' => '</div>',
       );
 
-      $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['maxwidth'] = array(
+      $form['layouts'][$lid]['groups'][$idtrim][$gid]['maxwidth'] = array(
         '#type' => 'textfield',
         '#size' => 3,
         '#maxlength' => 4,
@@ -208,11 +265,11 @@ foreach ($layouts as $lid => $ldata) {
           ),
         ),
         '#title' => 'Max-width: ',
-        '#default_value' => isset($layouts[$lid]['region_groups'][$idtrim][$gid]['maxwidth']) ? $layouts[$lid]['region_groups'][$idtrim][$gid]['maxwidth'] : '100',
+        '#default_value' => isset($layoutData['groups'][$idtrim][$gid]['maxwidth']) ? $layoutData['groups'][$idtrim][$gid]['maxwidth'] : '100',
         '#group' => '',
       );
 
-      $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['maxwidth_type'] = array(
+      $form['layouts'][$lid]['groups'][$idtrim][$gid]['maxwidth_type'] = array(
         '#type' => 'radios',
         '#attributes' => array(
           'class' => array(
@@ -225,11 +282,11 @@ foreach ($layouts as $lid => $ldata) {
           'pixel' => 'px'
         ),
         '#title' => 'Max-width type',
-        '#default_value' => isset($layouts[$lid]['region_groups'][$idtrim][$gid]['maxwidth_type']) ? $layouts[$lid]['region_groups'][$idtrim][$gid]['maxwidth_type'] : 'percent',
+        '#default_value' => isset($layoutData['groups'][$idtrim][$gid]['maxwidth_type']) ? $layoutData['groups'][$idtrim][$gid]['maxwidth_type'] : 'percent',
         '#group' => '',
       );
 
-      $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['collapsed'] = array(
+      $form['layouts'][$lid]['groups'][$idtrim][$gid]['collapsed'] = array(
         '#type' => 'radios',
         '#attributes' => array(
           'class' => array(
@@ -242,7 +299,24 @@ foreach ($layouts as $lid => $ldata) {
           'FALSE' => 'N',
         ),
         '#title' => 'Collapsed',
-        '#default_value' => isset($layouts[$lid]['region_groups'][$idtrim][$gid]['collapsed']) ? $layouts[$lid]['region_groups'][$idtrim][$gid]['collapsed'] : 'FALSE',
+        '#default_value' => isset($layoutData['groups'][$idtrim][$gid]['collapsed']) ? $layoutData['groups'][$idtrim][$gid]['collapsed'] : 'FALSE',
+        '#group' => '',
+      );
+
+      $form['layouts'][$lid]['groups'][$idtrim][$gid]['wrapper'] = array(
+        '#type' => 'radios',
+        '#attributes' => array(
+          'class' => array(
+            'row-collapsed',
+            'clearfix'
+          ),
+        ),
+        '#options' => array(
+          'TRUE' => 'Y',
+          'FALSE' => 'N',
+        ),
+        '#title' => 'Full Width Wrapper',
+        '#default_value' => isset($layoutData['groups'][$idtrim][$gid]['wrapper']) ? $layoutData['groups'][$idtrim][$gid]['wrapper'] : 'TRUE',
         '#group' => '',
         '#suffix' => '</div>',
       );
@@ -250,25 +324,32 @@ foreach ($layouts as $lid => $ldata) {
 
       // get columns for this region group
       $available_cols = array();
-      for ($i = 0; $i <= $layouts[$lid]['region_groups'][$idtrim][$gid]['row']; $i++) {
+      // @todo Fix where the row config data comes from???
+      //for ($i = 0; $i <= $layoutData['groups'][$idtrim][$gid]['row']; $i++) {
+      for ($i = 0; $i <= 12; $i++) {
         $available_cols[$i] = $i . '';
       }
-
 
       // This should be changed in order to not pull the regions from the layout data
       // This would ensure that a new theme being configured potentially even with an empty
       // $theme.layout.$layout.yml would still be configurable.
-      foreach ($layouts[$lid]['region_groups'][$idtrim][$gid]['regions'] as $rid => $data) {
+      foreach ($groupInfo['regions'] as $rid) {
 
-        $current_push = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['push'];
-        $current_prefix = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['prefix'];
-        $current_width = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['width'];
-        $current_suffix = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['suffix'];
-        $current_pull = $layouts[$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['pull'];
+        $current_push = isset($layoutData['groups'][$idtrim][$gid]['regions'][$rid]['push']) ? $layoutData['groups'][$idtrim][$gid]['regions'][$rid]['push'] : 0;
+        $current_prefix = isset($layoutData['groups'][$idtrim][$gid]['regions'][$rid]['prefix']) ? $layoutData['groups'][$idtrim][$gid]['regions'][$rid]['prefix'] : 0;
+        $current_width = isset($layoutData['groups'][$idtrim][$gid]['regions'][$rid]['width']) ? $layoutData['groups'][$idtrim][$gid]['regions'][$rid]['width'] : 12;
+        $current_suffix = isset($layoutData['groups'][$idtrim][$gid]['regions'][$rid]['suffix']) ? $layoutData['groups'][$idtrim][$gid]['regions'][$rid]['suffix'] : 0;
+        $current_pull = isset($layoutData['groups'][$idtrim][$gid]['regions'][$rid]['pull']) ? $layoutData['groups'][$idtrim][$gid]['regions'][$rid]['pull'] : 0;
 
-        $regionTitle = isset($theme_regions[$rid]) ? $theme_regions[$rid] : $rid;
+//        $current_push = 0;
+//        $current_prefix = 0;
+//        $current_width = 12;
+//        $current_suffix = 0;
+//        $current_pull = 0;
 
-        $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['regions'][$rid] = array(
+        $regionTitle = isset($info['regions'][$rid]['label']) ? $info['regions'][$rid]['label'] : $rid;
+
+        $form['layouts'][$lid]['groups'][$idtrim][$gid]['regions'][$rid] = array(
           '#type' => 'details',
           //'#prefix' => '<div class="region-container-box clearfix" data-omega-row="'. $info['row'] .'">',
           //'#suffix' => '</div>',
@@ -291,7 +372,7 @@ foreach ($layouts as $lid => $ldata) {
         );
 
         // push (in columns)
-        $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['push'] = array(
+        $form['layouts'][$lid]['groups'][$idtrim][$gid]['regions'][$rid]['push'] = array(
           '#type' => 'select',
           '#attributes' => array(
             'class' => array(
@@ -302,8 +383,9 @@ foreach ($layouts as $lid => $ldata) {
           '#options' => $available_cols,
           '#default_value' => $current_push,
         );
+
         // prefix (in columns)
-        $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['prefix'] = array(
+        $form['layouts'][$lid]['groups'][$idtrim][$gid]['regions'][$rid]['prefix'] = array(
           '#type' => 'select',
           '#attributes' => array(
             'class' => array(
@@ -314,8 +396,9 @@ foreach ($layouts as $lid => $ldata) {
           '#options' => $available_cols,
           '#default_value' => $current_prefix,
         );
+
         // width (in columns)
-        $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['width'] = array(
+        $form['layouts'][$lid]['groups'][$idtrim][$gid]['regions'][$rid]['width'] = array(
           '#type' => 'select',
           '#attributes' => array(
             'class' => array(
@@ -326,8 +409,9 @@ foreach ($layouts as $lid => $ldata) {
           '#options' => $available_cols,
           '#default_value' => $current_width,
         );
+
         // suffix (in columns)
-        $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['suffix'] = array(
+        $form['layouts'][$lid]['groups'][$idtrim][$gid]['regions'][$rid]['suffix'] = array(
           '#type' => 'select',
           '#attributes' => array(
             'class' => array(
@@ -338,8 +422,9 @@ foreach ($layouts as $lid => $ldata) {
           '#options' => $available_cols,
           '#default_value' => $current_suffix,
         );
+
         // pull (in columns)
-        $form['layouts'][$lid]['region_groups'][$idtrim][$gid]['regions'][$rid]['pull'] = array(
+        $form['layouts'][$lid]['groups'][$idtrim][$gid]['regions'][$rid]['pull'] = array(
           '#type' => 'select',
           '#attributes' => array(
             'class' => array(
@@ -350,6 +435,7 @@ foreach ($layouts as $lid => $ldata) {
           '#options' => $available_cols,
           '#default_value' => $current_pull,
         );
+
       }
     }
   }
