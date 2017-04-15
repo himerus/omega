@@ -1,0 +1,91 @@
+groups:
+  all:
+    main:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: 0
+          prefix: 0
+          width: 12
+          suffix: 0
+          pull: 0
+  mobile_portrait:
+    main:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: 0
+          prefix: 0
+          width: 12
+          suffix: 0
+          pull: 0
+  mobile_landscape:
+    main:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: 0
+          prefix: 0
+          width: 12
+          suffix: 0
+          pull: 0
+  narrow:
+    main:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: 0
+          prefix: 0
+          width: 12
+          suffix: 0
+          pull: 0
+  normal:
+    main:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: 0
+          prefix: 0
+          width: 12
+          suffix: 0
+          pull: 0
+  wide:
+    main:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: 0
+          prefix: 0
+          width: 12
+          suffix: 0
+          pull: 0

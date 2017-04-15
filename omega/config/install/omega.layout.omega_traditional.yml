@@ -1,0 +1,715 @@
+groups:
+  all:
+    header:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        header:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    preface:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        preface_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    main:
+      row: '12'
+      primary_region: '0'
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    postscript:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        postscript_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    footer:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        footer:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+  mobile_portrait:
+    header:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        header:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    preface:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        preface_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    main:
+      row: '12'
+      primary_region: '0'
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    postscript:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        postscript_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    footer:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        footer:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+  mobile_landscape:
+    header:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        header:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    preface:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        preface_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    main:
+      row: '12'
+      primary_region: '0'
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    postscript:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        postscript_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    footer:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        footer:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+  narrow:
+    header:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        header:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    preface:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        preface_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    main:
+      row: '12'
+      primary_region: '0'
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    postscript:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        postscript_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    footer:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        footer:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+  normal:
+    header:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        header:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    preface:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        preface_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        preface_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    main:
+      row: '12'
+      primary_region: '0'
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        sidebar_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    postscript:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        postscript_first:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_second:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_third:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+        postscript_fourth:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    footer:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        footer:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+  wide:
+    header:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        header:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    preface:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        preface_first:
+          push: '0'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+        preface_second:
+          push: '0'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+        preface_third:
+          push: '0'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+        preface_fourth:
+          push: '0'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+    main:
+      row: '12'
+      primary_region: content
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        content:
+          push: '3'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+        sidebar_first:
+          push: '0'
+          prefix: '0'
+          width: '3'
+          suffix: '0'
+          pull: '6'
+        sidebar_second:
+          push: '0'
+          prefix: '0'
+          width: '3'
+          suffix: '0'
+          pull: '0'
+    postscript:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        postscript_first:
+          push: '0'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+        postscript_second:
+          push: '0'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+        postscript_third:
+          push: '0'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+        postscript_fourth:
+          push: '0'
+          prefix: '0'
+          width: '6'
+          suffix: '0'
+          pull: '0'
+    footer:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        footer:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
