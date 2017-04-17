@@ -101,12 +101,18 @@
 
             $.each(tables, function(id, table){
                 // Get the blocks tableDrag object.
-                console.log(table);
-                var tableId = $(table).attr('id');
-                console.log('tableId: ' + tableId);
+                table = $(this);
+
+                //omegaCheckEmptyRegions($(table), $(table).find('tr:eq(0)'));
+                var tableId = table.attr('id');
+                //console.log('tableId: ' + tableId);
+                //console.log('-----------------------------------');
+
+                // Check the unassigned region.
+                // Modify empty regions with added or removed fields.
+                omegaCheckEmptyRegions(table, '');
+
                 var tableDrag = Drupal.tableDrag[tableId];
-                console.log(tableDrag);
-                console.log(Drupal.tableDrag);
                 // Add a handler for when a row is swapped, update empty regions.
                 tableDrag.row.prototype.onSwap = function (swappedRow) {
                     omegaCheckEmptyRegions(table, this);
@@ -135,8 +141,8 @@
 
                     // Update region and weight fields if the region has been changed.
                     if (!regionField.is('.layout-region--' + regionName)) {
-                        var weightField = $rowElement.find('select.layout--weight');
-                        var oldRegionName = weightField[0].className.replace(/([^ ]+[ ]+)*block-weight-([^ ]+)([ ]+[^ ]+)*/, '$2');
+                        var weightField = $rowElement.find('select.layout-weight');
+                        var oldRegionName = weightField[0].className.replace(/([^ ]+[ ]+)*layout-weight-([^ ]+)([ ]+[^ ]+)*/, '$2');
                         regionField.removeClass('layout-region--' + oldRegionName).addClass('layout-region--' + regionName);
                         weightField.removeClass('layout-weight--' + oldRegionName).addClass('layout-weight--' + regionName);
                         regionField.val(regionName);
@@ -149,12 +155,13 @@
                 $(context).find('select.layout-region-select').once('layout-region-select')
                     .on('change', function (event) {
                         // Make our new row and select field.
+                        var parentTable = $(this).closest('table');
                         var row = $(this).closest('tr');
                         var select = $(this);
                         // Find the correct region and insert the row as the last in the
                         // region.
                         tableDrag.rowObject = new tableDrag.row(row[0]);
-                        var region_message = table.find('.layout-region--' + select[0].value + '--message');
+                        var region_message = parentTable.find('.layout-region--' + select[0].value + '--message');
                         var region_items = region_message.nextUntil('.layout-region--message, .layout-region--title');
                         if (region_items.length) {
                             region_items.last().after(row);
@@ -163,14 +170,14 @@
                         else {
                             region_message.after(row);
                         }
-                        omegaUpdateBlockWeights(table, select[0].value);
+                        omegaUpdateBlockWeights(parentTable, select[0].value);
                         // Modify empty regions with added or removed fields.
-                        omegaCheckEmptyRegions(table, tableDrag.rowObject);
+                        omegaCheckEmptyRegions(parentTable, tableDrag.rowObject);
                         // Update last placed block indication.
-                        omegaUpdateLastPlaced(table, row);
+                        omegaUpdateLastPlaced(parentTable, row);
                         // Show unsaved changes warning.
                         if (!tableDrag.changed) {
-                            $(Drupal.theme('tableDragChangedWarning')).insertBefore(tableDrag.table).hide().fadeIn('slow');
+                            $(Drupal.theme('tableDragChangedWarning')).insertBefore(tableDrag.parentTable).hide().fadeIn('slow');
                             tableDrag.changed = true;
                         }
                         // Remove focus from selectbox.

@@ -53,7 +53,7 @@ $form['layouts']['edit_this_layout'] = array(
   // attempting possible jQuery intervention rather than ajax
 );
 
-
+// @todo: Make this save via AJAX the layouts when edited so multiple can edited.
 foreach ($themeLayouts as $lid => $info) {
 
   // grab the configuration for the requested layout
@@ -116,7 +116,7 @@ foreach ($themeLayouts as $lid => $info) {
         ':input[name="enable_omegags_layout"]' => array('checked' => FALSE),
       ),
     ),
-    '#open' => TRUE,
+    '#open' => FALSE,
   );
   $form['layouts'][$lid]['region_assignment']['region_assignment_info'] = array(
     '#type' => 'item',
@@ -156,7 +156,7 @@ foreach ($themeLayouts as $lid => $info) {
       t('Label'),
       t('Machine name'),
       t('Weight'),
-      t('Operations')
+      t('Move to...')
     ),
     '#empty' => t('There are no items yet.'),
     // TableSelect: Injects a first column containing the selection widget into
@@ -216,7 +216,7 @@ foreach ($themeLayouts as $lid => $info) {
         'class' => [
           'layout-region--message',
           'layout-region--' . $layoutRegionId . '--message',
-          empty($blocks[$layoutRegionId]) ? 'layout-region--empty' : 'layout-region--populated',
+          empty($layoutData['region_assignment']) ? 'layout-region--empty' : 'layout-region--populated',
         ],
       ],
     ];
@@ -233,75 +233,83 @@ foreach ($themeLayouts as $lid => $info) {
         'colspan' => 4,
       ],
     ];
-  }
-  // Build the table rows and columns.
-  // The first nested level in the render array forms the table row, on which you
-  // likely want to set #attributes and #weight.
-  // Each child element on the second level represents a table column cell in the
-  // respective table row, which are render elements on their own. For single
-  // output elements, use the table cell itself for the render element. If a cell
-  // should contain multiple elements, simply use nested sub-keys to build the
-  // render element structure for drupal_render() as you would everywhere else.
-  foreach ($themeRegions as $themeRegion => $themeRegionLabel) {
-
-    // @todo: Make this work and be dynamic.
-    $assignedRegion = 'unassigned';
 
 
-    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion] = [
-      '#attributes' => [
-        'class' => ['draggable'],
-      ],
-    ];
 
-    //$form['layouts'][$lid]['region_map'][$themeRegion]['#attributes']['class'][] = 'block-enabled';
+    // Build the table rows and columns.
+    // The first nested level in the render array forms the table row, on which you
+    // likely want to set #attributes and #weight.
+    // Each child element on the second level represents a table column cell in the
+    // respective table row, which are render elements on their own. For single
+    // output elements, use the table cell itself for the render element. If a cell
+    // should contain multiple elements, simply use nested sub-keys to build the
+    // render element structure for drupal_render() as you would everywhere else.
+    $ignored_regions = ['page_top', 'page_bottom'];
+    $regionAssignment = isset($layoutData['region_assignment'][$layoutRegionId]) ? $layoutData['region_assignment'][$layoutRegionId] : [];
+    foreach ($regionAssignment as $themeRegion => $themeRegionData) {
+
+      // Skip any regions we don't want to be able to place.
+      // Primarily system regiosn like page_top or page_bottom.
+      if (!in_array($themeRegion, $ignored_regions)) {
+        // @todo: Make this work and be dynamic.
+        $assignedRegion = isset($regionAssignment[$themeRegion]['region']) ? $regionAssignment[$themeRegion]['region'] : 'unassigned';
+        $assignedWeight = isset($regionAssignment[$themeRegion]['weight']) ? $regionAssignment[$themeRegion]['weight'] : 0;
+        $assignedLabel = isset($themeRegions[$themeRegion]) ? $themeRegions[$themeRegion] : 'ERROR: Missing Region Label';
+
+        $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion] = [
+          '#attributes' => [
+            'class' => ['draggable', 'theme-region-row'],
+          ],
+        ];
+
+        //$form['layouts'][$lid]['region_map'][$themeRegion]['#attributes']['class'][] = 'block-enabled';
 
 //    if ($placement && $placement == Html::getClass($entity_id)) {
 //      $form[$entity_id]['#attributes']['class'][] = 'color-success';
 //      $form[$entity_id]['#attributes']['class'][] = 'js-block-placed';
 //    }
 
-    // Label.
-    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['label'] = [
-      '#markup' => '<h5>' . t($themeRegionLabel) . '</h5>',
-      '#wrapper_attributes' => [
-        'class' => ['region-label'],
-      ],
-    ];
+        // Label.
+        $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['label'] = [
+          '#markup' => '<h5>' . t($assignedLabel) . '</h5>',
+          '#wrapper_attributes' => [
+            'class' => ['region-label'],
+          ],
+        ];
 
-    // Machine name.
-    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['machine'] = [
-      '#markup' => t($themeRegion),
-      '#wrapper_attributes' => [
-        'class' => ['machine-name'],
-      ],
-    ];
+        // Machine name.
+        $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['machine'] = [
+          '#markup' => t($themeRegion),
+          '#wrapper_attributes' => [
+            'class' => ['machine-name'],
+          ],
+        ];
 
-    // Weight Field.
-    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['weight'] = [
-      '#type' => 'weight',
-      '#default_value' => 0,
-      '#delta' => $weight_delta,
-      '#title' => t('Weight for @block block', ['@block' => $themeRegionLabel]),
-      '#title_display' => 'invisible',
-      '#attributes' => [
-        'class' => ['layout-weight', 'layout-weight--' . $assignedRegion],
-      ],
-    ];
+        // Weight Field.
+        $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['weight'] = [
+          '#type' => 'weight',
+          '#default_value' => $assignedWeight,
+          '#delta' => $weight_delta,
+          '#title' => t('Weight for @block block', ['@block' => $assignedLabel]),
+          '#title_display' => 'invisible',
+          '#attributes' => [
+            'class' => ['layout-weight', 'layout-weight--' . $assignedRegion],
+          ],
+        ];
 
-    // Region select field.
-    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['region'] = [
-      '#type' => 'select',
-      '#default_value' => 'unassigned',
-      '#required' => TRUE,
-      '#title' => t('Region for @region region', ['@block' => $themeRegionLabel]),
-      '#title_display' => 'invisible',
-      '#options' => $layoutRegionOptions,
-      '#attributes' => [
-        'class' => ['layout-region-select', 'layout-region--' . $assignedRegion],
-      ],
-      //'#parents' => ['blocks', $entity_id, 'region'],
-    ];
+        // Region select field.
+        $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['region'] = [
+          '#type' => 'select',
+          '#default_value' => $assignedRegion,
+          '#required' => TRUE,
+          '#title' => t('Region for @region region', ['@block' => $assignedLabel]),
+          '#title_display' => 'invisible',
+          '#options' => $layoutRegionOptions,
+          '#attributes' => [
+            'class' => ['layout-region-select', 'layout-region--' . $assignedRegion],
+          ],
+          //'#parents' => ['blocks', $entity_id, 'region'],
+        ];
 
 //    drupal_attach_tabledrag($form, array(
 //      'action' => 'order',
@@ -312,7 +320,12 @@ foreach ($themeLayouts as $lid => $info) {
 //      'table_id' => 'edit-layouts-' . str_replace('_', '-', $lid) . '-region-assignment-theme-region-assignment',
 //
 //    ));
+      }
+    }
+
+
   }
+
 
 
   // @todo: Create form element for the region and allow it to be assigned to one of the layout regions

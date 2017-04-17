@@ -95,6 +95,25 @@ class OmegaLayout implements OmegaLayoutInterface {
     $layoutConfig = $configFactory->getEditable($theme . '.layout.' . $layout_id);
     $layoutConfigGenerated = $configFactory->getEditable($theme . '.layout.' . $layout_id . '.generated');
 
+    // Handle reorganizing the region assignment data
+    // @todo: Move to separate method.
+    $assignment = $layout['region_assignment']['theme-region-assignment'];
+    $regionAssignment = [];
+
+    foreach ($assignment as $theme_region_id => $layout_data) {
+      $layout_region = $layout_data['region'];
+      if (!isset($regionAssignment[$layout_region])) {
+        $regionAssignment[$layout_region] = [
+          "$theme_region_id" => $layout_data,
+        ];
+      }
+      else {
+        $regionAssignment[$layout_region][$theme_region_id] = $layout_data;
+      }
+    }
+
+    $layout['region_assignment'] = $regionAssignment;
+
     // unset some junk that was passed in the form's $layout array
     // this includes some informational messages, etc.
     unset($layout['breakpoint_group_updated']);
