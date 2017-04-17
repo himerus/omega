@@ -3,7 +3,8 @@
 namespace Drupal\omega\Layout;
 
 use Drupal\breakpoint\Breakpoint;
-use Drupal\layout_plugin\Layout;
+use Drupal\Core\Layout\LayoutDefinition;
+use Drupal\Core\Layout\LayoutPluginManager;
 use Drupal\omega\Theme\OmegaInfo;
 use Drupal\omega\Theme\OmegaSettingsInfo;
 use Drupal\omega\Style\OmegaStyle;
@@ -38,6 +39,13 @@ class OmegaLayout implements OmegaLayoutInterface {
   protected $fileHandler;
 
   /**
+   * The theme handler service.
+   *
+   * @var \Drupal\Core\Layout\LayoutPluginManager
+   */
+  protected $layoutHandler;
+
+  /**
    * An array of Drupal themes, each an array of information about that theme.
    *
    * @var array
@@ -67,11 +75,13 @@ class OmegaLayout implements OmegaLayoutInterface {
    *
    * @param ThemeHandlerInterface $theme_handler
    * @param FileSystemInterface $file_handler
+   * @param LayoutPluginManager $layout_handler
    */
-  public function __construct(ThemeHandlerInterface $theme_handler, FileSystemInterface $file_handler) {
+  public function __construct(ThemeHandlerInterface $theme_handler, FileSystemInterface $file_handler, LayoutPluginManager $layout_handler) {
     $this->themeHandler = $theme_handler;
     $this->fileHandler = $file_handler;
     $this->themes = $this->themeHandler->rebuildThemeData();
+    $this->layoutHandler = $layout_handler;
   }
 
   /**
@@ -464,25 +474,31 @@ class OmegaLayout implements OmegaLayoutInterface {
    * @inheritdoc
    */
   public static function getAvaliableLayoutPluginLayouts($themes = FALSE, $types = FALSE) {
+    $layoutHandler = \Drupal::service('plugin.manager.core.layout');
     static $layouts = FALSE;
 
     // @todo: Find a method (configurable) to implement a hide/show of certain categories of layout plugin layouts on the form(s).
-    $theme_implementations = Layout::layoutPluginManager()->getThemeImplementations();
-    $library_info = Layout::layoutPluginManager()->getLibraryInfo();
+    //$theme_implementations = LayoutPluginManager::getThemeImplementations();
+    //$library_info = LayoutPluginManager::getLibraryInfo();
 
-    $categories = Layout::LayoutPluginManager()->getCategories();
-    $sorted = Layout::LayoutPluginManager()->getSortedDefinitions();
-    $grouped = Layout::LayoutPluginManager()->getGroupedDefinitions();
+    //$categories = LayoutPluginManager::getCategories();
+    //$sorted = LayoutPluginManager::getSortedDefinitions();
+    //$grouped = LayoutPluginManager::getGroupedDefinitions();
 
     if (!$layouts) {
-      $layouts = Layout::layoutPluginManager()->getDefinitions();
+      $layouts = $layoutHandler->getDefinitions();
     }
 
     // Filter out the layouts not provided by the theme specified.
     if ($themes) {
+      /**
+       * @var string $id
+       * @var \Drupal\Core\Layout\LayoutDefinition $data
+       */
       foreach ($layouts as $id => $data) {
+        $provider = $data->getProvider();
         // Our array of themes will determine if we return/remove this item.
-        if (!in_array($data['provider'], $themes)) {
+        if (!in_array($provider, $themes)) {
           // Remove this one.
           unset($layouts[$id]);
         }
@@ -493,7 +509,8 @@ class OmegaLayout implements OmegaLayoutInterface {
     if ($types) {
       foreach ($layouts as $id => $data) {
         // Our array of themes will determine if we return/remove this item.
-        if (!in_array($data['type'], $types)) {
+        $additional = $data->get('additional');
+        if (!in_array($additional['type'], $types)) {
           // Remove this one.
           unset($layouts[$id]);
         }
@@ -508,8 +525,9 @@ class OmegaLayout implements OmegaLayoutInterface {
    * @inheritdoc
    */
   public static function getAvailableLayoutPluginFormOptions($layouts = FALSE) {
+    $layoutHandler = \Drupal::service('plugin.manager.core.layout');
     if (!$layouts) {
-      $layouts = Layout::layoutPluginManager()->getLayoutOptions(['group_by_category' => TRUE]);
+      $layouts = $layoutHandler->getLayoutOptions(['group_by_category' => TRUE]);
     }
 
     $options = [

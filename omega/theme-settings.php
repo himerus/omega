@@ -106,6 +106,12 @@ function omega_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormSt
     }
     // Change the text for default submit button
     $form['actions']['submit']['#value'] = t('Save');
+
+    // TableSelect: Enable the built-in form validation for #tableselect for
+    // this form button, so as to ensure that the bulk operations form cannot
+    // be submitted without any selected items.
+    //$form['actions']['submit']['#tableselect'] = TRUE;
+
     // Hide the default submit button if 'export new subtheme' option is enabled
     $form['actions']['submit']['#states'] = array(
       'disabled' => array(

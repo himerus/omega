@@ -37,6 +37,7 @@ omega_admin:
   version: VERSION
   js:
     js/omega_admin.js: {}
+    js/regionAssign.js: {}
   css:
     theme:
       public/css/omega_admin.css: {}

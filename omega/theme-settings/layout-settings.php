@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Url;
 use Drupal\omega\Layout\OmegaLayout;
 
 // Get the theme name we are editing
@@ -114,7 +116,7 @@ foreach ($themeLayouts as $lid => $info) {
         ':input[name="enable_omegags_layout"]' => array('checked' => FALSE),
       ),
     ),
-    //'#open' => TRUE,
+    '#open' => TRUE,
   );
   $form['layouts'][$lid]['region_assignment']['region_assignment_info'] = array(
     '#type' => 'item',
@@ -127,27 +129,193 @@ foreach ($themeLayouts as $lid => $info) {
 
   $themeRegions = OmegaLayout::getThemeRegions($theme);
 
-  foreach ($themeRegions as $themeRegion => $themeRegionLabel) {
-    $options = [];
-    foreach ($info['regions'] as $layoutRegionId => $layoutRegionInfo) {
-      $options[$layoutRegionId] = $layoutRegionInfo['label'];
+//  foreach ($themeRegions as $themeRegion => $themeRegionLabel) {
+//    $options = [];
+//    foreach ($info['regions'] as $layoutRegionId => $layoutRegionInfo) {
+//      $options[$layoutRegionId] = $layoutRegionInfo['label'];
+//    }
+//
+//
+//    $form['layouts'][$lid]['region_assignment'][$themeRegion] = array(
+//      '#type' => 'select',
+//      '#attributes' => array(
+//        'class' => array(
+//          'region-assignment'
+//        ),
+//      ),
+//      '#title' => $themeRegionLabel,
+//      '#options' => $options,
+//      '#default_value' => '',
+//      '#group' => '',
+//    );
+
+  // @see \Drupal\block\BlockListBuilder::buildBlocksForm()
+  $form['layouts'][$lid]['region_assignment']['theme-region-assignment'] = array(
+    '#type' => 'table',
+    '#header' => array(
+      t('Label'),
+      t('Machine name'),
+      t('Weight'),
+      t('Operations')
+    ),
+    '#empty' => t('There are no items yet.'),
+    // TableSelect: Injects a first column containing the selection widget into
+    // each table row.
+    // Note that you also need to set #tableselect on each form submit button
+    // that relies on non-empty selection values (see below).
+    '#tableselect' => FALSE,
+    // TableDrag: Each array value is a list of callback arguments for
+    // drupal_add_tabledrag(). The #id of the table is automatically prepended;
+    // if there is none, an HTML ID is auto-generated.
+    '#tabledrag' => [],
+  );
+
+  // Weights range from -delta to +delta, so delta should be at least half
+  // of the amount of blocks present. This makes sure all blocks in the same
+  // region get an unique weight.
+  $weight_delta = round(count($themeRegions) / 2);
+
+  $assignmentRegions = $info['regions'];
+  $assignmentRegions['unassigned'] = [
+    'label' => t('Unassigned Regions')
+  ];
+  $layoutRegionOptions = [];
+  foreach ($assignmentRegions as $layoutRegionId => $layoutRegionInfo) {
+
+    $layoutRegionOptions[$layoutRegionId] = $layoutRegionInfo['label'];
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment']['#tabledrag'][] = [
+      'action' => 'match',
+      'relationship' => 'sibling',
+      'group' => 'layout-region-select',
+      'subgroup' => 'layout-region--' . $layoutRegionId,
+      'hidden' => FALSE,
+    ];
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment']['#tabledrag'][] = [
+      'action' => 'order',
+      'relationship' => 'sibling',
+      'group' => 'layout-weight',
+      'subgroup' => 'layout-weight--' . $layoutRegionId,
+    ];
+
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment']['layout-' . $layoutRegionId] = [
+      '#attributes' => [
+        'class' => ['layout-region--title', 'layout-region-title--' . $layoutRegionId],
+        'no_striping' => TRUE,
+      ],
+    ];
+
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment']['layout-' . $layoutRegionId]['title'] = [
+      '#markup' => t('<h5>' . $layoutRegionInfo['label'] . ' <small>(' . $layoutRegionId . ')</small>'. '</h5>'),
+      '#wrapper_attributes' => [
+        'colspan' => 4,
+      ],
+    ];
+
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment']['layout--' . $layoutRegionId . '--message'] = [
+      '#attributes' => [
+        'class' => [
+          'layout-region--message',
+          'layout-region--' . $layoutRegionId . '--message',
+          empty($blocks[$layoutRegionId]) ? 'layout-region--empty' : 'layout-region--populated',
+        ],
+      ],
+    ];
+
+    if ($layoutRegionId != 'unassigned') {
+      $defaultText = '<em>' . t('No theme regions currently assigned to this layout region...') . '</em>';
     }
-
-
-    $form['layouts'][$lid]['region_assignment'][$themeRegion] = array(
-      '#type' => 'select',
-      '#attributes' => array(
-        'class' => array(
-          'region-assignment'
-        ),
-      ),
-      '#title' => $themeRegionLabel,
-      '#options' => $options,
-      '#default_value' => '',
-      '#group' => '',
-    );
-    // @todo: Create form element for the region and allow it to be assigned to one of the layout regions
+    else {
+      $defaultText = '<em>' . t('All available regions are currently assigned! Good Job!') . '</em>';
+    }
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment']['layout--' . $layoutRegionId . '--message']['message'] = [
+      '#markup' => $defaultText,
+      '#wrapper_attributes' => [
+        'colspan' => 4,
+      ],
+    ];
   }
+  // Build the table rows and columns.
+  // The first nested level in the render array forms the table row, on which you
+  // likely want to set #attributes and #weight.
+  // Each child element on the second level represents a table column cell in the
+  // respective table row, which are render elements on their own. For single
+  // output elements, use the table cell itself for the render element. If a cell
+  // should contain multiple elements, simply use nested sub-keys to build the
+  // render element structure for drupal_render() as you would everywhere else.
+  foreach ($themeRegions as $themeRegion => $themeRegionLabel) {
+
+    // @todo: Make this work and be dynamic.
+    $assignedRegion = 'unassigned';
+
+
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion] = [
+      '#attributes' => [
+        'class' => ['draggable'],
+      ],
+    ];
+
+    //$form['layouts'][$lid]['region_map'][$themeRegion]['#attributes']['class'][] = 'block-enabled';
+
+//    if ($placement && $placement == Html::getClass($entity_id)) {
+//      $form[$entity_id]['#attributes']['class'][] = 'color-success';
+//      $form[$entity_id]['#attributes']['class'][] = 'js-block-placed';
+//    }
+
+    // Label.
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['label'] = [
+      '#markup' => '<h5>' . t($themeRegionLabel) . '</h5>',
+      '#wrapper_attributes' => [
+        'class' => ['region-label'],
+      ],
+    ];
+
+    // Machine name.
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['machine'] = [
+      '#markup' => t($themeRegion),
+      '#wrapper_attributes' => [
+        'class' => ['machine-name'],
+      ],
+    ];
+
+    // Weight Field.
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['weight'] = [
+      '#type' => 'weight',
+      '#default_value' => 0,
+      '#delta' => $weight_delta,
+      '#title' => t('Weight for @block block', ['@block' => $themeRegionLabel]),
+      '#title_display' => 'invisible',
+      '#attributes' => [
+        'class' => ['layout-weight', 'layout-weight--' . $assignedRegion],
+      ],
+    ];
+
+    // Region select field.
+    $form['layouts'][$lid]['region_assignment']['theme-region-assignment'][$themeRegion]['region'] = [
+      '#type' => 'select',
+      '#default_value' => 'unassigned',
+      '#required' => TRUE,
+      '#title' => t('Region for @region region', ['@block' => $themeRegionLabel]),
+      '#title_display' => 'invisible',
+      '#options' => $layoutRegionOptions,
+      '#attributes' => [
+        'class' => ['layout-region-select', 'layout-region--' . $assignedRegion],
+      ],
+      //'#parents' => ['blocks', $entity_id, 'region'],
+    ];
+
+//    drupal_attach_tabledrag($form, array(
+//      'action' => 'order',
+//      'relationship' => 'sibling',
+//      'group' => 'layout-weight',
+//      'subgroup' => 'layout-weight--' . $assignedRegion,
+//      // edit-layouts-omega-one-column-stacked-region-assignment-theme-region-assignment
+//      'table_id' => 'edit-layouts-' . str_replace('_', '-', $lid) . '-region-assignment-theme-region-assignment',
+//
+//    ));
+  }
+
+
+  // @todo: Create form element for the region and allow it to be assigned to one of the layout regions
 
   $breakpoints = OmegaLayout::getActiveBreakpoints($lid, $theme);
   // foreach breakpoint we have, we will create a form element group and
@@ -341,11 +509,11 @@ foreach ($themeLayouts as $lid => $info) {
         $current_suffix = isset($layoutData['groups'][$idtrim][$gid]['regions'][$rid]['suffix']) ? $layoutData['groups'][$idtrim][$gid]['regions'][$rid]['suffix'] : 0;
         $current_pull = isset($layoutData['groups'][$idtrim][$gid]['regions'][$rid]['pull']) ? $layoutData['groups'][$idtrim][$gid]['regions'][$rid]['pull'] : 0;
 
-//        $current_push = 0;
-//        $current_prefix = 0;
-//        $current_width = 12;
-//        $current_suffix = 0;
-//        $current_pull = 0;
+  //        $current_push = 0;
+  //        $current_prefix = 0;
+  //        $current_width = 12;
+  //        $current_suffix = 0;
+  //        $current_pull = 0;
 
         $regionTitle = isset($info['regions'][$rid]['label']) ? $info['regions'][$rid]['label'] : $rid;
 
