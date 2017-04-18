@@ -167,9 +167,12 @@ class OmegaLayout implements OmegaLayoutInterface {
    * @inheritdoc
    */
   public static function saveLayoutFiles($scss, $theme, $layout_id, $options) {
+    $layout = OmegaLayout::returnLayoutPluginLayout($layout_id, $theme);
+
+    $layoutStyleData = $layout->get('additional');
     // create full paths to the scss and css files we will be rendering.
-    $layoutscss = realpath(".") . '/' . drupal_get_path('theme', $theme) . '/style/scss/layout/' . $layout_id . '-layout.scss';
-    $layoutcss = realpath(".") .  '/' . drupal_get_path('theme', $theme) . '/style/css/layout/' . $layout_id . '-layout.css';
+    $layoutscss = realpath(".") . '/' . drupal_get_path('theme', $theme) . '/' . $layoutStyleData['scss'];
+    $layoutcss = realpath(".") .  '/' . drupal_get_path('theme', $theme) . '/' . $layoutStyleData['css'];
 
     // save the scss file
     $scssfile = file_unmanaged_save_data($scss, $layoutscss, FILE_EXISTS_REPLACE);
@@ -247,9 +250,8 @@ class OmegaLayout implements OmegaLayoutInterface {
     // $layouts = theme_get_setting('layouts', $theme);
     // pull an array of "region groups" based on the "all" media query that should always be present
     // @todo consider adjusting this data to be stored in the top level of the $theme.layout.$layout.yml file instead
-    $region_groups = $layout['region_groups']['all'];
+    $region_groups = $layout['groups']['all'];
 
-    $theme_regions = $themeSettings->info['regions'];
     // create variable to hold all SCSS we need
     $scss = '';
     $scss .= "@import 'omega_mixins';\n";
@@ -267,13 +269,13 @@ class OmegaLayout implements OmegaLayoutInterface {
       // loop over the region groups
       foreach ($region_groups as $gid => $info) {
         /* add row mixin */
-        // @todo change $layout['region_groups'][$idtrim][$gid] to $info
-        $rowname = str_replace("_", "-", $gid) . '-layout';
-        $rowval = $layout['region_groups'][$idtrim][$gid]['row'];
-        $primary_region = $layout['region_groups'][$idtrim][$gid]['primary_region'];
-        $total_regions = count($layout['region_groups'][$idtrim][$gid]['regions']);
-        $maxwidth = $layout['region_groups'][$idtrim][$gid]['maxwidth'];
-        if ($layout['region_groups'][$idtrim][$gid]['maxwidth_type'] == 'pixel') {
+        // @todo change $layout['groups'][$idtrim][$gid] to $info
+        $rowname = str_replace("_", "-", $gid);
+        $rowval = $layout['groups'][$idtrim][$gid]['row'];
+        $primary_region = $layout['groups'][$idtrim][$gid]['primary_region'];
+        $total_regions = count($layout['groups'][$idtrim][$gid]['regions']);
+        $maxwidth = $layout['groups'][$idtrim][$gid]['maxwidth'];
+        if ($layout['groups'][$idtrim][$gid]['maxwidth_type'] == 'pixel') {
           $unit = 'px';
         }
         else {
@@ -281,31 +283,31 @@ class OmegaLayout implements OmegaLayoutInterface {
         }
         if ($maxwidth && $rowval) {
           $breakpoint_scss .= "\n\n  " . '// Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . ';';
-          $breakpoint_scss .= "\n  " . '.' . $rowname . ' {';
+          $breakpoint_scss .= "\n  " . '.region-group--' . $rowname . ' {';
           $breakpoint_scss .= "\n    " . '@include row(' . $rowval . ');';
           $breakpoint_scss .= "\n    " . 'max-width: ' . $maxwidth . $unit . ';';
         }
         // loop over regions for basic responsive configuration
-        foreach ($layout['region_groups'][$idtrim][$gid]['regions'] as $rid => $data) {
+        foreach ($layout['groups'][$idtrim][$gid]['regions'] as $rid => $data) {
           $regionname = str_replace("_", "-", $rid);
           $breakpoint_scss .= "\n\n    " . '// Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . '; Region: ' . $rid . ';';
-          $breakpoint_scss .= "\n    " . '.region--' . $regionname . ' {';
-          $breakpoint_scss .= "\n      " . '@include column(' . $layout['region_groups'][$idtrim][$gid]['regions'][$rid]['width'] . ', ' . $layout['region_groups'][$idtrim][$gid]['row'] . ');';
+          $breakpoint_scss .= "\n    " . '.layout--region--' . $regionname . ' {';
+          $breakpoint_scss .= "\n      " . '@include column(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['width'] . ', ' . $layout['groups'][$idtrim][$gid]['row'] . ');';
 
-          if ($layout['region_groups'][$idtrim][$gid]['regions'][$rid]['prefix'] > 0) {
-            $breakpoint_scss .= "\n      " . '@include prefix(' . $layout['region_groups'][$idtrim][$gid]['regions'][$rid]['prefix'] . ');';
+          if ($layout['groups'][$idtrim][$gid]['regions'][$rid]['prefix'] > 0) {
+            $breakpoint_scss .= "\n      " . '@include prefix(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['prefix'] . ');';
           }
 
-          if ($layout['region_groups'][$idtrim][$gid]['regions'][$rid]['suffix'] > 0) {
-            $breakpoint_scss .= "\n      " . '@include suffix(' . $layout['region_groups'][$idtrim][$gid]['regions'][$rid]['suffix'] . ');';
+          if ($layout['groups'][$idtrim][$gid]['regions'][$rid]['suffix'] > 0) {
+            $breakpoint_scss .= "\n      " . '@include suffix(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['suffix'] . ');';
           }
 
-          if ($layout['region_groups'][$idtrim][$gid]['regions'][$rid]['push'] > 0) {
-            $breakpoint_scss .= "\n      " . '@include push(' . $layout['region_groups'][$idtrim][$gid]['regions'][$rid]['push'] . ');';
+          if ($layout['groups'][$idtrim][$gid]['regions'][$rid]['push'] > 0) {
+            $breakpoint_scss .= "\n      " . '@include push(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['push'] . ');';
           }
 
-          if ($layout['region_groups'][$idtrim][$gid]['regions'][$rid]['pull'] > 0) {
-            $breakpoint_scss .= "\n      " . '@include pull(' . $layout['region_groups'][$idtrim][$gid]['regions'][$rid]['pull'] . ');';
+          if ($layout['groups'][$idtrim][$gid]['regions'][$rid]['pull'] > 0) {
+            $breakpoint_scss .= "\n      " . '@include pull(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['pull'] . ');';
           }
 
           $breakpoint_scss .= "\n    " . '}'; // end of initial region configuration
@@ -319,11 +321,11 @@ class OmegaLayout implements OmegaLayoutInterface {
           $breakpoint_scss .= "\n\n    " . '// 1 missing region';
 
           // loop over the regions that are not the primary one again
-          $mainRegion = $layout['region_groups'][$idtrim][$gid]['regions'][$primary_region];
-          $otherRegions = $layout['region_groups'][$idtrim][$gid]['regions'];
+          $mainRegion = $layout['groups'][$idtrim][$gid]['regions'][$primary_region];
+          $otherRegions = $layout['groups'][$idtrim][$gid]['regions'];
           unset($otherRegions[$primary_region]);
           $num_otherRegions = count($otherRegions);
-          $cols = $layout['region_groups'][$idtrim][$gid]['row'];
+          $cols = $layout['groups'][$idtrim][$gid]['row'];
           $classMatch = array();
           // in order to ensure the primary region we want to assign extra empty space to
           // exists, we use the .with--region_name class so it would only apply if the
@@ -392,7 +394,7 @@ class OmegaLayout implements OmegaLayoutInterface {
               $breakpoint_scss .= "\n      " . '}'; // end of iteration of condition missing one region
             }
 
-            $breakpoint_scss .= "\n    " . '}'; // end of intial loop of regions to assign individual cases of missing regions first in the scss/css
+            $breakpoint_scss .= "\n    " . '}'; // end of initial loop of regions to assign individual cases of missing regions first in the scss/css
           } /* end foreach loop*/
 
           // throw a comment in the scss
@@ -493,6 +495,7 @@ class OmegaLayout implements OmegaLayoutInterface {
    * @inheritdoc
    */
   public static function getAvaliableLayoutPluginLayouts($themes = FALSE, $types = FALSE) {
+    /** @var \Drupal\Core\Layout\LayoutPluginManager $layoutHandler */
     $layoutHandler = \Drupal::service('plugin.manager.core.layout');
     static $layouts = FALSE;
 
@@ -539,6 +542,10 @@ class OmegaLayout implements OmegaLayoutInterface {
     return $layouts;
   }
 
+  public static function returnLayoutPluginLayout($lid, $theme) {
+    $layouts = OmegaLayout::getAvaliableLayoutPluginLayouts([$theme], ['full']);
+    return $layouts[$lid];
+  }
 
   /**
    * @inheritdoc
@@ -635,10 +642,12 @@ class OmegaLayout implements OmegaLayoutInterface {
     // All parameters for the page
     $params = \Drupal::routeMatch()->getParameters();
     $layoutProvider = OmegaLayout::getLayoutProvider($theme);
+
     // setup default layout
     $defaultLayout = theme_get_setting('default_layout', $layoutProvider);
     $layout = $defaultLayout;
 
+    // @todo: Replace theme_get_setting with config entity.
     // if it is a node, check for and assign alternate layout
     if ($nid) {
       /** @var \Drupal\node\Entity\Node $node */

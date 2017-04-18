@@ -40,10 +40,9 @@ logo:
 favicon:
   use_default: true
   path: ''
-edit_this_layout: omega_default
+edit_this_layout: omega_one_column_stacked
 default_layout: omega_one_column_stacked
 home_layout: omega_one_column_stacked
-
 
 # Breakpoint Groups
 breakpoint_group_omega_default: omega.standard

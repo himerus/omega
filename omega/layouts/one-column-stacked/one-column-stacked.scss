@@ -1,19 +1,220 @@
+@import 'omega_mixins';
+@import 'omega-default-style-vars';
+@import 'omega-style-vars';
 @import 'omegags';
-@import '../default-layout-vars';
 
-.layout-wrapper {
-  margin: 0;
-  padding: 0;
-  width: 100%; // full width container
+@media all and (min-width: 0px) {
+
+  // Breakpoint: All; Region Group: header;
+  .region-group--header {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: header; Region: header;
+    .layout--region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: All; Region Group: main;
+  .region-group--main {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: main; Region: content;
+    .layout--region--content {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: All; Region Group: footer;
+  .region-group--footer {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: All; Region Group: footer; Region: footer;
+    .layout--region--footer {
+      @include column(12, 12);
+    }
+  }
 }
 
-.layout--one-column-stacked {
-  @include row(12);
-  max-width: 100%;
+@media all and (max-width: 479px) {
 
-  .layout-region--header,
-  .layout-region--main,
-  .layout-region--footer {
-    @include column(12, 12);
+  // Breakpoint: Mobile Portrait; Region Group: header;
+  .region-group--header {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: header; Region: header;
+    .layout--region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Portrait; Region Group: main;
+  .region-group--main {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: main; Region: content;
+    .layout--region--content {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Portrait; Region Group: footer;
+  .region-group--footer {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Portrait; Region Group: footer; Region: footer;
+    .layout--region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (min-width: 480px) and (max-width: 767px) {
+
+  // Breakpoint: Mobile Landscape; Region Group: header;
+  .region-group--header {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: header; Region: header;
+    .layout--region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Landscape; Region Group: main;
+  .region-group--main {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: main; Region: content;
+    .layout--region--content {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Mobile Landscape; Region Group: footer;
+  .region-group--footer {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Mobile Landscape; Region Group: footer; Region: footer;
+    .layout--region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+
+  // Breakpoint: Narrow; Region Group: header;
+  .region-group--header {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: header; Region: header;
+    .layout--region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Narrow; Region Group: main;
+  .region-group--main {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: main; Region: content;
+    .layout--region--content {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Narrow; Region Group: footer;
+  .region-group--footer {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Narrow; Region Group: footer; Region: footer;
+    .layout--region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (min-width: 1024px) and (max-width: 1219px) {
+
+  // Breakpoint: Normal; Region Group: header;
+  .region-group--header {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Normal; Region Group: header; Region: header;
+    .layout--region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Normal; Region Group: main;
+  .region-group--main {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Normal; Region Group: main; Region: content;
+    .layout--region--content {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Normal; Region Group: footer;
+  .region-group--footer {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Normal; Region Group: footer; Region: footer;
+    .layout--region--footer {
+      @include column(12, 12);
+    }
+  }
+}
+
+@media all and (min-width: 1220px) {
+
+  // Breakpoint: Wide; Region Group: header;
+  .region-group--header {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Wide; Region Group: header; Region: header;
+    .layout--region--header {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Wide; Region Group: main;
+  .region-group--main {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Wide; Region Group: main; Region: content;
+    .layout--region--content {
+      @include column(12, 12);
+    }
+  }
+
+  // Breakpoint: Wide; Region Group: footer;
+  .region-group--footer {
+    @include row(12);
+    max-width: 100%;
+
+    // Breakpoint: Wide; Region Group: footer; Region: footer;
+    .layout--region--footer {
+      @include column(12, 12);
+    }
   }
 }

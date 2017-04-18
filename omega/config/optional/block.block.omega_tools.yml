@@ -1,4 +1,3 @@
-uuid: ca4ed911-c6ba-4dca-9395-37ec6443f9c5
 langcode: en
 status: false
 dependencies:
@@ -8,8 +7,6 @@ dependencies:
     - system
   theme:
     - omega
-_core:
-  default_config_hash: euD_Uu5bHfUsU7kaOkbqXe_CotT5xU2cEaj6JjVgi4o
 id: omega_tools
 theme: omega
 region: '-1'

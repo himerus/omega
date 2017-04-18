@@ -24,6 +24,20 @@
   border-radius: $r;
 }
 
+@mixin clearfix() {
+  *zoom: 1;
+
+  &::before,
+  &::after {
+    content: '';
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
 /**
  * Mixin for styling form input elements.
  * Primarily for items like text, search, password, etc.

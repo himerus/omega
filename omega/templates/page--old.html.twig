@@ -1,0 +1,174 @@
+{#
+/**
+ * @file
+ * Omega's theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template normally located in the
+ * core/modules/system directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ * - logo: The url of the logo image, as defined in theme settings.
+ * - site_name: The name of the site. This is empty when displaying the site
+ *   name has been disabled in the theme settings.
+ * - site_slogan: The slogan of the site. This is empty when displaying the site
+ *   slogan has been disabled in theme settings.
+ * - hide_site_name: A flag indicating if the site name has been toggled off on
+ *   the theme settings page. If hidden, the "visually-hidden" class is added
+ *   to make the site name visually hidden, but still accessible.
+ * - hide_site_slogan: A flag indicating if the site slogan has been toggled off
+ *   on the theme settings page. If hidden, the "visually-hidden" class is
+ *   added to make the site slogan visually hidden, but still accessible.
+ *
+ * Navigation:
+ * - main_menu: The Main menu links for the site, if they have been configured.
+ * - secondary_menu: The Secondary menu links for the site, if they have been
+ *   configured.
+ * - breadcrumb: The breadcrumb trail for the current page.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - messages: Status and error messages. Should be displayed prominently.
+ * - tabs: Tabs linking to any sub-pages beneath the current page (e.g., the
+ *   view and edit tabs when displaying a node).
+ * - action_links: Actions local to the page, such as "Add menu" on the menu
+ *   administration interface.
+ * - feed_icons: All feed icons for the current page.
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.highlighted: Items for the highlighted content region.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.footer: Items for the footer region.
+ *
+ * Omega utility variables
+ * - region_classes.REGION_CONTAINERID - region_classes.main will render classes like with--sidebar-first on container
+ *
+ * @see template_preprocess_page()
+ * @see omega_preprocess_page()
+ * @see html.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+<div id="page-wrapper" class="clearfix">
+    <div id="page" class="clearfix {{ page_classes }}">
+
+        <header id="header-outer-wrapper" class="outer-wrapper clearfix {{ secondary_menu ? 'with-secondary-menu' : 'without-secondary-menu' }}" role="banner">
+            {% if page.user %}
+                <div class="full-width-wrapper user-bar--wrapper">
+                    <div id="user-bar-layout"
+                         class="{{ region_classes.preface }} user--bar--layout inner-wrapper clearfix">
+                        {{ page.user }}
+                    </div><!-- /#user-bar-layout -->
+                </div>
+            {% endif %}
+            <div id="header-layout" class="{{ region_classes.header }} inner-wrapper clearfix">
+                {{ page.header }}
+            </div>
+        </header> <!-- /.section, /#header-->
+
+        <section id="core-outer-wrapper" class="outer-wrapper clearfix">
+            <div id="core-layout" class="{{ region_classes.core }} inner-wrapper clearfix">
+                {% if page.highlighted %}
+                    {{ page.highlighted }}
+                {% endif %}
+            </div>
+        </section>
+
+        {% if page.preface_first or page.preface_second or page.preface_third or page.preface_fourth %}
+            <section id="preface-outer-wrapper" class="outer-wrapper clearfix">
+                <div id="preface-layout" class="{{ region_classes.preface }} inner-wrapper clearfix">
+
+                    {% if page.preface_first %}
+                        {{ page.preface_first }}
+                    {% endif %}
+
+                    {% if page.preface_second %}
+                        {{ page.preface_second }}
+                    {% endif %}
+
+                    {% if page.preface_third %}
+                        {{ page.preface_third }}
+                    {% endif %}
+
+                    {% if page.preface_fourth %}
+                        {{ page.preface_fourth }}
+                    {% endif %}
+
+                </div><!-- /#preface-layout -->
+            </section> <!-- /#preface-wrapper -->
+        {% endif %}
+
+        <section id="content-outer-wrapper" class="outer-wrapper clearfix">
+            <div id="main-layout" class="{{ region_classes.main }} inner-wrapper clearfix">
+
+                {% if page.content %}
+                    {{ page.content }}
+                {% endif %}
+
+                {% if page.sidebar_first %}
+                    {{ page.sidebar_first }}
+                {% endif %}
+
+                {% if page.sidebar_second %}
+                    {{ page.sidebar_second }}
+                {% endif %}
+
+            </div><!-- /#main -->
+        </section><!-- /#main-outer-wrapper -->
+
+        {% if page.postscript_first or page.postscript_second or page.postscript_third or page.postscript_fourth %}
+            <section id="postscript-outer-wrapper" class="outer-wrapper clearfix">
+                <div id="postscript-layout" class="{{ region_classes.postscript }} inner-wrapper clearfix">
+
+                    {% if page.postscript_first %}
+                        {{ page.postscript_first }}
+                    {% endif %}
+
+                    {% if page.postscript_second %}
+                        {{ page.postscript_second }}
+                    {% endif %}
+
+                    {% if page.postscript_third %}
+                        {{ page.postscript_third }}
+                    {% endif %}
+
+                    {% if page.postscript_fourth %}
+                        {{ page.postscript_fourth }}
+                    {% endif %}
+
+                </div><!-- /#postscript-layout -->
+            </section> <!-- /#postscript-outer-wrapper -->
+        {% endif %}
+
+        {% if page.footer %}
+            <footer id="footer-outer-wrapper" class="outer-wrapper clearfix">
+                <div id="footer-layout" role="contentinfo" class="{{ region_classes.footer }} inner-wrapper clearfix">
+                    {{ page.footer }}
+                </div> <!-- /#footer -->
+            </footer> <!-- /#footer-outer-wrapper -->
+        {% endif %}
+    </div></div> <!-- /#page, /#page-wrapper -->

@@ -121,9 +121,12 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
   $hasLayout = isset($ogsLayout) ? $ogsLayout : TRUE;
   // default Omega core layout which is always loaded first, then replaced with the appropriately selected
   // layout from the active theme being used for page display.
-  $defaultOmegaLayout = drupal_get_path('theme', 'omega') . '/style/css/layout/omega_default-layout.css';
+  $defaultOmegaLayout = drupal_get_path('theme', 'omega') . '/public/css/one-column-stacked.css';
   // setup default layout for active theme
   $defaultLayout = OmegaLayout::getActiveLayout();
+
+  $layout = OmegaLayout::returnLayoutPluginLayout($defaultLayout['layout'], $theme);
+  $layoutStyleData = $layout->get('additional');
 
   // @todo -- Layout Logic
   /*
@@ -134,7 +137,7 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
     seems crucial.
   */
   // provide a path to the new CSS file we want to use instead of $defaultOmegaLayout
-  $activeLayoutCSS = drupal_get_path('theme', $defaultLayout['theme']) . '/style/css/layout/' . $defaultLayout['layout'] . '-layout.css';
+  $activeLayoutCSS = drupal_get_path('theme', $defaultLayout['theme']) . '/' . $layoutStyleData['css'];
 
   // turn off Omega.gs generated layout styles if user has turned off the awesome.
   if (!$hasLayout && isset($css[$defaultOmegaLayout])) {
@@ -146,6 +149,7 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
     $css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
   }
 
+  $something = '';
 } /* END omega_css_alter */
 
 
@@ -182,6 +186,7 @@ function omega_preprocess_page(&$vars) {
 
   $themes = \Drupal::service('theme_handler')->listInfo();
   $themeSettings = $themes[$theme];
+
   $screenDemo = theme_get_setting('screen_demo_indicator', $theme);
   // Enable the helper div with info on screen size, breakpoints active, etc.
   if ($screenDemo) {
@@ -204,7 +209,6 @@ function omega_preprocess_page(&$vars) {
       );
     }
   }
-
   // Display demo placeholder blocks for every region.
   $regionDemo = theme_get_setting('block_demo_mode', $theme);
 
@@ -248,44 +252,73 @@ function omega_preprocess_page(&$vars) {
     }
   }
 
-  // Create an array to define the with-sidebar_first without-sidebar_first classes.
-  $region_classes = array();
-  $page_classes = array();
-  $pass_region_classes = array();
-  $pass_page_classes = array();
-  $layout = OmegaLayout::getActiveLayout();
-  $layoutTheme = $layout['theme'];
-  $layoutLayout = $layout['layout'];
-  $layouts = OmegaLayout::getAvailableLayouts($layoutTheme);
+  $activeLayout = OmegaLayout::getActiveLayout();
+  $layout_name = $activeLayout['layout'];
+  $layout = OmegaLayout::returnLayoutPluginLayout($layout_name, $theme);
+  // grab the configuration for the requested layout
+  $layout_config_object = \Drupal::config($theme . '.layout.' . $layout_name);
+  $layoutData = $layout_config_object->get();
+  $regionMap = $layoutData['region_assignment'];
 
-  // @todo: Complete refactor of class/region/layout attachment...
-  // @todo: Region Groups might disappear all together.
-  $region_groups = isset($layouts[$layoutLayout]['region_groups']['all']) ? $layouts[$layoutLayout]['region_groups']['all'] : [];
-  foreach ($region_groups as $group_id => $group_info) {
-    $groupRegions = $region_groups[$group_id]['regions'];
-    // duplciate the #id into a class for better use with Omega.gs
-    $altered_group_id = str_replace("_", "-", $group_id);
-    $region_classes[$group_id][] = $altered_group_id . '-layout';
-    foreach ($groupRegions as $region_id => $region_info) {
-      $altered_region_id = str_replace("_", "-", $region_id);
+  $layout_template_path = $layout->get('template') . '.html.twig';
 
-      if (isset($vars['page'][$region_id]['#region'])) {
-        $region_classes[$group_id][] = 'with--' . $altered_region_id;
-        $page_classes[] = 'with--' . $altered_region_id;
-      }
-      else {
-        $region_classes[$group_id][] = 'without--' . $altered_region_id;
-        $page_classes[] = 'without--' . $altered_region_id;
-      }
+  $regions = $layout->get('regions');
+
+  // Create a variable to transition our page.REGION variables into the layout template.
+  $content = [];
+
+  // Loop over the REAL regions. $regionMap also contains 'unassigned'.
+  foreach ($regions as $region_id => $data) {
+    $label = $data['label'];
+
+    foreach($regionMap[$region_id] as $theme_region_id => $theme_region_data) {
+      $content[$region_id][$theme_region_id] = $vars['page'][$theme_region_id];
     }
-    // convert array of class names to string version
-    $pass_region_classes[$group_id]['#plain_text'] = implode(" ", $region_classes[$group_id]);
   }
-  $pass_page_classes['#plain_text'] = implode(" ", $page_classes);
-  // assign classes to page.tpl.php
-  $vars['region_classes'] = $pass_region_classes;
-  $vars['page_classes'] = $pass_page_classes;
+  $vars['layout_regions'] = $content;
+  // Assign the correct template so it can be included via include in page.html.twig.
+  $vars['page_layout_template'] = $layout_template_path;
 
+//  // Create an array to define the with-sidebar_first without-sidebar_first classes.
+//  $region_classes = array();
+//  $page_classes = array();
+//  $pass_region_classes = array();
+//  $pass_page_classes = array();
+//  $layout = OmegaLayout::getActiveLayout();
+//  $layoutTheme = $layout['theme'];
+//  $layoutLayout = $layout['layout'];
+//  // @todo: Fix getAvailableLayouts() to work with layout plugin.
+//  $layouts = OmegaLayout::getAvailableLayouts($layoutTheme);
+//
+//  // @todo: Complete refactor of class/region/layout attachment...
+//  // @todo: Region Groups might disappear all together.
+//  $region_groups = isset($layouts[$layoutLayout]['region_groups']['all']) ? $layouts[$layoutLayout]['region_groups']['all'] : [];
+//  foreach ($region_groups as $group_id => $group_info) {
+//    $groupRegions = $region_groups[$group_id]['regions'];
+//    // duplciate the #id into a class for better use with Omega.gs
+//    $altered_group_id = str_replace("_", "-", $group_id);
+//    $region_classes[$group_id][] = $altered_group_id . '-layout';
+//    foreach ($groupRegions as $region_id => $region_info) {
+//      $altered_region_id = str_replace("_", "-", $region_id);
+//
+//      if (isset($vars['page'][$region_id]['#region'])) {
+//        $region_classes[$group_id][] = 'with--' . $altered_region_id;
+//        $page_classes[] = 'with--' . $altered_region_id;
+//      }
+//      else {
+//        $region_classes[$group_id][] = 'without--' . $altered_region_id;
+//        $page_classes[] = 'without--' . $altered_region_id;
+//      }
+//    }
+//    // convert array of class names to string version
+//    $pass_region_classes[$group_id]['#plain_text'] = implode(" ", $region_classes[$group_id]);
+//  }
+//  $pass_page_classes['#plain_text'] = implode(" ", $page_classes);
+//  // assign classes to page.tpl.php
+//  $vars['region_classes'] = $pass_region_classes;
+//  $vars['page_classes'] = $pass_page_classes;
+
+  $something = '';
 } /* END omega_preprocess_page */
 
 /**
@@ -374,7 +407,7 @@ function omega_preprocess_field(&$vars) {
 } /* END omega_preprocess_block */
 
 /**
- * hook_html_head_alter()
+ * Implements hook_html_head_alter().
  * @param $head_elements
  */
 function omega_html_head_alter(&$head_elements) {
@@ -414,4 +447,11 @@ function omega_form_search_block_form_alter(&$form, FormStateInterface $form_sta
   if (isset($form['keys']['#attributes'])) {
     $form['keys']['#attributes']['placeholder'] = t('Search Keywords...');
   }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function omega_theme_registry_alter(&$theme_registry) {
+
 }

@@ -1,15 +1,13 @@
 @import "defaults", "mixins";
 
 // Provide default styling to the user bar itself.
-.user-bar--wrapper {
+.region--user {
+  @include clearfix();
+
   background: $user-bar--background;
   color: $user-bar--font-color;
-}
-.user--bar--layout {
   padding: $user-bar--padding;
-}
 
-.region--user {
   // Give all links in the user bar a default style.
   a {
     color: $user-bar--link-color;

@@ -1,0 +1,49 @@
+/*
+ * Fonts
+ */
+body {
+  *zoom: 1;
+  min-width: 100%;
+  width: 100%;
+}
+
+body::before, body::after {
+  content: '';
+  display: table;
+}
+
+body::after {
+  clear: both;
+}
+
+
+@media all and (min-width: 0px) {
+  
+}
+
+
+@media all and (max-width: 479px) {
+  
+}
+
+
+@media all and (min-width: 480px) and (max-width: 767px) {
+  
+}
+
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  
+}
+
+
+@media all and (min-width: 1024px) and (max-width: 1219px) {
+  
+}
+
+
+@media all and (min-width: 1220px) {
+  
+}
+
+

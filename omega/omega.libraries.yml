@@ -7,7 +7,7 @@ omega:
     description: 'Primary Omega CSS & Javascript/jQuery. This file should not ever be disabled on a functioning Omega subtheme.'
     scss:
       public/css/base.css: 'style/scss/base.scss'
-      public/css/omega_default-layout.css: 'style/scss/layout/omega_default-layout.scss'
+      public/css/one-column-stacked.css: 'layouts/one-column-stacked/one-column-stacked.scss'
   version: VERSION
   js:
     js/omega.js: {}
@@ -15,7 +15,7 @@ omega:
     component:
       public/css/base.css: {}
     layout:
-      public/css/omega_default-layout.css: {}
+      public/css/one-column-stacked.css: {}
   dependencies:
     - core/modernizr
     - core/jquery

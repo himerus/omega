@@ -1,4 +1,3 @@
-uuid: 603baccc-ebe1-4565-a859-d969bed2ed02
 langcode: en
 status: true
 dependencies:
@@ -6,8 +5,6 @@ dependencies:
     - search
   theme:
     - omega
-_core:
-  default_config_hash: dAXJT8g13hb-VFdOPJtvmBRGHK69bjEMa6BP5AR56MY
 id: omega_search
 theme: omega
 region: user

@@ -1,11 +1,8 @@
-uuid: e5dc1304-e3a5-4fc1-aa71-480ae6c65d6c
 langcode: en
 status: true
 dependencies:
   theme:
     - omega
-_core:
-  default_config_hash: APmivilP_AzmbE1m6i9d4ESPjhdbj5136AeU_cZvYds
 id: omega_local_actions
 theme: omega
 region: content
