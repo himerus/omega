@@ -2,7 +2,7 @@
 #
 # For more on creating custom layouts:
 # @see https://www.drupal.org/node/2578731
-omega_one_column:
+layout_omega_one_column:
   # The human-readable name of the layout.
   label: One Column (Page)
   # The human-readable category to which the layout belongs.
@@ -19,10 +19,11 @@ omega_one_column:
   # given path, without the .html.twig extension. If given, the template will be
   # automagically registered with the theme system. If you use this key, you
   # cannot use theme.
-  template: layouts/one-column/one-column
+  path: layouts/one-column
+  template: one-column
   # If given, a CSS file to attach when rendering this layout, relative to the
   # given path. If you use this key, you cannot use library.
-  css: public/css/one-column.css
+  library: omega/omega_one_column
   # If given, a SCSS file to be written/managed by Omega
   scss: layouts/one-column/one-column.scss
   # The screenshot/preview icon for this layout, relative to the given path.
@@ -33,6 +34,7 @@ omega_one_column:
   regions:
     content:
       label: Main content
+  default_region: content
   # Omega Customizations
   # Array of Region 'Groups'. In stylistic terms, this is the row when
   # the regions are the columns. You can put multiple regions in a group for a
@@ -47,8 +49,9 @@ omega_one_column_stacked:
   label: One Column (w/Header & Footer) (Page)
   category: omega
   type: full
-  template: layouts/one-column-stacked/one-column-stacked
-  css: public/css/one-column-stacked.css
+  path: layouts/one-column-stacked
+  template: one-column-stacked
+  library: omega/omega_one_column_stacked
   scss: layouts/one-column-stacked/one-column-stacked.scss
   icon: layouts/one-column-stacked/one-column-stacked.png
   regions:
@@ -58,6 +61,7 @@ omega_one_column_stacked:
       label: Main content
     footer:
       label: Footer
+  default_region: content
   groups:
     header:
       label: Header Group
@@ -78,10 +82,12 @@ omega_traditional:
   label: Multi-Column Advanced (Traditonal) (Page)
   category: omega
   type: full
-  template: layouts/traditional/traditional
-  css: public/css/traditional.css
+  path: layouts/traditional
+  template: traditional
+  library: omega/omega_traditional
   scss: layouts/traditional/traditional.scss
   icon: layouts/traditional/traaditional.png
+  default_region: content
   regions:
     header:
       label: Header

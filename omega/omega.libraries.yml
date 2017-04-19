@@ -14,8 +14,8 @@ omega:
   css:
     component:
       public/css/base.css: {}
-    layout:
-      public/css/one-column-stacked.css: {}
+    #layout:
+      #public/css/one-column-stacked.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
@@ -256,3 +256,23 @@ omega__content__node:
       public/css/content--node--submitted.css: {}
   dependencies:
     - omega/omega
+
+# Layout Discovery Libraries
+# One Column
+omega_one_column:
+  version: VERSION
+  css:
+    theme:
+      public/css/one-column.css: {}
+# One Column Stacked
+omega_one_column_stacked:
+  version: VERSION
+  css:
+    theme:
+      public/css/one-column-stacked.css: {}
+# Traditional
+omega_traditional:
+  version: VERSION
+  css:
+    theme:
+      public/css/traditional.css: {}

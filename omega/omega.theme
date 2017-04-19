@@ -126,8 +126,8 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
   // setup default layout for active theme
   $defaultLayout = OmegaLayout::getActiveLayout();
 
-  $layout = OmegaLayout::returnLayoutPluginLayout($defaultLayout['layout'], $theme);
-  $layoutStyleData = $layout->get('additional');
+  //$layout = OmegaLayout::returnLayoutPluginLayout($defaultLayout['layout'], $theme);
+  //$layoutStyleData = $layout->get('additional');
 
   // @todo -- Layout Logic
   /*
@@ -138,16 +138,16 @@ function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $asse
     seems crucial.
   */
   // provide a path to the new CSS file we want to use instead of $defaultOmegaLayout
-  $activeLayoutCSS = drupal_get_path('theme', $defaultLayout['theme']) . '/' . $layoutStyleData['css'];
+  //$activeLayoutCSS = drupal_get_path('theme', $defaultLayout['theme']) . '/' . $layoutStyleData['css'];
 
   // turn off Omega.gs generated layout styles if user has turned off the awesome.
   if (!$hasLayout && isset($css[$defaultOmegaLayout])) {
-    unset($css[$defaultOmegaLayout]);
+    //unset($css[$defaultOmegaLayout]);
   }
 
   // alter the CSS loaded based on the $activeLayoutCSS
   if (isset($css[$defaultOmegaLayout]) && $defaultOmegaLayout != $activeLayoutCSS) {
-    $css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
+    //$css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
   }
 
   $something = '';
@@ -467,4 +467,5 @@ function omega_form_search_block_form_alter(&$form, FormStateInterface $form_sta
  */
 function omega_theme_registry_alter(&$theme_registry) {
 
+  $something = '';
 }
