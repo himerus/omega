@@ -9,17 +9,24 @@ variables:
     defaultHeaderFont: georgia
     defaultBodyFont: helvetica
 styles:
-  scss_html_elements: 1
-  scss_branding: 1
-  scss_breadcrumbs: 1
-  scss_main_menus: 1
-  scss_messages: 1
-  scss_pagers: 1
-  scss_tabs: 1
-block_demo_mode: 0
+  omega/omega: 1
+  omega/omega__block__main_menu: 1
+  omega/omega__block__branding: 1
+  omega/omega__block__breadcrumb: 1
+  omega/omega__block__messages: 1
+  omega/omega__component__user_bar: 1
+  omega/omega__component__pagers: 1
+  omega/omega__elements__html: 1
+  omega/omega__element__tabs: 1
+  omega/omega__element__taxonomy_terms: 1
+  omega/omega__element__forms: 1
+  omega/omega__component__icons: 1
+  omega/omega__component__skip_link: 1
+  omega/omega__content__node: 1
+block_demo_mode: 1
 screen_demo_indicator: 1
 enable_omegags_layout: 1
-omega_toggle_intro: 1
+omega_toggle_intro: 0
 enable_advanced_layout_controls: 1
 enable_backups: 0
 force_subtheme_creation: 0
@@ -27,7 +34,6 @@ enable_omega_badge: 1
 block_demo_excluded_regions:
   - page_top
   - page_bottom
-
 layouts: {  }
 features:
   node_user_picture: true
@@ -40,14 +46,14 @@ logo:
 favicon:
   use_default: true
   path: ''
-edit_this_layout: omega_one_column_stacked
-default_layout: omega_one_column_stacked
-home_layout: omega_one_column_stacked
-
-# Breakpoint Groups
-breakpoint_group_omega_default: omega.standard
-breakpoint_group_omega_omega_one_column_stacked: omega.standard
-breakpoint_group_omega_omega_one_column: omega.standard
-## To be deprecated
-breakpoint_group_omega_front: omega.standard
-breakpoint_group_omega_node: omega.standard
+edit_this_layout: omega_traditional
+default_layout: omega_traditional
+home_layout: omega_traditional
+compile_scss: 1
+show_compile_warning: 1
+force_scss_compile: 0
+layout-config:
+  non_omegags_info: ''
+breakpoint_group_omega_one_column: omega.standard
+breakpoint_group_omega_one_column_stacked: omega.standard
+breakpoint_group_omega_traditional: omega.standard

@@ -1,3 +1,62 @@
+region_assignment:
+  header:
+    user:
+      weight: '0'
+      region: header
+    header:
+      weight: '0'
+      region: header
+  preface_first:
+    preface_first:
+      weight: '0'
+      region: preface_first
+  preface_second:
+    preface_second:
+      weight: '0'
+      region: preface_second
+  preface_third:
+    preface_third:
+      weight: '0'
+      region: preface_third
+  preface_fourth:
+    preface_fourth:
+      weight: '0'
+      region: preface_fourth
+  content:
+    highlighted:
+      weight: '0'
+      region: content
+    content:
+      weight: '0'
+      region: content
+  sidebar_first:
+    sidebar_first:
+      weight: '0'
+      region: sidebar_first
+  sidebar_second:
+    sidebar_second:
+      weight: '0'
+      region: sidebar_second
+  postscript_first:
+    postscript_first:
+      weight: '0'
+      region: postscript_first
+  postscript_second:
+    postscript_second:
+      weight: '0'
+      region: postscript_second
+  postscript_third:
+    postscript_third:
+      weight: '0'
+      region: postscript_third
+  postscript_fourth:
+    postscript_fourth:
+      weight: '0'
+      region: postscript_fourth
+  footer:
+    footer:
+      weight: '0'
+      region: footer
 groups:
   all:
     header:

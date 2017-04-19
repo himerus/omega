@@ -10,6 +10,7 @@
 require_once 'omega-functions.php';
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Layout\LayoutDefault;
 use Drupal\Core\Url;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\omega\Layout\OmegaLayout;
@@ -254,31 +255,34 @@ function omega_preprocess_page(&$vars) {
 
   $activeLayout = OmegaLayout::getActiveLayout();
   $layout_name = $activeLayout['layout'];
+  /** @var \Drupal\Core\Layout\LayoutDefinition $layout */
   $layout = OmegaLayout::returnLayoutPluginLayout($layout_name, $theme);
+
+  $region_names = $layout->getRegionNames();
   // grab the configuration for the requested layout
   $layout_config_object = \Drupal::config($theme . '.layout.' . $layout_name);
   $layoutData = $layout_config_object->get();
   $regionMap = $layoutData['region_assignment'];
-
-  $layout_template_path = $layout->get('template') . '.html.twig';
-
   $regions = $layout->get('regions');
 
-  // Create a variable to transition our page.REGION variables into the layout template.
-  $content = [];
 
-  // Loop over the REAL regions. $regionMap also contains 'unassigned'.
-  foreach ($regions as $region_id => $data) {
-    $label = $data['label'];
+  $layoutRender = new LayoutDefault([], '', $layout);
+  $layoutBuild = $layoutRender->build($regions);
 
-    foreach($regionMap[$region_id] as $theme_region_id => $theme_region_data) {
-      $content[$region_id][$theme_region_id] = $vars['page'][$theme_region_id];
+  // @todo: This is wrong.
+  foreach($regionMap as $layout_region_id => $theme_regions) {
+    foreach ($theme_regions as $theme_region_id => $theme_data) {
+      if (isset($vars['page'][$theme_region_id])) {
+        unset($layoutBuild[$layout_region_id]['label']);
+        $layoutBuild[$layout_region_id][$theme_region_id] = $vars['page'][$theme_region_id];
+      }
     }
   }
-  $vars['layout_regions'] = $content;
-  // Assign the correct template so it can be included via include in page.html.twig.
-  $vars['page_layout_template'] = $layout_template_path;
+  $vars['layout_layout'] = $layoutBuild;
 
+
+  $something = '';
+  // @todo: This next logig needs to move to a preprocess_layout type thing.
 //  // Create an array to define the with-sidebar_first without-sidebar_first classes.
 //  $region_classes = array();
 //  $page_classes = array();
@@ -320,6 +324,15 @@ function omega_preprocess_page(&$vars) {
 
   $something = '';
 } /* END omega_preprocess_page */
+
+/**
+ * Implements template_preprocess_layout().
+ */
+function omega_preprocess_layout(&$variables) {
+
+  $variables['my-variable'] = [];
+  $something = '';
+}
 
 /**
  * Implements hook_preprocess_HOOK() for region templates.

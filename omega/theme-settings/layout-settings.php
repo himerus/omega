@@ -245,6 +245,14 @@ foreach ($themeLayouts as $lid => $info) {
     // should contain multiple elements, simply use nested sub-keys to build the
     // render element structure for drupal_render() as you would everywhere else.
     $ignored_regions = ['page_top', 'page_bottom'];
+    // Assume a new layout or non-exported updates.
+//    if (!isset($layoutData['region_assignment'][$layoutRegionId])) {
+//      $regionAssignment = $themeRegions;
+//    }
+//    else {
+//      $regionAssignment = isset($layoutData['region_assignment'][$layoutRegionId]) ? $layoutData['region_assignment'][$layoutRegionId] : [];
+//    }
+
     $regionAssignment = isset($layoutData['region_assignment'][$layoutRegionId]) ? $layoutData['region_assignment'][$layoutRegionId] : [];
     foreach ($regionAssignment as $themeRegion => $themeRegionData) {
 
@@ -261,8 +269,6 @@ foreach ($themeLayouts as $lid => $info) {
             'class' => ['draggable', 'theme-region-row'],
           ],
         ];
-
-        //$form['layouts'][$lid]['region_map'][$themeRegion]['#attributes']['class'][] = 'block-enabled';
 
 //    if ($placement && $placement == Html::getClass($entity_id)) {
 //      $form[$entity_id]['#attributes']['class'][] = 'color-success';
@@ -308,22 +314,9 @@ foreach ($themeLayouts as $lid => $info) {
           '#attributes' => [
             'class' => ['layout-region-select', 'layout-region--' . $assignedRegion],
           ],
-          //'#parents' => ['blocks', $entity_id, 'region'],
         ];
-
-//    drupal_attach_tabledrag($form, array(
-//      'action' => 'order',
-//      'relationship' => 'sibling',
-//      'group' => 'layout-weight',
-//      'subgroup' => 'layout-weight--' . $assignedRegion,
-//      // edit-layouts-omega-one-column-stacked-region-assignment-theme-region-assignment
-//      'table_id' => 'edit-layouts-' . str_replace('_', '-', $lid) . '-region-assignment-theme-region-assignment',
-//
-//    ));
       }
     }
-
-
   }
 
 
