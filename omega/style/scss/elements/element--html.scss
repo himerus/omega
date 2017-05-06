@@ -21,6 +21,8 @@ body {
 }
 
 // Ensure all primary wrappers consume the full viewport height.
+// This works properly for anon users (or users without admin toolbar that adds padding to the body).
+// Additional adjustments for logged in users (with toolbar access) would occur via JS.
 .page--wrapper,
 .page--wrapper .page,
 .page--wrapper .page .omega-layout-wrapper,
