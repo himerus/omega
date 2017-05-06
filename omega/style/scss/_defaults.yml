@@ -322,3 +322,31 @@ bc--item--text-decoration--hover:
   name: $bc--item--text-decoration--hover
   value: underline
   comment: ""
+footer--padding:
+  name: $footer--padding
+  value: '10px 20px'
+  comment: ""
+footer--background:
+  name: $footer--background
+  value: $color--primary-4
+  comment: ""
+footer--font-color:
+  name: $footer--font-color
+  value: $color--secondary-2
+  comment: ""
+footer--link-color:
+  name: $footer--link-color
+  value: $color--secondary-1
+  comment: ""
+footer--link-color--hover:
+  name: $footer--link-color--hover
+  value: 'lighten($color--secondary-1, 20%)'
+  comment: ""
+footer--powered-float:
+  name: $footer--powered-float
+  value: right
+  comment: ""
+footer--menu-float:
+  name: $footer--menu-float
+  value: left
+  comment: ""

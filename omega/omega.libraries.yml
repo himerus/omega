@@ -236,7 +236,22 @@ omega__component__skip_link:
       public/css/component--skip_link.css: {}
   dependencies:
     - omega/omega
-
+omega__component__footer:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Footer styling'
+    description: 'Basic layout and styling for footer.'
+    scss:
+      public/css/component--footer.css: 'style/scss/component/component--footer.scss'
+  version: VERSION
+  css:
+    component:
+      public/css/component--footer.css: {}
+  js:
+    js/component--footer.js: {}
+  dependencies:
+    - omega/omega
 ### Content styling libraries.
 omega__content__node:
   omega:

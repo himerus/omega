@@ -108,3 +108,13 @@ $bc--item--color--hover:              lighten($color--primary-1, 10%) !default;
 $bc--item--text-decoration:           none !default;
 $bc--item--text-decoration--hover:    underline !default;
 
+// Footer.
+$footer--padding:                   10px 20px !default;
+$footer--background:                $color--primary-4 !default;
+$footer--font-color:                $color--secondary-2 !default;
+$footer--link-color:                $color--secondary-1 !default;
+$footer--link-color--hover:         lighten($color--secondary-1, 20%) !default;
+
+// Positioning for blocks inside footer.
+$footer--powered-float:             right !default;
+$footer--menu-float:                left !default;

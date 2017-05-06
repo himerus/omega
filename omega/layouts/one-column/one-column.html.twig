@@ -1,9 +1,11 @@
-<div class="layout-wrapper">
-    <div class="layout--one-column">
-        <section class="region-group region-group--main">
-            <div class="layout--region--content">
-                {{ content.content }}
-            </div>
-        </section>
+<div class="omega-layout-wrapper">
+    <div class="layout--one-column omega-layout">
+        {% if content.content %}
+            <section class="layout-group region-group region-group--main">
+                <div class="layout--region layout--region--content">
+                    {{ content.content }}
+                </div>
+            </section>
+        {% endif %}
     </div>
 </div>

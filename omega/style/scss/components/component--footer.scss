@@ -1,0 +1,52 @@
+@import "defaults", "mixins";
+
+.region-group--footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+// Provide default styling to the footer.
+.region--footer {
+  @include clearfix();
+
+  background: $footer--background;
+  color: $footer--font-color;
+  padding: $footer--padding;
+
+  // Give all links in the footer a default style.
+  a {
+    color: $footer--link-color;
+
+
+    &:hover {
+      color: $footer--link-color--hover;
+    }
+  }
+
+  // Position the powered by block.
+  .block-system-powered-by-block {
+    float: $footer--powered-float;
+  }
+
+  // Position any menu blocks.
+  .block-menu {
+    float: $footer--menu-float;
+
+    font-size: 0.65em;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 2em;
+    text-decoration: none;
+
+    ul {
+      margin: 0;
+    }
+
+    li {
+      display: inline-block;
+      margin-right: 4px;
+    }
+  }
+}

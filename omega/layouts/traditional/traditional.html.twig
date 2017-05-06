@@ -1,57 +1,89 @@
-<div class="layout-wrapper">
-    <div class="layout--traditional">
-        <section class="region-group region-group--header">
-            <div class="layout--region--header">
-                {{ content.header }}
-            </div>
-        </section>
+<div class="omega-layout-wrapper">
+    <div class="layout--traditional omega-layout">
+        {% if content.header %}
+            <section class="layout-group region-group region-group--header">
+                <div class="layout--region layout--region--header">
+                    {{ content.header }}
+                </div>
+            </section>
+        {% endif %}
 
-        <section class="region-group region-group--preface">
-            <div class="layout--region--preface-first">
+        {% if content.preface_first|length > 0 or content.preface_second|length > 0 or content.preface_third|length > 0 or content.preface_fourth|length > 0 %}
+        <section class="layout-group region-group region-group--preface">
+            {% if content.prefact_first %}
+            <div class="layout--region layout--region--preface-first">
                 {{ content.preface_first }}
             </div>
-            <div class="layout--region--preface-second">
+            {% endif %}
+            {% if content.prefact_second %}
+            <div class="layout--region layout--region--preface-second">
                 {{ content.preface_second }}
             </div>
-            <div class="layout--region--preface-third">
+            {% endif %}
+            {% if content.prefact_third %}
+            <div class="layout--region layout--region--preface-third">
                 {{ content.preface_third }}
             </div>
-            <div class="layout--region--preface-fourth">
+            {% endif %}
+            {% if content.prefact_fourth %}
+            <div class="layout--region layout--region--preface-fourth">
                 {{ content.preface_fourth }}
             </div>
+            {% endif %}
         </section>
+        {% endif %}
 
-        <section class="region-group region-group--main">
-            <div class="layout--region--content">
+        {% if content.content or content.sidebar_first or content.sidebar_second %}
+        <section class="layout-group region-group region-group--main">
+            {% if content.content %}
+            <div class="layout--region layout--region--content">
                 {{ content.content }}
             </div>
-            <div class="layout--region--sidebar-first">
+            {% endif %}
+            {% if content.sidebar_first %}
+            <div class="layout--region layout--region--sidebar-first">
                 {{ content.sidebar_first }}
             </div>
-            <div class="layout--region--sidebar-second">
+            {% endif %}
+            {% if content.sidbar_second %}
+            <div class="layout--region layout--region--sidebar-second">
                 {{ content.sidebar_second }}
             </div>
+            {% endif %}
         </section>
+        {% endif %}
 
-        <section class="region-group region-group--postscript">
-            <div class="layout--region--postscript-first">
-                {{ content.postscript_first }}
-            </div>
-            <div class="layout--region--postscript-second">
-                {{ content.postscript_second }}
-            </div>
-            <div class="layout--region--postscript-third">
-                {{ content.postscript_third }}
-            </div>
-            <div class="layout--region--postscript-fourth">
-                {{ content.postscript_fourth }}
-            </div>
-        </section>
+        {% if content.postscript_first or content.postscript_second or content.postscript_third or content.postscript_fourth %}
+            <section class="layout-group region-group region-group--postscript">
+                {% if content.prefact_first %}
+                    <div class="layout--region layout--region--postscript-first">
+                        {{ content.postscript_first }}
+                    </div>
+                {% endif %}
+                {% if content.prefact_second %}
+                    <div class="layout--region layout--region--postscript-second">
+                        {{ content.postscript_second }}
+                    </div>
+                {% endif %}
+                {% if content.prefact_third %}
+                    <div class="layout--region layout--region--postscript-third">
+                        {{ content.postscript_third }}
+                    </div>
+                {% endif %}
+                {% if content.prefact_fourth %}
+                    <div class="layout--region layout--region--postscript-fourth">
+                        {{ content.postscript_fourth }}
+                    </div>
+                {% endif %}
+            </section>
+        {% endif %}
 
-        <section class="region-group region-group--footer">
-            <div class="layout--region--footer">
-                {{ content.footer }}
-            </div>
-        </section>
+        {% if content.footer %}
+            <section class="layout-group region-group region-group--footer">
+                <div class="layout--region layout--region--footer">
+                    {{ content.footer }}
+                </div>
+            </section>
+        {% endif %}
     </div>
 </div>

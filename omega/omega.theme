@@ -113,44 +113,7 @@ function omega_preprocess_html(&$vars) {
 } /* END omega_preprocess_html */
 
 function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
-  $theme = \Drupal::theme()->getActiveTheme()->getName();
 
-  // appears we need a cache rebuild after editing options invoked here
-  // so if omega.gs is turned on/off, layout options are changed, etc.
-  $ogsLayout = theme_get_setting('enable_omegags_layout', $theme);
-  // If this theme has Omega layout enabled
-  $hasLayout = isset($ogsLayout) ? $ogsLayout : TRUE;
-  // default Omega core layout which is always loaded first, then replaced with the appropriately selected
-  // layout from the active theme being used for page display.
-  $defaultOmegaLayout = drupal_get_path('theme', 'omega') . '/public/css/one-column-stacked.css';
-  // setup default layout for active theme
-  $defaultLayout = OmegaLayout::getActiveLayout();
-
-  //$layout = OmegaLayout::returnLayoutPluginLayout($defaultLayout['layout'], $theme);
-  //$layoutStyleData = $layout->get('additional');
-
-  // @todo -- Layout Logic
-  /*
-    Currently, this assumes that a subtheme MUST have its own layout rather than the ability
-    to possibly inherit the layout from a parent theme. The need should arise where a subtheme
-    wants a 100% mirror in terms of layout, but ONLY to alter some visual styles, so the ability
-    for a subtheme to 'turn off' a custom layout, and just use whatever the parent theme implies
-    seems crucial.
-  */
-  // provide a path to the new CSS file we want to use instead of $defaultOmegaLayout
-  //$activeLayoutCSS = drupal_get_path('theme', $defaultLayout['theme']) . '/' . $layoutStyleData['css'];
-
-  // turn off Omega.gs generated layout styles if user has turned off the awesome.
-  if (!$hasLayout && isset($css[$defaultOmegaLayout])) {
-    //unset($css[$defaultOmegaLayout]);
-  }
-
-  // alter the CSS loaded based on the $activeLayoutCSS
-  if (isset($css[$defaultOmegaLayout]) && $defaultOmegaLayout != $activeLayoutCSS) {
-    //$css[$defaultOmegaLayout]['data'] = $activeLayoutCSS;
-  }
-
-  $something = '';
 } /* END omega_css_alter */
 
 
@@ -422,6 +385,7 @@ function omega_preprocess_field(&$vars) {
 /**
  * Implements hook_html_head_alter().
  * @param $head_elements
+ * @todo: html_head_alter deprecated, move to page_attachments_alter.
  */
 function omega_html_head_alter(&$head_elements) {
   // cleartype

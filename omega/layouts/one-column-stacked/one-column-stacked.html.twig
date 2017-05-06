@@ -1,22 +1,28 @@
-<div class="layout-wrapper">
-    <div class="layout--one-column-stacked">
+<div class="omega-layout-wrapper">
+    <div class="layout--one-column-stacked omega-layout">
 
-        <section class="region-group region-group--header">
-            <div class="layout--region--header">
+        {% if content.header %}
+        <section class="layout-group region-group region-group--header">
+            <div class="layout--region layout--region--header">
                 {{ content.header }}
             </div>
         </section>
+        {% endif %}
 
-        <section class="region-group region-group--main">
-            <div class="layout--region--content">
+        {% if content.content %}
+        <section class="layout-group region-group region-group--main">
+            <div class="layout--region layout--region--content">
                 {{ content.content }}
             </div>
         </section>
+        {% endif %}
 
-        <section class="region-group region-group--footer">
-            <div class="layout--region--footer">
+        {% if content.footer %}
+        <section class="layout-group region-group region-group--footer">
+            <div class="layout--region layout--region--footer">
                 {{ content.footer }}
             </div>
         </section>
+        {% endif %}
     </div>
 </div>
