@@ -257,7 +257,7 @@ class OmegaStyle implements OmegaStyleInterface {
     // the libraries for the primary theme
     $themeLibraries = $library_discovery->getLibrariesByExtension($theme);
     foreach ($themeLibraries as $libraryKey => $themeLibrary) {
-      if (!in_array($theme . '/' . $libraryKey, $ignore_libraries)) {
+      if (!in_array($theme . '/' . $libraryKey, $ignore_libraries) && isset($themeLibrary['omega'])) {
         $allLibraries[$libraryKey] = $themeLibrary;
         $returnLibraries[$theme . '/' . $libraryKey] = array(
           'title' => isset($themeLibrary['omega']['title']) ? $themeLibrary['omega']['title'] : $theme . '/' . $libraryKey,
