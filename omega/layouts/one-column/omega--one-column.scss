@@ -3,6 +3,8 @@
 @import 'omega-style-vars';
 @import 'omegags';
 
+.layout--omega--one-column {
+
 @media all and (min-width: 0px) {
 
   // Breakpoint: All; Region Group: main;
@@ -85,4 +87,5 @@
       @include column(12, 12);
     }
   }
+}
 }

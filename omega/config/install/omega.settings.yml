@@ -22,8 +22,9 @@ styles:
   omega/omega__element__forms: 1
   omega/omega__component__icons: 1
   omega/omega__component__skip_link: 1
+  omega/omega__component__footer: 1
   omega/omega__content__node: 1
-block_demo_mode: 1
+block_demo_mode: 0
 screen_demo_indicator: 1
 enable_omegags_layout: 1
 omega_toggle_intro: 0
@@ -46,14 +47,14 @@ logo:
 favicon:
   use_default: true
   path: ''
-edit_this_layout: omega_traditional
-default_layout: omega_traditional
-home_layout: omega_traditional
 compile_scss: 1
 show_compile_warning: 1
 force_scss_compile: 0
 layout-config:
   non_omegags_info: ''
-breakpoint_group_omega_one_column: omega.standard
-breakpoint_group_omega_one_column_stacked: omega.standard
-breakpoint_group_omega_traditional: omega.standard
+breakpoint_group_omega__one_column: omega.standard
+breakpoint_group_omega__one_column_stacked: omega.standard
+breakpoint_group_omega__traditional: omega.standard
+edit_this_layout: omega__one_column
+default_layout: default
+home_layout: omega__traditional

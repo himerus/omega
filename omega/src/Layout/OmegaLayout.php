@@ -170,13 +170,15 @@ class OmegaLayout implements OmegaLayoutInterface {
     $layout = OmegaLayout::returnLayoutPluginLayout($layout_id, $theme);
 
     $layoutStyleData = $layout->get('additional');
-    // create full paths to the scss and css files we will be rendering.
+    // Create full paths to the scss and css files we will be rendering.
     $layoutscss = realpath(".") . '/' . drupal_get_path('theme', $theme) . '/' . $layoutStyleData['scss'];
-    $layoutcss = realpath(".") .  '/' . drupal_get_path('theme', $theme) . '/' . $layoutStyleData['css'];
+    // Get the desired CSS filename based on the SCSS filename.
+    $cssFileName = str_replace('.scss', '.css', basename($layoutscss));
+    $layoutcss = realpath(".") .  '/' . drupal_get_path('theme', $theme) . '/public/css/' . $cssFileName;
 
-    // save the scss file
+    // Save the scss file.
     $scssfile = file_unmanaged_save_data($scss, $layoutscss, FILE_EXISTS_REPLACE);
-    // check for errors
+    // Check for errors.
     if ($scssfile) {
       drupal_set_message(t('SCSS file saved: <strong>' . str_replace(realpath("."), '', $scssfile) . '</strong>'));
     }
@@ -184,16 +186,16 @@ class OmegaLayout implements OmegaLayoutInterface {
       drupal_set_message(t('WTF001: SCSS save error... : function _omega_save_layout_files()'), 'error');
     }
 
-    // if the Compile SCSS option is enabled, continue
+    // If the Compile SCSS option is enabled, continue.
     $compile_scss = theme_get_setting('compile_scss', $theme);
     $compile = isset($compile_scss) ? $compile_scss : FALSE;
     if ($compile) {
 
       $relativeSource = str_replace(realpath(".") . '/' .  drupal_get_path('theme', $theme), '', $scssfile);
       $options = OmegaStyle::getScssOptions($relativeSource, $scssfile, $theme);
-      // generate the CSS from the SCSS created above
+      // Generate the CSS from the SCSS created above.
       $css = _omega_compile_css($scss, $options);
-      // save the css file
+      // Save the css file.
       $cssfile = file_unmanaged_save_data($css, $layoutcss, FILE_EXISTS_REPLACE);
       // check for errors
       if ($cssfile) {
@@ -257,8 +259,11 @@ class OmegaLayout implements OmegaLayoutInterface {
     $scss .= "@import 'omega_mixins';\n";
     $scss .= "@import 'omega-default-style-vars';\n";
     $scss .= "@import 'omega-style-vars';\n";
-    $scss .= "@import 'omegags';\n";
+    $scss .= "@import 'omegags';\n\n";
 
+    $cssLayoutName = str_replace('_', '-', $layoutName);
+    // Provide a top level wrapper for the layout id
+    $scss .= ".layout--" . $cssLayoutName . " {\n";
     // loop over the media queries
     foreach ($breakpoints as $breakpoint) {
       /** @var \Drupal\breakpoint\Breakpoint $breakpoint */
@@ -463,6 +468,7 @@ class OmegaLayout implements OmegaLayoutInterface {
       // add in the SCSS from this breakpoint and add to our SCSS
       $scss .= $breakpoint_scss . "\n"; // add newline at eof
     }
+    $scss .= "}\n";
     return $scss;
   }
 

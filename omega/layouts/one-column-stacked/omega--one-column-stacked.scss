@@ -3,6 +3,8 @@
 @import 'omega-style-vars';
 @import 'omegags';
 
+.layout--omega--one-column-stacked {
+
 @media all and (min-width: 0px) {
 
   // Breakpoint: All; Region Group: header;
@@ -217,4 +219,5 @@
       @include column(12, 12);
     }
   }
+}
 }

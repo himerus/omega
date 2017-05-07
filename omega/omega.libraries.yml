@@ -7,15 +7,12 @@ omega:
     description: 'Primary Omega CSS & Javascript/jQuery. This file should not ever be disabled on a functioning Omega subtheme.'
     scss:
       public/css/base.css: 'style/scss/base.scss'
-      public/css/one-column-stacked.css: 'layouts/one-column-stacked/one-column-stacked.scss'
   version: VERSION
   js:
     js/omega.js: {}
   css:
     component:
       public/css/base.css: {}
-    #layout:
-      #public/css/one-column-stacked.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
@@ -274,20 +271,20 @@ omega__content__node:
 
 # Layout Discovery Libraries
 # One Column
-omega_one_column:
+omega__one_column:
   version: VERSION
   css:
     theme:
-      public/css/one-column.css: {}
+      public/css/omega--one-column.css: {}
 # One Column Stacked
-omega_one_column_stacked:
+omega__one_column_stacked:
   version: VERSION
   css:
     theme:
-      public/css/one-column-stacked.css: {}
+      public/css/omega--one-column-stacked.css: {}
 # Traditional
-omega_traditional:
+omega__traditional:
   version: VERSION
   css:
     theme:
-      public/css/traditional.css: {}
+      public/css/omega--traditional.css: {}

@@ -2,7 +2,7 @@
 #
 # For more on creating custom layouts:
 # @see https://www.drupal.org/node/2578731
-layout_omega_one_column:
+omega__one_column:
   # The human-readable name of the layout.
   label: One Column (Page)
   # The human-readable category to which the layout belongs.
@@ -20,14 +20,14 @@ layout_omega_one_column:
   # automagically registered with the theme system. If you use this key, you
   # cannot use theme.
   path: layouts/one-column
-  template: one-column
+  template: omega--one-column
   # If given, a CSS file to attach when rendering this layout, relative to the
   # given path. If you use this key, you cannot use library.
-  library: omega/omega_one_column
+  library: omega/omega__one_column
   # If given, a SCSS file to be written/managed by Omega
-  scss: layouts/one-column/one-column.scss
+  scss: layouts/one-column/omega--one-column.scss
   # The screenshot/preview icon for this layout, relative to the given path.
-  icon: layouts/one-column/one-column.png
+  icon: layouts/one-column/omega--one-column.png
   # Array of regions in the layout. The keys are the regions' machine names
   # and the values are sub-arrays containing the following elements:
   # - label (required): The human-readable name of the region.
@@ -45,15 +45,15 @@ layout_omega_one_column:
       collapsed: FALSE
       regions:
         - content
-omega_one_column_stacked:
+omega__one_column_stacked:
   label: One Column (w/Header & Footer) (Page)
   category: omega
   type: full
   path: layouts/one-column-stacked
-  template: one-column-stacked
-  library: omega/omega_one_column_stacked
-  scss: layouts/one-column-stacked/one-column-stacked.scss
-  icon: layouts/one-column-stacked/one-column-stacked.png
+  template: omega--one-column-stacked
+  library: omega/omega__one_column_stacked
+  scss: layouts/one-column-stacked/omega--one-column-stacked.scss
+  icon: layouts/one-column-stacked/omega--one-column-stacked.png
   regions:
     header:
       label: Header
@@ -78,15 +78,15 @@ omega_one_column_stacked:
       collapsed: FALSE
       regions:
         - footer
-omega_traditional:
+omega__traditional:
   label: Multi-Column Advanced (Traditonal) (Page)
   category: omega
   type: full
   path: layouts/traditional
-  template: traditional
-  library: omega/omega_traditional
-  scss: layouts/traditional/traditional.scss
-  icon: layouts/traditional/traaditional.png
+  template: omega--traditional
+  library: omega/omega__traditional
+  scss: layouts/traditional/omega--traditional.scss
+  icon: layouts/traditional/omega--traditional.png
   default_region: content
   regions:
     header:
