@@ -8,7 +8,7 @@
             </section>
         {% endif %}
 
-        {% if content.preface_first|length > 0 or content.preface_second|length > 0 or content.preface_third|length > 0 or content.preface_fourth|length > 0 %}
+        {% if content.preface_first or content.preface_second or content.preface_third or content.preface_fourth %}
         <section class="layout-group region-group region-group--preface">
             {% if content.prefact_first %}
             <div class="layout--region layout--region--preface-first">

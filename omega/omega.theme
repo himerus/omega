@@ -234,11 +234,14 @@ function omega_preprocess_page(&$vars) {
 
   // @todo: This is wrong.
   foreach($regionMap as $layout_region_id => $theme_regions) {
+    unset($layoutBuild[$layout_region_id]['label']);
     foreach ($theme_regions as $theme_region_id => $theme_data) {
-      if (isset($vars['page'][$theme_region_id])) {
-        unset($layoutBuild[$layout_region_id]['label']);
+      if (isset($vars['page'][$theme_region_id]) && count($vars['page'][$theme_region_id]) > 0) {
         $layoutBuild[$layout_region_id][$theme_region_id] = $vars['page'][$theme_region_id];
       }
+    }
+    if (count($layoutBuild[$layout_region_id]) == 0) {
+      unset($layoutBuild[$layout_region_id]);
     }
   }
   $vars['layout_layout'] = $layoutBuild;
