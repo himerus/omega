@@ -66,6 +66,13 @@ function omega_tools_system_themes_page_alter(&$theme_groups) {
             'attributes' => array('target' => '_blank'),
           )),
         );
+        // Link to GitHub project.
+        $theme->operations[] = array(
+          'title' => t('GitHub'),
+          'url' => Url::fromUri('https://github.com/himerus/omega', array(
+            'attributes' => array('target' => '_blank'),
+          )),
+        );
       }
     }
   }

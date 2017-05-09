@@ -7,12 +7,12 @@
 
 @media all and (min-width: 0px) {
 
-  // Breakpoint: All; Region Group: main;
-  .region-group--main {
+  // Breakpoint: All; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: All; Region Group: main; Region: content;
+    // Breakpoint: All; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
@@ -21,12 +21,12 @@
 
 @media all and (max-width: 479px) {
 
-  // Breakpoint: Mobile Portrait; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Mobile Portrait; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Mobile Portrait; Region Group: main; Region: content;
+    // Breakpoint: Mobile Portrait; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
@@ -35,12 +35,12 @@
 
 @media all and (min-width: 480px) and (max-width: 767px) {
 
-  // Breakpoint: Mobile Landscape; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Mobile Landscape; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Mobile Landscape; Region Group: main; Region: content;
+    // Breakpoint: Mobile Landscape; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
@@ -49,12 +49,12 @@
 
 @media all and (min-width: 768px) and (max-width: 1023px) {
 
-  // Breakpoint: Narrow; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Narrow; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Narrow; Region Group: main; Region: content;
+    // Breakpoint: Narrow; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
@@ -63,12 +63,12 @@
 
 @media all and (min-width: 1024px) and (max-width: 1219px) {
 
-  // Breakpoint: Normal; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Normal; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Normal; Region Group: main; Region: content;
+    // Breakpoint: Normal; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
@@ -77,12 +77,12 @@
 
 @media all and (min-width: 1220px) {
 
-  // Breakpoint: Wide; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Wide; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Wide; Region Group: main; Region: content;
+    // Breakpoint: Wide; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }

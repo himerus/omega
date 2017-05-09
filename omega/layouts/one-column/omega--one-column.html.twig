@@ -1,7 +1,7 @@
 <div class="omega-layout-wrapper">
-    <div class="layout--omega--one-column omega-layout">
+    <div class="layout--omega--one-column omega-layout {{ layout_classes }}">
         {% if content.content %}
-            <section class="layout-group region-group region-group--main">
+            <section class="layout--group region-group region-group--content {{ region_classes.content }}">
                 <div class="layout--region layout--region--content">
                     {{ content.content }}
                 </div>

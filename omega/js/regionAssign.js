@@ -6,7 +6,6 @@
 (function ($, window, Drupal) {
     "use strict";
 
-    // @todo: Make this work like the block.js version.
     /**
      * Move a block in the blocks table between regions via select list.
      *

@@ -40,7 +40,7 @@ omega__one_column:
   # the regions are the columns. You can put multiple regions in a group for a
   # wide variety of configurations and enhancements.
   groups:
-    main:
+    content:
       label: Main Group
       collapsed: FALSE
       regions:
@@ -68,7 +68,7 @@ omega__one_column_stacked:
       collapsed: FALSE
       regions:
         - header
-    main:
+    content:
       label: Main Group
       collapsed: FALSE
       regions:
@@ -129,7 +129,7 @@ omega__traditional:
         - preface_second
         - preface_third
         - preface_fourth
-    main:
+    content:
       label: Main Group
       collapsed: FALSE
       regions:

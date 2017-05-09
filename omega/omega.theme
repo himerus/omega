@@ -240,53 +240,11 @@ function omega_preprocess_page(&$vars) {
         $layoutBuild[$layout_region_id][$theme_region_id] = $vars['page'][$theme_region_id];
       }
     }
-    if (count($layoutBuild[$layout_region_id]) == 0) {
+    if (isset($layoutBuild[$layout_region_id]) && count($layoutBuild[$layout_region_id]) == 0) {
       unset($layoutBuild[$layout_region_id]);
     }
   }
   $vars['layout_layout'] = $layoutBuild;
-
-
-  $something = '';
-  // @todo: This next logig needs to move to a preprocess_layout type thing.
-//  // Create an array to define the with-sidebar_first without-sidebar_first classes.
-//  $region_classes = array();
-//  $page_classes = array();
-//  $pass_region_classes = array();
-//  $pass_page_classes = array();
-//  $layout = OmegaLayout::getActiveLayout();
-//  $layoutTheme = $layout['theme'];
-//  $layoutLayout = $layout['layout'];
-//  // @todo: Fix getAvailableLayouts() to work with layout plugin.
-//  $layouts = OmegaLayout::getAvailableLayouts($layoutTheme);
-//
-//  // @todo: Complete refactor of class/region/layout attachment...
-//  // @todo: Region Groups might disappear all together.
-//  $region_groups = isset($layouts[$layoutLayout]['region_groups']['all']) ? $layouts[$layoutLayout]['region_groups']['all'] : [];
-//  foreach ($region_groups as $group_id => $group_info) {
-//    $groupRegions = $region_groups[$group_id]['regions'];
-//    // duplciate the #id into a class for better use with Omega.gs
-//    $altered_group_id = str_replace("_", "-", $group_id);
-//    $region_classes[$group_id][] = $altered_group_id . '-layout';
-//    foreach ($groupRegions as $region_id => $region_info) {
-//      $altered_region_id = str_replace("_", "-", $region_id);
-//
-//      if (isset($vars['page'][$region_id]['#region'])) {
-//        $region_classes[$group_id][] = 'with--' . $altered_region_id;
-//        $page_classes[] = 'with--' . $altered_region_id;
-//      }
-//      else {
-//        $region_classes[$group_id][] = 'without--' . $altered_region_id;
-//        $page_classes[] = 'without--' . $altered_region_id;
-//      }
-//    }
-//    // convert array of class names to string version
-//    $pass_region_classes[$group_id]['#plain_text'] = implode(" ", $region_classes[$group_id]);
-//  }
-//  $pass_page_classes['#plain_text'] = implode(" ", $page_classes);
-//  // assign classes to page.tpl.php
-//  $vars['region_classes'] = $pass_region_classes;
-//  $vars['page_classes'] = $pass_page_classes;
 
   $something = '';
 } /* END omega_preprocess_page */
@@ -297,7 +255,42 @@ function omega_preprocess_page(&$vars) {
 function omega_preprocess_layout(&$variables) {
 
   $variables['my-variable'] = [];
-  $something = '';
+  // @todo: This next logig needs to move to a preprocess_layout type thing.
+  
+  // Create an array to define the with-sidebar_first without-sidebar_first classes.
+  $region_classes = [];
+  $layout_classes = [];
+  $pass_region_classes = [];
+  $pass_layout_classes = [];
+
+  $layout = OmegaLayout::getActiveLayout();
+
+  /** @var \Drupal\Core\Config\ConfigFactory $configFactory */
+  $configFactory = \Drupal::service('config.factory');
+  $layoutConfig = $configFactory->getEditable($layout['theme'] . '.layout.' . $layout['layout']);
+  $groups = $layoutConfig->get('groups');
+  $region_groups = isset($groups['all']) ? $groups['all'] : [];
+  foreach ($region_groups as $group_id => $group_info) {
+    $groupRegions = $region_groups[$group_id]['regions'];
+    foreach ($groupRegions as $region_id => $region_info) {
+      $altered_region_id = str_replace("_", "-", $region_id);
+
+      if (isset($variables['content'][$group_id][$region_id])) {
+        $region_classes[$group_id][] = 'with--' . $altered_region_id;
+        $layout_classes[] = 'with--' . $altered_region_id;
+      }
+      else {
+        $region_classes[$group_id][] = 'without--' . $altered_region_id;
+        $layout_classes[] = 'without--' . $altered_region_id;
+      }
+    }
+    // convert array of class names to string version
+    $pass_region_classes[$group_id]['#plain_text'] = implode(" ", $region_classes[$group_id]);
+  }
+  $pass_layout_classes['#plain_text'] = implode(" ", $layout_classes);
+  // assign classes to page.tpl.php
+  $variables['region_classes'] = $pass_region_classes;
+  $variables['layout_classes'] = $pass_layout_classes;
 }
 
 /**

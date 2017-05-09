@@ -44,22 +44,22 @@
     }
   }
 
-  // Breakpoint: All; Region Group: main;
-  .region-group--main {
+  // Breakpoint: All; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: All; Region Group: main; Region: content;
+    // Breakpoint: All; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
 
-    // Breakpoint: All; Region Group: main; Region: sidebar_first;
+    // Breakpoint: All; Region Group: content; Region: sidebar_first;
     .layout--region--sidebar-first {
       @include column(12, 12);
     }
 
-    // Breakpoint: All; Region Group: main; Region: sidebar_second;
+    // Breakpoint: All; Region Group: content; Region: sidebar_second;
     .layout--region--sidebar-second {
       @include column(12, 12);
     }
@@ -142,22 +142,22 @@
     }
   }
 
-  // Breakpoint: Mobile Portrait; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Mobile Portrait; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Mobile Portrait; Region Group: main; Region: content;
+    // Breakpoint: Mobile Portrait; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
 
-    // Breakpoint: Mobile Portrait; Region Group: main; Region: sidebar_first;
+    // Breakpoint: Mobile Portrait; Region Group: content; Region: sidebar_first;
     .layout--region--sidebar-first {
       @include column(12, 12);
     }
 
-    // Breakpoint: Mobile Portrait; Region Group: main; Region: sidebar_second;
+    // Breakpoint: Mobile Portrait; Region Group: content; Region: sidebar_second;
     .layout--region--sidebar-second {
       @include column(12, 12);
     }
@@ -240,22 +240,22 @@
     }
   }
 
-  // Breakpoint: Mobile Landscape; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Mobile Landscape; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Mobile Landscape; Region Group: main; Region: content;
+    // Breakpoint: Mobile Landscape; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
 
-    // Breakpoint: Mobile Landscape; Region Group: main; Region: sidebar_first;
+    // Breakpoint: Mobile Landscape; Region Group: content; Region: sidebar_first;
     .layout--region--sidebar-first {
       @include column(12, 12);
     }
 
-    // Breakpoint: Mobile Landscape; Region Group: main; Region: sidebar_second;
+    // Breakpoint: Mobile Landscape; Region Group: content; Region: sidebar_second;
     .layout--region--sidebar-second {
       @include column(12, 12);
     }
@@ -338,22 +338,22 @@
     }
   }
 
-  // Breakpoint: Narrow; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Narrow; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Narrow; Region Group: main; Region: content;
+    // Breakpoint: Narrow; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
 
-    // Breakpoint: Narrow; Region Group: main; Region: sidebar_first;
+    // Breakpoint: Narrow; Region Group: content; Region: sidebar_first;
     .layout--region--sidebar-first {
       @include column(12, 12);
     }
 
-    // Breakpoint: Narrow; Region Group: main; Region: sidebar_second;
+    // Breakpoint: Narrow; Region Group: content; Region: sidebar_second;
     .layout--region--sidebar-second {
       @include column(12, 12);
     }
@@ -436,22 +436,22 @@
     }
   }
 
-  // Breakpoint: Normal; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Normal; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Normal; Region Group: main; Region: content;
+    // Breakpoint: Normal; Region Group: content; Region: content;
     .layout--region--content {
       @include column(12, 12);
     }
 
-    // Breakpoint: Normal; Region Group: main; Region: sidebar_first;
+    // Breakpoint: Normal; Region Group: content; Region: sidebar_first;
     .layout--region--sidebar-first {
       @include column(12, 12);
     }
 
-    // Breakpoint: Normal; Region Group: main; Region: sidebar_second;
+    // Breakpoint: Normal; Region Group: content; Region: sidebar_second;
     .layout--region--sidebar-second {
       @include column(12, 12);
     }
@@ -534,29 +534,29 @@
     }
   }
 
-  // Breakpoint: Wide; Region Group: main;
-  .region-group--main {
+  // Breakpoint: Wide; Region Group: content;
+  .region-group--content {
     @include row(12);
     max-width: 100%;
 
-    // Breakpoint: Wide; Region Group: main; Region: content;
+    // Breakpoint: Wide; Region Group: content; Region: content;
     .layout--region--content {
       @include column(6, 12);
       @include push(3);
     }
 
-    // Breakpoint: Wide; Region Group: main; Region: sidebar_first;
+    // Breakpoint: Wide; Region Group: content; Region: sidebar_first;
     .layout--region--sidebar-first {
       @include column(3, 12);
       @include pull(6);
     }
 
-    // Breakpoint: Wide; Region Group: main; Region: sidebar_second;
+    // Breakpoint: Wide; Region Group: content; Region: sidebar_second;
     .layout--region--sidebar-second {
       @include column(3, 12);
     }
 
-    // A primary region exists for the main region group.
+    // A primary region exists for the content region group.
     // so we are going to iterate over combinations of available/missing
     // regions to change the layout for this group based on those scenarios.
 

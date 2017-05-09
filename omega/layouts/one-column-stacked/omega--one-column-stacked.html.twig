@@ -1,8 +1,8 @@
 <div class="omega-layout-wrapper">
-    <div class="layout--omega--one-column-stacked omega-layout">
+    <div class="layout--omega--one-column-stacked omega-layout {{ layout_classes }}">
 
         {% if content.header %}
-        <section class="layout-group region-group region-group--header">
+        <section class="layout--group region-group region-group--header {{ region_classes.header }}">
             <div class="layout--region layout--region--header">
                 {{ content.header }}
             </div>
@@ -10,7 +10,7 @@
         {% endif %}
 
         {% if content.content %}
-        <section class="layout-group region-group region-group--main">
+        <section class="layout--group region-group region-group--content {{ region_classes.content }}">
             <div class="layout--region layout--region--content">
                 {{ content.content }}
             </div>
@@ -18,7 +18,7 @@
         {% endif %}
 
         {% if content.footer %}
-        <section class="layout-group region-group region-group--footer">
+        <section class="layout--group region-group region-group--footer {{ region_classes.footer }}">
             <div class="layout--region layout--region--footer">
                 {{ content.footer }}
             </div>

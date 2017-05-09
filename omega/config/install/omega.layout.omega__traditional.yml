@@ -105,7 +105,7 @@ groups:
           width: '12'
           suffix: '0'
           pull: '0'
-    main:
+    content:
       row: '12'
       primary_region: '0'
       maxwidth: '100'
@@ -224,7 +224,7 @@ groups:
           width: '12'
           suffix: '0'
           pull: '0'
-    main:
+    content:
       row: '12'
       primary_region: '0'
       maxwidth: '100'
@@ -343,7 +343,7 @@ groups:
           width: '12'
           suffix: '0'
           pull: '0'
-    main:
+    content:
       row: '12'
       primary_region: '0'
       maxwidth: '100'
@@ -462,7 +462,7 @@ groups:
           width: '12'
           suffix: '0'
           pull: '0'
-    main:
+    content:
       row: '12'
       primary_region: '0'
       maxwidth: '100'
@@ -581,7 +581,7 @@ groups:
           width: '12'
           suffix: '0'
           pull: '0'
-    main:
+    content:
       row: '12'
       primary_region: '0'
       maxwidth: '100'
@@ -700,7 +700,7 @@ groups:
           width: '6'
           suffix: '0'
           pull: '0'
-    main:
+    content:
       row: '12'
       primary_region: content
       maxwidth: '100'

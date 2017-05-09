@@ -48,7 +48,7 @@ region_assignment:
       region: unassigned
 groups:
   all:
-    main:
+    content:
       row: '12'
       primary_region: ''
       maxwidth: '100'
@@ -63,7 +63,7 @@ groups:
           suffix: '0'
           pull: '0'
   mobile_portrait:
-    main:
+    content:
       row: '12'
       primary_region: ''
       maxwidth: '100'
@@ -78,7 +78,7 @@ groups:
           suffix: '0'
           pull: '0'
   mobile_landscape:
-    main:
+    content:
       row: '12'
       primary_region: ''
       maxwidth: '100'
@@ -93,7 +93,7 @@ groups:
           suffix: '0'
           pull: '0'
   narrow:
-    main:
+    content:
       row: '12'
       primary_region: ''
       maxwidth: '100'
@@ -108,7 +108,7 @@ groups:
           suffix: '0'
           pull: '0'
   normal:
-    main:
+    content:
       row: '12'
       primary_region: ''
       maxwidth: '100'
@@ -123,7 +123,7 @@ groups:
           suffix: '0'
           pull: '0'
   wide:
-    main:
+    content:
       row: '12'
       primary_region: ''
       maxwidth: '100'

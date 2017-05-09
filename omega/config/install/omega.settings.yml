@@ -55,6 +55,6 @@ layout-config:
 breakpoint_group_omega__one_column: omega.standard
 breakpoint_group_omega__one_column_stacked: omega.standard
 breakpoint_group_omega__traditional: omega.standard
-edit_this_layout: omega__one_column
-default_layout: default
+edit_this_layout: omega__traditional
+default_layout: omega__one_column_stacked
 home_layout: omega__traditional

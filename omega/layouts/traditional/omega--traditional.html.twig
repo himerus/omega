@@ -1,7 +1,7 @@
 <div class="omega-layout-wrapper">
-    <div class="layout--omega--traditional omega-layout">
+    <div class="layout--omega--traditional omega-layout {{ layout_classes }}">
         {% if content.header %}
-            <section class="layout-group region-group region-group--header">
+            <section class="layout--group region-group region-group--header {{ region_classes.header }}">
                 <div class="layout--region layout--region--header">
                     {{ content.header }}
                 </div>
@@ -9,7 +9,7 @@
         {% endif %}
 
         {% if content.preface_first or content.preface_second or content.preface_third or content.preface_fourth %}
-        <section class="layout-group region-group region-group--preface">
+        <section class="layout--group region-group region-group--preface {{ region_classes.preface }}">
             {% if content.prefact_first %}
             <div class="layout--region layout--region--preface-first">
                 {{ content.preface_first }}
@@ -34,7 +34,7 @@
         {% endif %}
 
         {% if content.content or content.sidebar_first or content.sidebar_second %}
-        <section class="layout-group region-group region-group--main">
+        <section class="layout--group region-group region-group--content {{ region_classes.content }}">
             {% if content.content %}
             <div class="layout--region layout--region--content">
                 {{ content.content }}
@@ -54,7 +54,7 @@
         {% endif %}
 
         {% if content.postscript_first or content.postscript_second or content.postscript_third or content.postscript_fourth %}
-            <section class="layout-group region-group region-group--postscript">
+            <section class="layout--group region-group region-group--postscript {{ region_classes.postscript }}">
                 {% if content.prefact_first %}
                     <div class="layout--region layout--region--postscript-first">
                         {{ content.postscript_first }}
@@ -79,7 +79,7 @@
         {% endif %}
 
         {% if content.footer %}
-            <section class="layout-group region-group region-group--footer">
+            <section class="layout--group region-group region-group--footer {{ region_classes.footer }}">
                 <div class="layout--region layout--region--footer">
                     {{ content.footer }}
                 </div>
