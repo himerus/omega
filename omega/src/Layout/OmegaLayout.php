@@ -460,7 +460,7 @@ class OmegaLayout implements OmegaLayoutInterface {
               } // end if ($regionname != $regionname2)
             } // end foreach $otherRegions (2nd loop)
           }  // end foreach $otherRegions (1st loop)
-          $breakpoint_scss .= "\n    /* stylelint-enable selector-max-specificity */";
+          $breakpoint_scss .= "\n      /* stylelint-enable selector-max-specificity */";
         }  // end if($primary_region)
         $breakpoint_scss .= "\n  " . '  }'; // end of region group
       }
