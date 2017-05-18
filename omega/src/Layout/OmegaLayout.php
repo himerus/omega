@@ -287,43 +287,43 @@ class OmegaLayout implements OmegaLayoutInterface {
           $unit = '%';
         }
         if ($maxwidth && $rowval) {
-          $breakpoint_scss .= "\n\n  " . '// Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . ';';
-          $breakpoint_scss .= "\n  " . '.region-group--' . $rowname . ' {';
-          $breakpoint_scss .= "\n    " . '@include row(' . $rowval . ');';
-          $breakpoint_scss .= "\n    " . 'max-width: ' . $maxwidth . $unit . ';';
+          $breakpoint_scss .= "\n\n    " . '// Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . ';';
+          $breakpoint_scss .= "\n    " . '.region-group--' . $rowname . ' {';
+          $breakpoint_scss .= "\n      " . '@include row(' . $rowval . ');';
+          $breakpoint_scss .= "\n      " . 'max-width: ' . $maxwidth . $unit . ';';
         }
         // loop over regions for basic responsive configuration
         foreach ($layout['groups'][$idtrim][$gid]['regions'] as $rid => $data) {
           $regionname = str_replace("_", "-", $rid);
-          $breakpoint_scss .= "\n\n    " . '// Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . '; Region: ' . $rid . ';';
-          $breakpoint_scss .= "\n    " . '.layout--region--' . $regionname . ' {';
-          $breakpoint_scss .= "\n      " . '@include column(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['width'] . ', ' . $layout['groups'][$idtrim][$gid]['row'] . ');';
+          $breakpoint_scss .= "\n\n      " . '// Breakpoint: ' . $breakpoint->getLabel() . '; Region Group: ' . $gid . '; Region: ' . $rid . ';';
+          $breakpoint_scss .= "\n      " . '.layout--region--' . $regionname . ' {';
+          $breakpoint_scss .= "\n        " . '@include column(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['width'] . ', ' . $layout['groups'][$idtrim][$gid]['row'] . ');';
 
           if ($layout['groups'][$idtrim][$gid]['regions'][$rid]['prefix'] > 0) {
-            $breakpoint_scss .= "\n      " . '@include prefix(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['prefix'] . ');';
+            $breakpoint_scss .= "\n        " . '@include prefix(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['prefix'] . ');';
           }
 
           if ($layout['groups'][$idtrim][$gid]['regions'][$rid]['suffix'] > 0) {
-            $breakpoint_scss .= "\n      " . '@include suffix(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['suffix'] . ');';
+            $breakpoint_scss .= "\n        " . '@include suffix(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['suffix'] . ');';
           }
 
           if ($layout['groups'][$idtrim][$gid]['regions'][$rid]['push'] > 0) {
-            $breakpoint_scss .= "\n      " . '@include push(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['push'] . ');';
+            $breakpoint_scss .= "\n        " . '@include push(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['push'] . ');';
           }
 
           if ($layout['groups'][$idtrim][$gid]['regions'][$rid]['pull'] > 0) {
-            $breakpoint_scss .= "\n      " . '@include pull(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['pull'] . ');';
+            $breakpoint_scss .= "\n        " . '@include pull(' . $layout['groups'][$idtrim][$gid]['regions'][$rid]['pull'] . ');';
           }
 
-          $breakpoint_scss .= "\n    " . '}'; // end of initial region configuration
+          $breakpoint_scss .= "\n      " . '}'; // end of initial region configuration
         }
         // check to see if primary region is set
         if ($primary_region && $total_regions <= 3) {
-          $breakpoint_scss .= "\n\n    " . '// A primary region exists for the ' . $gid . ' region group.';
-          $breakpoint_scss .= "\n    " . '// so we are going to iterate over combinations of available/missing';
-          $breakpoint_scss .= "\n    " . '// regions to change the layout for this group based on those scenarios.';
+          $breakpoint_scss .= "\n\n      " . '// A primary region exists for the ' . $gid . ' region group.';
+          $breakpoint_scss .= "\n      " . '// so we are going to iterate over combinations of available/missing';
+          $breakpoint_scss .= "\n      " . '// regions to change the layout for this group based on those scenarios.';
 
-          $breakpoint_scss .= "\n\n    " . '// 1 missing region';
+          $breakpoint_scss .= "\n\n      " . '// 1 missing region';
 
           // loop over the regions that are not the primary one again
           $mainRegion = $layout['groups'][$idtrim][$gid]['regions'][$primary_region];
@@ -346,10 +346,10 @@ class OmegaLayout implements OmegaLayoutInterface {
             // combine the region widths
             $adjust = OmegaLayout::layoutAdjust($mainRegion, array($otherRegions[$orid]), $cols);
 
-            $breakpoint_scss .= "\n\n    " . '&.with--' . $primary_region . '.without--' . $regionname . ' {';
-            $breakpoint_scss .= "\n      " . '.region--' . $primary_region . ' {';
-            $breakpoint_scss .= "\n        " . '@include column-reset();';
-            $breakpoint_scss .= "\n        " . '@include column(' . $adjust['width'] . ', ' . $cols . ');';
+            $breakpoint_scss .= "\n\n      " . '&.with--' . $primary_region . '.without--' . $regionname . ' {';
+            $breakpoint_scss .= "\n        " . '.region--' . $primary_region . ' {';
+            $breakpoint_scss .= "\n          " . '@include column-reset();';
+            $breakpoint_scss .= "\n          " . '@include column(' . $adjust['width'] . ', ' . $cols . ');';
 
             // @todo need to adjust for push/pull here
             // ACK!!! .sidebar-first would need push/pull adjusted if
@@ -359,15 +359,15 @@ class OmegaLayout implements OmegaLayoutInterface {
 
             if ($adjust['pull'] >= 1) {
               $pushPullAltered = TRUE;
-              $breakpoint_scss .= "\n        " . '@include pull(' . $adjust['pull'] . ');';
+              $breakpoint_scss .= "\n          " . '@include pull(' . $adjust['pull'] . ');';
             }
 
             if ($adjust['push'] >= 1) {
               $pushPullAltered = TRUE;
-              $breakpoint_scss .= "\n        " . '@include push(' . $adjust['push'] . ');';
+              $breakpoint_scss .= "\n          " . '@include push(' . $adjust['push'] . ');';
             }
 
-            $breakpoint_scss .= "\n      " . '}' . "\n"; // end of iteration of condition missing one region
+            $breakpoint_scss .= "\n        " . '}' . "\n"; // end of iteration of condition missing one region
 
             // now what if we adjusted the push/pull of the main region, or the
             // remaining region had a push/pull, we need to re-evaluate the layout for that region
@@ -379,31 +379,31 @@ class OmegaLayout implements OmegaLayoutInterface {
               $region_other_id = $region_other_keys[0];
               $regionname_other = str_replace("_", "-", $region_other_id);
               $otherRegionWidth = $region_other[$region_other_id]['width'];
-              $breakpoint_scss .= "\n      " . '.region--' . $regionname_other . ' {';
-              $breakpoint_scss .= "\n        " . '@include column-reset();';
-              $breakpoint_scss .= "\n        " . '@include column(' . $region_other[$region_other_id]['width'] . ', ' . $cols . ');';
+              $breakpoint_scss .= "\n        " . '.region--' . $regionname_other . ' {';
+              $breakpoint_scss .= "\n          " . '@include column-reset();';
+              $breakpoint_scss .= "\n          " . '@include column(' . $region_other[$region_other_id]['width'] . ', ' . $cols . ');';
 
               // APPEARS to position the remaining (not primary) region
               // BUT the primary region is positioned wrong with push/pull
               // if there is a pull on the primary region, we adjust the push on the remaining one
               if ($adjust['pull'] >= 1) {
                 $pushPullAltered = TRUE;
-                $breakpoint_scss .= "\n        " . '@include push(' . $adjust['width'] . ');';
+                $breakpoint_scss .= "\n          " . '@include push(' . $adjust['width'] . ');';
               }
               // if there is a push on the primary region, we adjust the pull on the remaining one
               if ($adjust['push'] >= 1) {
                 $pushPullAltered = TRUE;
-                $breakpoint_scss .= "\n        " . '@include pull(' . $adjust['width'] . ');';
+                $breakpoint_scss .= "\n          " . '@include pull(' . $adjust['width'] . ');';
               }
 
-              $breakpoint_scss .= "\n      " . '}'; // end of iteration of condition missing one region
+              $breakpoint_scss .= "\n        " . '}'; // end of iteration of condition missing one region
             }
 
-            $breakpoint_scss .= "\n    " . '}'; // end of initial loop of regions to assign individual cases of missing regions first in the scss/css
+            $breakpoint_scss .= "\n      " . '}'; // end of initial loop of regions to assign individual cases of missing regions first in the scss/css
           } /* end foreach loop*/
 
           // throw a comment in the scss
-          $breakpoint_scss .= "\n\n    " . '// 2 missing regions';
+          $breakpoint_scss .= "\n\n      " . '// 2 missing regions';
 
           // here we are beginning to loop again, assuming more than just
           // one region might be missing and to assign to the primary_region accordingly
@@ -445,25 +445,25 @@ class OmegaLayout implements OmegaLayoutInterface {
 
                   }
 
-                  $breakpoint_scss .= "\n    " . '&' . $classCreate . ' {';
-                  $breakpoint_scss .= "\n      " . '.region--' . $primary_region . ' {';
-                  $breakpoint_scss .= "\n        " . '@include column-reset();';
-                  $breakpoint_scss .= "\n        " . '@include column(' . $adjust['width'] . ', ' . $cols . ');';
+                  $breakpoint_scss .= "\n      " . '&' . $classCreate . ' {';
+                  $breakpoint_scss .= "\n        " . '.region--' . $primary_region . ' {';
+                  $breakpoint_scss .= "\n          " . '@include column-reset();';
+                  $breakpoint_scss .= "\n          " . '@include column(' . $adjust['width'] . ', ' . $cols . ');';
 
                   // @todo need to adjust for push/pull here
+                  $breakpoint_scss .= "\n        " . '}';
                   $breakpoint_scss .= "\n      " . '}';
-                  $breakpoint_scss .= "\n    " . '}';
                 } // end if ($notYetMatched)
               } // end if ($regionname != $regionname2)
             } // end foreach $otherRegions (2nd loop)
           }  // end foreach $otherRegions (1st loop)
         }  // end if($primary_region)
-        $breakpoint_scss .= "\n  " . '}'; // end of region group
+        $breakpoint_scss .= "\n  " . '  }'; // end of region group
       }
       // if not the defualt media query that should apply to all screens
       // we will wrap the scss we've generated in the appropriate media query.
       if ($breakpoint->getLabel() != 'all') {
-        $breakpoint_scss = "\n" . '@media ' . $breakpoint->getMediaQuery() . ' {' . $breakpoint_scss . "\n" . '}';
+        $breakpoint_scss = "\n  " . '@media ' . $breakpoint->getMediaQuery() . ' {' . $breakpoint_scss . "\n" . '  }';
       }
       // add in the SCSS from this breakpoint and add to our SCSS
       $scss .= $breakpoint_scss . "\n"; // add newline at eof

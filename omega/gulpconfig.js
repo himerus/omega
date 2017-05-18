@@ -10,7 +10,7 @@ module.exports = {
     dest: 'public/css/',
     flattenDestOutput: true,
     lint: {
-      enabled: false,
+      enabled: true,
       failOnError: true,
       // in addition to linting `css.src`, this is added.
       extraSrc: [],

@@ -4,14 +4,13 @@
 
   padding-right: 40px;
 
-
   .form-type-search {
     display: inline-block;
 
     input {
       @include input(
-      $width: 160px,
-      $max-width: 100%
+        $width: 160px,
+        $max-width: 100%
       );
     }
   }

@@ -4,14 +4,11 @@ $twidth: 100%;
 
 @mixin simpleTransition($type:all, $speed:0.25s, $transition: ease-in-out) {
   transition: $type $speed $transition;
-  -moz-transition: $type $speed $transition;
-  -webkit-transition: $type $speed $transition;
 }
 
 .region-settings {
   width: 100%;
 }
-
 
 .scss-examples {
   background: #FEFEFE;
@@ -95,6 +92,7 @@ $twidth: 100%;
   }
 }
 
+// @todo: Fix selector-no-id in lint
 #edit-variables-fonts {
   .form-type-select {
     float: left;
@@ -139,8 +137,6 @@ $twidth: 100%;
     left: 75%;
     z-index: 1;
     border: 2px solid #FFF;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
   }
 
@@ -195,6 +191,7 @@ $twidth: 100%;
   }
 }
 
+// @todo: Fix selector-no-id in lint
 #edit-actions {
 
   .button,
@@ -401,9 +398,6 @@ $twidth: 100%;
     margin-top: 1.04167%;
     border: 5px solid #CCC;
     z-index: 1;
-
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 
     .form-item {
@@ -457,6 +451,7 @@ $twidth: 100%;
   }
 }
 
+// @todo: Fix selector-no-id in lint
 #export-type-select {
   @include clearfix();
 
@@ -560,10 +555,5 @@ $twidth: 100%;
 }
 
 details > summary {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }

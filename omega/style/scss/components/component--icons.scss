@@ -4,16 +4,16 @@
   font-family: 'omega-icons';
   src: url('../../fonts/omega-icons/omega-icons.eot?h6jgak');
   src: url('../../fonts/omega-icons/omega-icons.eot?h6jgak#iefix') format('embedded-opentype'),
-  url('../../fonts/omega-icons/omega-icons.ttf?h6jgak') format('truetype'),
-  url('../../fonts/omega-icons/omega-icons.woff?h6jgak') format('woff'),
-  url('../../fonts/omega-icons/omega-icons.svg?h6jgak#omega-icons') format('svg');
+    url('../../fonts/omega-icons/omega-icons.ttf?h6jgak') format('truetype'),
+    url('../../fonts/omega-icons/omega-icons.woff?h6jgak') format('woff'),
+    url('../../fonts/omega-icons/omega-icons.svg?h6jgak#omega-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 [class^="icon--"], [class*=" icon--"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'omega-icons' !important;
+  font-family: 'omega-icons';
   speak: none;
   font-style: normal;
   font-weight: normal;
