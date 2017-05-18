@@ -12,8 +12,11 @@ module.exports = {
     "declaration-no-important": true,
     "indentation": 2,
     // @todo: Research options here to fix these lint issues.
-    //"max-nesting-depth": 3,
-    //"selector-max-specificity": "0,3,3",
+    "max-nesting-depth": 4, // 3 is absolutely ridiculous. .thing ul li a should be FINE
+    // Format is "id,class,type", as laid out in the W3C selector spec.
+    // @see https://drafts.csswg.org/selectors/#specificity-rules
+    // @see http://cssguidelin.es/#specificity
+    "selector-max-specificity": "0,3,3",
     "selector-no-id": true,
     "scss/at-extend-no-missing-placeholder": true,
     "scss/selector-no-redundant-nesting-selector": true,

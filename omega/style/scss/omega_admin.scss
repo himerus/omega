@@ -30,7 +30,7 @@ $twidth: 100%;
   }
 }
 
-.form-item.color-slider-controller {
+.color-slider-controller {
   margin-bottom: 0;
   padding-bottom: 20px;
   position: relative;
@@ -108,7 +108,9 @@ $twidth: 100%;
   position: relative;
   max-height: 125px;
 
-  .red, .green, .blue {
+  .red,
+  .green,
+  .blue {
     float: left;
     clear: none;
     width: 60%;
@@ -280,8 +282,9 @@ $twidth: 100%;
     }
   }
 
-  fieldset.form-item[class*=-maxwidth-type],
-  fieldset.form-item[class*=-collapsed] {
+  fieldset[class*=-maxwidth-type],
+  fieldset[class*=-collapsed],
+  fieldset[class*=full-width-wrapper] {
     display: block;
     float: left;
     margin: 0;
@@ -291,6 +294,7 @@ $twidth: 100%;
     legend {
       font-size: 11px;
     }
+
     .form-type-radio {
       display: inline-block;
       margin-right: 0.25em;
@@ -299,10 +303,10 @@ $twidth: 100%;
     }
   }
 
-  fieldset.form-item[class*=-collapsed] {
+  // Remove border from the last one (not ideal)
+  fieldset[class*=full-width-wrapper] {
     border-right: none;
   }
-
 }
 
 .region-controls {
@@ -369,39 +373,37 @@ $twidth: 100%;
 
     padding: 0;
   }
+}
 
-  .region-settings,
-  .region-settings[open],
-  .region-settings[open] + [open] {
-    display: inline-block;
-    background-image: none;
-    background-color: #FFF;
-    border-top-width: auto;
-    padding: 20px;
-    margin-bottom: 1.04167%;
-    margin-top: 1.04167%;
-    border: 5px solid #CCC;
-    z-index: 1;
-    box-sizing: border-box;
+details.region-settings,
+details.region-settings[open] {
+  display: inline-block;
+  background-image: none;
+  background-color: #FFF;
+  padding: 20px;
+  margin-bottom: 1.04167%;
+  margin-top: 1.04167%;
+  border: 5px solid #CCC;
+  z-index: 1;
+  box-sizing: border-box;
 
-    .form-item {
-      display: block;
+  .form-item {
+    display: block;
 
-      label {
-        font-variant: small-caps;
-        margin-top: 10px;
-        text-align: center;
-      }
+    label {
+      font-variant: small-caps;
+      margin-top: 10px;
+      text-align: center;
     }
+  }
 
-    .details-wrapper {
-      padding: 0;
-    }
+  .details-wrapper {
+    padding: 0;
+  }
 
-    summary {
-      padding: 10px 0;
-      text-align: left;
-    }
+  summary {
+    padding: 10px 0;
+    text-align: left;
   }
 }
 
@@ -519,6 +521,7 @@ $twidth: 100%;
     display: none;
   }
 }
+
 .layout-region--title,
 .layout-region--title:hover {
   background: #f9f9f9;

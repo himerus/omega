@@ -481,7 +481,7 @@ foreach ($themeLayouts as $lid => $info) {
         '#type' => 'radios',
         '#attributes' => array(
           'class' => array(
-            'row-collapsed',
+            'row-full-width-wrapper',
             'clearfix'
           ),
         ),
