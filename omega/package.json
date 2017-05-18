@@ -1,9 +1,9 @@
 {
   "name": "omega",
-  "version": "1.0.0",
+  "version": "5.0.0",
   "description": "Omega Five theme for Drupal 8",
   "private": true,
-  "main": "gulpfile.js",
+  "main": "./lib/index.js",
   "author": {
     "name": "Jake Strawn",
     "url": "https://github.com/himerus"
@@ -12,34 +12,50 @@
     "start": "gulp",
     "compile": "gulp compile",
     "test": "gulp validate",
-    "gulp": "gulp",
-    "update": "npm update",
-    "postinstall": "find node_modules/ -name \"*.info\" -type f -delete"
+    "gulp": "gulp"
   },
+  "license": "MIT",
   "dependencies": {
-
-  },
-  "devDependencies": {
-    "lodash": "^4.12.0",
-    "rc": "^1.1.6",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-sass-glob": "github:tomgrooffer/gulp-sass-glob#99d06af",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-sass": "^2.3.1",
-    "gulp-sass-json": "^1.0.1",
-    "gulp-postcss": "^6.1.1",
     "yamljs": "^0.2.8",
-    "gulp-stylelint": "^3.2.0",
-    "gulp-cached": "^1.1.0",
     "autoprefixer": "^6.3.6",
+    "browser-sync": "^2.12.8",
+    "del": "^2.2.0",
+    "eslint-config-airbnb": "^11.0.0",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "eslint-plugin-react": "^6.2.0",
+    "glob": "^7.1.1",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-babel": "^6.1.1",
+    "gulp-cached": "^1.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-flatten": "^0.2.0",
+    "gulp-iconfont": "^8.0.0",
+    "gulp-if": "^2.0.1",
+    "gulp-inject": "^4.1.0",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
-    "gulp-flatten": "^0.2.0",
-    "gulp-if": "^2.0.1",
-    "del": "^2.2.0"
+    "gulp-postcss": "^6.1.1",
+    "gulp-sass": "^2.3.1",
+    "gulp-sass-glob": "tomgrooffer/gulp-sass-glob#99d06af",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-stylelint": "^3.2.0",
+    "gulp-uglify": "^1.5.1",
+    "js-yaml": "^3.6.1",
+    "lodash": "^4.12.0",
+    "main-bower-files": "^2.13.0",
+    "node-notifier": "^4.6.0",
+    "sassdoc": "^2.1.19",
+    "webpack": "^2.3.2",
+    "rc": "^1.2.0",
+    "stylelint-scss": "^1.4.3"
   },
-  "engines": {
-    "node": "0.10.26",
-    "npm": "1.4.3"
+  "devDependencies": {
+    "eslint": "^3.4.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-util": "^3.0.7",
+    "nodemon": "^1.10.2",
+    "lodash.includes": "^4.1.3"
   }
 }
