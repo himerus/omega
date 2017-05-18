@@ -92,20 +92,6 @@ $twidth: 100%;
   }
 }
 
-// @todo: Fix selector-no-id in lint
-#edit-variables-fonts {
-  .form-type-select {
-    float: left;
-    margin-right: 1em;
-    margin-bottom: 0;
-  }
-  .sample-font-content {
-    float: none;
-    clear: both;
-    padding: 20px 0;
-  }
-}
-
 .omega-welcome {
 
   .screeny {
@@ -191,15 +177,13 @@ $twidth: 100%;
   }
 }
 
-// @todo: Fix selector-no-id in lint
-#edit-actions {
+.form-actions {
 
   .button,
   .button:first-child {
     margin-left: 0;
     margin-right: 1em;
   }
-
 }
 
 // Slider for region controls.
@@ -451,8 +435,7 @@ $twidth: 100%;
   }
 }
 
-// @todo: Fix selector-no-id in lint
-#export-type-select {
+.export-type-select {
   @include clearfix();
 
   background: #EEE;

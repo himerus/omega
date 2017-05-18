@@ -1,17 +1,18 @@
 @import 'defaults', 'mixins';
 
 /* Apply a natural box layout model to all elements http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
-// @todo: Fix selector-no-id in lint
-#omega-screen--indicator, #omega-screen--indicator *, #omega-screen--indicator *:before, #omega-screen--indicator *:after {
+.omega-screen--indicator,
+.omega-screen--indicator *,
+.omega-screen--indicator *:before,
+.omega-screen--indicator *:after {
   box-sizing: border-box;
 }
 
-// @todo: Fix selector-no-id in lint
-#omega-screen--indicator {
+.omega-screen--indicator {
   background-color: rgba(0, 0, 0, 0.85);
   zoom: 1;
   position: fixed;
-  font-family: "Helvetica Neue",Arial,Helvetica;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   // full width for mobile
   bottom: 0;
   right: 0;
@@ -74,7 +75,7 @@
 
 @media all and (min-width: $bp--normal) {
   // @todo: Fix selector-no-id in lint
-  #omega-screen--indicator {
+  .omega-screen--indicator {
     left: auto;
     min-width: 350px;
     word-wrap: none;

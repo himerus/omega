@@ -103,7 +103,7 @@ $form['export']['export_options']['export_type'] = array(
   '#title' => t('Create a:'),
   '#options' => $clone_options,
   '#default_value' => 'subtheme',
-  '#prefix' => '<div id="export-type-select">',
+  '#prefix' => '<div id="export-type-select" class="export-type-select">',
   '#suffix' => '<span class="separator">of</span>',
 );
 

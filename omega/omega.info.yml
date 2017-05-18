@@ -7,6 +7,7 @@ base theme: classy
 hidden: false
 core: 8.x
 force_export: false
+scss_support: false
 regions:
   page_top: 'Page Top'
   user: 'User Control Bar'

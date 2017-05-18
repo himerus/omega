@@ -14,7 +14,7 @@ module.exports = {
     // @todo: Research options here to fix these lint issues.
     //"max-nesting-depth": 3,
     //"selector-max-specificity": "0,3,3",
-    //"selector-no-id": true,
+    "selector-no-id": true,
     "scss/at-extend-no-missing-placeholder": true,
     "scss/selector-no-redundant-nesting-selector": true,
     "at-rule-no-vendor-prefix": true,
