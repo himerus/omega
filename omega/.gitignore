@@ -1,5 +1,7 @@
 # Compiled files
-public
+# We actually WANT these in Omega core, but not in subthemes that should be building CSS on the fly during setup/build/deploy.
+# This could be a configurable option maybe during subtheme generation?
+# public
 
 # OS generated files
 .DS_Store
