@@ -556,7 +556,7 @@
         @include column(3, 12);
       }
 
-      /* stylelint-disable selector-max-specificity  */
+      /* stylelint-disable selector-max-specificity */
       // A primary region exists for the content region group.
       // so we are going to iterate over combinations of available/missing
       // regions to change the layout for this group based on those scenarios.
@@ -592,7 +592,7 @@
           @include column(12, 12);
         }
       }
-    /* stylelint-enable selector-max-specificity  */
+    /* stylelint-enable selector-max-specificity */
     }
 
     // Breakpoint: Wide; Region Group: postscript;

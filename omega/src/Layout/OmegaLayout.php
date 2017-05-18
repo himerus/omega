@@ -319,7 +319,7 @@ class OmegaLayout implements OmegaLayoutInterface {
         }
         // check to see if primary region is set
         if ($primary_region && $total_regions <= 3) {
-          $breakpoint_scss .= "\n\n      " . '/* stylelint-disable selector-max-specificity  */';
+          $breakpoint_scss .= "\n\n      " . '/* stylelint-disable selector-max-specificity */';
           $breakpoint_scss .= "\n      " . '// A primary region exists for the ' . $gid . ' region group.';
           $breakpoint_scss .= "\n      " . '// so we are going to iterate over combinations of available/missing';
           $breakpoint_scss .= "\n      " . '// regions to change the layout for this group based on those scenarios.';
@@ -460,7 +460,7 @@ class OmegaLayout implements OmegaLayoutInterface {
               } // end if ($regionname != $regionname2)
             } // end foreach $otherRegions (2nd loop)
           }  // end foreach $otherRegions (1st loop)
-          $breakpoint_scss .= "\n    /* stylelint-enable selector-max-specificity  */";
+          $breakpoint_scss .= "\n    /* stylelint-enable selector-max-specificity */";
         }  // end if($primary_region)
         $breakpoint_scss .= "\n  " . '  }'; // end of region group
       }
