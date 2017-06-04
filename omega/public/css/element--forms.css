@@ -1,12 +1,5 @@
-/**
- * Mixin for styling form input elements.
- * Primarily for items like text, search, password, etc.
- */
-/**
- * Mixin for styling form button elements.
- * Primarily for items like <a> <span> <button> <input type="submit">.
- */
-.form-item, .form-actions {
+.form-item,
+.form-actions {
   margin: 0;
 }
 

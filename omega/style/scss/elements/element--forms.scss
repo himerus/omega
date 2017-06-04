@@ -1,18 +1,23 @@
 @import "omega-style-vars", "omega-default-style-vars";
 @import "../mixins";
 
-.form-item, .form-actions {
+// Default styling for .form-item and .form-actions.
+.form-item,
+.form-actions {
   margin: 0;
 }
 
-.form-type-textfield, // normal text fields
+// Apply basic styling to all the basic 'text' type form field elements.
+.form-type-textfield,
 .form-type-password,
-.field--type-entity-reference, // autocomplete fields
+.field--type-entity-reference,
 .form-type-textarea,
 .form-type-search {
 
 }
 
+// Applies the button() mixin to the default .form-submit elements.
+// @requires {mixin} button
 .form-submit {
   @include button(
     $font--weight: bold

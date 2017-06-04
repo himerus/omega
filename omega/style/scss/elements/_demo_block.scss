@@ -1,5 +1,5 @@
 .theme-demo-block {
-  @include border-radius-simple(2px);
+  @include corners(2px);
   padding: 20px;
   font-size: 80%;
   background: #EEE;

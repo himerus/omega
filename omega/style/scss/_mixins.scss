@@ -1,21 +1,31 @@
-@import 'defaults';
+////
+/// @group structure
+////
 
+@import 'defaults';
+/// Mixin to apply simple transition.
+/// @param {Text} $type [all] - Radius to apply to all corners.
+/// @param {Integer} $speed [0.25s] - Value in seconds for the transition to complete.
+/// @param {Text} $transition [ease-in-out] - Radius to apply to all corners.
 @mixin transition($type: all, $speed: 0.25s, $transition: ease-in-out) {
   transition: $type $speed $transition;
 }
 
+/// Mixin to apply simple border radius.
+/// @param {Integer} $rad [5px] - Radius to apply to all corners.
+/// @todo Make a duplicate function to handle different values per corner.
 @mixin corners($rad: 5px) {
   border-radius: $rad;
 }
 
+/// Mixin to apply a standardized shadow on elements.
+/// @todo Make this shadow mixin customizable.
 @mixin shadow() {
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
-@mixin border-radius-simple($r) {
-  border-radius: $r;
-}
-
+/// Mixin to apply a standardized clearfix hack.
+/// @todo Stop using clearfix.
 @mixin clearfix() {
   *zoom: 1;
 
@@ -30,10 +40,8 @@
   }
 }
 
-/**
- * Mixin for styling form input elements.
- * Primarily for items like text, search, password, etc.
- */
+/// Mixin for styling form input elements.
+/// Primarily for items like text, search, password, etc.
 @mixin input(
   $width: $form--input--width,
   $max-width: $form--input--width,
@@ -57,7 +65,7 @@
   font-weight: $font-weight;
   border: $border;
 
-  @include border-radius-simple($border-radius);
+  @include corners($border-radius);
 
   &:active {
     border: $border-active;
@@ -68,10 +76,37 @@
   }
 }
 
-/**
- * Mixin for styling form button elements.
- * Primarily for items like <a> <span> <button> <input type="submit">.
- */
+/// Mixin for styling form button elements.
+/// Primarily for items like `<a> <span> <button> <input type="submit">`.
+/// @require {mixin} corners
+/// @require {mixin} transition
+/// @param {String} $text--transform [$button--text--transform] - CSS value for text-transform property.
+/// @param {String} $text--variant [$button--text--variant] - CSS value for font-variant property.
+/// @param {String} $bg-color [$button--bg-color] - CSS value for background color of the button.
+/// @param {String} $bg-color--hover [$button--bg-color--hover] - CSS value for background color of the button during hover action.
+/// @param {String} $font-color [$button--font-color] - CSS value for font color of the button.
+/// @param {String} $font-color--hover [$button--font-color--hover] - CSS value for font color of the button during hover action.
+/// @param {String} $font--size [$button--font--size] - CSS value for font size of the button.
+/// @param {String} $font--weight [$button--font--weight] - CSS value for font weight of the button.
+/// @param {String} $border [$button--border] - CSS value for font-variant property.
+/// @param {String} $border-radius [$button--border-radius] - CSS value for border radius value.
+/// @param {String} $padding [$button--padding] - CSS value for padding of the button element.
+/// @param {String} $line-height [$button--line-height] - CSS value for line height.
+/// @example
+///   // This example doesn't pass any parameters, so takes on the appearance of the default values applied
+///   // from the variables defined for default button values.
+///   .my-default-button {
+///     @include button();
+///   }
+///
+///   // This example passes some parameters to customize the appearance of the button.
+///   .my-customized-button {
+///     @include button(
+///       $bg-color: #FF0000,
+///       $font-size: 32px,
+///       $text--variant: small-caps,
+///     );
+///   }
 @mixin button(
   $text--transform: $button--text--transform,
   $text--variant: $button--text--variant,
@@ -87,7 +122,7 @@
   $line-height: $button--line-height
 ) {
 
-  @include border-radius-simple($border-radius);
+  @include corners($border-radius);
   @include transition(all, 0.15s, ease-in-out);
 
   text-transform: $text--transform;

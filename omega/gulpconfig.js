@@ -38,18 +38,23 @@ module.exports = {
     ],
     // http://sassdoc.com
     sassdoc: {
-      enabled: false,
+      enabled: true,
       dest: 'public/sassdoc',
       verbose: false,
-      basePath: '',
+      basePath: './style/scss',
       exclude: [],
       theme: 'default',
       // http://sassdoc.com/customising-the-view/#sort
       sort: [
         'file',
         'group',
-        'line>',
+        'line<',
       ],
+      groups: {
+        structure: "Structure & Helpers",
+        elements: "Elements",
+        undefined: "Other",
+      },
     },
     csscss: {
       enabled: false, // @todo: Make gulp-csscss work properly.

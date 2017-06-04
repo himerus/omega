@@ -1,11 +1,3 @@
-/**
- * Mixin for styling form input elements.
- * Primarily for items like text, search, password, etc.
- */
-/**
- * Mixin for styling form button elements.
- * Primarily for items like <a> <span> <button> <input type="submit">.
- */
 .site--branding-area {
   position: relative;
   margin-top: 20px;

@@ -137,6 +137,7 @@ module.exports = (gulp, config, tasks) => {
       exclude: config.css.sassdoc.exclude,
       theme: config.css.sassdoc.theme,
       sort: config.css.sassdoc.sort,
+      groups: config.css.sassdoc.groups,
     }));
   }
 
