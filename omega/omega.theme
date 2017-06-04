@@ -233,7 +233,7 @@ function omega_preprocess_page(&$vars) {
   $layoutBuild = $layoutRender->build($regions);
 
   // @todo: This is wrong.
-  foreach($regionMap as $layout_region_id => $theme_regions) {
+  foreach ($regionMap as $layout_region_id => $theme_regions) {
     unset($layoutBuild[$layout_region_id]['label']);
     foreach ($theme_regions as $theme_region_id => $theme_data) {
       if (isset($vars['page'][$theme_region_id]) && count($vars['page'][$theme_region_id]) > 0) {
@@ -245,8 +245,6 @@ function omega_preprocess_page(&$vars) {
     }
   }
   $vars['layout_layout'] = $layoutBuild;
-
-  $something = '';
 } /* END omega_preprocess_page */
 
 /**
@@ -256,7 +254,7 @@ function omega_preprocess_layout(&$variables) {
 
   $variables['my-variable'] = [];
   // @todo: This next logig needs to move to a preprocess_layout type thing.
-  
+
   // Create an array to define the with-sidebar_first without-sidebar_first classes.
   $region_classes = [];
   $layout_classes = [];
@@ -427,5 +425,4 @@ function omega_form_search_block_form_alter(&$form, FormStateInterface $form_sta
  */
 function omega_theme_registry_alter(&$theme_registry) {
 
-  $something = '';
 }

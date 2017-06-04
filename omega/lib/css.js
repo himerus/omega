@@ -3,7 +3,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const YAML = require('yamljs');
 const sassGlob = require('gulp-sass-glob');
-const sourcemaps = require('gulp-sourcemaps');
+// const sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-sass');
 const stylelint = require('gulp-stylelint');
 const postcss = require('gulp-postcss');
@@ -16,6 +16,7 @@ const gulpif = require('gulp-if');
 const sassdoc = require('sassdoc');
 const join = require('path').join;
 const del = require('del');
+// const csscss = require('gulp-csscss');
 // const debug = require('gulp-debug');
 
 module.exports = (gulp, config, tasks) => {
@@ -32,9 +33,9 @@ module.exports = (gulp, config, tasks) => {
         this.emit('end');
       },
     }))
-    .pipe(sourcemaps.init({
-      debug: config.debug,
-    }))
+    // .pipe(sourcemaps.init({
+    //   debug: config.debug,
+    // }))
     .pipe(sass({
       outputStyle: config.css.outputStyle,
       sourceComments: config.css.sourceComments,
@@ -47,13 +48,15 @@ module.exports = (gulp, config, tasks) => {
         }),
       ]
     ))
-    .pipe(sourcemaps.write((config.css.sourceMapEmbed) ? null : './'))
+    // .pipe(sourcemaps.write((config.css.sourceMapEmbed) ? './' : null))
     .pipe(gulpif(config.css.flattenDestOutput, flatten()))
     .pipe(gulp.dest(config.css.dest))
     .on('end', () => {
       done();
     });
   }
+
+  cssCompile.description = 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps';
 
   // Turns SCSS variable files into yaml files.
   function scssToYaml(done) {
@@ -84,7 +87,7 @@ module.exports = (gulp, config, tasks) => {
     done();
   }
 
-  cssCompile.description = 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps';
+  scssToYaml.description = 'Convert specific SCSS files (variable files) to YAML format.';
 
   if (config.css.scssToYaml) {
     gulp.task('css:scss-to-yaml', scssToYaml);
@@ -112,7 +115,9 @@ module.exports = (gulp, config, tasks) => {
       reporters: [
         { formatter: 'string', console: true },
       ],
-    }));
+    }))
+    // .pipe(csscss({}))
+    ;
   }
 
   function validateCssWithNoExit() {
