@@ -41,7 +41,7 @@ module.exports = {
       enabled: true,
       dest: 'public/sassdoc',
       verbose: false,
-      basePath: './style/scss',
+      basePath: 'https://github.com/himerus/omega/tree/layout/omega/style/scss',
       exclude: [],
       theme: 'default',
       // http://sassdoc.com/customising-the-view/#sort
@@ -61,6 +61,7 @@ module.exports = {
     },
     scssToYaml: [
       {
+        // @todo: Rewrite/fork this to handle the sassdoc commenting or find alternative.
         src: 'style/scss/_defaults.scss',
         dest: 'style/scss/_defaults.yml',
         lineStartsWith: '$',

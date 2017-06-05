@@ -9,67 +9,67 @@ font--primary-header:
 bp--mobile:
   name: $bp--mobile
   value: 0px
-  comment: 'Mobile Breakpoint.'
+  comment: ""
 bp--mobile-landscape:
   name: $bp--mobile-landscape
   value: 320px
-  comment: 'Mobile Landscape Breakpoint.'
+  comment: ""
 bp--small:
   name: $bp--small
   value: 600px
-  comment: 'Small Breakpoint, mainly tablets in a portrait mode.'
+  comment: ""
 bp--normal:
   name: $bp--normal
   value: 960px
-  comment: 'Normal desktop browsers, and tablets in landscape mode.'
+  comment: ""
 bp--wide:
   name: $bp--wide
   value: 1200px
-  comment: 'Wide mode, primarily for desktop browsers.'
+  comment: ""
 bp--extra-wide:
   name: $bp--extra-wide
   value: 1440px
-  comment: 'Really wide mode, primarily for desktop browsers.'
+  comment: ""
 color--primary-1:
   name: $color--primary-1
   value: '#1A1A1A'
-  comment: 'Primary color #1 (one).'
+  comment: ""
 color--primary-2:
   name: $color--primary-2
   value: '#5A5A5A'
-  comment: 'Primary color #2 (two).'
+  comment: ""
 color--primary-3:
   name: $color--primary-3
   value: '#CCCCCC'
-  comment: 'Primary color #3 (three).'
+  comment: ""
 color--primary-4:
   name: $color--primary-4
   value: '#3A3A3A'
-  comment: 'Primary color #4 (four).'
+  comment: ""
 color--primary-5:
   name: $color--primary-5
   value: '#9A9A9A'
-  comment: 'Primary color #5 (five).'
+  comment: ""
 color--secondary-1:
   name: $color--secondary-1
   value: '#7A7A7A'
-  comment: 'Secondary color #1 (one).'
+  comment: ""
 color--secondary-2:
   name: $color--secondary-2
   value: '#9A9A9A'
-  comment: 'Secondary color #2 (two).'
+  comment: ""
 color--secondary-3:
   name: $color--secondary-3
   value: '#EFEFEF'
-  comment: 'Secondary color #3 (three).'
+  comment: ""
 color--accent-1:
   name: $color--accent-1
   value: blue
-  comment: 'Accent color #1 (one).'
+  comment: ""
 color--accent-2:
   name: $color--accent-2
   value: red
-  comment: 'Accent color #2 (two).'
+  comment: ""
 color--white:
   name: $color--white
   value: '#FFF'
