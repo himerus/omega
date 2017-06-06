@@ -1,5 +1,9 @@
 region_assignment:
   content:
+    content:
+      weight: '-6'
+      region: content
+  unassigned:
     user:
       weight: '-9'
       region: content
@@ -9,13 +13,6 @@ region_assignment:
     highlighted:
       weight: '-7'
       region: content
-    content:
-      weight: '-6'
-      region: content
-    footer:
-      weight: '-5'
-      region: content
-  unassigned:
     sidebar_first:
       weight: '0'
       region: unassigned
@@ -46,6 +43,9 @@ region_assignment:
     postscript_fourth:
       weight: '0'
       region: unassigned
+    footer:
+      weight: '-5'
+      region: content
 groups:
   all:
     content:
