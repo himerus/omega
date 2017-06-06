@@ -180,9 +180,16 @@ foreach ($themeLayouts as $lid => $info) {
     'label' => t('Unassigned Regions')
   ];
   $layoutRegionOptions = [];
+
+  // Needs to loop over these to create the 'options' prior to the first row
+  // being built.
+  // @todo: Investigate a cleaner method to reduce the foreach looping.
+  foreach ($assignmentRegions as $layoutRegionId => $layoutRegionInfo) {
+    $layoutRegionOptions[$layoutRegionId] = $layoutRegionInfo['label'];
+  }
+
   foreach ($assignmentRegions as $layoutRegionId => $layoutRegionInfo) {
 
-    $layoutRegionOptions[$layoutRegionId] = $layoutRegionInfo['label'];
     $form['layouts'][$lid]['region_assignment']['theme-region-assignment']['#tabledrag'][] = [
       'action' => 'match',
       'relationship' => 'sibling',
