@@ -1,8 +1,9 @@
 region_assignment:
-  header:
+  user:
     user:
       weight: '-9'
-      region: header
+      region: user
+  header:
     header:
       weight: '-8'
       region: header
@@ -50,6 +51,20 @@ region_assignment:
       region: unassigned
 groups:
   all:
+    user:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        user:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
     header:
       row: '12'
       primary_region: ''
@@ -93,6 +108,20 @@ groups:
           suffix: '0'
           pull: '0'
   mobile_portrait:
+    user:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        user:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
     header:
       row: '12'
       primary_region: ''
@@ -136,6 +165,20 @@ groups:
           suffix: '0'
           pull: '0'
   mobile_landscape:
+    user:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        user:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
     header:
       row: '12'
       primary_region: ''
@@ -179,6 +222,20 @@ groups:
           suffix: '0'
           pull: '0'
   narrow:
+    user:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        user:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
     header:
       row: '12'
       primary_region: ''
@@ -222,6 +279,20 @@ groups:
           suffix: '0'
           pull: '0'
   normal:
+    user:
+      row: '12'
+      primary_region: ''
+      maxwidth: '100'
+      maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        user:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
     header:
       row: '12'
       primary_region: ''
@@ -265,11 +336,25 @@ groups:
           suffix: '0'
           pull: '0'
   wide:
-    header:
+    user:
       row: '12'
       primary_region: ''
       maxwidth: '100'
       maxwidth_type: percent
+      collapsed: 'FALSE'
+      wrapper: 'TRUE'
+      regions:
+        user:
+          push: '0'
+          prefix: '0'
+          width: '12'
+          suffix: '0'
+          pull: '0'
+    header:
+      row: '12'
+      primary_region: ''
+      maxwidth: '1440'
+      maxwidth_type: pixel
       collapsed: 'FALSE'
       wrapper: 'TRUE'
       regions:
@@ -282,8 +367,8 @@ groups:
     content:
       row: '12'
       primary_region: ''
-      maxwidth: '100'
-      maxwidth_type: percent
+      maxwidth: '1440'
+      maxwidth_type: pixel
       collapsed: 'FALSE'
       wrapper: 'TRUE'
       regions:

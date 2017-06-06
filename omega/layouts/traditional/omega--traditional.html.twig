@@ -1,5 +1,14 @@
 <div class="omega-layout-wrapper">
     <div class="layout--omega--traditional omega-layout {{ layout_classes }}">
+
+        {% if content.user %}
+            <section class="layout--group region-group region-group--user {{ region_classes.user }}">
+                <div class="layout--region layout--region--user">
+                    {{ content.user }}
+                </div>
+            </section>
+        {% endif %}
+
         {% if content.header %}
             <section class="layout--group region-group region-group--header {{ region_classes.header }}">
                 <div class="layout--region layout--region--header">

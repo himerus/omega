@@ -55,6 +55,8 @@ omega__one_column_stacked:
   scss: layouts/one-column-stacked/omega--one-column-stacked.scss
   icon: layouts/one-column-stacked/omega--one-column-stacked.png
   regions:
+    user:
+      label: User Bar
     header:
       label: Header
     content:
@@ -63,6 +65,11 @@ omega__one_column_stacked:
       label: Footer
   default_region: content
   groups:
+    user:
+      label: User Bar Group
+      collapsed: FALSE
+      regions:
+        - user
     header:
       label: Header Group
       collapsed: FALSE
@@ -89,6 +96,8 @@ omega__traditional:
   icon: layouts/traditional/omega--traditional.png
   default_region: content
   regions:
+    user:
+      label: User Bar
     header:
       label: Header
     preface_first:
@@ -116,6 +125,11 @@ omega__traditional:
     footer:
       label: Footer
   groups:
+    user:
+      label: User Bar Group
+      collapsed: FALSE
+      regions:
+        - user
     header:
       label: Header Group
       collapsed: FALSE
