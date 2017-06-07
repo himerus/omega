@@ -350,7 +350,7 @@ class OmegaLayout implements OmegaLayoutInterface {
             $adjust = OmegaLayout::layoutAdjust($mainRegion, array($otherRegions[$orid]), $cols);
 
             $breakpoint_scss .= "\n\n      " . '&.with--' . $primary_region . '.without--' . $regionname . ' {';
-            $breakpoint_scss .= "\n        " . '.region--' . $primary_region . ' {';
+            $breakpoint_scss .= "\n        " . '.layout--region--' . $primary_region . ' {';
             $breakpoint_scss .= "\n          " . '@include column-reset();';
             $breakpoint_scss .= "\n          " . '@include column(' . $adjust['width'] . ', ' . $cols . ');';
 
@@ -382,7 +382,7 @@ class OmegaLayout implements OmegaLayoutInterface {
               $region_other_id = $region_other_keys[0];
               $regionname_other = str_replace("_", "-", $region_other_id);
               $otherRegionWidth = $region_other[$region_other_id]['width'];
-              $breakpoint_scss .= "\n        " . '.region--' . $regionname_other . ' {';
+              $breakpoint_scss .= "\n        " . '.layout--region--' . $regionname_other . ' {';
               $breakpoint_scss .= "\n          " . '@include column-reset();';
               $breakpoint_scss .= "\n          " . '@include column(' . $region_other[$region_other_id]['width'] . ', ' . $cols . ');';
 
@@ -449,7 +449,7 @@ class OmegaLayout implements OmegaLayoutInterface {
                   }
 
                   $breakpoint_scss .= "\n      " . '&' . $classCreate . ' {';
-                  $breakpoint_scss .= "\n        " . '.region--' . $primary_region . ' {';
+                  $breakpoint_scss .= "\n        " . '.layout--region--' . $primary_region . ' {';
                   $breakpoint_scss .= "\n          " . '@include column-reset();';
                   $breakpoint_scss .= "\n          " . '@include column(' . $adjust['width'] . ', ' . $cols . ');';
 

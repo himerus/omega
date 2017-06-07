@@ -630,7 +630,7 @@
       // 1 missing region
 
       &.with--content.without--sidebar-first {
-        .region--content {
+        .layout--region--content {
           @include column-reset();
           @include column(9, 12);
         }
@@ -638,13 +638,13 @@
       }
 
       &.with--content.without--sidebar-second {
-        .region--content {
+        .layout--region--content {
           @include column-reset();
           @include column(9, 12);
           @include push(3);
         }
 
-        .region--sidebar-first {
+        .layout--region--sidebar-first {
           @include column-reset();
           @include column(3, 12);
           @include pull(9);
@@ -653,7 +653,7 @@
 
       // 2 missing regions
       &.with--content.without--sidebar-first.without--sidebar-second {
-        .region--content {
+        .layout--region--content {
           @include column-reset();
           @include column(12, 12);
         }
