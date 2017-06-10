@@ -1,6 +1,7 @@
 @import "defaults", "mixins";
 
-.block--menu--main {
+// @todo: Figure out adjustments to main menu to apply only to block--menu--main inside the header layout region and make scsslint happy.
+.layout--region--header .block--menu--main {
 
   ul {
     margin: $menu--margin;
@@ -59,7 +60,6 @@
         position: absolute;
         display: block;
         z-index: 10;
-
 
         li {
           display: block;

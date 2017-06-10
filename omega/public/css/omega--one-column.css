@@ -13,185 +13,182 @@ body::after {
   clear: both;
 }
 
-
 @media all and (min-width: 0px) {
   .layout--omega--one-column .region-group--content {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  *width: 99.896%;
-  *zoom: 1;
-  max-width: 100%;
-}
-.layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
-  content: '';
-  display: table;
-}
-.layout--omega--one-column .region-group--content::after {
-  clear: both;
-}
-.layout--omega--one-column .region-group--content .layout--region--content {
-  display: block;
-  position: relative;
-  clear: none;
-  width: 100%;
-  margin-right: 0%;
-  margin-left: 0%;
-  *width: 99.896%;
-  *margin-right: -0.104%;
-  *margin-left: -0.104%;
-  float: left;
-}
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%;
+  }
+  .layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
+    content: '';
+    display: table;
+  }
+  .layout--omega--one-column .region-group--content::after {
+    clear: both;
+  }
+  .layout--omega--one-column .region-group--content .layout--region--content {
+    display: block;
+    position: relative;
+    clear: none;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: 0%;
+    *width: 99.89583%;
+    *margin-right: -0.10417%;
+    *margin-left: -0.10417%;
+    float: left;
+  }
 }
 
 @media all and (max-width: 479px) {
   .layout--omega--one-column .region-group--content {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  *width: 99.896%;
-  *zoom: 1;
-  max-width: 100%;
-}
-.layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
-  content: '';
-  display: table;
-}
-.layout--omega--one-column .region-group--content::after {
-  clear: both;
-}
-.layout--omega--one-column .region-group--content .layout--region--content {
-  display: block;
-  position: relative;
-  clear: none;
-  width: 100%;
-  margin-right: 0%;
-  margin-left: 0%;
-  *width: 99.896%;
-  *margin-right: -0.104%;
-  *margin-left: -0.104%;
-  float: left;
-}
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%;
+  }
+  .layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
+    content: '';
+    display: table;
+  }
+  .layout--omega--one-column .region-group--content::after {
+    clear: both;
+  }
+  .layout--omega--one-column .region-group--content .layout--region--content {
+    display: block;
+    position: relative;
+    clear: none;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: 0%;
+    *width: 99.89583%;
+    *margin-right: -0.10417%;
+    *margin-left: -0.10417%;
+    float: left;
+  }
 }
 
 @media all and (min-width: 480px) and (max-width: 767px) {
   .layout--omega--one-column .region-group--content {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  *width: 99.896%;
-  *zoom: 1;
-  max-width: 100%;
-}
-.layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
-  content: '';
-  display: table;
-}
-.layout--omega--one-column .region-group--content::after {
-  clear: both;
-}
-.layout--omega--one-column .region-group--content .layout--region--content {
-  display: block;
-  position: relative;
-  clear: none;
-  width: 100%;
-  margin-right: 0%;
-  margin-left: 0%;
-  *width: 99.896%;
-  *margin-right: -0.104%;
-  *margin-left: -0.104%;
-  float: left;
-}
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%;
+  }
+  .layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
+    content: '';
+    display: table;
+  }
+  .layout--omega--one-column .region-group--content::after {
+    clear: both;
+  }
+  .layout--omega--one-column .region-group--content .layout--region--content {
+    display: block;
+    position: relative;
+    clear: none;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: 0%;
+    *width: 99.89583%;
+    *margin-right: -0.10417%;
+    *margin-left: -0.10417%;
+    float: left;
+  }
 }
 
 @media all and (min-width: 768px) and (max-width: 1023px) {
   .layout--omega--one-column .region-group--content {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  *width: 99.896%;
-  *zoom: 1;
-  max-width: 100%;
-}
-.layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
-  content: '';
-  display: table;
-}
-.layout--omega--one-column .region-group--content::after {
-  clear: both;
-}
-.layout--omega--one-column .region-group--content .layout--region--content {
-  display: block;
-  position: relative;
-  clear: none;
-  width: 100%;
-  margin-right: 0%;
-  margin-left: 0%;
-  *width: 99.896%;
-  *margin-right: -0.104%;
-  *margin-left: -0.104%;
-  float: left;
-}
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%;
+  }
+  .layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
+    content: '';
+    display: table;
+  }
+  .layout--omega--one-column .region-group--content::after {
+    clear: both;
+  }
+  .layout--omega--one-column .region-group--content .layout--region--content {
+    display: block;
+    position: relative;
+    clear: none;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: 0%;
+    *width: 99.89583%;
+    *margin-right: -0.10417%;
+    *margin-left: -0.10417%;
+    float: left;
+  }
 }
 
 @media all and (min-width: 1024px) and (max-width: 1219px) {
   .layout--omega--one-column .region-group--content {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  *width: 99.896%;
-  *zoom: 1;
-  max-width: 100%;
-}
-.layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
-  content: '';
-  display: table;
-}
-.layout--omega--one-column .region-group--content::after {
-  clear: both;
-}
-.layout--omega--one-column .region-group--content .layout--region--content {
-  display: block;
-  position: relative;
-  clear: none;
-  width: 100%;
-  margin-right: 0%;
-  margin-left: 0%;
-  *width: 99.896%;
-  *margin-right: -0.104%;
-  *margin-left: -0.104%;
-  float: left;
-}
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%;
+  }
+  .layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
+    content: '';
+    display: table;
+  }
+  .layout--omega--one-column .region-group--content::after {
+    clear: both;
+  }
+  .layout--omega--one-column .region-group--content .layout--region--content {
+    display: block;
+    position: relative;
+    clear: none;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: 0%;
+    *width: 99.89583%;
+    *margin-right: -0.10417%;
+    *margin-left: -0.10417%;
+    float: left;
+  }
 }
 
 @media all and (min-width: 1220px) {
   .layout--omega--one-column .region-group--content {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  *width: 99.896%;
-  *zoom: 1;
-  max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    *width: 99.89583%;
+    *zoom: 1;
+    max-width: 100%;
+  }
+  .layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
+    content: '';
+    display: table;
+  }
+  .layout--omega--one-column .region-group--content::after {
+    clear: both;
+  }
+  .layout--omega--one-column .region-group--content .layout--region--content {
+    display: block;
+    position: relative;
+    clear: none;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: 0%;
+    *width: 99.89583%;
+    *margin-right: -0.10417%;
+    *margin-left: -0.10417%;
+    float: left;
+  }
 }
-.layout--omega--one-column .region-group--content::before, .layout--omega--one-column .region-group--content::after {
-  content: '';
-  display: table;
-}
-.layout--omega--one-column .region-group--content::after {
-  clear: both;
-}
-.layout--omega--one-column .region-group--content .layout--region--content {
-  display: block;
-  position: relative;
-  clear: none;
-  width: 100%;
-  margin-right: 0%;
-  margin-left: 0%;
-  *width: 99.896%;
-  *margin-right: -0.104%;
-  *margin-left: -0.104%;
-  float: left;
-}
-}
-
-

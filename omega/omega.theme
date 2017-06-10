@@ -252,28 +252,23 @@ function omega_preprocess_page(&$vars) {
  */
 function omega_preprocess_layout(&$variables) {
 
-  $variables['my-variable'] = [];
-  // @todo: This next logig needs to move to a preprocess_layout type thing.
-
   // Create an array to define the with-sidebar_first without-sidebar_first classes.
   $region_classes = [];
   $layout_classes = [];
   $pass_region_classes = [];
   $pass_layout_classes = [];
-
+  // Get the active layout being used.
   $layout = OmegaLayout::getActiveLayout();
-
-  /** @var \Drupal\Core\Config\ConfigFactory $configFactory */
-  $configFactory = \Drupal::service('config.factory');
-  $layoutConfig = $configFactory->getEditable($layout['theme'] . '.layout.' . $layout['layout']);
-  $groups = $layoutConfig->get('groups');
-  $region_groups = isset($groups['all']) ? $groups['all'] : [];
+  // The layout data object.
+  $layoutData = OmegaLayout::returnLayoutPluginLayout($layout['layout'], $layout['theme']);
+  $layoutStyleData = $layoutData->get('additional');
+  $region_groups = isset($layoutStyleData['groups']) ? $layoutStyleData['groups'] : [];
   foreach ($region_groups as $group_id => $group_info) {
-    $groupRegions = $region_groups[$group_id]['regions'];
-    foreach ($groupRegions as $region_id => $region_info) {
+    $groupRegions = $group_info['regions'];
+    foreach ($groupRegions as $region_id) {
       $altered_region_id = str_replace("_", "-", $region_id);
 
-      if (isset($variables['content'][$group_id][$region_id])) {
+      if (isset($variables['content'][$region_id][$region_id])) {
         $region_classes[$group_id][] = 'with--' . $altered_region_id;
         $layout_classes[] = 'with--' . $altered_region_id;
       }

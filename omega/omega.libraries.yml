@@ -55,14 +55,15 @@ omega_admin:
 ## Component Libraries (Optional through interface/config)
 
 ### Blocks
+# todo: Adjust main menu for header usage only.
 omega__block__main_menu:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
     title: 'Main Menu styling'
-    description: 'Basic layout and styling for main menu elements.'
+    description: 'Basic layout and styling for main menu elements that live in the header.'
     scss:
-      public/css/block--main_menu.css: 'style/scss/block/block--main_menu.scss'
+      public/css/block--main_menu.css: 'style/scss/block/block--main_menu--header.scss'
   version: VERSION
   css:
     component:
