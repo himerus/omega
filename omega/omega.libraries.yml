@@ -63,11 +63,11 @@ omega__block__main_menu:
     title: 'Main Menu styling'
     description: 'Basic layout and styling for main menu elements that live in the header.'
     scss:
-      public/css/block--main_menu.css: 'style/scss/block/block--main_menu--header.scss'
+      public/css/block--main_menu--header.css: 'style/scss/block/block--main_menu--header.scss'
   version: VERSION
   css:
     component:
-      public/css/block--main_menu.css: {}
+      public/css/block--main_menu--header.css: {}
   dependencies:
     - omega/omega
 omega__block__branding:

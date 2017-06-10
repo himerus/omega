@@ -1,4 +1,4 @@
-.layout--region--header .block--menu--main ul {
+.block--menu--main ul {
   margin: 0;
   padding: 0;
   clear: both;
@@ -8,13 +8,13 @@
   text-align: left;
 }
 
-.layout--region--header .block--menu--main ul li {
+.block--menu--main ul li {
   margin: 0;
   padding: 0;
   display: inline-block;
 }
 
-.layout--region--header .block--menu--main ul li a {
+.block--menu--main ul li a {
   transition: all 0.15s ease-in-out;
   display: block;
   text-decoration: none;
@@ -31,33 +31,33 @@
   border-right-width: 0;
 }
 
-.layout--region--header .block--menu--main ul li a:hover {
+.block--menu--main ul li a:hover {
   background: #e2e2e2;
 }
 
-.layout--region--header .block--menu--main ul li a.is-active {
+.block--menu--main ul li a.is-active {
   background: #d6d6d6;
 }
 
-.layout--region--header .block--menu--main ul li a.is-active:hover {
+.block--menu--main ul li a.is-active:hover {
   background: #d6d6d6;
 }
 
-.layout--region--header .block--menu--main ul .menu-item--expanded ul {
+.block--menu--main ul .menu-item--expanded ul {
   display: none;
 }
 
-.layout--region--header .block--menu--main ul .menu-item--expanded:hover > ul {
+.block--menu--main ul .menu-item--expanded:hover > ul {
   position: absolute;
   display: block;
   z-index: 10;
 }
 
-.layout--region--header .block--menu--main ul .menu-item--expanded:hover > ul li {
+.block--menu--main ul .menu-item--expanded:hover > ul li {
   display: block;
 }
 
-.layout--region--header .block--menu--main ul .menu-item--expanded:hover > ul a {
+.block--menu--main ul .menu-item--expanded:hover > ul a {
   text-align: left;
   font-size: 14px;
   min-width: 240px;
