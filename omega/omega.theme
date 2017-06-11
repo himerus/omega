@@ -416,6 +416,26 @@ function omega_form_search_block_form_alter(&$form, FormStateInterface $form_sta
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for user login form.
+ */
+function omega_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Add in a placeholder value to the search block form field.
+  if (isset($form['name']['#attributes'])) {
+    $form['name']['#attributes']['placeholder'] = t('User Name');
+  }
+
+  if (isset($form['pass']['#attributes'])) {
+    $form['pass']['#attributes']['placeholder'] = t('Password');
+  }
+  elseif (isset($form['pass'])) {
+    $form['pass']['#attributes'] = [
+      'placeholder' => t('Password'),
+    ];
+  }
+}
+
+/**
  * Implements hook_theme_registry_alter().
  */
 function omega_theme_registry_alter(&$theme_registry) {

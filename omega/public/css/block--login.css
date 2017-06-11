@@ -1,9 +1,15 @@
-.user--bar--layout .login-box--flyout {
+.region-group--user .login-box--flyout {
   display: none;
+  position: absolute;
+  z-index: 1000;
 }
 
-.user--bar--layout .login-box--trigger {
+.region-group--user .login-box--trigger {
   display: block;
+}
+
+.region-group--user .user-login-form label {
+  display: none;
 }
 
 .login-box--trigger .icon--user {

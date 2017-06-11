@@ -130,6 +130,8 @@ omega__component__user_bar:
       public/css/block--search.css: {}
       public/css/block--login.css: {}
       public/css/component--user_bar.css: {}
+  js:
+    js/component--user-bar.js: {}
   dependencies:
     - omega/omega
 omega__component__pagers:

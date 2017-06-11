@@ -13,6 +13,10 @@ node_modules
 
 # Generated files
 *.sass-cache/
+*.map
+*.map.js
+*.min.css
+*.min.js
 
 #IDE plugins
 .idea
