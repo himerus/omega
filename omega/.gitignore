@@ -14,7 +14,8 @@ node_modules
 # Generated files
 *.sass-cache/
 *.map
-*.map.js
+
+# Minified files from Gulp (Let Drupal handle this)
 *.min.css
 *.min.js
 
