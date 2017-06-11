@@ -8,13 +8,13 @@
   var breakpoints;
   var breakpointMatch;
 
+  /** Attempting to make toolbar play nice with Omega breakpoints. */
+  // @todo: Figure out a way to assign breakpoint media queries via variable.
   if (drupalSettings.toolbar) {
-    // Attempting to make toolbar play nice with Omega breakpoints.
-    // @todo: Figure out a way to assign breakpoint media queries via variable.
     drupalSettings.toolbar.breakpoints = {
-      'toolbar.narrow': 'all',
-      'toolbar.standard': 'none', // HIDE the horrid version.
-      'toolbar.wide': 'all and (min-width: 1220px)'
+      'toolbar.narrow': 'all', // This is the 'fixed' version that overlays content.
+      'toolbar.standard': 'none', // REMOVE the horrid version that shifts the content.
+      'toolbar.wide': 'all and (min-width: 1220px)' // This is the normal version.
     };
   }
 
