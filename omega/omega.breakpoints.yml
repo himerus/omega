@@ -7,6 +7,7 @@ omega.standard.all:
   status: true
   langcode: en
   group: omega.standard
+  isMobile: false
 omega.standard.mobile_portrait:
   label: Mobile Portrait
   mediaQuery: 'all and (max-width: 479px)'
@@ -16,6 +17,7 @@ omega.standard.mobile_portrait:
   status: true
   langcode: en
   group: omega.standard
+  isMobile: true
 omega.standard.mobile_landscape:
   label: Mobile Landscape
   mediaQuery: 'all and (min-width: 480px) and (max-width: 767px)'
@@ -25,6 +27,7 @@ omega.standard.mobile_landscape:
   status: true
   langcode: en
   group: omega.standard
+  isMobile: true
 omega.standard.narrow:
   label: Narrow
   mediaQuery: 'all and (min-width: 768px) and (max-width: 1023px)'
@@ -34,6 +37,7 @@ omega.standard.narrow:
   status: true
   langcode: en
   group: omega.standard
+  isMobile: true
 omega.standard.normal:
   label: Normal
   mediaQuery: 'all and (min-width: 1024px) and (max-width: 1219px)'
@@ -43,6 +47,7 @@ omega.standard.normal:
   status: true
   langcode: en
   group: omega.standard
+  isMobile: false
 omega.standard.wide:
   label: Wide
   mediaQuery: 'all and (min-width: 1220px)'
@@ -51,7 +56,8 @@ omega.standard.wide:
     - 1x
   status: true
   langcode: en
-  group: omega.standard  
+  group: omega.standard
+  isMobile: false
 omega.slim.all:
   label: All
   mediaQuery: 'all and (min-width: 0px)'
@@ -61,6 +67,7 @@ omega.slim.all:
   status: true
   langcode: en
   group: omega.slim
+  isMobile: false
 omega.slim.normal:
   label: Normal
   mediaQuery: 'all and (min-width: 1024px)'
@@ -70,3 +77,4 @@ omega.slim.normal:
   status: true
   langcode: en
   group: omega.slim
+  isMobile: false

@@ -74,10 +74,12 @@ function omega_page_attachments_alter(&$attachments) {
   $layouts = array();
   foreach ($breakpoints as $breakpoint) {
     /** @var \Drupal\breakpoint\Breakpoint $breakpoint */
+    $definition = $breakpoint->getPluginDefinition();
     $layouts[$breakpoint->getBaseId()] = array(
-      'query' => $breakpoint->getMediaQuery(),
-      'name' => $breakpoint->getLabel(),
+      'query' => $definition['mediaQuery'],
+      'name' => $definition['label'],
       'system' => $breakpoint->getBaseId(),
+      'isMobile' => isset($definition['isMobile']) ? $definition['isMobile'] : false,
     );
   }
   // add all the current (possible) breakpoints to the omega_breakpoints variable for use in omega.js
