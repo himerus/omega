@@ -343,29 +343,6 @@ body::after {
   }
 }
 
-.region-settings {
-  width: 100%;
-}
-
-.scss-examples {
-  background: #FEFEFE;
-  border: 1px dashed #6a6a6a;
-  margin-bottom: 20px;
-  padding: 8px 5px;
-}
-
-.scss-examples ul {
-  display: inline-block;
-  list-style-type: none;
-  margin: 0 0 0 1em;
-  padding: 0;
-}
-
-.scss-examples ul li {
-  display: inline-block;
-  margin-right: 1em;
-}
-
 .color-slider-controller {
   margin-bottom: 0;
   padding-bottom: 20px;
@@ -427,14 +404,6 @@ body::after {
   opacity: 1;
 }
 
-.omega-welcome .screeny {
-  float: left;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  max-width: 100%;
-  height: auto;
-}
-
 .color-slider {
   position: relative;
   max-height: 125px;
@@ -487,8 +456,40 @@ body::after {
   background: #729fcf;
 }
 
+.omega-welcome .screeny {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  max-width: 100%;
+  height: auto;
+}
+
+.scss-examples {
+  background: #FEFEFE;
+  border: 1px dashed #6a6a6a;
+  margin-bottom: 20px;
+  padding: 8px 5px;
+}
+
+.scss-examples ul {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0 0 0 1em;
+  padding: 0;
+}
+
+.scss-examples ul li {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.entity-meta details[open] {
+  background-image: none;
+}
+
 .region-settings {
   transition: all 0.5s ease-in-out;
+  width: 100%;
 }
 
 .region-settings .ui-slider .ui-slider-handle {
@@ -499,38 +500,12 @@ body::after {
   top: -0.6em;
 }
 
-.form-type-checkbox label {
-  font-weight: bold;
-}
-
-.form-type-checkbox .description {
-  font-size: 0.9em;
-}
-
-.form-type-checkbox p.description {
-  font-size: 1em;
-  margin: 2px 0 5px 0;
-}
-
-.form-actions .button,
-.form-actions .button:first-child {
-  margin-left: 0;
-  margin-right: 1em;
-}
-
 .slider .data-value {
   text-align: right;
   position: relative;
   top: 20px;
   font-weight: bold;
   font-size: 17px;
-}
-
-.omega-variables-info,
-.omega-export-info,
-.omega-styles-info {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .region-group-layout-settings {
@@ -713,8 +688,9 @@ body::after {
   clear: both;
 }
 
-details.region-settings,
-details.region-settings[open] {
+.entity-meta details.region-settings,
+.entity-meta details.region-settings[open],
+details.region-settings[open] + details[open] {
   display: inline-block;
   background-image: none;
   background-color: #FFF;
@@ -726,25 +702,21 @@ details.region-settings[open] {
   box-sizing: border-box;
 }
 
-details.region-settings .form-item,
-details.region-settings[open] .form-item {
+details.region-settings .form-item {
   display: block;
 }
 
-details.region-settings .form-item label,
-details.region-settings[open] .form-item label {
+details.region-settings .form-item label {
   font-variant: small-caps;
   margin-top: 10px;
   text-align: center;
 }
 
-details.region-settings .details-wrapper,
-details.region-settings[open] .details-wrapper {
+details.region-settings .details-wrapper {
   padding: 0;
 }
 
-details.region-settings summary,
-details.region-settings[open] summary {
+details.region-settings summary {
   padding: 10px 0;
   text-align: left;
 }
@@ -774,6 +746,39 @@ details.region-settings[open] summary {
 
 .layout-editor-select .description {
   clear: both;
+}
+
+.layout-region--message.layout-region--empty {
+  display: block;
+}
+
+.layout-region--message.layout-region--populated {
+  display: none;
+}
+
+.layout-region--title,
+.layout-region--title:hover {
+  background: #f9f9f9;
+}
+
+.theme-region-row.drag-previous, .theme-region-row.drag-previous:hover {
+  background-color: #ffd;
+}
+
+.theme-region-row .tabledrag-handle {
+  margin: 8px 0;
+}
+
+.theme-region-row h5 {
+  display: inline-block;
+}
+
+details > summary {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 .export-type-select {
@@ -834,13 +839,35 @@ details.region-settings[open] summary {
   margin-right: 1em;
 }
 
+.form-type-checkbox label {
+  font-weight: bold;
+}
+
+.form-type-checkbox .description {
+  font-size: 0.9em;
+}
+
+.form-type-checkbox p.description {
+  font-size: 1em;
+  margin: 2px 0 5px 0;
+}
+
+.form-actions .button,
+.form-actions .button:first-child {
+  margin-left: 0;
+  margin-right: 1em;
+}
+
+.omega-variables-info,
+.omega-export-info,
+.omega-styles-info {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .inline-documentation-image {
   height: auto;
   max-width: 80%;
-}
-
-.entity-meta details[open] {
-  background-image: none;
 }
 
 .messages :first-child {
@@ -849,37 +876,4 @@ details.region-settings[open] summary {
 
 .messages :last-child {
   margin-bottom: 0;
-}
-
-.layout-region--message.layout-region--empty {
-  display: block;
-}
-
-.layout-region--message.layout-region--populated {
-  display: none;
-}
-
-.layout-region--title,
-.layout-region--title:hover {
-  background: #f9f9f9;
-}
-
-.theme-region-row.drag-previous, .theme-region-row.drag-previous:hover {
-  background-color: #ffd;
-}
-
-.theme-region-row .tabledrag-handle {
-  margin: 8px 0;
-}
-
-.theme-region-row h5 {
-  display: inline-block;
-}
-
-details > summary {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  /* Non-prefixed version, currently supported by Chrome and Opera */
 }

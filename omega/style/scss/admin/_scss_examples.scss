@@ -1,0 +1,19 @@
+.scss-examples {
+  background: #FEFEFE;
+  border: 1px dashed #6a6a6a;
+  margin-bottom: 20px;
+  padding: 8px 5px;
+
+  ul {
+
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 0 0 1em;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      margin-right: 1em;
+    }
+  }
+}

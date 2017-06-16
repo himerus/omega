@@ -1,0 +1,108 @@
+.color-slider-controller {
+  margin-bottom: 0;
+  padding-bottom: 20px;
+  position: relative;
+
+  label {
+    display: inline-block;
+    font-size: 18px;
+  }
+
+  .controls {
+    font-size: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  ul.scss-examples {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 0 0 1em;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      margin-right: 1em;
+    }
+  }
+
+  input.rgb {
+    @include omegaTransition(opacity, 0.25s, ease-in-out);
+
+    position: absolute;
+    right: -4em;
+    top: -10px;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0.35;
+    width: 45px;
+
+    &:focus {
+      opacity: 1;
+    }
+  }
+
+  input.color-slider {
+    position: absolute;
+    z-index: 100;
+    right: 10px;
+    bottom: 30px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0.35;
+    @include omegaTransition(opacity, 0.25s, ease-in-out);
+
+    &:focus {
+      opacity: 1;
+    }
+  }
+}
+
+.color-slider {
+  position: relative;
+  max-height: 125px;
+
+  .red,
+  .green,
+  .blue {
+    float: left;
+    clear: none;
+    width: 60%;
+    margin: 15px 0;
+  }
+
+  .swatch {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 75%;
+    z-index: 1;
+    border: 2px solid #FFF;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  .red .ui-slider-range {
+    background: #ef2929;
+  }
+  .red .ui-slider-handle {
+    border-color: #EEEEEE;
+    background: #ef2929;
+  }
+  .green .ui-slider-range {
+    background: #8ae234;
+  }
+  .green .ui-slider-handle {
+    border-color: #EEEEEE;
+    background: #8ae234;
+  }
+  .blue .ui-slider-range {
+    background: #729fcf;
+  }
+  .blue .ui-slider-handle {
+    border-color: #EEEEEE;
+    background: #729fcf;
+  }
+}
