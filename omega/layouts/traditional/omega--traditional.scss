@@ -254,22 +254,22 @@
 
       // Breakpoint: Mobile Landscape; Region Group: preface; Region: preface_first;
       .layout--region--preface-first {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Mobile Landscape; Region Group: preface; Region: preface_second;
       .layout--region--preface-second {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Mobile Landscape; Region Group: preface; Region: preface_third;
       .layout--region--preface-third {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Mobile Landscape; Region Group: preface; Region: preface_fourth;
       .layout--region--preface-fourth {
-        @include column(12, 12);
+        @include column(6, 12);
       }
     }
 
@@ -301,22 +301,22 @@
 
       // Breakpoint: Mobile Landscape; Region Group: postscript; Region: postscript_first;
       .layout--region--postscript-first {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Mobile Landscape; Region Group: postscript; Region: postscript_second;
       .layout--region--postscript-second {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Mobile Landscape; Region Group: postscript; Region: postscript_third;
       .layout--region--postscript-third {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Mobile Landscape; Region Group: postscript; Region: postscript_fourth;
       .layout--region--postscript-fourth {
-        @include column(12, 12);
+        @include column(6, 12);
       }
     }
 
@@ -363,22 +363,22 @@
 
       // Breakpoint: Narrow; Region Group: preface; Region: preface_first;
       .layout--region--preface-first {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Narrow; Region Group: preface; Region: preface_second;
       .layout--region--preface-second {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Narrow; Region Group: preface; Region: preface_third;
       .layout--region--preface-third {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Narrow; Region Group: preface; Region: preface_fourth;
       .layout--region--preface-fourth {
-        @include column(12, 12);
+        @include column(6, 12);
       }
     }
 
@@ -389,18 +389,58 @@
 
       // Breakpoint: Narrow; Region Group: content; Region: content;
       .layout--region--content {
-        @include column(12, 12);
+        @include column(6, 12);
+        @include push(3);
       }
 
       // Breakpoint: Narrow; Region Group: content; Region: sidebar_first;
       .layout--region--sidebar-first {
-        @include column(12, 12);
+        @include column(3, 12);
+        @include pull(6);
       }
 
       // Breakpoint: Narrow; Region Group: content; Region: sidebar_second;
       .layout--region--sidebar-second {
-        @include column(12, 12);
+        @include column(3, 12);
       }
+
+      /* stylelint-disable selector-max-specificity */
+      // A primary region exists for the content region group.
+      // so we are going to iterate over combinations of available/missing
+      // regions to change the layout for this group based on those scenarios.
+
+      // 1 missing region
+
+      &.with--content.without--sidebar-first {
+        .layout--region--content {
+          @include column-reset();
+          @include column(9, 12);
+        }
+
+      }
+
+      &.with--content.without--sidebar-second {
+        .layout--region--content {
+          @include column-reset();
+          @include column(9, 12);
+          @include push(3);
+        }
+
+        .layout--region--sidebar-first {
+          @include column-reset();
+          @include column(3, 12);
+          @include pull(9);
+        }
+      }
+
+      // 2 missing regions
+      &.with--content.without--sidebar-first.without--sidebar-second {
+        .layout--region--content {
+          @include column-reset();
+          @include column(12, 12);
+        }
+      }
+      /* stylelint-enable selector-max-specificity */
     }
 
     // Breakpoint: Narrow; Region Group: postscript;
@@ -410,22 +450,22 @@
 
       // Breakpoint: Narrow; Region Group: postscript; Region: postscript_first;
       .layout--region--postscript-first {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Narrow; Region Group: postscript; Region: postscript_second;
       .layout--region--postscript-second {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Narrow; Region Group: postscript; Region: postscript_third;
       .layout--region--postscript-third {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Narrow; Region Group: postscript; Region: postscript_fourth;
       .layout--region--postscript-fourth {
-        @include column(12, 12);
+        @include column(6, 12);
       }
     }
 
@@ -472,22 +512,22 @@
 
       // Breakpoint: Normal; Region Group: preface; Region: preface_first;
       .layout--region--preface-first {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Normal; Region Group: preface; Region: preface_second;
       .layout--region--preface-second {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Normal; Region Group: preface; Region: preface_third;
       .layout--region--preface-third {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Normal; Region Group: preface; Region: preface_fourth;
       .layout--region--preface-fourth {
-        @include column(12, 12);
+        @include column(6, 12);
       }
     }
 
@@ -498,18 +538,58 @@
 
       // Breakpoint: Normal; Region Group: content; Region: content;
       .layout--region--content {
-        @include column(12, 12);
+        @include column(6, 12);
+        @include push(3);
       }
 
       // Breakpoint: Normal; Region Group: content; Region: sidebar_first;
       .layout--region--sidebar-first {
-        @include column(12, 12);
+        @include column(3, 12);
+        @include pull(6);
       }
 
       // Breakpoint: Normal; Region Group: content; Region: sidebar_second;
       .layout--region--sidebar-second {
-        @include column(12, 12);
+        @include column(3, 12);
       }
+
+      /* stylelint-disable selector-max-specificity */
+      // A primary region exists for the content region group.
+      // so we are going to iterate over combinations of available/missing
+      // regions to change the layout for this group based on those scenarios.
+
+      // 1 missing region
+
+      &.with--content.without--sidebar-first {
+        .layout--region--content {
+          @include column-reset();
+          @include column(9, 12);
+        }
+
+      }
+
+      &.with--content.without--sidebar-second {
+        .layout--region--content {
+          @include column-reset();
+          @include column(9, 12);
+          @include push(3);
+        }
+
+        .layout--region--sidebar-first {
+          @include column-reset();
+          @include column(3, 12);
+          @include pull(9);
+        }
+      }
+
+      // 2 missing regions
+      &.with--content.without--sidebar-first.without--sidebar-second {
+        .layout--region--content {
+          @include column-reset();
+          @include column(12, 12);
+        }
+      }
+      /* stylelint-enable selector-max-specificity */
     }
 
     // Breakpoint: Normal; Region Group: postscript;
@@ -519,22 +599,22 @@
 
       // Breakpoint: Normal; Region Group: postscript; Region: postscript_first;
       .layout--region--postscript-first {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Normal; Region Group: postscript; Region: postscript_second;
       .layout--region--postscript-second {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Normal; Region Group: postscript; Region: postscript_third;
       .layout--region--postscript-third {
-        @include column(12, 12);
+        @include column(6, 12);
       }
 
       // Breakpoint: Normal; Region Group: postscript; Region: postscript_fourth;
       .layout--region--postscript-fourth {
-        @include column(12, 12);
+        @include column(6, 12);
       }
     }
 
@@ -581,22 +661,22 @@
 
       // Breakpoint: Wide; Region Group: preface; Region: preface_first;
       .layout--region--preface-first {
-        @include column(6, 12);
+        @include column(3, 12);
       }
 
       // Breakpoint: Wide; Region Group: preface; Region: preface_second;
       .layout--region--preface-second {
-        @include column(6, 12);
+        @include column(3, 12);
       }
 
       // Breakpoint: Wide; Region Group: preface; Region: preface_third;
       .layout--region--preface-third {
-        @include column(6, 12);
+        @include column(3, 12);
       }
 
       // Breakpoint: Wide; Region Group: preface; Region: preface_fourth;
       .layout--region--preface-fourth {
-        @include column(6, 12);
+        @include column(3, 12);
       }
     }
 
@@ -668,22 +748,22 @@
 
       // Breakpoint: Wide; Region Group: postscript; Region: postscript_first;
       .layout--region--postscript-first {
-        @include column(6, 12);
+        @include column(3, 12);
       }
 
       // Breakpoint: Wide; Region Group: postscript; Region: postscript_second;
       .layout--region--postscript-second {
-        @include column(6, 12);
+        @include column(3, 12);
       }
 
       // Breakpoint: Wide; Region Group: postscript; Region: postscript_third;
       .layout--region--postscript-third {
-        @include column(6, 12);
+        @include column(3, 12);
       }
 
       // Breakpoint: Wide; Region Group: postscript; Region: postscript_fourth;
       .layout--region--postscript-fourth {
-        @include column(6, 12);
+        @include column(3, 12);
       }
     }
 
