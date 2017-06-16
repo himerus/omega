@@ -19,22 +19,22 @@
 
         {% if content.preface_first or content.preface_second or content.preface_third or content.preface_fourth %}
         <section class="layout--group region-group region-group--preface {{ region_classes.preface }}">
-            {% if content.prefact_first %}
+            {% if content.preface_first %}
             <div class="layout--region layout--region--preface-first">
                 {{ content.preface_first }}
             </div>
             {% endif %}
-            {% if content.prefact_second %}
+            {% if content.preface_second %}
             <div class="layout--region layout--region--preface-second">
                 {{ content.preface_second }}
             </div>
             {% endif %}
-            {% if content.prefact_third %}
+            {% if content.preface_third %}
             <div class="layout--region layout--region--preface-third">
                 {{ content.preface_third }}
             </div>
             {% endif %}
-            {% if content.prefact_fourth %}
+            {% if content.preface_fourth %}
             <div class="layout--region layout--region--preface-fourth">
                 {{ content.preface_fourth }}
             </div>
@@ -54,7 +54,7 @@
                 {{ content.sidebar_first }}
             </div>
             {% endif %}
-            {% if content.sidbar_second %}
+            {% if content.sidebar_second %}
             <div class="layout--region layout--region--sidebar-second">
                 {{ content.sidebar_second }}
             </div>
@@ -64,22 +64,22 @@
 
         {% if content.postscript_first or content.postscript_second or content.postscript_third or content.postscript_fourth %}
             <section class="layout--group region-group region-group--postscript {{ region_classes.postscript }}">
-                {% if content.prefact_first %}
+                {% if content.postscript_first %}
                     <div class="layout--region layout--region--postscript-first">
                         {{ content.postscript_first }}
                     </div>
                 {% endif %}
-                {% if content.prefact_second %}
+                {% if content.postscript_second %}
                     <div class="layout--region layout--region--postscript-second">
                         {{ content.postscript_second }}
                     </div>
                 {% endif %}
-                {% if content.prefact_third %}
+                {% if content.postscript_third %}
                     <div class="layout--region layout--region--postscript-third">
                         {{ content.postscript_third }}
                     </div>
                 {% endif %}
-                {% if content.prefact_fourth %}
+                {% if content.postscript_fourth %}
                     <div class="layout--region layout--region--postscript-fourth">
                         {{ content.postscript_fourth }}
                     </div>

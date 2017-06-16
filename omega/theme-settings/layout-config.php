@@ -2,6 +2,17 @@
 
 use Drupal\omega\Layout\OmegaLayout;
 
+/**
+ * Currently the functionality for default_layout isn't working as expected.
+ * This needs to be rebuilt so the form item (default_layout) stores what we
+ * expect the default layout to be, then the additional items that we choose
+ * not to configure should no have default_layout as the default OPTION. Instead
+ * those items should be set to inherit, then still allow pulling the value for
+ * default_layout if it is not set.
+ *
+ * @todo: Refactor/configure default_layout variable storage and usage.
+ */
+
 // create the container for settings
 $form['layout-config'] = array(
   '#type' => 'details',
