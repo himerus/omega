@@ -77,6 +77,19 @@
   };
 
   /**
+   * Make toolbar play nice with Omega breakpoints.
+   * This seems to need to live outside of a Drupal.behaviors function.
+   * @todo: Figure out a way to assign breakpoint media queries via variable.
+   * @todo: Figure out how to fire/adjust the breakpoints the 'right' way and via behavior.
+   */
+  if (drupalSettings.toolbar) {
+    drupalSettings.toolbar.breakpoints = {
+      'toolbar.narrow': 'all', // This is the 'fixed' version that overlays content.
+      'toolbar.standard': 'none', // REMOVE the horrid version that shifts the content.
+      'toolbar.wide': 'all and (min-width: 1024px)' // This is the normal version.
+    };
+  }
+  /**
    * Adjust the Drupal toolbar for better responsiveness.
    *
    * This function accomplishes the following enhancements to the default Drupal toolbar's responsiveness:
@@ -91,16 +104,6 @@
    */
   Drupal.behaviors.toolbarResponsiveEnhance = {
     attach: function (context, settings) {
-
-      // Make toolbar play nice with Omega breakpoints.
-      // @todo: Figure out a way to assign breakpoint media queries via variable.
-      if (drupalSettings.toolbar) {
-        drupalSettings.toolbar.breakpoints = {
-          'toolbar.narrow': 'all', // This is the 'fixed' version that overlays content.
-          'toolbar.standard': 'none', // REMOVE the horrid version that shifts the content.
-          'toolbar.wide': 'all and (min-width: 1024px)' // This is the normal version.
-        };
-      }
 
       $(window).on('breakpointAdded', function(e, b){
         if ($(Drupal.toolbar.models.toolbarModel.get('activeTab')).size() > 0) {
