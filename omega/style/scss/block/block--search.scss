@@ -16,13 +16,12 @@
   }
 
   .form-submit {
-    //display: none;
     @include button();
+    display: none;
     box-shadow: none;
   }
 
   .icon--search {
     @include button();
-
   }
 }

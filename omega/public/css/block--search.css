@@ -41,6 +41,7 @@
   line-height: 1em;
   padding: 0.5em 0.75em;
   text-decoration: none;
+  display: none;
   box-shadow: none;
 }
 

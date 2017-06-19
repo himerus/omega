@@ -132,6 +132,7 @@ omega__component__user_bar:
       public/css/component--user_bar.css: {}
   js:
     js/component--user-bar.js: {}
+    js/component--search.js: {}
   dependencies:
     - omega/omega
 omega__component__pagers:
