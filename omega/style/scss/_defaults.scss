@@ -186,6 +186,16 @@ $user-bar--search-float:              right !default;
 $user-bar--login-float:               right !default;;
 $user-bar--menu-float:                left !default;
 
+// Custom styling for the login block when INSIDE the user bar.
+$user-bar--login--bg:                 $user-bar--background !default;
+$user-bar--login--padding:            10px !default;
+$user-bar--login--color:              $user-bar--font-color !default;
+$user-bar--login--font-size:          12px !default;
+$user-bar--login--min-width:          200px !default;
+$user-bar--login--max-width:          100% !default;
+$user-bar--login--actions-align:      right !default;
+$user-bar--login--links-align:        right !default;
+
 // Form styling
 // See: {mixin} input
 $form--input--width:                  100% !default;

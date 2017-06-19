@@ -484,7 +484,8 @@
   content: "\e970";
 }
 
-.icon--user:before {
+.icon--user:before,
+.icon--user-login-flyout:before{
   content: "\e971";
 }
 

@@ -170,6 +170,38 @@ user-bar--menu-float:
   name: $user-bar--menu-float
   value: left
   comment: ""
+user-bar--login--bg:
+  name: $user-bar--login--bg
+  value: $user-bar--background
+  comment: ""
+user-bar--login--padding:
+  name: $user-bar--login--padding
+  value: 10px
+  comment: ""
+user-bar--login--color:
+  name: $user-bar--login--color
+  value: $user-bar--font-color
+  comment: ""
+user-bar--login--font-size:
+  name: $user-bar--login--font-size
+  value: 12px
+  comment: ""
+user-bar--login--min-width:
+  name: $user-bar--login--min-width
+  value: 200px
+  comment: ""
+user-bar--login--max-width:
+  name: $user-bar--login--max-width
+  value: 100%
+  comment: ""
+user-bar--login--actions-align:
+  name: $user-bar--login--actions-align
+  value: right
+  comment: ""
+user-bar--login--links-align:
+  name: $user-bar--login--links-align
+  value: right
+  comment: ""
 form--input--width:
   name: $form--input--width
   value: 100%

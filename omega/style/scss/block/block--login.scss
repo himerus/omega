@@ -1,6 +1,43 @@
 @import "defaults", "mixins";
 
+.login-box-trigger {
+  display: none; // Not displayed by default.
+}
+
+.block-user-login-block {
+  .form-type-textfield,
+  .form-type-password {
+    margin-bottom: 5px;
+
+    input {
+      @include input(
+        $width: 100%,
+        $max-width: 100%
+      );
+    }
+  }
+
+  ul {
+    margin: 0;
+
+    li {
+      margin: 0 0 5px 0;
+      list-style-type: none;
+    }
+  }
+}
+
 .region-group--user {
+
+  .icon--user-login-flyout {
+    @include button();
+    display: block;
+  }
+
+  .login-box--trigger {
+    display: block;
+    margin-right: 5px;
+  }
 
   // Hide the primary login box by default.
   .login-box--flyout {
@@ -8,22 +45,41 @@
     position: absolute;
     z-index: 1000;
   }
+
   // Instead, show a trigger element.
   .login-box--trigger {
     display: block;
   }
 
+  // Hide the labels as we are using placeholders instead for usability.
   .user-login-form {
     label{
       display: none;
     }
   }
-}
 
+  .login-box--flyout {
+    padding: $user-bar--login--padding;
+    max-width: $user-bar--login--max-width;
+    min-width: $user-bar--login--min-width;
+    color: $user-bar--login--color;
+    background: $user-bar--login--bg;
+  }
 
+  .user-login-form {
+    margin-bottom: 10px;
+  }
 
-.login-box--trigger {
-  .icon--user {
-    @include button();
+  ul {
+    font-size: $user-bar--login--font-size;
+    text-align: $user-bar--login--links-align;
+  }
+
+  .form-actions {
+    text-align: $user-bar--login--actions-align;
   }
 }
+
+
+
+

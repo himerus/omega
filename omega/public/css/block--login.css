@@ -1,18 +1,45 @@
-.region-group--user .login-box--flyout {
-  display: none;
-  position: absolute;
-  z-index: 1000;
-}
-
-.region-group--user .login-box--trigger {
-  display: block;
-}
-
-.region-group--user .user-login-form label {
+.login-box-trigger {
   display: none;
 }
 
-.login-box--trigger .icon--user {
+.block-user-login-block .form-type-textfield,
+.block-user-login-block .form-type-password {
+  margin-bottom: 5px;
+}
+
+.block-user-login-block .form-type-textfield input,
+.block-user-login-block .form-type-password input {
+  transition: all 0.25s ease-in-out;
+  background: #FFF;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.35em 0.5em;
+  font-size: 0.8em;
+  font-weight: normal;
+  border: 1px solid #1A1A1A;
+  border-radius: 3px;
+}
+
+.block-user-login-block .form-type-textfield input:active,
+.block-user-login-block .form-type-password input:active {
+  border: 1px solid #1A1A1A;
+}
+
+.block-user-login-block .form-type-textfield input:focus,
+.block-user-login-block .form-type-password input:focus {
+  border: 1px solid #1A1A1A;
+}
+
+.block-user-login-block ul {
+  margin: 0;
+}
+
+.block-user-login-block ul li {
+  margin: 0 0 5px 0;
+  list-style-type: none;
+}
+
+.region-group--user .icon--user-login-flyout {
   border-radius: 4px;
   transition: all 0.15s ease-in-out;
   text-transform: none;
@@ -27,9 +54,50 @@
   line-height: 1em;
   padding: 0.5em 0.75em;
   text-decoration: none;
+  display: block;
 }
 
-.login-box--trigger .icon--user:hover, .login-box--trigger .icon--user:active {
+.region-group--user .icon--user-login-flyout:hover, .region-group--user .icon--user-login-flyout:active {
   background: #c9c9c9;
   color: black;
+}
+
+.region-group--user .login-box--trigger {
+  display: block;
+  margin-right: 5px;
+}
+
+.region-group--user .login-box--flyout {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+}
+
+.region-group--user .login-box--trigger {
+  display: block;
+}
+
+.region-group--user .user-login-form label {
+  display: none;
+}
+
+.region-group--user .login-box--flyout {
+  padding: 10px;
+  max-width: 100%;
+  min-width: 200px;
+  color: #9A9A9A;
+  background: #3A3A3A;
+}
+
+.region-group--user .user-login-form {
+  margin-bottom: 10px;
+}
+
+.region-group--user ul {
+  font-size: 12px;
+  text-align: right;
+}
+
+.region-group--user .form-actions {
+  text-align: right;
 }

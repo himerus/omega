@@ -105,52 +105,54 @@
   Drupal.behaviors.toolbarResponsiveEnhance = {
     attach: function (context, settings) {
 
-      $(window).on('breakpointAdded', function(e, b){
-        if ($(Drupal.toolbar.models.toolbarModel.get('activeTab')).size() > 0) {
-          // Let's try to store the last active item for user later.
-          let lastTabId = $(Drupal.toolbar.models.toolbarModel.get('activeTab')).attr('id');
-          drupalSettings.toolbar.lastActive = lastTabId;
+      if (Drupal.toolbar){
+        $(window).on('breakpointAdded', function(e, b){
+          if ($(Drupal.toolbar.models.toolbarModel.get('activeTab')).size() > 0) {
+            // Let's try to store the last active item for user later.
+            let lastTabId = $(Drupal.toolbar.models.toolbarModel.get('activeTab')).attr('id');
+            drupalSettings.toolbar.lastActive = lastTabId;
 
-          localStorage.setItem('drupalSettings.toolbar.lastActive', drupalSettings.toolbar.lastActive);
-        }
-        else {
-          // There is NOT an active tab, so we should determine what it should be.
-          let lastItem = localStorage.getItem('drupalSettings.toolbar.lastActive');
-
-          if (lastItem) {
-            // There isn't a currently set item, but we have one in storage from responsive closing of it.
-            let lastLink = $('.toolbar-item[id="' + lastItem + '"]');
-            drupalSettings.toolbar.lastActive = lastLink.attr('id');
-          }
-          else {
-            // There is not a currently set active item, and there is not one stored via variable/local storage.
-            // Here we will set this to the default 'manage' tab.
-            let maninTabId = $('#toolbar-item-administration').attr('id');
-            drupalSettings.toolbar.lastActive = maninTabId;
             localStorage.setItem('drupalSettings.toolbar.lastActive', drupalSettings.toolbar.lastActive);
           }
-        }
+          else {
+            // There is NOT an active tab, so we should determine what it should be.
+            let lastItem = localStorage.getItem('drupalSettings.toolbar.lastActive');
 
-        // Let's close the open toolbar menu rather than it switching to vertical
-        if (omegaIsMobileBreakpoint(b.bp)) {
-          // Close any open toolbar administration trays.
-          Drupal.toolbar.models.toolbarModel.set('activeTab', null);
-        }
-        else {
-          // Reopen any previously closed toolbar administration trays.
-          let thisToolbarItem = $('.toolbar-item[id="' + drupalSettings.toolbar.lastActive + '"]');
-          Drupal.toolbar.models.toolbarModel.set('activeTab', thisToolbarItem);
+            if (lastItem) {
+              // There isn't a currently set item, but we have one in storage from responsive closing of it.
+              let lastLink = $('.toolbar-item[id="' + lastItem + '"]');
+              drupalSettings.toolbar.lastActive = lastLink.attr('id');
+            }
+            else {
+              // There is not a currently set active item, and there is not one stored via variable/local storage.
+              // Here we will set this to the default 'manage' tab.
+              let maninTabId = $('#toolbar-item-administration').attr('id');
+              drupalSettings.toolbar.lastActive = maninTabId;
+              localStorage.setItem('drupalSettings.toolbar.lastActive', drupalSettings.toolbar.lastActive);
+            }
+          }
 
-        }
-      });
+          // Let's close the open toolbar menu rather than it switching to vertical
+          if (omegaIsMobileBreakpoint(b.bp)) {
+            // Close any open toolbar administration trays.
+            Drupal.toolbar.models.toolbarModel.set('activeTab', null);
+          }
+          else {
+            // Reopen any previously closed toolbar administration trays.
+            let thisToolbarItem = $('.toolbar-item[id="' + drupalSettings.toolbar.lastActive + '"]');
+            Drupal.toolbar.models.toolbarModel.set('activeTab', thisToolbarItem);
 
-      // Handle the event where a tray is open, then a breakpoint is scaled to that hides the tray, then a different
-      // item is opened or opened/closed so that the last one clicked/opened/closed is the new lastActive tray.
-      $('.toolbar-tab > a.toolbar-item').click(function(){
-        let clickedTabId = $(this).attr('id');
-        drupalSettings.toolbar.lastActive = clickedTabId;
-        localStorage.setItem('drupalSettings.toolbar.lastActive', drupalSettings.toolbar.lastActive);
-      });
+          }
+        });
+
+        // Handle the event where a tray is open, then a breakpoint is scaled to that hides the tray, then a different
+        // item is opened or opened/closed so that the last one clicked/opened/closed is the new lastActive tray.
+        $('.toolbar-tab > a.toolbar-item').click(function(){
+          let clickedTabId = $(this).attr('id');
+          drupalSettings.toolbar.lastActive = clickedTabId;
+          localStorage.setItem('drupalSettings.toolbar.lastActive', drupalSettings.toolbar.lastActive);
+        });
+      }
     }
   };
 
