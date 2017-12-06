@@ -15,6 +15,7 @@ use Drupal\Core\Asset\Exception\InvalidLibraryFileException;
  * OmegaExport declares methods used to build a new subtheme
  *
  * @todo: Refactor OmegaExport and all the things.
+ * @todo: Remove OmegaExport in favor of themeBuilder
  */
 class OmegaExport implements OmegaExportInterface {
 
@@ -152,8 +153,10 @@ class OmegaExport implements OmegaExportInterface {
       'theme_configrb_create' => $this->getOptions('export_enable_configrb') ? TRUE : FALSE,
       // If Gemfile support should be included.
       'theme_gemfile_create' => $this->getOptions('export_enable_gemfile') ? TRUE : FALSE,
-      // If Gruntfile.js support should be included.
+      // If Grunt support should be included.
       'theme_gruntfile_create' => $this->getOptions('export_enable_gruntfile') ? TRUE : FALSE,
+      // If Gulp support should be included.
+      'theme_gulpfile_create' => $this->getOptions('export_enable_gulpfile') ? TRUE : FALSE,
     );
     $this->kitData = [
       'clone_directory' => DRUPAL_ROOT . '/' . drupal_get_path('theme', $this->build['parent']),
@@ -1034,6 +1037,40 @@ class OmegaExport implements OmegaExportInterface {
     }
     else {
       // remove the default Gemfile if it exists
+      $this->fileRemove($destination);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   * @todo: generateConfigrb(), generateGemfile() and generateGruntfile() could/should be combined to a single method.
+   */
+  protected function generateGulpSupport() {
+    $destination = $this->build['destination_path'] . '/gulpfile.js';
+    if ($this->build['theme_gulpfile_create']) {
+      $source = $this->getKitPath() . '/gulpfile.js';
+      // copy the Gruntfile
+      $gulpfile = $this->fileCopy($source, $destination);
+      if (!$gulpfile) {
+        drupal_set_message("Error saving gulpfile.js.", "error");
+      }
+    }
+    else {
+      // remove the default Gulpfile if it exists
+      $this->fileRemove($destination);
+    }
+
+    $destination = $this->build['destination_path'] . '/gulpconfig.js';
+    if ($this->build['theme_gulpfile_create']) {
+      $source = $this->getKitPath() . '/gulpconfig.js';
+      // copy the Gruntfile
+      $gulpfile = $this->fileCopy($source, $destination);
+      if (!$gulpfile) {
+        drupal_set_message("Error saving gulpconfig.js.", "error");
+      }
+    }
+    else {
+      // remove the default Gulpfile if it exists
       $this->fileRemove($destination);
     }
   }

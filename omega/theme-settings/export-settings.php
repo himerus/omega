@@ -264,6 +264,14 @@ $form['export']['export_options']['export_enable_gruntfile'] = array(
   '#states' => $subtheme_state,
 );
 
+$form['export']['export_options']['export_enable_gulpfile'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Include gulpfile.js/gulpconfig.js'),
+  '#description' => t('Gulp is a toolkit for automating painful or time-consuming tasks in your development workflow, so you can stop messing around and build something. <strong>If you are unsure what Gulp is, leave this option unchecked.</strong> For more information on gulpfile.js options, visit <a href="http://gulpjs.com/" target="_blank">gulpjs.com</a>.'),
+  '#default_value' => 0,
+  '#states' => $subtheme_state,
+);
+
 $form['export']['export_options']['export_include_blank_library'] = array(
   '#type' => 'checkbox',
   '#title' => t('Include customizable library with CSS/JS'),
