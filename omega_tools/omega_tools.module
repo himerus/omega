@@ -1,36 +1,43 @@
 <?php
 
+/**
+ * @file
+ * Custom helper functions for Omega Five.
+ *
+ * This file contains the primary helper functions used for the Omega Five base
+ * theme.
+ */
+
 use Drupal\Core\Url;
 
 /**
- * hook_system_themes_page_alter()
+ * Implements hook_system_themes_page_alter() for theme page form.
  *
- * This is required in module form since Omega is likely (almost always) not set as admin theme
- * So that we can manipulate the theme listing page a bit.
- * @param $theme_groups
+ * This is required in module form since Omega is likely (almost always) not
+ * set as admin theme so that we can manipulate the theme listing page a bit.
  */
-function omega_tools_system_themes_page_alter(&$theme_groups) {
+function omega_tools_system_themes_page_alter(array &$theme_groups) {
   foreach ($theme_groups as $state => &$group) {
     /** @var Drupal\Core\Extension\Extension $theme */
     foreach ($theme_groups[$state] as $k => $theme) {
       $forceExport = isset($theme->info['force_export']) ? $theme->info['force_export'] : FALSE;
-      // if we have forced export through .info.yml settings, let's alter the Settings link
+      // Forced export in .info.yml settings, let's alter the Settings link.
       if ($forceExport) {
-        foreach($theme->operations as $k => $operation) {
-          /** @var Drupal\Core\StringTranslation\TranslatableMarkup $operation['title'] */
+        foreach ($theme->operations as $k => $operation) {
+          /* @var Drupal\Core\StringTranslation\TranslatableMarkup $operation['title'] */
           if ($operation['title']->render() == 'Settings') {
-            // Let's completely reset the 'Settings' link as this omega subtheme has no settings,
-            // but only displays the export/subtheme functionality
-            $theme->operations[$k] = array(
+            // Let's completely reset the 'Settings' link as this omega subtheme
+            // has no settings, so display the export/subtheme functionality.
+            $theme->operations[$k] = [
               'title' => t('Create Subtheme'),
               'url' => Url::fromRoute('system.theme_settings_theme', ['theme' => $theme->getName()]),
-              'attributes' => array('title' => t('Create a new subtheme of the @theme theme', array('@theme' => $theme->info['name']))),
-            );
+              'attributes' => ['title' => t('Create a new subtheme of the @theme theme', ['@theme' => $theme->info['name']])],
+            ];
           }
         }
       }
 
-      /**
+      /*
        * Attempt to hide themes we don't want to be enabled, and should be
        * hidden from the administrative interface.
        *
@@ -40,7 +47,7 @@ function omega_tools_system_themes_page_alter(&$theme_groups) {
       // Array of theme machine names to be hidden.
       $hidden_themes = [
         'bartik',
-        'stark'
+        'stark',
       ];
 
       if (in_array($theme->getName(), $hidden_themes)) {
@@ -48,32 +55,32 @@ function omega_tools_system_themes_page_alter(&$theme_groups) {
         unset($theme_groups[$state][$k]);
       }
 
-      /**
+      /*
        * Let's add some useful links just for the Omega theme.
        */
       if ($theme->getName() == 'omega') {
         // Link to Project Page.
-        $theme->operations[] = array(
+        $theme->operations[] = [
           'title' => t('Project Page'),
-          'url' => Url::fromUri('https://drupal.org/project/omega', array(
-            'attributes' => array('target' => '_blank'),
-          )),
-        );
+          'url' => Url::fromUri('https://drupal.org/project/omega', [
+            'attributes' => ['target' => '_blank'],
+          ]),
+        ];
         // Link to Issue Queue.
-        $theme->operations[] = array(
+        $theme->operations[] = [
           'title' => t('Issue Queue'),
-          'url' => Url::fromUri('https://drupal.org/project/issues/omega', array(
-            'attributes' => array('target' => '_blank'),
-          )),
-        );
+          'url' => Url::fromUri('https://drupal.org/project/issues/omega', [
+            'attributes' => ['target' => '_blank'],
+          ]),
+        ];
         // Link to GitHub project.
-        $theme->operations[] = array(
+        $theme->operations[] = [
           'title' => t('GitHub'),
-          'url' => Url::fromUri('https://github.com/himerus/omega', array(
-            'attributes' => array('target' => '_blank'),
-          )),
-        );
+          'url' => Url::fromUri('https://github.com/himerus/omega', [
+            'attributes' => ['target' => '_blank'],
+          ]),
+        ];
       }
     }
   }
-} // END omega_tools_system_themes_page_alter
+}
