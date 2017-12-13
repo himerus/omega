@@ -5,6 +5,14 @@ namespace Drupal\omega_layout\Layout;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 
+/**
+ * Omega Layout Class.
+ *
+ * @category Class
+ * @package omega_layout
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License
+ * @link https://www.drupal.org/project/omega
+ */
 class OmegaLayoutManager implements OmegaLayoutManagerInterface {
 
   /**
@@ -16,7 +24,9 @@ class OmegaLayoutManager implements OmegaLayoutManagerInterface {
 
   /**
    * Contains the features enabled for layouts by default.
-   **/
+   *
+   * @var array
+   */
   protected $layoutStructure = [
     'label' => '',
     'category' => '',
@@ -85,4 +95,5 @@ class OmegaLayoutManager implements OmegaLayoutManagerInterface {
   public function removeLayout() {
 
   }
+
 }

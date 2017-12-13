@@ -1,8 +1,13 @@
 <?php
 
 /**
+ * @file
+ * Implements custom layout behaviors and functionality for Omega Five.
+ */
+
+/**
  * Implements hook_system_themes_page_alter().
  */
 function omega_layout_system_themes_page_alter(&$theme_groups) {
 
-} // END omega_layout_system_themes_page_alter
+} /* END omega_layout_system_themes_page_alter */
