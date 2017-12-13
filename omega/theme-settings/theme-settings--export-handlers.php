@@ -1,17 +1,22 @@
 <?php
 
+/**
+ * @file
+ * Implements custom theme settings for Omega Five related to exports.
+ */
+
 use Drupal\omega\Export\OmegaExport;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Custom validation function for generating subthemes.
  *
- * @param $form
+ * @param array $form
  *   Nested array of form elements that comprise the form.
- *
- * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param Drupal\Core\Form\FormStateInterface $form_state
  *   A keyed array containing the current state of the form.
  */
-function omega_theme_generate_validate(&$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+function omega_theme_generate_validate(array &$form, FormStateInterface &$form_state) {
   // Grab the Drupal theme handler service.
   $themeHandler = \Drupal::service('theme_handler');
   // Grab the Drupal file handler service.
@@ -29,27 +34,27 @@ function omega_theme_generate_validate(&$form, \Drupal\Core\Form\FormStateInterf
   $build = $export->buildExport($exportValues);
   $target_path = $build['destination_path'];
 
-  // Ensure that you can't clone Omega
+  // Ensure that you can't clone Omega.
   if ($build['parent'] == 'omega' && $build['type'] == 'clone') {
     $form_state->setErrorByName('export][export_options][export_type', t('You are not allowed to create a CLONE of Omega. Try instead to create a SUBTHEME of Omega or a CLONE of an Omega subtheme.'));
   }
 
-  // machine name functionality should handle this on its own, this is just a 100% verification
+  // Machine name functionality should handle this on its own,
+  // this is just a 100% verification.
   if (file_exists($target_path) && is_dir($target_path)) {
-    $form_state->setErrorByName('export][export_details][theme_machine_name', t('The target directory <strong><small>' . $export->getBuildPath() . '</small></strong> already exists, please change machine name and try again, or remove existing directory and try again.'));
+    $form_state->setErrorByName('export][export_details][theme_machine_name', t('The target directory <strong><small>@buildpath</small></strong> already exists, please change machine name and try again, or remove existing directory and try again.', ['@buildpath' => $export->getBuildPath()]));
   }
 }
 
 /**
  * Custom validation function for generating subthemes.
  *
- * @param $form
+ * @param array $form
  *   Nested array of form elements that comprise the form.
- *
- * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param Drupal\Core\Form\FormStateInterface $form_state
  *   A keyed array containing the current state of the form.
  */
-function omega_theme_generate_submit(&$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+function omega_theme_generate_submit(array &$form, FormStateInterface &$form_state) {
   // Grab the Drupal theme handler service.
   $themeHandler = \Drupal::service('theme_handler');
   // Grab the Drupal file handler service.
