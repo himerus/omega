@@ -188,7 +188,7 @@ class OmegaStyle implements OmegaStyleInterface {
    *
    * @inheritdoc
    */
-  public static function compileCss($scss, $options) {
+  public static function compileCss($scss, array $options) {
     $css = _omega_compile_css($scss, $options);
     return $css;
   }
