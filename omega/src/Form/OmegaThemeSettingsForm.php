@@ -48,11 +48,7 @@ class OmegaThemeSettingsForm extends ThemeSettingsForm {
    *   The MIME type guesser instance to use.
    */
   public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, ThemeHandlerInterface $theme_handler, MimeTypeGuesserInterface $mime_type_guesser) {
-    parent::__construct($config_factory, $module_handler, $theme_handler, $mime_type_guesser);
 
-    $this->moduleHandler = $module_handler;
-    $this->themeHandler = $theme_handler;
-    $this->mimeTypeGuesser = $mime_type_guesser;
   }
 
   /**
@@ -69,7 +65,6 @@ class OmegaThemeSettingsForm extends ThemeSettingsForm {
    *   Return array of form values after any changes in build.
    */
   public function buildForm(array $form, FormStateInterface $form_state, $theme = '') {
-    $form = parent::buildForm($form, $form_state);
 
     return $form;
   }
@@ -83,7 +78,7 @@ class OmegaThemeSettingsForm extends ThemeSettingsForm {
    *   Array containing active state of form.
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
+
   }
 
   /**
@@ -95,7 +90,7 @@ class OmegaThemeSettingsForm extends ThemeSettingsForm {
    *   Array containing active state of form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    parent::submitForm($form, $form_state);
+
   }
 
 }
