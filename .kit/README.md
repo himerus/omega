@@ -1,5 +1,5 @@
-# `OMEGA_SUBTHEME` Theme
-><small>Welcome to `OMEGA_SUBTHEME`, your custom [**Omega Five**](https://drupal.org/project/omega) subtheme! 
+# `omega_subtheme` Theme
+><small>Welcome to `omega_subtheme`, your custom [**Omega Five**](https://drupal.org/project/omega) subtheme! 
 This `README.md` file is here to help guide you through learning, understanding and customizing your Omega subtheme.</small> 
 
 ## Omega Resources
@@ -15,7 +15,7 @@ These online resources should help you with any issues you run across.
 * [Omega.gs](https://github.com/himerus/omegags) - Omega Grid System
 * [himerus/drupal](https://github.com/himerus/drupal) - Composer template for Drupal 8. 
 ## Inline Documentation
-> You'll find that the `OMEGA_SUBTHEME` theme has a vast coverage of inline documentation. 
+> You'll find that the `omega_subtheme` theme has a vast coverage of inline documentation. 
 
 ### `README.md` files 
 It really _behooves_ you to read, at least once, any `README.md` you come across in your theme.
@@ -34,28 +34,28 @@ Where appropriate and possible, the documentation is updated with your specific 
 ### Code Documentation
 Where possible, and as a continuing effort, code for [**Omega Five**](https://drupal.org/project/omega) is well documented inline.
 
-## Installing `OMEGA_SUBTHEME` 
+## Installing `omega_subtheme` 
 Assuming the installation was not automated, on the `admin/appearance` page, scroll to the bottom for **Uninstalled themes**.
-You will find links to **Install** and **Install and set as default** listed with `OMEGA_SUBTHEME`.
+You will find links to **Install** and **Install and set as default** listed with `omega_subtheme`.
 
-## Customizing Libraries in `OMEGA_SUBTHEME`
+## Customizing Libraries in `omega_subtheme`
 Omega provides a few options to add functionality to the libraries you define in your subtheme(s).
 
 ```
-OMEGA_SUBTHEME:
+omega_subtheme:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
-    title: 'Default library for the OMEGA_SUBTHEME theme'
-    description: 'Default Omega subtheme library description. Please provide a more meaningful description (and title) for this library by editing the OMEGA_SUBTHEME.libraries.yml file.'
+    title: 'Default library for the omega_subtheme theme'
+    description: 'Default Omega subtheme library description. Please provide a more meaningful description (and title) for this library by editing the omega_subtheme.libraries.yml file.'
     scss:
-      style/css/OMEGA_SUBTHEME.css: 'style/scss/OMEGA_SUBTHEME.scss'
+      style/css/omega_subtheme.css: 'style/scss/omega_subtheme.scss'
   version: VERSION
   js:
-    js/OMEGA_SUBTHEME.js: {}
+    js/omega_subtheme.js: {}
   css:
     theme:
-      style/css/OMEGA_SUBTHEME.css: {}
+      style/css/omega_subtheme.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
@@ -64,7 +64,7 @@ OMEGA_SUBTHEME:
 
 ```
 
-Above, you will see the library defined as: `OMEGA_SUBTHEME/OMEGA_SUBTHEME`. 
+Above, you will see the library defined as: `omega_subtheme/omega_subtheme`. 
 The `omega` section of the array is the portion we can customize for various Omega functionality.
 
 ### Available Options

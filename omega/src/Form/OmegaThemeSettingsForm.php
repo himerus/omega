@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 
 /**
- * Extension of ThemeSettingsForm
+ * Extension of ThemeSettingsForm.
  */
 class OmegaThemeSettingsForm extends ThemeSettingsForm {
 
@@ -56,11 +56,17 @@ class OmegaThemeSettingsForm extends ThemeSettingsForm {
   }
 
   /**
-   * @param array $form
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   * @param string $theme
+   * Form buildForm method.
    *
-   * @return array $form
+   * @param array $form
+   *   Array containing form definition.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Array containing active state of form.
+   * @param string $theme
+   *   Theme name.
+   *
+   * @return array
+   *   Return array of form values after any changes in build.
    */
   public function buildForm(array $form, FormStateInterface $form_state, $theme = '') {
     $form = parent::buildForm($form, $form_state);
@@ -69,18 +75,27 @@ class OmegaThemeSettingsForm extends ThemeSettingsForm {
   }
 
   /**
+   * Form validateForm method.
+   *
    * @param array $form
+   *   Array containing form definition.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Array containing active state of form.
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
   }
 
   /**
+   * Form submitForm method.
+   *
    * @param array $form
+   *   Array containing form definition.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Array containing active state of form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
   }
+
 }

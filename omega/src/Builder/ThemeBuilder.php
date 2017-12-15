@@ -4,10 +4,6 @@ namespace Drupal\omega\Builder;
 
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Serialization\Yaml;
-use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
-use Drupal\Core\Asset\Exception\InvalidLibraryFileException;
 
 /**
  * ThemeBuilder declares methods used to build a new subtheme.
@@ -30,8 +26,10 @@ class ThemeBuilder {
   /**
    * Constructs an export object.
    *
-   * @param ThemeHandlerInterface $theme_handler
-   * @param FileSystemInterface $file_handler
+   * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
+   *   Drupal Theme Handler interface.
+   * @param \Drupal\Core\File\FileSystemInterface $file_handler
+   *   Drupal File interface.
    */
   public function __construct(ThemeHandlerInterface $theme_handler, FileSystemInterface $file_handler) {
     $this->themeHandler = $theme_handler;
@@ -44,11 +42,14 @@ class ThemeBuilder {
       'core/themes',
     ];
     $this->omegaExcludedThemeFiles = [
-      'export-exclude', // administrative templates
-      'theme-settings', // theme-settings directory in omega
-      //'', // custom template files for theme generation
-      'images', // any top level images directory
-      'src', // primary classes from Omega (or any source)
+      // Administrative templates to exclude.
+      'export-exclude',
+      // Theme-settings directory in omega should be excluded.
+      'theme-settings',
+      // Any top level images directory.
+      'images',
+      // Primary classes from Omega. (or any source)
+      'src',
     ];
   }
 

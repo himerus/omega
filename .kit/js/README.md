@@ -45,7 +45,7 @@ Drupal.behaviors.myBehavior = {
 
 Since Drupal uses [jQuery.noConflict()](http://learn.jquery.com/using-jquery-core/avoid-conflicts-other-libraries/) and only loads JavaScript files when required, to use jQuery and the $ shortcode for jQuery you must include jQuery and Drupal as dependencies in the [library definition](https://www.drupal.org/developing/api/8/assets#library) in your MODULE.libraries.yml and add a wrapper around your function. So the whole JavaScript file would look something like this:
 
-Sample from `js/OMEGA_SUBTHEME.js`
+Sample from `js/omega_subtheme.js`
 ```
 (function ($, Drupal, drupalSettings) {
   Drupal.behaviors.myCustomSubthemeBehavior = {
@@ -58,7 +58,7 @@ Sample from `js/OMEGA_SUBTHEME.js`
 })(jQuery, Drupal, drupalSettings);
 ```
 
-Sample from `OMEGA_SUBTHEME.libraries.yml`
+Sample from `omega_subtheme.libraries.yml`
 
 ```
 dependencies:

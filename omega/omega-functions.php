@@ -1,48 +1,44 @@
 <?php
+
 /**
- * This functions file is to be deprecated & removed prior to a stable 8.x
- * release of Omega Five.
+ * @file
+ * This file is to be removed prior to a stable 8.x release of Omega Five.
  */
+
+/* @codingStandardsIgnoreStart */
 
 use Drupal\omega\Layout\OmegaLayout;
 use Drupal\omega\Style\OmegaStyle;
+use Drupal\breakpoint\Breakpoint;
 
 /**
- * Function returns the trimmed name of the breakpoint id
- * converting omega.standard.all to simply 'all'
+ * Function returns the trimmed name of the breakpoint id.
  *
  * Use: Drupal\omega\Layout\OmegaLayout::cleanBreakpointId();
  *
  * @deprecated
- * @param \Drupal\breakpoint\Breakpoint $breakpoint
- * @return mixed
  */
-function omega_return_clean_breakpoint_id(\Drupal\breakpoint\Breakpoint $breakpoint) {
+function omega_return_clean_breakpoint_id(Breakpoint $breakpoint) {
   return OmegaLayout::cleanBreakpointId($breakpoint);
 }
 
 /**
- * Custom function to return the available layouts (and config) for a given Omega theme/subtheme
+ * Function to return the available layouts for a given Omega theme/subtheme.
  *
  * Use: Drupal\omega\Layout\OmegaLayout::getAvailableLayouts();
  *
  * @deprecated
- * @param $theme
- * @return array|mixed|null
  */
 function omega_return_layouts($theme) {
   return OmegaLayout::getAvailableLayouts($theme);
 }
 
 /**
- * Custom function to return the theme that is providing a layout
- * This is either the theme itself ($theme) or a parent theme
+ * Custom function to return the theme that is providing a layout.
  *
  * Use: Drupal\omega\Layout\OmegaLayout::getLayoutProvider();
  *
  * @deprecated
- * @param $theme
- * @return int|string
  */
 function omega_find_layout_provider($theme) {
   return OmegaLayout::getLayoutProvider($theme);
@@ -60,14 +56,11 @@ function omega_return_active_layout() {
 }
 
 /**
- * Takes $theme as argument, and returns ALL breakpoint groups available to this theme
- * which includes breakpoints defined by the theme itself or any base theme of this theme
+ * Takes $theme as argument, and returns ALL breakpoint groups available.
  *
  * Use: Drupal\omega\Layout\OmegaLayout::getAvailableBreakpoints();
  *
  * @deprecated
- * @param $theme
- * @return mixed
  */
 function _omega_getAvailableBreakpoints($theme) {
   return OmegaLayout::getAvailableBreakpoints($theme);
@@ -79,25 +72,19 @@ function _omega_getAvailableBreakpoints($theme) {
  * Use: Drupal\omega\Layout\OmegaLayout::getActiveBreakpoints();
  *
  * @deprecated
- * @param $layout
- * @param $theme
- * @return mixed
  */
 function _omega_getActiveBreakpoints($layout, $theme) {
   return OmegaLayout::getActiveBreakpoints($layout, $theme);
 }
 
 /**
- *  Returns array of optional Libraries that can be enabled/disabled in theme settings
- *  for Omega, and Omega sub-themes. The listings here are tied to entries in omega.libraries.yml.
+ * Returns array of optional Libraries that can be enabled/disabled.
  *
  * Use: Drupal\omega\Layout\OmegaStyle::getOptionalLibraries();
  *
  * @deprecated
- * @param $theme
- * @return array
  */
-
 function _omega_optional_libraries($theme) {
   return OmegaStyle::getOptionalLibraries($theme);
 }
+/* @codingStandardsIgnoreEnd */

@@ -9,12 +9,12 @@
      * Configurable Javascript is available with drupalSettings (the successor to Drupal 7's Drupal.settings).
      * However, to make drupalSettings available to our JavaScript file: we have to declare a dependency on it.
      *
-     * @requires drupalSettings as dependency OMEGA_SUBTHEME.libraries.yml
+     * @requires drupalSettings as dependency omega_subtheme.libraries.yml
      * @see https://www.drupal.org/node/2274843#configurable
-     * @see OMEGA_SUBTHEME/js/README.md
+     * @see omega_subtheme/js/README.md
      * @type {{object}}
      */
-    drupalSettings.OMEGA_SUBTHEME = {
+    drupalSettings.omega_subtheme = {
         'config' : {
             'sample_variable': true
         }
@@ -24,7 +24,7 @@
      * Sample of Drupal.behaviors
      *
      * @see https://www.drupal.org/node/2269515
-     * @see OMEGA_SUBTHEME/js/README.md
+     * @see omega_subtheme/js/README.md
      * @type {{attach: Drupal.behaviors.myCustomSubthemeBehavior.attach}}
      */
     Drupal.behaviors.myCustomSubthemeBehavior = {

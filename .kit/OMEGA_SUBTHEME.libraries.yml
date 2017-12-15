@@ -1,17 +1,17 @@
-OMEGA_SUBTHEME:
+omega_subtheme:
   omega:
     allow_clone_for_subtheme: true
     allow_enable_disable: true
-    title: 'Default library for the OMEGA_SUBTHEME theme'
-    description: 'Default Omega subtheme library description. Please provide a more meaningful description (and title) for this library by editing the OMEGA_SUBTHEME.libraries.yml file.'
+    title: 'Default library for the omega_subtheme theme'
+    description: 'Default Omega subtheme library description. Please provide a more meaningful description (and title) for this library by editing the omega_subtheme.libraries.yml file.'
     scss:
-      style/css/OMEGA_SUBTHEME.css: 'style/scss/OMEGA_SUBTHEME.scss'
+      style/css/omega_subtheme.css: 'style/scss/omega_subtheme.scss'
   version: VERSION
   js:
-    js/OMEGA_SUBTHEME.js: {}
+    js/omega_subtheme.js: {}
   css:
     theme:
-      style/css/OMEGA_SUBTHEME.css: {}
+      style/css/omega_subtheme.css: {}
   dependencies:
     - core/modernizr
     - core/jquery
@@ -20,4 +20,3 @@ OMEGA_SUBTHEME:
     - core/backbone
     - core/matchmedia
     - core/jquery.once
-

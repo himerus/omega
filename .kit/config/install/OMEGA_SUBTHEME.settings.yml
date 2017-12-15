@@ -47,5 +47,5 @@ node_type_article_layout: primary
 node_type_page_layout: primary
 taxonomy_category_layout: primary
 taxonomy_tags_layout: primary
-breakpoint_group_primary: OMEGA_SUBTHEME.default
-breakpoint_group_front: OMEGA_SUBTHEME.default
+breakpoint_group_primary: omega_subtheme.default
+breakpoint_group_front: omega_subtheme.default

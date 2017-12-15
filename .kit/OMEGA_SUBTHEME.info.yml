@@ -1,7 +1,6 @@
-name: OMEGA_SUBTHEME
+name: omega_subtheme
 type: theme
-description: 'A custom subtheme generated with the Omega Five subtheme generator. Edit this description in OMEGA_SUBTHEME.info.yml'
-version: VERSION
+description: 'A custom subtheme generated with the Omega Five subtheme generator. Edit this description in omega_subtheme.info.yml'
 base theme: omega
 hidden: false
 core: 8.x

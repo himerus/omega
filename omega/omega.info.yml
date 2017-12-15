@@ -2,7 +2,6 @@ name: Omega
 type: theme
 description: 'A flexible theme with tons of configurable regions and a responsive, mobile-first layout.'
 package: Core
-version: VERSION
 base theme: classy
 hidden: false
 core: 8.x

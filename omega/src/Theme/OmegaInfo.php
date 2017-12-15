@@ -1,11 +1,14 @@
 <?php
 
 namespace Drupal\omega\Theme;
+
 use Drupal\Core\Serialization\Yaml;
 
 /**
- * omegaInfo declares methods used to return theme info
- * for use in themes, mainly the front end.
+ * OmegaInfo declares methods used to return theme information.
+ *
+ * OmegaInfo declares methods used to return theme information for use in
+ * themes, mainly the front end.
  */
 class OmegaInfo {
 
@@ -27,7 +30,7 @@ class OmegaInfo {
    * Constructs a theme info object.
    *
    * @param string $theme
-   *  The theme name
+   *   The theme name.
    */
   public function __construct($theme = 'omega') {
     $this->theme = $theme;
@@ -45,6 +48,8 @@ class OmegaInfo {
   }
 
   /**
+   * Returns all or a portion of the themes data array.
+   *
    * Returns either the whole info array for $this theme or just one key
    * if the $key parameter is set.
    *
@@ -62,13 +67,15 @@ class OmegaInfo {
       return isset($this->themes[$key]) ? $this->themes[$key] : NULL;
     }
   }
+
   /**
-   * Return an array of Omega Sub-Themes ready for use/selection using FAPI #options
+   * Return an array of Omega Sub-Themes ready for use using FAPI #options.
    *
    * @return array
+   *   Array of FAPI options to use in a form select list.
    */
   public function omegaSubthemesOptionsList() {
-    $omegaSubThemes = array();
+    $omegaSubThemes = [];
     foreach ($this->themes as $theme) {
       if (isset($theme->base_themes) && array_key_exists('omega', $theme->base_themes)) {
         $theme_id = $theme->getName();
@@ -78,7 +85,6 @@ class OmegaInfo {
     }
     return $omegaSubThemes;
   }
-
 
   /**
    * {@inheritdoc}
@@ -95,4 +101,5 @@ class OmegaInfo {
     $php = Yaml::decode($yaml);
     return $php;
   }
+
 }

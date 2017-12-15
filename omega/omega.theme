@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Functions to support theming in the Omega theme.
  *
  * Primary hooks for Omega Five that relate to theme development
@@ -15,74 +16,86 @@ use Drupal\Core\Url;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\omega\Layout\OmegaLayout;
 use Drupal\omega\Style\OmegaStyle;
+use Drupal\Core\Asset\AttachedAssetsInterface;
 
 /**
  * Implements hook_theme().
- *
- * @return array
  */
 function omega_theme() {
-  return array(
-    'omega_indicator' => array(
-      'variables' => array(
+  return [
+    'omega_indicator' => [
+      'variables' => [
         'logo' => NULL,
-      ),
+      ],
       'template' => 'omega-indicator',
-    ),
-  );
-} /* END omega_theme */
+    ],
+  ];
+}
 
-function omega_preprocess_omega_indicator(&$vars) {
+/**
+ * Creates the indicator data window for Omega.
+ *
+ * @param array $vars
+ *   Array of variables passed by reference.
+ */
+function omega_preprocess_omega_indicator(array &$vars) {
 
   $img = base_path() . drupal_get_path('theme', 'omega') . '/logo.png';
-  $logo_image = new FormattableMarkup('<img src=":image" />', array(':image' => $img));
-  $omega_url = Url::fromUri('http://drupal.org/project/omega', array(
-    'attributes' => array(
+  $logo_image = new FormattableMarkup('<img src=":image" />', [':image' => $img]);
+  $omega_url = Url::fromUri('http://drupal.org/project/omega', [
+    'attributes' => [
       'id' => 'indicator-toggle',
-      'class' => array(
-        'indicator-open'
-      ),
-    )
-  ));
+      'class' => [
+        'indicator-open',
+      ],
+    ],
+  ]);
   $omega_link = \Drupal::service('link_generator')
     ->generate($logo_image, $omega_url);
   $vars['logo'] = $omega_link;
 
-} /* END omega_preprocess_omega_indicator */
-
+}
 
 /**
  * Implements hook_preprocess().
  */
 function omega_preprocess(&$variables, $hook) {
 
-} /* END omega_preprocess */
+}
 
 /**
  * Implements hook_page_attachments_alter().
+ *
+ * Below items are items originally inplemented in Drupal 7 via
+ * hook_html_head_alter(). They need to be implemented again in D8 via
+ * appropriate methods.
+ *
+ * @todo: Implement cleartype.
+ * @todo: Implement viewport meta if needed.
  */
 function omega_page_attachments_alter(&$attachments) {
 
   $theme = \Drupal::theme()->getActiveTheme()->getName();
-  // require omega.js library
+  // Require omega.js library.
   $attachments['#attached']['library'][] = 'omega/omega';
 
-  // get the default Breakpoints
+  // Get the default Breakpoints.
   $layout = OmegaLayout::getActiveLayout();
   $breakpoints = OmegaLayout::getActiveBreakpoints($layout['layout'], $layout['theme']);
 
-  $layouts = array();
+  $layouts = [];
   foreach ($breakpoints as $breakpoint) {
-    /** @var \Drupal\breakpoint\Breakpoint $breakpoint */
+    /* @var \Drupal\breakpoint\Breakpoint $breakpoint */
     $definition = $breakpoint->getPluginDefinition();
-    $layouts[$breakpoint->getBaseId()] = array(
+    $layouts[$breakpoint->getBaseId()] = [
       'query' => $definition['mediaQuery'],
       'name' => $definition['label'],
       'system' => $breakpoint->getBaseId(),
-      'isMobile' => isset($definition['isMobile']) ? $definition['isMobile'] : false,
-    );
+      'isMobile' => isset($definition['isMobile']) ? $definition['isMobile'] : FALSE,
+    ];
   }
-  // add all the current (possible) breakpoints to the omega_breakpoints variable for use in omega.js
+  // Add all the current (possible) breakpoints to the omega_breakpoints
+  // variable for use in omega.js.
   $attachments['#attached']['drupalSettings']['omega_breakpoints'] = $layouts;
   $attachments['#attached']['drupalSettings']['omega']['activeLayout'] = $layout['layout'];
   if ($theme != $layout['theme']) {
@@ -91,60 +104,63 @@ function omega_page_attachments_alter(&$attachments) {
 
   $attachments['#attached']['drupalSettings']['omega']['activeTheme'] = $theme;
 
-  // Functionality to attach selected css/js from omega theme settings
+  // Functionality to attach selected css/js from omega theme settings.
   $toggleCSS = OmegaStyle::getOptionalLibraries($theme);
   foreach ($toggleCSS as $libraryID => $data) {
-    // check it is actively enabled via Omega configurations and ensure it isn't already included
+    // Check it is actively enabled via Omega configurations and ensure it
+    // isn't already included.
     if ($data['status'] && !in_array($libraryID, $attachments['#attached']['library'])) {
-      // attach libraries as required
+      // Attach libraries as required.
       $attachments['#attached']['library'][] = $data['library'];
     }
-    // !$data['status'] means the checkbox on the omega settings page is unticked
-    // in_array($libraryID, $attachments['#attached']['library'] means it is already in the $attachments array
-    // $data['allow_disable'] ensures that omega['allow_enable_disable'] was not set to false, meaning it should not be allowed to be disabled.
+    // The value !$data['status'] means the checkbox on the omega settings page
+    // is unticked. in_array($libraryID, $attachments['#attached']['library']
+    // means it is already in the $attachments array $data['allow_disable']
+    // ensures that omega['allow_enable_disable'] was not set to false,
+    // meaning it should not be allowed to be disabled.
     elseif (!$data['status'] && in_array($libraryID, $attachments['#attached']['library']) && $data['allow_disable']) {
-      // here we have a library that was declared via THEME.info.yml as active,
+      // Here we have a library that was declared via THEME.info.yml as active,
       // yet was disabled via Omega settings, so we need to remove it now.
       $libraryArrayKey = array_search($libraryID, $attachments['#attached']['library']);
       unset($attachments['#attached']['library'][$libraryArrayKey]);
     }
   }
-} /* END omega_page_attachments_alter */
+}
 
-function omega_preprocess_html(&$vars) {
+/**
+ * Implements hook_css_alter().
+ *
+ * Perform necessary alterations to the CSS before it is presented on
+ * the page.
+ */
+function omega_css_alter(&$css, AttachedAssetsInterface $assets) {
 
-} /* END omega_preprocess_html */
-
-function omega_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
-
-} /* END omega_css_alter */
-
+}
 
 /**
  * Implements hook_js_alter().
  *
  * Perform necessary alterations to the JavaScript before it is presented on
  * the page.
- *
- * @param $javascript
- *   An array of all JavaScript being presented on the page.
- * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
- *   The assets attached to the current response.
- *
- * @see drupal_js_defaults()
- * @see \Drupal\Core\Asset\AssetResolver
  */
-function omega_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+function omega_js_alter(&$javascript, AttachedAssetsInterface $assets) {
 
-} /* END omega_js_alter */
+}
+
+/**
+ * Implements template_preprocess_HOOK() for html template.
+ *
+ * Default template: html.html.twig.
+ * See the html.html.twig template for the list of variables.
+ */
+function omega_preprocess_html(&$vars) {
+
+}
 
 /**
  * Implements template_preprocess_HOOK() for page templates.
  *
- * Prepares variables for the page template.
- *
  * Default template: page.html.twig.
- *
  * See the page.html.twig template for the list of variables.
  */
 function omega_preprocess_page(&$vars) {
@@ -158,22 +174,22 @@ function omega_preprocess_page(&$vars) {
   // Enable the helper div with info on screen size, breakpoints active, etc.
   if ($screenDemo) {
     if (count($vars['page']['content']) >= 1) {
-      $vars['page']['content']['themeinfoblock'] = array(
+      $vars['page']['content']['themeinfoblock'] = [
         '#theme' => 'omega_indicator',
-        '#weight' => -9999
-      );
+        '#weight' => -9999,
+      ];
     }
     else {
-      $vars['page']['content'] = array(
+      $vars['page']['content'] = [
         '#region' => 'content',
-        '#theme_wrappers' => array(
-          'region'
-        ),
-        'themeinfoblock' => array(
+        '#theme_wrappers' => [
+          'region',
+        ],
+        'themeinfoblock' => [
           '#theme' => 'omega_indicator',
-          '#weight' => -9999
-        ),
-      );
+          '#weight' => -9999,
+        ],
+      ];
     }
   }
   // Display demo placeholder blocks for every region.
@@ -188,16 +204,18 @@ function omega_preprocess_page(&$vars) {
     }
     foreach ($theme_regions as $region => $region_name) {
       // Create the markup for the demo block.
-      $active_markup = '<div id="theme-demo-block--' . $region . '" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>';
-      $inactive_markup = '<div id="theme-demo-block--' . $region . '" class="theme-demo-block inactive-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', array('@regionname' => $region_name . ' Region')) . '</h3><div class="demo-block-content"></div></div>';
+      $active_markup = '<div id="theme-demo-block--' . $region . '" class="theme-demo-block active-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', ['@regionname' => $region_name . ' Region']) . '</h3><div class="demo-block-content"></div></div>';
+      $inactive_markup = '<div id="theme-demo-block--' . $region . '" class="theme-demo-block inactive-region clearfix"><h3 class="block-title demo-block-title">' . t('@regionname', ['@regionname' => $region_name . ' Region']) . '</h3><div class="demo-block-content"></div></div>';
       // Create the render array for the block.
-      $regiondemoblock =  [
+      $regiondemoblock = [
         '#markup' => '',
-        '#weight' => -9999
+        '#weight' => -9999,
       ];
-      // Skip the regions listed in block_demo_excluded_regions, primarily page_top & page_bottom.
+      // Skip the regions listed in block_demo_excluded_regions,
+      // primarily page_top & page_bottom.
       if (!in_array($region, $regionSkip)) {
-        // here we want to add a simple block that we can use to demonstrate region placements for ALL regions in the theme(s)
+        // Here we want to add a simple block that we can use to demonstrate
+        // region placements for ALL regions in the theme(s).
         if (isset($vars['page'][$region]['#region'])) {
           $vars['page'][$region]['regiondemoblock'] = $regiondemoblock;
           $vars['page'][$region]['regiondemoblock']['#markup'] = $active_markup;
@@ -216,23 +234,22 @@ function omega_preprocess_page(&$vars) {
         }
       }
       else {
-        // works for not displaying page top and bottom or other omitted regions.
+        // Works for not displaying page top and bottom & other omitted regions.
       }
     }
   }
 
   $activeLayout = OmegaLayout::getActiveLayout();
   $layout_name = $activeLayout['layout'];
-  /** @var \Drupal\Core\Layout\LayoutDefinition $layout */
+  /* @var \Drupal\Core\Layout\LayoutDefinition $layout */
   $layout = OmegaLayout::returnLayoutPluginLayout($layout_name, $theme);
 
   $region_names = $layout->getRegionNames();
-  // grab the configuration for the requested layout
+  // Grab the configuration for the requested layout.
   $layout_config_object = \Drupal::config($theme . '.layout.' . $layout_name);
   $layoutData = $layout_config_object->get();
   $regionMap = $layoutData['region_assignment'];
   $regions = $layout->get('regions');
-
 
   $layoutRender = new LayoutDefault([], '', $layout);
   $layoutBuild = $layoutRender->build($regions);
@@ -250,14 +267,15 @@ function omega_preprocess_page(&$vars) {
     }
   }
   $vars['layout_layout'] = $layoutBuild;
-} /* END omega_preprocess_page */
+}
 
 /**
  * Implements template_preprocess_layout().
  */
 function omega_preprocess_layout(&$variables) {
 
-  // Create an array to define the with-sidebar_first without-sidebar_first classes.
+  // Create an array to define the with-sidebar_first
+  // without-sidebar_first classes.
   $region_classes = [];
   $layout_classes = [];
   $pass_region_classes = [];
@@ -282,11 +300,11 @@ function omega_preprocess_layout(&$variables) {
         $layout_classes[] = 'without--' . $altered_region_id;
       }
     }
-    // convert array of class names to string version
+    // Convert array of class names to string version.
     $pass_region_classes[$group_id]['#plain_text'] = implode(" ", $region_classes[$group_id]);
   }
   $pass_layout_classes['#plain_text'] = implode(" ", $layout_classes);
-  // assign classes to page.tpl.php
+  // Assign classes to page.tpl.php.
   $variables['region_classes'] = $pass_region_classes;
   $variables['layout_classes'] = $pass_layout_classes;
 }
@@ -299,28 +317,26 @@ function omega_preprocess_layout(&$variables) {
  * Prepares the values passed to the theme_region function to be passed into a
  * pluggable template engine. Uses the region name to generate a template file
  * suggestions.
- *
- * @param array $variables
- *   An associative array containing:
- *   - elements: An associative array containing properties of the region.
  */
 function omega_preprocess_region(&$vars) {
-  // add a region class in the format region--REGION-NAME
+  // Add a region class in the format region--REGION-NAME.
   $altered_region_id = str_replace("_", "-", $vars['region']);
   $vars['attributes']['class'][] = 'region--' . $altered_region_id;
-} /* END omega_preprocess_region */
+}
 
 /**
  * Implements hook_preprocess_HOOK() for node templates.
- * @param array $vars
+ *
+ * Default template: node.html.twig.
  */
 function omega_preprocess_node(&$vars) {
 
-} /* END omega_preprocess_node */
+}
 
 /**
  * Implements hook_preprocess_HOOK() for block templates.
- * @param array $vars
+ *
+ * Default template: block.html.twig.
  */
 function omega_preprocess_block(&$vars) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
@@ -330,17 +346,19 @@ function omega_preprocess_block(&$vars) {
       $add_omega_link = isset($enable_omega_badge) ? $enable_omega_badge : TRUE;
 
       if ($add_omega_link) {
-        $vars['content']['#markup'] = '<span>' . t('Powered by <a href=":poweredby">Drupal</a> and <a href=":omega">Omega Five</a>', array(
-            ':poweredby' => 'https://www.drupal.org',
-            ':omega' => 'https://drupal.org/project/omega'
-          )) . '</span>';
+        $vars['content']['#markup'] = '<span>' . t('Powered by <a href=":poweredby">Drupal</a> and <a href=":omega">Omega Five</a>', [
+          ':poweredby' => 'https://www.drupal.org',
+          ':omega' => 'https://drupal.org/project/omega',
+        ]) . '</span>';
       }
       break;
   }
-} /* END omega_preprocess_block */
+}
 
 /**
- * Implements hook_preprocess_HOOK() for block templates.
+ * Implements hook_preprocess_HOOK() for system branding block.
+ *
+ * Default template: block.html.twig.
  */
 function omega_preprocess_block__system_branding_block(&$variables) {
   // Setup logic to handle embedding an SVG logo directly, rather than via the
@@ -352,57 +370,30 @@ function omega_preprocess_block__system_branding_block(&$variables) {
       $variables['svglogo'] = TRUE;
     }
   }
-} // END omega_preprocess_block__system_branding_block
+}
 
 /**
  * Implements hook_preprocess_HOOK() for field templates.
- * @param array $vars
+ *
+ * Default template: field.html.twig.
  */
 function omega_preprocess_field(&$vars) {
   $field_type = $vars['field_type'];
 
   if ($field_type == 'entity_reference') {
-    foreach ($vars['items'] AS $k => $field) {
+    foreach ($vars['items'] as $k => $field) {
       if (!empty($field['content']['#options']['entity_type']) && $field['content']['#options']['entity_type'] == 'taxonomy_term') {
-        // add a class to the <a>
-        $vars['items'][$k]['content']['#options']['attributes']['class'] = array('taxonomy-term');
-        // add a class to the field item wrapper
+        // Add a class to the <a>.
+        $vars['items'][$k]['content']['#options']['attributes']['class'] = ['taxonomy-term'];
+        // Add a class to the field item wrapper.
         $vars['items'][$k]['attributes']->addClass('field-item--taxonomy-term');
-        // add a class to the outer field wrapper
+        // Add a class to the outer field wrapper.
         $vars['attributes']['class'][] = 'field--taxonomy-terms';
         $vars['attributes']['class'][] = 'clearfix';
       }
     }
   }
-} /* END omega_preprocess_block */
-
-/**
- * Implements hook_html_head_alter().
- * @param $head_elements
- * @todo: html_head_alter deprecated, move to page_attachments_alter.
- */
-function omega_html_head_alter(&$head_elements) {
-  // cleartype
-  $head_elements['omega_meta_clear_type'] = array(
-    '#type' => 'html_tag',
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'http-equiv' => "cleartype",
-      'content' => "on",
-    ),
-    '#weight' => -998,
-  );
-  // update viewport tag
-  $head_elements['viewport'] = array(
-    '#type' => 'html_tag',
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'content' => 'width=device-width, initial-scale=1, maximum-scale=2, minimum-scale=1, user-scalable=yes',
-      'name' => 'viewport',
-    ),
-    '#weight' => -997,
-  );
-} /* END omega_html_head_alter */
+}
 
 /**
  * Implements hook_form_FORM_ID_alter() for search form block.
@@ -425,11 +416,12 @@ function omega_form_search_block_form_alter(&$form, FormStateInterface $form_sta
  */
 function omega_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  // Add in a placeholder value to the search block form field.
+  // Add in a placeholder value to the user login username field.
   if (isset($form['name']['#attributes'])) {
     $form['name']['#attributes']['placeholder'] = t('User Name');
   }
 
+  // Add in a placeholder value to the user login password field.
   if (isset($form['pass']['#attributes'])) {
     $form['pass']['#attributes']['placeholder'] = t('Password');
   }

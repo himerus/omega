@@ -1,5 +1,5 @@
 # Schema for the configuration files of the Omega theme.
 
-OMEGA_SUBTHEME.settings:
+omega_subtheme.settings:
   type: theme_settings
   label: 'Omega Five Settings'

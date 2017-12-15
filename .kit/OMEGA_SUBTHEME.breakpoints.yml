@@ -1,4 +1,4 @@
-OMEGA_SUBTHEME.default.all:
+omega_subtheme.default.all:
   label: All
   mediaQuery: 'all and (min-width: 0px)'
   weight: 0
@@ -6,8 +6,8 @@ OMEGA_SUBTHEME.default.all:
     - 1x
   status: true
   langcode: en
-  group: OMEGA_SUBTHEME.default
-OMEGA_SUBTHEME.default.mobile_portrait:
+  group: omega_subtheme.default
+omega_subtheme.default.mobile_portrait:
   label: Mobile Portrait
   mediaQuery: 'all and (max-width: 479px)'
   weight: 1
@@ -15,8 +15,8 @@ OMEGA_SUBTHEME.default.mobile_portrait:
     - 1x
   status: true
   langcode: en
-  group: OMEGA_SUBTHEME.default
-OMEGA_SUBTHEME.default.mobile_landscape:
+  group: omega_subtheme.default
+omega_subtheme.default.mobile_landscape:
   label: Mobile Landscape
   mediaQuery: 'all and (min-width: 480px) and (max-width: 767px)'
   weight: 2
@@ -24,8 +24,8 @@ OMEGA_SUBTHEME.default.mobile_landscape:
     - 1x
   status: true
   langcode: en
-  group: OMEGA_SUBTHEME.default
-OMEGA_SUBTHEME.default.narrow:
+  group: omega_subtheme.default
+omega_subtheme.default.narrow:
   label: Narrow
   mediaQuery: 'all and (min-width: 768px) and (max-width: 1023px)'
   weight: 3
@@ -33,8 +33,8 @@ OMEGA_SUBTHEME.default.narrow:
     - 1x
   status: true
   langcode: en
-  group: OMEGA_SUBTHEME.default
-OMEGA_SUBTHEME.default.normal:
+  group: omega_subtheme.default
+omega_subtheme.default.normal:
   label: Normal
   mediaQuery: 'all and (min-width: 1024px) and (max-width: 1219px)'
   weight: 4
@@ -42,8 +42,8 @@ OMEGA_SUBTHEME.default.normal:
     - 1x
   status: true
   langcode: en
-  group: OMEGA_SUBTHEME.default
-OMEGA_SUBTHEME.default.wide:
+  group: omega_subtheme.default
+omega_subtheme.default.wide:
   label: Wide
   mediaQuery: 'all and (min-width: 1220px)'
   weight: 5
@@ -51,4 +51,4 @@ OMEGA_SUBTHEME.default.wide:
     - 1x
   status: true
   langcode: en
-  group: OMEGA_SUBTHEME.default
+  group: omega_subtheme.default

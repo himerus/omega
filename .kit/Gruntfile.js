@@ -4,7 +4,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         compass: {
-            OMEGA_SUBTHEME: {
+            omega_subtheme: {
                 options: {
                     sourcemap: true,
                     config: 'config.rb',
@@ -19,15 +19,15 @@ module.exports = function(grunt) {
                 // grunt-focus is the 'only' way I found to watch and compile
                 // multiple SCSS dirs (themes) with a single command inside the
                 // base theme.
-                include: ['OMEGA_SUBTHEME']
+                include: ['omega_subtheme']
             }
         },
 
         watch: {
-            OMEGA_SUBTHEME: {
+            omega_subtheme: {
                 files: './style/scss/**/*.scss',
                 // Each theme will need to be added here
-                tasks: ['compass:OMEGA_SUBTHEME']
+                tasks: ['compass:omega_subtheme']
             }
         }
     });
