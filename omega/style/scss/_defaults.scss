@@ -215,6 +215,7 @@ $menu--margin:                        0 !default;
 $menu--padding:                       0 !default;
 $menu--border:                        none !default;
 $menu--alignment:                     left !default; // Options: left/right/center.
+$menu--display:                       flex !default;
 
 // Main Menu Menu Item Styling
 $menu--item--background:              $color--secondary-3 !default;

@@ -1,4 +1,4 @@
-.block--menu--main ul {
+.block--menu--main ul.menu {
   margin: 0;
   padding: 0;
   clear: both;
@@ -6,15 +6,24 @@
   background: transparent;
   border: none;
   text-align: left;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: stretch;
+      align-content: stretch;
+  -ms-flex-align: stretch;
+      align-items: stretch;
 }
 
-.block--menu--main ul li {
+.block--menu--main ul.menu li {
   margin: 0;
   padding: 0;
   display: inline-block;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+  text-align: center;
 }
 
-.block--menu--main ul li a {
+.block--menu--main ul.menu li a {
   transition: all 0.15s ease-in-out;
   display: block;
   text-decoration: none;
@@ -23,41 +32,48 @@
   font-weight: bold;
   font-size: 18px;
   background: #EFEFEF;
+  height: 100%;
   border-color: transparent;
   border-style: none;
   border-bottom-width: 0;
   border-top-width: 0;
   border-left-width: 0;
   border-right-width: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-direction: column;
+      flex-direction: column;
 }
 
-.block--menu--main ul li a:hover {
+.block--menu--main ul.menu li a:hover {
   background: #e2e2e2;
 }
 
-.block--menu--main ul li a.is-active {
+.block--menu--main ul.menu li a.is-active {
   background: #d6d6d6;
 }
 
-.block--menu--main ul li a.is-active:hover {
+.block--menu--main ul.menu li a.is-active:hover {
   background: #d6d6d6;
 }
 
-.block--menu--main ul .menu-item--expanded ul {
+.block--menu--main ul.menu .menu-item--expanded ul {
   display: none;
 }
 
-.block--menu--main ul .menu-item--expanded:hover > ul {
+.block--menu--main ul.menu .menu-item--expanded:hover > ul {
   position: absolute;
   display: block;
   z-index: 10;
 }
 
-.block--menu--main ul .menu-item--expanded:hover > ul li {
+.block--menu--main ul.menu .menu-item--expanded:hover > ul li {
   display: block;
 }
 
-.block--menu--main ul .menu-item--expanded:hover > ul a {
+.block--menu--main ul.menu .menu-item--expanded:hover > ul a {
   text-align: left;
   font-size: 14px;
   min-width: 240px;

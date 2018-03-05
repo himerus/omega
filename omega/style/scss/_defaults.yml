@@ -262,6 +262,10 @@ menu--alignment:
   name: $menu--alignment
   value: left
   comment: Options
+menu--display:
+  name: $menu--display
+  value: flex
+  comment: ""
 menu--item--background:
   name: $menu--item--background
   value: $color--secondary-3
