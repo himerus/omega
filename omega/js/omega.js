@@ -107,7 +107,7 @@
 
       if (Drupal.toolbar){
         $(window).on('breakpointAdded', function(e, b){
-          if ($(Drupal.toolbar.models.toolbarModel.get('activeTab')).size() > 0) {
+          if ($(Drupal.toolbar.models.toolbarModel.get('activeTab')).length > 0) {
             // Let's try to store the last active item for user later.
             let lastTabId = $(Drupal.toolbar.models.toolbarModel.get('activeTab')).attr('id');
             drupalSettings.toolbar.lastActive = lastTabId;
